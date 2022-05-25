@@ -1,2 +1,2 @@
-# openapi-specifications
-This repos contains openapi specifications for all services in Harness
+# harness-openapi-specifications
+This repo contains openapi specifications for all services in Harness
