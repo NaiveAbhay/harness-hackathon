@@ -1,0 +1,22 @@
+{
+  "skipOverwrite": false,
+  "java8": true,
+  "typeMappings": {
+  },
+  "importMappings": {
+  },
+  "hideGenerationTimestamp": true,
+  "oas3": true,
+  "apiPackage": "io.harness.spec.server.ng",
+  "modelPackage": "io.harness.spec.server.ng.model",
+  "groupId": "io.harness",
+  "artifactId": "ng-manager-server-spec",
+  "artifactVersion": "1.0.0",
+  "interfaceOnly": true,
+  "returnResponse": true,
+  "sourceFolder": "src/main/java",
+  "dateLibrary": "java8",
+  "useTags": true,
+  "ignoreImportMapping": [
+  ]
+}
