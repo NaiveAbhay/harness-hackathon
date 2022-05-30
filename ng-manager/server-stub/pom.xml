@@ -40,11 +40,6 @@
 
     <!--    Manually added-->
     <dependency>
-      <groupId>io.swagger.codegen.v3</groupId>
-      <artifactId>swagger-codegen-maven-plugin</artifactId>
-      <version>3.0.34</version>
-    </dependency>
-    <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <scope>provided</scope>
