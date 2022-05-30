@@ -133,6 +133,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/ProjectQueryParam'
         - $ref: '#/components/parameters/OrgQueryParam'
         - schema:
@@ -141,11 +142,11 @@ paths:
           in: query
           name: has_module
           description: This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not
-        - schema: {}
+        - schema:
+            type: string
           in: query
           name: module_type
           description: Project's module type
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'

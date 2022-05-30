@@ -80,7 +80,10 @@ public interface ProjectsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
-    List<ProjectResponse> getProjects(  @QueryParam("project") 
+    List<ProjectResponse> getProjects(  @QueryParam("account") 
+
+ @Parameter(description = "Account identifier query param")  String account
+,  @QueryParam("project") 
 
  @Parameter(description = "Comma separated list of Projects")  String project
 ,  @QueryParam("org") 
@@ -91,10 +94,7 @@ public interface ProjectsApi {
  @Parameter(description = "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not")  Boolean hasModule
 ,  @QueryParam("module_type") 
 
- @Parameter(description = "Project&#x27;s module type")  Object moduleType
-,  @QueryParam("account") 
-
- @Parameter(description = "Account identifier query param")  String account
+ @Parameter(description = "Project&#x27;s module type")  String moduleType
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching with search term.")  String searchTerm

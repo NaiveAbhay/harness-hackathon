@@ -455,6 +455,16 @@
         "description" : "Retrieves the information of the Projects.",
         "operationId" : "get-projects",
         "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
           "name" : "project",
           "in" : "query",
           "description" : "Comma separated list of Projects",
@@ -489,14 +499,6 @@
           "name" : "module_type",
           "in" : "query",
           "description" : "Project's module type",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : { }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Account identifier query param",
           "required" : false,
           "style" : "form",
           "explode" : true,
