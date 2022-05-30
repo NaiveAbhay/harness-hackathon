@@ -1,0 +1,720 @@
+openapi: 3.0.3
+info:
+  title: Harness NextGen Software Delivery Platform API Reference
+  version: '1.0'
+  description: This is the Open Api Spec 3 for the NextGen Manager. This is under active development. Beware of the breaking change with respect to the generated code stub
+  contact:
+    email: contact@harness.io
+servers:
+  - url: 'http://localhost:3000'
+    description: localhost
+tags:
+  - name: Organization
+    description: Everything about Organization
+  - name: Project
+    description: Everything about Project
+paths:
+  /organizations:
+    post:
+      summary: Create Organization
+      operationId: create-organization
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationResponse'
+      description: Create a new Organization.
+      security:
+        - x-api-key: []
+      tags:
+        - Organization
+      requestBody:
+        $ref: '#/components/requestBodies/CreateOrganizationRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    get:
+      summary: Get Organizations
+      operationId: get-organizations
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationListResponse'
+      description: Retrieve the information of the Organizations.
+      security:
+        - x-api-key: []
+      tags:
+        - Organization
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/OrgQueryParam'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+    parameters: []
+  '/organizations/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Organization identifier
+    get:
+      summary: Get Organization
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationResponse'
+      operationId: get-organization
+      description: Retrieve the information of the organization with the matching organization identifier.
+      security:
+        - x-api-key: []
+      tags:
+        - Organization
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update Organization
+      operationId: update-organization
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationResponse'
+      description: Update the information of the organization with the matching organization identifier.
+      security:
+        - x-api-key: []
+      tags:
+        - Organization
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateOrganizationRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    delete:
+      summary: Delete Organization
+      operationId: delete-organization
+      responses:
+        '200':
+          $ref: '#/components/responses/OrganizationResponse'
+      description: Delete the information of the organization with the matching organization identifier.
+      security:
+        - x-api-key: []
+      tags:
+        - Organization
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+  '/projects/org/{org}':
+    post:
+      summary: Create Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: create-project
+      security:
+        - x-api-key: []
+      description: Creates a new Project
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProjectRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - name: org
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Slug field of the organization the resource is scoped to
+  /projects:
+    get:
+      summary: Get Projects
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectListResponse'
+      operationId: get-projects
+      description: Retrieves the information of the Projects.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/ProjectQueryParam'
+        - $ref: '#/components/parameters/OrgQueryParam'
+        - schema:
+            type: boolean
+            default: true
+          in: query
+          name: has_module
+          description: This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not
+        - schema: {}
+          in: query
+          name: module_type
+          description: Project's module type
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+    parameters: []
+  '/projects/org/{org}/project/{id}':
+    get:
+      summary: Get Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: get-project
+      description: Retrieve the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: update-project
+      description: Updates the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateProjectRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    delete:
+      summary: Delete Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: delete-project
+      description: Deletes the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Project identifier
+      - name: org
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Slug field of the organization the resource is scoped to
+components:
+  schemas:
+    CreateOrganizationRequest:
+      description: Create Organization request
+      type: object
+      x-examples:
+        example-1:
+          slug: example_organization
+          name: Example Organization
+          description: This is an Example Organization
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          description: Organization identifier
+          maxLength: 64
+        name:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          description: Organization name
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 1024
+          description: Organization description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+          description: Organization tags
+      required:
+        - slug
+        - name
+    ModuleType:
+      type: string
+      description: Type of Modules
+      enum:
+        - CD
+        - CI
+        - CV
+        - CF
+        - CE
+        - STO
+        - CORE
+        - PMS
+        - TEMPLATESERVICE
+        - GOVERNANCE
+    CreateProjectRequest:
+      description: Create Project Request
+      type: object
+      x-examples:
+        example-1:
+          slug: example_project_identifier
+          name: example-project-name
+          color: '#0063F7'
+          modules:
+            - CD
+          description: This is a example Project
+          tags:
+            property1: value1
+            property2: value2
+      properties:
+        slug:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          description: Project identifier
+          maxLength: 64
+        name:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          description: Project name
+          maxLength: 64
+        color:
+          type: string
+          description: Project color
+        modules:
+          type: array
+          maxItems: 1024
+          description: List of modules for project
+          items:
+            $ref: '#/components/schemas/ModuleType'
+        description:
+          type: string
+          maxLength: 1024
+          description: Project description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+          description: Project tags
+      required:
+        - slug
+        - name
+    ProjectResponse:
+      description: Project Response model
+      type: object
+      x-examples:
+        example-1:
+          org_dentifier: example_org_identifier
+          slug: example_project_identifier
+          name: example-project-name
+          color: '#0063F7'
+          modules:
+            - CD
+          description: This is a example Project
+          tags:
+            property1: value1
+            property2: value2
+          createdAt: 1234567890
+          lastModifiedAt: 1234567890
+      properties:
+        created_at:
+          type: integer
+          format: int64
+          description: Creation timestamp for the project
+        last_modified_at:
+          type: integer
+          format: int64
+          description: Last modification timestamp for the project
+        org_identifier:
+          type: string
+          description: Organization identifier for the project
+        slug:
+          type: string
+          description: Project identifier
+        name:
+          type: string
+          description: Project name
+        color:
+          type: string
+          description: Project color
+        modules:
+          type: array
+          uniqueItems: true
+          description: List of module for project
+          items:
+            $ref: '#/components/schemas/ModuleType'
+        description:
+          type: string
+          description: Project description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Project tags
+    OrganizationResponse:
+      title: OrganizationResponse
+      type: object
+      description: Organization Response Model
+      x-examples:
+        example-1:
+          slug: example_organization
+          name: Example Organization
+          description: This is an Example Organization
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          created_at: 1234567890
+          last_modified_at: 1234567890
+          harness_managed: true
+      properties:
+        created_at:
+          type: integer
+          description: Creation timestamp for organization
+          format: int64
+        last_modified_at:
+          type: integer
+          format: int64
+          description: Last modification timestamp for Organization
+        harness_managed:
+          type: boolean
+          description: 'This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.'
+        slug:
+          type: string
+          description: Organization identifier
+        name:
+          type: string
+          description: Organization name
+        description:
+          type: string
+          description: Organization description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Organization tags
+    UpdateOrganizationRequest:
+      description: Update Organization request
+      type: object
+      x-examples:
+        example-1:
+          name: Example Organization
+          description: This is an Example Organization
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          description: 'Organization name '
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 1024
+          description: Organization description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+      required:
+        - name
+        - description
+    UpdateProjectRequest:
+      description: Update Project Request
+      type: object
+      x-examples:
+        example-1:
+          name: example-project-name
+          color: '#0063F7'
+          modules:
+            - CD
+          description: This is a example Project
+          tags:
+            property1: value1
+            property2: value2
+      properties:
+        name:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          maxLength: 64
+        color:
+          type: string
+          minLength: 1
+        modules:
+          type: array
+          maxItems: 1024
+          items:
+            $ref: '#/components/schemas/ModuleType'
+        description:
+          type: string
+          minLength: 1
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+      required:
+        - name
+  securitySchemes:
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+  responses:
+    OrganizationResponse:
+      description: Organization response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OrganizationResponse'
+          examples:
+            example-organization-response:
+              value:
+                slug: example_organization
+                name: Example Organization
+                description: This is an Example Organization
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                created_at: 1234567890
+                last_modified_at: 1234567890
+                harness_managed: true
+    ProjectResponse:
+      description: Project response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectResponse'
+          examples:
+            example-project-response-json:
+              value:
+                org_identifier: example_org_identifier
+                slug: example_project_identifier
+                name: example-project-name
+                color: '#0063F7'
+                modules:
+                  - CD
+                description: This is a example Project
+                tags:
+                  property1: value1
+                  property2: value2
+                created_at: 1234567890
+                last_modified_at: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ProjectResponse'
+          examples:
+            example-project-response-yaml:
+              value:
+                org_identifier: example_org_identifier
+                slug: example_project_identifier
+                name: example-project-name
+                color: '#0063F7'
+                modules:
+                  - CD
+                description: This is a example Project
+                tags:
+                  property1: value1
+                  property2: value2
+                created_at: 1234567890
+                last_modified_at: 1234567890
+    ProjectListResponse:
+      description: Project list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProjectResponse'
+          examples:
+            example-project-list-response:
+              value:
+                - org_dentifier: example_org_identifier
+                  slug: example_project_identifier
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example Project
+                  tags:
+                    property1: value1
+                    property2: value2
+                  created_at: 1234567890
+                  last_modified_at: 1234567890
+      headers:
+        Link:
+          schema:
+            type: string
+          description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link'
+    OrganizationListResponse:
+      description: Organization lsit response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrganizationResponse'
+          examples:
+            example-organizations-list-response:
+              value:
+                - slug: example_organization
+                  name: Example Organization
+                  description: This is an Example Organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  created_at: 1234567890
+                  last_modified_at: 1234567890
+                  harness_managed: true
+      headers:
+        Link:
+          schema:
+            type: string
+          description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
+          examples:
+            sample:
+              value: '<"$url"/projects?orgIdentifier=dummy-orgnization&page=2&page_size=3>; rel="next", <https://qa.harness.io/projects?orgIdentifier=dummy-orgnization&page=50&page_size=3>; rel="last"'
+  requestBodies:
+    UpdateProjectRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateProjectRequest'
+          examples:
+            example-project-update-request-json:
+              value:
+                name: example-project-name
+                color: '#0063F7'
+                modules:
+                  - CD
+                description: This is a example Project
+                tags:
+                  property1: value1
+                  property2: value2
+      description: Put the necessary fields for the API to update a Project.
+    CreateOrganizationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateOrganizationRequest'
+          examples:
+            example-create-irganization-request-json:
+              value:
+                slug: example_organization
+                name: Example Organization
+                description: This is an Example Organization
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+      description: Post the necessary fields for the API to create a Organization.
+    UpdateOrganizationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateOrganizationRequest'
+          examples:
+            example-organization-update-request-json:
+              value:
+                name: Example Organization
+                description: This is an Example Organization
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+      description: Put the necessary fields for the API to update a Organization.
+    CreateProjectRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateProjectRequest'
+          examples:
+            example-create-project-request-json:
+              value:
+                slug: example_project_identifier
+                name: example-project-name
+                color: '#0063F7'
+                modules:
+                  - CD
+                description: This is a example Project
+                tags:
+                  property1: value1
+                  property2: value2
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CreateProjectRequest'
+          examples:
+            example-create-project-request-yaml:
+              value:
+                slug: example_project_identifier
+                name: example-project-name
+                color: '#0063F7'
+                modules:
+                  - CD
+                description: This is a example Project
+                tags:
+                  property1: value1
+                  property2: value2
+      description: Post the necessary fields for the API to create a Project.
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+      description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 30
+      description: 'Pagination: Number of items to return'
+    SearchTerm:
+      name: search_term
+      in: query
+      required: false
+      schema:
+        type: string
+      description: This would be used to filter resources having attributes matching with search term.
+    OrgQueryParam:
+      name: org
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma separated list of Organizations
+    ProjectQueryParam:
+      name: project
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Comma separated list of Projects
+    OrgPathParam:
+      name: org
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Slug field of the organization the resource is scoped to
+    AccountQueryParam:
+      name: account
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Account identifier query param
