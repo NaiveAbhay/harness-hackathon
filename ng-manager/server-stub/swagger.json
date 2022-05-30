@@ -1,0 +1,1558 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Harness NextGen Software Delivery Platform API Reference",
+    "description" : "This is the Open Api Spec 3 for the NextGen Manager. This is under active development. Beware of the breaking change with respect to the generated code stub",
+    "contact" : {
+      "email" : "contact@harness.io"
+    },
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:3000",
+    "description" : "localhost"
+  } ],
+  "tags" : [ {
+    "name" : "Organization",
+    "description" : "Everything about Organization"
+  }, {
+    "name" : "Project",
+    "description" : "Everything about Project"
+  } ],
+  "paths" : {
+    "/organizations" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Get Organizations",
+        "description" : "Retrieve the information of the Organizations.",
+        "operationId" : "get-organizations",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Comma separated list of Organizations",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization lsit response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<\"$url\"/projects?orgIdentifier=dummy-orgnization&page=2&page_size=3>; rel=\"next\", <https://qa.harness.io/projects?orgIdentifier=dummy-orgnization&page=50&page_size=3>; rel=\"last\""
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OrganizationResponse"
+                  }
+                },
+                "examples" : {
+                  "example-organizations-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_organization",
+                      "name" : "Example Organization",
+                      "description" : "This is an Example Organization",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890,
+                      "harness_managed" : true
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Create Organization",
+        "description" : "Create a new Organization.",
+        "operationId" : "create-organization",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateOrganizationRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response" : {
+                    "value" : {
+                      "slug" : "example_organization",
+                      "name" : "Example Organization",
+                      "description" : "This is an Example Organization",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/organizations/{id}" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Get Organization",
+        "description" : "Retrieve the information of the organization with the matching organization identifier.",
+        "operationId" : "get-organization",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response" : {
+                    "value" : {
+                      "slug" : "example_organization",
+                      "name" : "Example Organization",
+                      "description" : "This is an Example Organization",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Update Organization",
+        "description" : "Update the information of the organization with the matching organization identifier.",
+        "operationId" : "update-organization",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/UpdateOrganizationRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response" : {
+                    "value" : {
+                      "slug" : "example_organization",
+                      "name" : "Example Organization",
+                      "description" : "This is an Example Organization",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Delete Organization",
+        "description" : "Delete the information of the organization with the matching organization identifier.",
+        "operationId" : "delete-organization",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response" : {
+                    "value" : {
+                      "slug" : "example_organization",
+                      "name" : "Example Organization",
+                      "description" : "This is an Example Organization",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/projects/org/{org}" : {
+      "post" : {
+        "tags" : [ "Project" ],
+        "summary" : "Create Project",
+        "description" : "Creates a new Project",
+        "operationId" : "create-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateProjectRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/projects" : {
+      "get" : {
+        "tags" : [ "Project" ],
+        "summary" : "Get Projects",
+        "description" : "Retrieves the information of the Projects.",
+        "operationId" : "get-projects",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Comma separated list of Projects",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Comma separated list of Organizations",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "has_module",
+          "in" : "query",
+          "description" : "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : true
+          }
+        }, {
+          "name" : "module_type",
+          "in" : "query",
+          "description" : "Project's module type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : { }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 1
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response" : {
+                    "value" : [ {
+                      "org_dentifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/projects/org/{org}/project/{id}" : {
+      "get" : {
+        "tags" : [ "Project" ],
+        "summary" : "Get Project",
+        "description" : "Retrieve the information of the Project with the matching Project identifier.",
+        "operationId" : "get-project",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Project" ],
+        "summary" : "Update Project",
+        "description" : "Updates the information of the Project with the matching Project identifier.",
+        "operationId" : "update-project",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/UpdateProjectRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Project" ],
+        "summary" : "Delete Project",
+        "description" : "Deletes the information of the Project with the matching Project identifier.",
+        "operationId" : "delete-project",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Account identifier query param",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CreateOrganizationRequest" : {
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Organization identifier"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization name"
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Organization description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Organization tags"
+          }
+        },
+        "description" : "Create Organization request",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_organization",
+            "name" : "Example Organization",
+            "description" : "This is an Example Organization",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            }
+          }
+        }
+      },
+      "ModuleType" : {
+        "type" : "string",
+        "description" : "Type of Modules",
+        "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE" ]
+      },
+      "CreateProjectRequest" : {
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Project identifier"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Project name"
+          },
+          "color" : {
+            "type" : "string",
+            "description" : "Project color"
+          },
+          "modules" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "description" : "List of modules for project",
+            "items" : {
+              "$ref" : "#/components/schemas/ModuleType"
+            }
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Project description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Project tags"
+          }
+        },
+        "description" : "Create Project Request",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_project_identifier",
+            "name" : "example-project-name",
+            "color" : "#0063F7",
+            "modules" : [ "CD" ],
+            "description" : "This is a example Project",
+            "tags" : {
+              "property1" : "value1",
+              "property2" : "value2"
+            }
+          }
+        }
+      },
+      "ProjectResponse" : {
+        "type" : "object",
+        "properties" : {
+          "created_at" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for the project",
+            "format" : "int64"
+          },
+          "last_modified_at" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for the project",
+            "format" : "int64"
+          },
+          "org_identifier" : {
+            "type" : "string",
+            "description" : "Organization identifier for the project"
+          },
+          "slug" : {
+            "type" : "string",
+            "description" : "Project identifier"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Project name"
+          },
+          "color" : {
+            "type" : "string",
+            "description" : "Project color"
+          },
+          "modules" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "List of module for project",
+            "items" : {
+              "$ref" : "#/components/schemas/ModuleType"
+            }
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Project description"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Project tags"
+          }
+        },
+        "description" : "Project Response model",
+        "x-examples" : {
+          "example-1" : {
+            "org_dentifier" : "example_org_identifier",
+            "slug" : "example_project_identifier",
+            "name" : "example-project-name",
+            "color" : "#0063F7",
+            "modules" : [ "CD" ],
+            "description" : "This is a example Project",
+            "tags" : {
+              "property1" : "value1",
+              "property2" : "value2"
+            },
+            "createdAt" : 1234567890,
+            "lastModifiedAt" : 1234567890
+          }
+        }
+      },
+      "OrganizationResponse" : {
+        "title" : "OrganizationResponse",
+        "type" : "object",
+        "properties" : {
+          "created_at" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for organization",
+            "format" : "int64"
+          },
+          "last_modified_at" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for Organization",
+            "format" : "int64"
+          },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization."
+          },
+          "slug" : {
+            "type" : "string",
+            "description" : "Organization identifier"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Organization name"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Organization description"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Organization tags"
+          }
+        },
+        "description" : "Organization Response Model",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_organization",
+            "name" : "Example Organization",
+            "description" : "This is an Example Organization",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "created_at" : 1234567890,
+            "last_modified_at" : 1234567890,
+            "harness_managed" : true
+          }
+        }
+      },
+      "UpdateOrganizationRequest" : {
+        "required" : [ "description", "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization name "
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Organization description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Update Organization request",
+        "x-examples" : {
+          "example-1" : {
+            "name" : "Example Organization",
+            "description" : "This is an Example Organization",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            }
+          }
+        }
+      },
+      "UpdateProjectRequest" : {
+        "required" : [ "name" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string"
+          },
+          "color" : {
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "modules" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ModuleType"
+            }
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "minLength" : 1,
+            "type" : "string"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Update Project Request",
+        "x-examples" : {
+          "example-1" : {
+            "name" : "example-project-name",
+            "color" : "#0063F7",
+            "modules" : [ "CD" ],
+            "description" : "This is a example Project",
+            "tags" : {
+              "property1" : "value1",
+              "property2" : "value2"
+            }
+          }
+        }
+      }
+    },
+    "responses" : {
+      "OrganizationResponse" : {
+        "description" : "Organization response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganizationResponse"
+            },
+            "examples" : {
+              "example-organization-response" : {
+                "value" : {
+                  "slug" : "example_organization",
+                  "name" : "Example Organization",
+                  "description" : "This is an Example Organization",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "created_at" : 1234567890,
+                  "last_modified_at" : 1234567890,
+                  "harness_managed" : true
+                }
+              }
+            }
+          }
+        }
+      },
+      "ProjectResponse" : {
+        "description" : "Project response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ProjectResponse"
+            },
+            "examples" : {
+              "example-project-response-json" : {
+                "value" : {
+                  "org_identifier" : "example_org_identifier",
+                  "slug" : "example_project_identifier",
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  },
+                  "created_at" : 1234567890,
+                  "last_modified_at" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ProjectResponse"
+            },
+            "examples" : {
+              "example-project-response-yaml" : {
+                "value" : {
+                  "org_identifier" : "example_org_identifier",
+                  "slug" : "example_project_identifier",
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  },
+                  "created_at" : 1234567890,
+                  "last_modified_at" : 1234567890
+                }
+              }
+            }
+          }
+        }
+      },
+      "ProjectListResponse" : {
+        "description" : "Project list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples" : {
+              "example-project-list-response" : {
+                "value" : [ {
+                  "org_dentifier" : "example_org_identifier",
+                  "slug" : "example_project_identifier",
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  },
+                  "created_at" : 1234567890,
+                  "last_modified_at" : 1234567890
+                } ]
+              }
+            }
+          }
+        }
+      },
+      "OrganizationListResponse" : {
+        "description" : "Organization lsit response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<\"$url\"/projects?orgIdentifier=dummy-orgnization&page=2&page_size=3>; rel=\"next\", <https://qa.harness.io/projects?orgIdentifier=dummy-orgnization&page=50&page_size=3>; rel=\"last\""
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples" : {
+              "example-organizations-list-response" : {
+                "value" : [ {
+                  "slug" : "example_organization",
+                  "name" : "Example Organization",
+                  "description" : "This is an Example Organization",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "created_at" : 1234567890,
+                  "last_modified_at" : 1234567890,
+                  "harness_managed" : true
+                } ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "Page" : {
+        "name" : "page",
+        "in" : "query",
+        "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "integer",
+          "default" : 1
+        }
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "Pagination: Number of items to return",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "integer",
+          "default" : 30
+        }
+      },
+      "SearchTerm" : {
+        "name" : "search_term",
+        "in" : "query",
+        "description" : "This would be used to filter resources having attributes matching with search term.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "OrgQueryParam" : {
+        "name" : "org",
+        "in" : "query",
+        "description" : "Comma separated list of Organizations",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ProjectQueryParam" : {
+        "name" : "project",
+        "in" : "query",
+        "description" : "Comma separated list of Projects",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "OrgPathParam" : {
+        "name" : "org",
+        "in" : "path",
+        "description" : "Slug field of the organization the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "AccountQueryParam" : {
+        "name" : "account",
+        "in" : "query",
+        "description" : "Account identifier query param",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "requestBodies" : {
+      "UpdateProjectRequest" : {
+        "description" : "Put the necessary fields for the API to update a Project.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples" : {
+              "example-project-update-request-json" : {
+                "value" : {
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateOrganizationRequest" : {
+        "description" : "Post the necessary fields for the API to create a Organization.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples" : {
+              "example-create-irganization-request-json" : {
+                "value" : {
+                  "slug" : "example_organization",
+                  "name" : "Example Organization",
+                  "description" : "This is an Example Organization",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UpdateOrganizationRequest" : {
+        "description" : "Put the necessary fields for the API to update a Organization.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples" : {
+              "example-organization-update-request-json" : {
+                "value" : {
+                  "name" : "Example Organization",
+                  "description" : "This is an Example Organization",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "CreateProjectRequest" : {
+        "description" : "Post the necessary fields for the API to create a Project.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateProjectRequest"
+            },
+            "examples" : {
+              "example-create-project-request-json" : {
+                "value" : {
+                  "slug" : "example_project_identifier",
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateProjectRequest"
+            },
+            "examples" : {
+              "example-create-project-request-yaml" : {
+                "value" : {
+                  "slug" : "example_project_identifier",
+                  "name" : "example-project-name",
+                  "color" : "#0063F7",
+                  "modules" : [ "CD" ],
+                  "description" : "This is a example Project",
+                  "tags" : {
+                    "property1" : "value1",
+                    "property2" : "value2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "x-api-key" : {
+        "type" : "apiKey",
+        "name" : "x-api-key",
+        "in" : "header"
+      }
+    }
+  }
+}
