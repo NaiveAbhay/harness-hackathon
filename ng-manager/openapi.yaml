@@ -664,7 +664,7 @@ components:
       required: false
       schema:
         type: integer
-        default: 1
+        default: 0
       description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
     Limit:
       name: limit

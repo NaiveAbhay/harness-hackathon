@@ -65,7 +65,7 @@
           "explode" : true,
           "schema" : {
             "type" : "integer",
-            "default" : 1
+            "default" : 0
           }
         }, {
           "name" : "limit",
@@ -436,7 +436,7 @@
           "explode" : true,
           "schema" : {
             "type" : "integer",
-            "default" : 1
+            "default" : 0
           }
         }, {
           "name" : "limit",
@@ -1360,7 +1360,7 @@
         "explode" : true,
         "schema" : {
           "type" : "integer",
-          "default" : 1
+          "default" : 0
         }
       },
       "Limit" : {
