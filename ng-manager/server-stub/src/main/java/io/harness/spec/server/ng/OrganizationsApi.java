@@ -32,10 +32,10 @@ public interface OrganizationsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
+    OrganizationResponse createOrganization( @NotNull  @QueryParam("account") 
 
- @Parameter(description = "Account identifier query param")  String account
-);
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+,@Valid CreateOrganizationRequest body);
     @DELETE
     @Path("/{id}")
     @Produces({ "application/json" })
@@ -46,9 +46,9 @@ public interface OrganizationsApi {
     OrganizationResponse deleteOrganization( @PathParam("id")
 
  @Parameter(description = "Organization identifier") String id
-,  @QueryParam("account") 
+, @NotNull  @QueryParam("account") 
 
- @Parameter(description = "Account identifier query param")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
 );
     @GET
     @Path("/{id}")
@@ -60,9 +60,9 @@ public interface OrganizationsApi {
     OrganizationResponse getOrganization( @PathParam("id")
 
  @Parameter(description = "Organization identifier") String id
-,  @QueryParam("account") 
+, @NotNull  @QueryParam("account") 
 
- @Parameter(description = "Account identifier query param")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
 );
     @GET
     @Produces({ "application/json" })
@@ -70,12 +70,12 @@ public interface OrganizationsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization lsit response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
-    List<OrganizationResponse> getOrganizations(  @QueryParam("account") 
+    List<OrganizationResponse> getOrganizations( @NotNull  @QueryParam("account") 
 
- @Parameter(description = "Account identifier query param")  String account
-,  @QueryParam("org") 
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+, @NotNull  @QueryParam("org") 
 
- @Parameter(description = "Comma separated list of Organizations")  String org
+ @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching with search term.")  String searchTerm
@@ -94,10 +94,10 @@ public interface OrganizationsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse updateOrganization( @PathParam("id")
+    OrganizationResponse updateOrganization( @NotNull  @QueryParam("account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+, @PathParam("id")
 
  @Parameter(description = "Organization identifier") String id
-,@Valid UpdateOrganizationRequest body,  @QueryParam("account") 
-
- @Parameter(description = "Account identifier query param")  String account
-);}
+,@Valid UpdateOrganizationRequest body);}

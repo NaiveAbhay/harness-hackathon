@@ -9,7 +9,7 @@
     "version" : "1.0"
   },
   "servers" : [ {
-    "url" : "http://localhost:3000",
+    "url" : "http://localhost:7457/v1",
     "description" : "localhost"
   } ],
   "tags" : [ {
@@ -29,8 +29,8 @@
         "parameters" : [ {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -39,8 +39,8 @@
         }, {
           "name" : "org",
           "in" : "query",
-          "description" : "Comma separated list of Organizations",
-          "required" : false,
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -137,8 +137,8 @@
         "parameters" : [ {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -200,8 +200,8 @@
         }, {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -258,8 +258,8 @@
         }, {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -319,8 +319,8 @@
         }, {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -360,94 +360,6 @@
         } ]
       }
     },
-    "/projects/org/{org}" : {
-      "post" : {
-        "tags" : [ "Project" ],
-        "summary" : "Create Project",
-        "description" : "Creates a new Project",
-        "operationId" : "create-project",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/CreateProjectRequest"
-        },
-        "responses" : {
-          "200" : {
-            "description" : "Project response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ProjectResponse"
-                },
-                "examples" : {
-                  "example-project-response-json" : {
-                    "value" : {
-                      "org_identifier" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ProjectResponse"
-                },
-                "examples" : {
-                  "example-project-response-yaml" : {
-                    "value" : {
-                      "org_identifier" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ]
-      }
-    },
     "/projects" : {
       "get" : {
         "tags" : [ "Project" ],
@@ -457,18 +369,8 @@
         "parameters" : [ {
           "name" : "account",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "project",
-          "in" : "query",
-          "description" : "Comma separated list of Projects",
-          "required" : false,
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -477,12 +379,22 @@
         }, {
           "name" : "org",
           "in" : "query",
-          "description" : "Comma separated list of Organizations",
+          "description" : "Slug field of the organizations the resource is scoped to",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "array"
+          }
+        }, {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Slug field of the projects the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array"
           }
         }, {
           "name" : "has_module",
@@ -584,9 +496,95 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
+      },
+      "post" : {
+        "tags" : [ "Project" ],
+        "summary" : "Create Project",
+        "description" : "Creates a new Project",
+        "operationId" : "create-project",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateProjectRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : {
+                      "org_identifier" : "example_org_identifier",
+                      "slug" : "example_project_identifier",
+                      "name" : "example-project-name",
+                      "color" : "#0063F7",
+                      "modules" : [ "CD" ],
+                      "description" : "This is a example Project",
+                      "tags" : {
+                        "property1" : "value1",
+                        "property2" : "value2"
+                      },
+                      "created_at" : 1234567890,
+                      "last_modified_at" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
-    "/projects/org/{org}/project/{id}" : {
+    "/projects/{id}" : {
       "get" : {
         "tags" : [ "Project" ],
         "summary" : "Get Project",
@@ -603,20 +601,20 @@
             "type" : "string"
           }
         }, {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "org",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -696,20 +694,20 @@
             "type" : "string"
           }
         }, {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "org",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -792,20 +790,20 @@
             "type" : "string"
           }
         }, {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to",
           "required" : true,
-          "style" : "simple",
-          "explode" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "org",
           "in" : "query",
-          "description" : "Account identifier query param",
-          "required" : false,
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -1391,32 +1389,10 @@
       "OrgQueryParam" : {
         "name" : "org",
         "in" : "query",
-        "description" : "Comma separated list of Organizations",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "ProjectQueryParam" : {
-        "name" : "project",
-        "in" : "query",
-        "description" : "Comma separated list of Projects",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "OrgPathParam" : {
-        "name" : "org",
-        "in" : "path",
         "description" : "Slug field of the organization the resource is scoped to",
         "required" : true,
-        "style" : "simple",
-        "explode" : false,
+        "style" : "form",
+        "explode" : true,
         "schema" : {
           "type" : "string"
         }
@@ -1424,12 +1400,34 @@
       "AccountQueryParam" : {
         "name" : "account",
         "in" : "query",
-        "description" : "Account identifier query param",
-        "required" : false,
+        "description" : "Slug field of the account the resource is scoped to",
+        "required" : true,
         "style" : "form",
         "explode" : true,
         "schema" : {
           "type" : "string"
+        }
+      },
+      "OrgsQueryParam" : {
+        "name" : "org",
+        "in" : "query",
+        "description" : "Slug field of the organizations the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "array"
+        }
+      },
+      "ProjectsQueryParam" : {
+        "name" : "project",
+        "in" : "query",
+        "description" : "Slug field of the projects the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "array"
         }
       }
     },
