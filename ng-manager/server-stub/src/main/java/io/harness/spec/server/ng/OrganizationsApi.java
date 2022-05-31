@@ -1,6 +1,7 @@
 package io.harness.spec.server.ng;
 
 import io.harness.spec.server.ng.model.CreateOrganizationRequest;
+import java.util.List;
 import io.harness.spec.server.ng.model.OrganizationResponse;
 import io.harness.spec.server.ng.model.UpdateOrganizationRequest;
 
@@ -73,9 +74,9 @@ public interface OrganizationsApi {
     List<OrganizationResponse> getOrganizations( @NotNull  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to")  String account
-, @NotNull  @QueryParam("org") 
+,  @QueryParam("org") 
 
- @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
+ @Parameter(description = "Slug field of the organizations the resource is scoped to")  List org
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching with search term.")  String searchTerm

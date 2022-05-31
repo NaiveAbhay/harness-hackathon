@@ -39,12 +39,12 @@
         }, {
           "name" : "org",
           "in" : "query",
-          "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
+          "description" : "Slug field of the organizations the resource is scoped to",
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "array"
           }
         }, {
           "name" : "search_term",

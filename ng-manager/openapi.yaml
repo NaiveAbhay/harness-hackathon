@@ -43,7 +43,7 @@ paths:
         - Organization
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
+        - $ref: '#/components/parameters/OrgsQueryParam'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
