@@ -61,4 +61,11 @@
         <scope>provided</scope>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>harness-internal</id>
+      <name>harness-internal</name>
+      <url>https://harness.jfrog.io/artifactory/harness-internal</url>
+    </repository>
+  </distributionManagement>
 </project>
