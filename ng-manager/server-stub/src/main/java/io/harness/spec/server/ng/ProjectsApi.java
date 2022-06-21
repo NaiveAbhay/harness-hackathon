@@ -33,13 +33,13 @@ public interface ProjectsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse createProject( @NotNull  @QueryParam("account") 
+    ProjectResponse createProject(@Valid CreateProjectRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to")  String account
-, @NotNull  @QueryParam("org") 
+,  @QueryParam("org") @DefaultValue("default") 
 
  @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
-,@Valid CreateProjectRequest body);
+);
     @DELETE
     @Path("/{id}")
     @Produces({ "application/json", "application/yaml" })
@@ -50,10 +50,10 @@ public interface ProjectsApi {
     ProjectResponse deleteProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
-, @NotNull  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to")  String account
-, @NotNull  @QueryParam("org") 
+,  @QueryParam("org") @DefaultValue("default") 
 
  @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 );
@@ -67,10 +67,10 @@ public interface ProjectsApi {
     ProjectResponse getProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
-, @NotNull  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to")  String account
-, @NotNull  @QueryParam("org") 
+,  @QueryParam("org") @DefaultValue("default") 
 
  @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 );
@@ -80,7 +80,7 @@ public interface ProjectsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
-    List<ProjectResponse> getProjects( @NotNull  @QueryParam("account") 
+    List<ProjectResponse> getProjects(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to")  String account
 ,  @QueryParam("org") 
@@ -113,13 +113,13 @@ public interface ProjectsApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse updateProject( @NotNull  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
-, @NotNull  @QueryParam("org") 
-
- @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
-, @PathParam("id")
+    ProjectResponse updateProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
-,@Valid UpdateProjectRequest body);}
+,@Valid UpdateProjectRequest body,  @QueryParam("account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+,  @QueryParam("org") @DefaultValue("default") 
+
+ @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
+);}

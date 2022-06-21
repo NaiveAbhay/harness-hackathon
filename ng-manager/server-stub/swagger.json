@@ -30,7 +30,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -138,7 +138,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -201,7 +201,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -259,7 +259,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -320,7 +320,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -370,7 +370,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -506,7 +506,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -516,11 +516,12 @@
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "default" : "default"
           }
         } ],
         "requestBody" : {
@@ -604,7 +605,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -614,11 +615,12 @@
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "default" : "default"
           }
         } ],
         "responses" : {
@@ -697,7 +699,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -707,11 +709,12 @@
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "default" : "default"
           }
         } ],
         "requestBody" : {
@@ -793,7 +796,7 @@
           "name" : "account",
           "in" : "query",
           "description" : "Slug field of the account the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
@@ -803,11 +806,12 @@
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
+          "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "default" : "default"
           }
         } ],
         "responses" : {
@@ -1390,18 +1394,19 @@
         "name" : "org",
         "in" : "query",
         "description" : "Slug field of the organization the resource is scoped to",
-        "required" : true,
+        "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "default" : "default"
         }
       },
       "AccountQueryParam" : {
         "name" : "account",
         "in" : "query",
         "description" : "Slug field of the account the resource is scoped to",
-        "required" : true,
+        "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
