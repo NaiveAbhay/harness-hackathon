@@ -686,6 +686,7 @@ components:
       in: query
       schema:
         type: string
+        default: default
       description: Slug field of the organization the resource is scoped to
     AccountQueryParam:
       name: account
