@@ -1,6 +1,6 @@
 {
   "skipOverwrite": false,
-  "java8": true,
+  "java11": true,
   "typeMappings": {
   },
   "importMappings": {
