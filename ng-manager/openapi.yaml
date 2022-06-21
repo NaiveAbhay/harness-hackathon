@@ -684,14 +684,12 @@ components:
     OrgQueryParam:
       name: org
       in: query
-      required: true
       schema:
         type: string
       description: Slug field of the organization the resource is scoped to
     AccountQueryParam:
       name: account
       in: query
-      required: true
       schema:
         type: string
       description: Slug field of the account the resource is scoped to
