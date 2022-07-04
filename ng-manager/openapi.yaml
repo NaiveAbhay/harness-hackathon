@@ -691,9 +691,10 @@ components:
     AccountQueryParam:
       name: account
       in: query
+      required: false
       schema:
         type: string
-      description: Slug field of the account the resource is scoped to
+      description: Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. It is optional if you are using x-api-key header.
     OrgsQueryParam:
       name: org
       in: query
