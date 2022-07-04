@@ -700,7 +700,14 @@ components:
       required: false
       schema:
         type: array
+        items:
+          type: string
       description: Slug field of the organizations the resource is scoped to
+      examples:
+        orgs:
+          summary: List of slug field of the organizations the resource is scoped to
+          value: ?org=org1&org=org2
+
     ProjectsQueryParam:
       name: project
       in: query
