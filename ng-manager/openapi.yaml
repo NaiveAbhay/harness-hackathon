@@ -6,7 +6,7 @@ info:
   contact:
     email: contact@harness.io
 servers:
-  - url: 'http://localhost:7457/v1'
+  - url: 'http://localhost:7457'
     description: localhost
 tags:
   - name: Organization
@@ -14,7 +14,7 @@ tags:
   - name: Project
     description: Everything about Project
 paths:
-  /organizations:
+  /v1/orgs:
     post:
       summary: Create Organization
       operationId: create-organization
@@ -48,11 +48,11 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
     parameters: []
-  '/organizations/{id}':
+  '/v1/orgs/{org}':
     parameters:
       - schema:
           type: string
-        name: id
+        name: org
         in: path
         required: true
         description: Organization identifier
@@ -97,7 +97,7 @@ paths:
         - Organization
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-  /projects:
+  /v1/projects:
     post:
       summary: Create Project
       tags:
@@ -105,7 +105,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
-      operationId: create-project
+      operationId: create-account-scoped-project
       security:
         - x-api-key: []
       description: Creates a new Project
@@ -113,7 +113,6 @@ paths:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
     get:
       summary: Get Projects
       tags:
@@ -121,7 +120,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ProjectListResponse'
-      operationId: get-projects
+      operationId: get-account-scoped-projects
       description: Retrieves the information of the Projects.
       security:
         - x-api-key: []
@@ -144,7 +143,53 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
     parameters: []
-  '/projects/{id}':
+  '/v1/orgs/{org}/projects':
+    post:
+      summary: Create Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: create-org-scoped-project
+      security:
+        - x-api-key: []
+      description: Creates a new Project
+      requestBody:
+        $ref: '#/components/requestBodies/CreateProjectRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    get:
+      summary: Get Projects
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectListResponse'
+      operationId: get-org-scoped-projects
+      description: Retrieves the information of the Projects.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/ProjectsQueryParam'
+        - schema:
+            type: boolean
+            default: true
+          in: query
+          name: has_module
+          description: This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not
+        - schema:
+            type: string
+          in: query
+          name: module_type
+          description: Project's module type
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+  '/v1/projects/{id}':
     get:
       summary: Get Project
       tags:
@@ -152,7 +197,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
-      operationId: get-project
+      operationId: get-account-scoped-project
       description: Retrieve the information of the Project with the matching Project identifier.
       security:
         - x-api-key: []
@@ -166,7 +211,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
-      operationId: update-project
+      operationId: update-account-scoped-project
       description: Updates the information of the Project with the matching Project identifier.
       security:
         - x-api-key: []
@@ -182,7 +227,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
-      operationId: delete-project
+      operationId: delete-account-scoped-project
       description: Deletes the information of the Project with the matching Project identifier.
       security:
         - x-api-key: []
@@ -190,6 +235,56 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/OrgQueryParam'
     parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Project identifier
+  '/v1/orgs/{org}/projects/{id}':
+    get:
+      summary: Get Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: get-org-scoped-project
+      description: Retrieve the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: update-org-scoped-project
+      description: Updates the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateProjectRequest'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    delete:
+      summary: Delete Project
+      tags:
+        - Project
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+      operationId: delete-org-scoped-project
+      description: Deletes the information of the Project with the matching Project identifier.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
       - schema:
           type: string
         name: id
@@ -713,3 +808,10 @@ components:
         items:
           type: string
       description: Slug field of the projects the resource is scoped to
+    OrgPathParam:
+      name: org
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Slug field of the organization the resource is scoped to

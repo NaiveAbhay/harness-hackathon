@@ -16,7 +16,9 @@
   "returnResponse": true,
   "sourceFolder": "src/main/java",
   "dateLibrary": "java8",
-  "useTags": true,
   "ignoreImportMapping": [
-  ]
+  ],
+  "additionalProperties": {
+    "useTags": true
+  }
 }

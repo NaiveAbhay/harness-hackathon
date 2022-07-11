@@ -1,7 +1,6 @@
 package io.harness.spec.server.ng;
 
 import io.harness.spec.server.ng.model.CreateOrganizationRequest;
-import java.util.List;
 import io.harness.spec.server.ng.model.OrganizationResponse;
 import io.harness.spec.server.ng.model.UpdateOrganizationRequest;
 
@@ -22,9 +21,10 @@ import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-@Path("/v1/organizations")
+@Path("/v1/orgs")
 
-public interface OrganizationsApi {
+
+public interface OrganizationApi {
 
     @POST
     @Consumes({ "application/json" })
@@ -35,35 +35,35 @@ public interface OrganizationsApi {
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
     OrganizationResponse createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @DELETE
-    @Path("/{id}")
+    @Path("/{org}")
     @Produces({ "application/json" })
     @Operation(summary = "Delete Organization", description = "Delete the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse deleteOrganization( @PathParam("id")
+    OrganizationResponse deleteOrganization( @PathParam("org")
 
- @Parameter(description = "Organization identifier") String id
+ @Parameter(description = "Organization identifier") String org
 ,  @QueryParam("account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
-    @Path("/{id}")
+    @Path("/{org}")
     @Produces({ "application/json" })
     @Operation(summary = "Get Organization", description = "Retrieve the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse getOrganization( @PathParam("id")
+    OrganizationResponse getOrganization( @PathParam("org")
 
- @Parameter(description = "Organization identifier") String id
+ @Parameter(description = "Organization identifier") String org
 ,  @QueryParam("account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
     @Produces({ "application/json" })
@@ -73,10 +73,10 @@ public interface OrganizationsApi {
         @ApiResponse(responseCode = "200", description = "Organization lsit response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
     List<OrganizationResponse> getOrganizations(  @QueryParam("account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 ,  @QueryParam("org") 
 
- @Parameter(description = "Slug field of the organizations the resource is scoped to")  List org
+ @Parameter(description = "Slug field of the organizations the resource is scoped to")  List<String> org
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching with search term.")  String searchTerm
@@ -88,17 +88,17 @@ public interface OrganizationsApi {
  @Parameter(description = "Pagination: Number of items to return")  Integer limit
 );
     @PUT
-    @Path("/{id}")
+    @Path("/{org}")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     @Operation(summary = "Update Organization", description = "Update the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse updateOrganization( @PathParam("id")
+    OrganizationResponse updateOrganization( @PathParam("org")
 
- @Parameter(description = "Organization identifier") String id
+ @Parameter(description = "Organization identifier") String org
 ,@Valid UpdateOrganizationRequest body,  @QueryParam("account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );}
