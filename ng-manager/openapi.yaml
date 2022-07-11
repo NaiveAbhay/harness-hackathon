@@ -203,7 +203,6 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
     put:
       summary: Update Project
       tags:
@@ -219,7 +218,6 @@ paths:
         $ref: '#/components/requestBodies/UpdateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
     delete:
       summary: Delete Project
       tags:
@@ -233,7 +231,6 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
     parameters:
       - schema:
           type: string

@@ -66,9 +66,6 @@ public interface ProjectApi {
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-,  @QueryParam("org") @DefaultValue("default") 
-
- @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 );
     @DELETE
     @Path("/orgs/{org}/projects/{id}")
@@ -100,9 +97,6 @@ public interface ProjectApi {
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-,  @QueryParam("org") @DefaultValue("default") 
-
- @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 );
     @GET
     @Path("/projects")
@@ -199,9 +193,6 @@ public interface ProjectApi {
 ,@Valid UpdateProjectRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-,  @QueryParam("org") @DefaultValue("default") 
-
- @Parameter(description = "Slug field of the organization the resource is scoped to")  String org
 );
     @PUT
     @Path("/orgs/{org}/projects/{id}")
