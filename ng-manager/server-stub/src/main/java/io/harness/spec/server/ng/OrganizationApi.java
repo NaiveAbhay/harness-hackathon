@@ -33,7 +33,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
+    Response createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
@@ -44,7 +44,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse deleteOrganization( @PathParam("org")
+    Response deleteOrganization( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 ,  @QueryParam("account") 
@@ -58,7 +58,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse getOrganization( @PathParam("org")
+    Response getOrganization( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 ,  @QueryParam("account") 
@@ -71,7 +71,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization lsit response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
-    List<OrganizationResponse> getOrganizations(  @QueryParam("account") 
+    Response getOrganizations(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 ,  @QueryParam("org") 
@@ -95,7 +95,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    OrganizationResponse updateOrganization( @PathParam("org")
+    Response updateOrganization( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 ,@Valid UpdateOrganizationRequest body,  @QueryParam("account") 

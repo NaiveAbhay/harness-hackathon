@@ -34,7 +34,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse createAccountScopedProject(@Valid CreateProjectRequest body,  @QueryParam("account") 
+    Response createAccountScopedProject(@Valid CreateProjectRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
@@ -46,7 +46,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse createOrgScopedProject( @PathParam("org")
+    Response createOrgScopedProject( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 ,@Valid CreateProjectRequest body,  @QueryParam("account") 
@@ -60,7 +60,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse deleteAccountScopedProject( @PathParam("id")
+    Response deleteAccountScopedProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
 ,  @QueryParam("account") 
@@ -74,7 +74,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse deleteOrgScopedProject( @PathParam("org")
+    Response deleteOrgScopedProject( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("id")
@@ -91,7 +91,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse getAccountScopedProject( @PathParam("id")
+    Response getAccountScopedProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
 ,  @QueryParam("account") 
@@ -105,7 +105,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
-    List<ProjectResponse> getAccountScopedProjects(  @QueryParam("account") 
+    Response getAccountScopedProjects(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 ,  @QueryParam("org") 
@@ -137,7 +137,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse getOrgScopedProject( @PathParam("org")
+    Response getOrgScopedProject( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("id")
@@ -154,7 +154,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
-    List<ProjectResponse> getOrgScopedProjects( @PathParam("org")
+    Response getOrgScopedProjects( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 ,  @QueryParam("account") 
@@ -187,7 +187,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse updateAccountScopedProject( @PathParam("id")
+    Response updateAccountScopedProject( @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
 ,@Valid UpdateProjectRequest body,  @QueryParam("account") 
@@ -202,7 +202,7 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    ProjectResponse updateOrgScopedProject( @PathParam("org")
+    Response updateOrgScopedProject( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("id")
