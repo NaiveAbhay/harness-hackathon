@@ -29,7 +29,7 @@ public interface OrganizationApi {
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(summary = "Create Organization", description = "Create a new Organization.", security = {
+    @Operation(operationId = "createOrganization", summary = "Create Organization", description = "Create a new Organization.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
@@ -40,7 +40,7 @@ public interface OrganizationApi {
     @DELETE
     @Path("/{org}")
     @Produces({ "application/json" })
-    @Operation(summary = "Delete Organization", description = "Delete the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "deleteOrganization", summary = "Delete Organization", description = "Delete the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
@@ -54,7 +54,7 @@ public interface OrganizationApi {
     @GET
     @Path("/{org}")
     @Produces({ "application/json" })
-    @Operation(summary = "Get Organization", description = "Retrieve the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "getOrganization", summary = "Get Organization", description = "Retrieve the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
@@ -67,7 +67,7 @@ public interface OrganizationApi {
 );
     @GET
     @Produces({ "application/json" })
-    @Operation(summary = "Get Organizations", description = "Retrieve the information of the Organizations.", security = {
+    @Operation(operationId = "getOrganizations", summary = "Get Organizations", description = "Retrieve the information of the Organizations.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization lsit response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
@@ -91,7 +91,7 @@ public interface OrganizationApi {
     @Path("/{org}")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(summary = "Update Organization", description = "Update the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "updateOrganization", summary = "Update Organization", description = "Update the information of the organization with the matching organization identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })

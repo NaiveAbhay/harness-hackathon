@@ -30,7 +30,7 @@ public interface ProjectApi {
     @Path("/projects")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Create Project", description = "Creates a new Project", security = {
+    @Operation(operationId = "createAccountScopedProject", summary = "Create Project", description = "Creates a new Project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -42,7 +42,7 @@ public interface ProjectApi {
     @Path("/orgs/{org}/projects")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Create Project", description = "Creates a new Project", security = {
+    @Operation(operationId = "createOrgScopedProject", summary = "Create Project", description = "Creates a new Project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -56,7 +56,7 @@ public interface ProjectApi {
     @DELETE
     @Path("/projects/{id}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "deleteAccountScopedProject", summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -70,7 +70,7 @@ public interface ProjectApi {
     @DELETE
     @Path("/orgs/{org}/projects/{id}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "deleteOrgScopedProject", summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -87,7 +87,7 @@ public interface ProjectApi {
     @GET
     @Path("/projects/{id}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "getAccountScopedProject", summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -101,7 +101,7 @@ public interface ProjectApi {
     @GET
     @Path("/projects")
     @Produces({ "application/json" })
-    @Operation(summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
+    @Operation(operationId = "getAccountScopedProjects", summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
@@ -133,7 +133,7 @@ public interface ProjectApi {
     @GET
     @Path("/orgs/{org}/projects/{id}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "getOrgScopedProject", summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -150,7 +150,7 @@ public interface ProjectApi {
     @GET
     @Path("/orgs/{org}/projects")
     @Produces({ "application/json" })
-    @Operation(summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
+    @Operation(operationId = "getOrgScopedProjects", summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
@@ -183,7 +183,7 @@ public interface ProjectApi {
     @Path("/projects/{id}")
     @Consumes({ "application/json" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "updateAccountScopedProject", summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -198,7 +198,7 @@ public interface ProjectApi {
     @Path("/orgs/{org}/projects/{id}")
     @Consumes({ "application/json" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "updateOrgScopedProject", summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
