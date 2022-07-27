@@ -641,6 +641,9 @@ components:
           schema:
             type: string
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link'
+          examples:
+            sample:
+              value: '</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel="next", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel="self", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel="previous", '
     OrganizationListResponse:
       description: Organization lsit response
       content:
@@ -668,7 +671,7 @@ components:
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
           examples:
             sample:
-              value: '<"$url"/projects?orgIdentifier=dummy-orgnization&page=2&page_size=3>; rel="next", <https://qa.harness.io/projects?orgIdentifier=dummy-orgnization&page=50&page_size=3>; rel="last"'
+              value: '</v1/orgs?page=2&limit=1>; rel="next", </v1/orgs?page=1&limit=1>; rel="self", </v1/orgs?page=0&limit=1>; rel="previous", '
   requestBodies:
     UpdateProjectRequest:
       content:
