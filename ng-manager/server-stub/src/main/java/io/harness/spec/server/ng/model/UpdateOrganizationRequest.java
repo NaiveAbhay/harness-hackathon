@@ -1,18 +1,16 @@
 package io.harness.spec.server.ng.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Update Organization request
- **/
-import io.swagger.annotations.*;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @Schema(description = "Update Organization request")
 
 public class UpdateOrganizationRequest   {
@@ -32,7 +30,7 @@ public class UpdateOrganizationRequest   {
   }
 
   
-  @ApiModelProperty(required = true, value = "Organization name ")
+  @Schema(required = true, description = "Organization name ")
   @JsonProperty("name")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$") @Size(min=1,max=64)
@@ -52,7 +50,7 @@ public class UpdateOrganizationRequest   {
   }
 
   
-  @ApiModelProperty(required = true, value = "Organization description")
+  @Schema(required = true, description = "Organization description")
   @JsonProperty("description")
   @NotNull
  @Size(max=1024)
@@ -64,6 +62,7 @@ public class UpdateOrganizationRequest   {
   }
 
   /**
+   * Organization tags
    **/
   public UpdateOrganizationRequest tags(Map<String, String> tags) {
     this.tags = tags;
@@ -71,7 +70,7 @@ public class UpdateOrganizationRequest   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "Organization tags")
   @JsonProperty("tags")
  @Size(max=128)
   public Map<String, String> getTags() {

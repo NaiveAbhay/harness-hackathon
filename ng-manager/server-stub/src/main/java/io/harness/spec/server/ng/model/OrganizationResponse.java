@@ -1,18 +1,13 @@
 package io.harness.spec.server.ng.model;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Organization Response Model
- **/
-import io.swagger.annotations.*;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @Schema(description = "Organization Response Model")
 
 public class OrganizationResponse   {
@@ -40,7 +35,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Creation timestamp for organization")
+  @Schema(description = "Creation timestamp for organization")
   @JsonProperty("created_at")
 
   public Long getCreatedAt() {
@@ -59,7 +54,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Last modification timestamp for Organization")
+  @Schema(description = "Last modification timestamp for Organization")
   @JsonProperty("last_modified_at")
 
   public Long getLastModifiedAt() {
@@ -78,7 +73,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.")
+  @Schema(description = "This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.")
   @JsonProperty("harness_managed")
 
   public Boolean isHarnessManaged() {
@@ -97,7 +92,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Organization identifier")
+  @Schema(description = "Organization identifier")
   @JsonProperty("slug")
 
   public String getSlug() {
@@ -116,7 +111,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Organization name")
+  @Schema(description = "Organization name")
   @JsonProperty("name")
 
   public String getName() {
@@ -135,7 +130,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Organization description")
+  @Schema(description = "Organization description")
   @JsonProperty("description")
 
   public String getDescription() {
@@ -154,7 +149,7 @@ public class OrganizationResponse   {
   }
 
   
-  @ApiModelProperty(value = "Organization tags")
+  @Schema(description = "Organization tags")
   @JsonProperty("tags")
 
   public Map<String, String> getTags() {

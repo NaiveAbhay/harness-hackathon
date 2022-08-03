@@ -3,23 +3,28 @@ package io.harness.spec.server.ng;
 import io.harness.spec.server.ng.model.CreateOrganizationRequest;
 import io.harness.spec.server.ng.model.OrganizationResponse;
 import io.harness.spec.server.ng.model.UpdateOrganizationRequest;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import java.util.Map;
-import java.util.List;
-import javax.validation.constraints.*;
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/v1/orgs")
 
@@ -70,7 +75,7 @@ public interface OrganizationApi {
     @Operation(operationId = "getOrganizations", summary = "Get Organizations", description = "Retrieve the information of the Organizations.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Organization lsit response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Organization list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
     Response getOrganizations(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -95,10 +100,10 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    Response updateOrganization( @PathParam("org")
+    Response updateOrganization(@Valid UpdateOrganizationRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
-,@Valid UpdateOrganizationRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );}

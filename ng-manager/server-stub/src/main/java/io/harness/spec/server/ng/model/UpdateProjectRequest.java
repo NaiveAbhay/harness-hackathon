@@ -1,20 +1,18 @@
 package io.harness.spec.server.ng.model;
 
-import io.harness.spec.server.ng.model.ModuleType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Update Project Request
- **/
-import io.swagger.annotations.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Schema(description = "Update Project Request")
 
 public class UpdateProjectRequest   {
@@ -30,6 +28,7 @@ public class UpdateProjectRequest   {
   private @Valid Map<String, String> tags = new HashMap<>();
 
   /**
+   * Project name
    **/
   public UpdateProjectRequest name(String name) {
     this.name = name;
@@ -37,7 +36,7 @@ public class UpdateProjectRequest   {
   }
 
   
-  @ApiModelProperty(required = true, value = "")
+  @Schema(required = true, description = "Project name")
   @JsonProperty("name")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$") @Size(min=1,max=64)
@@ -49,6 +48,7 @@ public class UpdateProjectRequest   {
   }
 
   /**
+   * Project color
    **/
   public UpdateProjectRequest color(String color) {
     this.color = color;
@@ -56,7 +56,7 @@ public class UpdateProjectRequest   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "Project color")
   @JsonProperty("color")
  @Size(min=1)
   public String getColor() {
@@ -67,6 +67,7 @@ public class UpdateProjectRequest   {
   }
 
   /**
+   * List of modules for project
    **/
   public UpdateProjectRequest modules(List<ModuleType> modules) {
     this.modules = modules;
@@ -74,7 +75,7 @@ public class UpdateProjectRequest   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "List of modules for project")
   @JsonProperty("modules")
  @Size(max=1024)
   public List<ModuleType> getModules() {
@@ -85,6 +86,7 @@ public class UpdateProjectRequest   {
   }
 
   /**
+   * Project description
    **/
   public UpdateProjectRequest description(String description) {
     this.description = description;
@@ -92,7 +94,7 @@ public class UpdateProjectRequest   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "Project description")
   @JsonProperty("description")
  @Size(min=1,max=1024)
   public String getDescription() {
@@ -103,6 +105,7 @@ public class UpdateProjectRequest   {
   }
 
   /**
+   * Project tags
    **/
   public UpdateProjectRequest tags(Map<String, String> tags) {
     this.tags = tags;
@@ -110,7 +113,7 @@ public class UpdateProjectRequest   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "Project tags")
   @JsonProperty("tags")
  @Size(max=128)
   public Map<String, String> getTags() {

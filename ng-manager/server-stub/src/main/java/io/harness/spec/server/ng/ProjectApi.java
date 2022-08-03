@@ -3,23 +3,28 @@ package io.harness.spec.server.ng;
 import io.harness.spec.server.ng.model.CreateProjectRequest;
 import io.harness.spec.server.ng.model.ProjectResponse;
 import io.harness.spec.server.ng.model.UpdateProjectRequest;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import java.util.Map;
-import java.util.List;
-import javax.validation.constraints.*;
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/v1")
 
@@ -46,10 +51,10 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    Response createOrgScopedProject( @PathParam("org")
+    Response createOrgScopedProject(@Valid CreateProjectRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-,@Valid CreateProjectRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
@@ -187,10 +192,10 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    Response updateAccountScopedProject( @PathParam("id")
+    Response updateAccountScopedProject(@Valid UpdateProjectRequest body, @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
-,@Valid UpdateProjectRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
@@ -202,13 +207,13 @@ public interface ProjectApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
-    Response updateOrgScopedProject( @PathParam("org")
+    Response updateOrgScopedProject(@Valid UpdateProjectRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("id")
 
  @Parameter(description = "Project identifier") String id
-,@Valid UpdateProjectRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );}

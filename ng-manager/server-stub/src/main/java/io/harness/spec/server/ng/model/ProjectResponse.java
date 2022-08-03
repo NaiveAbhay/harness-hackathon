@@ -1,20 +1,15 @@
 package io.harness.spec.server.ng.model;
 
-import io.harness.spec.server.ng.model.ModuleType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Project Response model
- **/
-import io.swagger.annotations.*;
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Schema(description = "Project Response model")
 
 public class ProjectResponse   {
@@ -23,7 +18,7 @@ public class ProjectResponse   {
 
   private @Valid Long lastModifiedAt = null;
 
-  private @Valid String orgIdentifier = null;
+  private @Valid String org = null;
 
   private @Valid String slug = null;
 
@@ -46,7 +41,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Creation timestamp for the project")
+  @Schema(description = "Creation timestamp for the project")
   @JsonProperty("created_at")
 
   public Long getCreatedAt() {
@@ -65,7 +60,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Last modification timestamp for the project")
+  @Schema(description = "Last modification timestamp for the project")
   @JsonProperty("last_modified_at")
 
   public Long getLastModifiedAt() {
@@ -78,20 +73,20 @@ public class ProjectResponse   {
   /**
    * Organization identifier for the project
    **/
-  public ProjectResponse orgIdentifier(String orgIdentifier) {
-    this.orgIdentifier = orgIdentifier;
+  public ProjectResponse org(String org) {
+    this.org = org;
     return this;
   }
 
   
-  @ApiModelProperty(value = "Organization identifier for the project")
-  @JsonProperty("org_identifier")
+  @Schema(description = "Organization identifier for the project")
+  @JsonProperty("org")
 
-  public String getOrgIdentifier() {
-    return orgIdentifier;
+  public String getOrg() {
+    return org;
   }
-  public void setOrgIdentifier(String orgIdentifier) {
-    this.orgIdentifier = orgIdentifier;
+  public void setOrg(String org) {
+    this.org = org;
   }
 
   /**
@@ -103,7 +98,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Project identifier")
+  @Schema(description = "Project identifier")
   @JsonProperty("slug")
 
   public String getSlug() {
@@ -122,7 +117,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Project name")
+  @Schema(description = "Project name")
   @JsonProperty("name")
 
   public String getName() {
@@ -141,7 +136,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Project color")
+  @Schema(description = "Project color")
   @JsonProperty("color")
 
   public String getColor() {
@@ -160,7 +155,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "List of module for project")
+  @Schema(description = "List of module for project")
   @JsonProperty("modules")
 
   public List<ModuleType> getModules() {
@@ -179,7 +174,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Project description")
+  @Schema(description = "Project description")
   @JsonProperty("description")
 
   public String getDescription() {
@@ -198,7 +193,7 @@ public class ProjectResponse   {
   }
 
   
-  @ApiModelProperty(value = "Project tags")
+  @Schema(description = "Project tags")
   @JsonProperty("tags")
 
   public Map<String, String> getTags() {
@@ -220,7 +215,7 @@ public class ProjectResponse   {
     ProjectResponse projectResponse = (ProjectResponse) o;
     return Objects.equals(createdAt, projectResponse.createdAt) &&
         Objects.equals(lastModifiedAt, projectResponse.lastModifiedAt) &&
-        Objects.equals(orgIdentifier, projectResponse.orgIdentifier) &&
+        Objects.equals(org, projectResponse.org) &&
         Objects.equals(slug, projectResponse.slug) &&
         Objects.equals(name, projectResponse.name) &&
         Objects.equals(color, projectResponse.color) &&
@@ -231,7 +226,7 @@ public class ProjectResponse   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, lastModifiedAt, orgIdentifier, slug, name, color, modules, description, tags);
+    return Objects.hash(createdAt, lastModifiedAt, org, slug, name, color, modules, description, tags);
   }
 
   @Override
@@ -241,7 +236,7 @@ public class ProjectResponse   {
     
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
-    sb.append("    orgIdentifier: ").append(toIndentedString(orgIdentifier)).append("\n");
+    sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    color: ").append(toIndentedString(color)).append("\n");

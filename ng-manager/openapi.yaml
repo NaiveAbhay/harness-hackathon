@@ -7,7 +7,7 @@ info:
     email: contact@harness.io
 servers:
   - url: 'http://app.harness.io'
-    description: localhost
+    description: harness
 tags:
   - name: Organization
     description: Everything about Organization
@@ -506,6 +506,7 @@ components:
           description: Organization description
         tags:
           type: object
+          description: Organization tags
           additionalProperties:
             type: string
           maxProperties: 128
@@ -531,20 +532,25 @@ components:
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           maxLength: 64
+          description: Project name
         color:
           type: string
           minLength: 1
+          description: Project color
         modules:
           type: array
           maxItems: 1024
+          description: List of modules for project
           items:
             $ref: '#/components/schemas/ModuleType'
         description:
           type: string
           minLength: 1
           maxLength: 1024
+          description: Project description
         tags:
           type: object
+          description: Project tags
           additionalProperties:
             type: string
           maxProperties: 128
@@ -645,7 +651,7 @@ components:
             sample:
               value: '</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel="next", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel="self", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel="previous", '
     OrganizationListResponse:
-      description: Organization lsit response
+      description: Organization list response
       content:
         application/json:
           schema:
@@ -690,6 +696,7 @@ components:
                   property1: value1
                   property2: value2
       description: Put the necessary fields for the API to update a Project.
+      required: true
     CreateOrganizationRequest:
       content:
         application/json:
@@ -705,6 +712,7 @@ components:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
       description: Post the necessary fields for the API to create a Organization.
+      required: true
     UpdateOrganizationRequest:
       content:
         application/json:
@@ -719,6 +727,7 @@ components:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
       description: Put the necessary fields for the API to update a Organization.
+      required: true
     CreateProjectRequest:
       content:
         application/json:
@@ -752,6 +761,7 @@ components:
                   property1: value1
                   property2: value2
       description: Post the necessary fields for the API to create a Project.
+      required: true
   parameters:
     Page:
       name: page
