@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
 @Schema(description = "Organization Response Model")
 
 public class OrganizationResponse   {
