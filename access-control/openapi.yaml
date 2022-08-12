@@ -137,6 +137,8 @@ paths:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
         - Roles
+      parameters:
+        - $ref: '#/components/parameters/AccountParam'
   '/v1/orgs/{org}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -210,7 +212,7 @@ paths:
       security:
         - x-api-key: []
     post:
-      summary: 'Create Role [Project]'
+      summary: 'Create a Role [Project]'
       operationId: create-role-project
       responses:
         '200':
@@ -222,6 +224,8 @@ paths:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
         - Roles
+      parameters:
+        - $ref: '#/components/parameters/AccountParam'
   '/v1/orgs/{org}/projects/{project}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -506,7 +510,7 @@ components:
               pageSize:
                 type: integer
                 description: Size of page.
-              '':
+              roles:
                 type: array
                 items:
                   $ref: '#/components/schemas/RolesResponse'
@@ -523,7 +527,7 @@ components:
                 totalItems: 0
                 pageItemCount: 0
                 pageSize: 0
-                '':
+                roles:
                   - slug: example_role
                     name: Example_Role
                     permissions:
