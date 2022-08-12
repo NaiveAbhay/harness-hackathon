@@ -11,7 +11,7 @@ servers:
   - url: 'http://app.harness.io'
     description: localhost
 tags:
-  - name: Role
+  - name: Roles
     description: This contains APIs for performing CRUD operations on Roles.
 paths:
   /v1/roles:
@@ -19,7 +19,7 @@ paths:
     get:
       summary: 'List Roles [Account]'
       tags:
-        - Role
+        - Roles
       operationId: list-roles-acc
       description: Returns a list of Roles present in the Account scope.
       security:
@@ -51,7 +51,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       security:
         - x-api-key: []
   '/v1/roles/{role}':
@@ -60,7 +60,7 @@ paths:
     get:
       summary: 'Retrieve a Role [Account]'
       tags:
-        - Role
+        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -77,7 +77,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       description: Updates a Role from Account scope.
       security:
         - x-api-key: []
@@ -92,7 +92,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       description: Deletes a custom Role from Account scope.
       security:
         - x-api-key: []
@@ -104,7 +104,7 @@ paths:
     get:
       summary: 'List Roles [Organization]'
       tags:
-        - Role
+        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -136,7 +136,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
-        - Role
+        - Roles
   '/v1/orgs/{org}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -144,7 +144,7 @@ paths:
     get:
       summary: 'Retrieve a Role [Organization]'
       tags:
-        - Role
+        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -161,7 +161,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       description: Updates a Role from Organization scope.
       security:
         - x-api-key: []
@@ -176,7 +176,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       description: Deletes a custom Role from Organization scope.
       parameters:
         - $ref: '#/components/parameters/AccountParam'
@@ -189,7 +189,7 @@ paths:
     get:
       summary: 'List Roles [Project]'
       tags:
-        - Role
+        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -221,7 +221,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
-        - Role
+        - Roles
   '/v1/orgs/{org}/projects/{project}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -230,7 +230,7 @@ paths:
     get:
       summary: 'Retrieve a Role [Project]'
       tags:
-        - Role
+        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -247,7 +247,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       security:
         - x-api-key: []
       requestBody:
@@ -260,7 +260,7 @@ paths:
         '200':
           $ref: '#/components/responses/RoleResponse'
       tags:
-        - Role
+        - Roles
       description: Deletes a custom Role from Project scope.
       security:
         - x-api-key: []
@@ -285,17 +285,14 @@ components:
         order_type:
           $ref: '#/components/schemas/SortType'
     SortType:
+      type: string
       title: Sorting Type
       x-stoplight:
         id: yjhtvl15wadjq
-      type: object
       description: Sorting types when listing Roles.
-      properties:
-        id:
-          type: string
-          enum:
-            - ASC
-            - DESC
+      enum:
+        - ASC
+        - DESC
     RolesResponse:
       title: RolesResponse
       x-stoplight:
@@ -402,6 +399,18 @@ components:
       required:
         - slug
         - name
+      x-examples:
+        role-request:
+          slug: example_role
+          name: Example_Role
+          permissions:
+            - core_view
+          allowed_scope_levels:
+            - account
+          description: This is an Example Role
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
     RoleScope:
       title: Scope
       x-stoplight:
@@ -418,6 +427,7 @@ components:
         project:
           type: string
           description: Project identifier
+      x-examples: {}
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -507,17 +517,32 @@ components:
                 type: boolean
                 description: Returns true when page is empty.
           examples:
-            example-roles-list-response:
+            role-list-response:
               value:
-                - slug: example_role
-                  name: Example Role
-                  description: This is an Example Role
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
-                  created_at: 1234567890
-                  last_modified_at: 1234567890
-                  harness_managed: true
+                totalPages: 0
+                totalItems: 0
+                pageItemCount: 0
+                pageSize: 0
+                '':
+                  - slug: example_role
+                    name: Example_Role
+                    permissions:
+                      - core_view
+                    allowed_scope_levels:
+                      - account
+                    description: This is an Example Role
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    scope:
+                      account: sample_account
+                      org: sample_org
+                      project: sample_project
+                    harness_managed: true
+                    created_at: 1234567890
+                    last_modified_at: 1234567890
+                pageIndex: 0
+                empty: true
       headers:
         Link:
           schema:
@@ -528,14 +553,43 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              id:
-                $ref: '#/components/schemas/RolesResponse'
+            $ref: '#/components/schemas/RolesResponse'
+          examples:
+            role-response:
+              value:
+                slug: example_role
+                name: Example_Role
+                permissions:
+                  - core_view
+                allowed_scope_levels:
+                  - account
+                description: This is an Example Role
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                scope:
+                  account: sample_account
+                  org: sample_org
+                  project: sample_project
+                harness_managed: true
+                created_at: 1234567890
+                last_modified_at: 1234567890
   requestBodies:
     CreateRoleRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateRoleRequest'
-
+          examples:
+            role-request:
+              value:
+                slug: example_role
+                name: Example_Role
+                permissions:
+                  - core_view
+                allowed_scope_levels:
+                  - account
+                description: This is an Example Role
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
