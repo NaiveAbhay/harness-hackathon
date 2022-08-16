@@ -563,20 +563,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -795,20 +782,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -820,14 +794,14 @@
         } ]
       }
     },
-    "/v1/projects/{id}" : {
+    "/v1/projects/{project}" : {
       "get" : {
         "tags" : [ "Project" ],
         "summary" : "Get Project",
         "description" : "Retrieve the information of the Project with the matching Project identifier.",
         "operationId" : "get-account-scoped-project",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
           "description" : "Project identifier",
           "required" : true,
@@ -880,20 +854,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -910,7 +871,7 @@
         "description" : "Updates the information of the Project with the matching Project identifier.",
         "operationId" : "update-account-scoped-project",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
           "description" : "Project identifier",
           "required" : true,
@@ -966,20 +927,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -996,7 +944,7 @@
         "description" : "Deletes the information of the Project with the matching Project identifier.",
         "operationId" : "delete-account-scoped-project",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
           "description" : "Project identifier",
           "required" : true,
@@ -1049,20 +997,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1074,7 +1009,7 @@
         } ]
       }
     },
-    "/v1/orgs/{org}/projects/{id}" : {
+    "/v1/orgs/{org}/projects/{project}" : {
       "get" : {
         "tags" : [ "Project" ],
         "summary" : "Get Project",
@@ -1091,9 +1026,9 @@
             "type" : "string"
           }
         }, {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Slug field of the project the resource is scoped to",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -1144,20 +1079,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1184,9 +1106,9 @@
             "type" : "string"
           }
         }, {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Slug field of the project the resource is scoped to",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -1240,20 +1162,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1280,9 +1189,9 @@
             "type" : "string"
           }
         }, {
-          "name" : "id",
+          "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Slug field of the project the resource is scoped to",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -1333,20 +1242,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
-                      },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
-                    }
+                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1741,20 +1637,7 @@
             },
             "examples" : {
               "example-project-response-yaml" : {
-                "value" : {
-                  "org" : "example_org_identifier",
-                  "slug" : "example_project_identifier",
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
-                  },
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890
-                }
+                "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
               }
             }
           }
@@ -1948,6 +1831,17 @@
         "schema" : {
           "type" : "string"
         }
+      },
+      "ProjectPathParam" : {
+        "name" : "project",
+        "in" : "path",
+        "description" : "Slug field of the project the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
       }
     },
     "requestBodies" : {
@@ -1984,7 +1878,7 @@
               "$ref" : "#/components/schemas/CreateOrganizationRequest"
             },
             "examples" : {
-              "example-create-irganization-request-json" : {
+              "example-create-organization-request-json" : {
                 "value" : {
                   "slug" : "example_organization",
                   "name" : "Example Organization",
@@ -2052,17 +1946,7 @@
             },
             "examples" : {
               "example-create-project-request-yaml" : {
-                "value" : {
-                  "slug" : "example_project_identifier",
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
-                  }
-                }
+                "value" : "slug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\n"
               }
             }
           }

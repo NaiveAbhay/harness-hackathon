@@ -1,14 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.ModuleType;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+
+/**
+ * Project Response model
+ **/
+import io.swagger.annotations.*;
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 
 @Schema(description = "Project Response model")

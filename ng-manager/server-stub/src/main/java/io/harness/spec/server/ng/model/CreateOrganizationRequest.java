@@ -1,15 +1,23 @@
 package io.harness.spec.server.ng.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+
+/**
+ * Create Organization request
+ **/
+import io.swagger.annotations.*;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 
 @Schema(description = "Create Organization request")
