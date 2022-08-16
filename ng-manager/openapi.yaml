@@ -411,6 +411,17 @@ paths:
       description: Retrieves the information of the Secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+    delete:
+      summary: Delete Secret
+      tags:
+        - Secret
+      operationId: delete-org-scoped-secret
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretResponse'
+      description: Deletes the information of the Secret with the matching Secret identifier.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
 components:
   schemas:
     CreateOrganizationRequest:
