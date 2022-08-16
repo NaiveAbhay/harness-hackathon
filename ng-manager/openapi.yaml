@@ -518,6 +518,17 @@ paths:
         - Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
+    head:
+      summary: Validate Secret slug
+      operationId: validate-unique-account-scoped-secret-slug
+      responses:
+        '200':
+          description: ''
+      description: Validates secret slug is unique
+      tags:
+        - Secret
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/org/{org}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
