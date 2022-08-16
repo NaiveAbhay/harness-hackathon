@@ -282,12 +282,7 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
-      - schema:
-          type: string
-        name: project
-        in: path
-        required: true
-        description: Project identifier
+      - $ref: '#/components/parameters/ProjectPathParam'
 components:
   schemas:
     CreateOrganizationRequest:
