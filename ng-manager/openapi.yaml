@@ -302,6 +302,17 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
+    get:
+      summary: Get Secrets
+      operationId: get-account-scoped-secrets
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretListResponse'
+      description: Retrieve the information of the Secrets.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Secret
 components:
   schemas:
     CreateOrganizationRequest:
@@ -1146,6 +1157,61 @@ components:
                 updated_at: 1234567890
                 draft: false
                 governance_metatdata: null
+    SecretListResponse:
+      description: Secret list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/SecretResponse'
+          examples:
+            example-list-secret-response-json:
+              value:
+                - secret:
+                    name: example_secret
+                    slug: example_secret
+                    org: default
+                    project: example_project
+                    tags:
+                      property1: example_secret
+                    description: example_secret
+                    spec:
+                      type: SSHKeyPath
+                      port: 80
+                      username: example_secret
+                      key_path: example_secret
+                      encrypted_passphrase: account.example_secret
+                  created_at: 1234567890
+                  updated_at: 1234567890
+                  draft: false
+                  governance_metatdata: null
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/SecretResponse'
+          examples:
+            example-list-secret-response-yaml:
+              value: |
+                - secret:
+                    name: example_secret
+                    slug: example_secret
+                    org: default
+                    project: example_project
+                    tags:
+                      property1: example_secret
+                    description: example_secret
+                    spec:
+                      type: SSHKeyPath
+                      port: 80
+                      username: example_secret
+                      key_path: example_secret
+                      encrypted_passphrase: account.example_secret
+                  created_at: 1234567890
+                  updated_at: 1234567890
+                  draft: false
+                  governance_metatdata: null
   requestBodies:
     UpdateProjectRequest:
       content:
