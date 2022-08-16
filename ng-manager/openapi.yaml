@@ -330,6 +330,24 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+  '/v1/orgs/{org}/project/{project}/secrets':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    post:
+      summary: Create Secret
+      operationId: create-project-scoped-secret
+      responses:
+        '201':
+          $ref: '#/components/responses/SecretResponse'
+      description: Creates a new Secret
+      requestBody:
+        $ref: '#/components/requestBodies/SecretRequest'
+      tags:
+        - Secret
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/PrivateSecret'
 components:
   schemas:
     CreateOrganizationRequest:
