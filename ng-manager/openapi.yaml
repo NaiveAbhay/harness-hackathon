@@ -13,6 +13,8 @@ tags:
     description: Everything about Organization
   - name: Project
     description: Everything about Project
+  - name: Secret
+    description: Everything about Secret
 paths:
   /v1/orgs:
     post:
@@ -283,6 +285,23 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
+  /v1/secrets:
+    post:
+      summary: Create Secret
+      operationId: create-account-scoped-secret
+      responses:
+        '201':
+          $ref: '#/components/responses/SecretResponse'
+      tags:
+        - Secret
+      description: Creates a new Secret
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/PrivateSecret'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/SecretRequest'
 components:
   schemas:
     CreateOrganizationRequest:
@@ -551,6 +570,409 @@ components:
           maxProperties: 128
       required:
         - name
+    SecretSpec:
+      title: SecretSpec
+      type: object
+      description: Details of the Secret defined in Harness
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          SSHKeyPath: '#/components/schemas/SSHKeyPathSpec'
+          SSHKeyReference: '#/components/schemas/SSHKeyReferenceSpec'
+          SSHPassword: '#/components/schemas/SSHPasswordSpec'
+          SSHKerberosTGTKeyTabFile: '#/components/schemas/SSHKerberosTGTKeyTabFileSpec'
+          SSHKerberosTGTPassword: '#/components/schemas/SSHKerberosTGTPasswordSpec'
+          SecretFile: '#/components/schemas/SecretFileSpec'
+          SecretText: '#/components/schemas/SecretTextSpec'
+          WinRmTGTKeyTabFile: '#/components/schemas/WinRmTGTKeyTabFileSpec'
+          WinRmTGTPassword: '#/components/schemas/WinRmTGTPasswordSpec'
+          WinRmNTLM: '#/components/schemas/WinRmNTLMSpec'
+      oneOf:
+        - $ref: '#/components/schemas/SSHKeyPathSpec'
+        - $ref: '#/components/schemas/SSHKeyReferenceSpec'
+        - $ref: '#/components/schemas/SSHPasswordSpec'
+        - $ref: '#/components/schemas/SSHKerberosTGTKeyTabFileSpec'
+        - $ref: '#/components/schemas/SSHKerberosTGTPasswordSpec'
+        - $ref: '#/components/schemas/SecretFileSpec'
+        - $ref: '#/components/schemas/SecretTextSpec'
+        - $ref: '#/components/schemas/WinRmTGTKeyTabFileSpec'
+        - $ref: '#/components/schemas/WinRmTGTPasswordSpec'
+        - $ref: '#/components/schemas/WinRmNTLMSpec'
+      properties:
+        type:
+          type: string
+          enum:
+            - SSHKeyPath
+            - SSHKeyReference
+            - SSHPassword
+            - SSHKerberosTGTKeyTabFile
+            - SSHKerberosTGTPassword
+            - SecretFile
+            - SecretText
+            - WinRmTGTKeyTabFile
+            - WinRmTGTPassword
+            - WinRmNTLM
+          description: This specifies the type of secret
+    SSHKeyPathSpec:
+      title: SSHKeyPath
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SSHKeyPath
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              description: SSH port
+            username:
+              type: string
+              description: SSH username
+            key_path:
+              type: string
+              description: Path of the key file
+            encrypted_passphrase:
+              type: string
+              description: This is the passphrase provided while creating the SSH key for local encryption
+          required:
+            - type
+            - username
+            - key_path
+    SSHKeyReferenceSpec:
+      title: SSHKeyReference
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SSHKeyReference
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              description: SSH port
+            username:
+              type: string
+              description: SSH username
+            key:
+              type: string
+              description: SSH key
+            encrypted_passphrase:
+              type: string
+              description: This is the passphrase provided while creating the SSH key for local encryption
+          required:
+            - type
+            - username
+    SSHPasswordSpec:
+      title: SSHPassword
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SSHPassword
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              description: SSH port
+            username:
+              type: string
+              description: SSH username
+            password:
+              type: string
+              description: SSH password
+          required:
+            - type
+            - username
+            - password
+    SSHKerberosTGTKeyTabFileSpec:
+      title: SSHKerberosTGTKeyTabFile
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SSHKerberosTGTKeyTabFile
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              description: SSH port
+            principal:
+              type: string
+              description: Kerberos principal
+            realm:
+              type: string
+              description: Kerberos realm
+            key_path:
+              type: string
+              description: Kerberos keytab file path
+          required:
+            - type
+    SSHKerberosTGTPasswordSpec:
+      title: SSHKerberosTGTPassword
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SSHKerberosTGTPassword
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              description: SSH port
+            principal:
+              type: string
+              description: Kerberos principal
+            realm:
+              type: string
+              description: Kerberos realm
+            password:
+              type: string
+              description: Kerberos password
+          required:
+            - type
+    SecretFileSpec:
+      title: SecretFile
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SecretFile
+              description: This specifies the type of secret
+            secret_manager_identifier:
+              type: string
+              description: Identifier of the Secret Manager used to manage the secret
+          required:
+            - type
+            - secret_manager_identifier
+    SecretTextSpec:
+      title: SecretText
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - SecretText
+              description: This specifies the type of secret
+            secret_manager_identifier:
+              type: string
+              description: Identifier of the Secret Manager used to manage the secret
+            value_type:
+              type: string
+              enum:
+                - Inline
+                - Reference
+              description: This has details to specify if the secret value is inline or referenced
+            value:
+              type: string
+              description: Value of the Secret
+          required:
+            - type
+            - secret_manager_identifier
+            - value_type
+    WinRmTGTKeyTabFileSpec:
+      title: WinRmTGTKeyTabFile
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - WinRmTGTKeyTabFile
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              default: 5986
+              description: WinRm port
+            principal:
+              type: string
+              description: Kerberos principal
+            realm:
+              type: string
+              description: Kerberos realm
+            key_path:
+              type: string
+              description: Keytab file path
+            use_ssl:
+              type: boolean
+              default: true
+              description: This is the Kerberos either to use SSL/https
+            skip_cert_checks:
+              type: boolean
+              default: true
+              description: This is the Kerberos either to skip certificate checks
+            use_no_profile:
+              type: boolean
+              description: This is the Kerberos powershell runs without loading profile
+          required:
+            - type
+    WinRmTGTPasswordSpec:
+      title: WinRmTGTPassword
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - WinRmTGTPassword
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              default: 5986
+              description: WinRm port
+            principal:
+              type: string
+              description: Kerberos principal
+            realm:
+              type: string
+              description: Kerberos realm
+            password:
+              type: string
+              description: Kerberos password
+            use_ssl:
+              type: boolean
+              default: true
+              description: This is the Kerberos either to use SSL/https
+            skip_cert_checks:
+              type: boolean
+              default: true
+              description: This is the Kerberos either to skip certificate checks
+            use_no_profile:
+              type: boolean
+              description: This is the Kerberos powershell runs without loading profile
+          required:
+            - type
+    WinRmNTLMSpec:
+      title: WinRmNTLM
+      description: This is the SSH key authentication details defined in Harness.
+      allOf:
+        - $ref: '#/components/schemas/SecretSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - WinRmNTLM
+              description: This specifies the type of secret
+            port:
+              type: integer
+              format: int32
+              default: 5986
+              description: WinRm port
+            domain:
+              type: string
+              description: This is the NTLM domain name
+            username:
+              type: string
+              description: This is the NTLM user name
+            password:
+              type: string
+              description: This is the NTLM password
+            use_ssl:
+              type: boolean
+              default: true
+              description: This is the NTLM either to use SSL/https
+            skip_cert_checks:
+              type: boolean
+              default: true
+              description: This is the Kerberos either to skip certificate checks
+            use_no_profile:
+              type: boolean
+              description: This is the Kerberos powershell runs without loading profile
+          required:
+            - type
+            - domain
+            - username
+            - password
+    SecretRequest:
+      type: object
+      properties:
+        secret:
+          $ref: '#/components/schemas/Secret'
+    Secret:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Secret name
+          pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
+        slug:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          description: Secret identifier
+          maxLength: 64
+        org:
+          type: string
+          description: Organization identifier for secret
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+        project:
+          type: string
+          description: Project identifier for secret
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Secret tags
+        description:
+          type: string
+          description: Secret description
+        spec:
+          $ref: '#/components/schemas/SecretSpec'
+    SecretResponse:
+      title: SecretResponse
+      type: object
+      properties:
+        secret:
+          $ref: '#/components/schemas/Secret'
+        created_at:
+          type: integer
+          format: int64
+          description: Creation timestamp for the secret
+        updated_at:
+          type: integer
+          format: int64
+          description: Last modification timestamp for the secret
+        draft:
+          type: boolean
+        governance_metadata:
+          type: object
+      description: Secret Response Model
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -673,6 +1095,57 @@ components:
           examples:
             sample:
               value: '</v1/orgs?page=2&limit=1>; rel="next", </v1/orgs?page=1&limit=1>; rel="self", </v1/orgs?page=0&limit=1>; rel="previous", '
+    SecretResponse:
+      description: Secret Response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SecretResponse'
+          examples:
+            example-create-secret-response-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyPath
+                    port: 80
+                    username: example_secret
+                    key_path: example_secret
+                    encrypted_passphrase: account.example_secret
+                created_at: 1234567890
+                updated_at: 1234567890
+                draft: false
+                governance_metatdata: null
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/SecretResponse'
+          examples:
+            example-create-secret-response-yaml:
+              value: |
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyPath
+                    port: 80
+                    username: example_secret
+                    key_path: example_secret
+                    encrypted_passphrase: account.example_secret
+                created_at: 1234567890
+                updated_at: 1234567890
+                draft: false
+                governance_metatdata: null
   requestBodies:
     UpdateProjectRequest:
       content:
@@ -757,6 +1230,49 @@ components:
                   property2: value2
       description: Post the necessary fields for the API to create a Project.
       required: true
+    SecretRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SecretRequest'
+          examples:
+            example-create-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyPath
+                    port: 80
+                    username: example_secret
+                    key_path: example_secret
+                    encrypted_passphrase: account.example_secret
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/SecretRequest'
+          examples:
+            example-create-secret-request-yaml:
+              value: |
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyPath
+                    port: 80
+                    username: example_secret
+                    key_path: example_secret
+                    encrypted_passphrase: account.example_secret
+      required: true
   parameters:
     Page:
       name: page
@@ -820,6 +1336,13 @@ components:
       schema:
         type: string
       description: Slug field of the organization the resource is scoped to
+    PrivateSecret:
+      name: private_secret
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: This would be used to define secret as private.
     ProjectPathParam:
       name: project
       in: path
