@@ -435,6 +435,27 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Secret
+  '/v1/org/{org}/project/{project}/secrets/{secret}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - schema:
+          type: string
+        name: secret
+        in: path
+        required: true
+        description: Slug field of the Secret
+    get:
+      summary: Get Secret
+      tags:
+        - Secret
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretResponse'
+      operationId: get-project-scoped-secret
+      description: Retrieves the information of the Secret.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
 components:
   schemas:
     CreateOrganizationRequest:
