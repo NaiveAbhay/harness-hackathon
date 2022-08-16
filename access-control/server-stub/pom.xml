@@ -50,6 +50,20 @@
       <version>${junit-version}</version>
       <scope>test</scope>
     </dependency>
+        <!--    Manually added-->
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <scope>provided</scope>
+      <version>1.5.22</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <scope>provided</scope>
+      <version>2.7.9</version>
+    </dependency>
+    <!--    Manually added-->
     <!-- Bean Validation API support -->
     <dependency>
         <groupId>javax.validation</groupId>
