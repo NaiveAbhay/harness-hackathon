@@ -430,6 +430,51 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+    get:
+      summary: ''
+      operationId: get-project-scoped-secrets
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretListResponse'
+      description: Retrieve the information of the Secrets.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: secret
+          description: Slug field of secrets
+        - schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - SSHKeyPath
+                - SSHKeyReference
+                - SSHPassword
+                - SSHKerberosTGTKeyTabFile
+                - SSHKerberosTGTPassword
+                - SecretFile
+                - SecretText
+                - WinRmTGTKeyTabFile
+                - WinRmTGTPassword
+                - WinRmNTLM
+          in: query
+          name: type
+          description: Secret types on which the filter will be applied
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: recursive
+          description: 'Expand current scope to include all child scopes '
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      tags:
+        - Secret
   '/v1/secrets/{secret}':
     parameters:
       - schema:
