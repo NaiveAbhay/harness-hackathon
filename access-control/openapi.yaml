@@ -11,15 +11,23 @@ servers:
   - url: 'http://app.harness.io'
     description: localhost
 tags:
+  - name: Account Roles
+    description: This contains APIs for performing CRUD operations on Account level Roles.
+  - name: Organization Roles
+    description: This contains APIs for performing CRUD operations on Organization level Roles.
+  - name: Project Roles
+    description: This contains APIs for performing CRUD operations on Project level Roles.
+x-tagGroups:
   - name: Roles
-    description: This contains APIs for performing CRUD operations on Roles.
+    tags:
+      - Account Roles
+      - Organization Roles
+      - Project Roles
 paths:
   /v1/roles:
     parameters: []
     get:
       summary: 'List Roles [Account]'
-      tags:
-        - Roles
       operationId: list-roles-acc
       description: Returns a list of Roles present in the Account scope.
       security:
@@ -39,6 +47,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
+      tags:
+        - Account Roles
     post:
       summary: 'Create a Role [Account]'
       operationId: create-role-acc
@@ -50,17 +60,15 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       security:
         - x-api-key: []
+      tags:
+        - Account Roles
   '/v1/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/RoleParam'
     get:
       summary: 'Retrieve a Role [Account]'
-      tags:
-        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -70,14 +78,14 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Account Roles
     put:
       summary: 'Update a Role [Account]'
       operationId: update-role-acc
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       description: Updates a Role from Account scope.
       security:
         - x-api-key: []
@@ -85,26 +93,28 @@ paths:
         - $ref: '#/components/parameters/AccountParam'
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
+      tags:
+        - Account Roles
     delete:
       summary: 'Delete a Role [Account]'
       operationId: delete-role-acc
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       description: Deletes a custom Role from Account scope.
       security:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Account Roles
   '/v1/orgs/{org}/roles':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
     get:
       summary: 'List Roles [Organization]'
       tags:
-        - Roles
+        - Organization Roles
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -135,18 +145,16 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
-      tags:
-        - Roles
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Organization Roles
   '/v1/orgs/{org}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/RoleParam'
     get:
       summary: 'Retrieve a Role [Organization]'
-      tags:
-        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -156,14 +164,14 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Organization Roles
     put:
       summary: 'Update a Role [Organization]'
       operationId: update-role-org
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       description: Updates a Role from Organization scope.
       security:
         - x-api-key: []
@@ -171,27 +179,27 @@ paths:
         - $ref: '#/components/parameters/AccountParam'
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
+      tags:
+        - Organization Roles
     delete:
       summary: 'Delete a Role [Organization]'
       operationId: delete-role-org
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       description: Deletes a custom Role from Organization scope.
       parameters:
         - $ref: '#/components/parameters/AccountParam'
       security:
         - x-api-key: []
+      tags:
+        - Organization Roles
   '/v1/orgs/{org}/projects/{project}/roles':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
     get:
       summary: 'List Roles [Project]'
-      tags:
-        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -211,6 +219,8 @@ paths:
           description: Sort criteria for the items.
       security:
         - x-api-key: []
+      tags:
+        - Project Roles
     post:
       summary: 'Create a Role [Project]'
       operationId: create-role-project
@@ -222,10 +232,10 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
-      tags:
-        - Roles
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Project Roles
   '/v1/orgs/{org}/projects/{project}/roles/{role}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -233,8 +243,6 @@ paths:
       - $ref: '#/components/parameters/RoleParam'
     get:
       summary: 'Retrieve a Role [Project]'
-      tags:
-        - Roles
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -244,32 +252,34 @@ paths:
       description: Retrieves a Role from Project scope.
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Project Roles
     put:
       summary: 'Update a Role [Project]'
       operationId: update-role-project
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       security:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       description: Updates a Role from Project scope.
+      tags:
+        - Project Roles
     delete:
       summary: 'Delete a Role [Project]'
       operationId: delete-role-project
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
-      tags:
-        - Roles
       description: Deletes a custom Role from Project scope.
       security:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Project Roles
 components:
   schemas:
     SortRoles:
