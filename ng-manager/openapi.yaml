@@ -189,7 +189,7 @@ paths:
         - $ref: '#/components/parameters/Limit'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
-  '/v1/projects/{id}':
+  '/v1/projects/{project}':
     get:
       summary: Get Project
       tags:
@@ -234,11 +234,11 @@ paths:
     parameters:
       - schema:
           type: string
-        name: id
+        name: project
         in: path
         required: true
         description: Project identifier
-  '/v1/orgs/{org}/projects/{id}':
+  '/v1/orgs/{org}/projects/{project}':
     get:
       summary: Get Project
       tags:
@@ -284,7 +284,7 @@ paths:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
           type: string
-        name: id
+        name: project
         in: path
         required: true
         description: Project identifier
