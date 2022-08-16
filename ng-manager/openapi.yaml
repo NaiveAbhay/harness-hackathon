@@ -348,6 +348,25 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+  '/v1/secrets/{secret}':
+    parameters:
+      - schema:
+          type: string
+        name: secret
+        in: path
+        required: true
+        description: Slug field of the Secret
+    get:
+      summary: Get Secret
+      tags:
+        - Secret
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretResponse'
+      operationId: get-account-scoped-secret
+      description: Retrieves the information of the Secret.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
 components:
   schemas:
     CreateOrganizationRequest:
