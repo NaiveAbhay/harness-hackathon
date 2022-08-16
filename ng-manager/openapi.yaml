@@ -311,8 +311,8 @@ paths:
       description: Retrieve the information of the Secrets.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgsQueryParam'
-        - $ref: '#/components/parameters/ProjectsQueryParam'
+        - $ref: '#/components/parameters/OrgQueryParam'
+        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -375,7 +375,7 @@ paths:
       description: Retrieve the information of the Secrets.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/ProjectsQueryParam'
+        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -1662,8 +1662,13 @@ components:
       in: query
       schema:
         type: string
-        default: default
       description: Slug field of the organization the resource is scoped to
+    ProjectQueryParam:
+      name: project
+      in: query
+      schema:
+        type: string
+      description: Slug field of the project the resource is scoped to
     AccountQueryParam:
       name: account
       in: query
