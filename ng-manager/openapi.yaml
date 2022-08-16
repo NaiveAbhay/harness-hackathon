@@ -606,7 +606,7 @@ components:
             $ref: '#/components/schemas/ProjectResponse'
           examples:
             example-project-response-yaml:
-              value:
+              value: |
                 org: example_org_identifier
                 slug: example_project_identifier
                 name: example-project-name
@@ -750,7 +750,7 @@ components:
             $ref: '#/components/schemas/CreateProjectRequest'
           examples:
             example-create-project-request-yaml:
-              value:
+              value: |
                 slug: example_project_identifier
                 name: example-project-name
                 color: '#0063F7'
