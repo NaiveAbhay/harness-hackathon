@@ -467,6 +467,19 @@ paths:
       description: Deletes the information of the Secret with the matching Secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update Secret
+      operationId: update-project-scoped-secret
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretResponse'
+      description: Updates the information of the Secret with the matching secret identifier.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/SecretRequest'
+      tags:
+        - Secret
 components:
   schemas:
     CreateOrganizationRequest:
