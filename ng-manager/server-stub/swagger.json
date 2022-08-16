@@ -18,6 +18,9 @@
   }, {
     "name" : "Project",
     "description" : "Everything about Project"
+  }, {
+    "name" : "Secret",
+    "description" : "Everything about Secret"
   } ],
   "paths" : {
     "/v1/orgs" : {
@@ -1253,6 +1256,1102 @@
           "x-api-key" : [ ]
         } ]
       }
+    },
+    "/v1/secrets" : {
+      "get" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Get Secrets",
+        "description" : "Retrieve the information of the Secrets.",
+        "operationId" : "get-account-scoped-secrets",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret list response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-json" : {
+                    "value" : [ {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-yaml" : {
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Create Secret",
+        "description" : "Creates a new Secret",
+        "operationId" : "create-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/secrets" : {
+      "post" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Create Secret",
+        "description" : "Creates a new Secret",
+        "operationId" : "create-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/project/{project}/secrets" : {
+      "post" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Create Secret",
+        "description" : "Creates a new Secret",
+        "operationId" : "create-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Get Secret",
+        "description" : "Retrieves the information of the Secret.",
+        "operationId" : "get-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Update Secret",
+        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "operationId" : "update-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Delete Secret",
+        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "operationId" : "delete-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/org/{org}/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Get Secret",
+        "description" : "Retrieves the information of the Secret.",
+        "operationId" : "get-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Update Secret",
+        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "operationId" : "update-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Delete Secret",
+        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "operationId" : "delete-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/org/{org}/project/{project}/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Get Secret",
+        "description" : "Retrieves the information of the Secret.",
+        "operationId" : "get-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Update Secret",
+        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "operationId" : "update-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created_at" : 1234567890,
+                      "updated_at" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Secret" ],
+        "summary" : "Delete Secret",
+        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "operationId" : "delete-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the Secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -1576,6 +2675,494 @@
             }
           }
         }
+      },
+      "SecretSpec" : {
+        "title" : "SecretSpec",
+        "required" : [ "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "This specifies the type of secret",
+            "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
+          }
+        },
+        "description" : "Details of the Secret defined in Harness",
+        "discriminator" : {
+          "propertyName" : "type",
+          "mapping" : {
+            "SSHKeyPath" : "#/components/schemas/SSHKeyPathSpec",
+            "SSHKeyReference" : "#/components/schemas/SSHKeyReferenceSpec",
+            "SSHPassword" : "#/components/schemas/SSHPasswordSpec",
+            "SSHKerberosTGTKeyTabFile" : "#/components/schemas/SSHKerberosTGTKeyTabFileSpec",
+            "SSHKerberosTGTPassword" : "#/components/schemas/SSHKerberosTGTPasswordSpec",
+            "SecretFile" : "#/components/schemas/SecretFileSpec",
+            "SecretText" : "#/components/schemas/SecretTextSpec",
+            "WinRmTGTKeyTabFile" : "#/components/schemas/WinRmTGTKeyTabFileSpec",
+            "WinRmTGTPassword" : "#/components/schemas/WinRmTGTPasswordSpec",
+            "WinRmNTLM" : "#/components/schemas/WinRmNTLMSpec"
+          }
+        },
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/SSHKeyPathSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKeyReferenceSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKerberosTGTKeyTabFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKerberosTGTPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/SecretFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/SecretTextSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmTGTKeyTabFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmTGTPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmNTLMSpec"
+        } ]
+      },
+      "SSHKeyPathSpec" : {
+        "title" : "SSHKeyPath",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "key_path", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKeyPath" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Path of the key file"
+            },
+            "encrypted_passphrase" : {
+              "type" : "string",
+              "description" : "This is the passphrase provided while creating the SSH key for local encryption"
+            }
+          }
+        } ]
+      },
+      "SSHKeyReferenceSpec" : {
+        "title" : "SSHKeyReference",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKeyReference" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "key" : {
+              "type" : "string",
+              "description" : "SSH key"
+            },
+            "encrypted_passphrase" : {
+              "type" : "string",
+              "description" : "This is the passphrase provided while creating the SSH key for local encryption"
+            }
+          }
+        } ]
+      },
+      "SSHPasswordSpec" : {
+        "title" : "SSHPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "password", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "SSH password"
+            }
+          }
+        } ]
+      },
+      "SSHKerberosTGTKeyTabFileSpec" : {
+        "title" : "SSHKerberosTGTKeyTabFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKerberosTGTKeyTabFile" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Kerberos keytab file path"
+            }
+          }
+        } ]
+      },
+      "SSHKerberosTGTPasswordSpec" : {
+        "title" : "SSHKerberosTGTPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKerberosTGTPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "Kerberos password"
+            }
+          }
+        } ]
+      },
+      "SecretFileSpec" : {
+        "title" : "SecretFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "secret_manager_identifier", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SecretFile" ]
+            },
+            "secret_manager_identifier" : {
+              "type" : "string",
+              "description" : "Identifier of the Secret Manager used to manage the secret"
+            }
+          }
+        } ]
+      },
+      "SecretTextSpec" : {
+        "title" : "SecretText",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "secret_manager_identifier", "type", "value_type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SecretText" ]
+            },
+            "secret_manager_identifier" : {
+              "type" : "string",
+              "description" : "Identifier of the Secret Manager used to manage the secret"
+            },
+            "value_type" : {
+              "type" : "string",
+              "description" : "This has details to specify if the secret value is inline or referenced",
+              "enum" : [ "Inline", "Reference" ]
+            },
+            "value" : {
+              "type" : "string",
+              "description" : "Value of the Secret"
+            }
+          }
+        } ]
+      },
+      "WinRmTGTKeyTabFileSpec" : {
+        "title" : "WinRmTGTKeyTabFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmTGTKeyTabFile" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Keytab file path"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "WinRmTGTPasswordSpec" : {
+        "title" : "WinRmTGTPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmTGTPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "Kerberos password"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "WinRmNTLMSpec" : {
+        "title" : "WinRmNTLM",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "domain", "password", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmNTLM" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "domain" : {
+              "type" : "string",
+              "description" : "This is the NTLM domain name"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "This is the NTLM user name"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "This is the NTLM password"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the NTLM either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "SecretRequest" : {
+        "type" : "object",
+        "properties" : {
+          "secret" : {
+            "$ref" : "#/components/schemas/Secret"
+          }
+        }
+      },
+      "Secret" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "pattern" : "^[0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Secret name"
+          },
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Secret identifier"
+          },
+          "org" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization identifier for secret"
+          },
+          "project" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Project identifier for secret"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Secret tags"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Secret description"
+          },
+          "spec" : {
+            "$ref" : "#/components/schemas/SecretSpec"
+          }
+        }
+      },
+      "SecretResponse" : {
+        "title" : "SecretResponse",
+        "type" : "object",
+        "properties" : {
+          "secret" : {
+            "$ref" : "#/components/schemas/Secret"
+          },
+          "created_at" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for the secret",
+            "format" : "int64"
+          },
+          "updated_at" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for the secret",
+            "format" : "int64"
+          },
+          "draft" : {
+            "type" : "boolean"
+          },
+          "governance_metadata" : {
+            "type" : "object"
+          }
+        },
+        "description" : "Secret Response Model"
       }
     },
     "responses" : {
@@ -1732,6 +3319,106 @@
             }
           }
         }
+      },
+      "SecretResponse" : {
+        "description" : "Secret Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretResponse"
+            },
+            "examples" : {
+              "example-create-secret-response-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 80,
+                      "username" : "example_secret",
+                      "key_path" : "example_secret",
+                      "encrypted_passphrase" : "account.example_secret"
+                    }
+                  },
+                  "created_at" : 1234567890,
+                  "updated_at" : 1234567890,
+                  "draft" : false,
+                  "governance_metatdata" : null
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretResponse"
+            },
+            "examples" : {
+              "example-create-secret-response-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+              }
+            }
+          }
+        }
+      },
+      "SecretListResponse" : {
+        "description" : "Secret list response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples" : {
+              "example-list-secret-response-json" : {
+                "value" : [ {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 80,
+                      "username" : "example_secret",
+                      "key_path" : "example_secret",
+                      "encrypted_passphrase" : "account.example_secret"
+                    }
+                  },
+                  "created_at" : 1234567890,
+                  "updated_at" : 1234567890,
+                  "draft" : false,
+                  "governance_metatdata" : null
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples" : {
+              "example-list-secret-response-yaml" : {
+                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+              }
+            }
+          }
+        }
       }
     },
     "parameters" : {
@@ -1830,6 +3517,18 @@
         "explode" : false,
         "schema" : {
           "type" : "string"
+        }
+      },
+      "PrivateSecret" : {
+        "name" : "private_secret",
+        "in" : "query",
+        "description" : "This would be used to define secret as private.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "boolean",
+          "default" : false
         }
       },
       "ProjectPathParam" : {
@@ -1947,6 +3646,49 @@
             "examples" : {
               "example-create-project-request-yaml" : {
                 "value" : "slug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "SecretRequest" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretRequest"
+            },
+            "examples" : {
+              "example-create-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 80,
+                      "username" : "example_secret",
+                      "key_path" : "example_secret",
+                      "encrypted_passphrase" : "account.example_secret"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretRequest"
+            },
+            "examples" : {
+              "example-create-secret-request-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\n"
               }
             }
           }
