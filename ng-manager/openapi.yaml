@@ -703,7 +703,7 @@ components:
           schema:
             $ref: '#/components/schemas/CreateOrganizationRequest'
           examples:
-            example-create-irganization-request-json:
+            example-create-organization-request-json:
               value:
                 slug: example_organization
                 name: Example Organization
