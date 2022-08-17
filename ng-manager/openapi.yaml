@@ -23,26 +23,26 @@ x-tagGroups:
       - Project Secret
 tags:
   - name: Organization
-    description: Everything about Organization
+    description: Everything about organization
   - name: Account Project
-    description: Everything about Account scoped Project
+    description: Everything about account scoped project
   - name: Org Project
-    description: Everything about Org scoped Project
+    description: Everything about org scoped project
   - name: Account Secret
-    description: Everything about Account scoped Secret
+    description: Everything about account scoped secret
   - name: Org Secret
-    description: Everything about Org scoped Secret
+    description: Everything about org scoped secret
   - name: Project Secret
-    description: Everything about Project scoped Secret
+    description: Everything about project scoped secret
 paths:
   /v1/orgs:
     post:
-      summary: Create Organization
+      summary: Create an organization
       operationId: create-organization
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Create a new Organization.
+      description: Creates a new organization.
       security:
         - x-api-key: []
       tags:
@@ -52,12 +52,12 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     get:
-      summary: Get Organizations
+      summary: List organizations
       operationId: get-organizations
       responses:
         '200':
           $ref: '#/components/responses/OrganizationListResponse'
-      description: Retrieve the information of the Organizations.
+      description: Retrieves the information of the organizations.
       security:
         - x-api-key: []
       tags:
@@ -78,12 +78,12 @@ paths:
         required: true
         description: Organization identifier
     get:
-      summary: Get Organization
+      summary: Retrieve an organization
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
       operationId: get-organization
-      description: Retrieve the information of the organization with the matching organization identifier.
+      description: Retrieves the information of the organization with the matching organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -91,12 +91,12 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
-      summary: Update Organization
+      summary: Update an organization
       operationId: update-organization
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Update the information of the organization with the matching organization identifier.
+      description: Updates the information of the organization with the matching organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -106,12 +106,12 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     delete:
-      summary: Delete Organization
+      summary: Delete an organization
       operationId: delete-organization
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Delete the information of the organization with the matching organization identifier.
+      description: Deletes the information of the organization with the matching organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -120,14 +120,14 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
   /v1/projects:
     post:
-      summary: Create Project
+      summary: Create a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: create-account-scoped-project
       security:
         - x-api-key: []
-      description: Creates a new Project
+      description: Creates a new project
       requestBody:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
@@ -135,12 +135,12 @@ paths:
       tags:
         - Account Project
     get:
-      summary: Get Projects
+      summary: List projects
       responses:
         '200':
           $ref: '#/components/responses/ProjectListResponse'
       operationId: get-account-scoped-projects
-      description: Retrieves the information of the Projects.
+      description: Retrieves the information of the projects.
       security:
         - x-api-key: []
       parameters:
@@ -152,7 +152,7 @@ paths:
             default: true
           in: query
           name: has_module
-          description: This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not
+          description: This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not
         - schema:
             type: string
           in: query
@@ -166,14 +166,14 @@ paths:
     parameters: []
   '/v1/orgs/{org}/projects':
     post:
-      summary: Create Project
+      summary: Creates a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: create-org-scoped-project
       security:
         - x-api-key: []
-      description: Creates a new Project
+      description: Creates a new project
       requestBody:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
@@ -181,12 +181,12 @@ paths:
       tags:
         - Org Project
     get:
-      summary: Get Projects
+      summary: List projects
       responses:
         '200':
           $ref: '#/components/responses/ProjectListResponse'
       operationId: get-org-scoped-projects
-      description: Retrieves the information of the Projects.
+      description: Retrieves the information of the projects.
       security:
         - x-api-key: []
       parameters:
@@ -197,7 +197,7 @@ paths:
             default: true
           in: query
           name: has_module
-          description: This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not
+          description: This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not
         - schema:
             type: string
           in: query
@@ -212,12 +212,12 @@ paths:
       - $ref: '#/components/parameters/OrgPathParam'
   '/v1/projects/{project}':
     get:
-      summary: Get Project
+      summary: Retrieve a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-account-scoped-project
-      description: Retrieve the information of the Project with the matching Project identifier.
+      description: Retrieves the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       parameters:
@@ -225,12 +225,12 @@ paths:
       tags:
         - Account Project
     put:
-      summary: Update Project
+      summary: Update a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-account-scoped-project
-      description: Updates the information of the Project with the matching Project identifier.
+      description: Updates the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       requestBody:
@@ -240,12 +240,12 @@ paths:
       tags:
         - Account Project
     delete:
-      summary: Delete Project
+      summary: Delete a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-account-scoped-project
-      description: Deletes the information of the Project with the matching Project identifier.
+      description: Deletes the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       parameters:
@@ -261,12 +261,12 @@ paths:
         description: Project identifier
   '/v1/orgs/{org}/projects/{project}':
     get:
-      summary: Get Project
+      summary: Retrieve a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-org-scoped-project
-      description: Retrieve the information of the Project with the matching Project identifier.
+      description: Retrieves the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       parameters:
@@ -274,12 +274,12 @@ paths:
       tags:
         - Org Project
     put:
-      summary: Update Project
+      summary: Update a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-org-scoped-project
-      description: Updates the information of the Project with the matching Project identifier.
+      description: Updates the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       requestBody:
@@ -289,12 +289,12 @@ paths:
       tags:
         - Org Project
     delete:
-      summary: Delete Project
+      summary: Delete a project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-org-scoped-project
-      description: Deletes the information of the Project with the matching Project identifier.
+      description: Deletes the information of the project with the matching project identifier.
       security:
         - x-api-key: []
       parameters:
@@ -306,12 +306,12 @@ paths:
       - $ref: '#/components/parameters/ProjectPathParam'
   /v1/secrets:
     post:
-      summary: Create Secret
+      summary: Create a secret
       operationId: create-account-scoped-secret
       responses:
         '201':
           $ref: '#/components/responses/SecretResponse'
-      description: Creates a new Secret
+      description: Creates a new secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
@@ -322,12 +322,12 @@ paths:
       tags:
         - Account Secret
     get:
-      summary: Get Secrets
+      summary: List secrets
       operationId: get-account-scoped-secrets
       responses:
         '200':
           $ref: '#/components/responses/SecretListResponse'
-      description: Retrieve the information of the Secrets.
+      description: Retrieves the information of the secrets.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/OrgQueryParam'
@@ -372,12 +372,12 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
     post:
-      summary: Create Secret
+      summary: Create a secret
       operationId: create-org-scoped-secret
       responses:
         '201':
           $ref: '#/components/responses/SecretResponse'
-      description: Creates a new Secret
+      description: Creates a new secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
@@ -386,12 +386,12 @@ paths:
       tags:
         - Org Secret
     get:
-      summary: Get Secrets
+      summary: List secrets
       operationId: get-org-scoped-secrets
       responses:
         '200':
           $ref: '#/components/responses/SecretListResponse'
-      description: Retrieve the information of the Secrets.
+      description: Retrieves the information of the secrets.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/ProjectQueryParam'
@@ -436,12 +436,12 @@ paths:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
     post:
-      summary: Create Secret
+      summary: Create a secret
       operationId: create-project-scoped-secret
       responses:
         '201':
           $ref: '#/components/responses/SecretResponse'
-      description: Creates a new Secret
+      description: Creates a new secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
@@ -450,12 +450,12 @@ paths:
       tags:
         - Project Secret
     get:
-      summary: ''
+      summary: List secrets
       operationId: get-project-scoped-secrets
       responses:
         '200':
           $ref: '#/components/responses/SecretListResponse'
-      description: Retrieve the information of the Secrets.
+      description: Retrieves the information of the secrets.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
@@ -501,36 +501,36 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the Secret
+        description: Slug field of the secret
     get:
-      summary: Get Secret
+      summary: Retrieve a secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
       operationId: get-account-scoped-secret
-      description: Retrieves the information of the Secret.
+      description: Retrieves the information of the secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       tags:
         - Account Secret
     delete:
-      summary: Delete Secret
+      summary: Deletes a secret
       tags:
         - Account Secret
       operationId: delete-account-scoped-secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the Secret with the matching Secret identifier.
+      description: Deletes the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
-      summary: Update Secret
+      summary: Update a secret
       operationId: update-account-scoped-secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the Secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       tags:
@@ -538,7 +538,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
     head:
-      summary: Validate Secret slug
+      summary: Validate unique secret slug
       operationId: validate-unique-account-scoped-secret-slug
       responses:
         '200':
@@ -556,36 +556,36 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the Secret
+        description: Slug field of the secret
     get:
-      summary: Get Secret
+      summary: Retrieve a secret
       tags:
         - Org Secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
       operationId: get-org-scoped-secret
-      description: Retrieves the information of the Secret.
+      description: Retrieves the information of the secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     delete:
-      summary: Delete Secret
+      summary: Delete a secret
       tags:
         - Org Secret
       operationId: delete-org-scoped-secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the Secret with the matching Secret identifier.
+      description: Deletes the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
-      summary: Update Secret
+      summary: Update a secret
       operationId: update-org-scoped-secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the Secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       requestBody:
@@ -593,7 +593,7 @@ paths:
       tags:
         - Org Secret
     head:
-      summary: Validate Secret slug
+      summary: Validate unique secret slug
       operationId: validate-unique-org-scoped-secret-slug
       responses:
         '200':
@@ -612,36 +612,36 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the Secret
+        description: Slug field of the secret
     get:
-      summary: Get Secret
+      summary: Retrieve a secret
       tags:
         - Project Secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
       operationId: get-project-scoped-secret
-      description: Retrieves the information of the Secret.
+      description: Retrieves the information of the secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     delete:
-      summary: Delete Secret
+      summary: Delete a secret
       tags:
         - Project Secret
       operationId: delete-project-scoped-secret
       responses:
         '200':
           description: OK
-      description: Deletes the information of the Secret with the matching Secret identifier.
+      description: Deletes the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
-      summary: Update Secret
+      summary: Update a secret
       operationId: update-project-scoped-secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the Secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret identifier.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       requestBody:
@@ -649,7 +649,7 @@ paths:
       tags:
         - Project Secret
     head:
-      summary: Validate Secret slug
+      summary: Validate unique secret slug
       operationId: validate-unique-project-scoped-secret-slug
       responses:
         '200':
@@ -713,7 +713,7 @@ components:
         - TEMPLATESERVICE
         - GOVERNANCE
     CreateProjectRequest:
-      description: Create Project Request
+      description: Create project request
       type: object
       x-examples:
         example-1:
@@ -722,7 +722,7 @@ components:
           color: '#0063F7'
           modules:
             - CD
-          description: This is a example Project
+          description: This is a example project
           tags:
             property1: value1
             property2: value2
@@ -762,7 +762,7 @@ components:
         - slug
         - name
     ProjectResponse:
-      description: Project Response model
+      description: Project response model
       type: object
       x-examples:
         example-1:
@@ -816,7 +816,7 @@ components:
     OrganizationResponse:
       title: OrganizationResponse
       type: object
-      description: Organization Response Model
+      description: Organization response Model
       x-examples:
         example-1:
           slug: example_organization
@@ -836,10 +836,10 @@ components:
         last_modified_at:
           type: integer
           format: int64
-          description: Last modification timestamp for Organization
+          description: Last modification timestamp for organization
         harness_managed:
           type: boolean
-          description: 'This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.'
+          description: 'This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.'
         slug:
           type: string
           description: Organization identifier
@@ -855,12 +855,12 @@ components:
             type: string
           description: Organization tags
     UpdateOrganizationRequest:
-      description: Update Organization request
+      description: Update oganization request
       type: object
       x-examples:
         example-1:
           name: Example Organization
-          description: This is an Example Organization
+          description: This is an example organization
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
@@ -885,7 +885,7 @@ components:
         - name
         - description
     UpdateProjectRequest:
-      description: Update Project Request
+      description: Update project request
       type: object
       x-examples:
         example-1:
@@ -893,7 +893,7 @@ components:
           color: '#0063F7'
           modules:
             - CD
-          description: This is a example Project
+          description: This is a example project
           tags:
             property1: value1
             property2: value2
@@ -930,7 +930,7 @@ components:
     SecretSpec:
       title: SecretSpec
       type: object
-      description: Details of the Secret defined in Harness
+      description: Details of the secret defined in Harness
       required:
         - type
       discriminator:
@@ -1123,7 +1123,7 @@ components:
               description: This specifies the type of secret
             secret_manager_identifier:
               type: string
-              description: Identifier of the Secret Manager used to manage the secret
+              description: Identifier of the secret manager used to manage the secret
           required:
             - type
             - secret_manager_identifier
@@ -1141,7 +1141,7 @@ components:
               description: This specifies the type of secret
             secret_manager_identifier:
               type: string
-              description: Identifier of the Secret Manager used to manage the secret
+              description: Identifier of the secret manager used to manage the secret
             value_type:
               type: string
               enum:
@@ -1329,14 +1329,14 @@ components:
           type: boolean
         governance_metadata:
           type: object
-      description: Secret Response Model
+      description: Secret response model
     ValidateSecretSlugResponse:
       title: ValidateSecretSlugResponse
       type: object
       properties:
         valid:
           type: boolean
-      description: Validate Secret slug response model
+      description: Validate unique secret slug response model
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1354,7 +1354,7 @@ components:
               value:
                 slug: example_organization
                 name: Example Organization
-                description: This is an Example Organization
+                description: This is an example organization
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
@@ -1376,7 +1376,7 @@ components:
                 color: '#0063F7'
                 modules:
                   - CD
-                description: This is a example Project
+                description: This is a example project
                 tags:
                   property1: value1
                   property2: value2
@@ -1394,7 +1394,7 @@ components:
                 color: '#0063F7'
                 modules:
                   - CD
-                description: This is a example Project
+                description: This is a example project
                 tags:
                   property1: value1
                   property2: value2
@@ -1417,7 +1417,7 @@ components:
                   color: '#0063F7'
                   modules:
                     - CD
-                  description: This is a example Project
+                  description: This is a example project
                   tags:
                     property1: value1
                     property2: value2
@@ -1444,7 +1444,7 @@ components:
               value:
                 - slug: example_organization
                   name: Example Organization
-                  description: This is an Example Organization
+                  description: This is an example organization
                   tags:
                     example-tag-1: example-tag-1-value
                     example-tag-2: example-tag-2-value
@@ -1460,7 +1460,7 @@ components:
             sample:
               value: '</v1/orgs?page=2&limit=1>; rel="next", </v1/orgs?page=1&limit=1>; rel="self", </v1/orgs?page=0&limit=1>; rel="previous", '
     SecretResponse:
-      description: Secret Response
+      description: Secret response
       content:
         application/json:
           schema:
@@ -1598,7 +1598,7 @@ components:
                 color: '#0063F7'
                 modules:
                   - CD
-                description: This is a example Project
+                description: This is a example project
                 tags:
                   property1: value1
                   property2: value2
@@ -1614,11 +1614,11 @@ components:
               value:
                 slug: example_organization
                 name: Example Organization
-                description: This is an Example Organization
+                description: This is an Example organization
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-      description: Post the necessary fields for the API to create a Organization.
+      description: Post the necessary fields for the API to create an organization.
       required: true
     UpdateOrganizationRequest:
       content:
@@ -1629,11 +1629,11 @@ components:
             example-organization-update-request-json:
               value:
                 name: Example Organization
-                description: This is an Example Organization
+                description: This is an example organization
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-      description: Put the necessary fields for the API to update a Organization.
+      description: Put the necessary fields for the API to update a organization.
       required: true
     CreateProjectRequest:
       content:
@@ -1648,7 +1648,7 @@ components:
                 color: '#0063F7'
                 modules:
                   - CD
-                description: This is a example Project
+                description: This is a example project
                 tags:
                   property1: value1
                   property2: value2
@@ -1663,11 +1663,11 @@ components:
                 color: '#0063F7'
                 modules:
                   - CD
-                description: This is a example Project
+                description: This is a example project
                 tags:
                   property1: value1
                   property2: value2
-      description: Post the necessary fields for the API to create a Project.
+      description: Post the necessary fields for the API to create a project.
       required: true
     SecretRequest:
       content:
