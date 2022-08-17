@@ -16,11 +16,20 @@
     "name" : "Organization",
     "description" : "Everything about Organization"
   }, {
-    "name" : "Project",
-    "description" : "Everything about Project"
+    "name" : "Account Project",
+    "description" : "Everything about Account scoped Project"
   }, {
-    "name" : "Secret",
-    "description" : "Everything about Secret"
+    "name" : "Org Project",
+    "description" : "Everything about Org scoped Project"
+  }, {
+    "name" : "Account Secret",
+    "description" : "Everything about Account scoped Secret"
+  }, {
+    "name" : "Org Secret",
+    "description" : "Everything about Org scoped Secret"
+  }, {
+    "name" : "Project Secret",
+    "description" : "Everything about Project scoped Secret"
   } ],
   "paths" : {
     "/v1/orgs" : {
@@ -368,7 +377,7 @@
     },
     "/v1/projects" : {
       "get" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Account Project" ],
         "summary" : "Get Projects",
         "description" : "Retrieves the information of the Projects.",
         "operationId" : "get-account-scoped-projects",
@@ -515,7 +524,7 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Account Project" ],
         "summary" : "Create Project",
         "description" : "Creates a new Project",
         "operationId" : "create-account-scoped-project",
@@ -580,7 +589,7 @@
     },
     "/v1/orgs/{org}/projects" : {
       "get" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Org Project" ],
         "summary" : "Get Projects",
         "description" : "Retrieves the information of the Projects.",
         "operationId" : "get-org-scoped-projects",
@@ -724,7 +733,7 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Org Project" ],
         "summary" : "Create Project",
         "description" : "Creates a new Project",
         "operationId" : "create-org-scoped-project",
@@ -799,7 +808,7 @@
     },
     "/v1/projects/{project}" : {
       "get" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Account Project" ],
         "summary" : "Get Project",
         "description" : "Retrieve the information of the Project with the matching Project identifier.",
         "operationId" : "get-account-scoped-project",
@@ -869,7 +878,7 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Account Project" ],
         "summary" : "Update Project",
         "description" : "Updates the information of the Project with the matching Project identifier.",
         "operationId" : "update-account-scoped-project",
@@ -942,7 +951,7 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Account Project" ],
         "summary" : "Delete Project",
         "description" : "Deletes the information of the Project with the matching Project identifier.",
         "operationId" : "delete-account-scoped-project",
@@ -1014,7 +1023,7 @@
     },
     "/v1/orgs/{org}/projects/{project}" : {
       "get" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Org Project" ],
         "summary" : "Get Project",
         "description" : "Retrieve the information of the Project with the matching Project identifier.",
         "operationId" : "get-org-scoped-project",
@@ -1094,7 +1103,7 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Org Project" ],
         "summary" : "Update Project",
         "description" : "Updates the information of the Project with the matching Project identifier.",
         "operationId" : "update-org-scoped-project",
@@ -1177,7 +1186,7 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Project" ],
+        "tags" : [ "Org Project" ],
         "summary" : "Delete Project",
         "description" : "Deletes the information of the Project with the matching Project identifier.",
         "operationId" : "delete-org-scoped-project",
@@ -1259,7 +1268,7 @@
     },
     "/v1/secrets" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Get Secrets",
         "description" : "Retrieve the information of the Secrets.",
         "operationId" : "get-account-scoped-secrets",
@@ -1421,7 +1430,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Create Secret",
         "description" : "Creates a new Secret",
         "operationId" : "create-account-scoped-secret",
@@ -1506,7 +1515,7 @@
     },
     "/v1/orgs/{org}/secrets" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Get Secrets",
         "description" : "Retrieve the information of the Secrets.",
         "operationId" : "get-org-scoped-secrets",
@@ -1668,7 +1677,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Create Secret",
         "description" : "Creates a new Secret",
         "operationId" : "create-org-scoped-secret",
@@ -1760,7 +1769,7 @@
     },
     "/v1/orgs/{org}/project/{project}/secrets" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "",
         "description" : "Retrieve the information of the Secrets.",
         "operationId" : "get-project-scoped-secrets",
@@ -1922,7 +1931,7 @@
         }
       },
       "post" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "Create Secret",
         "description" : "Creates a new Secret",
         "operationId" : "create-project-scoped-secret",
@@ -2024,7 +2033,7 @@
     },
     "/v1/secrets/{secret}" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Get Secret",
         "description" : "Retrieves the information of the Secret.",
         "operationId" : "get-account-scoped-secret",
@@ -2100,7 +2109,7 @@
         }
       },
       "put" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Update Secret",
         "description" : "Updates the information of the Secret with the matching secret identifier.",
         "operationId" : "update-account-scoped-secret",
@@ -2179,7 +2188,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Delete Secret",
         "description" : "Deletes the information of the Secret with the matching Secret identifier.",
         "operationId" : "delete-account-scoped-secret",
@@ -2255,7 +2264,7 @@
         }
       },
       "head" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Account Secret" ],
         "summary" : "Validate Secret slug",
         "description" : "Validates secret slug is unique",
         "operationId" : "validate-unique-account-scoped-secret-slug",
@@ -2313,7 +2322,7 @@
     },
     "/v1/org/{org}/secrets/{secret}" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Get Secret",
         "description" : "Retrieves the information of the Secret.",
         "operationId" : "get-org-scoped-secret",
@@ -2399,7 +2408,7 @@
         }
       },
       "put" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Update Secret",
         "description" : "Updates the information of the Secret with the matching secret identifier.",
         "operationId" : "update-org-scoped-secret",
@@ -2488,7 +2497,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Delete Secret",
         "description" : "Deletes the information of the Secret with the matching Secret identifier.",
         "operationId" : "delete-org-scoped-secret",
@@ -2574,7 +2583,7 @@
         }
       },
       "head" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Org Secret" ],
         "summary" : "Validate Secret slug",
         "description" : "Validates org scoped secret slug is unique",
         "operationId" : "validate-unique-org-scoped-secret-slug",
@@ -2642,7 +2651,7 @@
     },
     "/v1/org/{org}/project/{project}/secrets/{secret}" : {
       "get" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "Get Secret",
         "description" : "Retrieves the information of the Secret.",
         "operationId" : "get-project-scoped-secret",
@@ -2738,7 +2747,7 @@
         }
       },
       "put" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "Update Secret",
         "description" : "Updates the information of the Secret with the matching secret identifier.",
         "operationId" : "update-project-scoped-secret",
@@ -2837,7 +2846,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "Delete Secret",
         "description" : "Deletes the information of the Secret with the matching Secret identifier.",
         "operationId" : "delete-project-scoped-secret",
@@ -2889,7 +2898,7 @@
         }
       },
       "head" : {
-        "tags" : [ "Secret" ],
+        "tags" : [ "Project Secret" ],
         "summary" : "Validate Secret slug",
         "description" : "Validates project scoped secret slug is unique",
         "operationId" : "validate-unique-project-scoped-secret-slug",
@@ -4370,5 +4379,15 @@
         "in" : "header"
       }
     }
-  }
+  },
+  "x-tagGroups" : [ {
+    "name" : "Organization",
+    "tags" : [ "Organization" ]
+  }, {
+    "name" : "Project",
+    "tags" : [ "Account Project", "Org Project" ]
+  }, {
+    "name" : "Secret",
+    "tags" : [ "Account Secret", "Org Secret", "Project Secret" ]
+  } ]
 }
