@@ -631,7 +631,7 @@ paths:
       operationId: delete-project-scoped-secret
       responses:
         '200':
-          description: OK
+          $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
