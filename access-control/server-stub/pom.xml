@@ -77,4 +77,11 @@
     <maven.compiler.target>11</maven.compiler.target>
     <junit-version>4.13.1</junit-version>
   </properties>
+    <distributionManagement>	
+    <repository>	
+      <id>harness-internal</id>	
+      <name>harness-internal</name>	
+      <url>https://harness.jfrog.io/artifactory/harness-internal</url>	
+    </repository>	
+  </distributionManagement>
 </project>
