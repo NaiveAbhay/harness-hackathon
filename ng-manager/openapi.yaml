@@ -1317,11 +1317,11 @@ components:
       properties:
         secret:
           $ref: '#/components/schemas/Secret'
-        created_at:
+        created:
           type: integer
           format: int64
           description: Creation timestamp for the secret
-        updated_at:
+        updated:
           type: integer
           format: int64
           description: Last modification timestamp for the secret
@@ -1482,8 +1482,8 @@ components:
                     username: example_secret
                     key_path: example_secret
                     encrypted_passphrase: account.example_secret
-                created_at: 1234567890
-                updated_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
                 draft: false
                 governance_metatdata: null
         application/yaml:
@@ -1506,8 +1506,8 @@ components:
                     username: example_secret
                     key_path: example_secret
                     encrypted_passphrase: account.example_secret
-                created_at: 1234567890
-                updated_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
                 draft: false
                 governance_metatdata: null
     SecretListResponse:
@@ -1535,8 +1535,8 @@ components:
                       username: example_secret
                       key_path: example_secret
                       encrypted_passphrase: account.example_secret
-                  created_at: 1234567890
-                  updated_at: 1234567890
+                  created: 1234567890
+                  updated: 1234567890
                   draft: false
                   governance_metatdata: null
         application/yaml:
@@ -1561,8 +1561,8 @@ components:
                       username: example_secret
                       key_path: example_secret
                       encrypted_passphrase: account.example_secret
-                  created_at: 1234567890
-                  updated_at: 1234567890
+                  created: 1234567890
+                  updated: 1234567890
                   draft: false
                   governance_metatdata: null
     ValidateSecretSlugResponse:
