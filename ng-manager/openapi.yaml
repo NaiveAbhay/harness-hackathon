@@ -1311,6 +1311,13 @@ components:
         governance_metadata:
           type: object
       description: Secret Response Model
+    ValidateSecretSlugResponse:
+      title: ValidateSecretSlugResponse
+      type: object
+      properties:
+        valid:
+          type: boolean
+      description: Validate Secret slug response model
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1544,10 +1551,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              valid:
-                type: boolean
+            $ref: '#/components/schemas/ValidateSecretSlugResponse'
           examples:
             example-validate-secret-slug-response-json:
               value:
