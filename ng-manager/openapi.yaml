@@ -76,14 +76,14 @@ paths:
         name: org
         in: path
         required: true
-        description: Organization identifier
+        description: Organization slug
     get:
       summary: Retrieve an organization
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
       operationId: get-organization
-      description: Retrieves the information of the organization with the matching organization identifier.
+      description: Retrieves the information of the organization with the matching organization slug.
       security:
         - x-api-key: []
       tags:
@@ -96,7 +96,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Updates the information of the organization with the matching organization identifier.
+      description: Updates the information of the organization with the matching organization slug.
       security:
         - x-api-key: []
       tags:
@@ -111,7 +111,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Deletes the information of the organization with the matching organization identifier.
+      description: Deletes the information of the organization with the matching organization slug.
       security:
         - x-api-key: []
       tags:
@@ -217,7 +217,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-account-scoped-project
-      description: Retrieves the information of the project with the matching project identifier.
+      description: Retrieves the information of the project with the matching project slug.
       security:
         - x-api-key: []
       parameters:
@@ -230,7 +230,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-account-scoped-project
-      description: Updates the information of the project with the matching project identifier.
+      description: Updates the information of the project with the matching project slug.
       security:
         - x-api-key: []
       requestBody:
@@ -245,7 +245,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-account-scoped-project
-      description: Deletes the information of the project with the matching project identifier.
+      description: Deletes the information of the project with the matching project slug.
       security:
         - x-api-key: []
       parameters:
@@ -258,7 +258,7 @@ paths:
         name: project
         in: path
         required: true
-        description: Project identifier
+        description: Project slug
   '/v1/orgs/{org}/projects/{project}':
     get:
       summary: Retrieve a project
@@ -266,7 +266,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-org-scoped-project
-      description: Retrieves the information of the project with the matching project identifier.
+      description: Retrieves the information of the project with the matching project slug.
       security:
         - x-api-key: []
       parameters:
@@ -279,7 +279,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-org-scoped-project
-      description: Updates the information of the project with the matching project identifier.
+      description: Updates the information of the project with the matching project slug.
       security:
         - x-api-key: []
       requestBody:
@@ -294,7 +294,7 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-org-scoped-project
-      description: Deletes the information of the project with the matching project identifier.
+      description: Deletes the information of the project with the matching project slug.
       security:
         - x-api-key: []
       parameters:
@@ -521,7 +521,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
@@ -530,7 +530,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       tags:
@@ -576,7 +576,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
@@ -585,7 +585,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       requestBody:
@@ -632,7 +632,7 @@ paths:
       responses:
         '200':
           description: OK
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
     put:
@@ -641,7 +641,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: Updates the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       requestBody:
@@ -677,7 +677,7 @@ components:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Organization identifier
+          description: Organization slug
           maxLength: 64
         name:
           type: string
@@ -717,7 +717,7 @@ components:
       type: object
       x-examples:
         example-1:
-          slug: example_project_identifier
+          slug: example_project_slug
           name: example-project-name
           color: '#0063F7'
           modules:
@@ -731,7 +731,7 @@ components:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Project identifier
+          description: Project slug
           maxLength: 64
         name:
           type: string
@@ -766,8 +766,8 @@ components:
       type: object
       x-examples:
         example-1:
-          org: example_org_identifier
-          slug: example_project_identifier
+          org: example_org_slug
+          slug: example_project_slug
           name: example-project-name
           color: '#0063F7'
           modules:
@@ -789,10 +789,10 @@ components:
           description: Last modification timestamp for the project
         org:
           type: string
-          description: Organization identifier for the project
+          description: Organization slug for the project
         slug:
           type: string
-          description: Project identifier
+          description: Project slug
         name:
           type: string
           description: Project name
@@ -842,7 +842,7 @@ components:
           description: 'This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.'
         slug:
           type: string
-          description: Organization identifier
+          description: Organization slug
         name:
           type: string
           description: Organization name
@@ -1121,12 +1121,12 @@ components:
               enum:
                 - SecretFile
               description: This specifies the type of secret
-            secret_manager_identifier:
+            secret_manager_slug:
               type: string
-              description: Identifier of the secret manager used to manage the secret
+              description: Slug of the secret manager used to manage the secret
           required:
             - type
-            - secret_manager_identifier
+            - secret_manager_slug
     SecretTextSpec:
       title: SecretText
       description: This is the SSH key authentication details defined in Harness.
@@ -1139,9 +1139,9 @@ components:
               enum:
                 - SecretText
               description: This specifies the type of secret
-            secret_manager_identifier:
+            secret_manager_slug:
               type: string
-              description: Identifier of the secret manager used to manage the secret
+              description: Slug of the secret manager used to manage the secret
             value_type:
               type: string
               enum:
@@ -1153,7 +1153,7 @@ components:
               description: Value of the Secret
           required:
             - type
-            - secret_manager_identifier
+            - secret_manager_slug
             - value_type
     WinRmTGTKeyTabFileSpec:
       title: WinRmTGTKeyTabFile
@@ -1291,15 +1291,15 @@ components:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Secret identifier
+          description: Secret slug
           maxLength: 64
         org:
           type: string
-          description: Organization identifier for secret
+          description: Organization slug for secret
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         project:
           type: string
-          description: Project identifier for secret
+          description: Project slug for secret
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         tags:
           type: object
@@ -1370,8 +1370,8 @@ components:
           examples:
             example-project-response-json:
               value:
-                org: example_org_identifier
-                slug: example_project_identifier
+                org: example_org_slug
+                slug: example_project_slug
                 name: example-project-name
                 color: '#0063F7'
                 modules:
@@ -1388,8 +1388,8 @@ components:
           examples:
             example-project-response-yaml:
               value: |
-                org: example_org_identifier
-                slug: example_project_identifier
+                org: example_org_slug
+                slug: example_project_slug
                 name: example-project-name
                 color: '#0063F7'
                 modules:
@@ -1411,8 +1411,8 @@ components:
           examples:
             example-project-list-response:
               value:
-                - org: example_org_identifier
-                  slug: example_project_identifier
+                - org: example_org_slug
+                  slug: example_project_slug
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -1643,7 +1643,7 @@ components:
           examples:
             example-create-project-request-json:
               value:
-                slug: example_project_identifier
+                slug: example_project_slug
                 name: example-project-name
                 color: '#0063F7'
                 modules:
@@ -1658,7 +1658,7 @@ components:
           examples:
             example-create-project-request-yaml:
               value: |
-                slug: example_project_identifier
+                slug: example_project_slug
                 name: example-project-name
                 color: '#0063F7'
                 modules:
