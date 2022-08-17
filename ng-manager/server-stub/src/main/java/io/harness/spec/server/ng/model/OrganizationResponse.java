@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Organization Response Model
+ * Organization response Model
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Organization Response Model")
+@Schema(description = "Organization response Model")
 
 public class OrganizationResponse   {
 
@@ -58,7 +58,7 @@ public class OrganizationResponse   {
   }
 
   /**
-   * Last modification timestamp for Organization
+   * Last modification timestamp for organization
    **/
   public OrganizationResponse lastModifiedAt(Long lastModifiedAt) {
     this.lastModifiedAt = lastModifiedAt;
@@ -66,7 +66,7 @@ public class OrganizationResponse   {
   }
 
   
-  @Schema(description = "Last modification timestamp for Organization")
+  @Schema(description = "Last modification timestamp for organization")
   @JsonProperty("last_modified_at")
 
   public Long getLastModifiedAt() {
@@ -77,7 +77,7 @@ public class OrganizationResponse   {
   }
 
   /**
-   * This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.
+   * This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.
    **/
   public OrganizationResponse harnessManaged(Boolean harnessManaged) {
     this.harnessManaged = harnessManaged;
@@ -85,7 +85,7 @@ public class OrganizationResponse   {
   }
 
   
-  @Schema(description = "This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization.")
+  @Schema(description = "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.")
   @JsonProperty("harness_managed")
 
   public Boolean isHarnessManaged() {
@@ -96,7 +96,7 @@ public class OrganizationResponse   {
   }
 
   /**
-   * Organization identifier
+   * Organization slug
    **/
   public OrganizationResponse slug(String slug) {
     this.slug = slug;
@@ -104,7 +104,7 @@ public class OrganizationResponse   {
   }
 
   
-  @Schema(description = "Organization identifier")
+  @Schema(description = "Organization slug")
   @JsonProperty("slug")
 
   public String getSlug() {

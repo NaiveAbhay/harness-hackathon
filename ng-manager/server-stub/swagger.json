@@ -14,29 +14,29 @@
   } ],
   "tags" : [ {
     "name" : "Organization",
-    "description" : "Everything about Organization"
+    "description" : "Everything about organization"
   }, {
     "name" : "Account Project",
-    "description" : "Everything about Account scoped Project"
+    "description" : "Everything about account scoped project"
   }, {
     "name" : "Org Project",
-    "description" : "Everything about Org scoped Project"
+    "description" : "Everything about org scoped project"
   }, {
     "name" : "Account Secret",
-    "description" : "Everything about Account scoped Secret"
+    "description" : "Everything about account scoped secret"
   }, {
     "name" : "Org Secret",
-    "description" : "Everything about Org scoped Secret"
+    "description" : "Everything about org scoped secret"
   }, {
     "name" : "Project Secret",
-    "description" : "Everything about Project scoped Secret"
+    "description" : "Everything about project scoped secret"
   } ],
   "paths" : {
     "/v1/orgs" : {
       "get" : {
         "tags" : [ "Organization" ],
-        "summary" : "Get Organizations",
-        "description" : "Retrieve the information of the Organizations.",
+        "summary" : "List organizations",
+        "description" : "Retrieves the information of the organizations.",
         "operationId" : "get-organizations",
         "parameters" : [ {
           "name" : "account",
@@ -125,7 +125,7 @@
                     "value" : [ {
                       "slug" : "example_organization",
                       "name" : "Example Organization",
-                      "description" : "This is an Example Organization",
+                      "description" : "This is an example organization",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
@@ -146,8 +146,8 @@
       },
       "post" : {
         "tags" : [ "Organization" ],
-        "summary" : "Create Organization",
-        "description" : "Create a new Organization.",
+        "summary" : "Create an organization",
+        "description" : "Creates a new organization.",
         "operationId" : "create-organization",
         "parameters" : [ {
           "name" : "account",
@@ -176,7 +176,7 @@
                     "value" : {
                       "slug" : "example_organization",
                       "name" : "Example Organization",
-                      "description" : "This is an Example Organization",
+                      "description" : "This is an example organization",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
@@ -199,13 +199,13 @@
     "/v1/orgs/{org}" : {
       "get" : {
         "tags" : [ "Organization" ],
-        "summary" : "Get Organization",
-        "description" : "Retrieve the information of the organization with the matching organization identifier.",
+        "summary" : "Retrieve an organization",
+        "description" : "Retrieves the information of the organization with the matching organization slug.",
         "operationId" : "get-organization",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
-          "description" : "Organization identifier",
+          "description" : "Organization slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -236,7 +236,7 @@
                     "value" : {
                       "slug" : "example_organization",
                       "name" : "Example Organization",
-                      "description" : "This is an Example Organization",
+                      "description" : "This is an example organization",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
@@ -257,13 +257,13 @@
       },
       "put" : {
         "tags" : [ "Organization" ],
-        "summary" : "Update Organization",
-        "description" : "Update the information of the organization with the matching organization identifier.",
+        "summary" : "Update an organization",
+        "description" : "Updates the information of the organization with the matching organization slug.",
         "operationId" : "update-organization",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
-          "description" : "Organization identifier",
+          "description" : "Organization slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -297,7 +297,7 @@
                     "value" : {
                       "slug" : "example_organization",
                       "name" : "Example Organization",
-                      "description" : "This is an Example Organization",
+                      "description" : "This is an example organization",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
@@ -318,13 +318,13 @@
       },
       "delete" : {
         "tags" : [ "Organization" ],
-        "summary" : "Delete Organization",
-        "description" : "Delete the information of the organization with the matching organization identifier.",
+        "summary" : "Delete an organization",
+        "description" : "Deletes the information of the organization with the matching organization slug.",
         "operationId" : "delete-organization",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
-          "description" : "Organization identifier",
+          "description" : "Organization slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -355,7 +355,7 @@
                     "value" : {
                       "slug" : "example_organization",
                       "name" : "Example Organization",
-                      "description" : "This is an Example Organization",
+                      "description" : "This is an example organization",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
@@ -378,8 +378,8 @@
     "/v1/projects" : {
       "get" : {
         "tags" : [ "Account Project" ],
-        "summary" : "Get Projects",
-        "description" : "Retrieves the information of the Projects.",
+        "summary" : "List projects",
+        "description" : "Retrieves the information of the projects.",
         "operationId" : "get-account-scoped-projects",
         "parameters" : [ {
           "name" : "account",
@@ -420,7 +420,7 @@
         }, {
           "name" : "has_module",
           "in" : "query",
-          "description" : "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not",
+          "description" : "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -500,12 +500,12 @@
                 "examples" : {
                   "example-project-list-response" : {
                     "value" : [ {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -525,8 +525,8 @@
       },
       "post" : {
         "tags" : [ "Account Project" ],
-        "summary" : "Create Project",
-        "description" : "Creates a new Project",
+        "summary" : "Create a project",
+        "description" : "Creates a new project",
         "operationId" : "create-account-scoped-project",
         "parameters" : [ {
           "name" : "account",
@@ -553,12 +553,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -575,7 +575,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -590,8 +590,8 @@
     "/v1/orgs/{org}/projects" : {
       "get" : {
         "tags" : [ "Org Project" ],
-        "summary" : "Get Projects",
-        "description" : "Retrieves the information of the Projects.",
+        "summary" : "List projects",
+        "description" : "Retrieves the information of the projects.",
         "operationId" : "get-org-scoped-projects",
         "parameters" : [ {
           "name" : "org",
@@ -629,7 +629,7 @@
         }, {
           "name" : "has_module",
           "in" : "query",
-          "description" : "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not",
+          "description" : "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -709,12 +709,12 @@
                 "examples" : {
                   "example-project-list-response" : {
                     "value" : [ {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -734,8 +734,8 @@
       },
       "post" : {
         "tags" : [ "Org Project" ],
-        "summary" : "Create Project",
-        "description" : "Creates a new Project",
+        "summary" : "Creates a project",
+        "description" : "Creates a new project",
         "operationId" : "create-org-scoped-project",
         "parameters" : [ {
           "name" : "org",
@@ -772,12 +772,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -794,7 +794,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -809,13 +809,13 @@
     "/v1/projects/{project}" : {
       "get" : {
         "tags" : [ "Account Project" ],
-        "summary" : "Get Project",
-        "description" : "Retrieve the information of the Project with the matching Project identifier.",
+        "summary" : "Retrieve a project",
+        "description" : "Retrieves the information of the project with the matching project slug.",
         "operationId" : "get-account-scoped-project",
         "parameters" : [ {
           "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Project slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -844,12 +844,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -866,7 +866,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -879,13 +879,13 @@
       },
       "put" : {
         "tags" : [ "Account Project" ],
-        "summary" : "Update Project",
-        "description" : "Updates the information of the Project with the matching Project identifier.",
+        "summary" : "Update a project",
+        "description" : "Updates the information of the project with the matching project slug.",
         "operationId" : "update-account-scoped-project",
         "parameters" : [ {
           "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Project slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -917,12 +917,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -939,7 +939,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -952,13 +952,13 @@
       },
       "delete" : {
         "tags" : [ "Account Project" ],
-        "summary" : "Delete Project",
-        "description" : "Deletes the information of the Project with the matching Project identifier.",
+        "summary" : "Delete a project",
+        "description" : "Deletes the information of the project with the matching project slug.",
         "operationId" : "delete-account-scoped-project",
         "parameters" : [ {
           "name" : "project",
           "in" : "path",
-          "description" : "Project identifier",
+          "description" : "Project slug",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -987,12 +987,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -1009,7 +1009,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1024,8 +1024,8 @@
     "/v1/orgs/{org}/projects/{project}" : {
       "get" : {
         "tags" : [ "Org Project" ],
-        "summary" : "Get Project",
-        "description" : "Retrieve the information of the Project with the matching Project identifier.",
+        "summary" : "Retrieve a project",
+        "description" : "Retrieves the information of the project with the matching project slug.",
         "operationId" : "get-org-scoped-project",
         "parameters" : [ {
           "name" : "org",
@@ -1069,12 +1069,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -1091,7 +1091,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1104,8 +1104,8 @@
       },
       "put" : {
         "tags" : [ "Org Project" ],
-        "summary" : "Update Project",
-        "description" : "Updates the information of the Project with the matching Project identifier.",
+        "summary" : "Update a project",
+        "description" : "Updates the information of the project with the matching project slug.",
         "operationId" : "update-org-scoped-project",
         "parameters" : [ {
           "name" : "org",
@@ -1152,12 +1152,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -1174,7 +1174,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1187,8 +1187,8 @@
       },
       "delete" : {
         "tags" : [ "Org Project" ],
-        "summary" : "Delete Project",
-        "description" : "Deletes the information of the Project with the matching Project identifier.",
+        "summary" : "Delete a project",
+        "description" : "Deletes the information of the project with the matching project slug.",
         "operationId" : "delete-org-scoped-project",
         "parameters" : [ {
           "name" : "org",
@@ -1232,12 +1232,12 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_identifier",
-                      "slug" : "example_project_identifier",
+                      "org" : "example_org_slug",
+                      "slug" : "example_project_slug",
                       "name" : "example-project-name",
                       "color" : "#0063F7",
                       "modules" : [ "CD" ],
-                      "description" : "This is a example Project",
+                      "description" : "This is a example project",
                       "tags" : {
                         "property1" : "value1",
                         "property2" : "value2"
@@ -1254,7 +1254,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
                   }
                 }
               }
@@ -1269,8 +1269,8 @@
     "/v1/secrets" : {
       "get" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Get Secrets",
-        "description" : "Retrieve the information of the Secrets.",
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
         "operationId" : "get-account-scoped-secrets",
         "parameters" : [ {
           "name" : "account",
@@ -1404,8 +1404,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     } ]
@@ -1421,7 +1421,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
                   }
                 }
               }
@@ -1431,8 +1431,8 @@
       },
       "post" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Create Secret",
-        "description" : "Creates a new Secret",
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
         "operationId" : "create-account-scoped-secret",
         "parameters" : [ {
           "name" : "account",
@@ -1461,7 +1461,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1487,8 +1487,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -1501,7 +1501,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -1516,8 +1516,8 @@
     "/v1/orgs/{org}/secrets" : {
       "get" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Get Secrets",
-        "description" : "Retrieve the information of the Secrets.",
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
         "operationId" : "get-org-scoped-secrets",
         "parameters" : [ {
           "name" : "org",
@@ -1651,8 +1651,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     } ]
@@ -1668,7 +1668,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
                   }
                 }
               }
@@ -1678,8 +1678,8 @@
       },
       "post" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Create Secret",
-        "description" : "Creates a new Secret",
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
         "operationId" : "create-org-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -1718,7 +1718,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1744,8 +1744,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -1758,7 +1758,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -1770,8 +1770,8 @@
     "/v1/orgs/{org}/project/{project}/secrets" : {
       "get" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "",
-        "description" : "Retrieve the information of the Secrets.",
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
         "operationId" : "get-project-scoped-secrets",
         "parameters" : [ {
           "name" : "org",
@@ -1905,8 +1905,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     } ]
@@ -1922,7 +1922,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
                   }
                 }
               }
@@ -1932,8 +1932,8 @@
       },
       "post" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "Create Secret",
-        "description" : "Creates a new Secret",
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
         "operationId" : "create-project-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -1982,7 +1982,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2008,8 +2008,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2022,7 +2022,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2034,13 +2034,13 @@
     "/v1/secrets/{secret}" : {
       "get" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Get Secret",
-        "description" : "Retrieves the information of the Secret.",
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
         "operationId" : "get-account-scoped-secret",
         "parameters" : [ {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2060,7 +2060,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2086,8 +2086,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2100,7 +2100,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2110,13 +2110,13 @@
       },
       "put" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Update Secret",
-        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
         "operationId" : "update-account-scoped-secret",
         "parameters" : [ {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2139,7 +2139,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2165,8 +2165,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2179,7 +2179,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2189,13 +2189,13 @@
       },
       "delete" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Delete Secret",
-        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "summary" : "Deletes a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
         "operationId" : "delete-account-scoped-secret",
         "parameters" : [ {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2215,7 +2215,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2241,8 +2241,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2255,7 +2255,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2265,13 +2265,13 @@
       },
       "head" : {
         "tags" : [ "Account Secret" ],
-        "summary" : "Validate Secret slug",
+        "summary" : "Validate unique secret slug",
         "description" : "Validates secret slug is unique",
         "operationId" : "validate-unique-account-scoped-secret-slug",
         "parameters" : [ {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2323,8 +2323,8 @@
     "/v1/org/{org}/secrets/{secret}" : {
       "get" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Get Secret",
-        "description" : "Retrieves the information of the Secret.",
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
         "operationId" : "get-org-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2339,7 +2339,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2359,7 +2359,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2385,8 +2385,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2399,7 +2399,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2409,8 +2409,8 @@
       },
       "put" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Update Secret",
-        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
         "operationId" : "update-org-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2425,7 +2425,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2448,7 +2448,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2474,8 +2474,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2488,7 +2488,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2498,8 +2498,8 @@
       },
       "delete" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Delete Secret",
-        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "summary" : "Delete a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
         "operationId" : "delete-org-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2514,7 +2514,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2534,7 +2534,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2560,8 +2560,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2574,7 +2574,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2584,7 +2584,7 @@
       },
       "head" : {
         "tags" : [ "Org Secret" ],
-        "summary" : "Validate Secret slug",
+        "summary" : "Validate unique secret slug",
         "description" : "Validates org scoped secret slug is unique",
         "operationId" : "validate-unique-org-scoped-secret-slug",
         "parameters" : [ {
@@ -2600,7 +2600,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2652,8 +2652,8 @@
     "/v1/org/{org}/project/{project}/secrets/{secret}" : {
       "get" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "Get Secret",
-        "description" : "Retrieves the information of the Secret.",
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
         "operationId" : "get-project-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2678,7 +2678,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2698,7 +2698,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2724,8 +2724,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2738,7 +2738,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2748,8 +2748,8 @@
       },
       "put" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "Update Secret",
-        "description" : "Updates the information of the Secret with the matching secret identifier.",
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
         "operationId" : "update-project-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2774,7 +2774,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2797,7 +2797,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Secret Response",
+            "description" : "Secret response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2823,8 +2823,8 @@
                           "encrypted_passphrase" : "account.example_secret"
                         }
                       },
-                      "created_at" : 1234567890,
-                      "updated_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "draft" : false,
                       "governance_metatdata" : null
                     }
@@ -2837,7 +2837,7 @@
                 },
                 "examples" : {
                   "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
                   }
                 }
               }
@@ -2847,8 +2847,8 @@
       },
       "delete" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "Delete Secret",
-        "description" : "Deletes the information of the Secret with the matching Secret identifier.",
+        "summary" : "Delete a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
         "operationId" : "delete-project-scoped-secret",
         "parameters" : [ {
           "name" : "org",
@@ -2873,7 +2873,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2893,13 +2893,57 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "OK"
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false,
+                      "governance_metatdata" : null
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-create-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "head" : {
         "tags" : [ "Project Secret" ],
-        "summary" : "Validate Secret slug",
+        "summary" : "Validate unique secret slug",
         "description" : "Validates project scoped secret slug is unique",
         "operationId" : "validate-unique-project-scoped-secret-slug",
         "parameters" : [ {
@@ -2925,7 +2969,7 @@
         }, {
           "name" : "secret",
           "in" : "path",
-          "description" : "Slug field of the Secret",
+          "description" : "Slug field of the secret",
           "required" : true,
           "style" : "simple",
           "explode" : false,
@@ -2986,7 +3030,7 @@
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Organization identifier"
+            "description" : "Organization slug"
           },
           "name" : {
             "maxLength" : 64,
@@ -3036,7 +3080,7 @@
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Project identifier"
+            "description" : "Project slug"
           },
           "name" : {
             "maxLength" : 64,
@@ -3071,14 +3115,14 @@
             "description" : "Project tags"
           }
         },
-        "description" : "Create Project Request",
+        "description" : "Create project request",
         "x-examples" : {
           "example-1" : {
-            "slug" : "example_project_identifier",
+            "slug" : "example_project_slug",
             "name" : "example-project-name",
             "color" : "#0063F7",
             "modules" : [ "CD" ],
-            "description" : "This is a example Project",
+            "description" : "This is a example project",
             "tags" : {
               "property1" : "value1",
               "property2" : "value2"
@@ -3101,11 +3145,11 @@
           },
           "org" : {
             "type" : "string",
-            "description" : "Organization identifier for the project"
+            "description" : "Organization slug for the project"
           },
           "slug" : {
             "type" : "string",
-            "description" : "Project identifier"
+            "description" : "Project slug"
           },
           "name" : {
             "type" : "string",
@@ -3135,11 +3179,11 @@
             "description" : "Project tags"
           }
         },
-        "description" : "Project Response model",
+        "description" : "Project response model",
         "x-examples" : {
           "example-1" : {
-            "org" : "example_org_identifier",
-            "slug" : "example_project_identifier",
+            "org" : "example_org_slug",
+            "slug" : "example_project_slug",
             "name" : "example-project-name",
             "color" : "#0063F7",
             "modules" : [ "CD" ],
@@ -3164,16 +3208,16 @@
           },
           "last_modified_at" : {
             "type" : "integer",
-            "description" : "Last modification timestamp for Organization",
+            "description" : "Last modification timestamp for organization",
             "format" : "int64"
           },
           "harness_managed" : {
             "type" : "boolean",
-            "description" : "This indicates if this Organization is managed by Harness or not. If True, Harness can manage and modify this Organization."
+            "description" : "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization."
           },
           "slug" : {
             "type" : "string",
-            "description" : "Organization identifier"
+            "description" : "Organization slug"
           },
           "name" : {
             "type" : "string",
@@ -3191,7 +3235,7 @@
             "description" : "Organization tags"
           }
         },
-        "description" : "Organization Response Model",
+        "description" : "Organization response Model",
         "x-examples" : {
           "example-1" : {
             "slug" : "example_organization",
@@ -3232,11 +3276,11 @@
             "description" : "Organization tags"
           }
         },
-        "description" : "Update Organization request",
+        "description" : "Update oganization request",
         "x-examples" : {
           "example-1" : {
             "name" : "Example Organization",
-            "description" : "This is an Example Organization",
+            "description" : "This is an example organization",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
@@ -3283,13 +3327,13 @@
             "description" : "Project tags"
           }
         },
-        "description" : "Update Project Request",
+        "description" : "Update project request",
         "x-examples" : {
           "example-1" : {
             "name" : "example-project-name",
             "color" : "#0063F7",
             "modules" : [ "CD" ],
-            "description" : "This is a example Project",
+            "description" : "This is a example project",
             "tags" : {
               "property1" : "value1",
               "property2" : "value2"
@@ -3308,7 +3352,7 @@
             "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
           }
         },
-        "description" : "Details of the Secret defined in Harness",
+        "description" : "Details of the secret defined in Harness",
         "discriminator" : {
           "propertyName" : "type",
           "mapping" : {
@@ -3518,7 +3562,7 @@
         "allOf" : [ {
           "$ref" : "#/components/schemas/SecretSpec"
         }, {
-          "required" : [ "secret_manager_identifier", "type" ],
+          "required" : [ "secret_manager_slug", "type" ],
           "type" : "object",
           "properties" : {
             "type" : {
@@ -3526,9 +3570,9 @@
               "description" : "This specifies the type of secret",
               "enum" : [ "SecretFile" ]
             },
-            "secret_manager_identifier" : {
+            "secret_manager_slug" : {
               "type" : "string",
-              "description" : "Identifier of the Secret Manager used to manage the secret"
+              "description" : "Slug of the secret manager used to manage the secret"
             }
           }
         } ]
@@ -3539,7 +3583,7 @@
         "allOf" : [ {
           "$ref" : "#/components/schemas/SecretSpec"
         }, {
-          "required" : [ "secret_manager_identifier", "type", "value_type" ],
+          "required" : [ "secret_manager_slug", "type", "value_type" ],
           "type" : "object",
           "properties" : {
             "type" : {
@@ -3547,9 +3591,9 @@
               "description" : "This specifies the type of secret",
               "enum" : [ "SecretText" ]
             },
-            "secret_manager_identifier" : {
+            "secret_manager_slug" : {
               "type" : "string",
-              "description" : "Identifier of the Secret Manager used to manage the secret"
+              "description" : "Slug of the secret manager used to manage the secret"
             },
             "value_type" : {
               "type" : "string",
@@ -3731,17 +3775,17 @@
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Secret identifier"
+            "description" : "Secret slug"
           },
           "org" : {
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
             "type" : "string",
-            "description" : "Organization identifier for secret"
+            "description" : "Organization slug for secret"
           },
           "project" : {
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
             "type" : "string",
-            "description" : "Project identifier for secret"
+            "description" : "Project slug for secret"
           },
           "tags" : {
             "type" : "object",
@@ -3766,12 +3810,12 @@
           "secret" : {
             "$ref" : "#/components/schemas/Secret"
           },
-          "created_at" : {
+          "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for the secret",
             "format" : "int64"
           },
-          "updated_at" : {
+          "updated" : {
             "type" : "integer",
             "description" : "Last modification timestamp for the secret",
             "format" : "int64"
@@ -3783,7 +3827,7 @@
             "type" : "object"
           }
         },
-        "description" : "Secret Response Model"
+        "description" : "Secret response model"
       },
       "ValidateSecretSlugResponse" : {
         "title" : "ValidateSecretSlugResponse",
@@ -3793,7 +3837,7 @@
             "type" : "boolean"
           }
         },
-        "description" : "Validate Secret slug response model"
+        "description" : "Validate unique secret slug response model"
       },
       "inline_response_200" : {
         "type" : "object",
@@ -3817,7 +3861,7 @@
                 "value" : {
                   "slug" : "example_organization",
                   "name" : "Example Organization",
-                  "description" : "This is an Example Organization",
+                  "description" : "This is an example organization",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
@@ -3841,12 +3885,12 @@
             "examples" : {
               "example-project-response-json" : {
                 "value" : {
-                  "org" : "example_org_identifier",
-                  "slug" : "example_project_identifier",
+                  "org" : "example_org_slug",
+                  "slug" : "example_project_slug",
                   "name" : "example-project-name",
                   "color" : "#0063F7",
                   "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
+                  "description" : "This is a example project",
                   "tags" : {
                     "property1" : "value1",
                     "property2" : "value2"
@@ -3863,7 +3907,7 @@
             },
             "examples" : {
               "example-project-response-yaml" : {
-                "value" : "org: example_org_identifier\nslug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
               }
             }
           }
@@ -3897,12 +3941,12 @@
             "examples" : {
               "example-project-list-response" : {
                 "value" : [ {
-                  "org" : "example_org_identifier",
-                  "slug" : "example_project_identifier",
+                  "org" : "example_org_slug",
+                  "slug" : "example_project_slug",
                   "name" : "example-project-name",
                   "color" : "#0063F7",
                   "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
+                  "description" : "This is a example project",
                   "tags" : {
                     "property1" : "value1",
                     "property2" : "value2"
@@ -3945,7 +3989,7 @@
                 "value" : [ {
                   "slug" : "example_organization",
                   "name" : "Example Organization",
-                  "description" : "This is an Example Organization",
+                  "description" : "This is an example organization",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
@@ -3960,7 +4004,7 @@
         }
       },
       "SecretResponse" : {
-        "description" : "Secret Response",
+        "description" : "Secret response",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -3986,8 +4030,8 @@
                       "encrypted_passphrase" : "account.example_secret"
                     }
                   },
-                  "created_at" : 1234567890,
-                  "updated_at" : 1234567890,
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
                   "draft" : false,
                   "governance_metatdata" : null
                 }
@@ -4000,7 +4044,7 @@
             },
             "examples" : {
               "example-create-secret-response-yaml" : {
-                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated_at: 1234567890\nupdated_at: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
               }
             }
           }
@@ -4036,8 +4080,8 @@
                       "encrypted_passphrase" : "account.example_secret"
                     }
                   },
-                  "created_at" : 1234567890,
-                  "updated_at" : 1234567890,
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
                   "draft" : false,
                   "governance_metatdata" : null
                 } ]
@@ -4053,7 +4097,7 @@
             },
             "examples" : {
               "example-list-secret-response-yaml" : {
-                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created_at: 1234567890\n  updated_at: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
               }
             }
           }
@@ -4233,7 +4277,7 @@
                   "name" : "example-project-name",
                   "color" : "#0063F7",
                   "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
+                  "description" : "This is a example project",
                   "tags" : {
                     "property1" : "value1",
                     "property2" : "value2"
@@ -4246,7 +4290,7 @@
         "required" : true
       },
       "CreateOrganizationRequest" : {
-        "description" : "Post the necessary fields for the API to create a Organization.",
+        "description" : "Post the necessary fields for the API to create an organization.",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -4257,7 +4301,7 @@
                 "value" : {
                   "slug" : "example_organization",
                   "name" : "Example Organization",
-                  "description" : "This is an Example Organization",
+                  "description" : "This is an Example organization",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
@@ -4270,7 +4314,7 @@
         "required" : true
       },
       "UpdateOrganizationRequest" : {
-        "description" : "Put the necessary fields for the API to update a Organization.",
+        "description" : "Put the necessary fields for the API to update a organization.",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -4280,7 +4324,7 @@
               "example-organization-update-request-json" : {
                 "value" : {
                   "name" : "Example Organization",
-                  "description" : "This is an Example Organization",
+                  "description" : "This is an example organization",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
@@ -4293,7 +4337,7 @@
         "required" : true
       },
       "CreateProjectRequest" : {
-        "description" : "Post the necessary fields for the API to create a Project.",
+        "description" : "Post the necessary fields for the API to create a project.",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -4302,11 +4346,11 @@
             "examples" : {
               "example-create-project-request-json" : {
                 "value" : {
-                  "slug" : "example_project_identifier",
+                  "slug" : "example_project_slug",
                   "name" : "example-project-name",
                   "color" : "#0063F7",
                   "modules" : [ "CD" ],
-                  "description" : "This is a example Project",
+                  "description" : "This is a example project",
                   "tags" : {
                     "property1" : "value1",
                     "property2" : "value2"
@@ -4321,7 +4365,7 @@
             },
             "examples" : {
               "example-create-project-request-yaml" : {
-                "value" : "slug: example_project_identifier\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example Project\ntags:\n  property1: value1\n  property2: value2\n"
+                "value" : "slug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\n"
               }
             }
           }

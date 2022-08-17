@@ -33,7 +33,7 @@ public class CreateOrganizationRequest   {
   private @Valid Map<String, String> tags = new HashMap<>();
 
   /**
-   * Organization identifier
+   * Organization slug
    **/
   public CreateOrganizationRequest slug(String slug) {
     this.slug = slug;
@@ -41,7 +41,7 @@ public class CreateOrganizationRequest   {
   }
 
   
-  @Schema(required = true, description = "Organization identifier")
+  @Schema(required = true, description = "Organization slug")
   @JsonProperty("slug")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)

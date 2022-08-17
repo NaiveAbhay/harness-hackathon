@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Details of the Secret defined in Harness
+ * Details of the secret defined in Harness
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -32,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
     @JsonSubTypes.Type(value = WinRmNTLMSpec.class, name = "WinRmNTLM" ),
     @JsonSubTypes.Type(value = SSHKerberosTGTKeyTabFileSpec.class, name = "SSHKerberosTGTKeyTabFile" ),
 })
-@Schema(description = "Details of the Secret defined in Harness")
+@Schema(description = "Details of the secret defined in Harness")
 
 public class SecretSpec  implements OneOfSecretSpec  {
 

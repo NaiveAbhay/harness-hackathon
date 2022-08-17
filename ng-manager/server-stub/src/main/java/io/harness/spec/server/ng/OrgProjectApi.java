@@ -29,7 +29,7 @@ public interface OrgProjectApi {
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createOrgScopedProject", summary = "Create Project", description = "Creates a new Project", security = {
+    @Operation(operationId = "createOrgScopedProject", summary = "Creates a project", description = "Creates a new project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -43,7 +43,7 @@ public interface OrgProjectApi {
     @DELETE
     @Path("/{project}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteOrgScopedProject", summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "deleteOrgScopedProject", summary = "Delete a project", description = "Deletes the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -60,7 +60,7 @@ public interface OrgProjectApi {
     @GET
     @Path("/{project}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getOrgScopedProject", summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "getOrgScopedProject", summary = "Retrieve a project", description = "Retrieves the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -76,7 +76,7 @@ public interface OrgProjectApi {
 );
     @GET
     @Produces({ "application/json" })
-    @Operation(operationId = "getOrgScopedProjects", summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
+    @Operation(operationId = "getOrgScopedProjects", summary = "List projects", description = "Retrieves the information of the projects.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
@@ -91,7 +91,7 @@ public interface OrgProjectApi {
  @Parameter(description = "Slug field of the projects the resource is scoped to")  List<String> project
 ,  @QueryParam("has_module") @DefaultValue("true") 
 
- @Parameter(description = "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not")  Boolean hasModule
+ @Parameter(description = "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not")  Boolean hasModule
 ,  @QueryParam("module_type") 
 
  @Parameter(description = "Project&#x27;s module type")  String moduleType
@@ -109,7 +109,7 @@ public interface OrgProjectApi {
     @Path("/{project}")
     @Consumes({ "application/json" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateOrgScopedProject", summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "updateOrgScopedProject", summary = "Update a project", description = "Updates the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })

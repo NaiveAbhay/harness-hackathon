@@ -30,9 +30,9 @@ public interface OrgSecretApi {
     @Path("/orgs/{org}/secrets")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createOrgScopedSecret", summary = "Create Secret", description = "Creates a new Secret", tags={ "Org Secret" })
+    @Operation(operationId = "createOrgScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response createOrgScopedSecret(@Valid SecretRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
@@ -46,15 +46,15 @@ public interface OrgSecretApi {
     @DELETE
     @Path("/org/{org}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteOrgScopedSecret", summary = "Delete Secret", description = "Deletes the information of the Secret with the matching Secret identifier.", tags={ "Org Secret" })
+    @Operation(operationId = "deleteOrgScopedSecret", summary = "Delete a secret", description = "Deletes the information of the secret with the matching secret slug.", tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response deleteOrgScopedSecret( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -62,15 +62,15 @@ public interface OrgSecretApi {
     @GET
     @Path("/org/{org}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getOrgScopedSecret", summary = "Get Secret", description = "Retrieves the information of the Secret.", tags={ "Org Secret" })
+    @Operation(operationId = "getOrgScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response getOrgScopedSecret( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -78,7 +78,7 @@ public interface OrgSecretApi {
     @GET
     @Path("/orgs/{org}/secrets")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getOrgScopedSecrets", summary = "Get Secrets", description = "Retrieve the information of the Secrets.", tags={ "Org Secret" })
+    @Operation(operationId = "getOrgScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", tags={ "Org Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SecretResponse.class)))) })
     Response getOrgScopedSecrets( @PathParam("org")
@@ -113,15 +113,15 @@ public interface OrgSecretApi {
     @Path("/org/{org}/secrets/{secret}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateOrgScopedSecret", summary = "Update Secret", description = "Updates the information of the Secret with the matching secret identifier.", tags={ "Org Secret" })
+    @Operation(operationId = "updateOrgScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateOrgScopedSecret(@Valid SecretRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -129,7 +129,7 @@ public interface OrgSecretApi {
     @HEAD
     @Path("/org/{org}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate Secret slug", description = "Validates org scoped secret slug is unique", tags={ "Org Secret" })
+    @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates org scoped secret slug is unique", tags={ "Org Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueOrgScopedSecretSlug( @PathParam("org")
@@ -137,7 +137,7 @@ public interface OrgSecretApi {
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

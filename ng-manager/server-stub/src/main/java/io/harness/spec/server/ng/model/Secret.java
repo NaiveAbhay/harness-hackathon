@@ -56,7 +56,7 @@ public class Secret   {
   }
 
   /**
-   * Secret identifier
+   * Secret slug
    **/
   public Secret slug(String slug) {
     this.slug = slug;
@@ -64,7 +64,7 @@ public class Secret   {
   }
 
   
-  @Schema(description = "Secret identifier")
+  @Schema(description = "Secret slug")
   @JsonProperty("slug")
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
@@ -75,7 +75,7 @@ public class Secret   {
   }
 
   /**
-   * Organization identifier for secret
+   * Organization slug for secret
    **/
   public Secret org(String org) {
     this.org = org;
@@ -83,7 +83,7 @@ public class Secret   {
   }
 
   
-  @Schema(description = "Organization identifier for secret")
+  @Schema(description = "Organization slug for secret")
   @JsonProperty("org")
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getOrg() {
@@ -94,7 +94,7 @@ public class Secret   {
   }
 
   /**
-   * Project identifier for secret
+   * Project slug for secret
    **/
   public Secret project(String project) {
     this.project = project;
@@ -102,7 +102,7 @@ public class Secret   {
   }
 
   
-  @Schema(description = "Project identifier for secret")
+  @Schema(description = "Project slug for secret")
   @JsonProperty("project")
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getProject() {

@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Update Project Request
+ * Update project request
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Update Project Request")
+@Schema(description = "Update project request")
 
 public class UpdateProjectRequest   {
 

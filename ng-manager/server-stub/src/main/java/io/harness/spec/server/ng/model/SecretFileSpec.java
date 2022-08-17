@@ -22,26 +22,26 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec  {
 
-  private @Valid String secretManagerIdentifier = null;
+  private @Valid String secretManagerSlug = null;
 
   /**
-   * Identifier of the Secret Manager used to manage the secret
+   * Slug of the secret manager used to manage the secret
    **/
-  public SecretFileSpec secretManagerIdentifier(String secretManagerIdentifier) {
-    this.secretManagerIdentifier = secretManagerIdentifier;
+  public SecretFileSpec secretManagerSlug(String secretManagerSlug) {
+    this.secretManagerSlug = secretManagerSlug;
     return this;
   }
 
   
-  @Schema(required = true, description = "Identifier of the Secret Manager used to manage the secret")
-  @JsonProperty("secret_manager_identifier")
+  @Schema(required = true, description = "Slug of the secret manager used to manage the secret")
+  @JsonProperty("secret_manager_slug")
   @NotNull
 
-  public String getSecretManagerIdentifier() {
-    return secretManagerIdentifier;
+  public String getSecretManagerSlug() {
+    return secretManagerSlug;
   }
-  public void setSecretManagerIdentifier(String secretManagerIdentifier) {
-    this.secretManagerIdentifier = secretManagerIdentifier;
+  public void setSecretManagerSlug(String secretManagerSlug) {
+    this.secretManagerSlug = secretManagerSlug;
   }
 
 
@@ -54,12 +54,12 @@ public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec  {
       return false;
     }
     SecretFileSpec secretFileSpec = (SecretFileSpec) o;
-    return Objects.equals(secretManagerIdentifier, secretFileSpec.secretManagerIdentifier);
+    return Objects.equals(secretManagerSlug, secretFileSpec.secretManagerSlug);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(secretManagerIdentifier);
+    return Objects.hash(secretManagerSlug);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec  {
     StringBuilder sb = new StringBuilder();
     sb.append("class SecretFileSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    secretManagerIdentifier: ").append(toIndentedString(secretManagerIdentifier)).append("\n");
+    sb.append("    secretManagerSlug: ").append(toIndentedString(secretManagerSlug)).append("\n");
     sb.append("}");
     return sb.toString();
   }

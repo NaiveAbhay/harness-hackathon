@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Create Project Request
+ * Create project request
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Create Project Request")
+@Schema(description = "Create project request")
 
 public class CreateProjectRequest   {
 
@@ -39,7 +39,7 @@ public class CreateProjectRequest   {
   private @Valid Map<String, String> tags = new HashMap<>();
 
   /**
-   * Project identifier
+   * Project slug
    **/
   public CreateProjectRequest slug(String slug) {
     this.slug = slug;
@@ -47,7 +47,7 @@ public class CreateProjectRequest   {
   }
 
   
-  @Schema(required = true, description = "Project identifier")
+  @Schema(required = true, description = "Project slug")
   @JsonProperty("slug")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)

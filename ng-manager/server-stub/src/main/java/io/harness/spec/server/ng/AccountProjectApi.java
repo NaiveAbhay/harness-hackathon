@@ -29,7 +29,7 @@ public interface AccountProjectApi {
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createAccountScopedProject", summary = "Create Project", description = "Creates a new Project", security = {
+    @Operation(operationId = "createAccountScopedProject", summary = "Create a project", description = "Creates a new project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
@@ -40,13 +40,13 @@ public interface AccountProjectApi {
     @DELETE
     @Path("/{project}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteAccountScopedProject", summary = "Delete Project", description = "Deletes the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "deleteAccountScopedProject", summary = "Delete a project", description = "Deletes the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
     Response deleteAccountScopedProject( @PathParam("project")
 
- @Parameter(description = "Project identifier") String project
+ @Parameter(description = "Project slug") String project
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -54,20 +54,20 @@ public interface AccountProjectApi {
     @GET
     @Path("/{project}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getAccountScopedProject", summary = "Get Project", description = "Retrieve the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "getAccountScopedProject", summary = "Retrieve a project", description = "Retrieves the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
     Response getAccountScopedProject( @PathParam("project")
 
- @Parameter(description = "Project identifier") String project
+ @Parameter(description = "Project slug") String project
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
     @Produces({ "application/json" })
-    @Operation(operationId = "getAccountScopedProjects", summary = "Get Projects", description = "Retrieves the information of the Projects.", security = {
+    @Operation(operationId = "getAccountScopedProjects", summary = "List projects", description = "Retrieves the information of the projects.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProjectResponse.class)))) })
@@ -82,7 +82,7 @@ public interface AccountProjectApi {
  @Parameter(description = "Slug field of the projects the resource is scoped to")  List<String> project
 ,  @QueryParam("has_module") @DefaultValue("true") 
 
- @Parameter(description = "This boolean specifies whether to Filter Projects which has the Module of type passed in the moduleType parameter or not")  Boolean hasModule
+ @Parameter(description = "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not")  Boolean hasModule
 ,  @QueryParam("module_type") 
 
  @Parameter(description = "Project&#x27;s module type")  String moduleType
@@ -100,13 +100,13 @@ public interface AccountProjectApi {
     @Path("/{project}")
     @Consumes({ "application/json" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateAccountScopedProject", summary = "Update Project", description = "Updates the information of the Project with the matching Project identifier.", security = {
+    @Operation(operationId = "updateAccountScopedProject", summary = "Update a project", description = "Updates the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
     Response updateAccountScopedProject(@Valid UpdateProjectRequest body, @PathParam("project")
 
- @Parameter(description = "Project identifier") String project
+ @Parameter(description = "Project slug") String project
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

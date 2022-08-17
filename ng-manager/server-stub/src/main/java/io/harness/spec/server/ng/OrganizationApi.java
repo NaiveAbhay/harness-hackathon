@@ -29,7 +29,7 @@ public interface OrganizationApi {
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(operationId = "createOrganization", summary = "Create Organization", description = "Create a new Organization.", security = {
+    @Operation(operationId = "createOrganization", summary = "Create an organization", description = "Creates a new organization.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
@@ -40,13 +40,13 @@ public interface OrganizationApi {
     @DELETE
     @Path("/{org}")
     @Produces({ "application/json" })
-    @Operation(operationId = "deleteOrganization", summary = "Delete Organization", description = "Delete the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "deleteOrganization", summary = "Delete an organization", description = "Deletes the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
     Response deleteOrganization( @PathParam("org")
 
- @Parameter(description = "Organization identifier") String org
+ @Parameter(description = "Organization slug") String org
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -54,20 +54,20 @@ public interface OrganizationApi {
     @GET
     @Path("/{org}")
     @Produces({ "application/json" })
-    @Operation(operationId = "getOrganization", summary = "Get Organization", description = "Retrieve the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "getOrganization", summary = "Retrieve an organization", description = "Retrieves the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
     Response getOrganization( @PathParam("org")
 
- @Parameter(description = "Organization identifier") String org
+ @Parameter(description = "Organization slug") String org
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
     @Produces({ "application/json" })
-    @Operation(operationId = "getOrganizations", summary = "Get Organizations", description = "Retrieve the information of the Organizations.", security = {
+    @Operation(operationId = "getOrganizations", summary = "List organizations", description = "Retrieves the information of the organizations.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
@@ -91,13 +91,13 @@ public interface OrganizationApi {
     @Path("/{org}")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(operationId = "updateOrganization", summary = "Update Organization", description = "Update the information of the organization with the matching organization identifier.", security = {
+    @Operation(operationId = "updateOrganization", summary = "Update an organization", description = "Updates the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
     Response updateOrganization(@Valid UpdateOrganizationRequest body, @PathParam("org")
 
- @Parameter(description = "Organization identifier") String org
+ @Parameter(description = "Organization slug") String org
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

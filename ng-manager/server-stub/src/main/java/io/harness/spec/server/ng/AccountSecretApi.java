@@ -29,10 +29,10 @@ public interface AccountSecretApi {
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createAccountScopedSecret", summary = "Create Secret", description = "Creates a new Secret", security = {
+    @Operation(operationId = "createAccountScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response createAccountScopedSecret(@Valid SecretRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -43,12 +43,12 @@ public interface AccountSecretApi {
     @DELETE
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteAccountScopedSecret", summary = "Delete Secret", description = "Deletes the information of the Secret with the matching Secret identifier.", tags={ "Account Secret" })
+    @Operation(operationId = "deleteAccountScopedSecret", summary = "Deletes a secret", description = "Deletes the information of the secret with the matching secret slug.", tags={ "Account Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response deleteAccountScopedSecret( @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -56,19 +56,19 @@ public interface AccountSecretApi {
     @GET
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getAccountScopedSecret", summary = "Get Secret", description = "Retrieves the information of the Secret.", tags={ "Account Secret" })
+    @Operation(operationId = "getAccountScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", tags={ "Account Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response getAccountScopedSecret( @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getAccountScopedSecrets", summary = "Get Secrets", description = "Retrieve the information of the Secrets.", tags={ "Account Secret" })
+    @Operation(operationId = "getAccountScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SecretResponse.class)))) })
     Response getAccountScopedSecrets(  @QueryParam("account") 
@@ -103,12 +103,12 @@ public interface AccountSecretApi {
     @Path("/{secret}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateAccountScopedSecret", summary = "Update Secret", description = "Updates the information of the Secret with the matching secret identifier.", tags={ "Account Secret" })
+    @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Account Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Secret Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateAccountScopedSecret(@Valid SecretRequest body, @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
@@ -116,12 +116,12 @@ public interface AccountSecretApi {
     @HEAD
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "validateUniqueAccountScopedSecretSlug", summary = "Validate Secret slug", description = "Validates secret slug is unique", tags={ "Account Secret" })
+    @Operation(operationId = "validateUniqueAccountScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates secret slug is unique", tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueAccountScopedSecretSlug( @PathParam("secret")
 
- @Parameter(description = "Slug field of the Secret") String secret
+ @Parameter(description = "Slug field of the secret") String secret
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

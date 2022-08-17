@@ -5,7 +5,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Validate Secret slug response model
+ * Validate unique secret slug response model
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Validate Secret slug response model")
+@Schema(description = "Validate unique secret slug response model")
 
 public class ValidateSecretSlugResponse   {
 

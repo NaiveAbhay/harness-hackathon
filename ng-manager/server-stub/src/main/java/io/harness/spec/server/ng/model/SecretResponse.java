@@ -6,7 +6,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Secret Response Model
+ * Secret response model
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -18,15 +18,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Secret Response Model")
+@Schema(description = "Secret response model")
 
 public class SecretResponse   {
 
   private @Valid Secret secret = null;
 
-  private @Valid Long createdAt = null;
+  private @Valid Long created = null;
 
-  private @Valid Long updatedAt = null;
+  private @Valid Long updated = null;
 
   private @Valid Boolean draft = null;
 
@@ -53,39 +53,39 @@ public class SecretResponse   {
   /**
    * Creation timestamp for the secret
    **/
-  public SecretResponse createdAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public SecretResponse created(Long created) {
+    this.created = created;
     return this;
   }
 
   
   @Schema(description = "Creation timestamp for the secret")
-  @JsonProperty("created_at")
+  @JsonProperty("created")
 
-  public Long getCreatedAt() {
-    return createdAt;
+  public Long getCreated() {
+    return created;
   }
-  public void setCreatedAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated(Long created) {
+    this.created = created;
   }
 
   /**
    * Last modification timestamp for the secret
    **/
-  public SecretResponse updatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public SecretResponse updated(Long updated) {
+    this.updated = updated;
     return this;
   }
 
   
   @Schema(description = "Last modification timestamp for the secret")
-  @JsonProperty("updated_at")
+  @JsonProperty("updated")
 
-  public Long getUpdatedAt() {
-    return updatedAt;
+  public Long getUpdated() {
+    return updated;
   }
-  public void setUpdatedAt(Long updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setUpdated(Long updated) {
+    this.updated = updated;
   }
 
   /**
@@ -135,15 +135,15 @@ public class SecretResponse   {
     }
     SecretResponse secretResponse = (SecretResponse) o;
     return Objects.equals(secret, secretResponse.secret) &&
-        Objects.equals(createdAt, secretResponse.createdAt) &&
-        Objects.equals(updatedAt, secretResponse.updatedAt) &&
+        Objects.equals(created, secretResponse.created) &&
+        Objects.equals(updated, secretResponse.updated) &&
         Objects.equals(draft, secretResponse.draft) &&
         Objects.equals(governanceMetadata, secretResponse.governanceMetadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(secret, createdAt, updatedAt, draft, governanceMetadata);
+    return Objects.hash(secret, created, updated, draft, governanceMetadata);
   }
 
   @Override
@@ -152,8 +152,8 @@ public class SecretResponse   {
     sb.append("class SecretResponse {\n");
     
     sb.append("    secret: ").append(toIndentedString(secret)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
     sb.append("    governanceMetadata: ").append(toIndentedString(governanceMetadata)).append("\n");
     sb.append("}");

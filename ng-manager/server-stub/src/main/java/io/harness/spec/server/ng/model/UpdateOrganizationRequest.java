@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Update Organization request
+ * Update oganization request
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Update Organization request")
+@Schema(description = "Update oganization request")
 
 public class UpdateOrganizationRequest   {
 

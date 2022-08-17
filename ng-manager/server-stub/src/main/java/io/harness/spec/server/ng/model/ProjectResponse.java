@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Project Response model
+ * Project response model
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-@Schema(description = "Project Response model")
+@Schema(description = "Project response model")
 
 public class ProjectResponse   {
 
@@ -83,7 +83,7 @@ public class ProjectResponse   {
   }
 
   /**
-   * Organization identifier for the project
+   * Organization slug for the project
    **/
   public ProjectResponse org(String org) {
     this.org = org;
@@ -91,7 +91,7 @@ public class ProjectResponse   {
   }
 
   
-  @Schema(description = "Organization identifier for the project")
+  @Schema(description = "Organization slug for the project")
   @JsonProperty("org")
 
   public String getOrg() {
@@ -102,7 +102,7 @@ public class ProjectResponse   {
   }
 
   /**
-   * Project identifier
+   * Project slug
    **/
   public ProjectResponse slug(String slug) {
     this.slug = slug;
@@ -110,7 +110,7 @@ public class ProjectResponse   {
   }
 
   
-  @Schema(description = "Project identifier")
+  @Schema(description = "Project slug")
   @JsonProperty("slug")
 
   public String getSlug() {

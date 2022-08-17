@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class SecretTextSpec extends SecretSpec implements OneOfSecretSpec  {
 
-  private @Valid String secretManagerIdentifier = null;
+  private @Valid String secretManagerSlug = null;
 
 public enum ValueTypeEnum {
 
@@ -60,23 +60,23 @@ public enum ValueTypeEnum {
   private @Valid String value = null;
 
   /**
-   * Identifier of the Secret Manager used to manage the secret
+   * Slug of the secret manager used to manage the secret
    **/
-  public SecretTextSpec secretManagerIdentifier(String secretManagerIdentifier) {
-    this.secretManagerIdentifier = secretManagerIdentifier;
+  public SecretTextSpec secretManagerSlug(String secretManagerSlug) {
+    this.secretManagerSlug = secretManagerSlug;
     return this;
   }
 
   
-  @Schema(required = true, description = "Identifier of the Secret Manager used to manage the secret")
-  @JsonProperty("secret_manager_identifier")
+  @Schema(required = true, description = "Slug of the secret manager used to manage the secret")
+  @JsonProperty("secret_manager_slug")
   @NotNull
 
-  public String getSecretManagerIdentifier() {
-    return secretManagerIdentifier;
+  public String getSecretManagerSlug() {
+    return secretManagerSlug;
   }
-  public void setSecretManagerIdentifier(String secretManagerIdentifier) {
-    this.secretManagerIdentifier = secretManagerIdentifier;
+  public void setSecretManagerSlug(String secretManagerSlug) {
+    this.secretManagerSlug = secretManagerSlug;
   }
 
   /**
@@ -128,14 +128,14 @@ public enum ValueTypeEnum {
       return false;
     }
     SecretTextSpec secretTextSpec = (SecretTextSpec) o;
-    return Objects.equals(secretManagerIdentifier, secretTextSpec.secretManagerIdentifier) &&
+    return Objects.equals(secretManagerSlug, secretTextSpec.secretManagerSlug) &&
         Objects.equals(valueType, secretTextSpec.valueType) &&
         Objects.equals(value, secretTextSpec.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(secretManagerIdentifier, valueType, value);
+    return Objects.hash(secretManagerSlug, valueType, value);
   }
 
   @Override
@@ -143,7 +143,7 @@ public enum ValueTypeEnum {
     StringBuilder sb = new StringBuilder();
     sb.append("class SecretTextSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    secretManagerIdentifier: ").append(toIndentedString(secretManagerIdentifier)).append("\n");
+    sb.append("    secretManagerSlug: ").append(toIndentedString(secretManagerSlug)).append("\n");
     sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
