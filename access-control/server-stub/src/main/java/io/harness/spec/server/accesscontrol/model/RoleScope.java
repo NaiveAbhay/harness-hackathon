@@ -1,4 +1,4 @@
-package io.harness.spec.server.access_control.model;
+package io.harness.spec.server.accesscontrol.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
@@ -10,6 +10,9 @@ import javax.validation.Valid;
 import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Schema(description = "Scope of the Role.")
 
 public class RoleScope   {
@@ -29,7 +32,7 @@ public class RoleScope   {
   }
 
   
-  @ApiModelProperty(value = "Account identifier")
+  @Schema(description = "Account identifier")
   @JsonProperty("account")
 
   public String getAccount() {
@@ -48,7 +51,7 @@ public class RoleScope   {
   }
 
   
-  @ApiModelProperty(value = "Organization identifier")
+  @Schema(description = "Organization identifier")
   @JsonProperty("org")
 
   public String getOrg() {
@@ -67,7 +70,7 @@ public class RoleScope   {
   }
 
   
-  @ApiModelProperty(value = "Project identifier")
+  @Schema(description = "Project identifier")
   @JsonProperty("project")
 
   public String getProject() {

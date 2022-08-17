@@ -1,6 +1,6 @@
-package io.harness.spec.server.access_control.model;
+package io.harness.spec.server.accesscontrol.model;
 
-import io.harness.spec.server.access_control.model.SortType;
+import io.harness.spec.server.accesscontrol.model.SortType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -11,6 +11,9 @@ import javax.validation.Valid;
 import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Schema(description = "Specify how Roles are to be sorted while listing them.")
 
 public class SortRoles   {
@@ -28,7 +31,7 @@ public class SortRoles   {
   }
 
   
-  @ApiModelProperty(value = "Attribute used for sorting.")
+  @Schema(description = "Attribute used for sorting.")
   @JsonProperty("field_name")
 
   public String getFieldName() {
@@ -46,7 +49,7 @@ public class SortRoles   {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   @JsonProperty("order_type")
 
   public SortType getOrderType() {

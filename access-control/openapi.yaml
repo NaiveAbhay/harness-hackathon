@@ -506,57 +506,29 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              totalPages:
-                type: integer
-                description: Total pages in response.
-              totalItems:
-                type: integer
-                description: Total items in the response.
-              pageItemCount:
-                type: integer
-                description: Number of items per page.
-              pageSize:
-                type: integer
-                description: Size of page.
-              roles:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RolesResponse'
-              pageIndex:
-                type: integer
-                description: Index of the page returned.
-              empty:
-                type: boolean
-                description: Returns true when page is empty.
+            type: array
+            items:
+              $ref: '#/components/schemas/RolesResponse'
           examples:
             role-list-response:
               value:
-                totalPages: 0
-                totalItems: 0
-                pageItemCount: 0
-                pageSize: 0
-                roles:
-                  - slug: example_role
-                    name: Example_Role
-                    permissions:
-                      - core_view
-                    allowed_scope_levels:
-                      - account
-                    description: This is an Example Role
-                    tags:
-                      example-tag-1: example-tag-1-value
-                      example-tag-2: example-tag-2-value
-                    scope:
-                      account: sample_account
-                      org: sample_org
-                      project: sample_project
-                    harness_managed: true
-                    created_at: 1234567890
-                    last_modified_at: 1234567890
-                pageIndex: 0
-                empty: true
+                - slug: example_role
+                  name: Example_Role
+                  permissions:
+                    - core_view
+                  allowed_scope_levels:
+                    - account
+                  description: This is an Example Role
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  scope:
+                    account: sample_account
+                    org: sample_org
+                    project: sample_project
+                  harness_managed: true
+                  created_at: 1234567890
+                  last_modified_at: 1234567890
       headers:
         Link:
           schema:

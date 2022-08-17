@@ -1,4 +1,4 @@
-package io.harness.spec.server.access_control.model;
+package io.harness.spec.server.accesscontrol.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;

@@ -1,4 +1,4 @@
-package io.harness.spec.server.access_control.model;
+package io.harness.spec.server.accesscontrol.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
@@ -12,6 +12,9 @@ import javax.validation.Valid;
 import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Schema(description = "Create Role request")
 
 public class CreateRoleRequest   {
@@ -68,7 +71,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(required = true, value = "Role identifier")
+  @Schema(required = true, description = "Role identifier")
   @JsonProperty("slug")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
@@ -88,7 +91,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(required = true, value = "Role name")
+  @Schema(required = true, description = "Role name")
   @JsonProperty("name")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$") @Size(min=1,max=64)
@@ -108,7 +111,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "List of the permission identifiers.")
+  @Schema(description = "List of the permission identifiers.")
   @JsonProperty("permissions")
 
   public List<String> getPermissions() {
@@ -127,7 +130,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "The scope levels at which this Role can be used.")
+  @Schema(description = "The scope levels at which this Role can be used.")
   @JsonProperty("allowed_scope_levels")
 
   public List<AllowedScopeLevelsEnum> getAllowedScopeLevels() {
@@ -146,7 +149,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role description")
+  @Schema(description = "Role description")
   @JsonProperty("description")
  @Size(max=1024)
   public String getDescription() {
@@ -165,7 +168,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role tags")
+  @Schema(description = "Role tags")
   @JsonProperty("tags")
 
   public Object getTags() {

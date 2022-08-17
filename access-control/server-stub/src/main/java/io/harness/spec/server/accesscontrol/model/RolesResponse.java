@@ -1,6 +1,6 @@
-package io.harness.spec.server.access_control.model;
+package io.harness.spec.server.accesscontrol.model;
 
-import io.harness.spec.server.access_control.model.RoleScope;
+import io.harness.spec.server.accesscontrol.model.RoleScope;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,9 @@ import javax.validation.Valid;
 import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 @Schema(description = "Role Response Model")
 
 public class RolesResponse   {
@@ -77,7 +80,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role Identifier")
+  @Schema(description = "Role Identifier")
   @JsonProperty("slug")
 
   public String getSlug() {
@@ -96,7 +99,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role Name")
+  @Schema(description = "Role Name")
   @JsonProperty("name")
 
   public String getName() {
@@ -115,7 +118,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Permissions for this Role.")
+  @Schema(description = "Permissions for this Role.")
   @JsonProperty("permissions")
 
   public List<String> getPermissions() {
@@ -134,7 +137,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Allowed Scope Levels for this Role.")
+  @Schema(description = "Allowed Scope Levels for this Role.")
   @JsonProperty("allowed_scope_levels")
 
   public List<AllowedScopeLevelsEnum> getAllowedScopeLevels() {
@@ -153,7 +156,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role description")
+  @Schema(description = "Role description")
   @JsonProperty("description")
 
   public String getDescription() {
@@ -172,7 +175,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Role tags")
+  @Schema(description = "Role tags")
   @JsonProperty("tags")
 
   public Object getTags() {
@@ -190,7 +193,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "")
+  @Schema(description = "")
   @JsonProperty("scope")
 
   public RoleScope getScope() {
@@ -209,7 +212,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.")
+  @Schema(description = "This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.")
   @JsonProperty("harness_managed")
 
   public Boolean isHarnessManaged() {
@@ -228,7 +231,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Creation timestamp for Role.")
+  @Schema(description = "Creation timestamp for Role.")
   @JsonProperty("created_at")
 
   public Long getCreatedAt() {
@@ -247,7 +250,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @ApiModelProperty(value = "Last modification timestamp for Role.")
+  @Schema(description = "Last modification timestamp for Role.")
   @JsonProperty("last_modified_at")
 
   public Long getLastModifiedAt() {
