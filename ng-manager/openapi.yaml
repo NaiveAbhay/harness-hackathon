@@ -629,6 +629,17 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Secret
+    head:
+      summary: Validate Secret slug
+      operationId: validate-unique-project-scoped-secret-slug
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateSecretSlugResponse'
+      description: Validates project scoped secret slug is unique
+      tags:
+        - Secret
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
 components:
   schemas:
     CreateOrganizationRequest:
