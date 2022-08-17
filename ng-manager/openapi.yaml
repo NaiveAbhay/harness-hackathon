@@ -523,7 +523,7 @@ paths:
       operationId: validate-unique-account-scoped-secret-slug
       responses:
         '200':
-          description: ''
+          $ref: '#/components/responses/ValidateSecretSlugResponse'
       description: Validates secret slug is unique
       tags:
         - Secret
@@ -1517,6 +1517,29 @@ components:
                   updated_at: 1234567890
                   draft: false
                   governance_metatdata: null
+    ValidateSecretSlugResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              valid:
+                type: boolean
+          examples:
+            example-validate-secret-slug-response-json:
+              value:
+                valid: true
+        application/yaml:
+          schema:
+            type: object
+            properties:
+              valid:
+                type: boolean
+          examples:
+            example-validate-secret-slug-response-json:
+              value: |
+                valid: true
   requestBodies:
     UpdateProjectRequest:
       content:
