@@ -573,6 +573,17 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Secret
+    head:
+      summary: Validate Secret slug
+      operationId: validate-unique-org-scoped-secret-slug
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateSecretSlugResponse'
+      description: Validates org scoped secret slug is unique
+      tags:
+        - Secret
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/org/{org}/project/{project}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
