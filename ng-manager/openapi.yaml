@@ -8,13 +8,32 @@ info:
 servers:
   - url: 'http://app.harness.io'
     description: harness
+x-tagGroups:
+  - name: Organization
+    tags:
+      - Organization
+  - name: Project
+    tags:
+      - Account Project
+      - Org Project
+  - name: Secret
+    tags:
+      - Account Secret
+      - Org Secret
+      - Project Secret
 tags:
   - name: Organization
     description: Everything about Organization
-  - name: Project
-    description: Everything about Project
-  - name: Secret
-    description: Everything about Secret
+  - name: Account Project
+    description: Everything about Account scoped Project
+  - name: Org Project
+    description: Everything about Org scoped Project
+  - name: Account Secret
+    description: Everything about Account scoped Secret
+  - name: Org Secret
+    description: Everything about Org scoped Secret
+  - name: Project Secret
+    description: Everything about Project scoped Secret
 paths:
   /v1/orgs:
     post:
@@ -102,8 +121,6 @@ paths:
   /v1/projects:
     post:
       summary: Create Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -115,10 +132,10 @@ paths:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Project
     get:
       summary: Get Projects
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectListResponse'
@@ -144,12 +161,12 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+      tags:
+        - Account Project
     parameters: []
   '/v1/orgs/{org}/projects':
     post:
       summary: Create Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -161,10 +178,10 @@ paths:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Org Project
     get:
       summary: Get Projects
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectListResponse'
@@ -189,13 +206,13 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+      tags:
+        - Org Project
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
   '/v1/projects/{project}':
     get:
       summary: Get Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -205,10 +222,10 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Project
     put:
       summary: Update Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -220,10 +237,10 @@ paths:
         $ref: '#/components/requestBodies/UpdateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Project
     delete:
       summary: Delete Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -233,6 +250,8 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Project
     parameters:
       - schema:
           type: string
@@ -243,8 +262,6 @@ paths:
   '/v1/orgs/{org}/projects/{project}':
     get:
       summary: Get Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -254,10 +271,10 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Org Project
     put:
       summary: Update Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -269,10 +286,10 @@ paths:
         $ref: '#/components/requestBodies/UpdateProjectRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Org Project
     delete:
       summary: Delete Project
-      tags:
-        - Project
       responses:
         '200':
           $ref: '#/components/responses/ProjectResponse'
@@ -282,6 +299,8 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Org Project
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -292,8 +311,6 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/SecretResponse'
-      tags:
-        - Secret
       description: Creates a new Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
@@ -302,6 +319,8 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
+      tags:
+        - Account Secret
     get:
       summary: Get Secrets
       operationId: get-account-scoped-secrets
@@ -348,7 +367,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
       tags:
-        - Secret
+        - Account Secret
   '/v1/orgs/{org}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -358,14 +377,14 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/SecretResponse'
-      tags:
-        - Secret
       description: Creates a new Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+      tags:
+        - Org Secret
     get:
       summary: Get Secrets
       operationId: get-org-scoped-secrets
@@ -411,7 +430,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
       tags:
-        - Secret
+        - Org Secret
   '/v1/orgs/{org}/project/{project}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -425,11 +444,11 @@ paths:
       description: Creates a new Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
-      tags:
-        - Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+      tags:
+        - Project Secret
     get:
       summary: ''
       operationId: get-project-scoped-secrets
@@ -474,7 +493,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
       tags:
-        - Secret
+        - Project Secret
   '/v1/secrets/{secret}':
     parameters:
       - schema:
@@ -485,8 +504,6 @@ paths:
         description: Slug field of the Secret
     get:
       summary: Get Secret
-      tags:
-        - Secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
@@ -494,10 +511,12 @@ paths:
       description: Retrieves the information of the Secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Secret
     delete:
       summary: Delete Secret
       tags:
-        - Secret
+        - Account Secret
       operationId: delete-account-scoped-secret
       responses:
         '200':
@@ -515,7 +534,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
       tags:
-        - Secret
+        - Account Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
     head:
@@ -526,7 +545,7 @@ paths:
           $ref: '#/components/responses/ValidateSecretSlugResponse'
       description: Validates secret slug is unique
       tags:
-        - Secret
+        - Account Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/org/{org}/secrets/{secret}':
@@ -541,7 +560,7 @@ paths:
     get:
       summary: Get Secret
       tags:
-        - Secret
+        - Org Secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
@@ -552,7 +571,7 @@ paths:
     delete:
       summary: Delete Secret
       tags:
-        - Secret
+        - Org Secret
       operationId: delete-org-scoped-secret
       responses:
         '200':
@@ -572,7 +591,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
-        - Secret
+        - Org Secret
     head:
       summary: Validate Secret slug
       operationId: validate-unique-org-scoped-secret-slug
@@ -581,7 +600,7 @@ paths:
           $ref: '#/components/responses/ValidateSecretSlugResponse'
       description: Validates org scoped secret slug is unique
       tags:
-        - Secret
+        - Org Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/org/{org}/project/{project}/secrets/{secret}':
@@ -597,7 +616,7 @@ paths:
     get:
       summary: Get Secret
       tags:
-        - Secret
+        - Project Secret
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
@@ -608,7 +627,7 @@ paths:
     delete:
       summary: Delete Secret
       tags:
-        - Secret
+        - Project Secret
       operationId: delete-project-scoped-secret
       responses:
         '200':
@@ -628,7 +647,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
-        - Secret
+        - Project Secret
     head:
       summary: Validate Secret slug
       operationId: validate-unique-project-scoped-secret-slug
@@ -637,7 +656,7 @@ paths:
           $ref: '#/components/responses/ValidateSecretSlugResponse'
       description: Validates project scoped secret slug is unique
       tags:
-        - Secret
+        - Project Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
 components:
