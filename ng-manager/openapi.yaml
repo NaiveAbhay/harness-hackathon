@@ -1692,16 +1692,6 @@ components:
                     username: example_secret
                     key_path: example_secret
                     encrypted_passphrase: account.example_secret
-        multipart/form-data:
-          schema:
-            properties:
-              spec:
-                $ref: '#/components/schemas/SecretRequest'
-              file:
-                type: string
-                format: binary
-            required:
-              - file
       required: true
   parameters:
     Page:
