@@ -3,23 +3,29 @@ package io.harness.spec.server.ng;
 import io.harness.spec.server.ng.model.SecretRequest;
 import io.harness.spec.server.ng.model.SecretResponse;
 import io.harness.spec.server.ng.model.ValidateSecretSlugResponse;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import java.util.Map;
-import java.util.List;
-import javax.validation.constraints.*;
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.HEAD;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/v1/secrets")
 

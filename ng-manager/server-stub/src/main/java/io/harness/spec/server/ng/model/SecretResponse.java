@@ -1,20 +1,10 @@
 package io.harness.spec.server.ng.model;
 
-import io.harness.spec.server.ng.model.Secret;
-import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Secret response model
- **/
-import io.swagger.annotations.*;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
+import java.util.Objects;
 
 
 

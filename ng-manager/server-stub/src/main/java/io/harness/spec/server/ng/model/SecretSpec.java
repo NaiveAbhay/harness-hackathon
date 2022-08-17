@@ -1,22 +1,15 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeId;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.*;
-import javax.validation.Valid;
-
-/**
- * Details of the secret defined in Harness
- **/
-import io.swagger.annotations.*;
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true )
