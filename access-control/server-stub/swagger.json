@@ -1309,6 +1309,7 @@
             "description" : "Role Name"
           },
           "permissions" : {
+            "uniqueItems" : true,
             "type" : "array",
             "description" : "Permissions for this Role.",
             "items" : {
@@ -1321,6 +1322,9 @@
           },
           "tags" : {
             "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
             "description" : "Role tags"
           },
           "scope" : {
@@ -1328,7 +1332,7 @@
           },
           "harness_managed" : {
             "type" : "boolean",
-            "description" : "This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role."
+            "description" : "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role."
           },
           "created" : {
             "type" : "integer",
@@ -1396,6 +1400,9 @@
           "tags" : {
             "maxProperties" : 128,
             "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
             "description" : "Role tags"
           }
         },

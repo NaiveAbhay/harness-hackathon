@@ -2,7 +2,9 @@ package io.harness.spec.server.accesscontrol.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -27,7 +29,7 @@ public class CreateRoleRequest   {
 
   private @Valid String description = null;
 
-  private @Valid Object tags = null;
+  private @Valid Map<String, String> tags = new HashMap<String, String>();
 
   /**
    * Role identifier
@@ -110,7 +112,7 @@ public class CreateRoleRequest   {
   /**
    * Role tags
    **/
-  public CreateRoleRequest tags(Object tags) {
+  public CreateRoleRequest tags(Map<String, String> tags) {
     this.tags = tags;
     return this;
   }
@@ -118,11 +120,11 @@ public class CreateRoleRequest   {
   
   @Schema(description = "Role tags")
   @JsonProperty("tags")
-
-  public Object getTags() {
+ @Size(max=128)
+  public Map<String, String> getTags() {
     return tags;
   }
-  public void setTags(Object tags) {
+  public void setTags(Map<String, String> tags) {
     this.tags = tags;
   }
 

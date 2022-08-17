@@ -331,6 +331,7 @@ components:
         permissions:
           type: array
           description: Permissions for this Role.
+          uniqueItems: true
           items:
             type: string
         description:
@@ -338,12 +339,14 @@ components:
           description: Role description
         tags:
           type: object
+          additionalProperties:
+            type: string
           description: Role tags
         scope:
           $ref: '#/components/schemas/RoleScope'
         harness_managed:
           type: boolean
-          description: 'This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.'
+          description: 'This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.'
         created:
           type: integer
           description: Creation timestamp for Role.
@@ -393,6 +396,8 @@ components:
           description: Role description
         tags:
           type: object
+          additionalProperties:
+            type: string
           maxProperties: 128
           description: Role tags
       required:

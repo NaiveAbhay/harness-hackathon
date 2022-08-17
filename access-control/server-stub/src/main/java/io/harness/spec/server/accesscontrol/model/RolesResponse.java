@@ -3,7 +3,9 @@ package io.harness.spec.server.accesscontrol.model;
 import io.harness.spec.server.accesscontrol.model.RoleScope;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -28,7 +30,7 @@ public class RolesResponse   {
 
   private @Valid String description = null;
 
-  private @Valid Object tags = null;
+  private @Valid Map<String, String> tags = new HashMap<String, String>();
 
   private @Valid RoleScope scope = null;
 
@@ -117,7 +119,7 @@ public class RolesResponse   {
   /**
    * Role tags
    **/
-  public RolesResponse tags(Object tags) {
+  public RolesResponse tags(Map<String, String> tags) {
     this.tags = tags;
     return this;
   }
@@ -126,10 +128,10 @@ public class RolesResponse   {
   @Schema(description = "Role tags")
   @JsonProperty("tags")
 
-  public Object getTags() {
+  public Map<String, String> getTags() {
     return tags;
   }
-  public void setTags(Object tags) {
+  public void setTags(Map<String, String> tags) {
     this.tags = tags;
   }
 
@@ -152,7 +154,7 @@ public class RolesResponse   {
   }
 
   /**
-   * This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.
+   * This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.
    **/
   public RolesResponse harnessManaged(Boolean harnessManaged) {
     this.harnessManaged = harnessManaged;
@@ -160,7 +162,7 @@ public class RolesResponse   {
   }
 
   
-  @Schema(description = "This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.")
+  @Schema(description = "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.")
   @JsonProperty("harness_managed")
 
   public Boolean isHarnessManaged() {
