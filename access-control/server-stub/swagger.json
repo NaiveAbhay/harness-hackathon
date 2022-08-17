@@ -26,7 +26,7 @@
     "/v1/roles" : {
       "get" : {
         "tags" : [ "Account Roles" ],
-        "summary" : "List Roles [Account]",
+        "summary" : "List Roles",
         "description" : "Returns a list of Roles present in the Account scope.",
         "operationId" : "list-roles-acc",
         "parameters" : [ {
@@ -60,7 +60,7 @@
           "schema" : {
             "maximum" : 100,
             "type" : "integer",
-            "default" : 50
+            "default" : 30
           }
         }, {
           "name" : "search_term",
@@ -82,7 +82,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/SortRoles"
+              "$ref" : "#/components/schemas/Sorting"
             }
           }
         } ],
@@ -113,7 +113,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -125,8 +124,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     } ]
                   }
                 }
@@ -140,7 +139,7 @@
       },
       "post" : {
         "tags" : [ "Account Roles" ],
-        "summary" : "Create a Role [Account]",
+        "summary" : "Create a Role",
         "description" : "Creates a custom Role in the Account scope.",
         "operationId" : "create-role-acc",
         "parameters" : [ {
@@ -171,7 +170,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -183,8 +181,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -200,7 +198,7 @@
     "/v1/roles/{role}" : {
       "get" : {
         "tags" : [ "Account Roles" ],
-        "summary" : "Retrieve a Role [Account]",
+        "summary" : "Retrieve a Role",
         "description" : "Retrieves a Role from Account scope.",
         "operationId" : "get-role-acc",
         "parameters" : [ {
@@ -238,7 +236,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -250,8 +247,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -265,7 +262,7 @@
       },
       "put" : {
         "tags" : [ "Account Roles" ],
-        "summary" : "Update a Role [Account]",
+        "summary" : "Update a Role",
         "description" : "Updates a Role from Account scope.",
         "operationId" : "update-role-acc",
         "parameters" : [ {
@@ -306,7 +303,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -318,8 +314,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -333,7 +329,7 @@
       },
       "delete" : {
         "tags" : [ "Account Roles" ],
-        "summary" : "Delete a Role [Account]",
+        "summary" : "Delete a Role",
         "description" : "Deletes a custom Role from Account scope.",
         "operationId" : "delete-role-acc",
         "parameters" : [ {
@@ -371,7 +367,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -383,8 +378,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -400,7 +395,7 @@
     "/v1/orgs/{org}/roles" : {
       "get" : {
         "tags" : [ "Organization Roles" ],
-        "summary" : "List Roles [Organization]",
+        "summary" : "List Roles",
         "description" : "Returns a list of Roles present in the Organization scope.",
         "operationId" : "list-roles-org",
         "parameters" : [ {
@@ -444,7 +439,7 @@
           "schema" : {
             "maximum" : 100,
             "type" : "integer",
-            "default" : 50
+            "default" : 30
           }
         }, {
           "name" : "search_term",
@@ -466,7 +461,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/SortRoles"
+              "$ref" : "#/components/schemas/Sorting"
             }
           }
         } ],
@@ -497,7 +492,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -509,8 +503,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     } ]
                   }
                 }
@@ -524,7 +518,7 @@
       },
       "post" : {
         "tags" : [ "Organization Roles" ],
-        "summary" : "Create a Role [Organization]",
+        "summary" : "Create a Role",
         "description" : "Creates a custom Role in the Organization scope.",
         "operationId" : "create-role-org",
         "parameters" : [ {
@@ -565,7 +559,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -577,8 +570,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -594,7 +587,7 @@
     "/v1/orgs/{org}/roles/{role}" : {
       "get" : {
         "tags" : [ "Organization Roles" ],
-        "summary" : "Retrieve a Role [Organization]",
+        "summary" : "Retrieve a Role",
         "description" : "Retrieves a Role from Organization scope.",
         "operationId" : "get-role-org",
         "parameters" : [ {
@@ -642,7 +635,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -654,8 +646,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -669,7 +661,7 @@
       },
       "put" : {
         "tags" : [ "Organization Roles" ],
-        "summary" : "Update a Role [Organization]",
+        "summary" : "Update a Role",
         "description" : "Updates a Role from Organization scope.",
         "operationId" : "update-role-org",
         "parameters" : [ {
@@ -720,7 +712,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -732,8 +723,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -747,7 +738,7 @@
       },
       "delete" : {
         "tags" : [ "Organization Roles" ],
-        "summary" : "Delete a Role [Organization]",
+        "summary" : "Delete a Role",
         "description" : "Deletes a custom Role from Organization scope.",
         "operationId" : "delete-role-org",
         "parameters" : [ {
@@ -795,7 +786,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -807,8 +797,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -824,7 +814,7 @@
     "/v1/orgs/{org}/projects/{project}/roles" : {
       "get" : {
         "tags" : [ "Project Roles" ],
-        "summary" : "List Roles [Project]",
+        "summary" : "List Roles",
         "description" : "Returns a list of Roles present in the Project scope.",
         "operationId" : "list-roles-project",
         "parameters" : [ {
@@ -878,7 +868,7 @@
           "schema" : {
             "maximum" : 100,
             "type" : "integer",
-            "default" : 50
+            "default" : 30
           }
         }, {
           "name" : "search_term",
@@ -900,7 +890,7 @@
           "schema" : {
             "type" : "array",
             "items" : {
-              "$ref" : "#/components/schemas/SortRoles"
+              "$ref" : "#/components/schemas/Sorting"
             }
           }
         } ],
@@ -931,7 +921,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -943,8 +932,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     } ]
                   }
                 }
@@ -958,7 +947,7 @@
       },
       "post" : {
         "tags" : [ "Project Roles" ],
-        "summary" : "Create a Role [Project]",
+        "summary" : "Create a Role",
         "description" : "Creates a custom Role in the Project scope.",
         "operationId" : "create-role-project",
         "parameters" : [ {
@@ -1009,7 +998,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1021,8 +1009,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1038,7 +1026,7 @@
     "/v1/orgs/{org}/projects/{project}/roles/{role}" : {
       "get" : {
         "tags" : [ "Project Roles" ],
-        "summary" : "Retrieve a Role [Project]",
+        "summary" : "Retrieve a Role",
         "description" : "Retrieves a Role from Project scope.",
         "operationId" : "get-role-project",
         "parameters" : [ {
@@ -1096,7 +1084,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1108,8 +1095,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1123,7 +1110,7 @@
       },
       "put" : {
         "tags" : [ "Project Roles" ],
-        "summary" : "Update a Role [Project]",
+        "summary" : "Update a Role",
         "description" : "Updates a Role from Project scope.",
         "operationId" : "update-role-project",
         "parameters" : [ {
@@ -1174,7 +1161,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1186,8 +1172,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1201,7 +1187,7 @@
       },
       "delete" : {
         "tags" : [ "Project Roles" ],
-        "summary" : "Delete a Role [Project]",
+        "summary" : "Delete a Role",
         "description" : "Deletes a custom Role from Project scope.",
         "operationId" : "delete-role-project",
         "parameters" : [ {
@@ -1259,7 +1245,6 @@
                       "slug" : "example_role",
                       "name" : "Example_Role",
                       "permissions" : [ "core_view" ],
-                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1271,8 +1256,8 @@
                         "project" : "sample_project"
                       },
                       "harness_managed" : true,
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1288,8 +1273,8 @@
   },
   "components" : {
     "schemas" : {
-      "SortRoles" : {
-        "title" : "Role Sorting",
+      "Sorting" : {
+        "title" : "Sorting",
         "type" : "object",
         "properties" : {
           "field_name" : {
@@ -1297,10 +1282,12 @@
             "description" : "Attribute used for sorting."
           },
           "order_type" : {
-            "$ref" : "#/components/schemas/SortType"
+            "type" : "string",
+            "description" : "Sorting types when listing items.",
+            "enum" : [ "ASC", "DESC" ]
           }
         },
-        "description" : "Specify how Roles are to be sorted while listing them.",
+        "description" : "Specify how items are to be sorted while listing them.",
         "x-examples" : {
           "Items" : {
             "field_name" : "name",
@@ -1308,15 +1295,6 @@
           }
         },
         "x-internal" : false
-      },
-      "SortType" : {
-        "title" : "Sorting Type",
-        "type" : "string",
-        "description" : "Sorting types when listing Roles.",
-        "enum" : [ "ASC", "DESC" ],
-        "x-stoplight" : {
-          "id" : "yjhtvl15wadjq"
-        }
       },
       "RolesResponse" : {
         "title" : "RolesResponse",
@@ -1337,14 +1315,6 @@
               "type" : "string"
             }
           },
-          "allowed_scope_levels" : {
-            "type" : "array",
-            "description" : "Allowed Scope Levels for this Role.",
-            "items" : {
-              "type" : "string",
-              "enum" : [ "account", "organization", "project" ]
-            }
-          },
           "description" : {
             "type" : "string",
             "description" : "Role description"
@@ -1360,12 +1330,12 @@
             "type" : "boolean",
             "description" : "This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role."
           },
-          "created_at" : {
+          "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for Role.",
             "format" : "int64"
           },
-          "last_modified_at" : {
+          "updated" : {
             "type" : "integer",
             "description" : "Last modification timestamp for Role.",
             "format" : "int64"
@@ -1380,15 +1350,14 @@
             "slug" : "example_role",
             "name" : "Example Role",
             "permissions" : [ "string" ],
-            "allowed_scope_levels" : "account",
             "description" : "This is an Example Role",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
             },
             "harness_managed" : true,
-            "created_at" : 1234567890,
-            "last_modified_at" : 1234567890
+            "created" : 1234567890,
+            "updated" : 1234567890
           }
         }
       },
@@ -1419,15 +1388,6 @@
               "type" : "string"
             }
           },
-          "allowed_scope_levels" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "description" : "The scope levels at which this Role can be used.",
-            "items" : {
-              "type" : "string",
-              "enum" : [ "account", "organization", "project" ]
-            }
-          },
           "description" : {
             "maxLength" : 1024,
             "type" : "string",
@@ -1448,7 +1408,6 @@
             "slug" : "example_role",
             "name" : "Example_Role",
             "permissions" : [ "core_view" ],
-            "allowed_scope_levels" : [ "account" ],
             "description" : "This is an Example Role",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
@@ -1508,7 +1467,6 @@
                   "slug" : "example_role",
                   "name" : "Example_Role",
                   "permissions" : [ "core_view" ],
-                  "allowed_scope_levels" : [ "account" ],
                   "description" : "This is an Example Role",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -1520,8 +1478,8 @@
                     "project" : "sample_project"
                   },
                   "harness_managed" : true,
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890
+                  "created" : 1234567890,
+                  "updated" : 1234567890
                 } ]
               }
             }
@@ -1541,7 +1499,6 @@
                   "slug" : "example_role",
                   "name" : "Example_Role",
                   "permissions" : [ "core_view" ],
-                  "allowed_scope_levels" : [ "account" ],
                   "description" : "This is an Example Role",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -1553,8 +1510,8 @@
                     "project" : "sample_project"
                   },
                   "harness_managed" : true,
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890
+                  "created" : 1234567890,
+                  "updated" : 1234567890
                 }
               }
             }
@@ -1584,7 +1541,7 @@
         "schema" : {
           "maximum" : 100,
           "type" : "integer",
-          "default" : 50
+          "default" : 30
         }
       },
       "PageIndex" : {
@@ -1657,7 +1614,6 @@
                   "slug" : "example_role",
                   "name" : "Example_Role",
                   "permissions" : [ "core_view" ],
-                  "allowed_scope_levels" : [ "account" ],
                   "description" : "This is an Example Role",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",

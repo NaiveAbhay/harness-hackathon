@@ -26,39 +26,6 @@ public class RolesResponse   {
 
   private @Valid List<String> permissions = new ArrayList<String>();
 
-public enum AllowedScopeLevelsEnum {
-
-    ACCOUNT(String.valueOf("account")), ORGANIZATION(String.valueOf("organization")), PROJECT(String.valueOf("project"));
-
-
-    private String value;
-
-    AllowedScopeLevelsEnum (String v) {
-        value = v;
-    }
-
-    public String value() {
-        return value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static AllowedScopeLevelsEnum fromValue(String v) {
-        for (AllowedScopeLevelsEnum b : AllowedScopeLevelsEnum.values()) {
-            if (String.valueOf(b.value).equals(v)) {
-                return b;
-            }
-        }
-        return null;
-    }
-}
-  private @Valid List<AllowedScopeLevelsEnum> allowedScopeLevels = new ArrayList<AllowedScopeLevelsEnum>();
-
   private @Valid String description = null;
 
   private @Valid Object tags = null;
@@ -67,9 +34,9 @@ public enum AllowedScopeLevelsEnum {
 
   private @Valid Boolean harnessManaged = null;
 
-  private @Valid Long createdAt = null;
+  private @Valid Long created = null;
 
-  private @Valid Long lastModifiedAt = null;
+  private @Valid Long updated = null;
 
   /**
    * Role Identifier
@@ -126,25 +93,6 @@ public enum AllowedScopeLevelsEnum {
   }
   public void setPermissions(List<String> permissions) {
     this.permissions = permissions;
-  }
-
-  /**
-   * Allowed Scope Levels for this Role.
-   **/
-  public RolesResponse allowedScopeLevels(List<AllowedScopeLevelsEnum> allowedScopeLevels) {
-    this.allowedScopeLevels = allowedScopeLevels;
-    return this;
-  }
-
-  
-  @Schema(description = "Allowed Scope Levels for this Role.")
-  @JsonProperty("allowed_scope_levels")
-
-  public List<AllowedScopeLevelsEnum> getAllowedScopeLevels() {
-    return allowedScopeLevels;
-  }
-  public void setAllowedScopeLevels(List<AllowedScopeLevelsEnum> allowedScopeLevels) {
-    this.allowedScopeLevels = allowedScopeLevels;
   }
 
   /**
@@ -225,39 +173,39 @@ public enum AllowedScopeLevelsEnum {
   /**
    * Creation timestamp for Role.
    **/
-  public RolesResponse createdAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public RolesResponse created(Long created) {
+    this.created = created;
     return this;
   }
 
   
   @Schema(description = "Creation timestamp for Role.")
-  @JsonProperty("created_at")
+  @JsonProperty("created")
 
-  public Long getCreatedAt() {
-    return createdAt;
+  public Long getCreated() {
+    return created;
   }
-  public void setCreatedAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated(Long created) {
+    this.created = created;
   }
 
   /**
    * Last modification timestamp for Role.
    **/
-  public RolesResponse lastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public RolesResponse updated(Long updated) {
+    this.updated = updated;
     return this;
   }
 
   
   @Schema(description = "Last modification timestamp for Role.")
-  @JsonProperty("last_modified_at")
+  @JsonProperty("updated")
 
-  public Long getLastModifiedAt() {
-    return lastModifiedAt;
+  public Long getUpdated() {
+    return updated;
   }
-  public void setLastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public void setUpdated(Long updated) {
+    this.updated = updated;
   }
 
 
@@ -273,18 +221,17 @@ public enum AllowedScopeLevelsEnum {
     return Objects.equals(slug, rolesResponse.slug) &&
         Objects.equals(name, rolesResponse.name) &&
         Objects.equals(permissions, rolesResponse.permissions) &&
-        Objects.equals(allowedScopeLevels, rolesResponse.allowedScopeLevels) &&
         Objects.equals(description, rolesResponse.description) &&
         Objects.equals(tags, rolesResponse.tags) &&
         Objects.equals(scope, rolesResponse.scope) &&
         Objects.equals(harnessManaged, rolesResponse.harnessManaged) &&
-        Objects.equals(createdAt, rolesResponse.createdAt) &&
-        Objects.equals(lastModifiedAt, rolesResponse.lastModifiedAt);
+        Objects.equals(created, rolesResponse.created) &&
+        Objects.equals(updated, rolesResponse.updated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, permissions, allowedScopeLevels, description, tags, scope, harnessManaged, createdAt, lastModifiedAt);
+    return Objects.hash(slug, name, permissions, description, tags, scope, harnessManaged, created, updated);
   }
 
   @Override
@@ -295,13 +242,12 @@ public enum AllowedScopeLevelsEnum {
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
-    sb.append("    allowedScopeLevels: ").append(toIndentedString(allowedScopeLevels)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
     sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("}");
     return sb.toString();
   }

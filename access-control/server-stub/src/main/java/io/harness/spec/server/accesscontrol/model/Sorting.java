@@ -1,12 +1,11 @@
 package io.harness.spec.server.accesscontrol.model;
 
-import io.harness.spec.server.accesscontrol.model.SortType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Specify how Roles are to be sorted while listing them.
+ * Specify how items are to be sorted while listing them.
  **/
 import io.swagger.annotations.*;
 import java.util.Objects;
@@ -14,18 +13,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Specify how Roles are to be sorted while listing them.")
+@Schema(description = "Specify how items are to be sorted while listing them.")
 
-public class SortRoles   {
+public class Sorting   {
 
   private @Valid String fieldName = null;
 
-  private @Valid SortType orderType = null;
+public enum OrderTypeEnum {
+
+    ASC(String.valueOf("ASC")), DESC(String.valueOf("DESC"));
+
+
+    private String value;
+
+    OrderTypeEnum (String v) {
+        value = v;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static OrderTypeEnum fromValue(String v) {
+        for (OrderTypeEnum b : OrderTypeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
+        }
+        return null;
+    }
+}
+  private @Valid OrderTypeEnum orderType = null;
 
   /**
    * Attribute used for sorting.
    **/
-  public SortRoles fieldName(String fieldName) {
+  public Sorting fieldName(String fieldName) {
     this.fieldName = fieldName;
     return this;
   }
@@ -42,20 +72,21 @@ public class SortRoles   {
   }
 
   /**
+   * Sorting types when listing items.
    **/
-  public SortRoles orderType(SortType orderType) {
+  public Sorting orderType(OrderTypeEnum orderType) {
     this.orderType = orderType;
     return this;
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Sorting types when listing items.")
   @JsonProperty("order_type")
 
-  public SortType getOrderType() {
+  public OrderTypeEnum getOrderType() {
     return orderType;
   }
-  public void setOrderType(SortType orderType) {
+  public void setOrderType(OrderTypeEnum orderType) {
     this.orderType = orderType;
   }
 
@@ -68,9 +99,9 @@ public class SortRoles   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SortRoles sortRoles = (SortRoles) o;
-    return Objects.equals(fieldName, sortRoles.fieldName) &&
-        Objects.equals(orderType, sortRoles.orderType);
+    Sorting sorting = (Sorting) o;
+    return Objects.equals(fieldName, sorting.fieldName) &&
+        Objects.equals(orderType, sorting.orderType);
   }
 
   @Override
@@ -81,7 +112,7 @@ public class SortRoles   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SortRoles {\n");
+    sb.append("class Sorting {\n");
     
     sb.append("    fieldName: ").append(toIndentedString(fieldName)).append("\n");
     sb.append("    orderType: ").append(toIndentedString(orderType)).append("\n");

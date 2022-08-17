@@ -2,7 +2,7 @@ package io.harness.spec.server.accesscontrol;
 
 import io.harness.spec.server.accesscontrol.model.CreateRoleRequest;
 import io.harness.spec.server.accesscontrol.model.RolesResponse;
-import io.harness.spec.server.accesscontrol.model.SortRoles;
+import io.harness.spec.server.accesscontrol.model.Sorting;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -29,7 +29,7 @@ public interface OrganizationRolesApi {
     @POST
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(operationId = "createRoleOrg", summary = "Create a Role [Organization]", description = "Creates a custom Role in the Organization scope.", security = {
+    @Operation(operationId = "createRoleOrg", summary = "Create a Role", description = "Creates a custom Role in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
@@ -43,7 +43,7 @@ public interface OrganizationRolesApi {
     @DELETE
     @Path("/{role}")
     @Produces({ "application/json" })
-    @Operation(operationId = "deleteRoleOrg", summary = "Delete a Role [Organization]", description = "Deletes a custom Role from Organization scope.", security = {
+    @Operation(operationId = "deleteRoleOrg", summary = "Delete a Role", description = "Deletes a custom Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
@@ -60,7 +60,7 @@ public interface OrganizationRolesApi {
     @GET
     @Path("/{role}")
     @Produces({ "application/json" })
-    @Operation(operationId = "getRoleOrg", summary = "Retrieve a Role [Organization]", description = "Retrieves a Role from Organization scope.", security = {
+    @Operation(operationId = "getRoleOrg", summary = "Retrieve a Role", description = "Retrieves a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
@@ -76,7 +76,7 @@ public interface OrganizationRolesApi {
 );
     @GET
     @Produces({ "application/json" })
-    @Operation(operationId = "listRolesOrg", summary = "List Roles [Organization]", description = "Returns a list of Roles present in the Organization scope.", security = {
+    @Operation(operationId = "listRolesOrg", summary = "List Roles", description = "Returns a list of Roles present in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Roles List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
@@ -89,7 +89,7 @@ public interface OrganizationRolesApi {
 ,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.")  Integer page
-, @Max(100)  @QueryParam("limit") @DefaultValue("50") 
+, @Max(100)  @QueryParam("limit") @DefaultValue("30") 
 
  @Parameter(description = "Pagination: Number of items to return.")  Integer limit
 ,  @QueryParam("search_term") 
@@ -97,13 +97,13 @@ public interface OrganizationRolesApi {
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
 ,  @QueryParam("sort_orders") 
 
- @Parameter(description = "Sort criteria for the items.")  List<SortRoles> sortOrders
+ @Parameter(description = "Sort criteria for the items.")  List<Sorting> sortOrders
 );
     @PUT
     @Path("/{role}")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    @Operation(operationId = "updateRoleOrg", summary = "Update a Role [Organization]", description = "Updates a Role from Organization scope.", security = {
+    @Operation(operationId = "updateRoleOrg", summary = "Update a Role", description = "Updates a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })

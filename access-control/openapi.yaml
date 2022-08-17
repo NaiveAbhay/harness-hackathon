@@ -27,7 +27,7 @@ paths:
   /v1/roles:
     parameters: []
     get:
-      summary: 'List Roles [Account]'
+      summary: List Roles
       operationId: list-roles-acc
       description: Returns a list of Roles present in the Account scope.
       security:
@@ -40,7 +40,7 @@ paths:
         - schema:
             type: array
             items:
-              $ref: '#/components/schemas/SortRoles'
+              $ref: '#/components/schemas/Sorting'
           in: query
           name: sort_orders
           description: Sort criteria for the items.
@@ -50,7 +50,7 @@ paths:
       tags:
         - Account Roles
     post:
-      summary: 'Create a Role [Account]'
+      summary: Create a Role
       operationId: create-role-acc
       description: Creates a custom Role in the Account scope.
       parameters:
@@ -68,7 +68,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/RoleParam'
     get:
-      summary: 'Retrieve a Role [Account]'
+      summary: Retrieve a Role
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -81,7 +81,7 @@ paths:
       tags:
         - Account Roles
     put:
-      summary: 'Update a Role [Account]'
+      summary: Update a Role
       operationId: update-role-acc
       responses:
         '200':
@@ -96,7 +96,7 @@ paths:
       tags:
         - Account Roles
     delete:
-      summary: 'Delete a Role [Account]'
+      summary: Delete a Role
       operationId: delete-role-acc
       responses:
         '200':
@@ -112,7 +112,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgParam'
     get:
-      summary: 'List Roles [Organization]'
+      summary: List Roles
       tags:
         - Organization Roles
       responses:
@@ -130,12 +130,12 @@ paths:
         - schema:
             type: array
             items:
-              $ref: '#/components/schemas/SortRoles'
+              $ref: '#/components/schemas/Sorting'
           in: query
           name: sort_orders
           description: Sort criteria for the items.
     post:
-      summary: 'Create a Role [Organization]'
+      summary: Create a Role
       operationId: create-role-org
       responses:
         '200':
@@ -154,7 +154,7 @@ paths:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/RoleParam'
     get:
-      summary: 'Retrieve a Role [Organization]'
+      summary: Retrieve a Role
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -167,7 +167,7 @@ paths:
       tags:
         - Organization Roles
     put:
-      summary: 'Update a Role [Organization]'
+      summary: Update a Role
       operationId: update-role-org
       responses:
         '200':
@@ -182,7 +182,7 @@ paths:
       tags:
         - Organization Roles
     delete:
-      summary: 'Delete a Role [Organization]'
+      summary: Delete a Role
       operationId: delete-role-org
       responses:
         '200':
@@ -199,7 +199,7 @@ paths:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
     get:
-      summary: 'List Roles [Project]'
+      summary: List Roles
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -213,7 +213,7 @@ paths:
         - schema:
             type: array
             items:
-              $ref: '#/components/schemas/SortRoles'
+              $ref: '#/components/schemas/Sorting'
           in: query
           name: sort_orders
           description: Sort criteria for the items.
@@ -222,7 +222,7 @@ paths:
       tags:
         - Project Roles
     post:
-      summary: 'Create a Role [Project]'
+      summary: Create a Role
       operationId: create-role-project
       responses:
         '200':
@@ -242,7 +242,7 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
       - $ref: '#/components/parameters/RoleParam'
     get:
-      summary: 'Retrieve a Role [Project]'
+      summary: Retrieve a Role
       responses:
         '200':
           $ref: '#/components/responses/RoleResponse'
@@ -255,7 +255,7 @@ paths:
       tags:
         - Project Roles
     put:
-      summary: 'Update a Role [Project]'
+      summary: Update a Role
       operationId: update-role-project
       responses:
         '200':
@@ -268,7 +268,7 @@ paths:
       tags:
         - Project Roles
     delete:
-      summary: 'Delete a Role [Project]'
+      summary: Delete a Role
       operationId: delete-role-project
       responses:
         '200':
@@ -282,10 +282,10 @@ paths:
         - Project Roles
 components:
   schemas:
-    SortRoles:
-      title: Role Sorting
+    Sorting:
+      title: Sorting
       type: object
-      description: Specify how Roles are to be sorted while listing them.
+      description: Specify how items are to be sorted while listing them.
       x-examples:
         Items:
           field_name: name
@@ -297,16 +297,11 @@ components:
           type: string
           description: Attribute used for sorting.
         order_type:
-          $ref: '#/components/schemas/SortType'
-    SortType:
-      type: string
-      title: Sorting Type
-      x-stoplight:
-        id: yjhtvl15wadjq
-      description: Sorting types when listing Roles.
-      enum:
-        - ASC
-        - DESC
+          type: string
+          description: Sorting types when listing items.
+          enum:
+            - ASC
+            - DESC
     RolesResponse:
       title: RolesResponse
       x-stoplight:
@@ -319,14 +314,13 @@ components:
           name: Example Role
           permissions:
             - string
-          allowed_scope_levels: account
           description: This is an Example Role
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
           harness_managed: true
-          created_at: 1234567890
-          last_modified_at: 1234567890
+          created: 1234567890
+          updated: 1234567890
       properties:
         slug:
           type: string
@@ -339,15 +333,6 @@ components:
           description: Permissions for this Role.
           items:
             type: string
-        allowed_scope_levels:
-          type: array
-          description: Allowed Scope Levels for this Role.
-          items:
-            type: string
-            enum:
-              - account
-              - organization
-              - project
         description:
           type: string
           description: Role description
@@ -359,11 +344,11 @@ components:
         harness_managed:
           type: boolean
           description: 'This indicates if this Role is managed by Harness or not. If True, Harness can manage and modify this Role.'
-        created_at:
+        created:
           type: integer
           description: Creation timestamp for Role.
           format: int64
-        last_modified_at:
+        updated:
           type: integer
           description: Last modification timestamp for Role.
           format: int64
@@ -373,6 +358,16 @@ components:
         id: z8g6ol73nsqjs
       type: object
       description: Create Role request
+      x-examples:
+        role-request:
+          slug: example_role
+          name: Example_Role
+          permissions:
+            - core_view
+          description: This is an Example Role
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
       properties:
         slug:
           type: string
@@ -392,16 +387,6 @@ components:
           description: List of the permission identifiers.
           items:
             type: string
-        allowed_scope_levels:
-          type: array
-          uniqueItems: true
-          description: The scope levels at which this Role can be used.
-          items:
-            type: string
-            enum:
-              - account
-              - organization
-              - project
         description:
           type: string
           maxLength: 1024
@@ -413,18 +398,6 @@ components:
       required:
         - slug
         - name
-      x-examples:
-        role-request:
-          slug: example_role
-          name: Example_Role
-          permissions:
-            - core_view
-          allowed_scope_levels:
-            - account
-          description: This is an Example Role
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
     RoleScope:
       title: Scope
       x-stoplight:
@@ -461,7 +434,7 @@ components:
       required: false
       schema:
         type: integer
-        default: 50
+        default: 30
         maximum: 100
       description: 'Pagination: Number of items to return.'
     PageIndex:
@@ -516,8 +489,6 @@ components:
                   name: Example_Role
                   permissions:
                     - core_view
-                  allowed_scope_levels:
-                    - account
                   description: This is an Example Role
                   tags:
                     example-tag-1: example-tag-1-value
@@ -527,8 +498,8 @@ components:
                     org: sample_org
                     project: sample_project
                   harness_managed: true
-                  created_at: 1234567890
-                  last_modified_at: 1234567890
+                  created: 1234567890
+                  updated: 1234567890
       headers:
         Link:
           schema:
@@ -547,8 +518,6 @@ components:
                 name: Example_Role
                 permissions:
                   - core_view
-                allowed_scope_levels:
-                  - account
                 description: This is an Example Role
                 tags:
                   example-tag-1: example-tag-1-value
@@ -558,8 +527,8 @@ components:
                   org: sample_org
                   project: sample_project
                 harness_managed: true
-                created_at: 1234567890
-                last_modified_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
   requestBodies:
     CreateRoleRequest:
       content:
@@ -573,8 +542,6 @@ components:
                 name: Example_Role
                 permissions:
                   - core_view
-                allowed_scope_levels:
-                  - account
                 description: This is an Example Role
                 tags:
                   example-tag-1: example-tag-1-value
