@@ -7,7 +7,6 @@ import javax.validation.Valid;
 /**
  * Specify how items are to be sorted while listing them.
  **/
-import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;

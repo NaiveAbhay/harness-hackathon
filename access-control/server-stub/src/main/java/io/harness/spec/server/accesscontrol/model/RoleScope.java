@@ -7,7 +7,6 @@ import javax.validation.Valid;
 /**
  * Scope of the Role.
  **/
-import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
