@@ -1143,6 +1143,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "requestBody" : {
           "$ref" : "#/components/requestBodies/CreateRoleRequest"

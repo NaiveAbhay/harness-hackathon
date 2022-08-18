@@ -128,4 +128,7 @@ public interface ProjectRolesApi {
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,@Valid CreateRoleRequest body);}
+,@Valid CreateRoleRequest body,  @QueryParam("account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+);}

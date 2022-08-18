@@ -267,6 +267,8 @@ paths:
       description: Updates a Role from Project scope.
       tags:
         - Project Roles
+      parameters:
+        - $ref: '#/components/parameters/AccountParam'
     delete:
       summary: Delete a Role
       operationId: delete-role-project
