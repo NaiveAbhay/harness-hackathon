@@ -11,7 +11,7 @@
   "modelPackage": "io.harness.spec.server.accesscontrol.model",
   "groupId": "io.harness",
   "artifactId": "access-control-server-spec",
-  "artifactVersion": "1.0.2",
+  "artifactVersion": "1.0.3",
   "interfaceOnly": true,
   "returnResponse": true,
   "sourceFolder": "src/main/java",
