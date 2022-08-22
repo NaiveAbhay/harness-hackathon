@@ -779,14 +779,14 @@ components:
           createdAt: 1234567890
           lastModifiedAt: 1234567890
       properties:
-        created_at:
+        created:
           type: integer
           format: int64
           description: Creation timestamp for the project
-        last_modified_at:
+        updated:
           type: integer
           format: int64
-          description: Last modification timestamp for the project
+          description: Updated timestamp for the project
         org:
           type: string
           description: Organization slug for the project
@@ -825,18 +825,18 @@ components:
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
-          created_at: 1234567890
-          last_modified_at: 1234567890
+          created: 1234567890
+          updated: 1234567890
           harness_managed: true
       properties:
-        created_at:
+        created:
           type: integer
           description: Creation timestamp for organization
           format: int64
-        last_modified_at:
+        updated:
           type: integer
           format: int64
-          description: Last modification timestamp for organization
+          description: Updated timestamp for organization
         harness_managed:
           type: boolean
           description: 'This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.'
@@ -1358,8 +1358,8 @@ components:
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-                created_at: 1234567890
-                last_modified_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
                 harness_managed: true
     ProjectResponse:
       description: Project response
@@ -1380,8 +1380,8 @@ components:
                 tags:
                   property1: value1
                   property2: value2
-                created_at: 1234567890
-                last_modified_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
         application/yaml:
           schema:
             $ref: '#/components/schemas/ProjectResponse'
@@ -1398,8 +1398,8 @@ components:
                 tags:
                   property1: value1
                   property2: value2
-                created_at: 1234567890
-                last_modified_at: 1234567890
+                created: 1234567890
+                updated: 1234567890
     ProjectListResponse:
       description: Project list response
       content:
@@ -1421,8 +1421,8 @@ components:
                   tags:
                     property1: value1
                     property2: value2
-                  created_at: 1234567890
-                  last_modified_at: 1234567890
+                  created: 1234567890
+                  updated: 1234567890
       headers:
         Link:
           schema:
@@ -1448,8 +1448,8 @@ components:
                   tags:
                     example-tag-1: example-tag-1-value
                     example-tag-2: example-tag-2-value
-                  created_at: 1234567890
-                  last_modified_at: 1234567890
+                  created: 1234567890
+                  updated: 1234567890
                   harness_managed: true
       headers:
         Link:
