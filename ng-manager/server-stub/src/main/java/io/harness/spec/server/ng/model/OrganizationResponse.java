@@ -14,9 +14,9 @@ import java.util.Objects;
 
 public class OrganizationResponse   {
 
-  private @Valid Long createdAt = null;
+  private @Valid Long created = null;
 
-  private @Valid Long lastModifiedAt = null;
+  private @Valid Long updated = null;
 
   private @Valid Boolean harnessManaged = null;
 
@@ -31,39 +31,39 @@ public class OrganizationResponse   {
   /**
    * Creation timestamp for organization
    **/
-  public OrganizationResponse createdAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public OrganizationResponse created(Long created) {
+    this.created = created;
     return this;
   }
 
   
   @Schema(description = "Creation timestamp for organization")
-  @JsonProperty("created_at")
+  @JsonProperty("created")
 
-  public Long getCreatedAt() {
-    return createdAt;
+  public Long getCreated() {
+    return created;
   }
-  public void setCreatedAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated(Long created) {
+    this.created = created;
   }
 
   /**
-   * Last modification timestamp for organization
+   * Updated timestamp for organization
    **/
-  public OrganizationResponse lastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public OrganizationResponse updated(Long updated) {
+    this.updated = updated;
     return this;
   }
 
   
-  @Schema(description = "Last modification timestamp for organization")
-  @JsonProperty("last_modified_at")
+  @Schema(description = "Updated timestamp for organization")
+  @JsonProperty("updated")
 
-  public Long getLastModifiedAt() {
-    return lastModifiedAt;
+  public Long getUpdated() {
+    return updated;
   }
-  public void setLastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public void setUpdated(Long updated) {
+    this.updated = updated;
   }
 
   /**
@@ -171,8 +171,8 @@ public class OrganizationResponse   {
       return false;
     }
     OrganizationResponse organizationResponse = (OrganizationResponse) o;
-    return Objects.equals(createdAt, organizationResponse.createdAt) &&
-        Objects.equals(lastModifiedAt, organizationResponse.lastModifiedAt) &&
+    return Objects.equals(created, organizationResponse.created) &&
+        Objects.equals(updated, organizationResponse.updated) &&
         Objects.equals(harnessManaged, organizationResponse.harnessManaged) &&
         Objects.equals(slug, organizationResponse.slug) &&
         Objects.equals(name, organizationResponse.name) &&
@@ -182,7 +182,7 @@ public class OrganizationResponse   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, lastModifiedAt, harnessManaged, slug, name, description, tags);
+    return Objects.hash(created, updated, harnessManaged, slug, name, description, tags);
   }
 
   @Override
@@ -190,8 +190,8 @@ public class OrganizationResponse   {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationResponse {\n");
     
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

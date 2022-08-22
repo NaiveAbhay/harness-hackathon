@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class ProjectResponse   {
 
-  private @Valid Long createdAt = null;
+  private @Valid Long created = null;
 
-  private @Valid Long lastModifiedAt = null;
+  private @Valid Long updated = null;
 
   private @Valid String org = null;
 
@@ -37,39 +37,39 @@ public class ProjectResponse   {
   /**
    * Creation timestamp for the project
    **/
-  public ProjectResponse createdAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public ProjectResponse created(Long created) {
+    this.created = created;
     return this;
   }
 
   
   @Schema(description = "Creation timestamp for the project")
-  @JsonProperty("created_at")
+  @JsonProperty("created")
 
-  public Long getCreatedAt() {
-    return createdAt;
+  public Long getCreated() {
+    return created;
   }
-  public void setCreatedAt(Long createdAt) {
-    this.createdAt = createdAt;
+  public void setCreated(Long created) {
+    this.created = created;
   }
 
   /**
-   * Last modification timestamp for the project
+   * Updated timestamp for the project
    **/
-  public ProjectResponse lastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public ProjectResponse updated(Long updated) {
+    this.updated = updated;
     return this;
   }
 
   
-  @Schema(description = "Last modification timestamp for the project")
-  @JsonProperty("last_modified_at")
+  @Schema(description = "Updated timestamp for the project")
+  @JsonProperty("updated")
 
-  public Long getLastModifiedAt() {
-    return lastModifiedAt;
+  public Long getUpdated() {
+    return updated;
   }
-  public void setLastModifiedAt(Long lastModifiedAt) {
-    this.lastModifiedAt = lastModifiedAt;
+  public void setUpdated(Long updated) {
+    this.updated = updated;
   }
 
   /**
@@ -215,8 +215,8 @@ public class ProjectResponse   {
       return false;
     }
     ProjectResponse projectResponse = (ProjectResponse) o;
-    return Objects.equals(createdAt, projectResponse.createdAt) &&
-        Objects.equals(lastModifiedAt, projectResponse.lastModifiedAt) &&
+    return Objects.equals(created, projectResponse.created) &&
+        Objects.equals(updated, projectResponse.updated) &&
         Objects.equals(org, projectResponse.org) &&
         Objects.equals(slug, projectResponse.slug) &&
         Objects.equals(name, projectResponse.name) &&
@@ -228,7 +228,7 @@ public class ProjectResponse   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, lastModifiedAt, org, slug, name, color, modules, description, tags);
+    return Objects.hash(created, updated, org, slug, name, color, modules, description, tags);
   }
 
   @Override
@@ -236,8 +236,8 @@ public class ProjectResponse   {
     StringBuilder sb = new StringBuilder();
     sb.append("class ProjectResponse {\n");
     
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    lastModifiedAt: ").append(toIndentedString(lastModifiedAt)).append("\n");
+    sb.append("    created: ").append(toIndentedString(created)).append("\n");
+    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

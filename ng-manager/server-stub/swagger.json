@@ -130,8 +130,8 @@
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "harness_managed" : true
                     } ]
                   }
@@ -181,8 +181,8 @@
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "harness_managed" : true
                     }
                   }
@@ -241,8 +241,8 @@
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "harness_managed" : true
                     }
                   }
@@ -302,8 +302,8 @@
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "harness_managed" : true
                     }
                   }
@@ -360,8 +360,8 @@
                         "example-tag-1" : "example-tag-1-value",
                         "example-tag-2" : "example-tag-2-value"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890,
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
                       "harness_managed" : true
                     }
                   }
@@ -510,8 +510,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     } ]
                   }
                 }
@@ -563,8 +563,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -575,7 +575,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -719,8 +719,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     } ]
                   }
                 }
@@ -782,8 +782,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -794,7 +794,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -854,8 +854,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -866,7 +866,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -927,8 +927,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -939,7 +939,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -997,8 +997,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1009,7 +1009,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1079,8 +1079,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1091,7 +1091,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1162,8 +1162,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1174,7 +1174,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1242,8 +1242,8 @@
                         "property1" : "value1",
                         "property2" : "value2"
                       },
-                      "created_at" : 1234567890,
-                      "last_modified_at" : 1234567890
+                      "created" : 1234567890,
+                      "updated" : 1234567890
                     }
                   }
                 }
@@ -1254,7 +1254,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -3133,14 +3133,14 @@
       "ProjectResponse" : {
         "type" : "object",
         "properties" : {
-          "created_at" : {
+          "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for the project",
             "format" : "int64"
           },
-          "last_modified_at" : {
+          "updated" : {
             "type" : "integer",
-            "description" : "Last modification timestamp for the project",
+            "description" : "Updated timestamp for the project",
             "format" : "int64"
           },
           "org" : {
@@ -3201,14 +3201,14 @@
         "title" : "OrganizationResponse",
         "type" : "object",
         "properties" : {
-          "created_at" : {
+          "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for organization",
             "format" : "int64"
           },
-          "last_modified_at" : {
+          "updated" : {
             "type" : "integer",
-            "description" : "Last modification timestamp for organization",
+            "description" : "Updated timestamp for organization",
             "format" : "int64"
           },
           "harness_managed" : {
@@ -3245,8 +3245,8 @@
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
             },
-            "created_at" : 1234567890,
-            "last_modified_at" : 1234567890,
+            "created" : 1234567890,
+            "updated" : 1234567890,
             "harness_managed" : true
           }
         }
@@ -3866,8 +3866,8 @@
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
                   },
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890,
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
                   "harness_managed" : true
                 }
               }
@@ -3895,8 +3895,8 @@
                     "property1" : "value1",
                     "property2" : "value2"
                   },
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890
+                  "created" : 1234567890,
+                  "updated" : 1234567890
                 }
               }
             }
@@ -3907,7 +3907,7 @@
             },
             "examples" : {
               "example-project-response-yaml" : {
-                "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated_at: 1234567890\nlast_modified_at: 1234567890\n"
+                "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -3951,8 +3951,8 @@
                     "property1" : "value1",
                     "property2" : "value2"
                   },
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890
+                  "created" : 1234567890,
+                  "updated" : 1234567890
                 } ]
               }
             }
@@ -3994,8 +3994,8 @@
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
                   },
-                  "created_at" : 1234567890,
-                  "last_modified_at" : 1234567890,
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
                   "harness_managed" : true
                 } ]
               }
