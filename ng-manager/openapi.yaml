@@ -750,6 +750,9 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           description: Project name
           maxLength: 64
+        org:
+          type: string
+          description: Organization slug for the project
         color:
           type: string
           description: Project color

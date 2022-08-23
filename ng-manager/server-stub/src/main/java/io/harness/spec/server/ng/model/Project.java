@@ -23,6 +23,8 @@ public class Project   {
 
   private @Valid String name = null;
 
+  private @Valid String org = null;
+
   private @Valid String color = null;
 
   private @Valid List<ModuleType> modules = new ArrayList<>();
@@ -69,6 +71,25 @@ public class Project   {
   }
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Organization slug for the project
+   **/
+  public Project org(String org) {
+    this.org = org;
+    return this;
+  }
+
+  
+  @Schema(description = "Organization slug for the project")
+  @JsonProperty("org")
+
+  public String getOrg() {
+    return org;
+  }
+  public void setOrg(String org) {
+    this.org = org;
   }
 
   /**
@@ -159,6 +180,7 @@ public class Project   {
     Project project = (Project) o;
     return Objects.equals(slug, project.slug) &&
         Objects.equals(name, project.name) &&
+        Objects.equals(org, project.org) &&
         Objects.equals(color, project.color) &&
         Objects.equals(modules, project.modules) &&
         Objects.equals(description, project.description) &&
@@ -167,7 +189,7 @@ public class Project   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, color, modules, description, tags);
+    return Objects.hash(slug, name, org, color, modules, description, tags);
   }
 
   @Override
@@ -177,6 +199,7 @@ public class Project   {
     
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    color: ").append(toIndentedString(color)).append("\n");
     sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
