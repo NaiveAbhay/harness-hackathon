@@ -720,6 +720,12 @@ components:
     CreateProjectRequest:
       description: Create project request
       type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/Project'
+    Project:
+      description: Project model
+      type: object
       x-examples:
         example-1:
           slug: example_project_slug
@@ -771,19 +777,22 @@ components:
       type: object
       x-examples:
         example-1:
-          org: example_org_slug
-          slug: example_project_slug
-          name: example-project-name
-          color: '#0063F7'
-          modules:
-            - CD
-          description: This is a example Project
-          tags:
-            property1: value1
-            property2: value2
-          createdAt: 1234567890
-          lastModifiedAt: 1234567890
+          project:
+            org: example_org_slug
+            slug: example_project_slug
+            name: example-project-name
+            color: '#0063F7'
+            modules:
+              - CD
+            description: This is a example Project
+            tags:
+              property1: value1
+              property2: value2
+          created: 1234567890
+          updated: 1234567890
       properties:
+        project:
+          $ref: '#/components/schemas/Project'
         created:
           type: integer
           format: int64
@@ -792,32 +801,6 @@ components:
           type: integer
           format: int64
           description: Updated timestamp for the project
-        org:
-          type: string
-          description: Organization slug for the project
-        slug:
-          type: string
-          description: Project slug
-        name:
-          type: string
-          description: Project name
-        color:
-          type: string
-          description: Project color
-        modules:
-          type: array
-          uniqueItems: true
-          description: List of module for project
-          items:
-            $ref: '#/components/schemas/ModuleType'
-        description:
-          type: string
-          description: Project description
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-          description: Project tags
     OrganizationResponse:
       title: OrganizationResponse
       type: object
@@ -857,7 +840,7 @@ components:
       x-examples:
         example-1:
           org:
-            slug: example_oorganization
+            slug: example_organization
             name: Example Organization
             description: This is an example organization
             tags:
@@ -868,44 +851,19 @@ components:
       type: object
       x-examples:
         example-1:
-          name: example-project-name
-          color: '#0063F7'
-          modules:
-            - CD
-          description: This is a example project
-          tags:
-            property1: value1
-            property2: value2
+          project:
+            slug: example_project_slug
+            name: example-project-name
+            color: '#0063F7'
+            modules:
+              - CD
+            description: This is a example project
+            tags:
+              property1: value1
+              property2: value2
       properties:
-        name:
-          type: string
-          minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
-          maxLength: 64
-          description: Project name
-        color:
-          type: string
-          minLength: 1
-          description: Project color
-        modules:
-          type: array
-          maxItems: 1024
-          description: List of modules for project
-          items:
-            $ref: '#/components/schemas/ModuleType'
-        description:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          description: Project description
-        tags:
-          type: object
-          description: Project tags
-          additionalProperties:
-            type: string
-          maxProperties: 128
-      required:
-        - name
+        project:
+          $ref: '#/components/schemas/Project'
     SecretSpec:
       title: SecretSpec
       type: object
@@ -1303,7 +1261,7 @@ components:
         updated:
           type: integer
           format: int64
-          description: Last modification timestamp for the secret
+          description: Updated timestamp for the secret
         draft:
           type: boolean
         governance_metadata:
