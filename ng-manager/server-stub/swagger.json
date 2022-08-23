@@ -3128,6 +3128,15 @@
         "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE" ]
       },
       "CreateProjectRequest" : {
+        "type" : "object",
+        "properties" : {
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
+          }
+        },
+        "description" : "Create project request"
+      },
+      "Project" : {
         "required" : [ "name", "slug" ],
         "type" : "object",
         "properties" : {
@@ -3171,7 +3180,7 @@
             "description" : "Project tags"
           }
         },
-        "description" : "Create project request",
+        "description" : "Project model",
         "x-examples" : {
           "example-1" : {
             "slug" : "example_project_slug",
@@ -3189,6 +3198,9 @@
       "ProjectResponse" : {
         "type" : "object",
         "properties" : {
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
+          },
           "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for the project",
@@ -3198,58 +3210,25 @@
             "type" : "integer",
             "description" : "Updated timestamp for the project",
             "format" : "int64"
-          },
-          "org" : {
-            "type" : "string",
-            "description" : "Organization slug for the project"
-          },
-          "slug" : {
-            "type" : "string",
-            "description" : "Project slug"
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "Project name"
-          },
-          "color" : {
-            "type" : "string",
-            "description" : "Project color"
-          },
-          "modules" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "description" : "List of module for project",
-            "items" : {
-              "$ref" : "#/components/schemas/ModuleType"
-            }
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "Project description"
-          },
-          "tags" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "Project tags"
           }
         },
         "description" : "Project response model",
         "x-examples" : {
           "example-1" : {
-            "org" : "example_org_slug",
-            "slug" : "example_project_slug",
-            "name" : "example-project-name",
-            "color" : "#0063F7",
-            "modules" : [ "CD" ],
-            "description" : "This is a example Project",
-            "tags" : {
-              "property1" : "value1",
-              "property2" : "value2"
+            "project" : {
+              "org" : "example_org_slug",
+              "slug" : "example_project_slug",
+              "name" : "example-project-name",
+              "color" : "#0063F7",
+              "modules" : [ "CD" ],
+              "description" : "This is a example Project",
+              "tags" : {
+                "property1" : "value1",
+                "property2" : "value2"
+              }
             },
-            "createdAt" : 1234567890,
-            "lastModifiedAt" : 1234567890
+            "created" : 1234567890,
+            "updated" : 1234567890
           }
         }
       },
@@ -3304,7 +3283,7 @@
         "x-examples" : {
           "example-1" : {
             "org" : {
-              "slug" : "example_oorganization",
+              "slug" : "example_organization",
               "name" : "Example Organization",
               "description" : "This is an example organization",
               "tags" : {
@@ -3316,54 +3295,25 @@
         }
       },
       "UpdateProjectRequest" : {
-        "required" : [ "name" ],
         "type" : "object",
         "properties" : {
-          "name" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
-            "type" : "string",
-            "description" : "Project name"
-          },
-          "color" : {
-            "minLength" : 1,
-            "type" : "string",
-            "description" : "Project color"
-          },
-          "modules" : {
-            "maxItems" : 1024,
-            "type" : "array",
-            "description" : "List of modules for project",
-            "items" : {
-              "$ref" : "#/components/schemas/ModuleType"
-            }
-          },
-          "description" : {
-            "maxLength" : 1024,
-            "minLength" : 1,
-            "type" : "string",
-            "description" : "Project description"
-          },
-          "tags" : {
-            "maxProperties" : 128,
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "Project tags"
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
           }
         },
         "description" : "Update project request",
         "x-examples" : {
           "example-1" : {
-            "name" : "example-project-name",
-            "color" : "#0063F7",
-            "modules" : [ "CD" ],
-            "description" : "This is a example project",
-            "tags" : {
-              "property1" : "value1",
-              "property2" : "value2"
+            "project" : {
+              "slug" : "example_project_slug",
+              "name" : "example-project-name",
+              "color" : "#0063F7",
+              "modules" : [ "CD" ],
+              "description" : "This is a example project",
+              "tags" : {
+                "property1" : "value1",
+                "property2" : "value2"
+              }
             }
           }
         }
@@ -3844,7 +3794,7 @@
           },
           "updated" : {
             "type" : "integer",
-            "description" : "Last modification timestamp for the secret",
+            "description" : "Updated timestamp for the secret",
             "format" : "int64"
           },
           "draft" : {
