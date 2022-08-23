@@ -662,7 +662,12 @@ paths:
 components:
   schemas:
     CreateOrganizationRequest:
-      description: Create Organization request
+      type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/Organization'
+    Organization:
+      description: Organization model
       type: object
       x-examples:
         example-1:
@@ -819,16 +824,19 @@ components:
       description: Organization response Model
       x-examples:
         example-1:
-          slug: example_organization
-          name: Example Organization
-          description: This is an Example Organization
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
+          org:
+            slug: example_organization
+            name: Example Organization
+            description: This is an Example Organization
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
           created: 1234567890
           updated: 1234567890
           harness_managed: true
       properties:
+        org:
+          $ref: '#/components/schemas/Organization'
         created:
           type: integer
           description: Creation timestamp for organization
@@ -840,50 +848,21 @@ components:
         harness_managed:
           type: boolean
           description: 'This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.'
-        slug:
-          type: string
-          description: Organization slug
-        name:
-          type: string
-          description: Organization name
-        description:
-          type: string
-          description: Organization description
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-          description: Organization tags
     UpdateOrganizationRequest:
       description: Update oganization request
       type: object
+      properties:
+        org:
+          $ref: '#/components/schemas/Organization'
       x-examples:
         example-1:
-          name: Example Organization
-          description: This is an example organization
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
-      properties:
-        name:
-          type: string
-          minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
-          description: 'Organization name '
-          maxLength: 64
-        description:
-          type: string
-          maxLength: 1024
-          description: Organization description
-        tags:
-          type: object
-          description: Organization tags
-          additionalProperties:
-            type: string
-          maxProperties: 128
-      required:
-        - name
-        - description
+          org:
+            slug: example_oorganization
+            name: Example Organization
+            description: This is an example organization
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
     UpdateProjectRequest:
       description: Update project request
       type: object
@@ -1350,14 +1329,31 @@ components:
           schema:
             $ref: '#/components/schemas/OrganizationResponse'
           examples:
-            example-organization-response:
+            example-organization-response-json:
               value:
-                slug: example_organization
-                name: Example Organization
-                description: This is an example organization
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                created: 1234567890
+                updated: 1234567890
+                harness_managed: true
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/OrganizationResponse'
+          examples:
+            example-organization-response-yaml:
+              value: |
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
                 created: 1234567890
                 updated: 1234567890
                 harness_managed: true
@@ -1612,12 +1608,26 @@ components:
           examples:
             example-create-organization-request-json:
               value:
-                slug: example_organization
-                name: Example Organization
-                description: This is an Example organization
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an Example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CreateOrganizationRequest'
+          examples:
+            example-create-organization-request-yaml:
+              value: |
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an Example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
       description: Post the necessary fields for the API to create an organization.
       required: true
     UpdateOrganizationRequest:
