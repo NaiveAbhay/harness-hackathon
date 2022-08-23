@@ -32,8 +32,8 @@ import java.util.List;
 public interface OrganizationApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createOrganization", summary = "Create an organization", description = "Creates a new organization.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
@@ -44,7 +44,7 @@ public interface OrganizationApi {
 );
     @DELETE
     @Path("/{org}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteOrganization", summary = "Delete an organization", description = "Deletes the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
@@ -58,7 +58,7 @@ public interface OrganizationApi {
 );
     @GET
     @Path("/{org}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getOrganization", summary = "Retrieve an organization", description = "Retrieves the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
@@ -95,7 +95,7 @@ public interface OrganizationApi {
     @PUT
     @Path("/{org}")
     @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrganization", summary = "Update an organization", description = "Updates the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -14,19 +12,31 @@ import java.util.Objects;
 
 public class OrganizationResponse   {
 
+  private @Valid Organization org = null;
+
   private @Valid Long created = null;
 
   private @Valid Long updated = null;
 
   private @Valid Boolean harnessManaged = null;
 
-  private @Valid String slug = null;
+  /**
+   **/
+  public OrganizationResponse org(Organization org) {
+    this.org = org;
+    return this;
+  }
 
-  private @Valid String name = null;
+  
+  @Schema(description = "")
+  @JsonProperty("org")
 
-  private @Valid String description = null;
-
-  private @Valid Map<String, String> tags = new HashMap<>();
+  public Organization getOrg() {
+    return org;
+  }
+  public void setOrg(Organization org) {
+    this.org = org;
+  }
 
   /**
    * Creation timestamp for organization
@@ -85,82 +95,6 @@ public class OrganizationResponse   {
     this.harnessManaged = harnessManaged;
   }
 
-  /**
-   * Organization slug
-   **/
-  public OrganizationResponse slug(String slug) {
-    this.slug = slug;
-    return this;
-  }
-
-  
-  @Schema(description = "Organization slug")
-  @JsonProperty("slug")
-
-  public String getSlug() {
-    return slug;
-  }
-  public void setSlug(String slug) {
-    this.slug = slug;
-  }
-
-  /**
-   * Organization name
-   **/
-  public OrganizationResponse name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  
-  @Schema(description = "Organization name")
-  @JsonProperty("name")
-
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Organization description
-   **/
-  public OrganizationResponse description(String description) {
-    this.description = description;
-    return this;
-  }
-
-  
-  @Schema(description = "Organization description")
-  @JsonProperty("description")
-
-  public String getDescription() {
-    return description;
-  }
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Organization tags
-   **/
-  public OrganizationResponse tags(Map<String, String> tags) {
-    this.tags = tags;
-    return this;
-  }
-
-  
-  @Schema(description = "Organization tags")
-  @JsonProperty("tags")
-
-  public Map<String, String> getTags() {
-    return tags;
-  }
-  public void setTags(Map<String, String> tags) {
-    this.tags = tags;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -171,18 +105,15 @@ public class OrganizationResponse   {
       return false;
     }
     OrganizationResponse organizationResponse = (OrganizationResponse) o;
-    return Objects.equals(created, organizationResponse.created) &&
+    return Objects.equals(org, organizationResponse.org) &&
+        Objects.equals(created, organizationResponse.created) &&
         Objects.equals(updated, organizationResponse.updated) &&
-        Objects.equals(harnessManaged, organizationResponse.harnessManaged) &&
-        Objects.equals(slug, organizationResponse.slug) &&
-        Objects.equals(name, organizationResponse.name) &&
-        Objects.equals(description, organizationResponse.description) &&
-        Objects.equals(tags, organizationResponse.tags);
+        Objects.equals(harnessManaged, organizationResponse.harnessManaged);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(created, updated, harnessManaged, slug, name, description, tags);
+    return Objects.hash(org, created, updated, harnessManaged);
   }
 
   @Override
@@ -190,13 +121,10 @@ public class OrganizationResponse   {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationResponse {\n");
     
+    sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
-    sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("}");
     return sb.toString();
   }

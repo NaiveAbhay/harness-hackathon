@@ -4,11 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -17,69 +12,24 @@ import java.util.Objects;
 
 public class UpdateOrganizationRequest   {
 
-  private @Valid String name = null;
-
-  private @Valid String description = null;
-
-  private @Valid Map<String, String> tags = new HashMap<>();
+  private @Valid Organization org = null;
 
   /**
-   * Organization name 
    **/
-  public UpdateOrganizationRequest name(String name) {
-    this.name = name;
+  public UpdateOrganizationRequest org(Organization org) {
+    this.org = org;
     return this;
   }
 
   
-  @Schema(required = true, description = "Organization name ")
-  @JsonProperty("name")
-  @NotNull
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$") @Size(min=1,max=64)
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
-  }
+  @Schema(description = "")
+  @JsonProperty("org")
 
-  /**
-   * Organization description
-   **/
-  public UpdateOrganizationRequest description(String description) {
-    this.description = description;
-    return this;
+  public Organization getOrg() {
+    return org;
   }
-
-  
-  @Schema(required = true, description = "Organization description")
-  @JsonProperty("description")
-  @NotNull
- @Size(max=1024)
-  public String getDescription() {
-    return description;
-  }
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Organization tags
-   **/
-  public UpdateOrganizationRequest tags(Map<String, String> tags) {
-    this.tags = tags;
-    return this;
-  }
-
-  
-  @Schema(description = "Organization tags")
-  @JsonProperty("tags")
- @Size(max=128)
-  public Map<String, String> getTags() {
-    return tags;
-  }
-  public void setTags(Map<String, String> tags) {
-    this.tags = tags;
+  public void setOrg(Organization org) {
+    this.org = org;
   }
 
 
@@ -92,14 +42,12 @@ public class UpdateOrganizationRequest   {
       return false;
     }
     UpdateOrganizationRequest updateOrganizationRequest = (UpdateOrganizationRequest) o;
-    return Objects.equals(name, updateOrganizationRequest.name) &&
-        Objects.equals(description, updateOrganizationRequest.description) &&
-        Objects.equals(tags, updateOrganizationRequest.tags);
+    return Objects.equals(org, updateOrganizationRequest.org);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, tags);
+    return Objects.hash(org);
   }
 
   @Override
@@ -107,9 +55,7 @@ public class UpdateOrganizationRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateOrganizationRequest {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
+    sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -172,19 +172,31 @@
                   "$ref" : "#/components/schemas/OrganizationResponse"
                 },
                 "examples" : {
-                  "example-organization-response" : {
+                  "example-organization-response-json" : {
                     "value" : {
-                      "slug" : "example_organization",
-                      "name" : "Example Organization",
-                      "description" : "This is an example organization",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
                       "harness_managed" : true
                     }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -232,19 +244,31 @@
                   "$ref" : "#/components/schemas/OrganizationResponse"
                 },
                 "examples" : {
-                  "example-organization-response" : {
+                  "example-organization-response-json" : {
                     "value" : {
-                      "slug" : "example_organization",
-                      "name" : "Example Organization",
-                      "description" : "This is an example organization",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
                       "harness_managed" : true
                     }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -293,19 +317,31 @@
                   "$ref" : "#/components/schemas/OrganizationResponse"
                 },
                 "examples" : {
-                  "example-organization-response" : {
+                  "example-organization-response-json" : {
                     "value" : {
-                      "slug" : "example_organization",
-                      "name" : "Example Organization",
-                      "description" : "This is an example organization",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
                       "harness_managed" : true
                     }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -351,19 +387,31 @@
                   "$ref" : "#/components/schemas/OrganizationResponse"
                 },
                 "examples" : {
-                  "example-organization-response" : {
+                  "example-organization-response-json" : {
                     "value" : {
-                      "slug" : "example_organization",
-                      "name" : "Example Organization",
-                      "description" : "This is an example organization",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
                       "harness_managed" : true
                     }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -3022,6 +3070,14 @@
   "components" : {
     "schemas" : {
       "CreateOrganizationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
+          }
+        }
+      },
+      "Organization" : {
         "required" : [ "name", "slug" ],
         "type" : "object",
         "properties" : {
@@ -3053,7 +3109,7 @@
             "description" : "Organization tags"
           }
         },
-        "description" : "Create Organization request",
+        "description" : "Organization model",
         "x-examples" : {
           "example-1" : {
             "slug" : "example_organization",
@@ -3201,6 +3257,9 @@
         "title" : "OrganizationResponse",
         "type" : "object",
         "properties" : {
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
+          },
           "created" : {
             "type" : "integer",
             "description" : "Creation timestamp for organization",
@@ -3214,36 +3273,19 @@
           "harness_managed" : {
             "type" : "boolean",
             "description" : "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization."
-          },
-          "slug" : {
-            "type" : "string",
-            "description" : "Organization slug"
-          },
-          "name" : {
-            "type" : "string",
-            "description" : "Organization name"
-          },
-          "description" : {
-            "type" : "string",
-            "description" : "Organization description"
-          },
-          "tags" : {
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "Organization tags"
           }
         },
         "description" : "Organization response Model",
         "x-examples" : {
           "example-1" : {
-            "slug" : "example_organization",
-            "name" : "Example Organization",
-            "description" : "This is an Example Organization",
-            "tags" : {
-              "example-tag-1" : "example-tag-1-value",
-              "example-tag-2" : "example-tag-2-value"
+            "org" : {
+              "slug" : "example_organization",
+              "name" : "Example Organization",
+              "description" : "This is an Example Organization",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              }
             },
             "created" : 1234567890,
             "updated" : 1234567890,
@@ -3252,38 +3294,23 @@
         }
       },
       "UpdateOrganizationRequest" : {
-        "required" : [ "description", "name" ],
         "type" : "object",
         "properties" : {
-          "name" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
-            "type" : "string",
-            "description" : "Organization name "
-          },
-          "description" : {
-            "maxLength" : 1024,
-            "type" : "string",
-            "description" : "Organization description"
-          },
-          "tags" : {
-            "maxProperties" : 128,
-            "type" : "object",
-            "additionalProperties" : {
-              "type" : "string"
-            },
-            "description" : "Organization tags"
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
           }
         },
         "description" : "Update oganization request",
         "x-examples" : {
           "example-1" : {
-            "name" : "Example Organization",
-            "description" : "This is an example organization",
-            "tags" : {
-              "example-tag-1" : "example-tag-1-value",
-              "example-tag-2" : "example-tag-2-value"
+            "org" : {
+              "slug" : "example_oorganization",
+              "name" : "Example Organization",
+              "description" : "This is an example organization",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              }
             }
           }
         }
@@ -3857,19 +3884,31 @@
               "$ref" : "#/components/schemas/OrganizationResponse"
             },
             "examples" : {
-              "example-organization-response" : {
+              "example-organization-response-json" : {
                 "value" : {
-                  "slug" : "example_organization",
-                  "name" : "Example Organization",
-                  "description" : "This is an example organization",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890,
                   "harness_managed" : true
                 }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganizationResponse"
+            },
+            "examples" : {
+              "example-organization-response-yaml" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
               }
             }
           }
@@ -4299,14 +4338,26 @@
             "examples" : {
               "example-create-organization-request-json" : {
                 "value" : {
-                  "slug" : "example_organization",
-                  "name" : "Example Organization",
-                  "description" : "This is an Example organization",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an Example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
                   }
                 }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples" : {
+              "example-create-organization-request-yaml" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an Example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
               }
             }
           }
