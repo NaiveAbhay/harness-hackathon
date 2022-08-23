@@ -15,12 +15,12 @@ import java.util.Objects;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true )
 @JsonSubTypes({
     @JsonSubTypes.Type(value = SSHPasswordSpec.class, name = "SSHPassword" ),
-    @JsonSubTypes.Type(value = SecretFileSpec.class, name = "SecretFile" ),
     @JsonSubTypes.Type(value = WinRmTGTKeyTabFileSpec.class, name = "WinRmTGTKeyTabFile" ),
     @JsonSubTypes.Type(value = SSHKerberosTGTPasswordSpec.class, name = "SSHKerberosTGTPassword" ),
-    @JsonSubTypes.Type(value = SSHKeyPathSpec.class, name = "SSHKeyPath" ),
     @JsonSubTypes.Type(value = WinRmTGTPasswordSpec.class, name = "WinRmTGTPassword" ),
     @JsonSubTypes.Type(value = SecretTextSpec.class, name = "SecretText" ),
+    @JsonSubTypes.Type(value = SecretFileSpec.class, name = "SecretFile" ),
+    @JsonSubTypes.Type(value = SSHKeyPathSpec.class, name = "SSHKeyPath" ),
     @JsonSubTypes.Type(value = SSHKeyReferenceSpec.class, name = "SSHKeyReference" ),
     @JsonSubTypes.Type(value = WinRmNTLMSpec.class, name = "WinRmNTLM" ),
     @JsonSubTypes.Type(value = SSHKerberosTGTKeyTabFileSpec.class, name = "SSHKerberosTGTKeyTabFile" ),

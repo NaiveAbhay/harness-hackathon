@@ -60,7 +60,7 @@ public class SecretResponse   {
   }
 
   /**
-   * Last modification timestamp for the secret
+   * Updated timestamp for the secret
    **/
   public SecretResponse updated(Long updated) {
     this.updated = updated;
@@ -68,7 +68,7 @@ public class SecretResponse   {
   }
 
   
-  @Schema(description = "Last modification timestamp for the secret")
+  @Schema(description = "Updated timestamp for the secret")
   @JsonProperty("updated")
 
   public Long getUpdated() {
