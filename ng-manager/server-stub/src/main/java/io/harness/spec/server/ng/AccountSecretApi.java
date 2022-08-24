@@ -35,7 +35,7 @@ import java.util.List;
 public interface AccountSecretApi {
 
     @POST
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createAccountScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
@@ -49,7 +49,7 @@ public interface AccountSecretApi {
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
 );
     @POST
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createAccountScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
@@ -123,7 +123,7 @@ public interface AccountSecretApi {
 );
     @PUT
     @Path("/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Account Secret" })
     @ApiResponses(value = { 
@@ -137,7 +137,7 @@ public interface AccountSecretApi {
 );
     @PUT
     @Path("/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Account Secret" })
     @ApiResponses(value = { 

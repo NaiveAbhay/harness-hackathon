@@ -35,7 +35,7 @@ public interface ProjectSecretApi {
 
     @POST
     @Path("/orgs/{org}/project/{project}/secrets")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
     @ApiResponses(value = { 
@@ -55,7 +55,7 @@ public interface ProjectSecretApi {
 );
     @POST
     @Path("/orgs/{org}/project/{project}/secrets")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
     @ApiResponses(value = { 
@@ -147,7 +147,7 @@ public interface ProjectSecretApi {
 );
     @PUT
     @Path("/org/{org}/project/{project}/secrets/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
     @ApiResponses(value = { 
@@ -167,7 +167,7 @@ public interface ProjectSecretApi {
 );
     @PUT
     @Path("/org/{org}/project/{project}/secrets/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
     @ApiResponses(value = { 

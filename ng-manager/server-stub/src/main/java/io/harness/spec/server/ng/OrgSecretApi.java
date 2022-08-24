@@ -35,7 +35,7 @@ public interface OrgSecretApi {
 
     @POST
     @Path("/orgs/{org}/secrets")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createOrgScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Org Secret" })
     @ApiResponses(value = { 
@@ -52,7 +52,7 @@ public interface OrgSecretApi {
 );
     @POST
     @Path("/orgs/{org}/secrets")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createOrgScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Org Secret" })
     @ApiResponses(value = { 
@@ -135,7 +135,7 @@ public interface OrgSecretApi {
 );
     @PUT
     @Path("/org/{org}/secrets/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrgScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Org Secret" })
     @ApiResponses(value = { 
@@ -152,7 +152,7 @@ public interface OrgSecretApi {
 );
     @PUT
     @Path("/org/{org}/secrets/{secret}")
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrgScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Org Secret" })
     @ApiResponses(value = { 
