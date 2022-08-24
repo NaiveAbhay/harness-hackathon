@@ -3154,6 +3154,10 @@
             "type" : "string",
             "description" : "Project name"
           },
+          "org" : {
+            "type" : "string",
+            "description" : "Organization slug for the project"
+          },
           "color" : {
             "type" : "string",
             "description" : "Project color"
@@ -4410,6 +4414,20 @@
             "examples" : {
               "example-create-secret-request-yaml" : {
                 "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\n"
+              }
+            }
+          },
+          "multipart/form-data" : {
+            "schema" : {
+              "required" : [ "file", "spec" ],
+              "properties" : {
+                "spec" : {
+                  "$ref" : "#/components/schemas/SecretRequest"
+                },
+                "file" : {
+                  "type" : "string",
+                  "format" : "binary"
+                }
               }
             }
           }

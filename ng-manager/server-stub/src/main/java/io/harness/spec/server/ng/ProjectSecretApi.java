@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -24,6 +25,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import java.io.InputStream;
 import java.util.List;
 
 @Path("/v1")
@@ -33,12 +35,32 @@ public interface ProjectSecretApi {
 
     @POST
     @Path("/orgs/{org}/project/{project}/secrets")
-    @Consumes({ "application/json", "application/yaml" })
+    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response createProjectScopedSecret(@Valid SecretRequest body, @PathParam("org")
+
+ @Parameter(description = "Slug field of the organization the resource is scoped to") String org
+, @PathParam("project")
+
+ @Parameter(description = "Slug field of the project the resource is scoped to") String project
+,  @QueryParam("account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+,  @QueryParam("private_secret") @DefaultValue("false") 
+
+ @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
+);
+    @POST
+    @Path("/orgs/{org}/project/{project}/secrets")
+    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Produces({ "application/json", "application/yaml" })
+    @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+    Response createProjectScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")
@@ -125,12 +147,32 @@ public interface ProjectSecretApi {
 );
     @PUT
     @Path("/org/{org}/project/{project}/secrets/{secret}")
-    @Consumes({ "application/json", "application/yaml" })
+    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateProjectScopedSecret(@Valid SecretRequest body, @PathParam("org")
+
+ @Parameter(description = "Slug field of the organization the resource is scoped to") String org
+, @PathParam("project")
+
+ @Parameter(description = "Slug field of the project the resource is scoped to") String project
+, @PathParam("secret")
+
+ @Parameter(description = "Slug field of the secret") String secret
+,  @QueryParam("account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+);
+    @PUT
+    @Path("/org/{org}/project/{project}/secrets/{secret}")
+    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Produces({ "application/json", "application/yaml" })
+    @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
+    Response updateProjectScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")
