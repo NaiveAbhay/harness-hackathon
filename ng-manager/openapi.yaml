@@ -431,7 +431,7 @@ paths:
         - $ref: '#/components/parameters/Limit'
       tags:
         - Org Secret
-  '/v1/orgs/{org}/project/{project}/secrets':
+  '/v1/orgs/{org}/projects/{project}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -603,7 +603,7 @@ paths:
         - Org Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-  '/v1/org/{org}/project/{project}/secrets/{secret}':
+  '/v1/org/{org}/projects/{project}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
