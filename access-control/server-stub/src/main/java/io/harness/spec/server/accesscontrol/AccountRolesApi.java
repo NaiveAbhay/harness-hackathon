@@ -2,7 +2,6 @@ package io.harness.spec.server.accesscontrol;
 
 import io.harness.spec.server.accesscontrol.model.CreateRoleRequest;
 import io.harness.spec.server.accesscontrol.model.RolesResponse;
-import io.harness.spec.server.accesscontrol.model.Sorting;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -83,9 +82,6 @@ public interface AccountRolesApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
-,  @QueryParam("sort_orders") 
-
- @Parameter(description = "Sort criteria for the items.")  List<Sorting> sortOrders
 );
     @PUT
     @Path("/{role}")

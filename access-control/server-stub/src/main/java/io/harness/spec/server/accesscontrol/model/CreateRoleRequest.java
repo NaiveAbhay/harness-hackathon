@@ -11,6 +11,7 @@ import javax.validation.Valid;
 /**
  * Create Role request
  **/
+import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -24,11 +25,11 @@ public class CreateRoleRequest   {
 
   private @Valid String name = null;
 
-  private @Valid List<String> permissions = new ArrayList<String>();
+  private @Valid List<String> permissions = new ArrayList<>();
 
   private @Valid String description = null;
 
-  private @Valid Map<String, String> tags = new HashMap<String, String>();
+  private @Valid Map<String, String> tags = new HashMap<>();
 
   /**
    * Role identifier

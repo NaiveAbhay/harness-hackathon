@@ -72,19 +72,6 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "sort_orders",
-          "in" : "query",
-          "description" : "Sort criteria for the items.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Sorting"
-            }
-          }
         } ],
         "responses" : {
           "200" : {
@@ -450,19 +437,6 @@
           "explode" : true,
           "schema" : {
             "type" : "string"
-          }
-        }, {
-          "name" : "sort_orders",
-          "in" : "query",
-          "description" : "Sort criteria for the items.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Sorting"
-            }
           }
         } ],
         "responses" : {
@@ -880,19 +854,6 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "sort_orders",
-          "in" : "query",
-          "description" : "Sort criteria for the items.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/Sorting"
-            }
-          }
         } ],
         "responses" : {
           "200" : {
@@ -1283,29 +1244,6 @@
   },
   "components" : {
     "schemas" : {
-      "Sorting" : {
-        "title" : "Sorting",
-        "type" : "object",
-        "properties" : {
-          "field_name" : {
-            "type" : "string",
-            "description" : "Attribute used for sorting."
-          },
-          "order_type" : {
-            "type" : "string",
-            "description" : "Sorting types when listing items.",
-            "enum" : [ "ASC", "DESC" ]
-          }
-        },
-        "description" : "Specify how items are to be sorted while listing them.",
-        "x-examples" : {
-          "Items" : {
-            "field_name" : "name",
-            "order_type" : [ "ASC" ]
-          }
-        },
-        "x-internal" : false
-      },
       "RolesResponse" : {
         "title" : "RolesResponse",
         "type" : "object",

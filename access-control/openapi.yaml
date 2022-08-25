@@ -37,13 +37,6 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Sorting'
-          in: query
-          name: sort_orders
-          description: Sort criteria for the items.
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -127,13 +120,6 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Sorting'
-          in: query
-          name: sort_orders
-          description: Sort criteria for the items.
     post:
       summary: Create a Role
       operationId: create-role-org
@@ -210,13 +196,6 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Sorting'
-          in: query
-          name: sort_orders
-          description: Sort criteria for the items.
       security:
         - x-api-key: []
       tags:
@@ -284,26 +263,6 @@ paths:
         - Project Roles
 components:
   schemas:
-    Sorting:
-      title: Sorting
-      type: object
-      description: Specify how items are to be sorted while listing them.
-      x-examples:
-        Items:
-          field_name: name
-          order_type:
-            - ASC
-      x-internal: false
-      properties:
-        field_name:
-          type: string
-          description: Attribute used for sorting.
-        order_type:
-          type: string
-          description: Sorting types when listing items.
-          enum:
-            - ASC
-            - DESC
     RolesResponse:
       title: RolesResponse
       x-stoplight:

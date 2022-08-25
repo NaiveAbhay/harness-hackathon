@@ -11,11 +11,11 @@
   "modelPackage": "io.harness.spec.server.accesscontrol.model",
   "groupId": "io.harness",
   "artifactId": "access-control-server-spec",
-  "artifactVersion": "1.0.3",
+  "artifactVersion": "1.0.4",
   "interfaceOnly": true,
   "returnResponse": true,
   "sourceFolder": "src/main/java",
-  "dateLibrary": "java11",
+  "dateLibrary": "java8",
   "ignoreImportMapping": [
   ],
   "additionalProperties": {
