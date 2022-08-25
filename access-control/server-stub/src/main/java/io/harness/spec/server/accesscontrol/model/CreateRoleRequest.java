@@ -11,7 +11,6 @@ import javax.validation.Valid;
 /**
  * Create Role request
  **/
-import io.swagger.annotations.*;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
