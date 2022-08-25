@@ -1815,7 +1815,7 @@
         }
       }
     },
-    "/v1/orgs/{org}/project/{project}/secrets" : {
+    "/v1/orgs/{org}/projects/{project}/secrets" : {
       "get" : {
         "tags" : [ "Project Secret" ],
         "summary" : "List secrets",
@@ -2697,7 +2697,7 @@
         }
       }
     },
-    "/v1/org/{org}/project/{project}/secrets/{secret}" : {
+    "/v1/org/{org}/projects/{project}/secrets/{secret}" : {
       "get" : {
         "tags" : [ "Project Secret" ],
         "summary" : "Retrieve a secret",
