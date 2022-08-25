@@ -770,21 +770,6 @@ components:
     ProjectResponse:
       description: Project response model
       type: object
-      x-examples:
-        example-1:
-          project:
-            org: example_org_slug
-            slug: example_project_slug
-            name: example-project-name
-            color: '#0063F7'
-            modules:
-              - CD
-            description: This is a example Project
-            tags:
-              property1: value1
-              property2: value2
-          created: 1234567890
-          updated: 1234567890
       properties:
         project:
           $ref: '#/components/schemas/Project'
@@ -1319,16 +1304,17 @@ components:
           examples:
             example-project-response-json:
               value:
-                org: example_org_slug
-                slug: example_project_slug
-                name: example-project-name
-                color: '#0063F7'
-                modules:
-                  - CD
-                description: This is a example project
-                tags:
-                  property1: value1
-                  property2: value2
+                project:
+                  org: example_org_slug
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
                 created: 1234567890
                 updated: 1234567890
         application/yaml:
@@ -1337,16 +1323,17 @@ components:
           examples:
             example-project-response-yaml:
               value: |
-                org: example_org_slug
-                slug: example_project_slug
-                name: example-project-name
-                color: '#0063F7'
-                modules:
-                  - CD
-                description: This is a example project
-                tags:
-                  property1: value1
-                  property2: value2
+                project:
+                  org: example_org_slug
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
                 created: 1234567890
                 updated: 1234567890
     ProjectListResponse:
@@ -1358,8 +1345,29 @@ components:
             items:
               $ref: '#/components/schemas/ProjectResponse'
           examples:
-            example-project-list-response:
+            example-project-list-response-json:
               value:
+                - project:
+                    org: example_org_slug
+                    slug: example_project_slug
+                    name: example-project-name
+                    color: '#0063F7'
+                    modules:
+                      - CD
+                    description: This is a example project
+                    tags:
+                      property1: value1
+                      property2: value2
+                  created: 1234567890
+                  updated: 1234567890
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProjectResponse'
+          examples:
+            example-project-list-response-yaml:
+              value: |
                 - project:
                     org: example_org_slug
                     slug: example_project_slug
@@ -1563,14 +1571,32 @@ components:
           examples:
             example-project-update-request-json:
               value:
-                name: example-project-name
-                color: '#0063F7'
-                modules:
-                  - CD
-                description: This is a example project
-                tags:
-                  property1: value1
-                  property2: value2
+                project:
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/UpdateProjectRequest'
+          examples:
+            example-project-update-request-yaml:
+              value: |
+                project:
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
       description: Put the necessary fields for the API to update a Project.
       required: true
     CreateOrganizationRequest:
@@ -1641,30 +1667,32 @@ components:
           examples:
             example-create-project-request-json:
               value:
-                slug: example_project_slug
-                name: example-project-name
-                color: '#0063F7'
-                modules:
-                  - CD
-                description: This is a example project
-                tags:
-                  property1: value1
-                  property2: value2
+                project:
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
         application/yaml:
           schema:
             $ref: '#/components/schemas/CreateProjectRequest'
           examples:
             example-create-project-request-yaml:
               value: |
-                slug: example_project_slug
-                name: example-project-name
-                color: '#0063F7'
-                modules:
-                  - CD
-                description: This is a example project
-                tags:
-                  property1: value1
-                  property2: value2
+                project:
+                  slug: example_project_slug
+                  name: example-project-name
+                  color: '#0063F7'
+                  modules:
+                    - CD
+                  description: This is a example project
+                  tags:
+                    property1: value1
+                    property2: value2
       description: Post the necessary fields for the API to create a project.
       required: true
     SecretRequest:
