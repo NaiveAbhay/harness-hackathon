@@ -669,14 +669,6 @@ components:
     Organization:
       description: Organization model
       type: object
-      x-examples:
-        example-1:
-          slug: example_organization
-          name: Example Organization
-          description: This is an Example Organization
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
       properties:
         slug:
           type: string
@@ -1368,16 +1360,17 @@ components:
           examples:
             example-project-list-response:
               value:
-                - org: example_org_slug
-                  slug: example_project_slug
-                  name: example-project-name
-                  color: '#0063F7'
-                  modules:
-                    - CD
-                  description: This is a example project
-                  tags:
-                    property1: value1
-                    property2: value2
+                - project:
+                    org: example_org_slug
+                    slug: example_project_slug
+                    name: example-project-name
+                    color: '#0063F7'
+                    modules:
+                      - CD
+                    description: This is a example project
+                    tags:
+                      property1: value1
+                      property2: value2
                   created: 1234567890
                   updated: 1234567890
       headers:
@@ -1397,14 +1390,33 @@ components:
             items:
               $ref: '#/components/schemas/OrganizationResponse'
           examples:
-            example-organizations-list-response:
+            example-organizations-list-response-json:
               value:
-                - slug: example_organization
-                  name: Example Organization
-                  description: This is an example organization
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
+                - org:
+                    slug: example_organization
+                    name: Example Organization
+                    description: This is an example organization
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                  created: 1234567890
+                  updated: 1234567890
+                  harness_managed: true
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OrganizationResponse'
+          examples:
+            example-organizations-list-response-yaml:
+              value: |
+                - org:
+                    slug: example_organization
+                    name: Example Organization
+                    description: This is an example organization
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
                   created: 1234567890
                   updated: 1234567890
                   harness_managed: true
@@ -1599,11 +1611,26 @@ components:
           examples:
             example-organization-update-request-json:
               value:
-                name: Example Organization
-                description: This is an example organization
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/UpdateOrganizationRequest'
+          examples:
+            example-organization-update-request-json:
+              value: |
+                org:
+                  slug: example_organization
+                  name: Example Organization
+                  description: This is an example organization
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
       description: Put the necessary fields for the API to update a organization.
       required: true
     CreateProjectRequest:
