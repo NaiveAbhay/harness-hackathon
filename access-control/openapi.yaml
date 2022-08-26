@@ -279,6 +279,10 @@ components:
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
+          scope:
+            account: sample_account
+            org: sample_organization
+            project: sample_project
           harness_managed: true
           created: 1234567890
           updated: 1234567890
@@ -380,7 +384,11 @@ components:
         project:
           type: string
           description: Project identifier
-      x-examples: {}
+      x-examples:
+        example-1:
+          account: sample_account
+          org: sample_organization
+          project: sample_project
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -461,7 +469,7 @@ components:
                     example-tag-2: example-tag-2-value
                   scope:
                     account: sample_account
-                    org: sample_org
+                    org: sample_organization
                     project: sample_project
                   harness_managed: true
                   created: 1234567890
@@ -490,7 +498,7 @@ components:
                   example-tag-2: example-tag-2-value
                 scope:
                   account: sample_account
-                  org: sample_org
+                  org: sample_organization
                   project: sample_project
                 harness_managed: true
                 created: 1234567890
