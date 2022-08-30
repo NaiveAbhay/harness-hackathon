@@ -272,9 +272,11 @@ components:
       x-examples:
         example-role:
           slug: example_role
-          name: Example Role
+          name: Example_Role
           permissions:
-            - string
+            - core_resource_view
+          allowed_scope_levels:
+            - account
           description: This is an Example Role
           tags:
             example-tag-1: example-tag-1-value
@@ -299,6 +301,16 @@ components:
           uniqueItems: true
           items:
             type: string
+        allowed_scope_levels:
+          type: array
+          description: The Scope levels at which this Role can be used.
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+              - account
+              - organization
+              - project
         description:
           type: string
           description: Role description
@@ -320,6 +332,9 @@ components:
           type: integer
           description: Last modification timestamp for Role.
           format: int64
+      required:
+        - slug
+        - name
     CreateRoleRequest:
       title: CreateRoleRequest
       x-stoplight:
@@ -462,7 +477,9 @@ components:
                 - slug: example_role
                   name: Example_Role
                   permissions:
-                    - core_view
+                    - core_resource_view
+                  allowed_scope_levels:
+                    - account
                   description: This is an Example Role
                   tags:
                     example-tag-1: example-tag-1-value
@@ -491,7 +508,9 @@ components:
                 slug: example_role
                 name: Example_Role
                 permissions:
-                  - core_view
+                  - core_resource_view
+                allowed_scope_levels:
+                  - account
                 description: This is an Example Role
                 tags:
                   example-tag-1: example-tag-1-value

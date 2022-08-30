@@ -27,6 +27,39 @@ public class RolesResponse   {
 
   private @Valid List<String> permissions = new ArrayList<>();
 
+public enum AllowedScopeLevelsEnum {
+
+    ACCOUNT(String.valueOf("account")), ORGANIZATION(String.valueOf("organization")), PROJECT(String.valueOf("project"));
+
+
+    private String value;
+
+    AllowedScopeLevelsEnum (String v) {
+        value = v;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AllowedScopeLevelsEnum fromValue(String v) {
+        for (AllowedScopeLevelsEnum b : AllowedScopeLevelsEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
+        }
+        return null;
+    }
+}
+  private @Valid List<AllowedScopeLevelsEnum> allowedScopeLevels = new ArrayList<>();
+
   private @Valid String description = null;
 
   private @Valid Map<String, String> tags = new HashMap<>();
@@ -48,8 +81,9 @@ public class RolesResponse   {
   }
 
   
-  @Schema(description = "Role Identifier")
+  @Schema(required = true, description = "Role Identifier")
   @JsonProperty("slug")
+  @NotNull
 
   public String getSlug() {
     return slug;
@@ -67,8 +101,9 @@ public class RolesResponse   {
   }
 
   
-  @Schema(description = "Role Name")
+  @Schema(required = true, description = "Role Name")
   @JsonProperty("name")
+  @NotNull
 
   public String getName() {
     return name;
@@ -94,6 +129,25 @@ public class RolesResponse   {
   }
   public void setPermissions(List<String> permissions) {
     this.permissions = permissions;
+  }
+
+  /**
+   * The Scope levels at which this Role can be used.
+   **/
+  public RolesResponse allowedScopeLevels(List<AllowedScopeLevelsEnum> allowedScopeLevels) {
+    this.allowedScopeLevels = allowedScopeLevels;
+    return this;
+  }
+
+  
+  @Schema(description = "The Scope levels at which this Role can be used.")
+  @JsonProperty("allowed_scope_levels")
+
+  public List<AllowedScopeLevelsEnum> getAllowedScopeLevels() {
+    return allowedScopeLevels;
+  }
+  public void setAllowedScopeLevels(List<AllowedScopeLevelsEnum> allowedScopeLevels) {
+    this.allowedScopeLevels = allowedScopeLevels;
   }
 
   /**
@@ -222,6 +276,7 @@ public class RolesResponse   {
     return Objects.equals(slug, rolesResponse.slug) &&
         Objects.equals(name, rolesResponse.name) &&
         Objects.equals(permissions, rolesResponse.permissions) &&
+        Objects.equals(allowedScopeLevels, rolesResponse.allowedScopeLevels) &&
         Objects.equals(description, rolesResponse.description) &&
         Objects.equals(tags, rolesResponse.tags) &&
         Objects.equals(scope, rolesResponse.scope) &&
@@ -232,7 +287,7 @@ public class RolesResponse   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, permissions, description, tags, scope, harnessManaged, created, updated);
+    return Objects.hash(slug, name, permissions, allowedScopeLevels, description, tags, scope, harnessManaged, created, updated);
   }
 
   @Override
@@ -243,6 +298,7 @@ public class RolesResponse   {
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    permissions: ").append(toIndentedString(permissions)).append("\n");
+    sb.append("    allowedScopeLevels: ").append(toIndentedString(allowedScopeLevels)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");

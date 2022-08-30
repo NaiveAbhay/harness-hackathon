@@ -99,7 +99,8 @@
                     "value" : [ {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -156,7 +157,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -222,7 +224,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -289,7 +292,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -353,7 +357,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -465,7 +470,8 @@
                     "value" : [ {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -532,7 +538,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -608,7 +615,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -685,7 +693,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -759,7 +768,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -881,7 +891,8 @@
                     "value" : [ {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -958,7 +969,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1044,7 +1056,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1131,7 +1144,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1215,7 +1229,8 @@
                     "value" : {
                       "slug" : "example_role",
                       "name" : "Example_Role",
-                      "permissions" : [ "core_view" ],
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
                       "description" : "This is an Example Role",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1246,6 +1261,7 @@
     "schemas" : {
       "RolesResponse" : {
         "title" : "RolesResponse",
+        "required" : [ "name", "slug" ],
         "type" : "object",
         "properties" : {
           "slug" : {
@@ -1262,6 +1278,15 @@
             "description" : "Permissions for this Role.",
             "items" : {
               "type" : "string"
+            }
+          },
+          "allowed_scope_levels" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "The Scope levels at which this Role can be used.",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "account", "organization", "project" ]
             }
           },
           "description" : {
@@ -1300,8 +1325,9 @@
         "x-examples" : {
           "example-role" : {
             "slug" : "example_role",
-            "name" : "Example Role",
-            "permissions" : [ "string" ],
+            "name" : "Example_Role",
+            "permissions" : [ "core_resource_view" ],
+            "allowed_scope_levels" : [ "account" ],
             "description" : "This is an Example Role",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
@@ -1432,7 +1458,8 @@
                 "value" : [ {
                   "slug" : "example_role",
                   "name" : "Example_Role",
-                  "permissions" : [ "core_view" ],
+                  "permissions" : [ "core_resource_view" ],
+                  "allowed_scope_levels" : [ "account" ],
                   "description" : "This is an Example Role",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -1464,7 +1491,8 @@
                 "value" : {
                   "slug" : "example_role",
                   "name" : "Example_Role",
-                  "permissions" : [ "core_view" ],
+                  "permissions" : [ "core_resource_view" ],
+                  "allowed_scope_levels" : [ "account" ],
                   "description" : "This is an Example Role",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
