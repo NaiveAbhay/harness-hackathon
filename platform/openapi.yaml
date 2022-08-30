@@ -131,6 +131,8 @@ paths:
         - $ref: '#/components/parameters/AccountParam'
       security:
         - x-api-key: []
+      tags:
+        - Account Resource Groups
   '/v1/orgs/{org}/resource-groups':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -239,6 +241,8 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Organization Resource Groups
   '/v1/orgs/{org}/projects/{project}/resource-groups':
     parameters:
       - name: org
@@ -359,6 +363,8 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountParam'
+      tags:
+        - Project Resource Groups
 components:
   schemas:
     ResourceGroupsResponse:
@@ -827,4 +833,3 @@ components:
                     resource_slug: example_resource
                 managed_filter: NO_FILTER
       description: Filter Resource Group request body
-
