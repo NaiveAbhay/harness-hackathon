@@ -72,110 +72,46 @@
           "schema" : {
             "type" : "string"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Groups List Response",
-            "headers" : {
-              "Link" : {
-                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "description" : "List of Resource Groups",
-                  "items" : {
-                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                  }
-                },
-                "examples" : {
-                  "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
-                  }
-                }
-              }
+        }, {
+          "name" : "identifier_filter",
+          "in" : "query",
+          "description" : "Filter by Identifiers",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ]
-      },
-      "put" : {
-        "tags" : [ "Account Resource Groups" ],
-        "summary" : "Filter Resource Groups",
-        "description" : "Returns a filtered list of Resource Groups present in the Account scope.",
-        "operationId" : "filter-resource-group-acc",
-        "parameters" : [ {
-          "name" : "account",
+        }, {
+          "name" : "resource_list_filter",
           "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "description" : "Filter by particular Resource",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceSelectorFilter"
+            }
           }
         }, {
-          "name" : "limit",
+          "name" : "managed_filter",
           "in" : "query",
-          "description" : "Pagination: Number of items to return.",
+          "description" : "Filter by Harness Managed",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "maximum" : 100,
-            "type" : "integer",
-            "default" : 30
-          }
-        }, {
-          "name" : "page",
-          "in" : "query",
-          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "default" : 0
+            "type" : "string",
+            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
           }
         } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/FilterResourceGroupRequest"
-        },
         "responses" : {
           "200" : {
             "description" : "Resource Groups List Response",
@@ -527,80 +463,6 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
-      },
-      "head" : {
-        "tags" : [ "Account Resource Groups" ],
-        "summary" : "Retrieve a Resource Group [Internal]",
-        "description" : "Retrieves a Resource Group from Account scope. [Internal]",
-        "operationId" : "get-resource-group-internal-acc",
-        "parameters" : [ {
-          "name" : "resource-group",
-          "in" : "path",
-          "description" : "Resource Group identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Group Response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                },
-                "examples" : {
-                  "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ],
-        "x-internal" : true
       }
     },
     "/v1/orgs/{org}/resource-groups" : {
@@ -662,120 +524,46 @@
           "schema" : {
             "type" : "string"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Groups List Response",
-            "headers" : {
-              "Link" : {
-                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "description" : "List of Resource Groups",
-                  "items" : {
-                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                  }
-                },
-                "examples" : {
-                  "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
-                  }
-                }
-              }
+        }, {
+          "name" : "identifier_filter",
+          "in" : "query",
+          "description" : "Filter by Identifiers",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ]
-      },
-      "put" : {
-        "tags" : [ "Organization Resource Groups" ],
-        "summary" : "Filter Resource Groups",
-        "description" : "Returns a filtered list of Resource Groups present in the Organization scope.",
-        "operationId" : "filter-resource-group-org",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Organization identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
         }, {
-          "name" : "account",
+          "name" : "resource_list_filter",
           "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "description" : "Filter by particular Resource",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceSelectorFilter"
+            }
           }
         }, {
-          "name" : "limit",
+          "name" : "managed_filter",
           "in" : "query",
-          "description" : "Pagination: Number of items to return.",
+          "description" : "Filter by Harness Managed",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "maximum" : 100,
-            "type" : "integer",
-            "default" : 30
-          }
-        }, {
-          "name" : "page",
-          "in" : "query",
-          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "default" : 0
+            "type" : "string",
+            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
           }
         } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/FilterResourceGroupRequest"
-        },
         "responses" : {
           "200" : {
             "description" : "Resource Groups List Response",
@@ -1166,90 +954,6 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
-      },
-      "head" : {
-        "tags" : [ "Organization Resource Groups" ],
-        "summary" : "Retrieve a Resource Group [Internal]",
-        "description" : "Retrieves a Resource Group from Organization scope. [Internal]",
-        "operationId" : "get-resource-group-internal-org",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Organization identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "resource-group",
-          "in" : "path",
-          "description" : "Resource Group identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Group Response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                },
-                "examples" : {
-                  "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ],
-        "x-internal" : true
       }
     },
     "/v1/orgs/{org}/projects/{project}/resource-groups" : {
@@ -1321,130 +1025,46 @@
           "schema" : {
             "type" : "string"
           }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Groups List Response",
-            "headers" : {
-              "Link" : {
-                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "array",
-                  "description" : "List of Resource Groups",
-                  "items" : {
-                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                  }
-                },
-                "examples" : {
-                  "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
-                  }
-                }
-              }
+        }, {
+          "name" : "identifier_filter",
+          "in" : "query",
+          "description" : "Filter by Identifiers",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ]
-      },
-      "put" : {
-        "tags" : [ "Project Resource Groups" ],
-        "summary" : "Filter Resource Groups",
-        "description" : "Returns a filtered list of Resource Groups present in the Project scope.",
-        "operationId" : "filter-resource-group-project",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Organization identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
         }, {
-          "name" : "project",
-          "in" : "path",
-          "description" : "Project identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
+          "name" : "resource_list_filter",
           "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "description" : "Filter by particular Resource",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceSelectorFilter"
+            }
           }
         }, {
-          "name" : "limit",
+          "name" : "managed_filter",
           "in" : "query",
-          "description" : "Pagination: Number of items to return.",
+          "description" : "Filter by Harness Managed",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "maximum" : 100,
-            "type" : "integer",
-            "default" : 30
-          }
-        }, {
-          "name" : "page",
-          "in" : "query",
-          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "default" : 0
+            "type" : "string",
+            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
           }
         } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/FilterResourceGroupRequest"
-        },
         "responses" : {
           "200" : {
             "description" : "Resource Groups List Response",
@@ -1875,100 +1495,6 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
-      },
-      "head" : {
-        "tags" : [ "Project Resource Groups" ],
-        "summary" : "Retrieve a Resource Group [Internal]",
-        "description" : "Retrieves a Resource Group from Project scope. [Internal]",
-        "operationId" : "get-resource-group-internal-project",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Organization identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "project",
-          "in" : "path",
-          "description" : "Project identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "resource-group",
-          "in" : "path",
-          "description" : "Resource Group identifier",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Resource Group Response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
-                },
-                "examples" : {
-                  "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ],
-        "x-internal" : true
       }
     }
   },
@@ -2231,67 +1757,6 @@
           }
         }
       },
-      "FilterResourceGroupRequest" : {
-        "title" : "Filter Resource Group Request",
-        "type" : "object",
-        "properties" : {
-          "account" : {
-            "type" : "string",
-            "description" : "Filter by Account"
-          },
-          "organization" : {
-            "type" : "string",
-            "description" : "Filter by Organization"
-          },
-          "project" : {
-            "type" : "string",
-            "description" : "Filter by Project"
-          },
-          "search_term" : {
-            "type" : "string",
-            "description" : "Filter by Identifier/Name"
-          },
-          "identifier_filter" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "description" : "Filter by Identifiers",
-            "items" : {
-              "type" : "string"
-            }
-          },
-          "resource_list_filter" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "description" : "Filter by particular Resource",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
-          },
-          "managed_filter" : {
-            "type" : "string",
-            "description" : "Filter by Harness Managed",
-            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
-          }
-        },
-        "description" : "Filter Resource Groups based on multiple parameters.",
-        "x-stoplight" : {
-          "id" : "esc1r7rg2wwjs"
-        },
-        "x-examples" : {
-          "example-filter-resource-group" : {
-            "account" : "example_account",
-            "organization" : "example_organization",
-            "project" : "example_project",
-            "search_term" : "custom_search_term",
-            "identifier_filter" : [ "example_resource_group" ],
-            "resource_list_filter" : [ {
-              "resource_type" : "resource",
-              "resource_slug" : "example_resource"
-            } ],
-            "managed_filter" : "NO_FILTER"
-          }
-        }
-      },
       "ResourceSelectorFilter" : {
         "title" : "ResourceSelectorFilter",
         "required" : [ "resource_type" ],
@@ -2496,6 +1961,48 @@
         "schema" : {
           "type" : "string"
         }
+      },
+      "IdentifierFilter" : {
+        "name" : "identifier_filter",
+        "in" : "query",
+        "description" : "Filter by Identifiers",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ResourceListFilter" : {
+        "name" : "resource_list_filter",
+        "in" : "query",
+        "description" : "Filter by particular Resource",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/components/schemas/ResourceSelectorFilter"
+          }
+        }
+      },
+      "ManagedFilter" : {
+        "name" : "managed_filter",
+        "in" : "query",
+        "description" : "Filter by Harness Managed",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+        }
       }
     },
     "requestBodies" : {
@@ -2530,32 +2037,6 @@
                     "attribute_values" : [ "example_resource_attribute" ]
                   } ],
                   "include_all" : false
-                }
-              }
-            }
-          }
-        }
-      },
-      "FilterResourceGroupRequest" : {
-        "description" : "Filter Resource Group request body",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/FilterResourceGroupRequest"
-            },
-            "examples" : {
-              "example-filter-resource-group" : {
-                "value" : {
-                  "account" : "example_account",
-                  "organization" : "example_organization",
-                  "project" : "example_project",
-                  "search_term" : "custom_search_term",
-                  "identifier_filter" : [ "example_resource_group" ],
-                  "resource_list_filter" : [ {
-                    "resource_type" : "resource",
-                    "resource_slug" : "example_resource"
-                  } ],
-                  "managed_filter" : "NO_FILTER"
                 }
               }
             }

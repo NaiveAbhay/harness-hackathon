@@ -1,8 +1,8 @@
 package io.harness.spec.server.platform;
 
 import io.harness.spec.server.platform.model.CreateResourceGroupRequest;
-import io.harness.spec.server.platform.model.FilterResourceGroupRequest;
 import io.harness.spec.server.platform.model.ResourceGroupsResponse;
+import io.harness.spec.server.platform.model.ResourceSelectorFilter;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -63,49 +63,6 @@ public interface ProjectResourceGroupsApi {
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
-    @PUT
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
-    @Operation(operationId = "filterResourceGroupProject", summary = "Filter Resource Groups", description = "Returns a filtered list of Resource Groups present in the Project scope.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Groups List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
-    Response filterResourceGroupProject( @PathParam("org")
-
- @Parameter(description = "Organization identifier") String org
-, @PathParam("project")
-
- @Parameter(description = "Project identifier") String project
-,@Valid FilterResourceGroupRequest body,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
-, @Max(100)  @QueryParam("limit") @DefaultValue("30") 
-
- @Parameter(description = "Pagination: Number of items to return.")  Integer limit
-,  @QueryParam("page") @DefaultValue("0") 
-
- @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.")  Integer page
-);
-    @HEAD
-    @Path("/{resource-group}")
-    @Produces({ "application/json" })
-    @Operation(operationId = "getResourceGroupInternalProject", summary = "Retrieve a Resource Group [Internal]", description = "Retrieves a Resource Group from Project scope. [Internal]", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
-    Response getResourceGroupInternalProject( @PathParam("org")
-
- @Parameter(description = "Organization identifier") String org
-, @PathParam("project")
-
- @Parameter(description = "Project identifier") String project
-, @PathParam("resource-group")
-
- @Parameter(description = "Resource Group identifier") String resourceGroup
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
-);
     @GET
     @Path("/{resource-group}")
     @Produces({ "application/json" })
@@ -150,6 +107,15 @@ public interface ProjectResourceGroupsApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
+,  @QueryParam("identifier_filter") 
+
+ @Parameter(description = "Filter by Identifiers")  List<String> identifierFilter
+,  @QueryParam("resource_list_filter") 
+
+ @Parameter(description = "Filter by particular Resource")  List<ResourceSelectorFilter> resourceListFilter
+,  @QueryParam("managed_filter") 
+
+ @Parameter(description = "Filter by Harness Managed")  String managedFilter
 );
     @PUT
     @Path("/{resource-group}")

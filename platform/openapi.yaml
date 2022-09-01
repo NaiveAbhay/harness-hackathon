@@ -37,6 +37,9 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/IdentifierFilter'
+        - $ref: '#/components/parameters/ResourceListFilter'
+        - $ref: '#/components/parameters/ManagedFilter'
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsListResponse'
@@ -57,23 +60,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsResponse'
-    put:
-      summary: Filter Resource Groups
-      operationId: filter-resource-group-acc
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsListResponse'
-      tags:
-        - Account Resource Groups
-      description: Returns a filtered list of Resource Groups present in the Account scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/PageIndex'
-      requestBody:
-        $ref: '#/components/requestBodies/FilterResourceGroupRequest'
-      security:
-        - x-api-key: []
   '/v1/resource-groups/{resource-group}':
     parameters:
       - $ref: '#/components/parameters/ResourceGroupParam'
@@ -119,20 +105,6 @@ paths:
         - $ref: '#/components/parameters/AccountParam'
       tags:
         - Account Resource Groups
-    head:
-      summary: 'Retrieve a Resource Group [Internal]'
-      operationId: get-resource-group-internal-acc
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsResponse'
-      x-internal: true
-      description: 'Retrieves a Resource Group from Account scope. [Internal]'
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-      security:
-        - x-api-key: []
-      tags:
-        - Account Resource Groups
   '/v1/orgs/{org}/resource-groups':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -152,6 +124,9 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/IdentifierFilter'
+        - $ref: '#/components/parameters/ResourceListFilter'
+        - $ref: '#/components/parameters/ManagedFilter'
     post:
       summary: Create a Resource Group
       operationId: create-resource-group-org
@@ -167,23 +142,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsResponse'
-    put:
-      summary: Filter Resource Groups
-      operationId: filter-resource-group-org
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsListResponse'
-      tags:
-        - Organization Resource Groups
-      description: Returns a filtered list of Resource Groups present in the Organization scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/PageIndex'
-      requestBody:
-        $ref: '#/components/requestBodies/FilterResourceGroupRequest'
-      security:
-        - x-api-key: []
   '/v1/orgs/{org}/resource-groups/{resource-group}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -229,20 +187,6 @@ paths:
         - x-api-key: []
       tags:
         - Organization Resource Groups
-    head:
-      summary: 'Retrieve a Resource Group [Internal]'
-      operationId: get-resource-group-internal-org
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsResponse'
-      x-internal: true
-      description: 'Retrieves a Resource Group from Organization scope. [Internal]'
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-      tags:
-        - Organization Resource Groups
   '/v1/orgs/{org}/projects/{project}/resource-groups':
     parameters:
       - name: org
@@ -269,6 +213,9 @@ paths:
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/IdentifierFilter'
+        - $ref: '#/components/parameters/ResourceListFilter'
+        - $ref: '#/components/parameters/ManagedFilter'
       security:
         - x-api-key: []
       tags:
@@ -288,23 +235,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsResponse'
-    put:
-      summary: Filter Resource Groups
-      operationId: filter-resource-group-project
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsListResponse'
-      tags:
-        - Project Resource Groups
-      description: Returns a filtered list of Resource Groups present in the Project scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/PageIndex'
-      requestBody:
-        $ref: '#/components/requestBodies/FilterResourceGroupRequest'
-      security:
-        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/resource-groups/{resource-group}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -345,20 +275,6 @@ paths:
         '200':
           $ref: '#/components/responses/ResourceGroupsResponse'
       description: Deletes a custom Resource Group from Project scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountParam'
-      tags:
-        - Project Resource Groups
-    head:
-      summary: 'Retrieve a Resource Group [Internal]'
-      operationId: get-resource-group-internal-project
-      responses:
-        '200':
-          $ref: '#/components/responses/ResourceGroupsResponse'
-      x-internal: true
-      description: 'Retrieves a Resource Group from Project scope. [Internal]'
       security:
         - x-api-key: []
       parameters:
@@ -580,56 +496,6 @@ components:
           attribute_name: resource_attribute
           attribute_values:
             - example_resource_attribute
-    FilterResourceGroupRequest:
-      title: Filter Resource Group Request
-      x-stoplight:
-        id: esc1r7rg2wwjs
-      type: object
-      description: Filter Resource Groups based on multiple parameters.
-      x-examples:
-        example-filter-resource-group:
-          account: example_account
-          organization: example_organization
-          project: example_project
-          search_term: custom_search_term
-          identifier_filter:
-            - example_resource_group
-          resource_list_filter:
-            - resource_type: resource
-              resource_slug: example_resource
-          managed_filter: NO_FILTER
-      properties:
-        account:
-          type: string
-          description: Filter by Account
-        organization:
-          type: string
-          description: Filter by Organization
-        project:
-          type: string
-          description: Filter by Project
-        search_term:
-          type: string
-          description: Filter by Identifier/Name
-        identifier_filter:
-          type: array
-          description: Filter by Identifiers
-          uniqueItems: true
-          items:
-            type: string
-        resource_list_filter:
-          type: array
-          description: Filter by particular Resource
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/ResourceSelectorFilter'
-        managed_filter:
-          type: string
-          description: Filter by Harness Managed
-          enum:
-            - NO_FILTER
-            - ONLY_MANAGED
-            - ONLY_CUSTOM
     ResourceSelectorFilter:
       title: ResourceSelectorFilter
       x-stoplight:
@@ -707,6 +573,37 @@ components:
       schema:
         type: string
       description: Resource Group identifier
+    IdentifierFilter:
+      name: identifier_filter
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Filter by Identifiers
+    ResourceListFilter:
+      name: resource_list_filter
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '#/components/schemas/ResourceSelectorFilter'
+      description: Filter by particular Resource
+    ManagedFilter:
+      name: managed_filter
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - NO_FILTER
+          - ONLY_MANAGED
+          - ONLY_CUSTOM
+      description: Filter by Harness Managed
   responses:
     ResourceGroupsListResponse:
       description: Resource Groups List Response
@@ -814,22 +711,3 @@ components:
                       - example_resource_attribute
                 include_all: false
       description: Create Resource Group request body
-    FilterResourceGroupRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/FilterResourceGroupRequest'
-          examples:
-            example-filter-resource-group:
-              value:
-                account: example_account
-                organization: example_organization
-                project: example_project
-                search_term: custom_search_term
-                identifier_filter:
-                  - example_resource_group
-                resource_list_filter:
-                  - resource_type: resource
-                    resource_slug: example_resource
-                managed_filter: NO_FILTER
-      description: Filter Resource Group request body

@@ -4,7 +4,7 @@
   <artifactId>platform-server-spec</artifactId>
   <packaging>jar</packaging>
   <name>platform-server-spec</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
