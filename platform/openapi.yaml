@@ -426,9 +426,13 @@ components:
           maxLength: 1024
           description: Resource Group description
         included_scope:
-          $ref: '#/components/schemas/ResourceGroupScope'
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceGroupScope'
         resource_filter:
-          $ref: '#/components/schemas/ResourceFilter'
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceFilter'
         include_all:
           type: boolean
           description: Boolean value for including all resources in Resource Group.

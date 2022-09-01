@@ -3,6 +3,7 @@ package io.harness.spec.server.platform.model;
 import io.harness.spec.server.platform.model.ResourceFilter;
 import io.harness.spec.server.platform.model.ResourceGroupScope;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,9 @@ public class CreateResourceGroupRequest   {
 
   private @Valid String description = null;
 
-  private @Valid ResourceGroupScope includedScope = null;
+  private @Valid List<ResourceGroupScope> includedScope = new ArrayList<>();
 
-  private @Valid ResourceFilter resourceFilter = null;
+  private @Valid List<ResourceFilter> resourceFilter = new ArrayList<>();
 
   private @Valid Boolean includeAll = null;
 
@@ -136,7 +137,7 @@ public class CreateResourceGroupRequest   {
 
   /**
    **/
-  public CreateResourceGroupRequest includedScope(ResourceGroupScope includedScope) {
+  public CreateResourceGroupRequest includedScope(List<ResourceGroupScope> includedScope) {
     this.includedScope = includedScope;
     return this;
   }
@@ -145,16 +146,16 @@ public class CreateResourceGroupRequest   {
   @Schema(description = "")
   @JsonProperty("included_scope")
 
-  public ResourceGroupScope getIncludedScope() {
+  public List<ResourceGroupScope> getIncludedScope() {
     return includedScope;
   }
-  public void setIncludedScope(ResourceGroupScope includedScope) {
+  public void setIncludedScope(List<ResourceGroupScope> includedScope) {
     this.includedScope = includedScope;
   }
 
   /**
    **/
-  public CreateResourceGroupRequest resourceFilter(ResourceFilter resourceFilter) {
+  public CreateResourceGroupRequest resourceFilter(List<ResourceFilter> resourceFilter) {
     this.resourceFilter = resourceFilter;
     return this;
   }
@@ -163,10 +164,10 @@ public class CreateResourceGroupRequest   {
   @Schema(description = "")
   @JsonProperty("resource_filter")
 
-  public ResourceFilter getResourceFilter() {
+  public List<ResourceFilter> getResourceFilter() {
     return resourceFilter;
   }
-  public void setResourceFilter(ResourceFilter resourceFilter) {
+  public void setResourceFilter(List<ResourceFilter> resourceFilter) {
     this.resourceFilter = resourceFilter;
   }
 
