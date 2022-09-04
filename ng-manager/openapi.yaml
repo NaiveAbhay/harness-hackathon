@@ -1262,6 +1262,10 @@ components:
           description: Secret description
         spec:
           $ref: '#/components/schemas/SecretSpec'
+      required:
+        - name
+        - slug
+        - spec
     SecretResponse:
       title: SecretResponse
       type: object
