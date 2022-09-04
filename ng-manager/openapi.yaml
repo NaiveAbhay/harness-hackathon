@@ -368,6 +368,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
       tags:
         - Account Secret
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -385,6 +387,8 @@ paths:
         - $ref: '#/components/parameters/PrivateSecret'
       tags:
         - Org Secret
+      security:
+        - x-api-key: []
     get:
       summary: List secrets
       operationId: get-org-scoped-secrets
@@ -431,6 +435,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
       tags:
         - Org Secret
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -449,6 +455,8 @@ paths:
         - $ref: '#/components/parameters/PrivateSecret'
       tags:
         - Project Secret
+      security:
+        - x-api-key: []
     get:
       summary: List secrets
       operationId: get-project-scoped-secrets
@@ -494,6 +502,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
       tags:
         - Project Secret
+      security:
+        - x-api-key: []
   '/v1/secrets/{secret}':
     parameters:
       - schema:
@@ -513,6 +523,8 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
       tags:
         - Account Secret
+      security:
+        - x-api-key: []
     delete:
       summary: Deletes a secret
       tags:
@@ -524,6 +536,8 @@ paths:
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
     put:
       summary: Update a secret
       operationId: update-account-scoped-secret
@@ -537,6 +551,8 @@ paths:
         - Account Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
+      security:
+        - x-api-key: []
     head:
       summary: Validate unique secret slug
       operationId: validate-unique-account-scoped-secret-slug
@@ -548,6 +564,8 @@ paths:
         - Account Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
   '/v1/org/{org}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -568,6 +586,8 @@ paths:
       description: Retrieves the information of the secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a secret
       tags:
@@ -579,6 +599,8 @@ paths:
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
     put:
       summary: Update a secret
       operationId: update-org-scoped-secret
@@ -592,6 +614,8 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Org Secret
+      security:
+        - x-api-key: []
     head:
       summary: Validate unique secret slug
       operationId: validate-unique-org-scoped-secret-slug
@@ -603,6 +627,8 @@ paths:
         - Org Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
   '/v1/org/{org}/projects/{project}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -624,6 +650,8 @@ paths:
       description: Retrieves the information of the secret.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a secret
       tags:
@@ -635,6 +663,8 @@ paths:
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
     put:
       summary: Update a secret
       operationId: update-project-scoped-secret
@@ -648,6 +678,8 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Project Secret
+      security:
+        - x-api-key: []
     head:
       summary: Validate unique secret slug
       operationId: validate-unique-project-scoped-secret-slug
@@ -659,6 +691,8 @@ paths:
         - Project Secret
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
 components:
   schemas:
     CreateOrganizationRequest:
