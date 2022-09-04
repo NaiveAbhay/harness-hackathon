@@ -71,7 +71,7 @@ public interface OrganizationApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getOrganizations", summary = "List organizations", description = "Retrieves the information of the organizations.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
@@ -94,7 +94,7 @@ public interface OrganizationApi {
 );
     @PUT
     @Path("/{org}")
-    @Consumes({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrganization", summary = "Update an organization", description = "Updates the information of the organization with the matching organization slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })

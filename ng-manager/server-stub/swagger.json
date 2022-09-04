@@ -121,19 +121,34 @@
                   }
                 },
                 "examples" : {
-                  "example-organizations-list-response" : {
+                  "example-organizations-list-response-json" : {
                     "value" : [ {
-                      "slug" : "example_organization",
-                      "name" : "Example Organization",
-                      "description" : "This is an example organization",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
                       "harness_managed" : true
                     } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OrganizationResponse"
+                  }
+                },
+                "examples" : {
+                  "example-organizations-list-response-yaml" : {
+                    "value" : "- org:\n    slug: example_organization\n    name: Example Organization\n    description: This is an example organization\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
                   }
                 }
               }
@@ -546,21 +561,36 @@
                   }
                 },
                 "examples" : {
-                  "example-project-list-response" : {
+                  "example-project-list-response-json" : {
                     "value" : [ {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
                     } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-yaml" : {
+                    "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -601,15 +631,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -623,7 +655,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -755,21 +787,36 @@
                   }
                 },
                 "examples" : {
-                  "example-project-list-response" : {
+                  "example-project-list-response-json" : {
                     "value" : [ {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
                     } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-yaml" : {
+                    "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -820,15 +867,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -842,7 +891,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -892,15 +941,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -914,7 +965,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -965,15 +1016,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -987,7 +1040,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1035,15 +1088,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1057,7 +1112,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1117,15 +1172,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1139,7 +1196,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1200,15 +1257,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1222,7 +1281,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1280,15 +1339,17 @@
                 "examples" : {
                   "example-project-response-json" : {
                     "value" : {
-                      "org" : "example_org_slug",
-                      "slug" : "example_project_slug",
-                      "name" : "example-project-name",
-                      "color" : "#0063F7",
-                      "modules" : [ "CD" ],
-                      "description" : "This is a example project",
-                      "tags" : {
-                        "property1" : "value1",
-                        "property2" : "value2"
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1302,7 +1363,7 @@
                 },
                 "examples" : {
                   "example-project-response-yaml" : {
-                    "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1475,7 +1536,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Account Secret" ],
@@ -1722,7 +1786,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Org Secret" ],
@@ -1812,7 +1879,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/orgs/{org}/projects/{project}/secrets" : {
@@ -1976,7 +2046,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "post" : {
         "tags" : [ "Project Secret" ],
@@ -2076,7 +2149,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/secrets/{secret}" : {
@@ -2154,7 +2230,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Account Secret" ],
@@ -2233,7 +2312,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Account Secret" ],
@@ -2309,7 +2391,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "head" : {
         "tags" : [ "Account Secret" ],
@@ -2365,7 +2450,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/org/{org}/secrets/{secret}" : {
@@ -2453,7 +2541,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Org Secret" ],
@@ -2542,7 +2633,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Org Secret" ],
@@ -2628,7 +2722,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "head" : {
         "tags" : [ "Org Secret" ],
@@ -2694,7 +2791,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/org/{org}/projects/{project}/secrets/{secret}" : {
@@ -2792,7 +2892,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "put" : {
         "tags" : [ "Project Secret" ],
@@ -2891,7 +2994,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "delete" : {
         "tags" : [ "Project Secret" ],
@@ -2987,7 +3093,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "head" : {
         "tags" : [ "Project Secret" ],
@@ -3063,7 +3172,10 @@
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     }
   },
@@ -3109,18 +3221,7 @@
             "description" : "Organization tags"
           }
         },
-        "description" : "Organization model",
-        "x-examples" : {
-          "example-1" : {
-            "slug" : "example_organization",
-            "name" : "Example Organization",
-            "description" : "This is an Example Organization",
-            "tags" : {
-              "example-tag-1" : "example-tag-1-value",
-              "example-tag-2" : "example-tag-2-value"
-            }
-          }
-        }
+        "description" : "Organization model"
       },
       "ModuleType" : {
         "type" : "string",
@@ -3216,25 +3317,7 @@
             "format" : "int64"
           }
         },
-        "description" : "Project response model",
-        "x-examples" : {
-          "example-1" : {
-            "project" : {
-              "org" : "example_org_slug",
-              "slug" : "example_project_slug",
-              "name" : "example-project-name",
-              "color" : "#0063F7",
-              "modules" : [ "CD" ],
-              "description" : "This is a example Project",
-              "tags" : {
-                "property1" : "value1",
-                "property2" : "value2"
-              }
-            },
-            "created" : 1234567890,
-            "updated" : 1234567890
-          }
-        }
+        "description" : "Project response model"
       },
       "OrganizationResponse" : {
         "title" : "OrganizationResponse",
@@ -3744,6 +3827,7 @@
         }
       },
       "Secret" : {
+        "required" : [ "name", "slug", "spec" ],
         "type" : "object",
         "properties" : {
           "name" : {
@@ -3878,15 +3962,17 @@
             "examples" : {
               "example-project-response-json" : {
                 "value" : {
-                  "org" : "example_org_slug",
-                  "slug" : "example_project_slug",
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
+                  "project" : {
+                    "org" : "example_org_slug",
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890
@@ -3900,7 +3986,7 @@
             },
             "examples" : {
               "example-project-response-yaml" : {
-                "value" : "org: example_org_slug\nslug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -3932,21 +4018,36 @@
               }
             },
             "examples" : {
-              "example-project-list-response" : {
+              "example-project-list-response-json" : {
                 "value" : [ {
-                  "org" : "example_org_slug",
-                  "slug" : "example_project_slug",
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
+                  "project" : {
+                    "org" : "example_org_slug",
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890
                 } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples" : {
+              "example-project-list-response-yaml" : {
+                "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
               }
             }
           }
@@ -3978,19 +4079,34 @@
               }
             },
             "examples" : {
-              "example-organizations-list-response" : {
+              "example-organizations-list-response-json" : {
                 "value" : [ {
-                  "slug" : "example_organization",
-                  "name" : "Example Organization",
-                  "description" : "This is an example organization",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890,
                   "harness_managed" : true
                 } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples" : {
+              "example-organizations-list-response-yaml" : {
+                "value" : "- org:\n    slug: example_organization\n    name: Example Organization\n    description: This is an example organization\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
               }
             }
           }
@@ -4267,15 +4383,28 @@
             "examples" : {
               "example-project-update-request-json" : {
                 "value" : {
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
+                  "project" : {
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
                   }
                 }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples" : {
+              "example-project-update-request-yaml" : {
+                "value" : "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
               }
             }
           }
@@ -4328,13 +4457,26 @@
             "examples" : {
               "example-organization-update-request-json" : {
                 "value" : {
-                  "name" : "Example Organization",
-                  "description" : "This is an example organization",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
                   }
                 }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples" : {
+              "example-organization-update-request-json" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
               }
             }
           }
@@ -4351,14 +4493,16 @@
             "examples" : {
               "example-create-project-request-json" : {
                 "value" : {
-                  "slug" : "example_project_slug",
-                  "name" : "example-project-name",
-                  "color" : "#0063F7",
-                  "modules" : [ "CD" ],
-                  "description" : "This is a example project",
-                  "tags" : {
-                    "property1" : "value1",
-                    "property2" : "value2"
+                  "project" : {
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
                   }
                 }
               }
@@ -4370,7 +4514,7 @@
             },
             "examples" : {
               "example-create-project-request-yaml" : {
-                "value" : "slug: example_project_slug\nname: example-project-name\ncolor: '#0063F7'\nmodules:\n  - CD\ndescription: This is a example project\ntags:\n  property1: value1\n  property2: value2\n"
+                "value" : "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
               }
             }
           }

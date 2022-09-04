@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashMap;
@@ -39,8 +40,9 @@ public class Secret   {
   }
 
   
-  @Schema(description = "Secret name")
+  @Schema(required = true, description = "Secret name")
   @JsonProperty("name")
+  @NotNull
  @Pattern(regexp="^[0-9a-zA-Z-_ ]{0,63}$")
   public String getName() {
     return name;
@@ -58,8 +60,9 @@ public class Secret   {
   }
 
   
-  @Schema(description = "Secret slug")
+  @Schema(required = true, description = "Secret slug")
   @JsonProperty("slug")
+  @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
@@ -152,8 +155,9 @@ public class Secret   {
   }
 
   
-  @Schema(description = "")
+  @Schema(required = true, description = "")
   @JsonProperty("spec")
+  @NotNull
 
   public SecretSpec getSpec() {
     return spec;

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.validation.Valid;
@@ -37,7 +38,8 @@ public interface ProjectSecretApi {
     @Path("/orgs/{org}/projects/{project}/secrets")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
+    @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response createProjectScopedSecret(@Valid SecretRequest body, @PathParam("org")
@@ -57,7 +59,8 @@ public interface ProjectSecretApi {
     @Path("/orgs/{org}/projects/{project}/secrets")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", tags={ "Project Secret" })
+    @Operation(operationId = "createProjectScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response createProjectScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("org")
@@ -76,7 +79,8 @@ public interface ProjectSecretApi {
     @DELETE
     @Path("/org/{org}/projects/{project}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteProjectScopedSecret", summary = "Delete a secret", description = "Deletes the information of the secret with the matching secret slug.", tags={ "Project Secret" })
+    @Operation(operationId = "deleteProjectScopedSecret", summary = "Delete a secret", description = "Deletes the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response deleteProjectScopedSecret( @PathParam("org")
@@ -95,7 +99,8 @@ public interface ProjectSecretApi {
     @GET
     @Path("/org/{org}/projects/{project}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getProjectScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", tags={ "Project Secret" })
+    @Operation(operationId = "getProjectScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response getProjectScopedSecret( @PathParam("org")
@@ -114,7 +119,8 @@ public interface ProjectSecretApi {
     @GET
     @Path("/orgs/{org}/projects/{project}/secrets")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getProjectScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", tags={ "Project Secret" })
+    @Operation(operationId = "getProjectScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SecretResponse.class)))) })
     Response getProjectScopedSecrets( @PathParam("org")
@@ -149,7 +155,8 @@ public interface ProjectSecretApi {
     @Path("/org/{org}/projects/{project}/secrets/{secret}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
+    @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateProjectScopedSecret(@Valid SecretRequest body, @PathParam("org")
@@ -169,7 +176,8 @@ public interface ProjectSecretApi {
     @Path("/org/{org}/projects/{project}/secrets/{secret}")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Project Secret" })
+    @Operation(operationId = "updateProjectScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateProjectScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("org")
@@ -188,7 +196,8 @@ public interface ProjectSecretApi {
     @HEAD
     @Path("/org/{org}/projects/{project}/secrets/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "validateUniqueProjectScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates project scoped secret slug is unique", tags={ "Project Secret" })
+    @Operation(operationId = "validateUniqueProjectScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates project scoped secret slug is unique", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueProjectScopedSecretSlug( @PathParam("org")

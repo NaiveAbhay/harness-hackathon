@@ -71,7 +71,7 @@ public interface AccountProjectApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getAccountScopedProjects", summary = "List projects", description = "Retrieves the information of the projects.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
@@ -103,7 +103,7 @@ public interface AccountProjectApi {
 );
     @PUT
     @Path("/{project}")
-    @Consumes({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateAccountScopedProject", summary = "Update a project", description = "Updates the information of the project with the matching project slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })

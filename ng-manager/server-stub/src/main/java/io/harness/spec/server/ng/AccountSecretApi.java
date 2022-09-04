@@ -65,7 +65,8 @@ public interface AccountSecretApi {
     @DELETE
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "deleteAccountScopedSecret", summary = "Deletes a secret", description = "Deletes the information of the secret with the matching secret slug.", tags={ "Account Secret" })
+    @Operation(operationId = "deleteAccountScopedSecret", summary = "Deletes a secret", description = "Deletes the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response deleteAccountScopedSecret( @PathParam("secret")
@@ -78,7 +79,8 @@ public interface AccountSecretApi {
     @GET
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getAccountScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", tags={ "Account Secret" })
+    @Operation(operationId = "getAccountScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response getAccountScopedSecret( @PathParam("secret")
@@ -90,7 +92,8 @@ public interface AccountSecretApi {
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getAccountScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", tags={ "Account Secret" })
+    @Operation(operationId = "getAccountScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SecretResponse.class)))) })
     Response getAccountScopedSecrets(  @QueryParam("account") 
@@ -125,7 +128,8 @@ public interface AccountSecretApi {
     @Path("/{secret}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Account Secret" })
+    @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateAccountScopedSecret(@Valid SecretRequest body, @PathParam("secret")
@@ -139,7 +143,8 @@ public interface AccountSecretApi {
     @Path("/{secret}")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", tags={ "Account Secret" })
+    @Operation(operationId = "updateAccountScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Secret response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = SecretResponse.class))) })
     Response updateAccountScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("secret")
@@ -152,7 +157,8 @@ public interface AccountSecretApi {
     @HEAD
     @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "validateUniqueAccountScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates secret slug is unique", tags={ "Account Secret" })
+    @Operation(operationId = "validateUniqueAccountScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates secret slug is unique", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueAccountScopedSecretSlug( @PathParam("secret")
