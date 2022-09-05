@@ -87,20 +87,6 @@
             }
           }
         }, {
-          "name" : "resource_list_filter",
-          "in" : "query",
-          "description" : "Filter by particular Resource",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
-          }
-        }, {
           "name" : "managed_filter",
           "in" : "query",
           "description" : "Filter by Harness Managed",
@@ -110,6 +96,34 @@
           "schema" : {
             "type" : "string",
             "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "query",
+          "description" : "Filter by Resource type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "resource_slug",
+          "in" : "query",
+          "description" : "Filter by Resource identifier",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -539,20 +553,6 @@
             }
           }
         }, {
-          "name" : "resource_list_filter",
-          "in" : "query",
-          "description" : "Filter by particular Resource",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
-          }
-        }, {
           "name" : "managed_filter",
           "in" : "query",
           "description" : "Filter by Harness Managed",
@@ -562,6 +562,34 @@
           "schema" : {
             "type" : "string",
             "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "query",
+          "description" : "Filter by Resource type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "resource_slug",
+          "in" : "query",
+          "description" : "Filter by Resource identifier",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -1040,20 +1068,6 @@
             }
           }
         }, {
-          "name" : "resource_list_filter",
-          "in" : "query",
-          "description" : "Filter by particular Resource",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
-          }
-        }, {
           "name" : "managed_filter",
           "in" : "query",
           "description" : "Filter by Harness Managed",
@@ -1063,6 +1077,34 @@
           "schema" : {
             "type" : "string",
             "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+          }
+        }, {
+          "name" : "resource_type",
+          "in" : "query",
+          "description" : "Filter by Resource type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "resource_slug",
+          "in" : "query",
+          "description" : "Filter by Resource identifier",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
           }
         } ],
         "responses" : {
@@ -1762,31 +1804,6 @@
             "attribute_values" : [ "example_resource_attribute" ]
           }
         }
-      },
-      "ResourceSelectorFilter" : {
-        "title" : "ResourceSelectorFilter",
-        "required" : [ "resource_type" ],
-        "type" : "object",
-        "properties" : {
-          "resource_type" : {
-            "type" : "string",
-            "description" : "Type of Resource"
-          },
-          "resource_slug" : {
-            "type" : "string",
-            "description" : "Resource identifier"
-          }
-        },
-        "description" : "Filter object for Resource",
-        "x-stoplight" : {
-          "id" : "e9w76jvt3g2gs"
-        },
-        "x-examples" : {
-          "example-resource-filter" : {
-            "resource_type" : "resource",
-            "resource_slug" : "example_resource"
-          }
-        }
       }
     },
     "responses" : {
@@ -1983,21 +2000,6 @@
           }
         }
       },
-      "ResourceListFilter" : {
-        "name" : "resource_list_filter",
-        "in" : "query",
-        "description" : "Filter by particular Resource",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "uniqueItems" : true,
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/components/schemas/ResourceSelectorFilter"
-          }
-        }
-      },
       "ManagedFilter" : {
         "name" : "managed_filter",
         "in" : "query",
@@ -2008,6 +2010,36 @@
         "schema" : {
           "type" : "string",
           "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+        }
+      },
+      "ResourceType" : {
+        "name" : "resource_type",
+        "in" : "query",
+        "description" : "Filter by Resource type",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ResourceSlug" : {
+        "name" : "resource_slug",
+        "in" : "query",
+        "description" : "Filter by Resource identifier",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
         }
       }
     },

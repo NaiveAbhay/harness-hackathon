@@ -38,8 +38,9 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ResourceListFilter'
         - $ref: '#/components/parameters/ManagedFilter'
+        - $ref: '#/components/parameters/ResourceType'
+        - $ref: '#/components/parameters/ResourceSlug'
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsListResponse'
@@ -125,8 +126,9 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ResourceListFilter'
         - $ref: '#/components/parameters/ManagedFilter'
+        - $ref: '#/components/parameters/ResourceType'
+        - $ref: '#/components/parameters/ResourceSlug'
     post:
       summary: Create a Resource Group
       operationId: create-resource-group-org
@@ -214,8 +216,9 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ResourceListFilter'
         - $ref: '#/components/parameters/ManagedFilter'
+        - $ref: '#/components/parameters/ResourceType'
+        - $ref: '#/components/parameters/ResourceSlug'
       security:
         - x-api-key: []
       tags:
@@ -500,25 +503,6 @@ components:
           attribute_name: resource_attribute
           attribute_values:
             - example_resource_attribute
-    ResourceSelectorFilter:
-      title: ResourceSelectorFilter
-      x-stoplight:
-        id: e9w76jvt3g2gs
-      type: object
-      description: Filter object for Resource
-      properties:
-        resource_type:
-          type: string
-          description: Type of Resource
-        resource_slug:
-          type: string
-          description: Resource identifier
-      required:
-        - resource_type
-      x-examples:
-        example-resource-filter:
-          resource_type: resource
-          resource_slug: example_resource
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -587,20 +571,9 @@ components:
         items:
           type: string
       description: Filter by Identifiers
-    ResourceListFilter:
-      name: resource_list_filter
-      in: query
-      required: false
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          $ref: '#/components/schemas/ResourceSelectorFilter'
-      description: Filter by particular Resource
     ManagedFilter:
       name: managed_filter
       in: query
-      required: false
       schema:
         type: string
         enum:
@@ -608,6 +581,25 @@ components:
           - ONLY_MANAGED
           - ONLY_CUSTOM
       description: Filter by Harness Managed
+    ResourceType:
+      name: resource_type
+      in: query
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Filter by Resource type
+    ResourceSlug:
+      name: resource_slug
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Filter by Resource identifier
   responses:
     ResourceGroupsListResponse:
       description: Resource Groups List Response
