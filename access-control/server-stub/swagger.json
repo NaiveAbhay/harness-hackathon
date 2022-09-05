@@ -1,0 +1,1638 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Harness NextGen Software Delivery Platform API Reference",
+    "description" : "This is the Open Api Spec 3 for the Access Control Service. This is under active development. Beware of the breaking change with respect to the generated code stub.",
+    "contact" : {
+      "email" : "contact@harness.io"
+    },
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "http://app.harness.io",
+    "description" : "localhost"
+  } ],
+  "tags" : [ {
+    "name" : "Account Roles",
+    "description" : "This contains APIs for performing CRUD operations on Account level Roles."
+  }, {
+    "name" : "Organization Roles",
+    "description" : "This contains APIs for performing CRUD operations on Organization level Roles."
+  }, {
+    "name" : "Project Roles",
+    "description" : "This contains APIs for performing CRUD operations on Project level Roles."
+  } ],
+  "paths" : {
+    "/v1/roles" : {
+      "get" : {
+        "tags" : [ "Account Roles" ],
+        "summary" : "List Roles",
+        "description" : "Returns a list of Roles present in the Account scope.",
+        "operationId" : "list-roles-acc",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching the search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Roles List Response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RolesResponse"
+                  }
+                },
+                "examples" : {
+                  "role-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Account Roles" ],
+        "summary" : "Create a Role",
+        "description" : "Creates a custom Role in the Account scope.",
+        "operationId" : "create-role-acc",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/roles/{role}" : {
+      "get" : {
+        "tags" : [ "Account Roles" ],
+        "summary" : "Retrieve a Role",
+        "description" : "Retrieves a Role from Account scope.",
+        "operationId" : "get-role-acc",
+        "parameters" : [ {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Account Roles" ],
+        "summary" : "Update a Role",
+        "description" : "Updates a Role from Account scope.",
+        "operationId" : "update-role-acc",
+        "parameters" : [ {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Account Roles" ],
+        "summary" : "Delete a Role",
+        "description" : "Deletes a custom Role from Account scope.",
+        "operationId" : "delete-role-acc",
+        "parameters" : [ {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/roles" : {
+      "get" : {
+        "tags" : [ "Organization Roles" ],
+        "summary" : "List Roles",
+        "description" : "Returns a list of Roles present in the Organization scope.",
+        "operationId" : "list-roles-org",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching the search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Roles List Response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RolesResponse"
+                  }
+                },
+                "examples" : {
+                  "role-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Organization Roles" ],
+        "summary" : "Create a Role",
+        "description" : "Creates a custom Role in the Organization scope.",
+        "operationId" : "create-role-org",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/roles/{role}" : {
+      "get" : {
+        "tags" : [ "Organization Roles" ],
+        "summary" : "Retrieve a Role",
+        "description" : "Retrieves a Role from Organization scope.",
+        "operationId" : "get-role-org",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Organization Roles" ],
+        "summary" : "Update a Role",
+        "description" : "Updates a Role from Organization scope.",
+        "operationId" : "update-role-org",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Organization Roles" ],
+        "summary" : "Delete a Role",
+        "description" : "Deletes a custom Role from Organization scope.",
+        "operationId" : "delete-role-org",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roles" : {
+      "get" : {
+        "tags" : [ "Project Roles" ],
+        "summary" : "List Roles",
+        "description" : "Returns a list of Roles present in the Project scope.",
+        "operationId" : "list-roles-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching the search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Roles List Response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RolesResponse"
+                  }
+                },
+                "examples" : {
+                  "role-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Project Roles" ],
+        "summary" : "Create a Role",
+        "description" : "Creates a custom Role in the Project scope.",
+        "operationId" : "create-role-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roles/{role}" : {
+      "get" : {
+        "tags" : [ "Project Roles" ],
+        "summary" : "Retrieve a Role",
+        "description" : "Retrieves a Role from Project scope.",
+        "operationId" : "get-role-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Project Roles" ],
+        "summary" : "Update a Role",
+        "description" : "Updates a Role from Project scope.",
+        "operationId" : "update-role-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Project Roles" ],
+        "summary" : "Delete a Role",
+        "description" : "Deletes a custom Role from Project scope.",
+        "operationId" : "delete-role-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "role",
+          "in" : "path",
+          "description" : "Role identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example Role Response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RolesResponse"
+                },
+                "examples" : {
+                  "role-response" : {
+                    "value" : {
+                      "slug" : "example_role",
+                      "name" : "Example_Role",
+                      "permissions" : [ "core_resource_view" ],
+                      "allowed_scope_levels" : [ "account" ],
+                      "description" : "This is an Example Role",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "scope" : {
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      },
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "RolesResponse" : {
+        "title" : "RolesResponse",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "type" : "string",
+            "description" : "Role Identifier"
+          },
+          "name" : {
+            "type" : "string",
+            "description" : "Role Name"
+          },
+          "permissions" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Permissions for this Role.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "allowed_scope_levels" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "The Scope levels at which this Role can be used.",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "account", "organization", "project" ]
+            }
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Role description"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Role tags"
+          },
+          "scope" : {
+            "$ref" : "#/components/schemas/RoleScope"
+          },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role."
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for Role.",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for Role.",
+            "format" : "int64"
+          }
+        },
+        "description" : "Role Response Model",
+        "x-stoplight" : {
+          "id" : "q6oq3jxkd2who"
+        },
+        "x-examples" : {
+          "example-role" : {
+            "slug" : "example_role",
+            "name" : "Example_Role",
+            "permissions" : [ "core_resource_view" ],
+            "allowed_scope_levels" : [ "account" ],
+            "description" : "This is an Example Role",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "scope" : {
+              "account" : "sample_account",
+              "org" : "sample_organization",
+              "project" : "sample_project"
+            },
+            "harness_managed" : true,
+            "created" : 1234567890,
+            "updated" : 1234567890
+          }
+        }
+      },
+      "CreateRoleRequest" : {
+        "title" : "CreateRoleRequest",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Role identifier"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Role name"
+          },
+          "permissions" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "List of the permission identifiers.",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Role description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Role tags"
+          }
+        },
+        "description" : "Create Role request",
+        "x-stoplight" : {
+          "id" : "z8g6ol73nsqjs"
+        },
+        "x-examples" : {
+          "role-request" : {
+            "slug" : "example_role",
+            "name" : "Example_Role",
+            "permissions" : [ "core_view" ],
+            "description" : "This is an Example Role",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            }
+          }
+        }
+      },
+      "RoleScope" : {
+        "title" : "Scope",
+        "type" : "object",
+        "properties" : {
+          "account" : {
+            "type" : "string",
+            "description" : "Account identifier"
+          },
+          "org" : {
+            "type" : "string",
+            "description" : "Organization identifier"
+          },
+          "project" : {
+            "type" : "string",
+            "description" : "Project identifier"
+          }
+        },
+        "description" : "Scope of the Role.",
+        "x-stoplight" : {
+          "id" : "w8j3bc9323bxb"
+        },
+        "x-examples" : {
+          "example-1" : {
+            "account" : "sample_account",
+            "org" : "sample_organization",
+            "project" : "sample_project"
+          }
+        }
+      }
+    },
+    "responses" : {
+      "RolesListResponse" : {
+        "description" : "Roles List Response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/RolesResponse"
+              }
+            },
+            "examples" : {
+              "role-list-response" : {
+                "value" : [ {
+                  "slug" : "example_role",
+                  "name" : "Example_Role",
+                  "permissions" : [ "core_resource_view" ],
+                  "allowed_scope_levels" : [ "account" ],
+                  "description" : "This is an Example Role",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "scope" : {
+                    "account" : "sample_account",
+                    "org" : "sample_organization",
+                    "project" : "sample_project"
+                  },
+                  "harness_managed" : true,
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          }
+        }
+      },
+      "RoleResponse" : {
+        "description" : "Example Role Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RolesResponse"
+            },
+            "examples" : {
+              "role-response" : {
+                "value" : {
+                  "slug" : "example_role",
+                  "name" : "Example_Role",
+                  "permissions" : [ "core_resource_view" ],
+                  "allowed_scope_levels" : [ "account" ],
+                  "description" : "This is an Example Role",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "scope" : {
+                    "account" : "sample_account",
+                    "org" : "sample_organization",
+                    "project" : "sample_project"
+                  },
+                  "harness_managed" : true,
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "AccountParam" : {
+        "name" : "account",
+        "in" : "query",
+        "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "Pagination: Number of items to return.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "maximum" : 100,
+          "type" : "integer",
+          "default" : 30
+        }
+      },
+      "PageIndex" : {
+        "name" : "page",
+        "in" : "query",
+        "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "integer",
+          "default" : 0
+        }
+      },
+      "SearchTerm" : {
+        "name" : "search_term",
+        "in" : "query",
+        "description" : "This would be used to filter resources having attributes matching the search term.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "OrgParam" : {
+        "name" : "org",
+        "in" : "path",
+        "description" : "Organization identifier",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ProjectParam" : {
+        "name" : "project",
+        "in" : "path",
+        "description" : "Project identifier",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "RoleParam" : {
+        "name" : "role",
+        "in" : "path",
+        "description" : "Role identifier",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "requestBodies" : {
+      "CreateRoleRequest" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateRoleRequest"
+            },
+            "examples" : {
+              "role-request" : {
+                "value" : {
+                  "slug" : "example_role",
+                  "name" : "Example_Role",
+                  "permissions" : [ "core_view" ],
+                  "description" : "This is an Example Role",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "x-api-key" : {
+        "type" : "apiKey",
+        "name" : "x-api-key",
+        "in" : "header"
+      }
+    }
+  },
+  "x-stoplight" : {
+    "id" : "bfet7n314xd4i"
+  },
+  "x-tagGroups" : [ {
+    "name" : "Roles",
+    "tags" : [ "Account Roles", "Organization Roles", "Project Roles" ]
+  } ]
+}
