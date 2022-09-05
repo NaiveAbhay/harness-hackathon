@@ -105,7 +105,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -119,7 +118,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -571,7 +569,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -585,7 +582,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -1086,7 +1082,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -1100,7 +1095,6 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
             "type" : "array",
             "items" : {
               "type" : "string"
@@ -2020,7 +2014,6 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "uniqueItems" : true,
           "type" : "array",
           "items" : {
             "type" : "string"
@@ -2035,7 +2028,6 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "uniqueItems" : true,
           "type" : "array",
           "items" : {
             "type" : "string"

@@ -586,7 +586,6 @@ components:
       in: query
       schema:
         type: array
-        uniqueItems: true
         items:
           type: string
       description: Filter by Resource type
@@ -596,7 +595,6 @@ components:
       required: false
       schema:
         type: array
-        uniqueItems: true
         items:
           type: string
       description: Filter by Resource identifier
