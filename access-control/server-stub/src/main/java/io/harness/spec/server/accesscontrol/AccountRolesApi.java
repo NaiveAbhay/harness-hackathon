@@ -26,8 +26,8 @@ import javax.validation.Valid;
 public interface AccountRolesApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createRoleAcc", summary = "Create a Role", description = "Creates a custom Role in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
@@ -38,7 +38,7 @@ public interface AccountRolesApi {
 );
     @DELETE
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteRoleAcc", summary = "Delete a Role", description = "Deletes a custom Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
@@ -52,7 +52,7 @@ public interface AccountRolesApi {
 );
     @GET
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getRoleAcc", summary = "Retrieve a Role", description = "Retrieves a Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
@@ -65,7 +65,7 @@ public interface AccountRolesApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listRolesAcc", summary = "List Roles", description = "Returns a list of Roles present in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
@@ -85,16 +85,16 @@ public interface AccountRolesApi {
 );
     @PUT
     @Path("/{role}")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateRoleAcc", summary = "Update a Role", description = "Updates a Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
-    Response updateRoleAcc( @PathParam("role")
+    Response updateRoleAcc(@Valid CreateRoleRequest body, @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,@Valid CreateRoleRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );}

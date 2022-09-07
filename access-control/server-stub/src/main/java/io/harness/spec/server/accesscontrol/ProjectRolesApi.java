@@ -26,25 +26,25 @@ import javax.validation.Valid;
 public interface ProjectRolesApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createRoleProject", summary = "Create a Role", description = "Creates a custom Role in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
-    Response createRoleProject( @PathParam("org")
+    Response createRoleProject(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,@Valid CreateRoleRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @DELETE
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteRoleProject", summary = "Delete a Role", description = "Deletes a custom Role from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
@@ -64,7 +64,7 @@ public interface ProjectRolesApi {
 );
     @GET
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getRoleProject", summary = "Retrieve a Role", description = "Retrieves a Role from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
@@ -83,7 +83,7 @@ public interface ProjectRolesApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listRolesProject", summary = "List Roles", description = "Returns a list of Roles present in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
@@ -109,13 +109,13 @@ public interface ProjectRolesApi {
 );
     @PUT
     @Path("/{role}")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateRoleProject", summary = "Update a Role", description = "Updates a Role from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
-    Response updateRoleProject( @PathParam("org")
+    Response updateRoleProject(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -124,7 +124,7 @@ public interface ProjectRolesApi {
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,@Valid CreateRoleRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );}
