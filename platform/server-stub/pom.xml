@@ -4,7 +4,7 @@
   <artifactId>platform-server-spec</artifactId>
   <packaging>jar</packaging>
   <name>platform-server-spec</name>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
@@ -15,6 +15,22 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>jdk11</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.sun.xml.ws</groupId>
+          <artifactId>jaxws-rt</artifactId>
+          <version>2.3.3</version>
+          <type>pom</type>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
   <dependencies>
     <dependency>
       <groupId>javax.ws.rs</groupId>
@@ -34,14 +50,6 @@
       <version>${junit-version}</version>
       <scope>test</scope>
     </dependency>
-    <!--    Manually added-->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <scope>provided</scope>
-      <version>2.7.9</version>
-    </dependency>
-    <!--    Manually added-->
     <!-- Bean Validation API support -->
     <dependency>
         <groupId>javax.validation</groupId>
@@ -55,11 +63,4 @@
     <maven.compiler.target>11</maven.compiler.target>
     <junit-version>4.13.1</junit-version>
   </properties>
-  <distributionManagement>
-    <repository>
-      <id>harness-internal</id>
-      <name>harness-internal</name>
-      <url>https://harness.jfrog.io/artifactory/harness-internal</url>
-    </repository>
-  </distributionManagement>
 </project>

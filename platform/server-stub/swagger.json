@@ -134,11 +134,56 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "List of Resource Groups",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                  }
+                },
+                "examples" : {
+                  "resource-group-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "type" : "array",
                   "description" : "List of Resource Groups",
@@ -243,6 +288,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -284,6 +365,42 @@
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ResourceGroupsResponse"
                 },
@@ -395,6 +512,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -434,6 +587,42 @@
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ResourceGroupsResponse"
                 },
@@ -598,11 +787,56 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "List of Resource Groups",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                  }
+                },
+                "examples" : {
+                  "resource-group-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "type" : "array",
                   "description" : "List of Resource Groups",
@@ -717,6 +951,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -768,6 +1038,42 @@
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ResourceGroupsResponse"
                 },
@@ -888,6 +1194,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -937,6 +1279,42 @@
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ResourceGroupsResponse"
                 },
@@ -1111,11 +1489,56 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "List of Resource Groups",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                  }
+                },
+                "examples" : {
+                  "resource-group-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "type" : "array",
                   "description" : "List of Resource Groups",
@@ -1240,6 +1663,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -1301,6 +1760,42 @@
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/ResourceGroupsResponse"
                 },
@@ -1431,6 +1926,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -1524,6 +2055,42 @@
                     }
                   }
                 }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                },
+                "examples" : {
+                  "resource-group-response" : {
+                    "value" : {
+                      "slug" : "example_resource_group",
+                      "name" : "Example_Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
               }
             }
           }
@@ -1542,10 +2109,16 @@
         "type" : "object",
         "properties" : {
           "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Resource Group Identifier"
           },
           "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Resource Group Name"
           },
@@ -1554,6 +2127,7 @@
             "description" : "Color associated with the Resource Group."
           },
           "tags" : {
+            "maxProperties" : 128,
             "type" : "object",
             "additionalProperties" : {
               "type" : "string"
@@ -1561,6 +2135,7 @@
             "description" : "Resource Group tags"
           },
           "description" : {
+            "maxLength" : 1024,
             "type" : "string",
             "description" : "Resource Group description"
           },
@@ -1810,11 +2385,56 @@
             "explode" : false,
             "schema" : {
               "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+              }
             }
           }
         },
         "content" : {
           "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "description" : "List of Resource Groups",
+              "items" : {
+                "$ref" : "#/components/schemas/ResourceGroupsResponse"
+              }
+            },
+            "examples" : {
+              "resource-group-list-response" : {
+                "value" : [ {
+                  "slug" : "example_resource_group",
+                  "name" : "Example_Resource Group",
+                  "color" : "#0063F7",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "description" : "This is an Example Resource Group",
+                  "allowed_scope_levels" : [ "account" ],
+                  "included_scope" : [ {
+                    "filter" : "EXCLUDING_CHILD_SCOPES",
+                    "account" : "sample_account",
+                    "org" : "sample_organization",
+                    "project" : "sample_project"
+                  } ],
+                  "resource_filter" : [ {
+                    "resource_type" : "resource",
+                    "identifiers" : [ "example_resource" ],
+                    "attribute_name" : "resource_attribute",
+                    "attribute_values" : [ "example_resource_attribute" ]
+                  } ],
+                  "include_all" : false,
+                  "harness_managed" : true,
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
             "schema" : {
               "type" : "array",
               "description" : "List of Resource Groups",
@@ -1860,6 +2480,42 @@
         "description" : "Resource Group Response",
         "content" : {
           "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResourceGroupsResponse"
+            },
+            "examples" : {
+              "resource-group-response" : {
+                "value" : {
+                  "slug" : "example_resource_group",
+                  "name" : "Example_Resource Group",
+                  "color" : "#0063F7",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "description" : "This is an Example Resource Group",
+                  "allowed_scope_levels" : [ "account" ],
+                  "included_scope" : [ {
+                    "filter" : "EXCLUDING_CHILD_SCOPES",
+                    "account" : "sample_account",
+                    "org" : "sample_organization",
+                    "project" : "sample_project"
+                  } ],
+                  "resource_filter" : [ {
+                    "resource_type" : "resource",
+                    "identifiers" : [ "example_resource" ],
+                    "attribute_name" : "resource_attribute",
+                    "attribute_values" : [ "example_resource_attribute" ]
+                  } ],
+                  "include_all" : false,
+                  "harness_managed" : true,
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
             "schema" : {
               "$ref" : "#/components/schemas/ResourceGroupsResponse"
             },
@@ -2070,8 +2726,41 @@
                 }
               }
             }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateResourceGroupRequest"
+            },
+            "examples" : {
+              "resource-group-request" : {
+                "value" : {
+                  "slug" : "example_resource_group",
+                  "name" : "Example_Resource Group",
+                  "color" : "#0063F7",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "description" : "This is an Example Resource Group",
+                  "included_scope" : [ {
+                    "filter" : "EXCLUDING_CHILD_SCOPES",
+                    "account" : "sample_account",
+                    "org" : "sample_organization",
+                    "project" : "sample_project"
+                  } ],
+                  "resource_filter" : [ {
+                    "resource_type" : "resource",
+                    "identifiers" : [ "example_resource" ],
+                    "attribute_name" : "resource_attribute",
+                    "attribute_values" : [ "example_resource_attribute" ]
+                  } ],
+                  "include_all" : false
+                }
+              }
+            }
           }
-        }
+        },
+        "required" : true
       }
     },
     "securitySchemes" : {

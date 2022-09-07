@@ -11,7 +11,7 @@
   "modelPackage": "io.harness.spec.server.platform.model",
   "groupId": "io.harness",
   "artifactId": "platform-server-spec",
-  "artifactVersion": "1.0.3",
+  "artifactVersion": "1.0.4",
   "interfaceOnly": true,
   "returnResponse": true,
   "sourceFolder": "src/main/java",

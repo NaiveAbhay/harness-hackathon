@@ -89,7 +89,7 @@ public enum AllowedScopeLevelsEnum {
   @Schema(required = true, description = "Resource Group Identifier")
   @JsonProperty("slug")
   @NotNull
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
@@ -109,7 +109,7 @@ public enum AllowedScopeLevelsEnum {
   @Schema(required = true, description = "Resource Group Name")
   @JsonProperty("name")
   @NotNull
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getName() {
     return name;
   }
@@ -147,7 +147,7 @@ public enum AllowedScopeLevelsEnum {
   
   @Schema(description = "Resource Group tags")
   @JsonProperty("tags")
-
+ @Size(max=128)
   public Map<String, String> getTags() {
     return tags;
   }
@@ -166,7 +166,7 @@ public enum AllowedScopeLevelsEnum {
   
   @Schema(description = "Resource Group description")
   @JsonProperty("description")
-
+ @Size(max=1024)
   public String getDescription() {
     return description;
   }

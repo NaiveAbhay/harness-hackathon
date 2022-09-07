@@ -26,25 +26,25 @@ import javax.validation.Valid;
 public interface ProjectResourceGroupsApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createResourceGroupProject", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
-    Response createResourceGroupProject( @PathParam("org")
+    Response createResourceGroupProject(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @DELETE
     @Path("/{resource-group}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteResourceGroupProject", summary = "Delete a Resource Group", description = "Deletes a custom Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
@@ -64,7 +64,7 @@ public interface ProjectResourceGroupsApi {
 );
     @GET
     @Path("/{resource-group}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getResourceGroupProject", summary = "Retrieve a Resource Group", description = "Retrieves a Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
@@ -83,7 +83,7 @@ public interface ProjectResourceGroupsApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listResourceGroupsProject", summary = "List Resource Groups", description = "Returns a list of Resource Groups present in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
@@ -121,13 +121,13 @@ public interface ProjectResourceGroupsApi {
 );
     @PUT
     @Path("/{resource-group}")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateResourceGroupProject", summary = "Update a Resource Group", description = "Updates a Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
-    Response updateResourceGroupProject( @PathParam("org")
+    Response updateResourceGroupProject(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -136,7 +136,7 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
-,@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );}

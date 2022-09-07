@@ -26,22 +26,22 @@ import javax.validation.Valid;
 public interface OrganizationResourceGroupsApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createResourceGroupOrg", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
-    Response createResourceGroupOrg( @PathParam("org")
+    Response createResourceGroupOrg(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
-,@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @DELETE
     @Path("/{resource-group}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteResourceGroupOrg", summary = "Delete a Resource Group", description = "Deletes a custom Resource Group from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
@@ -58,7 +58,7 @@ public interface OrganizationResourceGroupsApi {
 );
     @GET
     @Path("/{resource-group}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getResourceGroupOrg", summary = "Retrieve a Resource Group", description = "Retrieves a Resource Group from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
@@ -74,7 +74,7 @@ public interface OrganizationResourceGroupsApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listResourceGroupsOrg", summary = "List Resource Groups", description = "Returns a list of Resource Groups present in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
@@ -109,19 +109,19 @@ public interface OrganizationResourceGroupsApi {
 );
     @PUT
     @Path("/{resource-group}")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateResourceGroupOrg", summary = "Update a Resource Group", description = "Updates a Resource Group from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
-    Response updateResourceGroupOrg( @PathParam("org")
+    Response updateResourceGroupOrg(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
-,@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );}

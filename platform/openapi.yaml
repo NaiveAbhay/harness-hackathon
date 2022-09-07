@@ -323,9 +323,15 @@ components:
         slug:
           type: string
           description: Resource Group Identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         name:
           type: string
           description: Resource Group Name
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         color:
           type: string
           description: Color associated with the Resource Group.
@@ -334,9 +340,11 @@ components:
           additionalProperties:
             type: string
           description: Resource Group tags
+          maxProperties: 128
         description:
           type: string
           description: Resource Group description
+          maxLength: 1024
         allowed_scope_levels:
           type: array
           description: List of allowed scope levels for this Resource Group.
@@ -636,15 +644,83 @@ components:
                   harness_managed: true
                   created: 1234567890
                   updated: 1234567890
+        application/yaml:
+          schema:
+            type: array
+            description: List of Resource Groups
+            items:
+              $ref: '#/components/schemas/ResourceGroupsResponse'
+          examples:
+            resource-group-list-response:
+              value:
+                - slug: example_resource_group
+                  name: Example_Resource Group
+                  color: '#0063F7'
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  description: This is an Example Resource Group
+                  allowed_scope_levels:
+                    - account
+                  included_scope:
+                    - filter: EXCLUDING_CHILD_SCOPES
+                      account: sample_account
+                      org: sample_organization
+                      project: sample_project
+                  resource_filter:
+                    - resource_type: resource
+                      identifiers:
+                        - example_resource
+                      attribute_name: resource_attribute
+                      attribute_values:
+                        - example_resource_attribute
+                  include_all: false
+                  harness_managed: true
+                  created: 1234567890
+                  updated: 1234567890
       headers:
         Link:
           schema:
             type: string
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
+          examples:
+            sample:
+              value: '</v1/resource-groups?page=2&limit=1>; rel="next", </v1/resource-groups?page=1&limit=1>; rel="self", </v1/resource-groups?page=0&limit=1>; rel="previous", '
     ResourceGroupsResponse:
       description: Resource Group Response
       content:
         application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceGroupsResponse'
+          examples:
+            resource-group-response:
+              value:
+                slug: example_resource_group
+                name: Example_Resource Group
+                color: '#0063F7'
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                description: This is an Example Resource Group
+                allowed_scope_levels:
+                  - account
+                included_scope:
+                  - filter: EXCLUDING_CHILD_SCOPES
+                    account: sample_account
+                    org: sample_organization
+                    project: sample_project
+                resource_filter:
+                  - resource_type: resource
+                    identifiers:
+                      - example_resource
+                    attribute_name: resource_attribute
+                    attribute_values:
+                      - example_resource_attribute
+                include_all: false
+                harness_managed: true
+                created: 1234567890
+                updated: 1234567890
+        application/yaml:
           schema:
             $ref: '#/components/schemas/ResourceGroupsResponse'
           examples:
@@ -704,4 +780,31 @@ components:
                     attribute_values:
                       - example_resource_attribute
                 include_all: false
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CreateResourceGroupRequest'
+          examples:
+            resource-group-request:
+              value:
+                slug: example_resource_group
+                name: Example_Resource Group
+                color: '#0063F7'
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                description: This is an Example Resource Group
+                included_scope:
+                  - filter: EXCLUDING_CHILD_SCOPES
+                    account: sample_account
+                    org: sample_organization
+                    project: sample_project
+                resource_filter:
+                  - resource_type: resource
+                    identifiers:
+                      - example_resource
+                    attribute_name: resource_attribute
+                    attribute_values:
+                      - example_resource_attribute
+                include_all: false
       description: Create Resource Group request body
+      required: true
