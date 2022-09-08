@@ -39,8 +39,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
         - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceType'
-        - $ref: '#/components/parameters/ResourceSlug'
+        - $ref: '#/components/parameters/ResourceSelectorFilter'
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsListResponse'
@@ -127,8 +126,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
         - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceType'
-        - $ref: '#/components/parameters/ResourceSlug'
+        - $ref: '#/components/parameters/ResourceSelectorFilter'
     post:
       summary: Create a Resource Group
       operationId: create-resource-group-org
@@ -217,8 +215,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/IdentifierFilter'
         - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceType'
-        - $ref: '#/components/parameters/ResourceSlug'
+        - $ref: '#/components/parameters/ResourceSelectorFilter'
       security:
         - x-api-key: []
       tags:
@@ -511,6 +508,25 @@ components:
           attribute_name: resource_attribute
           attribute_values:
             - example_resource_attribute
+    ResourceSelectorFilter:
+      title: Resource Selector Filter
+      x-stoplight:
+        id: 0eh9msctzz3fy
+      type: object
+      description: Filter by whether the Resource Group has a particular Resource.
+      properties:
+        resource_type:
+          type: string
+          description: Filter by Resource type
+        resource_slug:
+          type: string
+          description: Filter by Resource identifier
+      required:
+        - resource_type
+      x-examples:
+        example-resource-selector-filter:
+          resource_type: resource
+          resource_slug: example_resource
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -589,23 +605,15 @@ components:
           - ONLY_MANAGED
           - ONLY_CUSTOM
       description: Filter by Harness Managed
-    ResourceType:
-      name: resource_type
-      in: query
-      schema:
-        type: array
-        items:
-          type: string
-      description: Filter by Resource type
-    ResourceSlug:
-      name: resource_slug
+    ResourceSelectorFilter:
+      name: resource_selector_filter
       in: query
       required: false
       schema:
         type: array
         items:
-          type: string
-      description: Filter by Resource identifier
+          $ref: '#/components/schemas/ResourceSelectorFilter'
+      description: Filter by whether the Resource Group has a particular Resource.
   responses:
     ResourceGroupsListResponse:
       description: Resource Groups List Response

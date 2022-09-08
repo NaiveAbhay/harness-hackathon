@@ -2,6 +2,7 @@ package io.harness.spec.server.platform;
 
 import io.harness.spec.server.platform.model.CreateResourceGroupRequest;
 import io.harness.spec.server.platform.model.ResourceGroupsResponse;
+import io.harness.spec.server.platform.model.ResourceSelectorFilter;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -100,12 +101,9 @@ public interface OrganizationResourceGroupsApi {
 ,  @QueryParam("managed_filter") 
 
  @Parameter(description = "Filter by Harness Managed")  String managedFilter
-,  @QueryParam("resource_type") 
+,  @QueryParam("resource_selector_filter") 
 
- @Parameter(description = "Filter by Resource type")  List<String> resourceType
-,  @QueryParam("resource_slug") 
-
- @Parameter(description = "Filter by Resource identifier")  List<String> resourceSlug
+ @Parameter(description = "Filter by whether the Resource Group has a particular Resource.")  List<ResourceSelectorFilter> resourceSelectorFilter
 );
     @PUT
     @Path("/{resource-group}")
