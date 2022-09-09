@@ -4,7 +4,7 @@
   <artifactId>access-control-server-spec</artifactId>
   <packaging>jar</packaging>
   <name>access-control-server-spec</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>

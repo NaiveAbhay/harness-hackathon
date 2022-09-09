@@ -51,7 +51,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RoleResponse'
       security:
         - x-api-key: []
@@ -124,7 +124,7 @@ paths:
       summary: Create a Role
       operationId: create-role-org
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RoleResponse'
       description: Creates a custom Role in the Organization scope.
       security:
@@ -187,7 +187,7 @@ paths:
     get:
       summary: List Roles
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RolesListResponse'
       operationId: list-roles-project
       description: Returns a list of Roles present in the Project scope.

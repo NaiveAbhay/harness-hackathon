@@ -87,7 +87,7 @@ public interface ProjectRolesApi {
     @Operation(operationId = "listRolesProject", summary = "List Roles", description = "Returns a list of Roles present in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Roles List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
+        @ApiResponse(responseCode = "201", description = "Roles List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
     Response listRolesProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org

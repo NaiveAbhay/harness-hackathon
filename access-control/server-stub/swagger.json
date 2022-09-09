@@ -181,7 +181,7 @@
           "$ref" : "#/components/requestBodies/CreateRoleRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Example Role Response",
             "content" : {
               "application/json" : {
@@ -710,7 +710,7 @@
           "$ref" : "#/components/requestBodies/CreateRoleRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Example Role Response",
             "content" : {
               "application/json" : {
@@ -1162,7 +1162,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Roles List Response",
             "headers" : {
               "Link" : {

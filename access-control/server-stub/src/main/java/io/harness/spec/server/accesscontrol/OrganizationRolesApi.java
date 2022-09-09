@@ -31,7 +31,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "createRoleOrg", summary = "Create a Role", description = "Creates a custom Role in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response createRoleOrg(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
