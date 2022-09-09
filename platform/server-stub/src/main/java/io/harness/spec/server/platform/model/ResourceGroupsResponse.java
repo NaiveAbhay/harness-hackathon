@@ -11,14 +11,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Resource Group Response Model
+ * Resource Group response body
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Resource Group Response Model")
+@Schema(description = "Resource Group response body")
 
 public class ResourceGroupsResponse   {
 
@@ -69,7 +69,7 @@ public enum AllowedScopeLevelsEnum {
 
   private @Valid List<ResourceFilter> resourceFilter = new ArrayList<>();
 
-  private @Valid Boolean includeAll = null;
+  private @Valid Boolean includeAllResources = null;
 
   private @Valid Boolean harnessManaged = null;
 
@@ -175,7 +175,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   /**
-   * List of allowed scope levels for this Resource Group.
+   * Allowed scope levels for this Resource Group.
    **/
   public ResourceGroupsResponse allowedScopeLevels(List<AllowedScopeLevelsEnum> allowedScopeLevels) {
     this.allowedScopeLevels = allowedScopeLevels;
@@ -183,7 +183,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @Schema(description = "List of allowed scope levels for this Resource Group.")
+  @Schema(description = "Allowed scope levels for this Resource Group.")
   @JsonProperty("allowed_scope_levels")
 
   public List<AllowedScopeLevelsEnum> getAllowedScopeLevels() {
@@ -194,7 +194,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   /**
-   * Scopes included in the Resource Group.
+   * Included scopes for the resources belonging to the Resource Group.
    **/
   public ResourceGroupsResponse includedScope(List<ResourceGroupScope> includedScope) {
     this.includedScope = includedScope;
@@ -202,7 +202,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @Schema(description = "Scopes included in the Resource Group.")
+  @Schema(description = "Included scopes for the resources belonging to the Resource Group.")
   @JsonProperty("included_scope")
 
   public List<ResourceGroupScope> getIncludedScope() {
@@ -213,7 +213,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   /**
-   * Contains Resource filter for a Resource Group.
+   * Specifies the actual resources present in the Resource Group.
    **/
   public ResourceGroupsResponse resourceFilter(List<ResourceFilter> resourceFilter) {
     this.resourceFilter = resourceFilter;
@@ -221,7 +221,7 @@ public enum AllowedScopeLevelsEnum {
   }
 
   
-  @Schema(description = "Contains Resource filter for a Resource Group.")
+  @Schema(description = "Specifies the actual resources present in the Resource Group.")
   @JsonProperty("resource_filter")
 
   public List<ResourceFilter> getResourceFilter() {
@@ -234,20 +234,20 @@ public enum AllowedScopeLevelsEnum {
   /**
    * Boolean value for including all resources in Resource Group.
    **/
-  public ResourceGroupsResponse includeAll(Boolean includeAll) {
-    this.includeAll = includeAll;
+  public ResourceGroupsResponse includeAllResources(Boolean includeAllResources) {
+    this.includeAllResources = includeAllResources;
     return this;
   }
 
   
   @Schema(description = "Boolean value for including all resources in Resource Group.")
-  @JsonProperty("include_all")
+  @JsonProperty("include_all_resources")
 
-  public Boolean isIncludeAll() {
-    return includeAll;
+  public Boolean isIncludeAllResources() {
+    return includeAllResources;
   }
-  public void setIncludeAll(Boolean includeAll) {
-    this.includeAll = includeAll;
+  public void setIncludeAllResources(Boolean includeAllResources) {
+    this.includeAllResources = includeAllResources;
   }
 
   /**
@@ -325,7 +325,7 @@ public enum AllowedScopeLevelsEnum {
         Objects.equals(allowedScopeLevels, resourceGroupsResponse.allowedScopeLevels) &&
         Objects.equals(includedScope, resourceGroupsResponse.includedScope) &&
         Objects.equals(resourceFilter, resourceGroupsResponse.resourceFilter) &&
-        Objects.equals(includeAll, resourceGroupsResponse.includeAll) &&
+        Objects.equals(includeAllResources, resourceGroupsResponse.includeAllResources) &&
         Objects.equals(harnessManaged, resourceGroupsResponse.harnessManaged) &&
         Objects.equals(created, resourceGroupsResponse.created) &&
         Objects.equals(updated, resourceGroupsResponse.updated);
@@ -333,7 +333,7 @@ public enum AllowedScopeLevelsEnum {
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, color, tags, description, allowedScopeLevels, includedScope, resourceFilter, includeAll, harnessManaged, created, updated);
+    return Objects.hash(slug, name, color, tags, description, allowedScopeLevels, includedScope, resourceFilter, includeAllResources, harnessManaged, created, updated);
   }
 
   @Override
@@ -349,7 +349,7 @@ public enum AllowedScopeLevelsEnum {
     sb.append("    allowedScopeLevels: ").append(toIndentedString(allowedScopeLevels)).append("\n");
     sb.append("    includedScope: ").append(toIndentedString(includedScope)).append("\n");
     sb.append("    resourceFilter: ").append(toIndentedString(resourceFilter)).append("\n");
-    sb.append("    includeAll: ").append(toIndentedString(includeAll)).append("\n");
+    sb.append("    includeAllResources: ").append(toIndentedString(includeAllResources)).append("\n");
     sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");

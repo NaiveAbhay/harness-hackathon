@@ -288,7 +288,7 @@ components:
       x-stoplight:
         id: q6oq3jxkd2who
       type: object
-      description: Resource Group Response Model
+      description: Resource Group response body
       x-examples:
         example-resource-group:
           slug: example_resource_group
@@ -312,7 +312,7 @@ components:
               attribute_name: resource_attribute
               attribute_values:
                 - example_resource_attribute
-          include_all: false
+          include_all_resources: false
           harness_managed: true
           created: 1234567890
           updated: 1234567890
@@ -344,7 +344,7 @@ components:
           maxLength: 1024
         allowed_scope_levels:
           type: array
-          description: List of allowed scope levels for this Resource Group.
+          description: Allowed scope levels for this Resource Group.
           uniqueItems: true
           items:
             type: string
@@ -354,15 +354,15 @@ components:
               - project
         included_scope:
           type: array
-          description: Scopes included in the Resource Group.
+          description: Included scopes for the resources belonging to the Resource Group.
           items:
             $ref: '#/components/schemas/ResourceGroupScope'
         resource_filter:
           type: array
-          description: Contains Resource filter for a Resource Group.
+          description: Specifies the actual resources present in the Resource Group.
           items:
             $ref: '#/components/schemas/ResourceFilter'
-        include_all:
+        include_all_resources:
           type: boolean
           description: Boolean value for including all resources in Resource Group.
         harness_managed:
@@ -384,7 +384,7 @@ components:
       x-stoplight:
         id: z8g6ol73nsqjs
       type: object
-      description: Create Resource Group request
+      description: Resource Group request body
       x-examples:
         resource-group-request:
           slug: example_resource_group
@@ -406,7 +406,7 @@ components:
               attribute_name: resource_attribute
               attribute_values:
                 - example_resource_attribute
-          include_all: false
+          include_all_resources: false
       properties:
         slug:
           type: string
@@ -435,13 +435,15 @@ components:
           description: Resource Group description
         included_scope:
           type: array
+          description: Included scopes for the resources belonging to the Resource Group.
           items:
             $ref: '#/components/schemas/ResourceGroupScope'
         resource_filter:
           type: array
+          description: Specifies the actual resources present in the Resource Group.
           items:
             $ref: '#/components/schemas/ResourceFilter'
-        include_all:
+        include_all_resources:
           type: boolean
           description: Boolean value for including all resources in Resource Group.
       required:
@@ -452,7 +454,7 @@ components:
       x-stoplight:
         id: w8j3bc9323bxb
       type: object
-      description: Included Scope levels for this Resource Group
+      description: Included scopes for the Resources belonging to the Resource Group
       x-examples:
         example-1:
           filter: EXCLUDING_CHILD_SCOPES
@@ -469,18 +471,37 @@ components:
         account:
           type: string
           description: Account identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         org:
           type: string
           description: Organization identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         project:
           type: string
           description: Project identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+      required:
+        - filter
     ResourceFilter:
       title: Resource Filter
       x-stoplight:
         id: m5qhp13hm6o1z
       type: object
       description: Specifies resources in Resource Group.
+      x-examples:
+        example-resource-filter:
+          resource_type: resource
+          identifiers:
+            - example_resource
+          attribute_name: resource_attribute
+          attribute_values:
+            - example_resource_attribute
       properties:
         resource_type:
           type: string
@@ -490,30 +511,29 @@ components:
           description: Identifiers for the Resource Type.
           items:
             type: string
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            minLength: 1
+            maxLength: 64
         attribute_name:
           type: string
           description: Attribute name on the basis of which filtering will be done.
         attribute_values:
           type: array
-          description: Attribute values selected
+          description: Attribute values selected.
           items:
             type: string
       required:
         - resource_type
-      x-examples:
-        example-resource-filter:
-          resource_type: resource
-          identifiers:
-            - example_resource
-          attribute_name: resource_attribute
-          attribute_values:
-            - example_resource_attribute
     ResourceSelectorFilter:
       title: Resource Selector Filter
       x-stoplight:
         id: 0eh9msctzz3fy
       type: object
       description: Filter by whether the Resource Group has a particular Resource.
+      x-examples:
+        example-resource-selector-filter:
+          resource_type: resource
+          resource_slug: example_resource
       properties:
         resource_type:
           type: string
@@ -521,12 +541,11 @@ components:
         resource_slug:
           type: string
           description: Filter by Resource identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
       required:
         - resource_type
-      x-examples:
-        example-resource-selector-filter:
-          resource_type: resource
-          resource_slug: example_resource
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -594,7 +613,7 @@ components:
         uniqueItems: true
         items:
           type: string
-      description: Filter by Identifiers
+      description: Filter by Resource Group Identifiers
     ManagedFilter:
       name: managed_filter
       in: query
@@ -604,7 +623,7 @@ components:
           - NO_FILTER
           - ONLY_MANAGED
           - ONLY_CUSTOM
-      description: Filter by Harness Managed
+      description: Filter by Harness managed or not
     ResourceSelectorFilter:
       name: resource_selector_filter
       in: query
@@ -618,7 +637,7 @@ components:
       description: Filter by whether the Resource Group has a particular Resource.
   responses:
     ResourceGroupsListResponse:
-      description: Resource Groups List Response
+      description: Resource Groups List response body
       content:
         application/json:
           schema:
@@ -650,7 +669,7 @@ components:
                       attribute_name: resource_attribute
                       attribute_values:
                         - example_resource_attribute
-                  include_all: false
+                  include_all_resources: false
                   harness_managed: true
                   created: 1234567890
                   updated: 1234567890
@@ -697,7 +716,7 @@ components:
             sample:
               value: '</v1/resource-groups?page=2&limit=1>; rel="next", </v1/resource-groups?page=1&limit=1>; rel="self", </v1/resource-groups?page=0&limit=1>; rel="previous", '
     ResourceGroupsResponse:
-      description: Resource Group Response
+      description: Resource Group response body
       content:
         application/json:
           schema:
@@ -726,7 +745,7 @@ components:
                     attribute_name: resource_attribute
                     attribute_values:
                       - example_resource_attribute
-                include_all: false
+                include_all_resources: false
                 harness_managed: true
                 created: 1234567890
                 updated: 1234567890
@@ -789,7 +808,7 @@ components:
                     attribute_name: resource_attribute
                     attribute_values:
                       - example_resource_attribute
-                include_all: false
+                include_all_resources: false
         application/yaml:
           schema:
             $ref: '#/components/schemas/CreateResourceGroupRequest'
@@ -816,5 +835,5 @@ components:
                     attribute_values:
                       - example_resource_attribute
                 include_all: false
-      description: Create Resource Group request body
+      description: Resource Group request body
       required: true

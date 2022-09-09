@@ -75,7 +75,7 @@
         }, {
           "name" : "identifier_filter",
           "in" : "query",
-          "description" : "Filter by Identifiers",
+          "description" : "Filter by Resource Group Identifiers",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -89,7 +89,7 @@
         }, {
           "name" : "managed_filter",
           "in" : "query",
-          "description" : "Filter by Harness Managed",
+          "description" : "Filter by Harness managed or not",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -115,7 +115,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Groups List Response",
+            "description" : "Resource Groups List response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -164,7 +164,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -240,7 +240,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -270,7 +270,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -351,7 +351,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -381,7 +381,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -464,7 +464,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -494,7 +494,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -573,7 +573,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -603,7 +603,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -717,7 +717,7 @@
         }, {
           "name" : "identifier_filter",
           "in" : "query",
-          "description" : "Filter by Identifiers",
+          "description" : "Filter by Resource Group Identifiers",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -731,7 +731,7 @@
         }, {
           "name" : "managed_filter",
           "in" : "query",
-          "description" : "Filter by Harness Managed",
+          "description" : "Filter by Harness managed or not",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -757,7 +757,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Groups List Response",
+            "description" : "Resource Groups List response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -806,7 +806,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -892,7 +892,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -922,7 +922,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1013,7 +1013,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1043,7 +1043,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1135,7 +1135,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1165,7 +1165,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1254,7 +1254,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1284,7 +1284,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1408,7 +1408,7 @@
         }, {
           "name" : "identifier_filter",
           "in" : "query",
-          "description" : "Filter by Identifiers",
+          "description" : "Filter by Resource Group Identifiers",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -1422,7 +1422,7 @@
         }, {
           "name" : "managed_filter",
           "in" : "query",
-          "description" : "Filter by Harness Managed",
+          "description" : "Filter by Harness managed or not",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -1448,7 +1448,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Groups List Response",
+            "description" : "Resource Groups List response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -1497,7 +1497,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1593,7 +1593,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1623,7 +1623,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1724,7 +1724,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1754,7 +1754,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1856,7 +1856,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1886,7 +1886,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1985,7 +1985,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Resource Group Response",
+            "description" : "Resource Group response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2015,7 +2015,7 @@
                         "attribute_name" : "resource_attribute",
                         "attribute_values" : [ "example_resource_attribute" ]
                       } ],
-                      "include_all" : false,
+                      "include_all_resources" : false,
                       "harness_managed" : true,
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -2109,7 +2109,7 @@
           "allowed_scope_levels" : {
             "uniqueItems" : true,
             "type" : "array",
-            "description" : "List of allowed scope levels for this Resource Group.",
+            "description" : "Allowed scope levels for this Resource Group.",
             "items" : {
               "type" : "string",
               "enum" : [ "account", "organization", "project" ]
@@ -2117,19 +2117,19 @@
           },
           "included_scope" : {
             "type" : "array",
-            "description" : "Scopes included in the Resource Group.",
+            "description" : "Included scopes for the resources belonging to the Resource Group.",
             "items" : {
               "$ref" : "#/components/schemas/ResourceGroupScope"
             }
           },
           "resource_filter" : {
             "type" : "array",
-            "description" : "Contains Resource filter for a Resource Group.",
+            "description" : "Specifies the actual resources present in the Resource Group.",
             "items" : {
               "$ref" : "#/components/schemas/ResourceFilter"
             }
           },
-          "include_all" : {
+          "include_all_resources" : {
             "type" : "boolean",
             "description" : "Boolean value for including all resources in Resource Group."
           },
@@ -2148,7 +2148,7 @@
             "format" : "int64"
           }
         },
-        "description" : "Resource Group Response Model",
+        "description" : "Resource Group response body",
         "x-stoplight" : {
           "id" : "q6oq3jxkd2who"
         },
@@ -2175,7 +2175,7 @@
               "attribute_name" : "resource_attribute",
               "attribute_values" : [ "example_resource_attribute" ]
             } ],
-            "include_all" : false,
+            "include_all_resources" : false,
             "harness_managed" : true,
             "created" : 1234567890,
             "updated" : 1234567890
@@ -2220,22 +2220,24 @@
           },
           "included_scope" : {
             "type" : "array",
+            "description" : "Included scopes for the resources belonging to the Resource Group.",
             "items" : {
               "$ref" : "#/components/schemas/ResourceGroupScope"
             }
           },
           "resource_filter" : {
             "type" : "array",
+            "description" : "Specifies the actual resources present in the Resource Group.",
             "items" : {
               "$ref" : "#/components/schemas/ResourceFilter"
             }
           },
-          "include_all" : {
+          "include_all_resources" : {
             "type" : "boolean",
             "description" : "Boolean value for including all resources in Resource Group."
           }
         },
-        "description" : "Create Resource Group request",
+        "description" : "Resource Group request body",
         "x-stoplight" : {
           "id" : "z8g6ol73nsqjs"
         },
@@ -2261,12 +2263,13 @@
               "attribute_name" : "resource_attribute",
               "attribute_values" : [ "example_resource_attribute" ]
             } ],
-            "include_all" : false
+            "include_all_resources" : false
           }
         }
       },
       "ResourceGroupScope" : {
         "title" : "Resource Group Scope",
+        "required" : [ "filter" ],
         "type" : "object",
         "properties" : {
           "filter" : {
@@ -2275,19 +2278,28 @@
             "enum" : [ "EXCLUDING_CHILD_SCOPES", "INCLUDING_CHILD_SCOPES" ]
           },
           "account" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Account identifier"
           },
           "org" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Organization identifier"
           },
           "project" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Project identifier"
           }
         },
-        "description" : "Included Scope levels for this Resource Group",
+        "description" : "Included scopes for the Resources belonging to the Resource Group",
         "x-stoplight" : {
           "id" : "w8j3bc9323bxb"
         },
@@ -2313,6 +2325,9 @@
             "type" : "array",
             "description" : "Identifiers for the Resource Type.",
             "items" : {
+              "maxLength" : 64,
+              "minLength" : 1,
+              "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
               "type" : "string"
             }
           },
@@ -2322,7 +2337,7 @@
           },
           "attribute_values" : {
             "type" : "array",
-            "description" : "Attribute values selected",
+            "description" : "Attribute values selected.",
             "items" : {
               "type" : "string"
             }
@@ -2351,6 +2366,9 @@
             "description" : "Filter by Resource type"
           },
           "resource_slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
             "description" : "Filter by Resource identifier"
           }
@@ -2369,7 +2387,7 @@
     },
     "responses" : {
       "ResourceGroupsListResponse" : {
-        "description" : "Resource Groups List Response",
+        "description" : "Resource Groups List response body",
         "headers" : {
           "Link" : {
             "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -2418,7 +2436,7 @@
                     "attribute_name" : "resource_attribute",
                     "attribute_values" : [ "example_resource_attribute" ]
                   } ],
-                  "include_all" : false,
+                  "include_all_resources" : false,
                   "harness_managed" : true,
                   "created" : 1234567890,
                   "updated" : 1234567890
@@ -2469,7 +2487,7 @@
         }
       },
       "ResourceGroupsResponse" : {
-        "description" : "Resource Group Response",
+        "description" : "Resource Group response body",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -2499,7 +2517,7 @@
                     "attribute_name" : "resource_attribute",
                     "attribute_values" : [ "example_resource_attribute" ]
                   } ],
-                  "include_all" : false,
+                  "include_all_resources" : false,
                   "harness_managed" : true,
                   "created" : 1234567890,
                   "updated" : 1234567890
@@ -2630,7 +2648,7 @@
       "IdentifierFilter" : {
         "name" : "identifier_filter",
         "in" : "query",
-        "description" : "Filter by Identifiers",
+        "description" : "Filter by Resource Group Identifiers",
         "required" : false,
         "style" : "form",
         "explode" : true,
@@ -2645,7 +2663,7 @@
       "ManagedFilter" : {
         "name" : "managed_filter",
         "in" : "query",
-        "description" : "Filter by Harness Managed",
+        "description" : "Filter by Harness managed or not",
         "required" : false,
         "style" : "form",
         "explode" : true,
@@ -2673,7 +2691,7 @@
     },
     "requestBodies" : {
       "CreateResourceGroupRequest" : {
-        "description" : "Create Resource Group request body",
+        "description" : "Resource Group request body",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -2702,7 +2720,7 @@
                     "attribute_name" : "resource_attribute",
                     "attribute_values" : [ "example_resource_attribute" ]
                   } ],
-                  "include_all" : false
+                  "include_all_resources" : false
                 }
               }
             }

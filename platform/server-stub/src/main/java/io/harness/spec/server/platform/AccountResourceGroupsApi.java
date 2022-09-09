@@ -32,7 +32,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "createResourceGroupAcc", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response createResourceGroupAcc(@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
@@ -43,7 +43,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "deleteResourceGroupAcc", summary = "Delete a Resource Group", description = "Deletes a custom Resource Group from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response deleteResourceGroupAcc( @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
@@ -57,7 +57,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "getResourceGroupAcc", summary = "Retrieve a Resource Group", description = "Retrieves a Resource Group from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response getResourceGroupAcc( @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
@@ -70,7 +70,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "listResourceGroupsAcc", summary = "List Resource Groups", description = "Returns a list of Resource Groups present in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Groups List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Resource Groups List response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
     Response listResourceGroupsAcc(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
@@ -85,10 +85,10 @@ public interface AccountResourceGroupsApi {
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
 ,  @QueryParam("identifier_filter") 
 
- @Parameter(description = "Filter by Identifiers")  List<String> identifierFilter
+ @Parameter(description = "Filter by Resource Group Identifiers")  List<String> identifierFilter
 ,  @QueryParam("managed_filter") 
 
- @Parameter(description = "Filter by Harness Managed")  String managedFilter
+ @Parameter(description = "Filter by Harness managed or not")  String managedFilter
 ,  @QueryParam("resource_selector_filter") 
 
  @Parameter(description = "Filter by whether the Resource Group has a particular Resource.")  List<ResourceSelectorFilter> resourceSelectorFilter
@@ -100,7 +100,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "updateResourceGroupAcc", summary = "Update a Resource Group", description = "Updates a Resource Group from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response updateResourceGroupAcc(@Valid CreateResourceGroupRequest body, @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup

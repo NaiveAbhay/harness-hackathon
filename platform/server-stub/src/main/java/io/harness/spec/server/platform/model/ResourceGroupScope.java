@@ -5,14 +5,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Included Scope levels for this Resource Group
+ * Included scopes for the Resources belonging to the Resource Group
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Included Scope levels for this Resource Group")
+@Schema(description = "Included scopes for the Resources belonging to the Resource Group")
 
 public class ResourceGroupScope   {
 
@@ -64,8 +64,9 @@ public enum FilterEnum {
   }
 
   
-  @Schema(description = "Including or Excluding Child scopes.")
+  @Schema(required = true, description = "Including or Excluding Child scopes.")
   @JsonProperty("filter")
+  @NotNull
 
   public FilterEnum getFilter() {
     return filter;
@@ -85,7 +86,7 @@ public enum FilterEnum {
   
   @Schema(description = "Account identifier")
   @JsonProperty("account")
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getAccount() {
     return account;
   }
@@ -104,7 +105,7 @@ public enum FilterEnum {
   
   @Schema(description = "Organization identifier")
   @JsonProperty("org")
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getOrg() {
     return org;
   }
@@ -123,7 +124,7 @@ public enum FilterEnum {
   
   @Schema(description = "Project identifier")
   @JsonProperty("project")
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getProject() {
     return project;
   }
