@@ -66,11 +66,11 @@ public enum AllowedScopeLevelsEnum {
 
   private @Valid RoleScope scope = null;
 
-  private @Valid Boolean harnessManaged = null;
-
   private @Valid Long created = null;
 
   private @Valid Long updated = null;
+
+  private @Valid Boolean harnessManaged = null;
 
   /**
    * Role Identifier
@@ -84,7 +84,7 @@ public enum AllowedScopeLevelsEnum {
   @Schema(required = true, description = "Role Identifier")
   @JsonProperty("slug")
   @NotNull
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
@@ -104,7 +104,7 @@ public enum AllowedScopeLevelsEnum {
   @Schema(required = true, description = "Role Name")
   @JsonProperty("name")
   @NotNull
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getName() {
     return name;
   }
@@ -161,7 +161,7 @@ public enum AllowedScopeLevelsEnum {
   
   @Schema(description = "Role description")
   @JsonProperty("description")
-
+ @Size(max=1024)
   public String getDescription() {
     return description;
   }
@@ -180,7 +180,7 @@ public enum AllowedScopeLevelsEnum {
   
   @Schema(description = "Role tags")
   @JsonProperty("tags")
-
+ @Size(max=128)
   public Map<String, String> getTags() {
     return tags;
   }
@@ -204,25 +204,6 @@ public enum AllowedScopeLevelsEnum {
   }
   public void setScope(RoleScope scope) {
     this.scope = scope;
-  }
-
-  /**
-   * This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.
-   **/
-  public RolesResponse harnessManaged(Boolean harnessManaged) {
-    this.harnessManaged = harnessManaged;
-    return this;
-  }
-
-  
-  @Schema(description = "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.")
-  @JsonProperty("harness_managed")
-
-  public Boolean isHarnessManaged() {
-    return harnessManaged;
-  }
-  public void setHarnessManaged(Boolean harnessManaged) {
-    this.harnessManaged = harnessManaged;
   }
 
   /**
@@ -263,6 +244,25 @@ public enum AllowedScopeLevelsEnum {
     this.updated = updated;
   }
 
+  /**
+   * This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.
+   **/
+  public RolesResponse harnessManaged(Boolean harnessManaged) {
+    this.harnessManaged = harnessManaged;
+    return this;
+  }
+
+  
+  @Schema(description = "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.")
+  @JsonProperty("harness_managed")
+
+  public Boolean isHarnessManaged() {
+    return harnessManaged;
+  }
+  public void setHarnessManaged(Boolean harnessManaged) {
+    this.harnessManaged = harnessManaged;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -280,14 +280,14 @@ public enum AllowedScopeLevelsEnum {
         Objects.equals(description, rolesResponse.description) &&
         Objects.equals(tags, rolesResponse.tags) &&
         Objects.equals(scope, rolesResponse.scope) &&
-        Objects.equals(harnessManaged, rolesResponse.harnessManaged) &&
         Objects.equals(created, rolesResponse.created) &&
-        Objects.equals(updated, rolesResponse.updated);
+        Objects.equals(updated, rolesResponse.updated) &&
+        Objects.equals(harnessManaged, rolesResponse.harnessManaged);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, permissions, allowedScopeLevels, description, tags, scope, harnessManaged, created, updated);
+    return Objects.hash(slug, name, permissions, allowedScopeLevels, description, tags, scope, created, updated, harnessManaged);
   }
 
   @Override
@@ -302,9 +302,9 @@ public enum AllowedScopeLevelsEnum {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
-    sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
     sb.append("}");
     return sb.toString();
   }

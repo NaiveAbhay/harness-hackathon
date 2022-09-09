@@ -51,7 +51,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RoleResponse'
       security:
         - x-api-key: []
@@ -124,7 +124,7 @@ paths:
       summary: Create a Role
       operationId: create-role-org
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RoleResponse'
       description: Creates a custom Role in the Organization scope.
       security:
@@ -187,7 +187,7 @@ paths:
     get:
       summary: List Roles
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RolesListResponse'
       operationId: list-roles-project
       description: Returns a list of Roles present in the Project scope.
@@ -285,16 +285,22 @@ components:
             account: sample_account
             org: sample_organization
             project: sample_project
-          harness_managed: true
           created: 1234567890
           updated: 1234567890
+          harness_managed: true
       properties:
         slug:
           type: string
           description: Role Identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         name:
           type: string
           description: Role Name
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
         permissions:
           type: array
           description: Permissions for this Role.
@@ -314,16 +320,15 @@ components:
         description:
           type: string
           description: Role description
+          maxLength: 1024
         tags:
           type: object
           additionalProperties:
             type: string
           description: Role tags
+          maxProperties: 128
         scope:
           $ref: '#/components/schemas/RoleScope'
-        harness_managed:
-          type: boolean
-          description: 'This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.'
         created:
           type: integer
           description: Creation timestamp for Role.
@@ -332,6 +337,9 @@ components:
           type: integer
           description: Last modification timestamp for Role.
           format: int64
+        harness_managed:
+          type: boolean
+          description: 'This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role.'
       required:
         - slug
         - name
@@ -488,14 +496,42 @@ components:
                     account: sample_account
                     org: sample_organization
                     project: sample_project
-                  harness_managed: true
                   created: 1234567890
                   updated: 1234567890
+                  harness_managed: true
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/RolesResponse'
+          examples:
+            role-list-response:
+              value:
+                - slug: example_role
+                  name: Example_Role
+                  permissions:
+                    - core_resource_view
+                  allowed_scope_levels:
+                    - account
+                  description: This is an Example Role
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  scope:
+                    account: sample_account
+                    org: sample_organization
+                    project: sample_project
+                  created: 1234567890
+                  updated: 1234567890
+                  harness_managed: true
       headers:
         Link:
           schema:
             type: string
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
+          examples:
+            sample:
+              value: '</v1/roles?page=2&limit=1>; rel="next", </v1/roles?page=1&limit=1>; rel="self", </v1/roles?page=0&limit=1>; rel="previous", '
     RoleResponse:
       description: Example Role Response
       content:
@@ -519,9 +555,32 @@ components:
                   account: sample_account
                   org: sample_organization
                   project: sample_project
-                harness_managed: true
                 created: 1234567890
                 updated: 1234567890
+                harness_managed: true
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/RolesResponse'
+          examples:
+            role-response:
+              value:
+                slug: example_role
+                name: Example_Role
+                permissions:
+                  - core_resource_view
+                allowed_scope_levels:
+                  - account
+                description: This is an Example Role
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                scope:
+                  account: sample_account
+                  org: sample_organization
+                  project: sample_project
+                created: 1234567890
+                updated: 1234567890
+                harness_managed: true
   requestBodies:
     CreateRoleRequest:
       content:
@@ -539,3 +598,19 @@ components:
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CreateRoleRequest'
+          examples:
+            role-request:
+              value:
+                slug: example_role
+                name: Example_Role
+                permissions:
+                  - core_view
+                description: This is an Example Role
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+      description: Create Role Request body
+      required: true

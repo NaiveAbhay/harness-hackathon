@@ -26,22 +26,22 @@ import javax.validation.Valid;
 public interface OrganizationRolesApi {
 
     @POST
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createRoleOrg", summary = "Create a Role", description = "Creates a custom Role in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
-    Response createRoleOrg( @PathParam("org")
+        @ApiResponse(responseCode = "201", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+    Response createRoleOrg(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
-,@Valid CreateRoleRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @DELETE
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteRoleOrg", summary = "Delete a Role", description = "Deletes a custom Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
@@ -58,7 +58,7 @@ public interface OrganizationRolesApi {
 );
     @GET
     @Path("/{role}")
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getRoleOrg", summary = "Retrieve a Role", description = "Retrieves a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
@@ -74,7 +74,7 @@ public interface OrganizationRolesApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );
     @GET
-    @Produces({ "application/json" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listRolesOrg", summary = "List Roles", description = "Returns a list of Roles present in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
@@ -97,19 +97,19 @@ public interface OrganizationRolesApi {
 );
     @PUT
     @Path("/{role}")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateRoleOrg", summary = "Update a Role", description = "Updates a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
-    Response updateRoleOrg( @PathParam("org")
+    Response updateRoleOrg(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,@Valid CreateRoleRequest body,  @QueryParam("account") 
+,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 );}
