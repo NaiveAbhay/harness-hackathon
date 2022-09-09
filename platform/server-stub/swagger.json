@@ -107,6 +107,7 @@
           "schema" : {
             "uniqueItems" : true,
             "type" : "array",
+            "example" : "type=resource,slug=example_resource",
             "items" : {
               "$ref" : "#/components/schemas/ResourceSelectorFilter"
             }
@@ -238,7 +239,7 @@
           "$ref" : "#/components/requestBodies/CreateResourceGroupRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
@@ -748,6 +749,7 @@
           "schema" : {
             "uniqueItems" : true,
             "type" : "array",
+            "example" : "type=resource,slug=example_resource",
             "items" : {
               "$ref" : "#/components/schemas/ResourceSelectorFilter"
             }
@@ -889,7 +891,7 @@
           "$ref" : "#/components/requestBodies/CreateResourceGroupRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
@@ -1438,6 +1440,7 @@
           "schema" : {
             "uniqueItems" : true,
             "type" : "array",
+            "example" : "type=resource,slug=example_resource",
             "items" : {
               "$ref" : "#/components/schemas/ResourceSelectorFilter"
             }
@@ -1589,7 +1592,7 @@
           "$ref" : "#/components/requestBodies/CreateResourceGroupRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Resource Group Response",
             "content" : {
               "application/json" : {
@@ -2661,6 +2664,7 @@
         "schema" : {
           "uniqueItems" : true,
           "type" : "array",
+          "example" : "type=resource,slug=example_resource",
           "items" : {
             "$ref" : "#/components/schemas/ResourceSelectorFilter"
           }

@@ -58,7 +58,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateResourceGroupRequest'
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/ResourceGroupsResponse'
   '/v1/resource-groups/{resource-group}':
     parameters:
@@ -140,7 +140,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateResourceGroupRequest'
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/ResourceGroupsResponse'
   '/v1/orgs/{org}/resource-groups/{resource-group}':
     parameters:
@@ -233,7 +233,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateResourceGroupRequest'
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/ResourceGroupsResponse'
   '/v1/orgs/{org}/projects/{project}/resource-groups/{resource-group}':
     parameters:
@@ -614,6 +614,7 @@ components:
         uniqueItems: true
         items:
           $ref: '#/components/schemas/ResourceSelectorFilter'
+        example: 'type=resource,slug=example_resource'
       description: Filter by whether the Resource Group has a particular Resource.
   responses:
     ResourceGroupsListResponse:

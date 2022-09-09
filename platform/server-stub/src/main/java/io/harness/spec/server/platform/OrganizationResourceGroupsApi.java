@@ -32,7 +32,7 @@ public interface OrganizationResourceGroupsApi {
     @Operation(operationId = "createResourceGroupOrg", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response createResourceGroupOrg(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org

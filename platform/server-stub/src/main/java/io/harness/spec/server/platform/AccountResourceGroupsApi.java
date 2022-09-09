@@ -32,7 +32,7 @@ public interface AccountResourceGroupsApi {
     @Operation(operationId = "createResourceGroupAcc", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response createResourceGroupAcc(@Valid CreateResourceGroupRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
