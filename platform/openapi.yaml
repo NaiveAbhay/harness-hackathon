@@ -611,6 +611,7 @@ components:
       required: false
       schema:
         type: array
+        uniqueItems: true
         items:
           $ref: '#/components/schemas/ResourceSelectorFilter'
       description: Filter by whether the Resource Group has a particular Resource.
