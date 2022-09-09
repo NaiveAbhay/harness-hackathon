@@ -32,7 +32,7 @@ public interface ProjectResourceGroupsApi {
     @Operation(operationId = "createResourceGroupProject", summary = "Create a Resource Group", description = "Creates a custom Resource Group in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response createResourceGroupProject(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -49,7 +49,7 @@ public interface ProjectResourceGroupsApi {
     @Operation(operationId = "deleteResourceGroupProject", summary = "Delete a Resource Group", description = "Deletes a custom Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response deleteResourceGroupProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -69,7 +69,7 @@ public interface ProjectResourceGroupsApi {
     @Operation(operationId = "getResourceGroupProject", summary = "Retrieve a Resource Group", description = "Retrieves a Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response getResourceGroupProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -88,7 +88,7 @@ public interface ProjectResourceGroupsApi {
     @Operation(operationId = "listResourceGroupsProject", summary = "List Resource Groups", description = "Returns a list of Resource Groups present in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Groups List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Resource Groups List response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
     Response listResourceGroupsProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -109,10 +109,10 @@ public interface ProjectResourceGroupsApi {
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
 ,  @QueryParam("identifier_filter") 
 
- @Parameter(description = "Filter by Identifiers")  List<String> identifierFilter
+ @Parameter(description = "Filter by Resource Group Identifiers")  List<String> identifierFilter
 ,  @QueryParam("managed_filter") 
 
- @Parameter(description = "Filter by Harness Managed")  String managedFilter
+ @Parameter(description = "Filter by Harness managed or not")  String managedFilter
 ,  @QueryParam("resource_selector_filter") 
 
  @Parameter(description = "Filter by whether the Resource Group has a particular Resource.")  List<ResourceSelectorFilter> resourceSelectorFilter
@@ -124,7 +124,7 @@ public interface ProjectResourceGroupsApi {
     @Operation(operationId = "updateResourceGroupProject", summary = "Update a Resource Group", description = "Updates a Resource Group from Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Resource Groups" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Resource Group Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Resource Group response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResourceGroupsResponse.class))) })
     Response updateResourceGroupProject(@Valid CreateResourceGroupRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org

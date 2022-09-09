@@ -85,7 +85,7 @@ public class ResourceFilter   {
   }
 
   /**
-   * Attribute values selected
+   * Attribute values selected.
    **/
   public ResourceFilter attributeValues(List<String> attributeValues) {
     this.attributeValues = attributeValues;
@@ -93,7 +93,7 @@ public class ResourceFilter   {
   }
 
   
-  @Schema(description = "Attribute values selected")
+  @Schema(description = "Attribute values selected.")
   @JsonProperty("attribute_values")
 
   public List<String> getAttributeValues() {

@@ -51,7 +51,7 @@ public class ResourceSelectorFilter   {
   
   @Schema(description = "Filter by Resource identifier")
   @JsonProperty("resource_slug")
-
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getResourceSlug() {
     return resourceSlug;
   }

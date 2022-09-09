@@ -11,14 +11,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Create Resource Group request
+ * Resource Group request body
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Create Resource Group request")
+@Schema(description = "Resource Group request body")
 
 public class CreateResourceGroupRequest   {
 
@@ -36,7 +36,7 @@ public class CreateResourceGroupRequest   {
 
   private @Valid List<ResourceFilter> resourceFilter = new ArrayList<>();
 
-  private @Valid Boolean includeAll = null;
+  private @Valid Boolean includeAllResources = null;
 
   /**
    * Resource Group identifier
@@ -136,6 +136,7 @@ public class CreateResourceGroupRequest   {
   }
 
   /**
+   * Included scopes for the resources belonging to the Resource Group.
    **/
   public CreateResourceGroupRequest includedScope(List<ResourceGroupScope> includedScope) {
     this.includedScope = includedScope;
@@ -143,7 +144,7 @@ public class CreateResourceGroupRequest   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Included scopes for the resources belonging to the Resource Group.")
   @JsonProperty("included_scope")
 
   public List<ResourceGroupScope> getIncludedScope() {
@@ -154,6 +155,7 @@ public class CreateResourceGroupRequest   {
   }
 
   /**
+   * Specifies the actual resources present in the Resource Group.
    **/
   public CreateResourceGroupRequest resourceFilter(List<ResourceFilter> resourceFilter) {
     this.resourceFilter = resourceFilter;
@@ -161,7 +163,7 @@ public class CreateResourceGroupRequest   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Specifies the actual resources present in the Resource Group.")
   @JsonProperty("resource_filter")
 
   public List<ResourceFilter> getResourceFilter() {
@@ -174,20 +176,20 @@ public class CreateResourceGroupRequest   {
   /**
    * Boolean value for including all resources in Resource Group.
    **/
-  public CreateResourceGroupRequest includeAll(Boolean includeAll) {
-    this.includeAll = includeAll;
+  public CreateResourceGroupRequest includeAllResources(Boolean includeAllResources) {
+    this.includeAllResources = includeAllResources;
     return this;
   }
 
   
   @Schema(description = "Boolean value for including all resources in Resource Group.")
-  @JsonProperty("include_all")
+  @JsonProperty("include_all_resources")
 
-  public Boolean isIncludeAll() {
-    return includeAll;
+  public Boolean isIncludeAllResources() {
+    return includeAllResources;
   }
-  public void setIncludeAll(Boolean includeAll) {
-    this.includeAll = includeAll;
+  public void setIncludeAllResources(Boolean includeAllResources) {
+    this.includeAllResources = includeAllResources;
   }
 
 
@@ -207,12 +209,12 @@ public class CreateResourceGroupRequest   {
         Objects.equals(description, createResourceGroupRequest.description) &&
         Objects.equals(includedScope, createResourceGroupRequest.includedScope) &&
         Objects.equals(resourceFilter, createResourceGroupRequest.resourceFilter) &&
-        Objects.equals(includeAll, createResourceGroupRequest.includeAll);
+        Objects.equals(includeAllResources, createResourceGroupRequest.includeAllResources);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, color, tags, description, includedScope, resourceFilter, includeAll);
+    return Objects.hash(slug, name, color, tags, description, includedScope, resourceFilter, includeAllResources);
   }
 
   @Override
@@ -227,7 +229,7 @@ public class CreateResourceGroupRequest   {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    includedScope: ").append(toIndentedString(includedScope)).append("\n");
     sb.append("    resourceFilter: ").append(toIndentedString(resourceFilter)).append("\n");
-    sb.append("    includeAll: ").append(toIndentedString(includeAll)).append("\n");
+    sb.append("    includeAllResources: ").append(toIndentedString(includeAllResources)).append("\n");
     sb.append("}");
     return sb.toString();
   }
