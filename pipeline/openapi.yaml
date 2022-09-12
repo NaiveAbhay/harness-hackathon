@@ -54,7 +54,7 @@ paths:
         $ref: '#/components/requestBodies/PipelineRequestBody'
       responses:
         '201':
-          $ref: '#/components/responses/PipelineResponseBody'
+          $ref: '#/components/responses/PipelineCreateBody'
   '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -68,6 +68,12 @@ paths:
       description: Retrieves a Pipeline.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Branch'
+        - schema:
+            type: boolean
+          in: query
+          name: pipeline_summary
+          description: Fetches Pipeline summary including execution details and more.
       tags:
         - Pipeline Resource
     put:
@@ -78,8 +84,22 @@ paths:
       description: Updates a Pipeline.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/IfMatch'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/CommitMsg'
+        - schema:
+            type: string
+          in: query
+          name: last_object
+          description: Last object identifier
+        - $ref: '#/components/parameters/BaseBranch'
       tags:
         - Pipeline Resource
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineCreateBody'
     delete:
       summary: Delete a Pipeline
       operationId: delete-pipeline-project
@@ -88,8 +108,15 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/FilePath'
+        - $ref: '#/components/parameters/CommitMsg'
+        - $ref: '#/components/parameters/IfMatch'
       tags:
         - Pipeline Resource
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineDeleteBody'
 components:
   schemas: {}
   securitySchemes:
@@ -210,13 +237,21 @@ components:
       schema:
         type: string
       description: Pipeline identifier
+    IfMatch:
+      name: if_match
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Version of Entity to match.
   responses:
-    PipelineResponseBody:
+    PipelineCreateBody:
       description: Pipeline response body
       content:
         application/json:
           schema:
             type: object
+            description: Pipeline response body
             properties:
               slug:
                 type: string
@@ -242,6 +277,33 @@ components:
             example-pipeline:
               value: |
                 slug: example_pipeline
+    PipelineDeleteBody:
+      description: Pipeline deletion response body
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Pipeline deletion response body
+            properties:
+              is_deleted:
+                type: boolean
+                description: True if Pipeline is successfully deleted.
+          examples:
+            example-deleted:
+              value:
+                is_deleted: true
+        application/yaml:
+          schema:
+            type: object
+            description: Pipeline deletion response body
+            properties:
+              is_deleted:
+                type: boolean
+                description: True if Pipeline is successfully deleted.
+          examples:
+            example-deleted:
+              value: |
+                is_deleted: true
   requestBodies:
     PipelineRequestBody:
       content:
