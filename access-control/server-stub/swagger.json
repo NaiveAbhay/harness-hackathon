@@ -75,7 +75,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Roles List Response",
+            "description" : "Roles List Response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -132,25 +132,7 @@
                 },
                 "examples" : {
                   "role-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    } ]
+                    "value" : "- slug: example_role\n  name: Example_Role\n  permissions:\n    - core_resource_view\n  allowed_scope_levels:\n    - account\n  description: This is an Example Role\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  scope:\n    account: sample_account\n    org: sample_organization\n    project: sample_project\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
                   }
                 }
               }
@@ -182,7 +164,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -218,25 +200,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -277,7 +241,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -313,25 +277,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -373,7 +319,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -409,25 +355,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -466,7 +394,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -502,25 +430,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -594,7 +504,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Roles List Response",
+            "description" : "Roles List Response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -651,25 +561,7 @@
                 },
                 "examples" : {
                   "role-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    } ]
+                    "value" : "- slug: example_role\n  name: Example_Role\n  permissions:\n    - core_resource_view\n  allowed_scope_levels:\n    - account\n  description: This is an Example Role\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  scope:\n    account: sample_account\n    org: sample_organization\n    project: sample_project\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
                   }
                 }
               }
@@ -711,7 +603,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -747,25 +639,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -816,7 +690,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -852,25 +726,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -922,7 +778,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -958,25 +814,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1025,7 +863,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1061,25 +899,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1163,7 +983,7 @@
         } ],
         "responses" : {
           "201" : {
-            "description" : "Roles List Response",
+            "description" : "Roles List Response body",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -1220,25 +1040,7 @@
                 },
                 "examples" : {
                   "role-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    } ]
+                    "value" : "- slug: example_role\n  name: Example_Role\n  permissions:\n    - core_resource_view\n  allowed_scope_levels:\n    - account\n  description: This is an Example Role\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  scope:\n    account: sample_account\n    org: sample_organization\n    project: sample_project\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
                   }
                 }
               }
@@ -1290,7 +1092,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1326,25 +1128,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1405,7 +1189,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1441,25 +1225,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1521,7 +1287,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1557,25 +1323,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1634,7 +1382,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example Role Response",
+            "description" : "Role Response body",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1670,25 +1418,7 @@
                 },
                 "examples" : {
                   "role-response" : {
-                    "value" : {
-                      "slug" : "example_role",
-                      "name" : "Example_Role",
-                      "permissions" : [ "core_resource_view" ],
-                      "allowed_scope_levels" : [ "account" ],
-                      "description" : "This is an Example Role",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "scope" : {
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890,
-                      "harness_managed" : true
-                    }
+                    "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
                   }
                 }
               }
@@ -1837,7 +1567,7 @@
             "description" : "Role tags"
           }
         },
-        "description" : "Create Role request",
+        "description" : "Role request body",
         "x-stoplight" : {
           "id" : "z8g6ol73nsqjs"
         },
@@ -1871,7 +1601,7 @@
             "description" : "Project identifier"
           }
         },
-        "description" : "Scope of the Role.",
+        "description" : "Scope of the Role",
         "x-stoplight" : {
           "id" : "w8j3bc9323bxb"
         },
@@ -1886,7 +1616,7 @@
     },
     "responses" : {
       "RolesListResponse" : {
-        "description" : "Roles List Response",
+        "description" : "Roles List Response body",
         "headers" : {
           "Link" : {
             "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -1943,32 +1673,14 @@
             },
             "examples" : {
               "role-list-response" : {
-                "value" : [ {
-                  "slug" : "example_role",
-                  "name" : "Example_Role",
-                  "permissions" : [ "core_resource_view" ],
-                  "allowed_scope_levels" : [ "account" ],
-                  "description" : "This is an Example Role",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "scope" : {
-                    "account" : "sample_account",
-                    "org" : "sample_organization",
-                    "project" : "sample_project"
-                  },
-                  "created" : 1234567890,
-                  "updated" : 1234567890,
-                  "harness_managed" : true
-                } ]
+                "value" : "- slug: example_role\n  name: Example_Role\n  permissions:\n    - core_resource_view\n  allowed_scope_levels:\n    - account\n  description: This is an Example Role\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  scope:\n    account: sample_account\n    org: sample_organization\n    project: sample_project\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
               }
             }
           }
         }
       },
       "RoleResponse" : {
-        "description" : "Example Role Response",
+        "description" : "Role Response body",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -2004,25 +1716,7 @@
             },
             "examples" : {
               "role-response" : {
-                "value" : {
-                  "slug" : "example_role",
-                  "name" : "Example_Role",
-                  "permissions" : [ "core_resource_view" ],
-                  "allowed_scope_levels" : [ "account" ],
-                  "description" : "This is an Example Role",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "scope" : {
-                    "account" : "sample_account",
-                    "org" : "sample_organization",
-                    "project" : "sample_project"
-                  },
-                  "created" : 1234567890,
-                  "updated" : 1234567890,
-                  "harness_managed" : true
-                }
+                "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
               }
             }
           }
@@ -2113,7 +1807,7 @@
     },
     "requestBodies" : {
       "CreateRoleRequest" : {
-        "description" : "Create Role Request body",
+        "description" : "Role Request body",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -2140,16 +1834,7 @@
             },
             "examples" : {
               "role-request" : {
-                "value" : {
-                  "slug" : "example_role",
-                  "name" : "Example_Role",
-                  "permissions" : [ "core_view" ],
-                  "description" : "This is an Example Role",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  }
-                }
+                "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_view\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\n"
               }
             }
           }

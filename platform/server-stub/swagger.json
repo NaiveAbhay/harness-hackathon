@@ -144,7 +144,7 @@
                   "resource-group-list-response" : {
                     "value" : [ {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -182,33 +182,7 @@
                 },
                 "examples" : {
                   "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
+                    "value" : "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -250,7 +224,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -284,33 +258,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -361,7 +309,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -395,33 +343,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -474,7 +396,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -508,33 +430,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -583,7 +479,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -617,33 +513,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -786,7 +656,7 @@
                   "resource-group-list-response" : {
                     "value" : [ {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -824,33 +694,7 @@
                 },
                 "examples" : {
                   "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
+                    "value" : "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -902,7 +746,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -936,33 +780,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1023,7 +841,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1057,33 +875,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1145,7 +937,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1179,33 +971,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1264,7 +1030,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1298,33 +1064,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1477,7 +1217,7 @@
                   "resource-group-list-response" : {
                     "value" : [ {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1515,33 +1255,7 @@
                 },
                 "examples" : {
                   "resource-group-list-response" : {
-                    "value" : [ {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    } ]
+                    "value" : "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -1603,7 +1317,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1637,33 +1351,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1734,7 +1422,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1768,33 +1456,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1866,7 +1528,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -1900,33 +1562,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1995,7 +1631,7 @@
                   "resource-group-response" : {
                     "value" : {
                       "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
+                      "name" : "Example Resource Group",
                       "color" : "#0063F7",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -2029,33 +1665,7 @@
                 },
                 "examples" : {
                   "resource-group-response" : {
-                    "value" : {
-                      "slug" : "example_resource_group",
-                      "name" : "Example_Resource Group",
-                      "color" : "#0063F7",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "description" : "This is an Example Resource Group",
-                      "allowed_scope_levels" : [ "account" ],
-                      "included_scope" : [ {
-                        "filter" : "EXCLUDING_CHILD_SCOPES",
-                        "account" : "sample_account",
-                        "org" : "sample_organization",
-                        "project" : "sample_project"
-                      } ],
-                      "resource_filter" : [ {
-                        "resource_type" : "resource",
-                        "identifiers" : [ "example_resource" ],
-                        "attribute_name" : "resource_attribute",
-                        "attribute_values" : [ "example_resource_attribute" ]
-                      } ],
-                      "include_all" : false,
-                      "harness_managed" : true,
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -2416,7 +2026,7 @@
               "resource-group-list-response" : {
                 "value" : [ {
                   "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
+                  "name" : "Example Resource Group",
                   "color" : "#0063F7",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -2454,33 +2064,7 @@
             },
             "examples" : {
               "resource-group-list-response" : {
-                "value" : [ {
-                  "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
-                  "color" : "#0063F7",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "description" : "This is an Example Resource Group",
-                  "allowed_scope_levels" : [ "account" ],
-                  "included_scope" : [ {
-                    "filter" : "EXCLUDING_CHILD_SCOPES",
-                    "account" : "sample_account",
-                    "org" : "sample_organization",
-                    "project" : "sample_project"
-                  } ],
-                  "resource_filter" : [ {
-                    "resource_type" : "resource",
-                    "identifiers" : [ "example_resource" ],
-                    "attribute_name" : "resource_attribute",
-                    "attribute_values" : [ "example_resource_attribute" ]
-                  } ],
-                  "include_all" : false,
-                  "harness_managed" : true,
-                  "created" : 1234567890,
-                  "updated" : 1234567890
-                } ]
+                "value" : "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
               }
             }
           }
@@ -2497,7 +2081,7 @@
               "resource-group-response" : {
                 "value" : {
                   "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
+                  "name" : "Example Resource Group",
                   "color" : "#0063F7",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -2531,33 +2115,7 @@
             },
             "examples" : {
               "resource-group-response" : {
-                "value" : {
-                  "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
-                  "color" : "#0063F7",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "description" : "This is an Example Resource Group",
-                  "allowed_scope_levels" : [ "account" ],
-                  "included_scope" : [ {
-                    "filter" : "EXCLUDING_CHILD_SCOPES",
-                    "account" : "sample_account",
-                    "org" : "sample_organization",
-                    "project" : "sample_project"
-                  } ],
-                  "resource_filter" : [ {
-                    "resource_type" : "resource",
-                    "identifiers" : [ "example_resource" ],
-                    "attribute_name" : "resource_attribute",
-                    "attribute_values" : [ "example_resource_attribute" ]
-                  } ],
-                  "include_all" : false,
-                  "harness_managed" : true,
-                  "created" : 1234567890,
-                  "updated" : 1234567890
-                }
+                "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -2701,7 +2259,7 @@
               "resource-group-request" : {
                 "value" : {
                   "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
+                  "name" : "Example Resource Group",
                   "color" : "#0063F7",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -2731,29 +2289,7 @@
             },
             "examples" : {
               "resource-group-request" : {
-                "value" : {
-                  "slug" : "example_resource_group",
-                  "name" : "Example_Resource Group",
-                  "color" : "#0063F7",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "description" : "This is an Example Resource Group",
-                  "included_scope" : [ {
-                    "filter" : "EXCLUDING_CHILD_SCOPES",
-                    "account" : "sample_account",
-                    "org" : "sample_organization",
-                    "project" : "sample_project"
-                  } ],
-                  "resource_filter" : [ {
-                    "resource_type" : "resource",
-                    "identifiers" : [ "example_resource" ],
-                    "attribute_name" : "resource_attribute",
-                    "attribute_values" : [ "example_resource_attribute" ]
-                  } ],
-                  "include_all" : false
-                }
+                "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\n"
               }
             }
           }

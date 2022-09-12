@@ -31,7 +31,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "createRoleOrg", summary = "Create a Role", description = "Creates a custom Role in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response createRoleOrg(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -45,7 +45,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "deleteRoleOrg", summary = "Delete a Role", description = "Deletes a custom Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response deleteRoleOrg( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -62,7 +62,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "getRoleOrg", summary = "Retrieve a Role", description = "Retrieves a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response getRoleOrg( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -78,7 +78,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "listRolesOrg", summary = "List Roles", description = "Returns a list of Roles present in the Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Roles List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Roles List Response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
     Response listRolesOrg( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -102,7 +102,7 @@ public interface OrganizationRolesApi {
     @Operation(operationId = "updateRoleOrg", summary = "Update a Role", description = "Updates a Role from Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response updateRoleOrg(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org

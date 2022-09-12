@@ -5,14 +5,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Scope of the Role.
+ * Scope of the Role
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Scope of the Role.")
+@Schema(description = "Scope of the Role")
 
 public class RoleScope   {
 

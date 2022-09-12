@@ -9,14 +9,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Create Role request
+ * Role request body
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Create Role request")
+@Schema(description = "Role request body")
 
 public class CreateRoleRequest   {
 

@@ -649,7 +649,7 @@ components:
             resource-group-list-response:
               value:
                 - slug: example_resource_group
-                  name: Example_Resource Group
+                  name: Example Resource Group
                   color: '#0063F7'
                   tags:
                     example-tag-1: example-tag-1-value
@@ -681,9 +681,9 @@ components:
               $ref: '#/components/schemas/ResourceGroupsResponse'
           examples:
             resource-group-list-response:
-              value:
+              value: |
                 - slug: example_resource_group
-                  name: Example_Resource Group
+                  name: Example Resource Group
                   color: '#0063F7'
                   tags:
                     example-tag-1: example-tag-1-value
@@ -725,7 +725,7 @@ components:
             resource-group-response:
               value:
                 slug: example_resource_group
-                name: Example_Resource Group
+                name: Example Resource Group
                 color: '#0063F7'
                 tags:
                   example-tag-1: example-tag-1-value
@@ -754,9 +754,9 @@ components:
             $ref: '#/components/schemas/ResourceGroupsResponse'
           examples:
             resource-group-response:
-              value:
+              value: |
                 slug: example_resource_group
-                name: Example_Resource Group
+                name: Example Resource Group
                 color: '#0063F7'
                 tags:
                   example-tag-1: example-tag-1-value
@@ -790,7 +790,7 @@ components:
             resource-group-request:
               value:
                 slug: example_resource_group
-                name: Example_Resource Group
+                name: Example Resource Group
                 color: '#0063F7'
                 tags:
                   example-tag-1: example-tag-1-value
@@ -814,9 +814,9 @@ components:
             $ref: '#/components/schemas/CreateResourceGroupRequest'
           examples:
             resource-group-request:
-              value:
+              value: |
                 slug: example_resource_group
-                name: Example_Resource Group
+                name: Example Resource Group
                 color: '#0063F7'
                 tags:
                   example-tag-1: example-tag-1-value

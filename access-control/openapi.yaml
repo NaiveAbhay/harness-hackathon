@@ -348,7 +348,7 @@ components:
       x-stoplight:
         id: z8g6ol73nsqjs
       type: object
-      description: Create Role request
+      description: Role request body
       x-examples:
         role-request:
           slug: example_role
@@ -396,7 +396,7 @@ components:
       x-stoplight:
         id: w8j3bc9323bxb
       type: object
-      description: Scope of the Role.
+      description: Scope of the Role
       properties:
         account:
           type: string
@@ -472,7 +472,7 @@ components:
       description: Role identifier
   responses:
     RolesListResponse:
-      description: Roles List Response
+      description: Roles List Response body
       content:
         application/json:
           schema:
@@ -506,7 +506,7 @@ components:
               $ref: '#/components/schemas/RolesResponse'
           examples:
             role-list-response:
-              value:
+              value: |
                 - slug: example_role
                   name: Example_Role
                   permissions:
@@ -533,7 +533,7 @@ components:
             sample:
               value: '</v1/roles?page=2&limit=1>; rel="next", </v1/roles?page=1&limit=1>; rel="self", </v1/roles?page=0&limit=1>; rel="previous", '
     RoleResponse:
-      description: Example Role Response
+      description: Role Response body
       content:
         application/json:
           schema:
@@ -563,7 +563,7 @@ components:
             $ref: '#/components/schemas/RolesResponse'
           examples:
             role-response:
-              value:
+              value: |
                 slug: example_role
                 name: Example_Role
                 permissions:
@@ -603,7 +603,7 @@ components:
             $ref: '#/components/schemas/CreateRoleRequest'
           examples:
             role-request:
-              value:
+              value: |
                 slug: example_role
                 name: Example_Role
                 permissions:
@@ -612,5 +612,5 @@ components:
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-      description: Create Role Request body
+      description: Role Request body
       required: true

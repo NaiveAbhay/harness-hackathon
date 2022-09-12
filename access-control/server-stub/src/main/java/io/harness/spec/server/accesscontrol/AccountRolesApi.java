@@ -31,7 +31,7 @@ public interface AccountRolesApi {
     @Operation(operationId = "createRoleAcc", summary = "Create a Role", description = "Creates a custom Role in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response createRoleAcc(@Valid CreateRoleRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
@@ -42,7 +42,7 @@ public interface AccountRolesApi {
     @Operation(operationId = "deleteRoleAcc", summary = "Delete a Role", description = "Deletes a custom Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response deleteRoleAcc( @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
@@ -56,7 +56,7 @@ public interface AccountRolesApi {
     @Operation(operationId = "getRoleAcc", summary = "Retrieve a Role", description = "Retrieves a Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response getRoleAcc( @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
@@ -69,7 +69,7 @@ public interface AccountRolesApi {
     @Operation(operationId = "listRolesAcc", summary = "List Roles", description = "Returns a list of Roles present in the Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Roles List Response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Roles List Response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
     Response listRolesAcc(  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
@@ -90,7 +90,7 @@ public interface AccountRolesApi {
     @Operation(operationId = "updateRoleAcc", summary = "Update a Role", description = "Updates a Role from Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example Role Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response updateRoleAcc(@Valid CreateRoleRequest body, @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
