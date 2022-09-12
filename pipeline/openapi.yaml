@@ -70,13 +70,13 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Branch'
         - schema:
-            type: boolean
+            type: string
             enum:
               - default
               - summary
           in: query
           name: view
-          description: 'View retrieved Pipeline as:'
+          description: View retrieved Pipeline as
       tags:
         - Pipeline Resource
     put:
