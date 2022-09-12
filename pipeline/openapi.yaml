@@ -1,1 +1,353 @@
-
+openapi: 3.0.0
+x-stoplight:
+  id: bfet7n314xd4i
+info:
+  title: Harness NextGen Software Delivery Platform API Reference
+  version: '1.0'
+  description: This is the Open Api Spec 3 for the Pipeline Service. This is under active development. Beware of the breaking change with respect to the generated code stub.
+  contact:
+    email: contact@harness.io
+servers:
+  - url: 'http://app.harness.io'
+    description: localhost
+tags:
+  - name: Pipeline Resource
+    description: This contains APIs for performing CRUD operations on Pipelines.
+x-tagGroups:
+  - name: Pipelines
+    tags:
+      - Pipeline Resource
+paths:
+  '/v1/orgs/{org}/projects/{project}/pipelines':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+    get:
+      summary: List Pipelines
+      operationId: list-pipelines-project
+      description: Returns a list of Pipelines.
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      tags:
+        - Pipeline Resource
+    post:
+      summary: Create a Pipeline
+      operationId: create-pipeline-project
+      description: Creates a Pipeline.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/FilePath'
+        - $ref: '#/components/parameters/CommitMsg'
+        - $ref: '#/components/parameters/NewBranch'
+        - $ref: '#/components/parameters/BaseBranch'
+        - $ref: '#/components/parameters/Connector'
+        - $ref: '#/components/parameters/StoreType'
+        - $ref: '#/components/parameters/RepoName'
+      tags:
+        - Pipeline Resource
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineRequestBody'
+      responses:
+        '201':
+          $ref: '#/components/responses/PipelineResponseBody'
+  '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/PipelineParam'
+    get:
+      summary: Retrieve a Pipeline
+      operationId: get-pipeline-project
+      security:
+        - x-api-key: []
+      description: Retrieves a Pipeline.
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Pipeline Resource
+    put:
+      summary: Update a Pipeline
+      operationId: update-pipeline-project
+      security:
+        - x-api-key: []
+      description: Updates a Pipeline.
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Pipeline Resource
+    delete:
+      summary: Delete a Pipeline
+      operationId: delete-pipeline-project
+      description: Deletes a Pipeline.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Pipeline Resource
+components:
+  schemas: {}
+  securitySchemes:
+    x-api-key:
+      name: x-api-key
+      type: apiKey
+      in: header
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 30
+        maximum: 100
+      description: 'Pagination: Number of items to return.'
+    PageIndex:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+      description: 'Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.'
+    SearchTerm:
+      name: search_term
+      in: query
+      required: false
+      schema:
+        type: string
+      description: This would be used to filter resources having attributes matching the search term.
+    OrgParam:
+      name: org
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organization identifier
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project identifier
+    AccountHeader:
+      name: account
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
+    Branch:
+      name: branch
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Name of the branch (for Harness Git Experience).
+    FilePath:
+      name: file_path
+      in: query
+      required: false
+      schema:
+        type: string
+      description: File path of the Entity in the repository.
+    CommitMsg:
+      name: commit_message
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Commit message used for the merge commit.
+    NewBranch:
+      name: is_new_branch
+      in: query
+      required: false
+      schema:
+        type: boolean
+        default: 'false'
+      description: Checks out a new branch in the repository.
+    BaseBranch:
+      name: base_branch
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Name of the default branch.
+    Connector:
+      name: connector_ref
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Identifier of the Harness Connector used for CRUD operations on the Entity.
+    StoreType:
+      name: store_type
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - INLINE
+          - REMOTE
+      description: Specifies whether the Entity is to be stored in Git or not.
+    RepoName:
+      name: repo_name
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Name of the repository.
+    PipelineParam:
+      name: pipeline
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Pipeline identifier
+  responses:
+    PipelineResponseBody:
+      description: Pipeline response body
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              slug:
+                type: string
+                pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+                minLength: 1
+                maxLength: 64
+                description: Pipeline identifier
+          examples:
+            example-pipeline:
+              value:
+                slug: example_pipeline
+        application/yaml:
+          schema:
+            type: object
+            properties:
+              slug:
+                type: string
+                pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+                minLength: 1
+                maxLength: 64
+                description: Pipeline identifier
+          examples:
+            example-pipeline:
+              value: |
+                slug: example_pipeline
+  requestBodies:
+    PipelineRequestBody:
+      content:
+        application/yaml:
+          schema:
+            type: object
+            description: 'Pipeline request body object '
+            properties:
+              pipeline_yaml:
+                type: string
+                description: Pipeline YAML (to be passed as a String).
+            required:
+              - pipeline_yaml
+          examples:
+            example-pipeline-yaml:
+              value: |
+                pipeline:
+                  name: example pipeline
+                  identifier: example_pipeline
+                  allowStageExecutions: false
+                  projectIdentifier: example_project
+                  orgIdentifier: example_organization
+                  tags: {}
+                  stages:
+                    - stage:
+                        name: Example Build Stage
+                        identifier: example_build_stage
+                        description: ''
+                        type: Approval
+                        spec:
+                          execution:
+                            steps:
+                              - step:
+                                  name: Approval Step
+                                  identifier: Approval_Step
+                                  type: HarnessApproval
+                                  timeout: 1d
+                                  spec:
+                                    approvalMessage: |-
+                                      Please review the following information
+                                      and approve the pipeline progression
+                                    includePipelineExecutionHistory: true
+                                    approvers:
+                                      minimumCount: 1
+                                      disallowPipelineExecutor: false
+                                      userGroups: <+input>
+                                    approverInputs: []
+                              - step:
+                                  type: ShellScript
+                                  name: ShellScript Step
+                                  identifier: ShellScript_Step
+                                  spec:
+                                    shell: Bash
+                                    onDelegate: true
+                                    source:
+                                      type: Inline
+                                      spec:
+                                        script: <+input>
+                                    environmentVariables: []
+                                    outputVariables: []
+                                    executionTarget: {}
+                                  timeout: 10m
+                        tags: {}
+                    - stage:
+                        name: Example Deploy Stage
+                        identifier: example_deploy_stage
+                        description: ''
+                        type: Deployment
+                        spec:
+                          serviceConfig:
+                            serviceRef: <+input>
+                            serviceDefinition:
+                              spec:
+                                variables: []
+                              type: Kubernetes
+                          infrastructure:
+                            environmentRef: <+input>
+                            infrastructureDefinition:
+                              type: KubernetesDirect
+                              spec:
+                                connectorRef: <+input>
+                                namespace: <+input>
+                                releaseName: release-<+INFRA_KEY>
+                            allowSimultaneousDeployments: false
+                          execution:
+                            steps:
+                              - step:
+                                  name: Rollout Deployment
+                                  identifier: rolloutDeployment
+                                  type: K8sRollingDeploy
+                                  timeout: 10m
+                                  spec:
+                                    skipDryRun: false
+                            rollbackSteps:
+                              - step:
+                                  name: Rollback Rollout Deployment
+                                  identifier: rollbackRolloutDeployment
+                                  type: K8sRollingRollback
+                                  timeout: 10m
+                                  spec: {}
+                        tags: {}
+                        failureStrategies:
+                          - onFailure:
+                              errors:
+                                - AllErrors
+                              action:
+                                type: StageRollback
+      description: Pipeline request body
+      required: true
