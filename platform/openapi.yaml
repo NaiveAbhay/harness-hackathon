@@ -189,18 +189,8 @@ paths:
         - Organization Resource Groups
   '/v1/orgs/{org}/projects/{project}/resource-groups':
     parameters:
-      - name: org
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Organization identifier
-      - name: project
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Project identifier
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
     get:
       summary: List Resource Groups
       responses:
