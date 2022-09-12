@@ -71,9 +71,12 @@ paths:
         - $ref: '#/components/parameters/Branch'
         - schema:
             type: boolean
+            enum:
+              - default
+              - summary
           in: query
-          name: pipeline_summary
-          description: Fetches Pipeline summary including execution details and more.
+          name: view
+          description: 'View retrieved Pipeline as:'
       tags:
         - Pipeline Resource
     put:
