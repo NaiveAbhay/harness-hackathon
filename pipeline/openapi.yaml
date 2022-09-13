@@ -150,31 +150,6 @@ components:
         id: qkq00fbqykhxw
       type: object
       description: Git details of the Entity.
-      properties:
-        object:
-          type: string
-          description: Object identifier of the Entity.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
-        branch:
-          type: string
-          description: Name of the branch.
-        file_path:
-          type: string
-          description: File path of the Entity in the repository.
-        repo_name:
-          type: string
-          description: Name of the repository.
-        commit_id:
-          type: string
-          description: Latest commit identifier
-        file_url:
-          type: string
-          description: File URL of the Entity.
-        repo_url:
-          type: string
-          description: Repository URL of the Entity.
       x-examples:
         example-git:
           object: example_object
@@ -184,6 +159,31 @@ components:
           commit_id: abcd123
           file_url: www.repo/folder/file.com
           repo_url: www.repo.com
+      properties:
+        object:
+          type: string
+          description: Object identifier of the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        branch:
+          type: string
+          description: Name of the branch (for Git Experience).
+        file_path:
+          type: string
+          description: File path of the Entity in the repository (for Git Experience).
+        repo_name:
+          type: string
+          description: Name of the repository (for Git Experience).
+        commit_id:
+          type: string
+          description: Latest commit identifier (for Git Experience).
+        file_url:
+          type: string
+          description: File URL of the Entity.
+        repo_url:
+          type: string
+          description: Repository URL of the Entity.
     PipelineViewResponseOption:
       title: Pipeline View Response Option
       x-stoplight:
@@ -229,6 +229,10 @@ components:
             example-yaml:
               pipeline_yaml: example_yaml_text
               pipeline_yaml_with_templates: example_yaml_text_with_template
+      x-examples:
+        example-yaml:
+          pipeline_yaml: example_yaml_text
+          pipeline_yaml_with_templates: example_yaml_text_with_template
     Summary:
       title: Summary
       x-stoplight:
@@ -238,32 +242,172 @@ components:
         - $ref: '#/components/schemas/PipelineViewResponseOption'
         - type: object
           properties:
-            name:
-              type: string
-              description: Pipeline YAML (returned as a String).
             slug:
               type: string
-              description: Pipeline YAML after resolving Templates (returned as a String).
+              description: Pipeline identifier
+              pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+              minLength: 1
+              maxLength: 64
+            name:
+              type: string
+              description: Pipeline name
+              pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+              minLength: 1
+              maxLength: 64
             description:
               type: string
+              maxLength: 1024
+              description: Pipeline description
             tags:
-              type: string
+              type: object
+              additionalProperties:
+                type: string
+              maxProperties: 128
+              description: Pipeline tags
             version:
               type: string
+              description: Pipeline version
             created:
-              type: string
+              type: integer
+              description: Creation timestamp for Pipeline.
+              format: int64
             updated:
-              type: string
+              type: integer
+              description: Last modification timestamp for Pipeline.
+              format: int64
             execution_summary:
-              type: string
+              $ref: '#/components/schemas/ExecutionSummary'
             filter:
-              type: string
+              type: object
+              description: Additional properties
             store_type:
               type: string
+              description: Specifies whether the Entity is to be stored in Git or not (for Git Experience).
+              enum:
+                - INLINE
+                - REMOTE
             connector_ref:
               type: string
+              description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
             draft:
-              type: string
+              type: boolean
+              description: Specifies whether draft Pipeline or not.
+      x-examples:
+        example-summary:
+          slug: example_pipeline
+          name: Example Pipeline
+          description: This is an Example Pipeline
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          version: v1
+          created: 1234567890
+          updated: 1234567890
+          execution_summary:
+            error_last_week:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+            deployments:
+              - 1
+              - 2
+              - 3
+              - 4
+              - 5
+              - 6
+              - 7
+            last_executed: 1234567890
+            last_status: Running
+            last_execution: example_execution_slug
+          filter: {}
+          store_type: INLINE
+          connector_ref: example_connector
+          draft: true
+    ExecutionSummary:
+      title: ExecutionSummary
+      x-stoplight:
+        id: mxtmp0n5g1bsg
+      type: object
+      description: Execution Summary
+      x-examples:
+        example-execution-summary:
+          error_last_week:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+          deployments:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+            - 6
+            - 7
+          last_executed: 1234567890
+          last_status: Running
+          last_execution: example_execution_slug
+      properties:
+        error_last_week:
+          type: array
+          description: Number of errors on each of the last 7 days.
+          items:
+            type: integer
+            format: int32
+        deployments:
+          type: array
+          description: Number of deployments on each of the last 7 days.
+          items:
+            type: integer
+            format: int32
+        last_executed:
+          type: integer
+          format: int64
+          description: Timestamp of the last Execution of the Pipeline.
+        last_status:
+          type: string
+          description: This is the last Execution status of the Pipeline.
+          enum:
+            - Running
+            - AsyncWaiting
+            - TaskWaiting
+            - TimedWaiting
+            - Failed
+            - Errored
+            - IgnoreFailed
+            - NotStarted
+            - Expired
+            - Aborted
+            - Discontinuing
+            - Queued
+            - Paused
+            - ResourceWaiting
+            - InterventionWaiting
+            - ApprovalWaiting
+            - Success
+            - Suspended
+            - Skipped
+            - Pausing
+            - ApprovalRejected
+            - InputWaiting
+            - NOT_STARTED
+            - INTERVENTION_WAITING
+            - APPROVAL_WAITING
+            - APPROVAL_REJECTED
+            - Waiting
+        last_execution:
+          type: string
+          description: Execution identifier of the last Execution.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
   securitySchemes:
     x-api-key:
       name: x-api-key
