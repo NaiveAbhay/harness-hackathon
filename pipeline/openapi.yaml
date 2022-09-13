@@ -189,7 +189,7 @@ components:
       x-stoplight:
         id: 4ber6cwtjshnu
       type: object
-      description: View response options for Pipeline Resource.
+      description: Pipeline Resource response body
       required: view_option
       discriminator:
         propertyName: view_option
@@ -577,7 +577,74 @@ components:
                 $ref: '#/components/schemas/PipelineViewResponseOption'
               git_details:
                 $ref: '#/components/schemas/GitDetails'
-          examples: {}
+          examples:
+            example-response:
+              value:
+                pipeline_response:
+                  pipeline_yaml: example_yaml_text
+                  pipeline_yaml_with_templates: example_yaml_text_with_template
+                git_details:
+                  object: example_object
+                  branch: branch
+                  file_path: /folder/file.json
+                  repo_name: example_repository
+                  commit_id: abcd123
+                  file_url: www.repo/folder/file.com
+                  repo_url: www.repo.com
+        application/yaml:
+          schema:
+            type: object
+            description: Pipeline response body (YAML view).
+            properties:
+              pipeline_response:
+                $ref: '#/components/schemas/PipelineViewResponseOption'
+              git_details:
+                $ref: '#/components/schemas/GitDetails'
+          examples:
+            example-response:
+              value:
+                pipeline_response:
+                  slug: example_pipeline
+                  name: Example Pipeline
+                  description: This is an Example Pipeline
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  version: v1
+                  created: 1234567890
+                  updated: 1234567890
+                  execution_summary:
+                    error_last_week:
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
+                      - 6
+                      - 7
+                    deployments:
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
+                      - 6
+                      - 7
+                    last_executed: 1234567890
+                    last_status: Running
+                    last_execution: example_execution_slug
+                  filter: {}
+                  store_type: INLINE
+                  connector_ref: example_connector
+                  draft: true
+                git_details:
+                  object: string
+                  branch: string
+                  file_path: string
+                  repo_name: string
+                  commit_id: string
+                  file_url: string
+                  repo_url: string
   requestBodies:
     PipelineRequestBody:
       content:
