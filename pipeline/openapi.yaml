@@ -28,6 +28,22 @@ paths:
       description: Returns a list of Pipelines.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - schema:
+            type: string
+          in: query
+          name: module
+        - schema:
+            type: string
+          in: query
+          name: filter_identifier
+        - $ref: '#/components/parameters/Branch'
+        - schema:
+            type: string
+          in: query
+          name: get_default_from_other_repo
       security:
         - x-api-key: []
       tags:
@@ -54,7 +70,7 @@ paths:
         $ref: '#/components/requestBodies/PipelineRequestBody'
       responses:
         '201':
-          $ref: '#/components/responses/PipelineCreateBody'
+          $ref: '#/components/responses/PipelineCreateResponseBody'
   '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -70,15 +86,25 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Branch'
         - schema:
-            type: string
-            enum:
-              - default
-              - summary
+            type: boolean
+            default: false
           in: query
-          name: view
-          description: View retrieved Pipeline as
+          name: template_resolved
+          description: 'In YAML view, if true, returns Pipeline YAML with Templates resolved.'
+        - schema:
+            type: string
+            default: YAML
+            enum:
+              - YAML
+              - Summary
+          in: query
+          name: view_options
+          description: This specifies the view option for Pipeline Resource.
       tags:
         - Pipeline Resource
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineGetResponseBody'
     put:
       summary: Update a Pipeline
       operationId: update-pipeline-project
@@ -102,7 +128,7 @@ paths:
         $ref: '#/components/requestBodies/PipelineRequestBody'
       responses:
         '200':
-          $ref: '#/components/responses/PipelineCreateBody'
+          $ref: '#/components/responses/PipelineCreateResponseBody'
     delete:
       summary: Delete a Pipeline
       operationId: delete-pipeline-project
@@ -111,17 +137,133 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Branch'
-        - $ref: '#/components/parameters/FilePath'
-        - $ref: '#/components/parameters/CommitMsg'
-        - $ref: '#/components/parameters/IfMatch'
       tags:
         - Pipeline Resource
       responses:
-        '200':
-          $ref: '#/components/responses/PipelineDeleteBody'
+        '204':
+          description: No Content
 components:
-  schemas: {}
+  schemas:
+    GitDetails:
+      title: GitDetails
+      x-stoplight:
+        id: qkq00fbqykhxw
+      type: object
+      description: Git details of the Entity.
+      properties:
+        object:
+          type: string
+          description: Object identifier of the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        branch:
+          type: string
+          description: Name of the branch.
+        file_path:
+          type: string
+          description: File path of the Entity in the repository.
+        repo_name:
+          type: string
+          description: Name of the repository.
+        commit_id:
+          type: string
+          description: Latest commit identifier
+        file_url:
+          type: string
+          description: File URL of the Entity.
+        repo_url:
+          type: string
+          description: Repository URL of the Entity.
+      x-examples:
+        example-git:
+          object: example_object
+          branch: branch
+          file_path: /folder/file.json
+          repo_name: example_repository
+          commit_id: abcd123
+          file_url: www.repo/folder/file.com
+          repo_url: www.repo.com
+    PipelineViewResponseOption:
+      title: Pipeline View Response Option
+      x-stoplight:
+        id: 4ber6cwtjshnu
+      type: object
+      description: View response options for Pipeline Resource.
+      required: view_option
+      discriminator:
+        propertyName: view_option
+        mapping:
+          YAML: '#/components/schemas/YAML'
+          Summary: '#/components/schemas/Summary'
+      oneOf:
+        - $ref: '#/components/schemas/YAML'
+        - $ref: '#/components/schemas/Summary'
+      properties:
+        view_option:
+          type: string
+          enum:
+            - YAML
+            - Summary
+          description: This specifies the view option for Pipeline Resource.
+      x-examples:
+        example-yaml:
+          pipeline_yaml: example_yaml_text
+          pipeline_yaml_with_templates: example_yaml_text_with_template
+    YAML:
+      title: YAML
+      x-stoplight:
+        id: twnioaqmn69uy
+      description: Pipeline response body (YAML view).
+      allOf:
+        - $ref: '#/components/schemas/PipelineViewResponseOption'
+        - type: object
+          properties:
+            pipeline_yaml:
+              type: string
+              description: Pipeline YAML (returned as a String).
+            pipeline_yaml_with_templates:
+              type: string
+              description: Pipeline YAML after resolving Templates (returned as a String).
+          x-examples:
+            example-yaml:
+              pipeline_yaml: example_yaml_text
+              pipeline_yaml_with_templates: example_yaml_text_with_template
+    Summary:
+      title: Summary
+      x-stoplight:
+        id: kaxl2v3p6i4wx
+      description: Pipeline response body (Summary view).
+      allOf:
+        - $ref: '#/components/schemas/PipelineViewResponseOption'
+        - type: object
+          properties:
+            name:
+              type: string
+              description: Pipeline YAML (returned as a String).
+            slug:
+              type: string
+              description: Pipeline YAML after resolving Templates (returned as a String).
+            description:
+              type: string
+            tags:
+              type: string
+            version:
+              type: string
+            created:
+              type: string
+            updated:
+              type: string
+            execution_summary:
+              type: string
+            filter:
+              type: string
+            store_type:
+              type: string
+            connector_ref:
+              type: string
+            draft:
+              type: string
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -179,43 +321,42 @@ components:
       required: false
       schema:
         type: string
-      description: Name of the branch (for Harness Git Experience).
+      description: Name of the branch (for Git Experience).
     FilePath:
       name: file_path
       in: query
       required: false
       schema:
         type: string
-      description: File path of the Entity in the repository.
+      description: File path of the Entity in the repository (for Git Experience).
     CommitMsg:
       name: commit_message
       in: query
-      required: false
       schema:
         type: string
-      description: Commit message used for the merge commit.
+      description: Commit message used for the merge commit (for Git Experience).
     NewBranch:
-      name: is_new_branch
+      name: create_new_branch
       in: query
       required: false
       schema:
         type: boolean
         default: 'false'
-      description: Checks out a new branch in the repository.
+      description: Checks out a new branch in the repository (for Git Experience).
     BaseBranch:
       name: base_branch
       in: query
       required: false
       schema:
         type: string
-      description: Name of the default branch.
+      description: Name of the default branch (for Git Experience).
     Connector:
       name: connector_ref
       in: query
       required: false
       schema:
         type: string
-      description: Identifier of the Harness Connector used for CRUD operations on the Entity.
+      description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
     StoreType:
       name: store_type
       in: query
@@ -225,14 +366,14 @@ components:
         enum:
           - INLINE
           - REMOTE
-      description: Specifies whether the Entity is to be stored in Git or not.
+      description: Specifies whether the Entity is to be stored in Git or not (for Git Experience).
     RepoName:
       name: repo_name
       in: query
       required: false
       schema:
         type: string
-      description: Name of the repository.
+      description: Name of the repository (for Git Experience).
     PipelineParam:
       name: pipeline
       in: path
@@ -248,7 +389,7 @@ components:
         type: string
       description: Version of Entity to match.
   responses:
-    PipelineCreateBody:
+    PipelineCreateResponseBody:
       description: Pipeline response body
       content:
         application/json:
@@ -280,36 +421,32 @@ components:
             example-pipeline:
               value: |
                 slug: example_pipeline
-    PipelineDeleteBody:
-      description: Pipeline deletion response body
+    PipelineGetResponseBody:
+      description: Pipeline response body
       content:
         application/json:
           schema:
             type: object
-            description: Pipeline deletion response body
+            description: Pipeline response body (YAML view).
             properties:
-              is_deleted:
-                type: boolean
-                description: True if Pipeline is successfully deleted.
-          examples:
-            example-deleted:
-              value:
-                is_deleted: true
-        application/yaml:
-          schema:
-            type: object
-            description: Pipeline deletion response body
-            properties:
-              is_deleted:
-                type: boolean
-                description: True if Pipeline is successfully deleted.
-          examples:
-            example-deleted:
-              value: |
-                is_deleted: true
+              pipeline_response:
+                $ref: '#/components/schemas/PipelineViewResponseOption'
+              git_details:
+                $ref: '#/components/schemas/GitDetails'
+          examples: {}
   requestBodies:
     PipelineRequestBody:
       content:
+        application/json:
+          schema:
+            type: object
+            description: 'Pipeline request body object '
+            properties:
+              pipeline_yaml:
+                type: string
+                description: Pipeline YAML (to be passed as a String).
+            required:
+              - pipeline_yaml
         application/yaml:
           schema:
             type: object
