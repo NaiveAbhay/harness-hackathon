@@ -1481,7 +1481,7 @@ components:
           schema:
             $ref: '#/components/schemas/SecretResponse'
           examples:
-            example-create-secret-response-json:
+            example-secret-response-json:
               value:
                 secret:
                   name: example_secret
@@ -1500,12 +1500,11 @@ components:
                 created: 1234567890
                 updated: 1234567890
                 draft: false
-                governance_metatdata: null
         application/yaml:
           schema:
             $ref: '#/components/schemas/SecretResponse'
           examples:
-            example-create-secret-response-yaml:
+            example-secret-response-yaml:
               value: |
                 secret:
                   name: example_secret
@@ -1524,7 +1523,6 @@ components:
                 created: 1234567890
                 updated: 1234567890
                 draft: false
-                governance_metatdata: null
     SecretListResponse:
       description: Secret list response
       content:
@@ -1553,7 +1551,6 @@ components:
                   created: 1234567890
                   updated: 1234567890
                   draft: false
-                  governance_metatdata: null
         application/yaml:
           schema:
             type: array
@@ -1579,7 +1576,6 @@ components:
                   created: 1234567890
                   updated: 1234567890
                   draft: false
-                  governance_metatdata: null
     ValidateSecretSlugResponse:
       description: Example response
       content:
