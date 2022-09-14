@@ -420,6 +420,22 @@ components:
         id: 6f0x77rluo6ft
       type: object
       description: Request body for the filter properties for listing Pipelines.
+      x-examples:
+        example-filter:
+          pipeline_tags:
+            - key: pipeline_key
+              value: pipeline_value
+          pipelines:
+            - example_pipeline
+          name: Example Pipeline
+          description: This is an Example Pipeline.
+          module_properties:
+            empty: true
+            property_name: {}
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          filter_type: Connector
       properties:
         pipeline_tags:
           type: array
@@ -469,22 +485,8 @@ components:
             - CCMRecommendation
             - Anomaly
             - Environment
-      x-examples:
-        example-filter:
-          pipeline_tags:
-            - key: pipeline_key
-              value: pipeline_value
-          pipelines:
-            - example_pipeline
-          name: Example Pipeline
-          description: This is an Example Pipeline.
-          module_properties:
-            empty: true
-            property_name: {}
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
-          filter_type: Connector
+      required:
+        - filter_type
     PipelineTags:
       title: Pipeline Tags
       x-stoplight:
@@ -519,19 +521,14 @@ components:
           type: object
           description: Module Properties on which the filter will be applied.
     PipelineListSummary:
-      title: Pipeline List Summary
+      title: Pipeline List Body
       x-stoplight:
         id: fg1myulqmsr2i
       type: object
-      properties:
-        summary:
-          $ref: '#/components/schemas/Summary'
-        git_details:
-          $ref: '#/components/schemas/GitDetails'
-      description: Summary view of Pipeline when called in List API
+      description: Pipeline when called in List API
       x-examples:
         example-list:
-          summary:
+          pipeline:
             slug: example_pipeline
             name: Example Pipeline
             description: This is an Example Pipeline
@@ -573,6 +570,11 @@ components:
             commit_id: abcd123
             file_url: www.repo/folder/file.com
             repo_url: www.repo.com
+      properties:
+        pipeline:
+          $ref: '#/components/schemas/PipelineViewResponseOption'
+        git_details:
+          $ref: '#/components/schemas/GitDetails'
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -820,7 +822,7 @@ components:
             example-list-response:
               value:
                 pipelines:
-                  - summary:
+                  - pipeline:
                       slug: example_pipeline
                       name: Example Pipeline
                       description: This is an Example Pipeline
@@ -876,7 +878,7 @@ components:
             example-list-response:
               value: |
                 pipelines:
-                  - summary:
+                  - pipeline:
                       slug: example_pipeline
                       name: Example Pipeline
                       description: This is an Example Pipeline
