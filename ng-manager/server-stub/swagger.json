@@ -179,7 +179,7 @@
           "$ref" : "#/components/requestBodies/CreateOrganizationRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Organization response",
             "content" : {
               "application/json" : {
@@ -621,7 +621,7 @@
           "$ref" : "#/components/requestBodies/CreateProjectRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Project response",
             "content" : {
               "application/json" : {
@@ -857,7 +857,7 @@
           "$ref" : "#/components/requestBodies/CreateProjectRequest"
         },
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Project response",
             "content" : {
               "application/json" : {
@@ -1515,8 +1515,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     } ]
                   }
                 }
@@ -1530,7 +1529,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
                   }
                 }
               }
@@ -1580,7 +1579,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -1601,8 +1600,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -1612,8 +1610,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -1765,8 +1763,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     } ]
                   }
                 }
@@ -1780,7 +1777,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
                   }
                 }
               }
@@ -1840,7 +1837,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -1861,8 +1858,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -1872,8 +1868,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2025,8 +2021,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     } ]
                   }
                 }
@@ -2040,7 +2035,7 @@
                 },
                 "examples" : {
                   "example-list-secret-response-yaml" : {
-                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
                   }
                 }
               }
@@ -2110,7 +2105,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2131,8 +2126,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2142,8 +2136,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2191,7 +2185,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2212,8 +2206,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2223,8 +2216,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2273,7 +2266,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2294,8 +2287,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2305,8 +2297,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2352,7 +2344,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2373,8 +2365,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2384,8 +2375,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2502,7 +2493,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2523,8 +2514,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2534,8 +2524,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2594,7 +2584,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2615,8 +2605,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2626,8 +2615,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2683,7 +2672,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2704,8 +2693,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2715,8 +2703,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2853,7 +2841,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2874,8 +2862,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2885,8 +2872,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -2955,7 +2942,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -2976,8 +2963,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -2987,8 +2973,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -3054,7 +3040,7 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-json" : {
+                  "example-secret-response-json" : {
                     "value" : {
                       "secret" : {
                         "name" : "example_secret",
@@ -3075,8 +3061,7 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890,
-                      "draft" : false,
-                      "governance_metatdata" : null
+                      "draft" : false
                     }
                   }
                 }
@@ -3086,8 +3071,8 @@
                   "$ref" : "#/components/schemas/SecretResponse"
                 },
                 "examples" : {
-                  "example-create-secret-response-yaml" : {
-                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
                   }
                 }
               }
@@ -4120,7 +4105,7 @@
               "$ref" : "#/components/schemas/SecretResponse"
             },
             "examples" : {
-              "example-create-secret-response-json" : {
+              "example-secret-response-json" : {
                 "value" : {
                   "secret" : {
                     "name" : "example_secret",
@@ -4141,8 +4126,7 @@
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890,
-                  "draft" : false,
-                  "governance_metatdata" : null
+                  "draft" : false
                 }
               }
             }
@@ -4152,8 +4136,8 @@
               "$ref" : "#/components/schemas/SecretResponse"
             },
             "examples" : {
-              "example-create-secret-response-yaml" : {
-                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\ngovernance_metatdata: null\n"
+              "example-secret-response-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
               }
             }
           }
@@ -4191,8 +4175,7 @@
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890,
-                  "draft" : false,
-                  "governance_metatdata" : null
+                  "draft" : false
                 } ]
               }
             }
@@ -4206,7 +4189,7 @@
             },
             "examples" : {
               "example-list-secret-response-yaml" : {
-                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n  governance_metatdata: null\n"
+                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
               }
             }
           }
@@ -4528,7 +4511,87 @@
               "$ref" : "#/components/schemas/SecretRequest"
             },
             "examples" : {
-              "example-create-secret-request-json" : {
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKerberosTGTKeyTabFile",
+                      "port" : 22,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "key_path" : "key/file/path"
+                    }
+                  }
+                }
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKerberosTGTPassword",
+                      "port" : 22,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "password" : "account.example-password"
+                    }
+                  }
+                }
+              },
+              "example-secret-file-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SecretFile",
+                      "secret_manager_slug" : "example_secret_manager_slug"
+                    }
+                  }
+                }
+              },
+              "example-secret-text-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SecretText",
+                      "secret_manager_slug" : "example_secret_manager_slug",
+                      "value_type" : "Inline",
+                      "value" : "example_secret_text_value"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-path-file-secret-request-json" : {
                 "value" : {
                   "secret" : {
                     "name" : "example_secret",
@@ -4541,10 +4604,123 @@
                     "description" : "example_secret",
                     "spec" : {
                       "type" : "SSHKeyPath",
-                      "port" : 80,
-                      "username" : "example_secret",
-                      "key_path" : "example_secret",
-                      "encrypted_passphrase" : "account.example_secret"
+                      "port" : 22,
+                      "username" : "example_username",
+                      "key_path" : "ssh/key/path",
+                      "encrypted_passphrase" : "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-reference-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyReference",
+                      "port" : 22,
+                      "username" : "example_username",
+                      "key" : "example/secret/key/path",
+                      "encrypted_passphrase" : "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHPassword",
+                      "port" : 22,
+                      "username" : "example_username",
+                      "password" : "account.example_password"
+                    }
+                  }
+                }
+              },
+              "example-winrm-ntlm-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmNTLM",
+                      "port" : 5986,
+                      "domain" : "example-domain",
+                      "username" : "example-username",
+                      "password" : "example-password",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmTGTKeyTabFile",
+                      "port" : 5986,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "key_path" : "key/file/path",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmTGTPassword",
+                      "port" : 5986,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "password" : "example-password",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
                     }
                   }
                 }
@@ -4556,8 +4732,53 @@
               "$ref" : "#/components/schemas/SecretRequest"
             },
             "examples" : {
-              "example-create-secret-request-yaml" : {
-                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\n"
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTKeyTabFile\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n"
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKerberosTGTPassword\n  port: 22\n  principal: example-principal\n  realm: example-realm\n  password: account.example-password\n"
+                }
+              },
+              "example-secret-file-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretFile\n  secret_manager_slug: example_secret_manager_slug\n"
+                }
+              },
+              "example-secret-text-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretText\n  secret_manager_slug: example_secret_manager_slug\n  value_type: Inline\n  value: example_secret_text_value\n"
+                }
+              },
+              "example-ssh-key-path-file-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyPath\n  port: 22\n  username: example_username\n  key_path: ssh/key/path\n  encrypted_passphrase: account.example_passphrase\n"
+                }
+              },
+              "example-ssh-key-reference-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyReference\n  port: 22\n  username: example_username\n  key: example/secret/key/path\n  encrypted_passphrase: account.example_passphrase\n"
+                }
+              },
+              "example-ssh-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHPassword\n  port: 22\n  username: example_username\n  password: account.example_password\n"
+                }
+              },
+              "example-winrm-ntlm-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmNTLM\n  port: 5986\n  domain: example-domain\n  username: example-username\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTKeyTabFile\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  key_path: key/file/path\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
+              },
+              "example-winrm-tgt-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTPassword\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
               }
             }
           },

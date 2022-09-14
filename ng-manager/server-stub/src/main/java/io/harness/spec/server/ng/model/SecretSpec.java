@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true )
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true )
 @JsonSubTypes({
     @JsonSubTypes.Type(value = SSHPasswordSpec.class, name = "SSHPassword" ),
     @JsonSubTypes.Type(value = WinRmTGTKeyTabFileSpec.class, name = "WinRmTGTKeyTabFile" ),
