@@ -24,7 +24,7 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
     get:
       summary: List Pipelines
-      operationId: list-pipelines-project
+      operationId: list-pipelines
       description: Returns a list of Pipelines.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -67,7 +67,7 @@ paths:
           $ref: '#/components/responses/PipelineListResponseBody'
     post:
       summary: Create a Pipeline
-      operationId: create-pipeline-project
+      operationId: create-pipeline
       description: Creates a Pipeline.
       security:
         - x-api-key: []
@@ -95,7 +95,7 @@ paths:
       - $ref: '#/components/parameters/PipelineParam'
     get:
       summary: Retrieve a Pipeline
-      operationId: get-pipeline-project
+      operationId: get-pipeline
       security:
         - x-api-key: []
       description: Retrieves a Pipeline.
@@ -115,7 +115,7 @@ paths:
           $ref: '#/components/responses/PipelineGetResponseBody'
     put:
       summary: Update a Pipeline
-      operationId: update-pipeline-project
+      operationId: update-pipeline
       security:
         - x-api-key: []
       description: Updates a Pipeline.
@@ -143,7 +143,7 @@ paths:
           $ref: '#/components/responses/PipelineCreateResponseBody'
     delete:
       summary: Delete a Pipeline
-      operationId: delete-pipeline-project
+      operationId: delete-pipeline
       description: Deletes a Pipeline.
       security:
         - x-api-key: []

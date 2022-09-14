@@ -22,7 +22,7 @@
         "tags" : [ "Pipeline Resource" ],
         "summary" : "List Pipelines",
         "description" : "Returns a list of Pipelines.",
-        "operationId" : "list-pipelines-project",
+        "operationId" : "list-pipelines",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -207,7 +207,7 @@
         "tags" : [ "Pipeline Resource" ],
         "summary" : "Create a Pipeline",
         "description" : "Creates a Pipeline.",
-        "operationId" : "create-pipeline-project",
+        "operationId" : "create-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -363,7 +363,7 @@
         "tags" : [ "Pipeline Resource" ],
         "summary" : "Retrieve a Pipeline",
         "description" : "Retrieves a Pipeline.",
-        "operationId" : "get-pipeline-project",
+        "operationId" : "get-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -493,7 +493,7 @@
         "tags" : [ "Pipeline Resource" ],
         "summary" : "Update a Pipeline",
         "description" : "Updates a Pipeline.",
-        "operationId" : "update-pipeline-project",
+        "operationId" : "update-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -625,7 +625,7 @@
         "tags" : [ "Pipeline Resource" ],
         "summary" : "Delete a Pipeline",
         "description" : "Deletes a Pipeline.",
-        "operationId" : "delete-pipeline-project",
+        "operationId" : "delete-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",

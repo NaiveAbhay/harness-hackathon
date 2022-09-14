@@ -31,11 +31,11 @@ public interface PipelineResourceApi {
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createPipelineProject", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
+    @Operation(operationId = "createPipeline", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response createPipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
+    Response createPipeline(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -71,11 +71,11 @@ public interface PipelineResourceApi {
 );
     @DELETE
     @Path("/{pipeline}")
-    @Operation(operationId = "deletePipelineProject", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
+    @Operation(operationId = "deletePipeline", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deletePipelineProject( @PathParam("org")
+    Response deletePipeline( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -91,11 +91,11 @@ public interface PipelineResourceApi {
     @GET
     @Path("/{pipeline}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getPipelineProject", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
+    @Operation(operationId = "getPipeline", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineGetResponseBody.class))) })
-    Response getPipelineProject( @PathParam("org")
+    Response getPipeline( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -117,11 +117,11 @@ public interface PipelineResourceApi {
     @GET
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "listPipelinesProject", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
+    @Operation(operationId = "listPipelines", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PipelineListResponseBody.class)))) })
-    Response listPipelinesProject(@Valid PipelineListRequestBody body, @PathParam("org")
+    Response listPipelines(@Valid PipelineListRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -156,11 +156,11 @@ public interface PipelineResourceApi {
     @Path("/{pipeline}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updatePipelineProject", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
+    @Operation(operationId = "updatePipeline", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response updatePipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
+    Response updatePipeline(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
