@@ -35,19 +35,21 @@ paths:
             type: string
           in: query
           name: module
+          description: Harness module which is part of the Pipeline.
         - schema:
             type: string
           in: query
           name: filter_identifier
-        - $ref: '#/components/parameters/Branch'
-        - schema:
-            type: string
-          in: query
-          name: get_default_from_other_repo
+          description: Identifier of an existing Filter.
       security:
         - x-api-key: []
       tags:
         - Pipeline Resource
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineListRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineListResponseBody'
     post:
       summary: Create a Pipeline
       operationId: create-pipeline-project
@@ -125,7 +127,7 @@ paths:
             type: string
           in: query
           name: last_commit_id
-          description: Last commit identifier (for other Git Repositories).
+          description: Last commit identifier (for Git Repositories other than Github).
       tags:
         - Pipeline Resource
       requestBody:
@@ -295,7 +297,7 @@ components:
               description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
             draft:
               type: boolean
-              description: Specifies whether draft Pipeline or not.
+              description: Specifies whether Pipeline is a draft or not.
       x-examples:
         example-summary:
           slug: example_pipeline
@@ -412,6 +414,165 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
+    FilterBody:
+      title: Filter Body
+      x-stoplight:
+        id: 6f0x77rluo6ft
+      type: object
+      description: Request body for the filter properties for listing Pipelines.
+      properties:
+        pipeline_tags:
+          type: array
+          description: Pipeline Tags on which filter will be applied.
+          items:
+            $ref: '#/components/schemas/PipelineTags'
+        pipelines:
+          type: array
+          description: List of Pipeline Identifiers on which the filter will be applied.
+          items:
+            type: string
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            minLength: 1
+            maxLength: 64
+        name:
+          type: string
+          description: Pipeline Name on which the filter will be applied.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: Pipeline Description on which the filter will be applied.
+          maxLength: 1024
+        module_properties:
+          $ref: '#/components/schemas/ModuleProperties'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Filter tags as a key-value pair.
+          maxProperties: 128
+        filter_type:
+          type: string
+          description: Corresponding Entity of the filter.
+          enum:
+            - Connector
+            - DelegateProfile
+            - Delegate
+            - PipelineSetup
+            - PipelineExecution
+            - Deployment
+            - Audit
+            - Template
+            - EnvironmentGroup
+            - FileStore
+            - CCMRecommendation
+            - Anomaly
+            - Environment
+      x-examples:
+        example-filter:
+          pipeline_tags:
+            - key: pipeline_key
+              value: pipeline_value
+          pipelines:
+            - example_pipeline
+          name: Example Pipeline
+          description: This is an Example Pipeline.
+          module_properties:
+            empty: true
+            property_name: {}
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          filter_type: Connector
+    PipelineTags:
+      title: Pipeline Tags
+      x-stoplight:
+        id: o8tgek5mpuwym
+      type: object
+      description: Pipeline Tags on which Filters will be applied.
+      properties:
+        key:
+          type: string
+          description: Tag key
+        value:
+          type: string
+          description: Tag value
+      required:
+        - key
+        - value
+      x-examples:
+        example-tag:
+          key: key
+          value: value
+    ModuleProperties:
+      title: Module Properties
+      x-stoplight:
+        id: 2g0ic4jh2sq21
+      type: object
+      description: Module Properties on which the filter will be applied.
+      properties:
+        empty:
+          type: boolean
+          description: Specifies if Property is empty or not.
+        property_name:
+          type: object
+          description: Module Properties on which the filter will be applied.
+    PipelineListSummary:
+      title: Pipeline List Summary
+      x-stoplight:
+        id: fg1myulqmsr2i
+      type: object
+      properties:
+        summary:
+          $ref: '#/components/schemas/Summary'
+        git_details:
+          $ref: '#/components/schemas/GitDetails'
+      description: Summary view of Pipeline when called in List API
+      x-examples:
+        example-list:
+          summary:
+            slug: example_pipeline
+            name: Example Pipeline
+            description: This is an Example Pipeline
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
+            version: v1
+            created: 1234567890
+            updated: 1234567890
+            execution_summary:
+              error_last_week:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - 6
+                - 7
+              deployments:
+                - 1
+                - 2
+                - 3
+                - 4
+                - 5
+                - 6
+                - 7
+              last_executed: 1234567890
+              last_status: Running
+              last_execution: example_execution_slug
+            filter: {}
+            store_type: INLINE
+            connector_ref: example_connector
+            draft: true
+          git_details:
+            object: example_object
+            branch: branch
+            file_path: /folder/file.json
+            repo_name: example_repository
+            commit_id: abcd123
+            file_url: www.repo/folder/file.com
+            repo_url: www.repo.com
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -599,7 +760,7 @@ components:
                 $ref: '#/components/schemas/GitDetails'
           examples:
             example-response:
-              value:
+              value: |
                 pipeline_response:
                   slug: example_pipeline
                   name: Example Pipeline
@@ -642,6 +803,121 @@ components:
                   commit_id: string
                   file_url: string
                   repo_url: string
+    PipelineListResponseBody:
+      description: Response body for List Pipelines.
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Response body for List Pipelines.
+            properties:
+              pipelines:
+                type: array
+                description: Pipelines
+                items:
+                  $ref: '#/components/schemas/PipelineListSummary'
+          examples:
+            example-list-response:
+              value:
+                pipelines:
+                  - summary:
+                      slug: example_pipeline
+                      name: Example Pipeline
+                      description: This is an Example Pipeline
+                      tags:
+                        example-tag-1: example-tag-1-value
+                        example-tag-2: example-tag-2-value
+                      version: v1
+                      created: 1234567890
+                      updated: 1234567890
+                      execution_summary:
+                        error_last_week:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                          - 6
+                          - 7
+                        deployments:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                          - 6
+                          - 7
+                        last_executed: 1234567890
+                        last_status: Running
+                        last_execution: example_execution_slug
+                      filter: {}
+                      store_type: INLINE
+                      connector_ref: example_connector
+                      draft: true
+                    git_details:
+                      object: example_object
+                      branch: branch
+                      file_path: /folder/file.json
+                      repo_name: example_repository
+                      commit_id: abcd123
+                      file_url: www.repo/folder/file.com
+                      repo_url: www.repo.com
+        application/yaml:
+          schema:
+            type: object
+            description: Response body for List Pipelines.
+            properties:
+              pipelines:
+                type: array
+                description: Pipelines
+                items:
+                  $ref: '#/components/schemas/PipelineListSummary'
+          examples:
+            example-list-response:
+              value: |
+                pipelines:
+                  - summary:
+                      slug: example_pipeline
+                      name: Example Pipeline
+                      description: This is an Example Pipeline
+                      tags:
+                        example-tag-1: example-tag-1-value
+                        example-tag-2: example-tag-2-value
+                      version: v1
+                      created: 1234567890
+                      updated: 1234567890
+                      execution_summary:
+                        error_last_week:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                          - 6
+                          - 7
+                        deployments:
+                          - 1
+                          - 2
+                          - 3
+                          - 4
+                          - 5
+                          - 6
+                          - 7
+                        last_executed: 1234567890
+                        last_status: Running
+                        last_execution: example_execution_slug
+                      filter: {}
+                      store_type: INLINE
+                      connector_ref: example_connector
+                      draft: true
+                    git_details:
+                      object: example_object
+                      branch: branch
+                      file_path: /folder/file.json
+                      repo_name: example_repository
+                      commit_id: abcd123
+                      file_url: www.repo/folder/file.com
+                      repo_url: www.repo.com
   requestBodies:
     PipelineRequestBody:
       content:
@@ -655,6 +931,10 @@ components:
                 description: Pipeline YAML (to be passed as a String).
             required:
               - pipeline_yaml
+          examples:
+            example-pipeline:
+              value:
+                pipeline_yaml: Example Pipeline YAML
         application/yaml:
           schema:
             type: object
@@ -760,4 +1040,58 @@ components:
                               action:
                                 type: StageRollback
       description: Pipeline request body
+      required: true
+    PipelineListRequestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            description: Body for the filter properties for listing Pipelines.
+            properties:
+              request:
+                $ref: '#/components/schemas/FilterBody'
+          examples:
+            example-list:
+              value:
+                request:
+                  pipeline_tags:
+                    - key: pipeline_key
+                      value: pipeline_value
+                  pipelines:
+                    - example_pipeline
+                  name: Example Pipeline
+                  description: This is an Example Pipeline.
+                  module_properties:
+                    empty: true
+                    property_name: {}
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  filter_type: Connector
+        application/yaml:
+          schema:
+            type: object
+            description: Body for the filter properties for listing Pipelines.
+            properties:
+              request:
+                $ref: '#/components/schemas/FilterBody'
+          examples:
+            example-list:
+              value: |
+                request:
+                  pipeline_tags:
+                    - key: pipeline_key
+                      value: pipeline_value
+                  pipelines:
+                    - example_pipeline
+                  name: Example Pipeline
+                  description: This is an Example Pipeline.
+                  module_properties:
+                    empty: true
+                    property_name: {}
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  filter_type: Connector
+      description: Body for the filter properties for listing Pipelines.
       required: true
