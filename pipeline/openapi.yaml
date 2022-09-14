@@ -41,21 +41,6 @@ paths:
           in: query
           name: filter_identifier
           description: Identifier of an existing Filter.
-        - schema:
-            type: boolean
-            default: false
-          in: query
-          name: template_resolved
-          description: 'In YAML view, if true, returns Pipeline YAML with Templates resolved.'
-        - schema:
-            type: string
-            default: YAML
-            enum:
-              - YAML
-              - Summary
-          in: query
-          name: view_options
-          description: This specifies the view option for Pipeline Resource.
       security:
         - x-api-key: []
       tags:

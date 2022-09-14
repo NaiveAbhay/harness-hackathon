@@ -145,12 +145,6 @@ public interface PipelineResourceApi {
 ,  @QueryParam("filter_identifier") 
 
  @Parameter(description = "Identifier of an existing Filter.")  String filterIdentifier
-,  @QueryParam("template_resolved") @DefaultValue("false") 
-
- @Parameter(description = "In YAML view, if true, returns Pipeline YAML with Templates resolved.")  Boolean templateResolved
-,  @QueryParam("view_options") @DefaultValue("YAML") 
-
- @Parameter(description = "This specifies the view option for Pipeline Resource.")  String viewOptions
 );
     @PUT
     @Path("/{pipeline}")

@@ -106,29 +106,6 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "template_resolved",
-          "in" : "query",
-          "description" : "In YAML view, if true, returns Pipeline YAML with Templates resolved.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "view_options",
-          "in" : "query",
-          "description" : "This specifies the view option for Pipeline Resource.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "YAML", "Summary" ],
-            "default" : "YAML"
-          }
         } ],
         "requestBody" : {
           "$ref" : "#/components/requestBodies/PipelineListRequestBody"
