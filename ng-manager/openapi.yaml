@@ -40,7 +40,7 @@ paths:
       summary: Create an organization
       operationId: create-organization
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/OrganizationResponse'
       description: Creates a new organization.
       security:
@@ -122,7 +122,7 @@ paths:
     post:
       summary: Create a project
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/ProjectResponse'
       operationId: create-account-scoped-project
       security:
@@ -168,7 +168,7 @@ paths:
     post:
       summary: Creates a project
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/ProjectResponse'
       operationId: create-org-scoped-project
       security:
@@ -1735,7 +1735,67 @@ components:
           schema:
             $ref: '#/components/schemas/SecretRequest'
           examples:
-            example-create-secret-request-json:
+            example-ssh-kerberos-tgt-key-tab-file-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKerberosTGTKeyTabFile
+                    port: 22
+                    principal: example-principal
+                    realm: example-realm
+                    key_path: key/file/path
+            example-ssh-kerberos-tgt-password-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKerberosTGTPassword
+                    port: 22
+                    principal: example-principal
+                    realm: example-realm
+                    password: account.example-password
+            example-secret-file-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SecretFile
+                    secret_manager_slug: example_secret_manager_slug
+            example-secret-text-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SecretText
+                    secret_manager_slug: example_secret_manager_slug
+                    value_type: Inline
+                    value: example_secret_text_value
+            example-ssh-key-path-file-secret-request-json:
               value:
                 secret:
                   name: example_secret
@@ -1747,15 +1807,103 @@ components:
                   description: example_secret
                   spec:
                     type: SSHKeyPath
-                    port: 80
-                    username: example_secret
-                    key_path: example_secret
-                    encrypted_passphrase: account.example_secret
+                    port: 22
+                    username: example_username
+                    key_path: ssh/key/path
+                    encrypted_passphrase: account.example_passphrase
+            example-ssh-key-reference-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyReference
+                    port: 22
+                    username: example_username
+                    key: example/secret/key/path
+                    encrypted_passphrase: account.example_passphrase
+            example-ssh-password-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHPassword
+                    port: 22
+                    username: example_username
+                    password: account.example_password
+            example-winrm-ntlm-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmNTLM
+                    port: 5986
+                    domain: example-domain
+                    username: example-username
+                    password: example-password
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
+            example-winrm-tgt-key-file-tab-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmTGTKeyTabFile
+                    port: 5986
+                    principal: example-principal
+                    realm: example-realm
+                    key_path: key/file/path
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
+            example-winrm-tgt-password-secret-request-json:
+              value:
+                secret:
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmTGTPassword
+                    port: 5986
+                    principal: example-principal
+                    realm: example-realm
+                    password: example-password
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
         application/yaml:
           schema:
             $ref: '#/components/schemas/SecretRequest'
           examples:
-            example-create-secret-request-yaml:
+            example-ssh-kerberos-tgt-key-tab-file-secret-request-yaml:
               value: |
                 secret:
                   name: example_secret
@@ -1766,11 +1914,159 @@ components:
                     property1: example_secret
                   description: example_secret
                   spec:
+                    type: SSHKerberosTGTKeyTabFile
+                    port: 22
+                    principal: example-principal
+                    realm: example-realm
+                    key_path: key/file/path
+            example-ssh-kerberos-tgt-password-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKerberosTGTPassword
+                    port: 22
+                    principal: example-principal
+                    realm: example-realm
+                    password: account.example-password
+            example-secret-file-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SecretFile
+                    secret_manager_slug: example_secret_manager_slug
+            example-secret-text-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SecretText
+                    secret_manager_slug: example_secret_manager_slug
+                    value_type: Inline
+                    value: example_secret_text_value
+            example-ssh-key-path-file-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
                     type: SSHKeyPath
-                    port: 80
-                    username: example_secret
-                    key_path: example_secret
-                    encrypted_passphrase: account.example_secret
+                    port: 22
+                    username: example_username
+                    key_path: ssh/key/path
+                    encrypted_passphrase: account.example_passphrase
+            example-ssh-key-reference-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHKeyReference
+                    port: 22
+                    username: example_username
+                    key: example/secret/key/path
+                    encrypted_passphrase: account.example_passphrase
+            example-ssh-password-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: SSHPassword
+                    port: 22
+                    username: example_username
+                    password: account.example_password
+            example-winrm-ntlm-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmNTLM
+                    port: 5986
+                    domain: example-domain
+                    username: example-username
+                    password: example-password
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
+            example-winrm-tgt-key-file-tab-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmTGTKeyTabFile
+                    port: 5986
+                    principal: example-principal
+                    realm: example-realm
+                    key_path: key/file/path
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
+            example-winrm-tgt-password-secret-request-yaml:
+              value:
+                secret: |
+                  name: example_secret
+                  slug: example_secret
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_secret
+                  description: example_secret
+                  spec:
+                    type: WinRmTGTPassword
+                    port: 5986
+                    principal: example-principal
+                    realm: example-realm
+                    password: example-password
+                    use_ssl: true
+                    skip_cert_checks: true
+                    use_no_profile: true
         multipart/form-data:
           schema:
             properties:
