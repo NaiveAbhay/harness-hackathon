@@ -1,8 +1,10 @@
 package io.harness.spec.server.pipeline;
 
-import io.harness.spec.server.pipeline.model.InlineResponse200;
-import io.harness.spec.server.pipeline.model.InlineResponse2001;
-import io.harness.spec.server.pipeline.model.InlineResponse201;
+import io.harness.spec.server.pipeline.model.PipelineCreateResponseBody;
+import io.harness.spec.server.pipeline.model.PipelineGetResponseBody;
+import io.harness.spec.server.pipeline.model.PipelineListRequestBody;
+import io.harness.spec.server.pipeline.model.PipelineListResponseBody;
+import io.harness.spec.server.pipeline.model.PipelineRequestBody;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -32,8 +34,8 @@ public interface PipelineResourceApi {
     @Operation(operationId = "createPipelineProject", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse201.class))) })
-    Response createPipelineProject(@Valid Object body, @PathParam("org")
+        @ApiResponse(responseCode = "201", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
+    Response createPipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -92,7 +94,7 @@ public interface PipelineResourceApi {
     @Operation(operationId = "getPipelineProject", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse2001.class))) })
+        @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineGetResponseBody.class))) })
     Response getPipelineProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
@@ -110,10 +112,7 @@ public interface PipelineResourceApi {
  @Parameter(description = "Name of the branch (for Git Experience).")  String branch
 ,  @QueryParam("template_resolved") @DefaultValue("false") 
 
- @Parameter(description = "In YAML view, if true, returns Pipeline YAML with Templates resolved.")  Boolean templateResolved
-,  @QueryParam("view_options") @DefaultValue("YAML") 
-
- @Parameter(description = "This specifies the view option for Pipeline Resource.")  String viewOptions
+ @Parameter(description = "If true, returns Pipeline YAML with Templates resolved.")  Boolean templateResolved
 );
     @GET
     @Consumes({ "application/json", "application/yaml" })
@@ -121,8 +120,8 @@ public interface PipelineResourceApi {
     @Operation(operationId = "listPipelinesProject", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse200.class))) })
-    Response listPipelinesProject(@Valid Object body, @PathParam("org")
+        @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PipelineListResponseBody.class)))) })
+    Response listPipelinesProject(@Valid PipelineListRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -146,6 +145,12 @@ public interface PipelineResourceApi {
 ,  @QueryParam("filter_identifier") 
 
  @Parameter(description = "Identifier of an existing Filter.")  String filterIdentifier
+,  @QueryParam("template_resolved") @DefaultValue("false") 
+
+ @Parameter(description = "In YAML view, if true, returns Pipeline YAML with Templates resolved.")  Boolean templateResolved
+,  @QueryParam("view_options") @DefaultValue("YAML") 
+
+ @Parameter(description = "This specifies the view option for Pipeline Resource.")  String viewOptions
 );
     @PUT
     @Path("/{pipeline}")
@@ -154,8 +159,8 @@ public interface PipelineResourceApi {
     @Operation(operationId = "updatePipelineProject", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse201.class))) })
-    Response updatePipelineProject(@Valid Object body, @PathParam("org")
+        @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
+    Response updatePipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")

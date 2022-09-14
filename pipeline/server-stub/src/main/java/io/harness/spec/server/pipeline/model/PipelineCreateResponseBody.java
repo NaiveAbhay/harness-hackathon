@@ -1,24 +1,27 @@
 package io.harness.spec.server.pipeline.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+/**
+ * Pipeline response body
+ **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+@Schema(description = "Pipeline response body")
 
-
-public class InlineResponse2011   {
+public class PipelineCreateResponseBody   {
 
   private @Valid String slug = null;
 
   /**
    * Pipeline identifier
    **/
-  public InlineResponse2011 slug(String slug) {
+  public PipelineCreateResponseBody slug(String slug) {
     this.slug = slug;
     return this;
   }
@@ -43,8 +46,8 @@ public class InlineResponse2011   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse2011 inlineResponse2011 = (InlineResponse2011) o;
-    return Objects.equals(slug, inlineResponse2011.slug);
+    PipelineCreateResponseBody pipelineCreateResponseBody = (PipelineCreateResponseBody) o;
+    return Objects.equals(slug, pipelineCreateResponseBody.slug);
   }
 
   @Override
@@ -55,7 +58,7 @@ public class InlineResponse2011   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse2011 {\n");
+    sb.append("class PipelineCreateResponseBody {\n");
     
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("}");

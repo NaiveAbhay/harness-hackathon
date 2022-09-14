@@ -1,8 +1,9 @@
 package io.harness.spec.server.pipeline.model;
 
 import io.harness.spec.server.pipeline.model.ExecutionSummary;
-import io.harness.spec.server.pipeline.model.PipelineViewResponseOption;
+import io.harness.spec.server.pipeline.model.GitDetails;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,16 +11,16 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Pipeline response body (Summary view).
-**/
+ * Pipeline List response body
+ **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Pipeline response body (Summary view).")
+@Schema(description = "Pipeline List response body")
 
-public class Summary extends PipelineViewResponseOption implements OneOfPipelineViewResponseOption  {
+public class PipelineListResponseBody   {
 
   private @Valid String slug = null;
 
@@ -29,11 +30,11 @@ public class Summary extends PipelineViewResponseOption implements OneOfPipeline
 
   private @Valid Map<String, String> tags = new HashMap<>();
 
-  private @Valid String version = null;
-
   private @Valid Long created = null;
 
   private @Valid Long updated = null;
+
+  private @Valid List<String> modules = new ArrayList<>();
 
   private @Valid ExecutionSummary executionSummary = null;
 
@@ -76,10 +77,12 @@ public enum StoreTypeEnum {
 
   private @Valid Boolean draft = null;
 
+  private @Valid GitDetails gitDetails = null;
+
   /**
    * Pipeline identifier
    **/
-  public Summary slug(String slug) {
+  public PipelineListResponseBody slug(String slug) {
     this.slug = slug;
     return this;
   }
@@ -98,7 +101,7 @@ public enum StoreTypeEnum {
   /**
    * Pipeline name
    **/
-  public Summary name(String name) {
+  public PipelineListResponseBody name(String name) {
     this.name = name;
     return this;
   }
@@ -117,7 +120,7 @@ public enum StoreTypeEnum {
   /**
    * Pipeline description
    **/
-  public Summary description(String description) {
+  public PipelineListResponseBody description(String description) {
     this.description = description;
     return this;
   }
@@ -136,7 +139,7 @@ public enum StoreTypeEnum {
   /**
    * Pipeline tags
    **/
-  public Summary tags(Map<String, String> tags) {
+  public PipelineListResponseBody tags(Map<String, String> tags) {
     this.tags = tags;
     return this;
   }
@@ -153,28 +156,9 @@ public enum StoreTypeEnum {
   }
 
   /**
-   * Pipeline version
-   **/
-  public Summary version(String version) {
-    this.version = version;
-    return this;
-  }
-
-  
-  @Schema(description = "Pipeline version")
-  @JsonProperty("version")
-
-  public String getVersion() {
-    return version;
-  }
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  /**
    * Creation timestamp for Pipeline.
    **/
-  public Summary created(Long created) {
+  public PipelineListResponseBody created(Long created) {
     this.created = created;
     return this;
   }
@@ -193,7 +177,7 @@ public enum StoreTypeEnum {
   /**
    * Last modification timestamp for Pipeline.
    **/
-  public Summary updated(Long updated) {
+  public PipelineListResponseBody updated(Long updated) {
     this.updated = updated;
     return this;
   }
@@ -210,8 +194,27 @@ public enum StoreTypeEnum {
   }
 
   /**
+   * Modules utilised in the Pipeline.
    **/
-  public Summary executionSummary(ExecutionSummary executionSummary) {
+  public PipelineListResponseBody modules(List<String> modules) {
+    this.modules = modules;
+    return this;
+  }
+
+  
+  @Schema(description = "Modules utilised in the Pipeline.")
+  @JsonProperty("modules")
+
+  public List<String> getModules() {
+    return modules;
+  }
+  public void setModules(List<String> modules) {
+    this.modules = modules;
+  }
+
+  /**
+   **/
+  public PipelineListResponseBody executionSummary(ExecutionSummary executionSummary) {
     this.executionSummary = executionSummary;
     return this;
   }
@@ -230,7 +233,7 @@ public enum StoreTypeEnum {
   /**
    * Additional properties
    **/
-  public Summary filter(Object filter) {
+  public PipelineListResponseBody filter(Object filter) {
     this.filter = filter;
     return this;
   }
@@ -249,7 +252,7 @@ public enum StoreTypeEnum {
   /**
    * Specifies whether the Entity is to be stored in Git or not (for Git Experience).
    **/
-  public Summary storeType(StoreTypeEnum storeType) {
+  public PipelineListResponseBody storeType(StoreTypeEnum storeType) {
     this.storeType = storeType;
     return this;
   }
@@ -268,7 +271,7 @@ public enum StoreTypeEnum {
   /**
    * Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
    **/
-  public Summary connectorRef(String connectorRef) {
+  public PipelineListResponseBody connectorRef(String connectorRef) {
     this.connectorRef = connectorRef;
     return this;
   }
@@ -287,7 +290,7 @@ public enum StoreTypeEnum {
   /**
    * Specifies whether Pipeline is a draft or not.
    **/
-  public Summary draft(Boolean draft) {
+  public PipelineListResponseBody draft(Boolean draft) {
     this.draft = draft;
     return this;
   }
@@ -303,6 +306,24 @@ public enum StoreTypeEnum {
     this.draft = draft;
   }
 
+  /**
+   **/
+  public PipelineListResponseBody gitDetails(GitDetails gitDetails) {
+    this.gitDetails = gitDetails;
+    return this;
+  }
+
+  
+  @Schema(description = "")
+  @JsonProperty("git_details")
+
+  public GitDetails getGitDetails() {
+    return gitDetails;
+  }
+  public void setGitDetails(GitDetails gitDetails) {
+    this.gitDetails = gitDetails;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -312,43 +333,45 @@ public enum StoreTypeEnum {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Summary summary = (Summary) o;
-    return Objects.equals(slug, summary.slug) &&
-        Objects.equals(name, summary.name) &&
-        Objects.equals(description, summary.description) &&
-        Objects.equals(tags, summary.tags) &&
-        Objects.equals(version, summary.version) &&
-        Objects.equals(created, summary.created) &&
-        Objects.equals(updated, summary.updated) &&
-        Objects.equals(executionSummary, summary.executionSummary) &&
-        Objects.equals(filter, summary.filter) &&
-        Objects.equals(storeType, summary.storeType) &&
-        Objects.equals(connectorRef, summary.connectorRef) &&
-        Objects.equals(draft, summary.draft);
+    PipelineListResponseBody pipelineListResponseBody = (PipelineListResponseBody) o;
+    return Objects.equals(slug, pipelineListResponseBody.slug) &&
+        Objects.equals(name, pipelineListResponseBody.name) &&
+        Objects.equals(description, pipelineListResponseBody.description) &&
+        Objects.equals(tags, pipelineListResponseBody.tags) &&
+        Objects.equals(created, pipelineListResponseBody.created) &&
+        Objects.equals(updated, pipelineListResponseBody.updated) &&
+        Objects.equals(modules, pipelineListResponseBody.modules) &&
+        Objects.equals(executionSummary, pipelineListResponseBody.executionSummary) &&
+        Objects.equals(filter, pipelineListResponseBody.filter) &&
+        Objects.equals(storeType, pipelineListResponseBody.storeType) &&
+        Objects.equals(connectorRef, pipelineListResponseBody.connectorRef) &&
+        Objects.equals(draft, pipelineListResponseBody.draft) &&
+        Objects.equals(gitDetails, pipelineListResponseBody.gitDetails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, description, tags, version, created, updated, executionSummary, filter, storeType, connectorRef, draft);
+    return Objects.hash(slug, name, description, tags, created, updated, modules, executionSummary, filter, storeType, connectorRef, draft, gitDetails);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Summary {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    sb.append("class PipelineListResponseBody {\n");
+    
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
     sb.append("    executionSummary: ").append(toIndentedString(executionSummary)).append("\n");
     sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
     sb.append("    storeType: ").append(toIndentedString(storeType)).append("\n");
     sb.append("    connectorRef: ").append(toIndentedString(connectorRef)).append("\n");
     sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
     sb.append("}");
     return sb.toString();
   }

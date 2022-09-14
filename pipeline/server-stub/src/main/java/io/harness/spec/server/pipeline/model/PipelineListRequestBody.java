@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @Schema(description = "Request body for the filter properties for listing Pipelines.")
 
-public class FilterBody   {
+public class PipelineListRequestBody   {
 
   private @Valid List<PipelineTags> pipelineTags = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public enum FilterTypeEnum {
   /**
    * Pipeline Tags on which filter will be applied.
    **/
-  public FilterBody pipelineTags(List<PipelineTags> pipelineTags) {
+  public PipelineListRequestBody pipelineTags(List<PipelineTags> pipelineTags) {
     this.pipelineTags = pipelineTags;
     return this;
   }
@@ -89,7 +89,7 @@ public enum FilterTypeEnum {
   /**
    * List of Pipeline Identifiers on which the filter will be applied.
    **/
-  public FilterBody pipelines(List<String> pipelines) {
+  public PipelineListRequestBody pipelines(List<String> pipelines) {
     this.pipelines = pipelines;
     return this;
   }
@@ -108,7 +108,7 @@ public enum FilterTypeEnum {
   /**
    * Pipeline Name on which the filter will be applied.
    **/
-  public FilterBody name(String name) {
+  public PipelineListRequestBody name(String name) {
     this.name = name;
     return this;
   }
@@ -127,7 +127,7 @@ public enum FilterTypeEnum {
   /**
    * Pipeline Description on which the filter will be applied.
    **/
-  public FilterBody description(String description) {
+  public PipelineListRequestBody description(String description) {
     this.description = description;
     return this;
   }
@@ -145,7 +145,7 @@ public enum FilterTypeEnum {
 
   /**
    **/
-  public FilterBody moduleProperties(ModuleProperties moduleProperties) {
+  public PipelineListRequestBody moduleProperties(ModuleProperties moduleProperties) {
     this.moduleProperties = moduleProperties;
     return this;
   }
@@ -164,7 +164,7 @@ public enum FilterTypeEnum {
   /**
    * Filter tags as a key-value pair.
    **/
-  public FilterBody tags(Map<String, String> tags) {
+  public PipelineListRequestBody tags(Map<String, String> tags) {
     this.tags = tags;
     return this;
   }
@@ -183,7 +183,7 @@ public enum FilterTypeEnum {
   /**
    * Corresponding Entity of the filter.
    **/
-  public FilterBody filterType(FilterTypeEnum filterType) {
+  public PipelineListRequestBody filterType(FilterTypeEnum filterType) {
     this.filterType = filterType;
     return this;
   }
@@ -209,14 +209,14 @@ public enum FilterTypeEnum {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FilterBody filterBody = (FilterBody) o;
-    return Objects.equals(pipelineTags, filterBody.pipelineTags) &&
-        Objects.equals(pipelines, filterBody.pipelines) &&
-        Objects.equals(name, filterBody.name) &&
-        Objects.equals(description, filterBody.description) &&
-        Objects.equals(moduleProperties, filterBody.moduleProperties) &&
-        Objects.equals(tags, filterBody.tags) &&
-        Objects.equals(filterType, filterBody.filterType);
+    PipelineListRequestBody pipelineListRequestBody = (PipelineListRequestBody) o;
+    return Objects.equals(pipelineTags, pipelineListRequestBody.pipelineTags) &&
+        Objects.equals(pipelines, pipelineListRequestBody.pipelines) &&
+        Objects.equals(name, pipelineListRequestBody.name) &&
+        Objects.equals(description, pipelineListRequestBody.description) &&
+        Objects.equals(moduleProperties, pipelineListRequestBody.moduleProperties) &&
+        Objects.equals(tags, pipelineListRequestBody.tags) &&
+        Objects.equals(filterType, pipelineListRequestBody.filterType);
   }
 
   @Override
@@ -227,7 +227,7 @@ public enum FilterTypeEnum {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FilterBody {\n");
+    sb.append("class PipelineListRequestBody {\n");
     
     sb.append("    pipelineTags: ").append(toIndentedString(pipelineTags)).append("\n");
     sb.append("    pipelines: ").append(toIndentedString(pipelines)).append("\n");

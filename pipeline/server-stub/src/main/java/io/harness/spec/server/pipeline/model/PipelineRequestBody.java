@@ -5,36 +5,37 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Pipeline response body
+ * Pipeline request body object 
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Pipeline response body")
+@Schema(description = "Pipeline request body object ")
 
-public class InlineResponse201   {
+public class PipelineRequestBody   {
 
-  private @Valid String slug = null;
+  private @Valid String pipelineYaml = null;
 
   /**
-   * Pipeline identifier
+   * Pipeline YAML (to be passed as a String).
    **/
-  public InlineResponse201 slug(String slug) {
-    this.slug = slug;
+  public PipelineRequestBody pipelineYaml(String pipelineYaml) {
+    this.pipelineYaml = pipelineYaml;
     return this;
   }
 
   
-  @Schema(description = "Pipeline identifier")
-  @JsonProperty("slug")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
-  public String getSlug() {
-    return slug;
+  @Schema(required = true, description = "Pipeline YAML (to be passed as a String).")
+  @JsonProperty("pipeline_yaml")
+  @NotNull
+
+  public String getPipelineYaml() {
+    return pipelineYaml;
   }
-  public void setSlug(String slug) {
-    this.slug = slug;
+  public void setPipelineYaml(String pipelineYaml) {
+    this.pipelineYaml = pipelineYaml;
   }
 
 
@@ -46,21 +47,21 @@ public class InlineResponse201   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse201 inlineResponse201 = (InlineResponse201) o;
-    return Objects.equals(slug, inlineResponse201.slug);
+    PipelineRequestBody pipelineRequestBody = (PipelineRequestBody) o;
+    return Objects.equals(pipelineYaml, pipelineRequestBody.pipelineYaml);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug);
+    return Objects.hash(pipelineYaml);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse201 {\n");
+    sb.append("class PipelineRequestBody {\n");
     
-    sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
+    sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
     sb.append("}");
     return sb.toString();
   }
