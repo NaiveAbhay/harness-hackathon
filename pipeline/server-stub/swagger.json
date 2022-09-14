@@ -164,7 +164,7 @@
                   "type" : "array",
                   "description" : "Response body for List Pipelines.",
                   "items" : {
-                    "$ref" : "#/components/schemas/PipelineListSummary"
+                    "$ref" : "#/components/schemas/PipelineListResponseBody"
                   }
                 },
                 "examples" : {
@@ -1346,7 +1346,7 @@
               "type" : "array",
               "description" : "Response body for List Pipelines.",
               "items" : {
-                "$ref" : "#/components/schemas/PipelineListSummary"
+                "$ref" : "#/components/schemas/PipelineListResponseBody"
               }
             },
             "examples" : {

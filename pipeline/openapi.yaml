@@ -899,7 +899,7 @@ components:
             description: Response body for List Pipelines.
             type: array
             items:
-              $ref: '#/components/schemas/PipelineListSummary'
+              $ref: '#/components/schemas/PipelineListResponseBody'
           examples:
             example-list-response:
               value: |
