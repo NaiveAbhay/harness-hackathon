@@ -37,7 +37,7 @@ public interface OrgProjectApi {
     @Operation(operationId = "createOrgScopedProject", summary = "Creates a project", description = "Creates a new project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Project" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
     Response createOrgScopedProject(@Valid CreateProjectRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org

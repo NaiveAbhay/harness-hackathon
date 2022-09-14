@@ -37,7 +37,7 @@ public interface AccountProjectApi {
     @Operation(operationId = "createAccountScopedProject", summary = "Create a project", description = "Creates a new project", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Project" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Project response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProjectResponse.class))) })
     Response createAccountScopedProject(@Valid CreateProjectRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

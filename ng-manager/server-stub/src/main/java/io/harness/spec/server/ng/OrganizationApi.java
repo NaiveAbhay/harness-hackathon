@@ -37,7 +37,7 @@ public interface OrganizationApi {
     @Operation(operationId = "createOrganization", summary = "Create an organization", description = "Creates a new organization.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
     Response createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
