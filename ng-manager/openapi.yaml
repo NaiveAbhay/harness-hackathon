@@ -1565,6 +1565,14 @@ components:
                   created: 1234567890
                   updated: 1234567890
                   draft: false
+      headers:
+        Link:
+          schema:
+            type: string
+          description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link'
+          examples:
+            sample:
+              value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     ValidateSecretSlugResponse:
       description: Example response
       content:
