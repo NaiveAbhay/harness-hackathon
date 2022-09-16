@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 
@@ -22,8 +23,9 @@ public class UpdateOrganizationRequest   {
   }
 
   
-  @Schema(description = "")
+  @Schema(required = true, description = "")
   @JsonProperty("org")
+  @NotNull
 
   public Organization getOrg() {
     return org;

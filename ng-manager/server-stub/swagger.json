@@ -107,7 +107,7 @@
                 },
                 "examples" : {
                   "sample" : {
-                    "value" : "</v1/orgs?page=2&limit=1>; rel=\"next\", </v1/orgs?page=1&limit=1>; rel=\"self\", </v1/orgs?page=0&limit=1>; rel=\"previous\", "
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
                   }
                 }
               }
@@ -547,7 +547,7 @@
                 },
                 "examples" : {
                   "sample" : {
-                    "value" : "</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel=\"next\", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel=\"self\", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel=\"previous\", "
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
                   }
                 }
               }
@@ -773,7 +773,7 @@
                 },
                 "examples" : {
                   "sample" : {
-                    "value" : "</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel=\"next\", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel=\"self\", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel=\"previous\", "
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
                   }
                 }
               }
@@ -1485,6 +1485,21 @@
         "responses" : {
           "200" : {
             "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1733,6 +1748,21 @@
         "responses" : {
           "200" : {
             "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1991,6 +2021,21 @@
         "responses" : {
           "200" : {
             "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3167,6 +3212,7 @@
   "components" : {
     "schemas" : {
       "CreateOrganizationRequest" : {
+        "required" : [ "org" ],
         "type" : "object",
         "properties" : {
           "org" : {
@@ -3214,6 +3260,7 @@
         "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE" ]
       },
       "CreateProjectRequest" : {
+        "required" : [ "project" ],
         "type" : "object",
         "properties" : {
           "project" : {
@@ -3345,50 +3392,24 @@
         }
       },
       "UpdateOrganizationRequest" : {
+        "required" : [ "org" ],
         "type" : "object",
         "properties" : {
           "org" : {
             "$ref" : "#/components/schemas/Organization"
           }
         },
-        "description" : "Update oganization request",
-        "x-examples" : {
-          "example-1" : {
-            "org" : {
-              "slug" : "example_organization",
-              "name" : "Example Organization",
-              "description" : "This is an example organization",
-              "tags" : {
-                "example-tag-1" : "example-tag-1-value",
-                "example-tag-2" : "example-tag-2-value"
-              }
-            }
-          }
-        }
+        "description" : "Update oganization request"
       },
       "UpdateProjectRequest" : {
+        "required" : [ "project" ],
         "type" : "object",
         "properties" : {
           "project" : {
             "$ref" : "#/components/schemas/Project"
           }
         },
-        "description" : "Update project request",
-        "x-examples" : {
-          "example-1" : {
-            "project" : {
-              "slug" : "example_project_slug",
-              "name" : "example-project-name",
-              "color" : "#0063F7",
-              "modules" : [ "CD" ],
-              "description" : "This is a example project",
-              "tags" : {
-                "property1" : "value1",
-                "property2" : "value2"
-              }
-            }
-          }
-        }
+        "description" : "Update project request"
       },
       "SecretSpec" : {
         "title" : "SecretSpec",
@@ -3804,6 +3825,7 @@
         } ]
       },
       "SecretRequest" : {
+        "required" : [ "secret" ],
         "type" : "object",
         "properties" : {
           "secret" : {
@@ -3989,7 +4011,7 @@
             },
             "examples" : {
               "sample" : {
-                "value" : "</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel=\"next\", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel=\"self\", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel=\"previous\", "
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
               }
             }
           }
@@ -4050,7 +4072,7 @@
             },
             "examples" : {
               "sample" : {
-                "value" : "</v1/orgs?page=2&limit=1>; rel=\"next\", </v1/orgs?page=1&limit=1>; rel=\"self\", </v1/orgs?page=0&limit=1>; rel=\"previous\", "
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
               }
             }
           }
@@ -4145,6 +4167,21 @@
       },
       "SecretListResponse" : {
         "description" : "Secret list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
         "content" : {
           "application/json" : {
             "schema" : {
