@@ -700,6 +700,8 @@ components:
       properties:
         org:
           $ref: '#/components/schemas/Organization'
+      required:
+        - org
     Organization:
       description: Organization model
       type: object
@@ -749,6 +751,8 @@ components:
       properties:
         project:
           $ref: '#/components/schemas/Project'
+      required:
+        - project
     Project:
       description: Project model
       type: object
@@ -851,33 +855,16 @@ components:
       properties:
         org:
           $ref: '#/components/schemas/Organization'
-      x-examples:
-        example-1:
-          org:
-            slug: example_organization
-            name: Example Organization
-            description: This is an example organization
-            tags:
-              example-tag-1: example-tag-1-value
-              example-tag-2: example-tag-2-value
+      required:
+        - org
     UpdateProjectRequest:
       description: Update project request
       type: object
-      x-examples:
-        example-1:
-          project:
-            slug: example_project_slug
-            name: example-project-name
-            color: '#0063F7'
-            modules:
-              - CD
-            description: This is a example project
-            tags:
-              property1: value1
-              property2: value2
       properties:
         project:
           $ref: '#/components/schemas/Project'
+      required:
+        - project
     SecretSpec:
       title: SecretSpec
       type: object
@@ -1426,7 +1413,7 @@ components:
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link'
           examples:
             sample:
-              value: '</v1/projects?org=dummy-orgnization&page=2&limit=1>; rel="next", </v1/projects?org=dummy-orgnization&page=1&limit=1>; rel="self", </v1/projects?org=dummy-orgnization&page=0&limit=1>; rel="previous", '
+              value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     OrganizationListResponse:
       description: Organization list response
       content:
@@ -1473,7 +1460,7 @@ components:
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
           examples:
             sample:
-              value: '</v1/orgs?page=2&limit=1>; rel="next", </v1/orgs?page=1&limit=1>; rel="self", </v1/orgs?page=0&limit=1>; rel="previous", '
+              value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     SecretResponse:
       description: Secret response
       content:
