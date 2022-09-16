@@ -1218,6 +1218,8 @@ components:
       properties:
         secret:
           $ref: '#/components/schemas/Secret'
+      required:
+        - secret
     Secret:
       type: object
       properties:
