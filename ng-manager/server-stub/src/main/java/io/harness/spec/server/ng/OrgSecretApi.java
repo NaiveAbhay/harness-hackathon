@@ -29,13 +29,12 @@ import javax.ws.rs.core.Response;
 import java.io.InputStream;
 import java.util.List;
 
-@Path("/v1")
+@Path("/v1/orgs/{org}/secrets")
 
 
 public interface OrgSecretApi {
 
     @POST
-    @Path("/orgs/{org}/secrets")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createOrgScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
@@ -53,7 +52,6 @@ public interface OrgSecretApi {
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
 );
     @POST
-    @Path("/orgs/{org}/secrets")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createOrgScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
@@ -71,7 +69,7 @@ public interface OrgSecretApi {
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
 );
     @DELETE
-    @Path("/org/{org}/secrets/{secret}")
+    @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteOrgScopedSecret", summary = "Delete a secret", description = "Deletes the information of the secret with the matching secret slug.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
@@ -88,7 +86,7 @@ public interface OrgSecretApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
-    @Path("/org/{org}/secrets/{secret}")
+    @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getOrgScopedSecret", summary = "Retrieve a secret", description = "Retrieves the information of the secret.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
@@ -105,7 +103,6 @@ public interface OrgSecretApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @GET
-    @Path("/orgs/{org}/secrets")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getOrgScopedSecrets", summary = "List secrets", description = "Retrieves the information of the secrets.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
@@ -140,7 +137,7 @@ public interface OrgSecretApi {
  @Parameter(description = "Pagination: Number of items to return")  Integer limit
 );
     @PUT
-    @Path("/org/{org}/secrets/{secret}")
+    @Path("/{secret}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrgScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
@@ -158,7 +155,7 @@ public interface OrgSecretApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @PUT
-    @Path("/org/{org}/secrets/{secret}")
+    @Path("/{secret}")
     @Consumes({ "multipart/form-data" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateOrgScopedSecret", summary = "Update a secret", description = "Updates the information of the secret with the matching secret slug.", security = {
@@ -176,7 +173,7 @@ public interface OrgSecretApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 );
     @HEAD
-    @Path("/org/{org}/secrets/{secret}")
+    @Path("/{secret}")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates org scoped secret slug is unique", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
