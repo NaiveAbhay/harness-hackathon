@@ -143,7 +143,7 @@ public interface ServicesApi {
  @Parameter(description = "Service Definition type")  String type
 ,  @QueryParam("git_ops_enabled") 
 
- @Parameter(description = "Enables use of this service in Harness GitOps PR Pipelines")  String gitOpsEnabled
+ @Parameter(description = "Enables use of this service in Harness GitOps PR Pipelines")  Boolean gitOpsEnabled
 ,  @QueryParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account

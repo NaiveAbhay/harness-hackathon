@@ -478,7 +478,7 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "boolean"
           }
         }, {
           "name" : "account",

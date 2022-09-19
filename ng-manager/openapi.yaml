@@ -99,8 +99,6 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/ServiceIdentifiers'
         - $ref: '#/components/parameters/Sort'
-        # - $ref: '#/components/parameters/type'
-        # - $ref: '#/components/parameters/gitOpsEnabled'
         - schema:
             type: boolean
           in: query
@@ -119,7 +117,7 @@ paths:
           in: query
           description: Service Definition type
         - schema:
-            type: string
+            type: boolean
           name: git_ops_enabled
           in: query
           description: Enables use of this service in Harness GitOps PR Pipelines
