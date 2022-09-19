@@ -2476,7 +2476,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
                 },
                 "examples" : {
                   "example-validate-secret-slug-response-json" : {
@@ -2814,7 +2814,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
                 },
                 "examples" : {
                   "example-validate-secret-slug-response-json" : {
@@ -3192,7 +3192,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
                 },
                 "examples" : {
                   "example-validate-secret-slug-response-json" : {
@@ -3910,14 +3910,6 @@
           }
         },
         "description" : "Validate unique secret slug response model"
-      },
-      "inline_response_200" : {
-        "type" : "object",
-        "properties" : {
-          "valid" : {
-            "type" : "boolean"
-          }
-        }
       }
     },
     "responses" : {
@@ -4249,7 +4241,7 @@
           },
           "application/yaml" : {
             "schema" : {
-              "$ref" : "#/components/schemas/inline_response_200"
+              "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
             },
             "examples" : {
               "example-validate-secret-slug-response-json" : {

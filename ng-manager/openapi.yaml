@@ -1585,10 +1585,7 @@ components:
                 valid: true
         application/yaml:
           schema:
-            type: object
-            properties:
-              valid:
-                type: boolean
+            $ref: '#/components/schemas/ValidateSecretSlugResponse'
           examples:
             example-validate-secret-slug-response-json:
               value: |
