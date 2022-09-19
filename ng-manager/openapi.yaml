@@ -566,7 +566,7 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
       security:
         - x-api-key: []
-  '/v1/org/{org}/secrets/{secret}':
+  '/v1/orgs/{org}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -629,7 +629,7 @@ paths:
         - $ref: '#/components/parameters/AccountQueryParam'
       security:
         - x-api-key: []
-  '/v1/org/{org}/projects/{project}/secrets/{secret}':
+  '/v1/orgs/{org}/projects/{project}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
