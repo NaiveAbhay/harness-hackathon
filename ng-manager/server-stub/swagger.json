@@ -1,0 +1,4850 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "Harness NextGen Software Delivery Platform API Reference",
+    "description" : "This is the Open Api Spec 3 for the NextGen Manager. This is under active development. Beware of the breaking change with respect to the generated code stub",
+    "contact" : {
+      "email" : "contact@harness.io"
+    },
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "http://app.harness.io",
+    "description" : "harness"
+  } ],
+  "tags" : [ {
+    "name" : "Organization",
+    "description" : "Everything about organization"
+  }, {
+    "name" : "Account Project",
+    "description" : "Everything about account scoped project"
+  }, {
+    "name" : "Org Project",
+    "description" : "Everything about org scoped project"
+  }, {
+    "name" : "Account Secret",
+    "description" : "Everything about account scoped secret"
+  }, {
+    "name" : "Org Secret",
+    "description" : "Everything about org scoped secret"
+  }, {
+    "name" : "Project Secret",
+    "description" : "Everything about project scoped secret"
+  } ],
+  "paths" : {
+    "/v1/orgs" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "List organizations",
+        "description" : "Retrieves the information of the organizations.",
+        "operationId" : "get-organizations",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Slug field of the organizations the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OrganizationResponse"
+                  }
+                },
+                "examples" : {
+                  "example-organizations-list-response-json" : {
+                    "value" : [ {
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managed" : true
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/OrganizationResponse"
+                  }
+                },
+                "examples" : {
+                  "example-organizations-list-response-yaml" : {
+                    "value" : "- org:\n    slug: example_organization\n    name: Example Organization\n    description: This is an example organization\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Create an organization",
+        "description" : "Creates a new organization.",
+        "operationId" : "create-organization",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateOrganizationRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-json" : {
+                    "value" : {
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}" : {
+      "get" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Retrieve an organization",
+        "description" : "Retrieves the information of the organization with the matching organization slug.",
+        "operationId" : "get-organization",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-json" : {
+                    "value" : {
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Update an organization",
+        "description" : "Updates the information of the organization with the matching organization slug.",
+        "operationId" : "update-organization",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/UpdateOrganizationRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-json" : {
+                    "value" : {
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Organization" ],
+        "summary" : "Delete an organization",
+        "description" : "Deletes the information of the organization with the matching organization slug.",
+        "operationId" : "delete-organization",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Organization response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-json" : {
+                    "value" : {
+                      "org" : {
+                        "slug" : "example_organization",
+                        "name" : "Example Organization",
+                        "description" : "This is an example organization",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managed" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/OrganizationResponse"
+                },
+                "examples" : {
+                  "example-organization-response-yaml" : {
+                    "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/projects" : {
+      "get" : {
+        "tags" : [ "Account Project" ],
+        "summary" : "List projects",
+        "description" : "Retrieves the information of the projects.",
+        "operationId" : "get-account-scoped-projects",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Slug field of the organizations the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Slug field of the projects the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "has_module",
+          "in" : "query",
+          "description" : "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : true
+          }
+        }, {
+          "name" : "module_type",
+          "in" : "query",
+          "description" : "Project's module type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-json" : {
+                    "value" : [ {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-yaml" : {
+                    "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Account Project" ],
+        "summary" : "Create a project",
+        "description" : "Creates a new project",
+        "operationId" : "create-account-scoped-project",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateProjectRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects" : {
+      "get" : {
+        "tags" : [ "Org Project" ],
+        "summary" : "List projects",
+        "description" : "Retrieves the information of the projects.",
+        "operationId" : "get-org-scoped-projects",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Slug field of the projects the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "has_module",
+          "in" : "query",
+          "description" : "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : true
+          }
+        }, {
+          "name" : "module_type",
+          "in" : "query",
+          "description" : "Project's module type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-json" : {
+                    "value" : [ {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ProjectResponse"
+                  }
+                },
+                "examples" : {
+                  "example-project-list-response-yaml" : {
+                    "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Org Project" ],
+        "summary" : "Creates a project",
+        "description" : "Creates a new project",
+        "operationId" : "create-org-scoped-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/CreateProjectRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/projects/{project}" : {
+      "get" : {
+        "tags" : [ "Account Project" ],
+        "summary" : "Retrieve a project",
+        "description" : "Retrieves the information of the project with the matching project slug.",
+        "operationId" : "get-account-scoped-project",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Account Project" ],
+        "summary" : "Update a project",
+        "description" : "Updates the information of the project with the matching project slug.",
+        "operationId" : "update-account-scoped-project",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/UpdateProjectRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Account Project" ],
+        "summary" : "Delete a project",
+        "description" : "Deletes the information of the project with the matching project slug.",
+        "operationId" : "delete-account-scoped-project",
+        "parameters" : [ {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}" : {
+      "get" : {
+        "tags" : [ "Org Project" ],
+        "summary" : "Retrieve a project",
+        "description" : "Retrieves the information of the project with the matching project slug.",
+        "operationId" : "get-org-scoped-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Org Project" ],
+        "summary" : "Update a project",
+        "description" : "Updates the information of the project with the matching project slug.",
+        "operationId" : "update-org-scoped-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/UpdateProjectRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Org Project" ],
+        "summary" : "Delete a project",
+        "description" : "Deletes the information of the project with the matching project slug.",
+        "operationId" : "delete-org-scoped-project",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Project response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-json" : {
+                    "value" : {
+                      "project" : {
+                        "org" : "example_org_slug",
+                        "slug" : "example_project_slug",
+                        "name" : "example-project-name",
+                        "color" : "#0063F7",
+                        "modules" : [ "CD" ],
+                        "description" : "This is a example project",
+                        "tags" : {
+                          "property1" : "value1",
+                          "property2" : "value2"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ProjectResponse"
+                },
+                "examples" : {
+                  "example-project-response-yaml" : {
+                    "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/secrets" : {
+      "get" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
+        "operationId" : "get-account-scoped-secrets",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "query",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "query",
+          "description" : "Slug field of secrets",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Secret types on which the filter will be applied",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
+            }
+          }
+        }, {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-json" : {
+                    "value" : [ {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-yaml" : {
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
+        "operationId" : "create-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/secrets" : {
+      "get" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
+        "operationId" : "get-org-scoped-secrets",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "query",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "query",
+          "description" : "Slug field of secrets",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Secret types on which the filter will be applied",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
+            }
+          }
+        }, {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-json" : {
+                    "value" : [ {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-yaml" : {
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
+        "operationId" : "create-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/secrets" : {
+      "get" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "List secrets",
+        "description" : "Retrieves the information of the secrets.",
+        "operationId" : "get-project-scoped-secrets",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "query",
+          "description" : "Slug field of secrets",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Secret types on which the filter will be applied",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
+            }
+          }
+        }, {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-json" : {
+                    "value" : [ {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SecretResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-secret-response-yaml" : {
+                    "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "Create a secret",
+        "description" : "Creates a new secret",
+        "operationId" : "create-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "private_secret",
+          "in" : "query",
+          "description" : "This would be used to define secret as private.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
+        "operationId" : "get-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "Deletes a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
+        "operationId" : "delete-account-scoped-secret",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "head" : {
+        "tags" : [ "Account Secret" ],
+        "summary" : "Validate unique secret slug",
+        "description" : "Validates secret slug is unique",
+        "operationId" : "validate-unique-account-scoped-secret-slug",
+        "parameters" : [ {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/org/{org}/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
+        "operationId" : "get-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "Delete a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
+        "operationId" : "delete-org-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "head" : {
+        "tags" : [ "Org Secret" ],
+        "summary" : "Validate unique secret slug",
+        "description" : "Validates org scoped secret slug is unique",
+        "operationId" : "validate-unique-org-scoped-secret-slug",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/org/{org}/projects/{project}/secrets/{secret}" : {
+      "get" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "Retrieve a secret",
+        "description" : "Retrieves the information of the secret.",
+        "operationId" : "get-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "Update a secret",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/SecretRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "Delete a secret",
+        "description" : "Deletes the information of the secret with the matching secret slug.",
+        "operationId" : "delete-project-scoped-secret",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Secret response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-json" : {
+                    "value" : {
+                      "secret" : {
+                        "name" : "example_secret",
+                        "slug" : "example_secret",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_secret"
+                        },
+                        "description" : "example_secret",
+                        "spec" : {
+                          "type" : "SSHKeyPath",
+                          "port" : 80,
+                          "username" : "example_secret",
+                          "key_path" : "example_secret",
+                          "encrypted_passphrase" : "account.example_secret"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "draft" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SecretResponse"
+                },
+                "examples" : {
+                  "example-secret-response-yaml" : {
+                    "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "head" : {
+        "tags" : [ "Project Secret" ],
+        "summary" : "Validate unique secret slug",
+        "description" : "Validates project scoped secret slug is unique",
+        "operationId" : "validate-unique-project-scoped-secret-slug",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "secret",
+          "in" : "path",
+          "description" : "Slug field of the secret",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-secret-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "CreateOrganizationRequest" : {
+        "required" : [ "org" ],
+        "type" : "object",
+        "properties" : {
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
+          }
+        }
+      },
+      "Organization" : {
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Organization slug"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization name"
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Organization description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Organization tags"
+          }
+        },
+        "description" : "Organization model"
+      },
+      "ModuleType" : {
+        "type" : "string",
+        "description" : "Type of Modules",
+        "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE" ]
+      },
+      "CreateProjectRequest" : {
+        "required" : [ "project" ],
+        "type" : "object",
+        "properties" : {
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
+          }
+        },
+        "description" : "Create project request"
+      },
+      "Project" : {
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Project slug"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Project name"
+          },
+          "org" : {
+            "type" : "string",
+            "description" : "Organization slug for the project"
+          },
+          "color" : {
+            "type" : "string",
+            "description" : "Project color"
+          },
+          "modules" : {
+            "maxItems" : 1024,
+            "type" : "array",
+            "description" : "List of modules for project",
+            "items" : {
+              "$ref" : "#/components/schemas/ModuleType"
+            }
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Project description"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Project tags"
+          }
+        },
+        "description" : "Project model",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_project_slug",
+            "name" : "example-project-name",
+            "color" : "#0063F7",
+            "modules" : [ "CD" ],
+            "description" : "This is a example project",
+            "tags" : {
+              "property1" : "value1",
+              "property2" : "value2"
+            }
+          }
+        }
+      },
+      "ProjectResponse" : {
+        "type" : "object",
+        "properties" : {
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for the project",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Updated timestamp for the project",
+            "format" : "int64"
+          }
+        },
+        "description" : "Project response model"
+      },
+      "OrganizationResponse" : {
+        "title" : "OrganizationResponse",
+        "type" : "object",
+        "properties" : {
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for organization",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Updated timestamp for organization",
+            "format" : "int64"
+          },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization."
+          }
+        },
+        "description" : "Organization response Model",
+        "x-examples" : {
+          "example-1" : {
+            "org" : {
+              "slug" : "example_organization",
+              "name" : "Example Organization",
+              "description" : "This is an Example Organization",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              }
+            },
+            "created" : 1234567890,
+            "updated" : 1234567890,
+            "harness_managed" : true
+          }
+        }
+      },
+      "UpdateOrganizationRequest" : {
+        "required" : [ "org" ],
+        "type" : "object",
+        "properties" : {
+          "org" : {
+            "$ref" : "#/components/schemas/Organization"
+          }
+        },
+        "description" : "Update oganization request"
+      },
+      "UpdateProjectRequest" : {
+        "required" : [ "project" ],
+        "type" : "object",
+        "properties" : {
+          "project" : {
+            "$ref" : "#/components/schemas/Project"
+          }
+        },
+        "description" : "Update project request"
+      },
+      "SecretSpec" : {
+        "title" : "SecretSpec",
+        "required" : [ "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "This specifies the type of secret",
+            "enum" : [ "SSHKeyPath", "SSHKeyReference", "SSHPassword", "SSHKerberosTGTKeyTabFile", "SSHKerberosTGTPassword", "SecretFile", "SecretText", "WinRmTGTKeyTabFile", "WinRmTGTPassword", "WinRmNTLM" ]
+          }
+        },
+        "description" : "Details of the secret defined in Harness",
+        "discriminator" : {
+          "propertyName" : "type",
+          "mapping" : {
+            "SSHKeyPath" : "#/components/schemas/SSHKeyPathSpec",
+            "SSHKeyReference" : "#/components/schemas/SSHKeyReferenceSpec",
+            "SSHPassword" : "#/components/schemas/SSHPasswordSpec",
+            "SSHKerberosTGTKeyTabFile" : "#/components/schemas/SSHKerberosTGTKeyTabFileSpec",
+            "SSHKerberosTGTPassword" : "#/components/schemas/SSHKerberosTGTPasswordSpec",
+            "SecretFile" : "#/components/schemas/SecretFileSpec",
+            "SecretText" : "#/components/schemas/SecretTextSpec",
+            "WinRmTGTKeyTabFile" : "#/components/schemas/WinRmTGTKeyTabFileSpec",
+            "WinRmTGTPassword" : "#/components/schemas/WinRmTGTPasswordSpec",
+            "WinRmNTLM" : "#/components/schemas/WinRmNTLMSpec"
+          }
+        },
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/SSHKeyPathSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKeyReferenceSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKerberosTGTKeyTabFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/SSHKerberosTGTPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/SecretFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/SecretTextSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmTGTKeyTabFileSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmTGTPasswordSpec"
+        }, {
+          "$ref" : "#/components/schemas/WinRmNTLMSpec"
+        } ]
+      },
+      "SSHKeyPathSpec" : {
+        "title" : "SSHKeyPath",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "key_path", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKeyPath" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Path of the key file"
+            },
+            "encrypted_passphrase" : {
+              "type" : "string",
+              "description" : "This is the passphrase provided while creating the SSH key for local encryption"
+            }
+          }
+        } ]
+      },
+      "SSHKeyReferenceSpec" : {
+        "title" : "SSHKeyReference",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKeyReference" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "key" : {
+              "type" : "string",
+              "description" : "SSH key"
+            },
+            "encrypted_passphrase" : {
+              "type" : "string",
+              "description" : "This is the passphrase provided while creating the SSH key for local encryption"
+            }
+          }
+        } ]
+      },
+      "SSHPasswordSpec" : {
+        "title" : "SSHPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "password", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "SSH username"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "SSH password"
+            }
+          }
+        } ]
+      },
+      "SSHKerberosTGTKeyTabFileSpec" : {
+        "title" : "SSHKerberosTGTKeyTabFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKerberosTGTKeyTabFile" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Kerberos keytab file path"
+            }
+          }
+        } ]
+      },
+      "SSHKerberosTGTPasswordSpec" : {
+        "title" : "SSHKerberosTGTPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SSHKerberosTGTPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "SSH port",
+              "format" : "int32"
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "Kerberos password"
+            }
+          }
+        } ]
+      },
+      "SecretFileSpec" : {
+        "title" : "SecretFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "secret_manager_slug", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SecretFile" ]
+            },
+            "secret_manager_slug" : {
+              "type" : "string",
+              "description" : "Slug of the secret manager used to manage the secret"
+            }
+          }
+        } ]
+      },
+      "SecretTextSpec" : {
+        "title" : "SecretText",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "secret_manager_slug", "type", "value_type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "SecretText" ]
+            },
+            "secret_manager_slug" : {
+              "type" : "string",
+              "description" : "Slug of the secret manager used to manage the secret"
+            },
+            "value_type" : {
+              "type" : "string",
+              "description" : "This has details to specify if the secret value is inline or referenced",
+              "enum" : [ "Inline", "Reference" ]
+            },
+            "value" : {
+              "type" : "string",
+              "description" : "Value of the Secret"
+            }
+          }
+        } ]
+      },
+      "WinRmTGTKeyTabFileSpec" : {
+        "title" : "WinRmTGTKeyTabFile",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmTGTKeyTabFile" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "key_path" : {
+              "type" : "string",
+              "description" : "Keytab file path"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "WinRmTGTPasswordSpec" : {
+        "title" : "WinRmTGTPassword",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmTGTPassword" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "principal" : {
+              "type" : "string",
+              "description" : "Kerberos principal"
+            },
+            "realm" : {
+              "type" : "string",
+              "description" : "Kerberos realm"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "Kerberos password"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "WinRmNTLMSpec" : {
+        "title" : "WinRmNTLM",
+        "description" : "This is the SSH key authentication details defined in Harness.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/SecretSpec"
+        }, {
+          "required" : [ "domain", "password", "type", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of secret",
+              "enum" : [ "WinRmNTLM" ]
+            },
+            "port" : {
+              "type" : "integer",
+              "description" : "WinRm port",
+              "format" : "int32",
+              "default" : 5986
+            },
+            "domain" : {
+              "type" : "string",
+              "description" : "This is the NTLM domain name"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "This is the NTLM user name"
+            },
+            "password" : {
+              "type" : "string",
+              "description" : "This is the NTLM password"
+            },
+            "use_ssl" : {
+              "type" : "boolean",
+              "description" : "This is the NTLM either to use SSL/https",
+              "default" : true
+            },
+            "skip_cert_checks" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos either to skip certificate checks",
+              "default" : true
+            },
+            "use_no_profile" : {
+              "type" : "boolean",
+              "description" : "This is the Kerberos powershell runs without loading profile"
+            }
+          }
+        } ]
+      },
+      "SecretRequest" : {
+        "required" : [ "secret" ],
+        "type" : "object",
+        "properties" : {
+          "secret" : {
+            "$ref" : "#/components/schemas/Secret"
+          }
+        }
+      },
+      "Secret" : {
+        "required" : [ "name", "slug", "spec" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "pattern" : "^[0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Secret name"
+          },
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Secret slug"
+          },
+          "org" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization slug for secret"
+          },
+          "project" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Project slug for secret"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Secret tags"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Secret description"
+          },
+          "spec" : {
+            "$ref" : "#/components/schemas/SecretSpec"
+          }
+        }
+      },
+      "SecretResponse" : {
+        "title" : "SecretResponse",
+        "type" : "object",
+        "properties" : {
+          "secret" : {
+            "$ref" : "#/components/schemas/Secret"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for the secret",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Updated timestamp for the secret",
+            "format" : "int64"
+          },
+          "draft" : {
+            "type" : "boolean"
+          },
+          "governance_metadata" : {
+            "type" : "object"
+          }
+        },
+        "description" : "Secret response model"
+      },
+      "ValidateSecretSlugResponse" : {
+        "title" : "ValidateSecretSlugResponse",
+        "type" : "object",
+        "properties" : {
+          "valid" : {
+            "type" : "boolean"
+          }
+        },
+        "description" : "Validate unique secret slug response model"
+      }
+    },
+    "responses" : {
+      "OrganizationResponse" : {
+        "description" : "Organization response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganizationResponse"
+            },
+            "examples" : {
+              "example-organization-response-json" : {
+                "value" : {
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "harness_managed" : true
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OrganizationResponse"
+            },
+            "examples" : {
+              "example-organization-response-yaml" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+              }
+            }
+          }
+        }
+      },
+      "ProjectResponse" : {
+        "description" : "Project response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ProjectResponse"
+            },
+            "examples" : {
+              "example-project-response-json" : {
+                "value" : {
+                  "project" : {
+                    "org" : "example_org_slug",
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ProjectResponse"
+            },
+            "examples" : {
+              "example-project-response-yaml" : {
+                "value" : "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "ProjectListResponse" : {
+        "description" : "Project list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples" : {
+              "example-project-list-response-json" : {
+                "value" : [ {
+                  "project" : {
+                    "org" : "example_org_slug",
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples" : {
+              "example-project-list-response-yaml" : {
+                "value" : "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "OrganizationListResponse" : {
+        "description" : "Organization list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples" : {
+              "example-organizations-list-response-json" : {
+                "value" : [ {
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "harness_managed" : true
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples" : {
+              "example-organizations-list-response-yaml" : {
+                "value" : "- org:\n    slug: example_organization\n    name: Example Organization\n    description: This is an example organization\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
+              }
+            }
+          }
+        }
+      },
+      "SecretResponse" : {
+        "description" : "Secret response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretResponse"
+            },
+            "examples" : {
+              "example-secret-response-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 80,
+                      "username" : "example_secret",
+                      "key_path" : "example_secret",
+                      "encrypted_passphrase" : "account.example_secret"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "draft" : false
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretResponse"
+            },
+            "examples" : {
+              "example-secret-response-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+              }
+            }
+          }
+        }
+      },
+      "SecretListResponse" : {
+        "description" : "Secret list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples" : {
+              "example-list-secret-response-json" : {
+                "value" : [ {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 80,
+                      "username" : "example_secret",
+                      "key_path" : "example_secret",
+                      "encrypted_passphrase" : "account.example_secret"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "draft" : false
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples" : {
+              "example-list-secret-response-yaml" : {
+                "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
+              }
+            }
+          }
+        }
+      },
+      "ValidateSecretSlugResponse" : {
+        "description" : "Example response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+            },
+            "examples" : {
+              "example-validate-secret-slug-response-json" : {
+                "value" : {
+                  "valid" : true
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
+            },
+            "examples" : {
+              "example-validate-secret-slug-response-json" : {
+                "value" : "valid: true\n"
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "Page" : {
+        "name" : "page",
+        "in" : "query",
+        "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "integer",
+          "default" : 0
+        }
+      },
+      "Limit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "Pagination: Number of items to return",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "integer",
+          "default" : 30
+        }
+      },
+      "SearchTerm" : {
+        "name" : "search_term",
+        "in" : "query",
+        "description" : "This would be used to filter resources having attributes matching with search term.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "OrgQueryParam" : {
+        "name" : "org",
+        "in" : "query",
+        "description" : "Slug field of the organization the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ProjectQueryParam" : {
+        "name" : "project",
+        "in" : "query",
+        "description" : "Slug field of the project the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "AccountQueryParam" : {
+        "name" : "account",
+        "in" : "query",
+        "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "OrgsQueryParam" : {
+        "name" : "org",
+        "in" : "query",
+        "description" : "Slug field of the organizations the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ProjectsQueryParam" : {
+        "name" : "project",
+        "in" : "query",
+        "description" : "Slug field of the projects the resource is scoped to",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "OrgPathParam" : {
+        "name" : "org",
+        "in" : "path",
+        "description" : "Slug field of the organization the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "PrivateSecret" : {
+        "name" : "private_secret",
+        "in" : "query",
+        "description" : "This would be used to define secret as private.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      },
+      "ProjectPathParam" : {
+        "name" : "project",
+        "in" : "path",
+        "description" : "Slug field of the project the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    },
+    "requestBodies" : {
+      "UpdateProjectRequest" : {
+        "description" : "Put the necessary fields for the API to update a Project.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples" : {
+              "example-project-update-request-json" : {
+                "value" : {
+                  "project" : {
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples" : {
+              "example-project-update-request-yaml" : {
+                "value" : "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "CreateOrganizationRequest" : {
+        "description" : "Post the necessary fields for the API to create an organization.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples" : {
+              "example-create-organization-request-json" : {
+                "value" : {
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an Example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples" : {
+              "example-create-organization-request-yaml" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an Example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "UpdateOrganizationRequest" : {
+        "description" : "Put the necessary fields for the API to update a organization.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples" : {
+              "example-organization-update-request-json" : {
+                "value" : {
+                  "org" : {
+                    "slug" : "example_organization",
+                    "name" : "Example Organization",
+                    "description" : "This is an example organization",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples" : {
+              "example-organization-update-request-json" : {
+                "value" : "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "CreateProjectRequest" : {
+        "description" : "Post the necessary fields for the API to create a project.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateProjectRequest"
+            },
+            "examples" : {
+              "example-create-project-request-json" : {
+                "value" : {
+                  "project" : {
+                    "slug" : "example_project_slug",
+                    "name" : "example-project-name",
+                    "color" : "#0063F7",
+                    "modules" : [ "CD" ],
+                    "description" : "This is a example project",
+                    "tags" : {
+                      "property1" : "value1",
+                      "property2" : "value2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/CreateProjectRequest"
+            },
+            "examples" : {
+              "example-create-project-request-yaml" : {
+                "value" : "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "SecretRequest" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretRequest"
+            },
+            "examples" : {
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKerberosTGTKeyTabFile",
+                      "port" : 22,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "key_path" : "key/file/path"
+                    }
+                  }
+                }
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKerberosTGTPassword",
+                      "port" : 22,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "password" : "account.example-password"
+                    }
+                  }
+                }
+              },
+              "example-secret-file-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SecretFile",
+                      "secret_manager_slug" : "example_secret_manager_slug"
+                    }
+                  }
+                }
+              },
+              "example-secret-text-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SecretText",
+                      "secret_manager_slug" : "example_secret_manager_slug",
+                      "value_type" : "Inline",
+                      "value" : "example_secret_text_value"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-path-file-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyPath",
+                      "port" : 22,
+                      "username" : "example_username",
+                      "key_path" : "ssh/key/path",
+                      "encrypted_passphrase" : "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-reference-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHKeyReference",
+                      "port" : 22,
+                      "username" : "example_username",
+                      "key" : "example/secret/key/path",
+                      "encrypted_passphrase" : "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "SSHPassword",
+                      "port" : 22,
+                      "username" : "example_username",
+                      "password" : "account.example_password"
+                    }
+                  }
+                }
+              },
+              "example-winrm-ntlm-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmNTLM",
+                      "port" : 5986,
+                      "domain" : "example-domain",
+                      "username" : "example-username",
+                      "password" : "example-password",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmTGTKeyTabFile",
+                      "port" : 5986,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "key_path" : "key/file/path",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-password-secret-request-json" : {
+                "value" : {
+                  "secret" : {
+                    "name" : "example_secret",
+                    "slug" : "example_secret",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_secret"
+                    },
+                    "description" : "example_secret",
+                    "spec" : {
+                      "type" : "WinRmTGTPassword",
+                      "port" : 5986,
+                      "principal" : "example-principal",
+                      "realm" : "example-realm",
+                      "password" : "example-password",
+                      "use_ssl" : true,
+                      "skip_cert_checks" : true,
+                      "use_no_profile" : true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/SecretRequest"
+            },
+            "examples" : {
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-yaml" : {
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTKeyTabFile\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n"
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKerberosTGTPassword\n  port: 22\n  principal: example-principal\n  realm: example-realm\n  password: account.example-password\n"
+                }
+              },
+              "example-secret-file-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretFile\n  secret_manager_slug: example_secret_manager_slug\n"
+                }
+              },
+              "example-secret-text-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretText\n  secret_manager_slug: example_secret_manager_slug\n  value_type: Inline\n  value: example_secret_text_value\n"
+                }
+              },
+              "example-ssh-key-path-file-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyPath\n  port: 22\n  username: example_username\n  key_path: ssh/key/path\n  encrypted_passphrase: account.example_passphrase\n"
+                }
+              },
+              "example-ssh-key-reference-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyReference\n  port: 22\n  username: example_username\n  key: example/secret/key/path\n  encrypted_passphrase: account.example_passphrase\n"
+                }
+              },
+              "example-ssh-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHPassword\n  port: 22\n  username: example_username\n  password: account.example_password\n"
+                }
+              },
+              "example-winrm-ntlm-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmNTLM\n  port: 5986\n  domain: example-domain\n  username: example-username\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTKeyTabFile\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  key_path: key/file/path\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
+              },
+              "example-winrm-tgt-password-secret-request-yaml" : {
+                "value" : {
+                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTPassword\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
+                }
+              }
+            }
+          },
+          "multipart/form-data" : {
+            "schema" : {
+              "required" : [ "file", "spec" ],
+              "properties" : {
+                "spec" : {
+                  "$ref" : "#/components/schemas/SecretRequest"
+                },
+                "file" : {
+                  "type" : "string",
+                  "format" : "binary"
+                }
+              }
+            }
+          }
+        },
+        "required" : true
+      }
+    },
+    "securitySchemes" : {
+      "x-api-key" : {
+        "type" : "apiKey",
+        "name" : "x-api-key",
+        "in" : "header"
+      }
+    }
+  },
+  "x-tagGroups" : [ {
+    "name" : "Organization",
+    "tags" : [ "Organization" ]
+  }, {
+    "name" : "Project",
+    "tags" : [ "Account Project", "Org Project" ]
+  }, {
+    "name" : "Secret",
+    "tags" : [ "Account Secret", "Org Secret", "Project Secret" ]
+  } ]
+}
