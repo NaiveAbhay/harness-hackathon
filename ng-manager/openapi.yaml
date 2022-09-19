@@ -21,6 +21,11 @@ x-tagGroups:
       - Account Secret
       - Org Secret
       - Project Secret
+  - name: Connector
+    tags:
+      - Account Connector
+      - Org Connector
+      - Project Connector
 tags:
   - name: Organization
     description: Everything about organization
@@ -34,6 +39,12 @@ tags:
     description: Everything about org scoped secret
   - name: Project Secret
     description: Everything about project scoped secret
+  - name: Account Connector
+    description: Everything about account scoped connector
+  - name: Org Connector
+    description: Everything about org scoped connector
+  - name: Project Connector
+    description: Everything about project scoped connector
 paths:
   /v1/orgs:
     post:
@@ -304,6 +315,86 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
+  /v1/connectors:
+    post:
+      summary: Create a Connector
+      operationId: create-account-scoped-connector
+      responses:
+        '201':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Creates a new connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
+      tags:
+        - Account Connector
+    get:
+      summary: List connectors
+      operationId: get-account-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorListResponse'
+      description: Retrieves the information of the connectors.
+      tags:
+        - Account Connector
+  '/v1/orgs/{org}/connectors':
+    post:
+      summary: Create a Connector
+      operationId: create-org-scoped-connector
+      responses:
+        '201':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Creates a new connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
+      tags:
+        - Org Connector
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+    get:
+      summary: List connectors
+      operationId: get-org-scoped-connectors
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorListResponse'
+      description: Retrieves the information of the connectors.
+      tags:
+        - Org Connector
+  '/v1/orgs/{org}/projects/{project}/connectors':
+    post:
+      summary: Create a Connector
+      operationId: create-project-scoped-connector
+      responses:
+        '201':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Creates a new connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
+      tags:
+        - Project Connector
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    get:
+      summary: List connectors
+      operationId: get-project-scoped-connectors
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorListResponse'
+      description: Retrieves the information of the connectors.
+      tags:
+        - Project Connector
   /v1/secrets:
     post:
       summary: Create a secret
@@ -1281,6 +1372,929 @@ components:
         valid:
           type: boolean
       description: Validate unique secret slug response model
+    ConnectorResponse:
+      title: ConnectorResponse
+      type: object
+      description: Connector response model
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+        created:
+          type: integer
+          format: int64
+          description: Creation timestamp for the connector
+        updated:
+          type: integer
+          format: int64
+          description: Updated timestamp for the connector
+        governance_metadata:
+          type: object
+    ConnectorRequest:
+      type: object
+      properties:
+        connector:
+          $ref: '#/components/schemas/Connector'
+      required:
+        - connector
+    Connector:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Connector name
+          pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
+        slug:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          description: Connector slug
+          maxLength: 64
+        description:
+          type: string
+          description: Connector description
+        org:
+          type: string
+          description: Organization slug for connector
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+        project:
+          type: string
+          description: Project slug for connector
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Connector tags
+        spec:
+          $ref: '#/components/schemas/ConnectorSpec'
+      required:
+        - name
+        - slug
+        - spec
+    ConnectorSpec:
+      title: ConnectorSpec
+      type: object
+      description: Details of the connector defined in Harness
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          GitHttp: '#/components/schemas/GitHttpConnectorSpec'
+          GitHttpEncrypted: '#/components/schemas/GitHttpEncryptedConnectorSpec'
+          GitSsh: '#/components/schemas/GitSshConnectorSpec'
+          Appdynamics: '#/components/schemas/AppdynamicsConnectorSpec'
+          AppdynamicsClientId: '#/components/schemas/AppdynamicsClientIdConnectorSpec'
+          Artifactory: '#/components/schemas/ArtifactoryConnectorSpec'
+          ArtifactoryEncrypted: '#/components/schemas/ArtifactoryEncryptedConnectorSpec'
+          ArtifactoryAnonymous: '#/components/schemas/ArtifactoryAnonymousConnectorSpec'
+          AwsCodeCommit: '#/components/schemas/AwsCodeCommitConnectorSpec'
+          AwsAccessKey: '#/components/schemas/AwsAccessKeyConnectorSpec'
+          AwsEncryptedAccessKey: '#/components/schemas/AwsEncryptedAccessKeyConnectorSpec'
+          AwsIAMRole: '#/components/schemas/AwsIAMRoleConnectorSpec'
+          AwsIRSA: '#/components/schemas/AwsIRSAConnectorSpec'
+          AwsKmsAccessKey: '#/components/schemas/AwsKmsAccessKeyConnectorSpec'
+          AwsKmsAssumeIAM: '#/components/schemas/AwsKmsAssumeIAMConnectorSpec'
+          AwsKmsAssumeSTS: '#/components/schemas/AwsKmsAssumeSTSConnectorSpec'
+          AwsSecretManagerAccessKey: '#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec'
+          AwsSecretManagerAssumeIAM: '#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec'
+          AwsSecretManagerAssumeSTS: '#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec'
+          AzureClientSecretKey: '#/components/schemas/AzureClientSecretKeyConnectorSpec'
+          AzureClientCertificate: '#/components/schemas/AzureClientCertificateConnectorSpec'
+      oneOf:
+        - $ref: '#/components/schemas/GitHttpConnectorSpec'
+        - $ref: '#/components/schemas/GitHttpEncryptedConnectorSpec'
+        - $ref: '#/components/schemas/GitSshConnectorSpec'
+        - $ref: '#/components/schemas/AppdynamicsConnectorSpec'
+        - $ref: '#/components/schemas/AppdynamicsClientIdConnectorSpec'
+        - $ref: '#/components/schemas/ArtifactoryConnectorSpec'
+        - $ref: '#/components/schemas/ArtifactoryEncryptedConnectorSpec'
+        - $ref: '#/components/schemas/ArtifactoryAnonymousConnectorSpec'
+        - $ref: '#/components/schemas/AwsCodeCommitConnectorSpec'
+        - $ref: '#/components/schemas/AwsAccessKeyConnectorSpec'
+        - $ref: '#/components/schemas/AwsEncryptedAccessKeyConnectorSpec'
+        - $ref: '#/components/schemas/AwsIAMRoleConnectorSpec'
+        - $ref: '#/components/schemas/AwsIRSAConnectorSpec'
+        - $ref: '#/components/schemas/AwsKmsAccessKeyConnectorSpec'
+        - $ref: '#/components/schemas/AwsKmsAssumeIAMConnectorSpec'
+        - $ref: '#/components/schemas/AwsKmsAssumeSTSConnectorSpec'
+        - $ref: '#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec'
+        - $ref: '#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec'
+        - $ref: '#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec'
+        - $ref: '#/components/schemas/AzureClientSecretKeyConnectorSpec'
+        - $ref: '#/components/schemas/AzureClientCertificateConnectorSpec'
+      properties:
+        type:
+          type: string
+          enum:
+            - GitHttp
+            - GitHttpEncrypted
+            - GitSsh
+            - Appdynamics
+            - AppdynamicsClientId
+            - Artifactory
+            - ArtifactoryEncrypted
+            - ArtifactoryAnonymous
+            - AwsCodeCommit
+            - AwsAccessKey
+            - AwsEncryptedAccessKey
+            - AwsIAMRole
+            - AwsIRSA
+            - AwsKmsAccessKey
+            - AwsKmsAssumeIAM
+            - AwsKmsAssumeSTS
+            - AwsSecretManagerAccessKey
+            - AwsSecretManagerAssumeIAM
+            - AwsSecretManagerAssumeSTS
+            - AzureClientSecretKey
+            - AzureClientCertificate
+          description: This specifies the type of connector
+    GitHttpConnectorSpec:
+      title: GitHttp
+      description: This contains details of the Generic Git http connector
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - GitHttp
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: Git repo url
+            branch:
+              type: string
+              description: branch name
+            connection_type:
+              type: string
+              enum:
+                - Account
+                - Repo
+                - Project
+            username:
+              type: string
+              description: git username
+            password_ref:
+              type: string
+              description: Reference to encrypted Harness secret for git password
+            validation_repo:
+              type: string
+              description: validation repo
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+            - connection_type
+            - username
+            - password_ref
+    GitHttpEncryptedConnectorSpec:
+      title: GitHttpEncrypted
+      description: This contains details of the Generic Git http connector
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - GitHttp
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: Git repo url
+            branch:
+              type: string
+              description: branch name
+            connection_type:
+              type: string
+              enum:
+                - Account
+                - Repo
+                - Project
+            username_ref:
+              type: string
+              description: Reference to encrypted Harness secret for git username
+            password_ref:
+              type: string
+              description: Reference to encrypted Harness secret for git password
+            validation_repo:
+              type: string
+              description: validation repo
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+            - connection_type
+            - username_ref
+            - password_ref
+    GitSshConnectorSpec:
+      title: GitSsh
+      description: This contains details of the Generic Git ssh connector
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - GitSsh
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: Git repo url
+            branch:
+              type: string
+              description: branch name
+            connection_type:
+              type: string
+              enum:
+                - Account
+                - Repo
+                - Project
+            ssh_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for git ssh key
+            validation_repo:
+              type: string
+              description: validation repo
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+            - connection_type
+            - ssh_key_ref
+    AppdynamicsConnectorSpec:
+      title: Appdynamics
+      description: This contains details of the appdynamics connector
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Appdynamics
+              description: This specifies the type of connector
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            account_name:
+              type: string
+              description: appdymanics account name
+            controller_url:
+              type: string
+              description: appdynamics controller url
+            username:
+              type: string
+              description: appdynamics username
+            password_ref:
+              type: string
+              description: Reference to encrypted Harness secret for appdynamics password secret
+          required:
+            - type
+            - account_name
+            - controller_url
+    AppdynamicsClientIdConnectorSpec:
+      title: AppdynamicsClientId
+      description: This contains details of the appdynamics connector with client secrets
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AppdynamicsClientId
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            account_name:
+              type: string
+              description: appdymanics account name
+            controller_url:
+              type: string
+              description: appdynamics controller url
+            client_id:
+              type: string
+              description: appdynamics client id
+            client_secret_ref:
+              type: string
+              description: Reference to encrypted Harness secret for appdynamics client secret
+          required:
+            - type
+            - account_name
+            - controller_url
+    ArtifactoryAnonymousConnectorSpec:
+      title: ArtifactoryAnonymous
+      description: This contains details of the artifactory connector with anonymous user
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - ArtifactoryAnonymous
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: artifactory repo url
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+    ArtifactoryConnectorSpec:
+      title: Artifactory
+      description: This contains details of the artifactory connector with username/password
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Artifactory
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: artifactory repo url
+            username:
+              type: string
+              description: artifactory username
+            password_ref:
+              type: string
+              description: Reference to encrypted Harness secret for artifactory password
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+            - username
+            - password_ref
+    ArtifactoryEncryptedConnectorSpec:
+      title: ArtifactoryEncrypted
+      description: This contains details of the artifactory connector with encrypted username/password
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - ArtifactoryEncrypted
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: artifactory repo url
+            username_ref:
+              type: string
+              description: Reference to encrypted Harness secret for artifactory username
+            password_ref:
+              type: string
+              description: Reference to encrypted Harness secret for artifactory password
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              description: execute on delegate
+          required:
+            - type
+            - url
+            - username_ref
+            - password_ref
+    AwsCodeCommitConnectorSpec:
+      title: AwsCodeCommit
+      description: This contains details of the AWS code commit connector
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsCodeCommit
+              description: This specifies the type of connector
+            url:
+              type: string
+              description: AWS codecommit repository url
+            url_type:
+              type: string
+              description: AWS codecommit repository url type
+              enum:
+                - Repo
+                - Region
+            access_key:
+              type: string
+              description: AWS access key
+            access_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for AWS access key
+            secret_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for AWS secret key
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+          required:
+            - type
+            - url
+            - url_type
+            - secret_key_ref
+    AwsAccessKeyConnectorSpec:
+      title: AwsAccessKey
+      description: This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsAccessKey
+              description: This specifies the type of connector
+            access_key:
+              type: string
+              description: AWS access key
+            secret_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for AWS secret key
+            cross_account_role_arn:
+              type: string
+              description: 'If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.'
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            test_region:
+              type: string
+              description: 'By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.'
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+          required:
+            - type
+            - access_key
+            - secret_key_ref
+    AwsEncryptedAccessKeyConnectorSpec:
+      title: AwsEncryptedAccessKey
+      description: This contains details of the AWS connector and needs AWS encrypted access and secret keys for an AWS IAM user.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsEncryptedAccessKey
+              description: This specifies the type of connector
+            access_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for AWS access key
+            secret_key_ref:
+              type: string
+              description: Reference to encrypted Harness secret for AWS secret key
+            cross_account_role_arn:
+              type: string
+              description: 'If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.'
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            test_region:
+              type: string
+              description: 'By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.'
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+          required:
+            - type
+            - access_key_ref
+            - secret_key_ref
+    AwsIAMRoleConnectorSpec:
+      title: AwsIAMRole
+      description: This contains details of the AWS connector. This assume IAM role on Delegate and uses the IAM role of a Harness Delegate running in your AWS account.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsIAMRole
+              description: This specifies the type of connector
+            cross_account_role_arn:
+              type: string
+              description: 'If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.'
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            test_region:
+              type: string
+              description: 'By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.'
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+          required:
+            - type
+    AwsIRSAConnectorSpec:
+      title: AwsIRSA
+      description: This contains details of the AWS connector. This uses IRSA and forces the Harness kubernetes delegate in AWS EKS to use a specific IAM role.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsIRSA
+              description: This specifies the type of connector
+            cross_account_role_arn:
+              type: string
+              description: 'If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.'
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            test_region:
+              type: string
+              description: 'By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.'
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of unique delegate selectors
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+          required:
+            - type
+    AwsKmsAccessKeyConnectorSpec:
+      title: AwsKmsAccessKey
+      description: This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsKmsAccessKey
+              description: This specifies the type of connector
+            kms_arn:
+              type: string
+              description: Amazon Resource Name (ARN)
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            access_key:
+              type: string
+              description: Access Key for AWS authentication
+            secret_key:
+              type: string
+              description: Secret Key for AWS authentication
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+          required:
+            - type
+            - kms_arn
+            - region
+            - access_key
+            - secret_key
+    AwsKmsAssumeIAMConnectorSpec:
+      title: AwsKmsAssumeIAM
+      description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsKmsAssumeIAM
+              description: This specifies the type of connector
+            kms_arn:
+              type: string
+              description: Amazon Resource Name (ARN)
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            delegate_selectors:
+              type: array
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+              items:
+                type: string
+          required:
+            - type
+            - kms_arn
+            - region
+            - delegate_selectors
+    AwsKmsAssumeSTSConnectorSpec:
+      title: AwsKmsAssumeSTS
+      description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsKmsAssumeSTS
+              description: This specifies the type of connector
+            kms_arn:
+              type: string
+              description: Amazon Resource Name (ARN)
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            delegate_selectors:
+              type: array
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+              items:
+                type: string
+            role_arn:
+              type: string
+              description: Role ARN for the Delegate with STS Role
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            assume_sts_role_duration:
+              type: string
+              description: This is the AssumeRole Session Duration
+          required:
+            - type
+            - kms_arn
+            - region
+            - delegate_selectors
+    AwsSecretManagerAccessKeyConnectorSpec:
+      title: AwsSecretManagerAccessKey
+      description: This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS Secret Manager.
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsSecretManagerAccessKey
+              description: This specifies the type of connector
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            access_key:
+              type: string
+              description: Access Key for AWS authentication
+            secret_key:
+              type: string
+              description: Secret Key for AWS authentication
+            secret_name_prefix:
+              type: string
+              description: Text that is prepended to the Secret name as a prefix
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+          required:
+            - type
+            - region
+            - access_key
+            - secret_key
+    AwsSecretManagerAssumeIAMConnectorSpec:
+      title: AwsSecretManagerAssumeIAM
+      description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsSecretManagerAssumeIAM
+              description: This specifies the type of connector
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            secret_name_prefix:
+              type: string
+              description: Text that is prepended to the Secret name as a prefix
+            delegate_selectors:
+              type: array
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+              items:
+                type: string
+          required:
+            - type
+            - region
+    AwsSecretManagerAssumeSTSConnectorSpec:
+      title: AwsSecretManagerAssumeSTS
+      description: 'This contains details of the AWS connector and Harness will authenticate using the STS role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AwsSecretManagerAssumeSTS
+              description: This specifies the type of connector
+            region:
+              type: string
+              description: AWS Region for kms
+            default:
+              type: boolean
+              description: Boolean value to indicate if the Secret Manager is your default Secret Manager
+            secret_name_prefix:
+              type: string
+              description: Text that is prepended to the Secret name as a prefix
+            delegate_selectors:
+              type: array
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+              items:
+                type: string
+            role_arn:
+              type: string
+              description: Role ARN for the Delegate with STS Role
+            external_id:
+              type: string
+              description: 'If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.'
+            assume_sts_role_duration:
+              type: string
+              description: This is the AssumeRole Session Duration
+          required:
+            - type
+            - region
+            - role_arn
+    AzureClientSecretKeyConnectorSpec:
+      title: AzureClientSecretKey
+      description: 'This contains details of the Azure connector and uses Azure client secret key details'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AzureClientSecretKey
+              description: This specifies the type of connector
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+            azure_environment_type:
+              type: string
+              default: AZURE
+              enum:
+                - AZURE
+                - AZURE_US_GOVERNMENT
+              description: This specifies the Azure Environment type, which is AZURE by default.
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+            application_id:
+              type: string
+              description: Application ID of the Azure App
+            tenant_id:
+              type: string
+              description: The Azure Active Directory (AAD) directory ID where you created your application
+            secret_ref:
+              type: string
+              description: Reference to encrypted Harness secret for Azure client secret
+          required:
+            - type
+            - azure_environment_type
+            - application_id
+            - tenant_id
+            - secret_ref
+    AzureClientCertificateConnectorSpec:
+      title: AzureClientCertificate
+      description: 'This contains details of the Azure connector and uses Azure client certificate details'
+      allOf:
+        - $ref: '#/components/schemas/ConnectorSpec'
+        - type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AzureClientCertificate
+              description: This specifies the type of connector
+            delegate_selectors:
+              type: array
+              items:
+                type: string
+              description: List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+              minItems: 1
+            azure_environment_type:
+              type: string
+              default: AZURE
+              enum:
+                - AZURE
+                - AZURE_US_GOVERNMENT
+              description: This specifies the Azure Environment type, which is AZURE by default.
+            execute_on_delegate:
+              type: boolean
+              default: true
+              description: execute on delegate
+            application_id:
+              type: string
+              description: Application ID of the Azure App
+            tenant_id:
+              type: string
+              description: The Azure Active Directory (AAD) directory ID where you created your application
+            certificate_ref:
+              type: string
+              description: Reference to encrypted Harness secret for Azure client secret
+          required:
+            - type
+            - azure_environment_type
+            - application_id
+            - tenant_id
+            - certificate_ref
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1590,6 +2604,106 @@ components:
             example-validate-secret-slug-response-json:
               value: |
                 valid: true
+    ConnectorResponse:
+      description: Connector response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectorResponse'
+          examples:
+            example-connector-response-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  description: example_connector
+                  spec:
+                    type: GitHttp
+                    url: 'https://github.com/example/example-repo.git'
+                    branch: example_branch
+                    connection_type: Repo
+                    username: git-http-user
+                    password_ref: account.git-http-password
+                created: 1234567890
+                updated: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConnectorResponse'
+          examples:
+            example-connector-response-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  description: example_connector
+                  spec:
+                      type: GitHttp
+                      url: 'https://github.com/example/example-repo.git'
+                      branch: example_branch
+                      connection_type: Repo
+                      username: git-http-user
+                      password_ref: account.git-http-password
+                created: 1234567890
+                updated: 1234567890
+    ConnectorListResponse:
+      description: Connector list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ConnectorResponse'
+          examples:
+            example-list-connector-response-json:
+              value:
+                - connector:
+                    name: example_connector
+                    slug: example_connector
+                    org: default
+                    project: example_project
+                    tags:
+                      property1: example_connector
+                    description: example_connector
+                    spec:
+                      type: GitHttp
+                      url: 'https://github.com/example/example-repo.git'
+                      branch: example_branch
+                      connection_type: Repo
+                      username: git-http-user
+                      password_ref: account.git-http-password
+                  created: 1234567890
+                  updated: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConnectorResponse'
+          examples:
+            example-list-connector-response-yaml:
+              value: |
+                - connector:
+                    name: example_connector
+                    slug: example_connector
+                    org: default
+                    project: example_project
+                    tags:
+                      property1: example_connector
+                    description: example_connector
+                    spec:
+                        type: GitHttp
+                        url: 'https://github.com/example/example-repo.git'
+                        branch: example_branch
+                        connection_type: Repo
+                        username: git-http-user
+                        password_ref: account.git-http-password
+                  created: 1234567890
+                  updated: 1234567890
   requestBodies:
     UpdateProjectRequest:
       content:
@@ -2072,6 +3186,119 @@ components:
             required:
               - file
               - spec
+      required: true
+    ConnectorRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectorRequest'
+          examples:
+            example-create-git-http-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitHttp
+                    url: 'https://github.com/example/example-repo.git'
+                    branch: example_branch
+                    connection_type: Repo
+                    username: git-http-user
+                    password_ref: account.git-http-password
+                    execute_on_delegate: false
+            example-create-git-ssh-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitSsh
+                    url: 'https://github.com/example/example-repo.git'
+                    branch: example_branch
+                    connection_type: Repo
+                    ssh_key_ref: account.git-http-password
+                    execute_on_delegate: false
+            example-create-aws-code-commit-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AwsCodeCommit
+                    url: 'https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo'
+                    url_type: Repo
+                    access_key_ref: account.aws-access-key
+                    secret_key_ref: account.aws-secret-key
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConnectorRequest'
+          examples:
+            example-create-git-http-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitHttpConnector
+                    url: https://github.com/example/example-repo.git
+                    branch: example_branch
+                    connection_type: Repo
+                    username: git-http-user
+                    password_ref: account.git-http-password
+                    execute_on_delegate: false
+            example-create-git-ssh-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitSshConnector
+                    url: 'https://github.com/example/example-repo.git'
+                    branch: example_branch
+                    connection_type: Repo
+                    ssh_key_ref: account.git-http-password
+                    execute_on_delegate: false
+            example-create-aws-code-commit-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AwsCodeCommit
+                    url: 'https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo'
+                    url_type: Repo
+                    access_key_ref: account.aws-access-key
+                    secret_key_ref: account.aws-secret-key
       required: true
   parameters:
     Page:
