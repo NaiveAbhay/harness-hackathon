@@ -4765,49 +4765,31 @@
                 "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTKeyTabFile\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n"
               },
               "example-ssh-kerberos-tgt-password-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKerberosTGTPassword\n  port: 22\n  principal: example-principal\n  realm: example-realm\n  password: account.example-password\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTPassword\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    password: account.example-password\n"
               },
               "example-secret-file-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretFile\n  secret_manager_slug: example_secret_manager_slug\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SecretFile\n    secret_manager_slug: example_secret_manager_slug\n"
               },
               "example-secret-text-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SecretText\n  secret_manager_slug: example_secret_manager_slug\n  value_type: Inline\n  value: example_secret_text_value\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SecretText\n    secret_manager_slug: example_secret_manager_slug\n    value_type: Inline\n    value: example_secret_text_value\n"
               },
               "example-ssh-key-path-file-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyPath\n  port: 22\n  username: example_username\n  key_path: ssh/key/path\n  encrypted_passphrase: account.example_passphrase\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 22\n    username: example_username\n    key_path: ssh/key/path\n    encrypted_passphrase: account.example_passphrase\n"
               },
               "example-ssh-key-reference-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHKeyReference\n  port: 22\n  username: example_username\n  key: example/secret/key/path\n  encrypted_passphrase: account.example_passphrase\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyReference\n    port: 22\n    username: example_username\n    key: example/secret/key/path\n    encrypted_passphrase: account.example_passphrase\n"
               },
               "example-ssh-password-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: SSHPassword\n  port: 22\n  username: example_username\n  password: account.example_password\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHPassword\n    port: 22\n    username: example_username\n    password: account.example_password\n"
               },
               "example-winrm-ntlm-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmNTLM\n  port: 5986\n  domain: example-domain\n  username: example-username\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmNTLM\n    port: 5986\n    domain: example-domain\n    username: example-username\n    password: example-password\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
               },
               "example-winrm-tgt-key-file-tab-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTKeyTabFile\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  key_path: key/file/path\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmTGTKeyTabFile\n    port: 5986\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
               },
               "example-winrm-tgt-password-secret-request-yaml" : {
-                "value" : {
-                  "secret" : "name: example_secret\nslug: example_secret\norg: default\nproject: example_project\ntags:\n  property1: example_secret\ndescription: example_secret\nspec:\n  type: WinRmTGTPassword\n  port: 5986\n  principal: example-principal\n  realm: example-realm\n  password: example-password\n  use_ssl: true\n  skip_cert_checks: true\n  use_no_profile: true\n"
-                }
+                "value" : "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmTGTPassword\n    port: 5986\n    principal: example-principal\n    realm: example-realm\n    password: example-password\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
               }
             }
           },

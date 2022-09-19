@@ -1914,8 +1914,8 @@ components:
                     realm: example-realm
                     key_path: key/file/path
             example-ssh-kerberos-tgt-password-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -1930,8 +1930,8 @@ components:
                     realm: example-realm
                     password: account.example-password
             example-secret-file-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -1943,8 +1943,8 @@ components:
                     type: SecretFile
                     secret_manager_slug: example_secret_manager_slug
             example-secret-text-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -1958,8 +1958,8 @@ components:
                     value_type: Inline
                     value: example_secret_text_value
             example-ssh-key-path-file-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -1974,8 +1974,8 @@ components:
                     key_path: ssh/key/path
                     encrypted_passphrase: account.example_passphrase
             example-ssh-key-reference-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -1990,8 +1990,8 @@ components:
                     key: example/secret/key/path
                     encrypted_passphrase: account.example_passphrase
             example-ssh-password-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -2005,8 +2005,8 @@ components:
                     username: example_username
                     password: account.example_password
             example-winrm-ntlm-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -2024,8 +2024,8 @@ components:
                     skip_cert_checks: true
                     use_no_profile: true
             example-winrm-tgt-key-file-tab-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
@@ -2043,8 +2043,8 @@ components:
                     skip_cert_checks: true
                     use_no_profile: true
             example-winrm-tgt-password-secret-request-yaml:
-              value:
-                secret: |
+              value: |
+                secret:
                   name: example_secret
                   slug: example_secret
                   org: default
