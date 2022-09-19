@@ -1,0 +1,24 @@
+{
+  "skipOverwrite": false,
+  "java11": true,
+  "typeMappings": {
+  },
+  "importMappings": {
+  },
+  "hideGenerationTimestamp": true,
+  "oas3": true,
+  "apiPackage": "io.harness.spec.server.platform",
+  "modelPackage": "io.harness.spec.server.platform.model",
+  "groupId": "io.harness",
+  "artifactId": "platform-server-spec",
+  "artifactVersion": "1.0.6",
+  "interfaceOnly": true,
+  "returnResponse": true,
+  "sourceFolder": "src/main/java",
+  "dateLibrary": "java8",
+  "ignoreImportMapping": [
+  ],
+  "additionalProperties": {
+    "useTags": true
+  }
+}
