@@ -44,7 +44,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
@@ -85,6 +85,27 @@
           "explode" : true,
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting will be done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "asc", "desc" ]
           }
         }, {
           "name" : "module",
@@ -206,7 +227,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
@@ -372,7 +393,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
@@ -502,7 +523,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
@@ -634,7 +655,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
@@ -1418,7 +1439,7 @@
         }
       },
       "AccountHeader" : {
-        "name" : "account",
+        "name" : "Harness-Account",
         "in" : "header",
         "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
         "required" : false,
@@ -1527,6 +1548,29 @@
         "explode" : false,
         "schema" : {
           "type" : "string"
+        }
+      },
+      "Sort" : {
+        "name" : "sort",
+        "in" : "query",
+        "description" : "Parameter on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "Order" : {
+        "name" : "order",
+        "in" : "query",
+        "description" : "Order on the basis of which sorting will be done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "asc", "desc" ]
         }
       }
     },

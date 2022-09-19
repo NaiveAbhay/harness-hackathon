@@ -41,9 +41,9 @@ public interface PipelineResourceApi {
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @HeaderParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("branch") 
 
  @Parameter(description = "Name of the branch (for Git Experience).")  String branch
@@ -84,9 +84,9 @@ public interface PipelineResourceApi {
 , @PathParam("pipeline")
 
  @Parameter(description = "Pipeline identifier") String pipeline
-,  @HeaderParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{pipeline}")
@@ -104,9 +104,9 @@ public interface PipelineResourceApi {
 , @PathParam("pipeline")
 
  @Parameter(description = "Pipeline identifier") String pipeline
-,  @HeaderParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("branch") 
 
  @Parameter(description = "Name of the branch (for Git Experience).")  String branch
@@ -127,9 +127,9 @@ public interface PipelineResourceApi {
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @HeaderParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.")  Integer page
@@ -139,6 +139,12 @@ public interface PipelineResourceApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
+,  @QueryParam("sort") 
+
+ @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
+,  @QueryParam("order") 
+
+ @Parameter(description = "Order on the basis of which sorting will be done.")  String order
 ,  @QueryParam("module") 
 
  @Parameter(description = "Harness module which is part of the Pipeline.")  String module
@@ -163,9 +169,9 @@ public interface PipelineResourceApi {
 , @PathParam("pipeline")
 
  @Parameter(description = "Pipeline identifier") String pipeline
-,  @HeaderParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("branch") 
 
  @Parameter(description = "Name of the branch (for Git Experience).")  String branch
