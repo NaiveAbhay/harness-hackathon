@@ -21,6 +21,9 @@ x-tagGroups:
       - Account Secret
       - Org Secret
       - Project Secret
+  - name: Services
+    tags:
+      - Services
 tags:
   - name: Organization
     description: Everything about organization
@@ -34,7 +37,147 @@ tags:
     description: Everything about org scoped secret
   - name: Project Secret
     description: Everything about project scoped secret
+  - name: Services
+    description: This contains APIs for performing CRUD operations on Services.
 paths:
+  '/v1/orgs/{org}/projects/{project}/services/{service}':
+    get:
+      summary: Retrieve a Service
+      operationId: get-service
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      description: 'Retrieves specified Service '
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/ServiceResponse'
+      tags:
+        - Services
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/ServicePathParam'
+    put:
+      summary: Update Service
+      operationId: update-service
+      responses:
+        '200':
+          $ref: '#/components/responses/ServiceResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceRequest'
+      description: Update Services
+      tags:
+        - Services
+      security:
+        - x-api-key: []
+    delete:
+      summary: Delete a Service
+      operationId: delete-service
+      responses:
+        '200':
+          $ref: '#/components/responses/ServiceResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      description: Deletes the requested service
+      tags:
+        - Services
+      security:
+        - x-api-key: []
+  '/v1/orgs/{org}/projects/{project}/services':
+    get:
+      summary: List Services
+      responses:
+        '200':
+          $ref: '#/components/responses/ServiceListResponse'
+      operationId: get-services
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/ServiceIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        # - $ref: '#/components/parameters/type'
+        # - $ref: '#/components/parameters/gitOpsEnabled'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.
+        - schema:
+            type: string
+            enum:
+              - Kubernetes
+              - NativeHelm
+              - Ssh
+              - WinRm
+              - ServerlessAwsLambda
+              - AzureWebApp
+          name: type
+          in: query
+          description: Service Definition type
+        - schema:
+            type: string
+          name: git_ops_enabled
+          in: query
+          description: Enables use of this service in Harness GitOps PR Pipelines
+        - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
+      description: Returns all services that the current user has view permissions for given project.
+      tags:
+        - Services
+    post:
+      summary: Create a Service
+      operationId: create-service
+      responses:
+        '201':
+          $ref: '#/components/responses/ServiceResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceRequest'
+      description: Creates a Service
+      tags:
+        - Services
+      security:
+        - x-api-key: []
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+  '/v1/orgs/{org}/projects/{project}/services/batch':
+    post:
+      summary: Create Services
+      operationId: create-services-batch
+      responses:
+        '201':
+          $ref: '#/components/responses/ServiceListResponse'
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountQueryParam'
+      security:
+        - x-api-key: []
+      description: Creates Multiple Services
+      requestBody:
+        $ref: '#/components/requestBodies/ServiceBatchRequest'
+      tags:
+        - Services
+    parameters:
+      - name: org
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Slug field of the organization the resource is scoped to
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Slug field of the project the resource is scoped to
   /v1/orgs:
     post:
       summary: Create an organization
@@ -695,6 +838,185 @@ paths:
         - x-api-key: []
 components:
   schemas:
+    Service:
+      type: object
+      x-examples:
+        example-1:
+          account: sample_account
+          slug: example_service
+          org: sample_organization
+          project: sample_project
+          name: Example_service
+          description: This is a example service
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            service:
+              name: "Example_service"
+              identifier: "example_service"
+              tags: {}
+      description: This is the Service entity defined in Harness
+      title: Service
+      properties:
+        account:
+          type: string
+          description: Account Identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        slug:
+          type: string
+          description: Identifier of the Service Request.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        org:
+          type: string
+          description: Organization Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        project:
+          type: string
+          description: Project Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        name:
+          type: string
+          description: Name of the Service Request.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: Description of the entity
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Service tags
+          maxProperties: 128
+        yaml:
+          type: string
+          description: Yaml related to service
+      required:
+        - slug
+        - name
+    ServiceResponse:
+      type: object
+      x-examples:
+        example-1:
+          service:
+            account: sample_account
+            slug: example_service
+            org: sample_organization
+            project: sample_project
+            name: Example_service
+            description: This is a example service
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
+            yaml: |
+              service:
+                name: "Example_service"
+                identifier: "example_service"
+                tags: {}
+          created: 1234567890
+          updated: 1234567890
+      description: Default response when a service is returned
+      title: Default Response
+      properties:
+        service:
+          $ref: '#/components/schemas/Service'
+        created:
+          type: integer
+          format: int64
+          description: Creation timestamp for Service.
+        updated:
+          type: integer
+          format: int64
+          description: Last modification timestamp for Resource Group.
+    ServiceListResponse:
+      type: object
+      x-examples:
+        example-1:
+          content:
+            - service:
+                account: sample_account
+                slug: example_service
+                org: sample_organization
+                project: sample_project
+                name: Example_service
+                description: This is a example service
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_service"
+                    identifier: "example_service"
+                    tags: {}
+              created: 1234567890
+              updated: 1234567890
+          empty: true
+      description: 'Response when a list of services are created '
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ServiceResponse'
+        empty:
+          type: boolean
+      title: Services Model
+    ServiceRequest:
+      type: object
+      x-examples:
+        example-1:
+          slug: example_service
+          name: Example_service
+          description: This is a example service
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            service:
+              name: "Example_service"
+              identifier: "example_service"
+              tags: {}
+      title: Request Body
+      description: 'General Request Body '
+      properties:
+        slug:
+          type: string
+          description: Identifier of the Service Request
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        name:
+          type: string
+          description: Name of the Service Request
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          description: Description of the entity
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Service tags
+          maxProperties: 128
+        yaml:
+          type: string
+          description: YAML for the Service Request
+      required:
+        - slug
+        - name
     CreateOrganizationRequest:
       type: object
       properties:
@@ -1287,6 +1609,113 @@ components:
       type: apiKey
       in: header
   responses:
+    ServiceListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceListResponse'
+          examples:
+            example-1:
+              value:
+                content:
+                  - service:
+                      account: sample_account
+                      slug: example_service
+                      org: sample_organization
+                      project: sample_project
+                      name: Example_service
+                      description: This is a example service
+                      tags:
+                        example-tag-1: example-tag-1-value
+                        example-tag-2: example-tag-2-value
+                      yaml: |
+                        service:
+                          name: "Example_service"
+                          identifier: "example_service"
+                          tags: {}
+                    created: 1234567890
+                    updated: 1234567890
+                empty: true
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ServiceListResponse'
+          examples:
+            example-1:
+              value:
+                content:
+                  - service:
+                      account: sample_account
+                      slug: example_service
+                      org: sample_organization
+                      project: sample_project
+                      name: Example_service
+                      description: This is a example service
+                      tags:
+                        example-tag-1: example-tag-1-value
+                        example-tag-2: example-tag-2-value
+                      yaml: |
+                        service:
+                          name: "Example_service"
+                          identifier: "example_service"
+                          tags: {}
+                    created: 1234567890
+                    updated: 1234567890
+                empty: true
+      headers:
+        Link:
+          schema:
+            type: string
+          description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
+    ServiceResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceResponse'
+          examples:
+            example-1:
+              value:
+                service:
+                  account: sample_account
+                  slug: example_service
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_service
+                  description: This is a example service
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    service:
+                      name: "Example_service"
+                      identifier: "example_service"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ServiceResponse'
+          examples:
+            example-1:
+              value:
+                service:
+                  account: sample_account
+                  slug: example_service
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_service
+                  description: This is a example service
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    service:
+                      name: "Example_service"
+                      identifier: "example_service"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
     OrganizationResponse:
       description: Organization response
       content:
@@ -1591,6 +2020,86 @@ components:
               value: |
                 valid: true
   requestBodies:
+    ServiceRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceRequest'
+          examples:
+            example-1:
+              value:
+                slug: example_service
+                name: Example_service
+                description: This is a example service
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_service"
+                    identifier: "example_service"
+                    tags: {}
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ServiceRequest'
+          examples:
+            example-1:
+              value:
+                slug: example_service
+                name: Example_service
+                description: This is a example service
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_service"
+                    identifier: "example_service"
+                    tags: {}
+      description: Create Service request body
+      required: true
+    ServiceBatchRequest:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRequest'
+          examples:
+            example-1:
+              value:
+                - slug: example_service
+                  name: Example_service
+                  description: This is a example service
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    service:
+                      name: "Example_service"
+                      identifier: "example_service"
+                      tags: {}
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ServiceRequest'
+          examples:
+            example-1:
+              value: |
+                - slug: example_service
+                  name: Example_service
+                  description: This is a example service
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    service:
+                      name: "Example_service"
+                      identifier: "example_service"
+                      tags: {}
+      description: Create array of Service request body
+      required: true
     UpdateProjectRequest:
       content:
         application/json:
@@ -2155,3 +2664,27 @@ components:
       schema:
         type: string
       description: Slug field of the project the resource is scoped to
+    ServicePathParam:
+      name: service
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Slug field of the service the resource is scoped to
+    ServiceIdentifiers:
+      name: service_ids
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: List of Service Identifiers
+    Sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: array
+      description: 'Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order'
