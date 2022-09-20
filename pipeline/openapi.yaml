@@ -93,7 +93,7 @@ paths:
             type: boolean
             default: false
           in: query
-          name: template_resolved
+          name: template_applied
           description: 'If true, returns Pipeline YAML with Templates resolved.'
       tags:
         - Pipeline Resource
@@ -191,7 +191,7 @@ components:
       x-examples:
         example-get:
           pipeline_yaml: example_yaml_text
-          pipeline_yaml_with_templates: example_yaml_text_with_template
+          template_applied_pipeline_yaml: example_yaml_text_with_template
           git_details:
             object: example_object
             branch: branch
@@ -200,6 +200,7 @@ components:
             commit_id: abcd123
             file_url: www.repo/folder/file.com
             repo_url: www.repo.com
+          valid: true
           yaml_error_wrapper:
             message: something is incorrect
             message_fqn: something is incorrect at pipeline.name
@@ -222,7 +223,7 @@ components:
         pipeline_yaml:
           type: string
           description: Pipeline YAML (returned as a String).
-        pipeline_yaml_with_templates:
+        template_applied_pipeline_yaml:
           type: string
           description: Pipeline YAML after resolving Templates (returned as a String).
         modules:
@@ -233,6 +234,9 @@ components:
             type: string
         git_details:
           $ref: '#/components/schemas/GitDetails'
+        valid:
+          type: boolean
+          description: Specifies whether Pipeline is a valid or not.
         yaml_error_wrapper:
           type: array
           description: YAML schema errors.
@@ -279,13 +283,19 @@ components:
               - 5
               - 6
               - 7
-            last_executed: 1234567890
-            last_status: Running
-            last_execution: example_execution_slug
-          filter: {}
+          recent_execution_info:
+            executor_info:
+              trigger_type: NOOP
+              username: harness_user
+              email: noreply@harness.io
+            execution_id: example_execution_slug
+            execution_status: Running
+            started: 1234567890
+            ended: 1234567890
+            run_number: 5
           store_type: INLINE
           connector_ref: example_connector
-          draft: true
+          valid: true
           git_details:
             object: example_object
             branch: branch
@@ -334,9 +344,8 @@ components:
             type: string
         execution_summary:
           $ref: '#/components/schemas/ExecutionSummary'
-        filter:
-          type: object
-          description: Additional properties
+        recent_execution_info:
+          $ref: '#/components/schemas/RecentExecutionInfo'
         store_type:
           type: string
           description: Specifies whether the Entity is to be stored in Git or not (for Git Experience).
@@ -346,9 +355,9 @@ components:
         connector_ref:
           type: string
           description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
-        draft:
+        valid:
           type: boolean
-          description: Specifies whether Pipeline is a draft or not.
+          description: Specifies whether Pipeline is a valid or not.
         git_details:
           $ref: '#/components/schemas/GitDetails'
     ExecutionSummary:
@@ -375,9 +384,6 @@ components:
             - 5
             - 6
             - 7
-          last_executed: 1234567890
-          last_status: Running
-          last_execution: example_execution_slug
       properties:
         error_last_week:
           type: array
@@ -391,47 +397,6 @@ components:
           items:
             type: integer
             format: int32
-        last_executed:
-          type: integer
-          format: int64
-          description: Timestamp of the last Execution of the Pipeline.
-        last_status:
-          type: string
-          description: This is the last Execution status of the Pipeline.
-          enum:
-            - Running
-            - AsyncWaiting
-            - TaskWaiting
-            - TimedWaiting
-            - Failed
-            - Errored
-            - IgnoreFailed
-            - NotStarted
-            - Expired
-            - Aborted
-            - Discontinuing
-            - Queued
-            - Paused
-            - ResourceWaiting
-            - InterventionWaiting
-            - ApprovalWaiting
-            - Success
-            - Suspended
-            - Skipped
-            - Pausing
-            - ApprovalRejected
-            - InputWaiting
-            - NOT_STARTED
-            - INTERVENTION_WAITING
-            - APPROVAL_WAITING
-            - APPROVAL_REJECTED
-            - Waiting
-        last_execution:
-          type: string
-          description: Execution identifier of the last Execution.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
     PipelineListRequestBody:
       title: Pipeline List Request Body
       x-stoplight:
@@ -440,26 +405,14 @@ components:
       description: Request body for the filter properties for listing Pipelines.
       x-examples:
         example-filter:
-          pipeline_tags:
-            - key: pipeline_key
-              value: pipeline_value
           pipelines:
             - example_pipeline
           name: Example Pipeline
           description: This is an Example Pipeline.
-          module_properties:
-            empty: true
-            property_name: {}
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
-          filter_type: Connector
       properties:
-        pipeline_tags:
-          type: array
-          description: Pipeline Tags on which filter will be applied.
-          items:
-            $ref: '#/components/schemas/PipelineTags'
         pipelines:
           type: array
           description: List of Pipeline Identifiers on which the filter will be applied.
@@ -478,33 +431,12 @@ components:
           type: string
           description: Pipeline Description on which the filter will be applied.
           maxLength: 1024
-        module_properties:
-          $ref: '#/components/schemas/ModuleProperties'
         tags:
           type: object
           additionalProperties:
             type: string
           description: Filter tags as a key-value pair.
           maxProperties: 128
-        filter_type:
-          type: string
-          description: Corresponding Entity of the filter.
-          enum:
-            - Connector
-            - DelegateProfile
-            - Delegate
-            - PipelineSetup
-            - PipelineExecution
-            - Deployment
-            - Audit
-            - Template
-            - EnvironmentGroup
-            - FileStore
-            - CCMRecommendation
-            - Anomaly
-            - Environment
-      required:
-        - filter_type
     PipelineTags:
       title: Pipeline Tags
       x-stoplight:
@@ -543,16 +475,16 @@ components:
       x-stoplight:
         id: enghevjhz64ca
       type: object
+      description: 'Pipeline request body object '
+      x-examples:
+        example-pipeline:
+          pipeline_yaml: Example Pipeline YAML
       properties:
         pipeline_yaml:
           type: string
           description: Pipeline YAML (to be passed as a String).
       required:
         - pipeline_yaml
-      description: 'Pipeline request body object '
-      x-examples:
-        example-pipeline:
-          pipeline_yaml: Example Pipeline YAML
     PipelineCreateResponseBody:
       title: Pipeline Create Response Body
       x-stoplight:
@@ -639,6 +571,106 @@ components:
         fqn:
           type: string
           description: Fully Qualified Name
+    RecentExecutionInfo:
+      title: Recent Execution Information
+      x-stoplight:
+        id: bfup5ytbj94pn
+      type: object
+      description: Recent Execution information of the Pipeline.
+      properties:
+        executor_info:
+          $ref: '#/components/schemas/ExecutorInfo'
+        execution_id:
+          type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+          description: Execution identifier
+        execution_status:
+          type: string
+          description: Last Execution status of the Pipeline.
+          enum:
+            - Running
+            - AsyncWaiting
+            - TaskWaiting
+            - TimedWaiting
+            - Failed
+            - Errored
+            - IgnoreFailed
+            - NotStarted
+            - Expired
+            - Aborted
+            - Discontinuing
+            - Queued
+            - Paused
+            - ResourceWaiting
+            - InterventionWaiting
+            - ApprovalWaiting
+            - Success
+            - Suspended
+            - Skipped
+            - Pausing
+            - ApprovalRejected
+            - InputWaiting
+            - NOT_STARTED
+            - INTERVENTION_WAITING
+            - APPROVAL_WAITING
+            - APPROVAL_REJECTED
+            - Waiting
+        started:
+          type: integer
+          format: int64
+          description: Start timestamp of Execution
+        ended:
+          type: integer
+          format: int64
+          description: End timestamp of Execution
+        run_number:
+          type: integer
+          format: int32
+          description: The Execution number of this Pipeline.
+          example: 0
+      x-examples:
+        example-recent:
+          executor_info:
+            trigger_type: NOOP
+            username: harness_user
+            email: noreply@harness.io
+          execution_id: example_execution_slug
+          execution_status: Running
+          started: 1234567890
+          ended: 1234567890
+          run_number: 5
+    ExecutorInfo:
+      title: Executor Information
+      x-stoplight:
+        id: 41793mh9py33c
+      type: object
+      description: Information regarding Executor of Pipeline.
+      properties:
+        trigger_type:
+          type: string
+          description: Trigger type
+          enum:
+            - NOOP
+            - MANUAL
+            - WEBHOOK
+            - WEBHOOK_CUSTOM
+            - SCHEDULER_CRON
+        username:
+          type: string
+          description: Username of the Executor.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        email:
+          type: string
+          description: Email address of the Executor.
+      x-examples:
+        example-executor:
+          trigger_type: NOOP
+          username: harness_user
+          email: noreply@harness.io
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -770,8 +802,8 @@ components:
       schema:
         type: string
         enum:
-          - asc
-          - desc
+          - ASC
+          - DESC
       description: Order on the basis of which sorting will be done.
   responses:
     PipelineCreateResponseBody:
@@ -801,7 +833,7 @@ components:
             example-response:
               value:
                 pipeline_yaml: example_yaml_text
-                pipeline_yaml_with_templates: example_yaml_text_with_template
+                template_applied_pipeline_yaml: example_yaml_text_with_template
                 git_details:
                   object: example_object
                   branch: branch
@@ -810,6 +842,7 @@ components:
                   commit_id: abcd123
                   file_url: www.repo/folder/file.com
                   repo_url: www.repo.com
+                valid: true
                 yaml_error_wrapper:
                   message: something is incorrect
                   message_fqn: something is incorrect at pipeline.name
@@ -832,9 +865,9 @@ components:
             $ref: '#/components/schemas/PipelineGetResponseBody'
           examples:
             example-response:
-              value: |
+              value:
                 pipeline_yaml: example_yaml_text
-                pipeline_yaml_with_templates: example_yaml_text_with_template
+                template_applied_pipeline_yaml: example_yaml_text_with_template
                 git_details:
                   object: example_object
                   branch: branch
@@ -843,6 +876,7 @@ components:
                   commit_id: abcd123
                   file_url: www.repo/folder/file.com
                   repo_url: www.repo.com
+                valid: true
                 yaml_error_wrapper:
                   message: something is incorrect
                   message_fqn: something is incorrect at pipeline.name
@@ -898,13 +932,19 @@ components:
                       - 5
                       - 6
                       - 7
-                    last_executed: 1234567890
-                    last_status: Running
-                    last_execution: example_execution_slug
-                  filter: {}
+                  recent_execution_info:
+                    executor_info:
+                      trigger_type: NOOP
+                      username: harness_user
+                      email: noreply@harness.io
+                    execution_id: example_execution_slug
+                    execution_status: Running
+                    started: 1234567890
+                    ended: 1234567890
+                    run_number: 5
                   store_type: INLINE
                   connector_ref: example_connector
-                  draft: true
+                  valid: true
                   git_details:
                     object: example_object
                     branch: branch
@@ -922,40 +962,45 @@ components:
           examples:
             example-list-response:
               value: |
-                - pipeline:
-                    slug: example_pipeline
-                    name: Example Pipeline
-                    description: This is an Example Pipeline
-                    tags:
-                      example-tag-1: example-tag-1-value
-                      example-tag-2: example-tag-2-value
-                    created: 1234567890
-                    updated: 1234567890
-                    modules: CD
-                    execution_summary:
-                      error_last_week:
-                        - 1
-                        - 2
-                        - 3
-                        - 4
-                        - 5
-                        - 6
-                        - 7
-                      deployments:
-                        - 1
-                        - 2
-                        - 3
-                        - 4
-                        - 5
-                        - 6
-                        - 7
-                      last_executed: 1234567890
-                      last_status: Running
-                      last_execution: example_execution_slug
-                    filter: {}
-                    store_type: INLINE
-                    connector_ref: example_connector
-                    draft: true
+                - slug: example_pipeline
+                  name: Example Pipeline
+                  description: This is an Example Pipeline
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  created: 1234567890
+                  updated: 1234567890
+                  modules: CD
+                  execution_summary:
+                    error_last_week:
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
+                      - 6
+                      - 7
+                    deployments:
+                      - 1
+                      - 2
+                      - 3
+                      - 4
+                      - 5
+                      - 6
+                      - 7
+                  recent_execution_info:
+                    executor_info:
+                      trigger_type: NOOP
+                      username: harness_user
+                      email: noreply@harness.io
+                    execution_id: example_execution_slug
+                    execution_status: Running
+                    started: 1234567890
+                    ended: 1234567890
+                    run_number: 5
+                  store_type: INLINE
+                  connector_ref: example_connector
+                  valid: true
                   git_details:
                     object: example_object
                     branch: branch
@@ -1081,29 +1126,19 @@ components:
           examples:
             example-list:
               value:
-                pipeline_tags:
-                  - key: pipeline_key
-                    value: pipeline_value
                 pipelines:
                   - example_pipeline
                 name: Example Pipeline
                 description: This is an Example Pipeline.
-                module_properties:
-                  empty: true
-                  property_name: {}
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-                filter_type: Connector
         application/yaml:
           schema:
             $ref: '#/components/schemas/PipelineListRequestBody'
           examples:
             example-list:
-              value: |
-                pipeline_tags:
-                  - key: pipeline_key
-                    value: pipeline_value
+              value:
                 pipelines:
                   - example_pipeline
                 name: Example Pipeline
@@ -1114,6 +1149,5 @@ components:
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
-                filter_type: Connector
       description: Body for the filter properties for listing Pipelines.
       required: true

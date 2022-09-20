@@ -110,9 +110,9 @@ public interface PipelineResourceApi {
 ,  @QueryParam("branch") 
 
  @Parameter(description = "Name of the branch (for Git Experience).")  String branch
-,  @QueryParam("template_resolved") @DefaultValue("false") 
+,  @QueryParam("template_applied") @DefaultValue("false") 
 
- @Parameter(description = "If true, returns Pipeline YAML with Templates resolved.")  Boolean templateResolved
+ @Parameter(description = "If true, returns Pipeline YAML with Templates resolved.")  Boolean templateApplied
 );
     @GET
     @Consumes({ "application/json", "application/yaml" })

@@ -105,7 +105,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "asc", "desc" ]
+            "enum" : [ "ASC", "DESC" ]
           }
         }, {
           "name" : "module",
@@ -158,15 +158,23 @@
                       "modules" : "CD",
                       "execution_summary" : {
                         "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                        "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                        "last_executed" : 1234567890,
-                        "last_status" : "Running",
-                        "last_execution" : "example_execution_slug"
+                        "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
                       },
-                      "filter" : { },
+                      "recent_execution_info" : {
+                        "executor_info" : {
+                          "trigger_type" : "NOOP",
+                          "username" : "harness_user",
+                          "email" : "noreply@harness.io"
+                        },
+                        "execution_id" : "example_execution_slug",
+                        "execution_status" : "Running",
+                        "started" : 1234567890,
+                        "ended" : 1234567890,
+                        "run_number" : 5
+                      },
                       "store_type" : "INLINE",
                       "connector_ref" : "example_connector",
-                      "draft" : true,
+                      "valid" : true,
                       "git_details" : {
                         "object" : "example_object",
                         "branch" : "branch",
@@ -190,7 +198,7 @@
                 },
                 "examples" : {
                   "example-list-response" : {
-                    "value" : "- pipeline:\n    slug: example_pipeline\n    name: Example Pipeline\n    description: This is an Example Pipeline\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    created: 1234567890\n    updated: 1234567890\n    modules: CD\n    execution_summary:\n      error_last_week:\n        - 1\n        - 2\n        - 3\n        - 4\n        - 5\n        - 6\n        - 7\n      deployments:\n        - 1\n        - 2\n        - 3\n        - 4\n        - 5\n        - 6\n        - 7\n      last_executed: 1234567890\n      last_status: Running\n      last_execution: example_execution_slug\n    filter: {}\n    store_type: INLINE\n    connector_ref: example_connector\n    draft: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                    "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    executor_info:\n      trigger_type: NOOP\n      username: harness_user\n      email: noreply@harness.io\n    execution_id: example_execution_slug\n    execution_status: Running\n    started: 1234567890\n    ended: 1234567890\n    run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                   }
                 }
               }
@@ -413,7 +421,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "template_resolved",
+          "name" : "template_applied",
           "in" : "query",
           "description" : "If true, returns Pipeline YAML with Templates resolved.",
           "required" : false,
@@ -436,7 +444,7 @@
                   "example-response" : {
                     "value" : {
                       "pipeline_yaml" : "example_yaml_text",
-                      "pipeline_yaml_with_templates" : "example_yaml_text_with_template",
+                      "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
                       "git_details" : {
                         "object" : "example_object",
                         "branch" : "branch",
@@ -446,6 +454,7 @@
                         "file_url" : "www.repo/folder/file.com",
                         "repo_url" : "www.repo.com"
                       },
+                      "valid" : true,
                       "yaml_error_wrapper" : {
                         "message" : "something is incorrect",
                         "message_fqn" : "something is incorrect at pipeline.name",
@@ -476,7 +485,40 @@
                 },
                 "examples" : {
                   "example-response" : {
-                    "value" : "pipeline_yaml: example_yaml_text\npipeline_yaml_with_templates: example_yaml_text_with_template\ngit_details:\n  object: example_object\n  branch: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : {
+                      "pipeline_yaml" : "example_yaml_text",
+                      "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
+                      "git_details" : {
+                        "object" : "example_object",
+                        "branch" : "branch",
+                        "file_path" : "/folder/file.json",
+                        "repo_name" : "example_repository",
+                        "commit_id" : "abcd123",
+                        "file_url" : "www.repo/folder/file.com",
+                        "repo_url" : "www.repo.com"
+                      },
+                      "valid" : true,
+                      "yaml_error_wrapper" : {
+                        "message" : "something is incorrect",
+                        "message_fqn" : "something is incorrect at pipeline.name",
+                        "stage_info" : {
+                          "slug" : "example_stage",
+                          "type" : "stage",
+                          "name" : "Example Stage",
+                          "fqn" : "pipeline.stages.stage"
+                        },
+                        "step_info" : {
+                          "slug" : "example_step",
+                          "type" : "string",
+                          "name" : "string",
+                          "fqn" : "pipeline.steps.step"
+                        },
+                        "fqn" : "pipeline.name",
+                        "hint_message" : "try changing something"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
                   }
                 }
               }
@@ -738,7 +780,7 @@
             "type" : "string",
             "description" : "Pipeline YAML (returned as a String)."
           },
-          "pipeline_yaml_with_templates" : {
+          "template_applied_pipeline_yaml" : {
             "type" : "string",
             "description" : "Pipeline YAML after resolving Templates (returned as a String)."
           },
@@ -752,6 +794,10 @@
           },
           "git_details" : {
             "$ref" : "#/components/schemas/GitDetails"
+          },
+          "valid" : {
+            "type" : "boolean",
+            "description" : "Specifies whether Pipeline is a valid or not."
           },
           "yaml_error_wrapper" : {
             "type" : "array",
@@ -778,7 +824,7 @@
         "x-examples" : {
           "example-get" : {
             "pipeline_yaml" : "example_yaml_text",
-            "pipeline_yaml_with_templates" : "example_yaml_text_with_template",
+            "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
             "git_details" : {
               "object" : "example_object",
               "branch" : "branch",
@@ -788,6 +834,7 @@
               "file_url" : "www.repo/folder/file.com",
               "repo_url" : "www.repo.com"
             },
+            "valid" : true,
             "yaml_error_wrapper" : {
               "message" : "something is incorrect",
               "message_fqn" : "something is incorrect at pipeline.name",
@@ -863,9 +910,8 @@
           "execution_summary" : {
             "$ref" : "#/components/schemas/ExecutionSummary"
           },
-          "filter" : {
-            "type" : "object",
-            "description" : "Additional properties"
+          "recent_execution_info" : {
+            "$ref" : "#/components/schemas/RecentExecutionInfo"
           },
           "store_type" : {
             "type" : "string",
@@ -876,9 +922,9 @@
             "type" : "string",
             "description" : "Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience)."
           },
-          "draft" : {
+          "valid" : {
             "type" : "boolean",
-            "description" : "Specifies whether Pipeline is a draft or not."
+            "description" : "Specifies whether Pipeline is a valid or not."
           },
           "git_details" : {
             "$ref" : "#/components/schemas/GitDetails"
@@ -902,15 +948,23 @@
             "modules" : "CD",
             "execution_summary" : {
               "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-              "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ],
-              "last_executed" : 1234567890,
-              "last_status" : "Running",
-              "last_execution" : "example_execution_slug"
+              "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
             },
-            "filter" : { },
+            "recent_execution_info" : {
+              "executor_info" : {
+                "trigger_type" : "NOOP",
+                "username" : "harness_user",
+                "email" : "noreply@harness.io"
+              },
+              "execution_id" : "example_execution_slug",
+              "execution_status" : "Running",
+              "started" : 1234567890,
+              "ended" : 1234567890,
+              "run_number" : 5
+            },
             "store_type" : "INLINE",
             "connector_ref" : "example_connector",
-            "draft" : true,
+            "valid" : true,
             "git_details" : {
               "object" : "example_object",
               "branch" : "branch",
@@ -942,23 +996,6 @@
               "type" : "integer",
               "format" : "int32"
             }
-          },
-          "last_executed" : {
-            "type" : "integer",
-            "description" : "Timestamp of the last Execution of the Pipeline.",
-            "format" : "int64"
-          },
-          "last_status" : {
-            "type" : "string",
-            "description" : "This is the last Execution status of the Pipeline.",
-            "enum" : [ "Running", "AsyncWaiting", "TaskWaiting", "TimedWaiting", "Failed", "Errored", "IgnoreFailed", "NotStarted", "Expired", "Aborted", "Discontinuing", "Queued", "Paused", "ResourceWaiting", "InterventionWaiting", "ApprovalWaiting", "Success", "Suspended", "Skipped", "Pausing", "ApprovalRejected", "InputWaiting", "NOT_STARTED", "INTERVENTION_WAITING", "APPROVAL_WAITING", "APPROVAL_REJECTED", "Waiting" ]
-          },
-          "last_execution" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string",
-            "description" : "Execution identifier of the last Execution."
           }
         },
         "description" : "Execution Summary",
@@ -968,25 +1005,14 @@
         "x-examples" : {
           "example-execution-summary" : {
             "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-            "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ],
-            "last_executed" : 1234567890,
-            "last_status" : "Running",
-            "last_execution" : "example_execution_slug"
+            "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
           }
         }
       },
       "PipelineListRequestBody" : {
         "title" : "Pipeline List Request Body",
-        "required" : [ "filter_type" ],
         "type" : "object",
         "properties" : {
-          "pipeline_tags" : {
-            "type" : "array",
-            "description" : "Pipeline Tags on which filter will be applied.",
-            "items" : {
-              "$ref" : "#/components/schemas/PipelineTags"
-            }
-          },
           "pipelines" : {
             "type" : "array",
             "description" : "List of Pipeline Identifiers on which the filter will be applied.",
@@ -1009,9 +1035,6 @@
             "type" : "string",
             "description" : "Pipeline Description on which the filter will be applied."
           },
-          "module_properties" : {
-            "$ref" : "#/components/schemas/ModuleProperties"
-          },
           "tags" : {
             "maxProperties" : 128,
             "type" : "object",
@@ -1019,11 +1042,6 @@
               "type" : "string"
             },
             "description" : "Filter tags as a key-value pair."
-          },
-          "filter_type" : {
-            "type" : "string",
-            "description" : "Corresponding Entity of the filter.",
-            "enum" : [ "Connector", "DelegateProfile", "Delegate", "PipelineSetup", "PipelineExecution", "Deployment", "Audit", "Template", "EnvironmentGroup", "FileStore", "CCMRecommendation", "Anomaly", "Environment" ]
           }
         },
         "description" : "Request body for the filter properties for listing Pipelines.",
@@ -1032,22 +1050,13 @@
         },
         "x-examples" : {
           "example-filter" : {
-            "pipeline_tags" : [ {
-              "key" : "pipeline_key",
-              "value" : "pipeline_value"
-            } ],
             "pipelines" : [ "example_pipeline" ],
             "name" : "Example Pipeline",
             "description" : "This is an Example Pipeline.",
-            "module_properties" : {
-              "empty" : true,
-              "property_name" : { }
-            },
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
-            },
-            "filter_type" : "Connector"
+            }
           }
         }
       },
@@ -1227,6 +1236,94 @@
             "fqn" : "pipeline.stages.stage1.name"
           }
         }
+      },
+      "RecentExecutionInfo" : {
+        "title" : "Recent Execution Information",
+        "type" : "object",
+        "properties" : {
+          "executor_info" : {
+            "$ref" : "#/components/schemas/ExecutorInfo"
+          },
+          "execution_id" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Execution identifier"
+          },
+          "execution_status" : {
+            "type" : "string",
+            "description" : "Last Execution status of the Pipeline.",
+            "enum" : [ "Running", "AsyncWaiting", "TaskWaiting", "TimedWaiting", "Failed", "Errored", "IgnoreFailed", "NotStarted", "Expired", "Aborted", "Discontinuing", "Queued", "Paused", "ResourceWaiting", "InterventionWaiting", "ApprovalWaiting", "Success", "Suspended", "Skipped", "Pausing", "ApprovalRejected", "InputWaiting", "NOT_STARTED", "INTERVENTION_WAITING", "APPROVAL_WAITING", "APPROVAL_REJECTED", "Waiting" ]
+          },
+          "started" : {
+            "type" : "integer",
+            "description" : "Start timestamp of Execution",
+            "format" : "int64"
+          },
+          "ended" : {
+            "type" : "integer",
+            "description" : "End timestamp of Execution",
+            "format" : "int64"
+          },
+          "run_number" : {
+            "type" : "integer",
+            "description" : "The Execution number of this Pipeline.",
+            "format" : "int32",
+            "example" : 0
+          }
+        },
+        "description" : "Recent Execution information of the Pipeline.",
+        "x-stoplight" : {
+          "id" : "bfup5ytbj94pn"
+        },
+        "x-examples" : {
+          "example-recent" : {
+            "executor_info" : {
+              "trigger_type" : "NOOP",
+              "username" : "harness_user",
+              "email" : "noreply@harness.io"
+            },
+            "execution_id" : "example_execution_slug",
+            "execution_status" : "Running",
+            "started" : 1234567890,
+            "ended" : 1234567890,
+            "run_number" : 5
+          }
+        }
+      },
+      "ExecutorInfo" : {
+        "title" : "Executor Information",
+        "type" : "object",
+        "properties" : {
+          "trigger_type" : {
+            "type" : "string",
+            "description" : "Trigger type",
+            "enum" : [ "NOOP", "MANUAL", "WEBHOOK", "WEBHOOK_CUSTOM", "SCHEDULER_CRON" ]
+          },
+          "username" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Username of the Executor."
+          },
+          "email" : {
+            "type" : "string",
+            "description" : "Email address of the Executor."
+          }
+        },
+        "description" : "Information regarding Executor of Pipeline.",
+        "x-stoplight" : {
+          "id" : "41793mh9py33c"
+        },
+        "x-examples" : {
+          "example-executor" : {
+            "trigger_type" : "NOOP",
+            "username" : "harness_user",
+            "email" : "noreply@harness.io"
+          }
+        }
       }
     },
     "responses" : {
@@ -1268,7 +1365,7 @@
               "example-response" : {
                 "value" : {
                   "pipeline_yaml" : "example_yaml_text",
-                  "pipeline_yaml_with_templates" : "example_yaml_text_with_template",
+                  "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
                   "git_details" : {
                     "object" : "example_object",
                     "branch" : "branch",
@@ -1278,6 +1375,7 @@
                     "file_url" : "www.repo/folder/file.com",
                     "repo_url" : "www.repo.com"
                   },
+                  "valid" : true,
                   "yaml_error_wrapper" : {
                     "message" : "something is incorrect",
                     "message_fqn" : "something is incorrect at pipeline.name",
@@ -1308,7 +1406,40 @@
             },
             "examples" : {
               "example-response" : {
-                "value" : "pipeline_yaml: example_yaml_text\npipeline_yaml_with_templates: example_yaml_text_with_template\ngit_details:\n  object: example_object\n  branch: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                "value" : {
+                  "pipeline_yaml" : "example_yaml_text",
+                  "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
+                  "git_details" : {
+                    "object" : "example_object",
+                    "branch" : "branch",
+                    "file_path" : "/folder/file.json",
+                    "repo_name" : "example_repository",
+                    "commit_id" : "abcd123",
+                    "file_url" : "www.repo/folder/file.com",
+                    "repo_url" : "www.repo.com"
+                  },
+                  "valid" : true,
+                  "yaml_error_wrapper" : {
+                    "message" : "something is incorrect",
+                    "message_fqn" : "something is incorrect at pipeline.name",
+                    "stage_info" : {
+                      "slug" : "example_stage",
+                      "type" : "stage",
+                      "name" : "Example Stage",
+                      "fqn" : "pipeline.stages.stage"
+                    },
+                    "step_info" : {
+                      "slug" : "example_step",
+                      "type" : "string",
+                      "name" : "string",
+                      "fqn" : "pipeline.steps.step"
+                    },
+                    "fqn" : "pipeline.name",
+                    "hint_message" : "try changing something"
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
               }
             }
           }
@@ -1340,15 +1471,23 @@
                   "modules" : "CD",
                   "execution_summary" : {
                     "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                    "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                    "last_executed" : 1234567890,
-                    "last_status" : "Running",
-                    "last_execution" : "example_execution_slug"
+                    "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
                   },
-                  "filter" : { },
+                  "recent_execution_info" : {
+                    "executor_info" : {
+                      "trigger_type" : "NOOP",
+                      "username" : "harness_user",
+                      "email" : "noreply@harness.io"
+                    },
+                    "execution_id" : "example_execution_slug",
+                    "execution_status" : "Running",
+                    "started" : 1234567890,
+                    "ended" : 1234567890,
+                    "run_number" : 5
+                  },
                   "store_type" : "INLINE",
                   "connector_ref" : "example_connector",
-                  "draft" : true,
+                  "valid" : true,
                   "git_details" : {
                     "object" : "example_object",
                     "branch" : "branch",
@@ -1372,7 +1511,7 @@
             },
             "examples" : {
               "example-list-response" : {
-                "value" : "- pipeline:\n    slug: example_pipeline\n    name: Example Pipeline\n    description: This is an Example Pipeline\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    created: 1234567890\n    updated: 1234567890\n    modules: CD\n    execution_summary:\n      error_last_week:\n        - 1\n        - 2\n        - 3\n        - 4\n        - 5\n        - 6\n        - 7\n      deployments:\n        - 1\n        - 2\n        - 3\n        - 4\n        - 5\n        - 6\n        - 7\n      last_executed: 1234567890\n      last_status: Running\n      last_execution: example_execution_slug\n    filter: {}\n    store_type: INLINE\n    connector_ref: example_connector\n    draft: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    executor_info:\n      trigger_type: NOOP\n      username: harness_user\n      email: noreply@harness.io\n    execution_id: example_execution_slug\n    execution_status: Running\n    started: 1234567890\n    ended: 1234567890\n    run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
               }
             }
           }
@@ -1570,7 +1709,7 @@
         "explode" : true,
         "schema" : {
           "type" : "string",
-          "enum" : [ "asc", "desc" ]
+          "enum" : [ "ASC", "DESC" ]
         }
       }
     },
@@ -1613,22 +1752,13 @@
             "examples" : {
               "example-list" : {
                 "value" : {
-                  "pipeline_tags" : [ {
-                    "key" : "pipeline_key",
-                    "value" : "pipeline_value"
-                  } ],
                   "pipelines" : [ "example_pipeline" ],
                   "name" : "Example Pipeline",
                   "description" : "This is an Example Pipeline.",
-                  "module_properties" : {
-                    "empty" : true,
-                    "property_name" : { }
-                  },
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
-                  },
-                  "filter_type" : "Connector"
+                  }
                 }
               }
             }
@@ -1639,7 +1769,19 @@
             },
             "examples" : {
               "example-list" : {
-                "value" : "pipeline_tags:\n  - key: pipeline_key\n    value: pipeline_value\npipelines:\n  - example_pipeline\nname: Example Pipeline\ndescription: This is an Example Pipeline.\nmodule_properties:\n  empty: true\n  property_name: {}\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nfilter_type: Connector\n"
+                "value" : {
+                  "pipelines" : [ "example_pipeline" ],
+                  "name" : "Example Pipeline",
+                  "description" : "This is an Example Pipeline.",
+                  "module_properties" : {
+                    "empty" : true,
+                    "property_name" : { }
+                  },
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  }
+                }
               }
             }
           }

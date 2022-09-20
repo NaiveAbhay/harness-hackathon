@@ -2,6 +2,7 @@ package io.harness.spec.server.pipeline.model;
 
 import io.harness.spec.server.pipeline.model.ExecutionSummary;
 import io.harness.spec.server.pipeline.model.GitDetails;
+import io.harness.spec.server.pipeline.model.RecentExecutionInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +39,7 @@ public class PipelineListResponseBody   {
 
   private @Valid ExecutionSummary executionSummary = null;
 
-  private @Valid Object filter = null;
+  private @Valid RecentExecutionInfo recentExecutionInfo = null;
 
 public enum StoreTypeEnum {
 
@@ -75,7 +76,7 @@ public enum StoreTypeEnum {
 
   private @Valid String connectorRef = null;
 
-  private @Valid Boolean draft = null;
+  private @Valid Boolean valid = null;
 
   private @Valid GitDetails gitDetails = null;
 
@@ -231,22 +232,21 @@ public enum StoreTypeEnum {
   }
 
   /**
-   * Additional properties
    **/
-  public PipelineListResponseBody filter(Object filter) {
-    this.filter = filter;
+  public PipelineListResponseBody recentExecutionInfo(RecentExecutionInfo recentExecutionInfo) {
+    this.recentExecutionInfo = recentExecutionInfo;
     return this;
   }
 
   
-  @Schema(description = "Additional properties")
-  @JsonProperty("filter")
+  @Schema(description = "")
+  @JsonProperty("recent_execution_info")
 
-  public Object getFilter() {
-    return filter;
+  public RecentExecutionInfo getRecentExecutionInfo() {
+    return recentExecutionInfo;
   }
-  public void setFilter(Object filter) {
-    this.filter = filter;
+  public void setRecentExecutionInfo(RecentExecutionInfo recentExecutionInfo) {
+    this.recentExecutionInfo = recentExecutionInfo;
   }
 
   /**
@@ -288,22 +288,22 @@ public enum StoreTypeEnum {
   }
 
   /**
-   * Specifies whether Pipeline is a draft or not.
+   * Specifies whether Pipeline is a valid or not.
    **/
-  public PipelineListResponseBody draft(Boolean draft) {
-    this.draft = draft;
+  public PipelineListResponseBody valid(Boolean valid) {
+    this.valid = valid;
     return this;
   }
 
   
-  @Schema(description = "Specifies whether Pipeline is a draft or not.")
-  @JsonProperty("draft")
+  @Schema(description = "Specifies whether Pipeline is a valid or not.")
+  @JsonProperty("valid")
 
-  public Boolean isDraft() {
-    return draft;
+  public Boolean isValid() {
+    return valid;
   }
-  public void setDraft(Boolean draft) {
-    this.draft = draft;
+  public void setValid(Boolean valid) {
+    this.valid = valid;
   }
 
   /**
@@ -342,16 +342,16 @@ public enum StoreTypeEnum {
         Objects.equals(updated, pipelineListResponseBody.updated) &&
         Objects.equals(modules, pipelineListResponseBody.modules) &&
         Objects.equals(executionSummary, pipelineListResponseBody.executionSummary) &&
-        Objects.equals(filter, pipelineListResponseBody.filter) &&
+        Objects.equals(recentExecutionInfo, pipelineListResponseBody.recentExecutionInfo) &&
         Objects.equals(storeType, pipelineListResponseBody.storeType) &&
         Objects.equals(connectorRef, pipelineListResponseBody.connectorRef) &&
-        Objects.equals(draft, pipelineListResponseBody.draft) &&
+        Objects.equals(valid, pipelineListResponseBody.valid) &&
         Objects.equals(gitDetails, pipelineListResponseBody.gitDetails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(slug, name, description, tags, created, updated, modules, executionSummary, filter, storeType, connectorRef, draft, gitDetails);
+    return Objects.hash(slug, name, description, tags, created, updated, modules, executionSummary, recentExecutionInfo, storeType, connectorRef, valid, gitDetails);
   }
 
   @Override
@@ -367,10 +367,10 @@ public enum StoreTypeEnum {
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
     sb.append("    executionSummary: ").append(toIndentedString(executionSummary)).append("\n");
-    sb.append("    filter: ").append(toIndentedString(filter)).append("\n");
+    sb.append("    recentExecutionInfo: ").append(toIndentedString(recentExecutionInfo)).append("\n");
     sb.append("    storeType: ").append(toIndentedString(storeType)).append("\n");
     sb.append("    connectorRef: ").append(toIndentedString(connectorRef)).append("\n");
-    sb.append("    draft: ").append(toIndentedString(draft)).append("\n");
+    sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
     sb.append("}");
     return sb.toString();
