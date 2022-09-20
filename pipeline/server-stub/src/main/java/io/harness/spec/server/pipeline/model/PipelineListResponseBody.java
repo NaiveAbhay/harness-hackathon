@@ -39,7 +39,7 @@ public class PipelineListResponseBody   {
 
   private @Valid ExecutionSummary executionSummary = null;
 
-  private @Valid RecentExecutionInfo recentExecutionInfo = null;
+  private @Valid List<RecentExecutionInfo> recentExecutionInfo = new ArrayList<>();
 
 public enum StoreTypeEnum {
 
@@ -232,20 +232,21 @@ public enum StoreTypeEnum {
   }
 
   /**
+   * Array of recent Execution information
    **/
-  public PipelineListResponseBody recentExecutionInfo(RecentExecutionInfo recentExecutionInfo) {
+  public PipelineListResponseBody recentExecutionInfo(List<RecentExecutionInfo> recentExecutionInfo) {
     this.recentExecutionInfo = recentExecutionInfo;
     return this;
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Array of recent Execution information")
   @JsonProperty("recent_execution_info")
 
-  public RecentExecutionInfo getRecentExecutionInfo() {
+  public List<RecentExecutionInfo> getRecentExecutionInfo() {
     return recentExecutionInfo;
   }
-  public void setRecentExecutionInfo(RecentExecutionInfo recentExecutionInfo) {
+  public void setRecentExecutionInfo(List<RecentExecutionInfo> recentExecutionInfo) {
     this.recentExecutionInfo = recentExecutionInfo;
   }
 

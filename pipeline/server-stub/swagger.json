@@ -160,7 +160,7 @@
                         "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
                         "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
                       },
-                      "recent_execution_info" : {
+                      "recent_execution_info" : [ {
                         "executor_info" : {
                           "trigger_type" : "NOOP",
                           "username" : "harness_user",
@@ -171,7 +171,7 @@
                         "started" : 1234567890,
                         "ended" : 1234567890,
                         "run_number" : 5
-                      },
+                      } ],
                       "store_type" : "INLINE",
                       "connector_ref" : "example_connector",
                       "valid" : true,
@@ -198,7 +198,7 @@
                 },
                 "examples" : {
                   "example-list-response" : {
-                    "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    executor_info:\n      trigger_type: NOOP\n      username: harness_user\n      email: noreply@harness.io\n    execution_id: example_execution_slug\n    execution_status: Running\n    started: 1234567890\n    ended: 1234567890\n    run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                    "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                   }
                 }
               }
@@ -911,7 +911,11 @@
             "$ref" : "#/components/schemas/ExecutionSummary"
           },
           "recent_execution_info" : {
-            "$ref" : "#/components/schemas/RecentExecutionInfo"
+            "type" : "array",
+            "description" : "Array of recent Execution information",
+            "items" : {
+              "$ref" : "#/components/schemas/RecentExecutionInfo"
+            }
           },
           "store_type" : {
             "type" : "string",
@@ -950,7 +954,7 @@
               "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
               "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
             },
-            "recent_execution_info" : {
+            "recent_execution_info" : [ {
               "executor_info" : {
                 "trigger_type" : "NOOP",
                 "username" : "harness_user",
@@ -961,7 +965,7 @@
               "started" : 1234567890,
               "ended" : 1234567890,
               "run_number" : 5
-            },
+            } ],
             "store_type" : "INLINE",
             "connector_ref" : "example_connector",
             "valid" : true,
@@ -1058,24 +1062,6 @@
               "example-tag-2" : "example-tag-2-value"
             }
           }
-        }
-      },
-      "ModuleProperties" : {
-        "title" : "Module Properties",
-        "type" : "object",
-        "properties" : {
-          "empty" : {
-            "type" : "boolean",
-            "description" : "Specifies if Property is empty or not."
-          },
-          "property_name" : {
-            "type" : "object",
-            "description" : "Module Properties on which the filter will be applied."
-          }
-        },
-        "description" : "Module Properties on which the filter will be applied.",
-        "x-stoplight" : {
-          "id" : "2g0ic4jh2sq21"
         }
       },
       "PipelineRequestBody" : {
@@ -1448,7 +1434,7 @@
                     "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
                     "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
                   },
-                  "recent_execution_info" : {
+                  "recent_execution_info" : [ {
                     "executor_info" : {
                       "trigger_type" : "NOOP",
                       "username" : "harness_user",
@@ -1459,7 +1445,7 @@
                     "started" : 1234567890,
                     "ended" : 1234567890,
                     "run_number" : 5
-                  },
+                  } ],
                   "store_type" : "INLINE",
                   "connector_ref" : "example_connector",
                   "valid" : true,
@@ -1486,7 +1472,7 @@
             },
             "examples" : {
               "example-list-response" : {
-                "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    executor_info:\n      trigger_type: NOOP\n      username: harness_user\n      email: noreply@harness.io\n    execution_id: example_execution_slug\n    execution_status: Running\n    started: 1234567890\n    ended: 1234567890\n    run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
               }
             }
           }

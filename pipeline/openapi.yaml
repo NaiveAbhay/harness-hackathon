@@ -284,15 +284,15 @@ components:
               - 6
               - 7
           recent_execution_info:
-            executor_info:
-              trigger_type: NOOP
-              username: harness_user
-              email: noreply@harness.io
-            execution_id: example_execution_slug
-            execution_status: Running
-            started: 1234567890
-            ended: 1234567890
-            run_number: 5
+            - executor_info:
+                trigger_type: NOOP
+                username: harness_user
+                email: noreply@harness.io
+              execution_id: example_execution_slug
+              execution_status: Running
+              started: 1234567890
+              ended: 1234567890
+              run_number: 5
           store_type: INLINE
           connector_ref: example_connector
           valid: true
@@ -345,7 +345,10 @@ components:
         execution_summary:
           $ref: '#/components/schemas/ExecutionSummary'
         recent_execution_info:
-          $ref: '#/components/schemas/RecentExecutionInfo'
+          type: array
+          description: Array of recent Execution information
+          items:
+            $ref: '#/components/schemas/RecentExecutionInfo'
         store_type:
           type: string
           description: Specifies whether the Entity is to be stored in Git or not (for Git Experience).
@@ -437,19 +440,6 @@ components:
             type: string
           description: Filter tags as a key-value pair.
           maxProperties: 128
-    ModuleProperties:
-      title: Module Properties
-      x-stoplight:
-        id: 2g0ic4jh2sq21
-      type: object
-      description: Module Properties on which the filter will be applied.
-      properties:
-        empty:
-          type: boolean
-          description: Specifies if Property is empty or not.
-        property_name:
-          type: object
-          description: Module Properties on which the filter will be applied.
     PipelineRequestBody:
       title: Pipeline Request Body
       x-stoplight:
@@ -913,15 +903,15 @@ components:
                       - 6
                       - 7
                   recent_execution_info:
-                    executor_info:
-                      trigger_type: NOOP
-                      username: harness_user
-                      email: noreply@harness.io
-                    execution_id: example_execution_slug
-                    execution_status: Running
-                    started: 1234567890
-                    ended: 1234567890
-                    run_number: 5
+                    - executor_info:
+                        trigger_type: NOOP
+                        username: harness_user
+                        email: noreply@harness.io
+                      execution_id: example_execution_slug
+                      execution_status: Running
+                      started: 1234567890
+                      ended: 1234567890
+                      run_number: 5
                   store_type: INLINE
                   connector_ref: example_connector
                   valid: true
@@ -969,15 +959,15 @@ components:
                       - 6
                       - 7
                   recent_execution_info:
-                    executor_info:
-                      trigger_type: NOOP
-                      username: harness_user
-                      email: noreply@harness.io
-                    execution_id: example_execution_slug
-                    execution_status: Running
-                    started: 1234567890
-                    ended: 1234567890
-                    run_number: 5
+                    - executor_info:
+                        trigger_type: NOOP
+                        username: harness_user
+                        email: noreply@harness.io
+                      execution_id: example_execution_slug
+                      execution_status: Running
+                      started: 1234567890
+                      ended: 1234567890
+                      run_number: 5
                   store_type: INLINE
                   connector_ref: example_connector
                   valid: true
