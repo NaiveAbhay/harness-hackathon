@@ -4454,7 +4454,7 @@
           "type" : {
             "type" : "string",
             "description" : "This specifies the type of connector",
-            "enum" : [ "GitHttp", "GitHttpEncrypted", "GitSsh", "Appdynamics", "AppdynamicsClientId", "Artifactory", "ArtifactoryEncrypted", "ArtifactoryAnonymous", "AwsCodeCommit", "AwsAccessKey", "AwsEncryptedAccessKey", "AwsIAMRole", "AwsIRSA", "AwsKmsAccessKey", "AwsKmsAssumeIAM", "AwsKmsAssumeSTS", "AwsSecretManagerAccessKey", "AwsSecretManagerAssumeIAM", "AwsSecretManagerAssumeSTS", "AzureClientSecretKey", "AzureClientCertificate" ]
+            "enum" : [ "GitHttp", "GitHttpEncrypted", "GitSsh", "Appdynamics", "AppdynamicsClientId", "Artifactory", "ArtifactoryEncrypted", "ArtifactoryAnonymous", "AwsCodeCommit", "AwsAccessKey", "AwsEncryptedAccessKey", "AwsIAMRole", "AwsIRSA", "AwsKmsAccessKey", "AwsKmsAssumeIAM", "AwsKmsAssumeSTS", "AwsSecretManagerAccessKey", "AwsSecretManagerAssumeIAM", "AwsSecretManagerAssumeSTS", "AzureClientSecretKey", "AzureClientCertificate", "AzureInheritFromDelegateUserAssignedManagedIdentity", "AzureInheritFromDelegateSystemAssignedManagedIdentity" ]
           }
         },
         "description" : "Details of the connector defined in Harness",
@@ -4481,7 +4481,9 @@
             "AwsSecretManagerAssumeIAM" : "#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec",
             "AwsSecretManagerAssumeSTS" : "#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec",
             "AzureClientSecretKey" : "#/components/schemas/AzureClientSecretKeyConnectorSpec",
-            "AzureClientCertificate" : "#/components/schemas/AzureClientCertificateConnectorSpec"
+            "AzureClientCertificate" : "#/components/schemas/AzureClientCertificateConnectorSpec",
+            "AzureInheritFromDelegateUserAssignedManagedIdentity" : "#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec",
+            "AzureInheritFromDelegateSystemAssignedManagedIdentity" : "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
           }
         },
         "oneOf" : [ {
@@ -4526,6 +4528,10 @@
           "$ref" : "#/components/schemas/AzureClientSecretKeyConnectorSpec"
         }, {
           "$ref" : "#/components/schemas/AzureClientCertificateConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
         } ]
       },
       "GitHttpConnectorSpec" : {
@@ -5448,6 +5454,82 @@
             "certificate_ref" : {
               "type" : "string",
               "description" : "Reference to encrypted Harness secret for Azure client secret"
+            }
+          }
+        } ]
+      },
+      "AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec" : {
+        "title" : "AzureInheritFromDelegateUserAssignedManagedIdentity",
+        "description" : "This contains details of the Azure connector and for azure UserAssigned MSI auth details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "azure_environment_type", "client_id", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureInheritFromDelegateUserAssignedManagedIdentity" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            },
+            "client_id" : {
+              "type" : "string",
+              "description" : "Client Id of the ManagedIdentity resource"
+            }
+          }
+        } ]
+      },
+      "AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec" : {
+        "title" : "AzureInheritFromDelegateSystemAssignedManagedIdentity",
+        "description" : "This contains details of the Azure connector for contains azure MSI auth details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "azure_environment_type", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureInheritFromDelegateSystemAssignedManagedIdentity" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
             }
           }
         } ]
