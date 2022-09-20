@@ -437,26 +437,6 @@ components:
             type: string
           description: Filter tags as a key-value pair.
           maxProperties: 128
-    PipelineTags:
-      title: Pipeline Tags
-      x-stoplight:
-        id: o8tgek5mpuwym
-      type: object
-      description: Pipeline Tags on which Filters will be applied.
-      properties:
-        key:
-          type: string
-          description: Tag key
-        value:
-          type: string
-          description: Tag value
-      required:
-        - key
-        - value
-      x-examples:
-        example-tag:
-          key: key
-          value: value
     ModuleProperties:
       title: Module Properties
       x-stoplight:

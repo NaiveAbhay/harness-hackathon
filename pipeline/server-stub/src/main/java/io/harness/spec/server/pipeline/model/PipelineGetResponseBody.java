@@ -22,11 +22,13 @@ public class PipelineGetResponseBody   {
 
   private @Valid String pipelineYaml = null;
 
-  private @Valid String pipelineYamlWithTemplates = null;
+  private @Valid String templateAppliedPipelineYaml = null;
 
   private @Valid List<String> modules = new ArrayList<>();
 
   private @Valid GitDetails gitDetails = null;
+
+  private @Valid Boolean valid = null;
 
   private @Valid List<YAMLSchemaErrorWrapper> yamlErrorWrapper = new ArrayList<>();
 
@@ -56,20 +58,20 @@ public class PipelineGetResponseBody   {
   /**
    * Pipeline YAML after resolving Templates (returned as a String).
    **/
-  public PipelineGetResponseBody pipelineYamlWithTemplates(String pipelineYamlWithTemplates) {
-    this.pipelineYamlWithTemplates = pipelineYamlWithTemplates;
+  public PipelineGetResponseBody templateAppliedPipelineYaml(String templateAppliedPipelineYaml) {
+    this.templateAppliedPipelineYaml = templateAppliedPipelineYaml;
     return this;
   }
 
   
   @Schema(description = "Pipeline YAML after resolving Templates (returned as a String).")
-  @JsonProperty("pipeline_yaml_with_templates")
+  @JsonProperty("template_applied_pipeline_yaml")
 
-  public String getPipelineYamlWithTemplates() {
-    return pipelineYamlWithTemplates;
+  public String getTemplateAppliedPipelineYaml() {
+    return templateAppliedPipelineYaml;
   }
-  public void setPipelineYamlWithTemplates(String pipelineYamlWithTemplates) {
-    this.pipelineYamlWithTemplates = pipelineYamlWithTemplates;
+  public void setTemplateAppliedPipelineYaml(String templateAppliedPipelineYaml) {
+    this.templateAppliedPipelineYaml = templateAppliedPipelineYaml;
   }
 
   /**
@@ -107,6 +109,25 @@ public class PipelineGetResponseBody   {
   }
   public void setGitDetails(GitDetails gitDetails) {
     this.gitDetails = gitDetails;
+  }
+
+  /**
+   * Specifies whether Pipeline is a valid or not.
+   **/
+  public PipelineGetResponseBody valid(Boolean valid) {
+    this.valid = valid;
+    return this;
+  }
+
+  
+  @Schema(description = "Specifies whether Pipeline is a valid or not.")
+  @JsonProperty("valid")
+
+  public Boolean isValid() {
+    return valid;
+  }
+  public void setValid(Boolean valid) {
+    this.valid = valid;
   }
 
   /**
@@ -177,9 +198,10 @@ public class PipelineGetResponseBody   {
     }
     PipelineGetResponseBody pipelineGetResponseBody = (PipelineGetResponseBody) o;
     return Objects.equals(pipelineYaml, pipelineGetResponseBody.pipelineYaml) &&
-        Objects.equals(pipelineYamlWithTemplates, pipelineGetResponseBody.pipelineYamlWithTemplates) &&
+        Objects.equals(templateAppliedPipelineYaml, pipelineGetResponseBody.templateAppliedPipelineYaml) &&
         Objects.equals(modules, pipelineGetResponseBody.modules) &&
         Objects.equals(gitDetails, pipelineGetResponseBody.gitDetails) &&
+        Objects.equals(valid, pipelineGetResponseBody.valid) &&
         Objects.equals(yamlErrorWrapper, pipelineGetResponseBody.yamlErrorWrapper) &&
         Objects.equals(created, pipelineGetResponseBody.created) &&
         Objects.equals(updated, pipelineGetResponseBody.updated);
@@ -187,7 +209,7 @@ public class PipelineGetResponseBody   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml, pipelineYamlWithTemplates, modules, gitDetails, yamlErrorWrapper, created, updated);
+    return Objects.hash(pipelineYaml, templateAppliedPipelineYaml, modules, gitDetails, valid, yamlErrorWrapper, created, updated);
   }
 
   @Override
@@ -196,9 +218,10 @@ public class PipelineGetResponseBody   {
     sb.append("class PipelineGetResponseBody {\n");
     
     sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
-    sb.append("    pipelineYamlWithTemplates: ").append(toIndentedString(pipelineYamlWithTemplates)).append("\n");
+    sb.append("    templateAppliedPipelineYaml: ").append(toIndentedString(templateAppliedPipelineYaml)).append("\n");
     sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
+    sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
     sb.append("    yamlErrorWrapper: ").append(toIndentedString(yamlErrorWrapper)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");

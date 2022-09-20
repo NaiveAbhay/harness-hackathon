@@ -1060,31 +1060,6 @@
           }
         }
       },
-      "PipelineTags" : {
-        "title" : "Pipeline Tags",
-        "required" : [ "key", "value" ],
-        "type" : "object",
-        "properties" : {
-          "key" : {
-            "type" : "string",
-            "description" : "Tag key"
-          },
-          "value" : {
-            "type" : "string",
-            "description" : "Tag value"
-          }
-        },
-        "description" : "Pipeline Tags on which Filters will be applied.",
-        "x-stoplight" : {
-          "id" : "o8tgek5mpuwym"
-        },
-        "x-examples" : {
-          "example-tag" : {
-            "key" : "key",
-            "value" : "value"
-          }
-        }
-      },
       "ModuleProperties" : {
         "title" : "Module Properties",
         "type" : "object",
