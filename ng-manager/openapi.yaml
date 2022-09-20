@@ -45,7 +45,7 @@ paths:
       summary: Retrieve a Service
       operationId: get-service
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       description: 'Retrieves specified Service '
       security:
         - x-api-key: []
@@ -65,7 +65,7 @@ paths:
         '200':
           $ref: '#/components/responses/ServiceResponse'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       requestBody:
         $ref: '#/components/requestBodies/ServiceRequest'
       description: Update Services
@@ -80,7 +80,7 @@ paths:
         '200':
           $ref: '#/components/responses/ServiceResponse'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       description: Deletes the requested service
       tags:
         - Services
@@ -121,7 +121,7 @@ paths:
           name: git_ops_enabled
           in: query
           description: Enables use of this service in Harness GitOps PR Pipelines
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       security:
         - x-api-key: []
       description: Returns all services that the current user has view permissions for given project.
@@ -134,7 +134,7 @@ paths:
         '201':
           $ref: '#/components/responses/ServiceResponse'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       requestBody:
         $ref: '#/components/requestBodies/ServiceRequest'
       description: Creates a Service
@@ -155,7 +155,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeaderParam'
       security:
         - x-api-key: []
       description: Creates Multiple Services
@@ -2686,3 +2686,10 @@ components:
       schema:
         type: array
       description: 'Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order'
+    AccountHeaderParam:
+      name: account
+      in: header
+      required: false
+      schema:
+        type: string
+      description: Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.
