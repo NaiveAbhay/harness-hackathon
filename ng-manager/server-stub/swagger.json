@@ -1389,7 +1389,18 @@
         "tags" : [ "Account Connector" ],
         "summary" : "List connectors",
         "description" : "Retrieves the information of the connectors.",
-        "operationId" : "get-account-scoped-connector",
+        "operationId" : "get-account-scoped-connectors",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "responses" : {
           "200" : {
             "description" : "Connector list response",
@@ -1512,6 +1523,188 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
+      }
+    },
+    "/v1/connectors/{connector}" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Retrieve a connector",
+        "description" : "Retrieves the information of the connector with the matching connector slug.\n",
+        "operationId" : "get-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "repo",
+          "in" : "query",
+          "description" : "Git Sync Config Id",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "branch",
+          "in" : "query",
+          "description" : "Name of the branch",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "default_from_other_repo",
+          "in" : "query",
+          "description" : "If true, return all the default entities",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Update a connector",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/orgs/{org}/connectors" : {

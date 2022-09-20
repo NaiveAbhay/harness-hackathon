@@ -333,13 +333,61 @@ paths:
         - Account Connector
     get:
       summary: List connectors
-      operationId: get-account-scoped-connector
+      operationId: get-account-scoped-connectors
       responses:
         '200':
           $ref: '#/components/responses/ConnectorListResponse'
       description: Retrieves the information of the connectors.
       tags:
         - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+  '/v1/connectors/{connector}':
+    get:
+      summary: Retrieve a connector
+      operationId: get-account-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: |
+        Retrieves the information of the connector with the matching connector slug.
+      tags:
+        - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+        - schema:
+            type: string
+          in: query
+          name: repo
+          description: Git Sync Config Id
+        - schema:
+            type: string
+          in: query
+          name: branch
+          description: Name of the branch
+        - schema:
+            type: boolean
+          in: query
+          name: default_from_other_repo
+          description: 'If true, return all the default entities'
+    put:
+      summary: Update a connector
+      operationId: update-account-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Updates the information of the secret with the matching secret slug.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      tags:
+        - Account Connector
+    parameters:
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -1463,7 +1511,6 @@ components:
           AzureClientCertificate: '#/components/schemas/AzureClientCertificateConnectorSpec'
           AzureInheritFromDelegateUserAssignedManagedIdentity: '#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec'
           AzureInheritFromDelegateSystemAssignedManagedIdentity: '#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec'
-
       oneOf:
         - $ref: '#/components/schemas/GitHttpConnectorSpec'
         - $ref: '#/components/schemas/GitHttpEncryptedConnectorSpec'
@@ -2216,7 +2263,7 @@ components:
             - role_arn
     AzureClientSecretKeyConnectorSpec:
       title: AzureClientSecretKey
-      description: 'This contains details of the Azure connector and uses Azure client secret key details'
+      description: This contains details of the Azure connector and uses Azure client secret key details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
         - type: object
@@ -2260,7 +2307,7 @@ components:
             - secret_ref
     AzureClientCertificateConnectorSpec:
       title: AzureClientCertificate
-      description: 'This contains details of the Azure connector and uses Azure client certificate details'
+      description: This contains details of the Azure connector and uses Azure client certificate details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
         - type: object
@@ -2304,7 +2351,7 @@ components:
             - certificate_ref
     AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec:
       title: AzureInheritFromDelegateUserAssignedManagedIdentity
-      description: 'This contains details of the Azure connector and for azure UserAssigned MSI auth details'
+      description: This contains details of the Azure connector and for azure UserAssigned MSI auth details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
         - type: object
@@ -2340,7 +2387,7 @@ components:
             - client_id
     AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec:
       title: AzureInheritFromDelegateSystemAssignedManagedIdentity
-      description: 'This contains details of the Azure connector for contains azure MSI auth details'
+      description: This contains details of the Azure connector for contains azure MSI auth details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
         - type: object
