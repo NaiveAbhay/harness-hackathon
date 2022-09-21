@@ -2,7 +2,6 @@ package io.harness.spec.server.pipeline;
 
 import io.harness.spec.server.pipeline.model.PipelineCreateResponseBody;
 import io.harness.spec.server.pipeline.model.PipelineGetResponseBody;
-import io.harness.spec.server.pipeline.model.PipelineListRequestBody;
 import io.harness.spec.server.pipeline.model.PipelineListResponseBody;
 import io.harness.spec.server.pipeline.model.PipelineRequestBody;
 
@@ -115,13 +114,12 @@ public interface PipelineResourceApi {
  @Parameter(description = "If true, returns Pipeline YAML with Templates resolved.")  Boolean templateApplied
 );
     @GET
-    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listPipelines", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PipelineListResponseBody.class)))) })
-    Response listPipelines(@Valid PipelineListRequestBody body, @PathParam("org")
+    Response listPipelines( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -144,13 +142,52 @@ public interface PipelineResourceApi {
  @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
 ,  @QueryParam("order") 
 
- @Parameter(description = "Order on the basis of which sorting will be done.")  String order
+ @Parameter(description = "Order on the basis of which sorting is done.")  String order
 ,  @QueryParam("module") 
 
  @Parameter(description = "Harness module which is part of the Pipeline.")  String module
 ,  @QueryParam("filter_identifier") 
 
  @Parameter(description = "Identifier of an existing Filter.")  String filterIdentifier
+,  @QueryParam("pipeline_identifiers") 
+
+ @Parameter(description = "List of Pipeline identifiers on which the filter will be applied.")  List<String> pipelineIdentifiers
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @QueryParam("name") 
+
+ @Parameter(description = "Pipeline Name on which the filter will be applied.")  String name
+, @Size(max=1024)  @QueryParam("description") 
+
+ @Parameter(description = "Pipeline Description on which the filter will be applied.")  String description
+, @Size(max=128)  @QueryParam("tags") 
+
+ @Parameter(description = "Filter tags as a key:value pair.")  List<String> tags
+,  @QueryParam("service_names") 
+
+ @Parameter(description = "Names of the Services")  List<String> serviceNames
+,  @QueryParam("env_names") 
+
+ @Parameter(description = "Names of the Environments")  List<String> envNames
+,  @QueryParam("deployment_type") 
+
+ @Parameter(description = "Type of Deployment")  String deploymentType
+,  @QueryParam("repo_name") 
+
+ @Parameter(description = "Name of the Repository")  String repoName
+,  @QueryParam("build_type") 
+
+ @Parameter(description = "Type of Build")  String buildType
+,  @QueryParam("build_branch") 
+
+ @Parameter(description = "Branch used to Build.")  String buildBranch
+,  @QueryParam("build_tag") 
+
+ @Parameter(description = "Tag used to Build")  String buildTag
+,  @QueryParam("build_PR_source_branch") 
+
+ @Parameter(description = "PR source branch")  String buildPRSourceBranch
+,  @QueryParam("build_PR_target_branch") 
+
+ @Parameter(description = "PR target branch")  String buildPRTargetBranch
 );
     @PUT
     @Path("/{pipeline}")

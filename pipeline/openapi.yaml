@@ -43,12 +43,93 @@ paths:
           in: query
           name: filter_identifier
           description: Identifier of an existing Filter.
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: pipeline_identifiers
+          description: List of Pipeline identifiers on which the filter will be applied.
+        - schema:
+            type: string
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            minLength: 1
+            maxLength: 64
+          in: query
+          name: name
+          description: Pipeline Name on which the filter will be applied.
+        - schema:
+            type: string
+            maxLength: 1024
+          in: query
+          name: description
+          description: Pipeline Description on which the filter will be applied.
+        - schema:
+            type: array
+            items:
+              type: string
+            maxItems: 128
+            example: 'key:value'
+          in: query
+          name: tags
+          description: 'Filter tags as a key:value pair.'
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: service_names
+          description: Names of the Services
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: env_names
+          description: Names of the Environments
+        - schema:
+            type: string
+          in: query
+          name: deployment_type
+          description: Type of Deployment
+        - schema:
+            type: string
+          in: query
+          name: repo_name
+          description: Name of the Repository
+        - schema:
+            type: string
+            enum:
+              - PULL_REQUEST
+              - BRANCH
+              - TAG
+          in: query
+          name: build_type
+          description: Type of Build
+        - schema:
+            type: string
+          in: query
+          name: build_branch
+          description: Branch used to Build.
+        - schema:
+            type: string
+          in: query
+          name: build_tag
+          description: Tag used to Build
+        - schema:
+            type: string
+          in: query
+          name: build_PR_source_branch
+          description: PR source branch
+        - schema:
+            type: string
+          in: query
+          name: build_PR_target_branch
+          description: PR target branch
       security:
         - x-api-key: []
       tags:
         - Pipeline Resource
-      requestBody:
-        $ref: '#/components/requestBodies/PipelineListRequestBody'
       responses:
         '200':
           $ref: '#/components/responses/PipelineListResponseBody'
@@ -400,46 +481,6 @@ components:
           items:
             type: integer
             format: int32
-    PipelineListRequestBody:
-      title: Pipeline List Request Body
-      x-stoplight:
-        id: 6f0x77rluo6ft
-      type: object
-      description: Request body for the filter properties for listing Pipelines.
-      x-examples:
-        example-filter:
-          pipelines:
-            - example_pipeline
-          name: Example Pipeline
-          description: This is an Example Pipeline.
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
-      properties:
-        pipelines:
-          type: array
-          description: List of Pipeline Identifiers on which the filter will be applied.
-          items:
-            type: string
-            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-            minLength: 1
-            maxLength: 64
-        name:
-          type: string
-          description: Pipeline Name on which the filter will be applied.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
-        description:
-          type: string
-          description: Pipeline Description on which the filter will be applied.
-          maxLength: 1024
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-          description: Filter tags as a key-value pair.
-          maxProperties: 128
     PipelineRequestBody:
       title: Pipeline Request Body
       x-stoplight:
@@ -448,7 +489,98 @@ components:
       description: 'Pipeline request body object '
       x-examples:
         example-pipeline:
-          pipeline_yaml: Example Pipeline YAML
+          pipeline_yaml: |
+            pipeline:
+              name: example pipeline
+              identifier: example_pipeline
+              allowStageExecutions: false
+              projectIdentifier: example_project
+              orgIdentifier: example_organization
+              tags: {}
+              stages:
+                - stage:
+                    name: Example Build Stage
+                    identifier: example_build_stage
+                    description: ''
+                    type: Approval
+                    spec:
+                      execution:
+                        steps:
+                          - step:
+                              name: Approval Step
+                              identifier: Approval_Step
+                              type: HarnessApproval
+                              timeout: 1d
+                              spec:
+                                approvalMessage: |-
+                                  Please review the following information
+                                  and approve the pipeline progression
+                                includePipelineExecutionHistory: true
+                                approvers:
+                                  minimumCount: 1
+                                  disallowPipelineExecutor: false
+                                  userGroups: <+input>
+                                approverInputs: []
+                          - step:
+                              type: ShellScript
+                              name: ShellScript Step
+                              identifier: ShellScript_Step
+                              spec:
+                                shell: Bash
+                                onDelegate: true
+                                source:
+                                  type: Inline
+                                  spec:
+                                    script: <+input>
+                                environmentVariables: []
+                                outputVariables: []
+                                executionTarget: {}
+                              timeout: 10m
+                    tags: {}
+                - stage:
+                    name: Example Deploy Stage
+                    identifier: example_deploy_stage
+                    description: ''
+                    type: Deployment
+                    spec:
+                      serviceConfig:
+                        serviceRef: <+input>
+                        serviceDefinition:
+                          spec:
+                            variables: []
+                          type: Kubernetes
+                      infrastructure:
+                        environmentRef: <+input>
+                        infrastructureDefinition:
+                          type: KubernetesDirect
+                          spec:
+                            connectorRef: <+input>
+                            namespace: <+input>
+                            releaseName: release-<+INFRA_KEY>
+                        allowSimultaneousDeployments: false
+                      execution:
+                        steps:
+                          - step:
+                              name: Rollout Deployment
+                              identifier: rolloutDeployment
+                              type: K8sRollingDeploy
+                              timeout: 10m
+                              spec:
+                                skipDryRun: false
+                        rollbackSteps:
+                          - step:
+                              name: Rollback Rollout Deployment
+                              identifier: rollbackRolloutDeployment
+                              type: K8sRollingRollback
+                              timeout: 10m
+                              spec: {}
+                    tags: {}
+                    failureStrategies:
+                      - onFailure:
+                          errors:
+                            - AllErrors
+                          action:
+                            type: StageRollback
       properties:
         pipeline_yaml:
           type: string
@@ -774,7 +906,7 @@ components:
         enum:
           - ASC
           - DESC
-      description: Order on the basis of which sorting will be done.
+      description: Order on the basis of which sorting is done.
   responses:
     PipelineCreateResponseBody:
       description: Pipeline response body
@@ -835,7 +967,7 @@ components:
             $ref: '#/components/schemas/PipelineGetResponseBody'
           examples:
             example-response:
-              value:
+              value: |
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
                 git_details:
@@ -988,136 +1120,104 @@ components:
           examples:
             example-pipeline:
               value:
-                pipeline_yaml: Example Pipeline YAML
+                pipeline_yaml: |
+                  pipeline:
+                    name: example pipeline
+                    identifier: example_pipeline
+                    allowStageExecutions: false
+                    projectIdentifier: example_project
+                    orgIdentifier: example_organization
+                    tags: {}
+                    stages:
+                      - stage:
+                          name: Example Build Stage
+                          identifier: example_build_stage
+                          description: ''
+                          type: Approval
+                          spec:
+                            execution:
+                              steps:
+                                - step:
+                                    name: Approval Step
+                                    identifier: Approval_Step
+                                    type: HarnessApproval
+                                    timeout: 1d
+                                    spec:
+                                      approvalMessage: |-
+                                        Please review the following information
+                                        and approve the pipeline progression
+                                      includePipelineExecutionHistory: true
+                                      approvers:
+                                        minimumCount: 1
+                                        disallowPipelineExecutor: false
+                                        userGroups: <+input>
+                                      approverInputs: []
+                                - step:
+                                    type: ShellScript
+                                    name: ShellScript Step
+                                    identifier: ShellScript_Step
+                                    spec:
+                                      shell: Bash
+                                      onDelegate: true
+                                      source:
+                                        type: Inline
+                                        spec:
+                                          script: <+input>
+                                      environmentVariables: []
+                                      outputVariables: []
+                                      executionTarget: {}
+                                    timeout: 10m
+                          tags: {}
+                      - stage:
+                          name: Example Deploy Stage
+                          identifier: example_deploy_stage
+                          description: ''
+                          type: Deployment
+                          spec:
+                            serviceConfig:
+                              serviceRef: <+input>
+                              serviceDefinition:
+                                spec:
+                                  variables: []
+                                type: Kubernetes
+                            infrastructure:
+                              environmentRef: <+input>
+                              infrastructureDefinition:
+                                type: KubernetesDirect
+                                spec:
+                                  connectorRef: <+input>
+                                  namespace: <+input>
+                                  releaseName: release-<+INFRA_KEY>
+                              allowSimultaneousDeployments: false
+                            execution:
+                              steps:
+                                - step:
+                                    name: Rollout Deployment
+                                    identifier: rolloutDeployment
+                                    type: K8sRollingDeploy
+                                    timeout: 10m
+                                    spec:
+                                      skipDryRun: false
+                              rollbackSteps:
+                                - step:
+                                    name: Rollback Rollout Deployment
+                                    identifier: rollbackRolloutDeployment
+                                    type: K8sRollingRollback
+                                    timeout: 10m
+                                    spec: {}
+                          tags: {}
+                          failureStrategies:
+                            - onFailure:
+                                errors:
+                                  - AllErrors
+                                action:
+                                  type: StageRollback
         application/yaml:
           schema:
             $ref: '#/components/schemas/PipelineRequestBody'
           examples:
-            example-pipeline-yaml:
-              value: |
-                pipeline:
-                  name: example pipeline
-                  identifier: example_pipeline
-                  allowStageExecutions: false
-                  projectIdentifier: example_project
-                  orgIdentifier: example_organization
-                  tags: {}
-                  stages:
-                    - stage:
-                        name: Example Build Stage
-                        identifier: example_build_stage
-                        description: ''
-                        type: Approval
-                        spec:
-                          execution:
-                            steps:
-                              - step:
-                                  name: Approval Step
-                                  identifier: Approval_Step
-                                  type: HarnessApproval
-                                  timeout: 1d
-                                  spec:
-                                    approvalMessage: |-
-                                      Please review the following information
-                                      and approve the pipeline progression
-                                    includePipelineExecutionHistory: true
-                                    approvers:
-                                      minimumCount: 1
-                                      disallowPipelineExecutor: false
-                                      userGroups: <+input>
-                                    approverInputs: []
-                              - step:
-                                  type: ShellScript
-                                  name: ShellScript Step
-                                  identifier: ShellScript_Step
-                                  spec:
-                                    shell: Bash
-                                    onDelegate: true
-                                    source:
-                                      type: Inline
-                                      spec:
-                                        script: <+input>
-                                    environmentVariables: []
-                                    outputVariables: []
-                                    executionTarget: {}
-                                  timeout: 10m
-                        tags: {}
-                    - stage:
-                        name: Example Deploy Stage
-                        identifier: example_deploy_stage
-                        description: ''
-                        type: Deployment
-                        spec:
-                          serviceConfig:
-                            serviceRef: <+input>
-                            serviceDefinition:
-                              spec:
-                                variables: []
-                              type: Kubernetes
-                          infrastructure:
-                            environmentRef: <+input>
-                            infrastructureDefinition:
-                              type: KubernetesDirect
-                              spec:
-                                connectorRef: <+input>
-                                namespace: <+input>
-                                releaseName: release-<+INFRA_KEY>
-                            allowSimultaneousDeployments: false
-                          execution:
-                            steps:
-                              - step:
-                                  name: Rollout Deployment
-                                  identifier: rolloutDeployment
-                                  type: K8sRollingDeploy
-                                  timeout: 10m
-                                  spec:
-                                    skipDryRun: false
-                            rollbackSteps:
-                              - step:
-                                  name: Rollback Rollout Deployment
-                                  identifier: rollbackRolloutDeployment
-                                  type: K8sRollingRollback
-                                  timeout: 10m
-                                  spec: {}
-                        tags: {}
-                        failureStrategies:
-                          - onFailure:
-                              errors:
-                                - AllErrors
-                              action:
-                                type: StageRollback
+            example-pipeline:
+              value:
+                pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'
       description: Pipeline request body
-      required: true
-    PipelineListRequestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PipelineListRequestBody'
-          examples:
-            example-list:
-              value:
-                pipelines:
-                  - example_pipeline
-                name: Example Pipeline
-                description: This is an Example Pipeline.
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/PipelineListRequestBody'
-          examples:
-            example-list:
-              value:
-                pipelines:
-                  - example_pipeline
-                name: Example Pipeline
-                description: This is an Example Pipeline.
-                module_properties:
-                  empty: true
-                  property_name: {}
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-      description: Body for the filter properties for listing Pipelines.
       required: true
