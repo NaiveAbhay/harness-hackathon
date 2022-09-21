@@ -75,7 +75,13 @@ public interface OrgConnectorApi {
       String org,
       @PathParam("connector")
 
-      @Parameter(description = "Connector slug") String connector);
+      @Parameter(description = "Connector slug") String connector,
+      @QueryParam("account")
+
+      @Parameter(
+          description =
+              "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
+      String account);
   @GET
   @Path("/{connector}")
   @Produces({"application/json", "application/yaml"})

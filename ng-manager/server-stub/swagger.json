@@ -1694,6 +1694,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -2049,6 +2059,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -2457,6 +2477,16 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
           "schema" : {
             "type" : "string"
           }
