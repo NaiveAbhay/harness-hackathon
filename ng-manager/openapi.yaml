@@ -384,6 +384,8 @@ paths:
       description: Deletes the information of the connector with the matching connector slug.
       tags:
         - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -446,6 +448,8 @@ paths:
       description: Deletes the information of the connector with the matching connector slug.
       tags:
         - Org Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -517,6 +521,8 @@ paths:
       description: Deletes the information of the connector with the matching connector slug.
       tags:
         - Project Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
