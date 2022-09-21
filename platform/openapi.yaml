@@ -563,6 +563,18 @@ components:
         id: bzgvkhevpa4rq
       type: object
       description: Search request body for Resource Groups.
+      x-examples:
+        example-search:
+          account: example_account
+          org: example_organization
+          project: example_project
+          search_term: search
+          identifier_filter:
+            - example_resource_group
+          resource_selector_filter:
+            - resource_type: RESOURCE
+              resource_slug: example_resource
+          managed_filter: NO_FILTER
       properties:
         account:
           type: string
@@ -588,14 +600,16 @@ components:
         identifier_filter:
           type: array
           description: Filter by Resource Group identifiers
+          uniqueItems: true
           items:
             type: string
             pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
             minLength: 1
             maxLength: 64
         resource_selector_filter:
-          description: Filter based on whether it has a particular Resource.
           type: array
+          description: Filter based on whether it has a particular Resource.
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/ResourceSelectorFilter'
         managed_filter:
@@ -605,18 +619,6 @@ components:
             - NO_FILTER
             - ONLY_MANAGED
             - ONLY_CUSTOM
-      x-examples:
-        example-search:
-          account: example_account
-          org: example_organization
-          project: example_project
-          search_term: search
-          identifier_filter:
-            - example_resource_group
-          resource_selector_filter:
-            - resource_type: RESOURCE
-              resource_slug: example_resource
-          managed_filter: NO_FILTER
   securitySchemes:
     x-api-key:
       name: x-api-key

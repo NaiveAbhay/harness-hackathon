@@ -2115,6 +2115,7 @@
             "description" : "Filter Resource Group matching by identifier/name."
           },
           "identifier_filter" : {
+            "uniqueItems" : true,
             "type" : "array",
             "description" : "Filter by Resource Group identifiers",
             "items" : {
@@ -2125,6 +2126,7 @@
             }
           },
           "resource_selector_filter" : {
+            "uniqueItems" : true,
             "type" : "array",
             "description" : "Filter based on whether it has a particular Resource.",
             "items" : {
