@@ -1551,36 +1551,6 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "repo",
-          "in" : "query",
-          "description" : "Git Sync Config Id",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "branch",
-          "in" : "query",
-          "description" : "Name of the branch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "default_from_other_repo",
-          "in" : "query",
-          "description" : "If true, return all the default entities",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean"
-          }
         } ],
         "responses" : {
           "200" : {
@@ -1657,6 +1627,9 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
         "responses" : {
           "200" : {
             "description" : "Connector response",

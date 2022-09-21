@@ -79,17 +79,7 @@ public interface AccountConnectorApi {
       @Parameter(
           description =
               "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
-      String account,
-      @QueryParam("repo")
-
-      @Parameter(description = "Git Sync Config Id") String repo,
-      @QueryParam("branch")
-
-      @Parameter(description = "Name of the branch") String branch,
-      @QueryParam("default_from_other_repo")
-
-      @Parameter(description = "If true, return all the default entities")
-      Boolean defaultFromOtherRepo);
+      String account);
   @GET
   @Produces({"application/json", "application/yaml"})
   @Operation(operationId = "getAccountScopedConnectors",
@@ -117,6 +107,7 @@ public interface AccountConnectorApi {
       String account);
   @PUT
   @Path("/{connector}")
+  @Consumes({"application/json", "application/yaml"})
   @Produces({"application/json", "application/yaml"})
   @Operation(
       operationId = "updateAccountScopedConnector",
@@ -135,6 +126,7 @@ public interface AccountConnectorApi {
                 })
   Response
   updateAccountScopedConnector(
+      @Valid ConnectorRequest body,
       @PathParam("connector")
 
       @Parameter(description = "Connector slug") String connector,
