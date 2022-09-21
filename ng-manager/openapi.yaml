@@ -375,6 +375,15 @@ paths:
         in: path
         required: true
         description: Connector slug
+    delete:
+      summary: Delete a connector
+      operationId: delete-account-scoped-connector
+      responses:
+        '200':
+          description: OK
+      description: Deletes the information of the connector with the matching connector slug.
+      tags:
+        - Account Connector
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -402,6 +411,49 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Org Connector
+  '/v1/orgs/{org}/connectors/{connector}':
+    get:
+      summary: Retrieve a connector
+      operationId: get-org-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: |
+        Retrieves the information of the connector with the matching connector slug.
+      tags:
+        - Org Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update a connector
+      operationId: update-org-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Updates the information of the secret with the matching secret slug.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
+      tags:
+        - Org Connector
+    delete:
+      summary: Delete a connector
+      operationId: delete-org-scoped-connector
+      responses:
+        '200':
+          description: OK
+      description: Deletes the information of the connector with the matching connector slug.
+      tags:
+        - Org Connector
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
   '/v1/orgs/{org}/projects/{project}/connectors':
     post:
       summary: Create a Connector
@@ -430,6 +482,50 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Project Connector
+  '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
+    get:
+      summary: Retrieve a connector
+      operationId: get-project-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: |
+        Retrieves the information of the connector with the matching connector slug.
+      tags:
+        - Project Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    put:
+      summary: Update a connector
+      operationId: update-project-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorResponse'
+      description: Updates the information of the secret with the matching secret slug.
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
+      tags:
+        - Project Connector
+    delete:
+      summary: Delete a connector
+      operationId: delete-project-scoped-connector
+      responses:
+        '200':
+          description: OK
+      description: Deletes the information of the connector with the matching connector slug.
+      tags:
+        - Project Connector
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
   /v1/secrets:
     post:
       summary: Create a secret
@@ -2272,7 +2368,7 @@ components:
               enum:
                 - AZURE
                 - AZURE_US_GOVERNMENT
-              description: This specifies the Azure Environment type, which is AZURE by default.
+              description: 'This specifies the Azure Environment type, which is AZURE by default.'
             execute_on_delegate:
               type: boolean
               default: true
@@ -2316,7 +2412,7 @@ components:
               enum:
                 - AZURE
                 - AZURE_US_GOVERNMENT
-              description: This specifies the Azure Environment type, which is AZURE by default.
+              description: 'This specifies the Azure Environment type, which is AZURE by default.'
             execute_on_delegate:
               type: boolean
               default: true
@@ -2360,7 +2456,7 @@ components:
               enum:
                 - AZURE
                 - AZURE_US_GOVERNMENT
-              description: This specifies the Azure Environment type, which is AZURE by default.
+              description: 'This specifies the Azure Environment type, which is AZURE by default.'
             execute_on_delegate:
               type: boolean
               default: true
@@ -2396,7 +2492,7 @@ components:
               enum:
                 - AZURE
                 - AZURE_US_GOVERNMENT
-              description: This specifies the Azure Environment type, which is AZURE by default.
+              description: 'This specifies the Azure Environment type, which is AZURE by default.'
             execute_on_delegate:
               type: boolean
               default: true
