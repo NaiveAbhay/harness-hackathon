@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -51,6 +52,21 @@ public interface AccountConnectorApi {
           description =
               "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
       String account);
+  @DELETE
+  @Path("/{connector}")
+  @Operation(
+      operationId = "deleteAccountScopedConnector",
+      summary = "Delete a connector",
+      description =
+          "Deletes the information of the connector with the matching connector slug.",
+      tags = {"Account Connector"})
+  @ApiResponses(
+      value = { @ApiResponse(responseCode = "200", description = "OK") })
+  Response
+  deleteAccountScopedConnector(@PathParam("connector")
+
+                               @Parameter(description = "Connector slug")
+                               String connector);
   @GET
   @Path("/{connector}")
   @Produces({"application/json", "application/yaml"})
