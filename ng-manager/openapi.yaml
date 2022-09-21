@@ -355,21 +355,6 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-        - schema:
-            type: string
-          in: query
-          name: repo
-          description: Git Sync Config Id
-        - schema:
-            type: string
-          in: query
-          name: branch
-          description: Name of the branch
-        - schema:
-            type: boolean
-          in: query
-          name: default_from_other_repo
-          description: 'If true, return all the default entities'
     put:
       summary: Update a connector
       operationId: update-account-scoped-connector
@@ -379,6 +364,8 @@ paths:
       description: Updates the information of the secret with the matching secret slug.
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
         - Account Connector
     parameters:
