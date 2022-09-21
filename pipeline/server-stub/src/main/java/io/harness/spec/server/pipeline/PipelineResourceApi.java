@@ -173,21 +173,6 @@ public interface PipelineResourceApi {
 ,  @QueryParam("repo_name") 
 
  @Parameter(description = "Name of the Repository")  String repoName
-,  @QueryParam("build_type") 
-
- @Parameter(description = "Type of Build")  String buildType
-,  @QueryParam("build_branch") 
-
- @Parameter(description = "Branch used to Build.")  String buildBranch
-,  @QueryParam("build_tag") 
-
- @Parameter(description = "Tag used to Build")  String buildTag
-,  @QueryParam("build_PR_source_branch") 
-
- @Parameter(description = "PR source branch")  String buildPRSourceBranch
-,  @QueryParam("build_PR_target_branch") 
-
- @Parameter(description = "PR target branch")  String buildPRTargetBranch
 );
     @PUT
     @Path("/{pipeline}")

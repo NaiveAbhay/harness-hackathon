@@ -97,35 +97,6 @@ paths:
           in: query
           name: repo_name
           description: Name of the Repository
-        - schema:
-            type: string
-            enum:
-              - PULL_REQUEST
-              - BRANCH
-              - TAG
-          in: query
-          name: build_type
-          description: Type of Build
-        - schema:
-            type: string
-          in: query
-          name: build_branch
-          description: Branch used to Build.
-        - schema:
-            type: string
-          in: query
-          name: build_tag
-          description: Tag used to Build
-        - schema:
-            type: string
-          in: query
-          name: build_PR_source_branch
-          description: PR source branch
-        - schema:
-            type: string
-          in: query
-          name: build_PR_target_branch
-          description: PR target branch
       security:
         - x-api-key: []
       tags:

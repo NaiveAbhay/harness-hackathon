@@ -225,57 +225,6 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "build_type",
-          "in" : "query",
-          "description" : "Type of Build",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "PULL_REQUEST", "BRANCH", "TAG" ]
-          }
-        }, {
-          "name" : "build_branch",
-          "in" : "query",
-          "description" : "Branch used to Build.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "build_tag",
-          "in" : "query",
-          "description" : "Tag used to Build",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "build_PR_source_branch",
-          "in" : "query",
-          "description" : "PR source branch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "build_PR_target_branch",
-          "in" : "query",
-          "description" : "PR target branch",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
         } ],
         "responses" : {
           "200" : {
