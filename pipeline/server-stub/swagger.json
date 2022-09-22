@@ -130,7 +130,7 @@
         }, {
           "name" : "pipeline_identifiers",
           "in" : "query",
-          "description" : "List of Pipeline identifiers on which the filter will be applied.",
+          "description" : "List of Pipeline identifiers on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -143,7 +143,7 @@
         }, {
           "name" : "name",
           "in" : "query",
-          "description" : "Pipeline Name on which the filter will be applied.",
+          "description" : "Pipeline Name on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -156,7 +156,7 @@
         }, {
           "name" : "description",
           "in" : "query",
-          "description" : "Pipeline Description on which the filter will be applied.",
+          "description" : "Pipeline Description on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -182,7 +182,7 @@
         }, {
           "name" : "service_names",
           "in" : "query",
-          "description" : "Names of the Services",
+          "description" : "Service names on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -195,7 +195,7 @@
         }, {
           "name" : "env_names",
           "in" : "query",
-          "description" : "Names of the Environments",
+          "description" : "Names of Environments on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -208,7 +208,7 @@
         }, {
           "name" : "deployment_type",
           "in" : "query",
-          "description" : "Type of Deployment",
+          "description" : "Deployment type on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -218,7 +218,7 @@
         }, {
           "name" : "repo_name",
           "in" : "query",
-          "description" : "Name of the Repository",
+          "description" : "Repository name on the basis of which the Pipelines are filtered.",
           "required" : false,
           "style" : "form",
           "explode" : true,

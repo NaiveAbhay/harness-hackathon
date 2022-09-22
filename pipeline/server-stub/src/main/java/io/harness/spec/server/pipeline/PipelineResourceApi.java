@@ -151,28 +151,28 @@ public interface PipelineResourceApi {
  @Parameter(description = "Identifier of an existing Filter.")  String filterIdentifier
 ,  @QueryParam("pipeline_identifiers") 
 
- @Parameter(description = "List of Pipeline identifiers on which the filter will be applied.")  List<String> pipelineIdentifiers
+ @Parameter(description = "List of Pipeline identifiers on the basis of which the Pipelines are filtered.")  List<String> pipelineIdentifiers
 , @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @QueryParam("name") 
 
- @Parameter(description = "Pipeline Name on which the filter will be applied.")  String name
+ @Parameter(description = "Pipeline Name on the basis of which the Pipelines are filtered.")  String name
 , @Size(max=1024)  @QueryParam("description") 
 
- @Parameter(description = "Pipeline Description on which the filter will be applied.")  String description
+ @Parameter(description = "Pipeline Description on the basis of which the Pipelines are filtered.")  String description
 , @Size(max=128)  @QueryParam("tags") 
 
  @Parameter(description = "Filter tags as a key:value pair.")  List<String> tags
 ,  @QueryParam("service_names") 
 
- @Parameter(description = "Names of the Services")  List<String> serviceNames
+ @Parameter(description = "Service names on the basis of which the Pipelines are filtered.")  List<String> serviceNames
 ,  @QueryParam("env_names") 
 
- @Parameter(description = "Names of the Environments")  List<String> envNames
+ @Parameter(description = "Names of Environments on the basis of which the Pipelines are filtered.")  List<String> envNames
 ,  @QueryParam("deployment_type") 
 
- @Parameter(description = "Type of Deployment")  String deploymentType
+ @Parameter(description = "Deployment type on the basis of which the Pipelines are filtered.")  String deploymentType
 ,  @QueryParam("repo_name") 
 
- @Parameter(description = "Name of the Repository")  String repoName
+ @Parameter(description = "Repository name on the basis of which the Pipelines are filtered.")  String repoName
 );
     @PUT
     @Path("/{pipeline}")
