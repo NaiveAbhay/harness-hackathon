@@ -398,6 +398,15 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+    head:
+      summary: Validate unique connector slug
+      operationId: validate-unique-account-scoped-connector-slug
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+      description: Validates connector slug is unique
+      tags:
+        - Account Connector
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -425,7 +434,7 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Org Connector
-  /v1/orgs/{org}/connectors/stats:
+  '/v1/orgs/{org}/connectors/stats':
     get:
       summary: Retrieve connectors statistics
       operationId: get-org-scoped-connectors-statistics
@@ -476,6 +485,15 @@ paths:
         - Org Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+    head:
+      summary: Validate unique connector slug
+      operationId: validate-unique-org-scoped-connector-slug
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+      description: Validates connector slug is unique
+      tags:
+        - Org Connector
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -512,7 +530,7 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Project Connector
-  /v1/orgs/{org}/projects/{project}/connectors/stats:
+  '/v1/orgs/{org}/projects/{project}/connectors/stats':
     get:
       summary: Retrieve connectors statistics
       operationId: get-project-scoped-connectors-statistics
@@ -564,6 +582,15 @@ paths:
         - Project Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+    head:
+      summary: Validate unique connector slug
+      operationId: validate-unique-project-scoped-connector-slug
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+      description: Validates connector slug is unique
+      tags:
+        - Project Connector
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -1551,6 +1578,13 @@ components:
         valid:
           type: boolean
       description: Validate unique secret slug response model
+    ValidateConnectorSlugResponse:
+      title: ValidateConnectorSlugResponse
+      type: object
+      properties:
+        valid:
+          type: boolean
+      description: Validate unique connector slug response model
     ConnectorTypeStatistics:
       title: ConnectorTypeStatistics
       type: object
@@ -1559,29 +1593,29 @@ components:
         type:
           type: string
           enum:
-          - GitHttp
-          - GitHttpEncrypted
-          - GitSsh
-          - Appdynamics
-          - AppdynamicsClientId
-          - Artifactory
-          - ArtifactoryEncrypted
-          - ArtifactoryAnonymous
-          - AwsCodeCommit
-          - AwsAccessKey
-          - AwsEncryptedAccessKey
-          - AwsIAMRole
-          - AwsIRSA
-          - AwsKmsAccessKey
-          - AwsKmsAssumeIAM
-          - AwsKmsAssumeSTS
-          - AwsSecretManagerAccessKey
-          - AwsSecretManagerAssumeIAM
-          - AwsSecretManagerAssumeSTS
-          - AzureClientSecretKey
-          - AzureClientCertificate
-          - AzureInheritFromDelegateUserAssignedManagedIdentity
-          - AzureInheritFromDelegateSystemAssignedManagedIdentity
+            - GitHttp
+            - GitHttpEncrypted
+            - GitSsh
+            - Appdynamics
+            - AppdynamicsClientId
+            - Artifactory
+            - ArtifactoryEncrypted
+            - ArtifactoryAnonymous
+            - AwsCodeCommit
+            - AwsAccessKey
+            - AwsEncryptedAccessKey
+            - AwsIAMRole
+            - AwsIRSA
+            - AwsKmsAccessKey
+            - AwsKmsAssumeIAM
+            - AwsKmsAssumeSTS
+            - AwsSecretManagerAccessKey
+            - AwsSecretManagerAssumeIAM
+            - AwsSecretManagerAssumeSTS
+            - AzureClientSecretKey
+            - AzureClientCertificate
+            - AzureInheritFromDelegateUserAssignedManagedIdentity
+            - AzureInheritFromDelegateSystemAssignedManagedIdentity
         count:
           type: integer
           format: int32
@@ -1593,10 +1627,10 @@ components:
         type:
           type: string
           enum:
-          - SUCCESS
-          - FALURE
-          - PARTIAL
-          - UNKNOWN
+            - SUCCESS
+            - FALURE
+            - PARTIAL
+            - UNKNOWN
         count:
           type: integer
           format: int32
@@ -1630,7 +1664,7 @@ components:
           description: Updated timestamp for the connector
         harness_managed:
           type: boolean
-          description: This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector.
+          description: 'This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector.'
         governance_metadata:
           type: object
           description: Governance metadata information
@@ -2907,7 +2941,7 @@ components:
             sample:
               value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     ValidateSecretSlugResponse:
-      description: Example response
+      description: Validate secret slug response
       content:
         application/json:
           schema:
@@ -2923,6 +2957,23 @@ components:
             example-validate-secret-slug-response-json:
               value: |
                 valid: true
+    ValidateConnectorSlugResponse:
+      description: Validate connector slug response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidateConnectorSlugResponse'
+          examples:
+            example-validate-connector-slug-response-json:
+              value:
+                valid: true
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ValidateConnectorSlugResponse'
+          examples:
+            example-validate-connector-slug-response-json:
+              value: |
+                valid: true
     ConnectorStatisticsResponse:
       description: Connector statistics response
       content:
@@ -2933,21 +2984,21 @@ components:
             example-connector-statistics-response-json:
               value:
                 type_stats:
-                - type: GitHttp
-                  count: 17
-                - type: Appdynamics
-                  count: 22
-                - type: Artifactory
-                  count: 20
-                - type: AwsCodeCommit
-                  count: 8
+                  - type: GitHttp
+                    count: 17
+                  - type: Appdynamics
+                    count: 22
+                  - type: Artifactory
+                    count: 20
+                  - type: AwsCodeCommit
+                    count: 8
                 status_stats:
-                - status: UNKNOWN
-                  count: 13
-                - status: SUCCESS
-                  count: 25
-                - status: FAILURE
-                  count: 225
+                  - status: UNKNOWN
+                    count: 13
+                  - status: SUCCESS
+                    count: 25
+                  - status: FAILURE
+                    count: 225
         application/yaml:
           schema:
             $ref: '#/components/schemas/ConnectorStatisticsResponse'
