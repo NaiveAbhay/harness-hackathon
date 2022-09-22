@@ -122,6 +122,7 @@ paths:
           in: query
           description: Enables use of this service in Harness GitOps PR Pipelines
         - $ref: '#/components/parameters/AccountHeaderParam'
+        - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       description: Returns all services that the current user has view permissions for given project.
@@ -2684,8 +2685,8 @@ components:
       in: query
       required: false
       schema:
-        type: array
-      description: 'Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order'
+        type: string
+      description: Parameter on the basis of which sorting is done.
     AccountHeaderParam:
       name: account
       in: header
@@ -2693,3 +2694,13 @@ components:
       schema:
         type: string
       description: Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.
+    Order:
+      name: order
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+      description: Order on the basis of which sorting is done.

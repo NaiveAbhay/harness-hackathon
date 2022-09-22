@@ -1,6 +1,5 @@
 package io.harness.spec.server.ng;
 
-import java.util.List;
 import io.harness.spec.server.ng.model.ServiceListResponse;
 import io.harness.spec.server.ng.model.ServiceRequest;
 import io.harness.spec.server.ng.model.ServiceResponse;
@@ -134,7 +133,7 @@ public interface ServicesApi {
  @Parameter(description = "List of Service Identifiers")  List<String> serviceIds
 ,  @QueryParam("sort") 
 
- @Parameter(description = "Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order")  List sort
+ @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
 ,  @QueryParam("is_access_list") 
 
  @Parameter(description = "Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.")  Boolean isAccessList
@@ -147,6 +146,9 @@ public interface ServicesApi {
 ,  @HeaderParam("account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
+,  @QueryParam("order") 
+
+ @Parameter(description = "Order on the basis of which sorting is done.")  String order
 );
     @PUT
     @Path("/{service}")

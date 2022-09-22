@@ -442,12 +442,12 @@
         }, {
           "name" : "sort",
           "in" : "query",
-          "description" : "Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order",
+          "description" : "Parameter on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "array"
+            "type" : "string"
           }
         }, {
           "name" : "is_access_list",
@@ -489,6 +489,17 @@
           "explode" : false,
           "schema" : {
             "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -5528,12 +5539,12 @@
       "Sort" : {
         "name" : "sort",
         "in" : "query",
-        "description" : "Specifies the sorting criteria of the list. Like sorting based on the last updated entity, alphabetical sorting in an ascending or descending order",
+        "description" : "Parameter on the basis of which sorting is done.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "array"
+          "type" : "string"
         }
       },
       "AccountHeaderParam" : {
@@ -5545,6 +5556,18 @@
         "explode" : false,
         "schema" : {
           "type" : "string"
+        }
+      },
+      "Order" : {
+        "name" : "order",
+        "in" : "query",
+        "description" : "Order on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "ASC", "DESC" ]
         }
       }
     },
