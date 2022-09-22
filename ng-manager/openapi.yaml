@@ -342,6 +342,18 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+  /v1/connectors/stats:
+    get:
+      summary: Retrieve connectors statistics
+      operationId: get-account-scoped-connectors-statistics
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorStatisticsResponse'
+      description: Retrieves the statistics of the connectors.
+      tags:
+        - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -413,6 +425,20 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Org Connector
+  /v1/orgs/{org}/connectors/stats:
+    get:
+      summary: Retrieve connectors statistics
+      operationId: get-org-scoped-connectors-statistics
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorStatisticsResponse'
+      description: Retrieves the statistics of the connectors.
+      tags:
+        - Org Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
   '/v1/orgs/{org}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -486,6 +512,21 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Project Connector
+  /v1/orgs/{org}/projects/{project}/connectors/stats:
+    get:
+      summary: Retrieve connectors statistics
+      operationId: get-project-scoped-connectors-statistics
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorStatisticsResponse'
+      description: Retrieves the statistics of the connectors.
+      tags:
+        - Project Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -1501,6 +1542,7 @@ components:
           type: boolean
         governance_metadata:
           type: object
+          description: Governance metadata information
       description: Secret response model
     ValidateSecretSlugResponse:
       title: ValidateSecretSlugResponse
@@ -1509,6 +1551,68 @@ components:
         valid:
           type: boolean
       description: Validate unique secret slug response model
+    ConnectorTypeStatistics:
+      title: ConnectorTypeStatistics
+      type: object
+      description: Count of Connectors grouped by type.
+      properties:
+        type:
+          type: string
+          enum:
+          - GitHttp
+          - GitHttpEncrypted
+          - GitSsh
+          - Appdynamics
+          - AppdynamicsClientId
+          - Artifactory
+          - ArtifactoryEncrypted
+          - ArtifactoryAnonymous
+          - AwsCodeCommit
+          - AwsAccessKey
+          - AwsEncryptedAccessKey
+          - AwsIAMRole
+          - AwsIRSA
+          - AwsKmsAccessKey
+          - AwsKmsAssumeIAM
+          - AwsKmsAssumeSTS
+          - AwsSecretManagerAccessKey
+          - AwsSecretManagerAssumeIAM
+          - AwsSecretManagerAssumeSTS
+          - AzureClientSecretKey
+          - AzureClientCertificate
+          - AzureInheritFromDelegateUserAssignedManagedIdentity
+          - AzureInheritFromDelegateSystemAssignedManagedIdentity
+        count:
+          type: integer
+          format: int32
+    ConnectorStatusStatistics:
+      title: ConnectorStatusStatistics
+      type: object
+      description: Count of Connectors grouped by status.
+      properties:
+        type:
+          type: string
+          enum:
+          - SUCCESS
+          - FALURE
+          - PARTIAL
+          - UNKNOWN
+        count:
+          type: integer
+          format: int32
+    ConnectorStatisticsResponse:
+      title: ConnectorStatisticsResponse
+      type: object
+      description: Connector statistics response model
+      properties:
+        types_stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectorTypeStatistics'
+        status_stats:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectorStatusStatistics'
     ConnectorResponse:
       title: ConnectorResponse
       type: object
@@ -1524,8 +1628,12 @@ components:
           type: integer
           format: int64
           description: Updated timestamp for the connector
+        harness_managed:
+          type: boolean
+          description: This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector.
         governance_metadata:
           type: object
+          description: Governance metadata information
     ConnectorRequest:
       type: object
       properties:
@@ -2815,6 +2923,53 @@ components:
             example-validate-secret-slug-response-json:
               value: |
                 valid: true
+    ConnectorStatisticsResponse:
+      description: Connector statistics response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectorStatisticsResponse'
+          examples:
+            example-connector-statistics-response-json:
+              value:
+                type_stats:
+                - type: GitHttp
+                  count: 17
+                - type: Appdynamics
+                  count: 22
+                - type: Artifactory
+                  count: 20
+                - type: AwsCodeCommit
+                  count: 8
+                status_stats:
+                - status: UNKNOWN
+                  count: 13
+                - status: SUCCESS
+                  count: 25
+                - status: FAILURE
+                  count: 225
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConnectorStatisticsResponse'
+          examples:
+            example-connector-statistics-response-yaml:
+              value: |
+                type_stats:
+                - type: GitHttp
+                  count: 17
+                - type: Appdynamics
+                  count: 22
+                - type: Artifactory
+                  count: 20
+                - type: AwsCodeCommit
+                  count: 8
+                status_stats:
+                - status: UNKNOWN
+                  count: 13
+                - status: SUCCESS
+                  count: 25
+                - status: FAILURE
+                  count: 225
     ConnectorResponse:
       description: Connector response
       content:
