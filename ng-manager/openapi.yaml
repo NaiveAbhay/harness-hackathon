@@ -1599,29 +1599,45 @@ components:
         type:
           type: string
           enum:
-            - GitHttp
-            - GitHttpEncrypted
-            - GitSsh
-            - Appdynamics
-            - AppdynamicsClientId
+            - K8sCluster
+            - Git
+            - Splunk
+            - AppDynamics
+            - Prometheus
+            - Dynatrace
+            - Vault
+            - AzureKeyVault
+            - DockerRegistry
+            - Local
+            - AwsKms
+            - GcpKms
+            - AwsSecretManager
+            - Gcp
+            - Aws
+            - Azure
             - Artifactory
-            - ArtifactoryEncrypted
-            - ArtifactoryAnonymous
-            - AwsCodeCommit
-            - AwsAccessKey
-            - AwsEncryptedAccessKey
-            - AwsIAMRole
-            - AwsIRSA
-            - AwsKmsAccessKey
-            - AwsKmsAssumeIAM
-            - AwsKmsAssumeSTS
-            - AwsSecretManagerAccessKey
-            - AwsSecretManagerAssumeIAM
-            - AwsSecretManagerAssumeSTS
-            - AzureClientSecretKey
-            - AzureClientCertificate
-            - AzureInheritFromDelegateUserAssignedManagedIdentity
-            - AzureInheritFromDelegateSystemAssignedManagedIdentity
+            - Jira
+            - Nexus
+            - Github
+            - Gitlab
+            - Bitbucket
+            - Codecommit
+            - CEAws
+            - CEAzure
+            - GcpCloudCost
+            - CEK8sCluster
+            - HttpHelmRepo
+            - NewRelic
+            - Datadog
+            - SumoLogic
+            - PagerDuty
+            - CustomHealth
+            - ServiceNow
+            - ErrorTracking
+            - Pdc
+            - AzureRepo
+            - Jenkins
+            - OciHelmRepo
         count:
           type: integer
           format: int32
