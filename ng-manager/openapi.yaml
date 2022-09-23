@@ -407,6 +407,8 @@ paths:
       description: Validates connector slug is unique
       tags:
         - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -494,6 +496,8 @@ paths:
       description: Validates connector slug is unique
       tags:
         - Org Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -591,6 +595,8 @@ paths:
       description: Validates connector slug is unique
       tags:
         - Project Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
