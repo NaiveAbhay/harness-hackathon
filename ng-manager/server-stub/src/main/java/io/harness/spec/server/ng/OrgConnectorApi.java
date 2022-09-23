@@ -2,6 +2,9 @@ package io.harness.spec.server.ng;
 
 import io.harness.spec.server.ng.model.ConnectorRequest;
 import io.harness.spec.server.ng.model.ConnectorResponse;
+import io.harness.spec.server.ng.model.ConnectorStatisticsResponse;
+import io.harness.spec.server.ng.model.ConnectorTestConnectionResponse;
+import io.harness.spec.server.ng.model.ValidateConnectorSlugResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,6 +17,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HEAD;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -139,6 +143,72 @@ public interface OrgConnectorApi {
       @Parameter(description =
                      "Slug field of the organization the resource is scoped to")
       String org);
+  @GET
+  @Path("/stats")
+  @Produces({"application/json", "application/yaml"})
+  @Operation(operationId = "getOrgScopedConnectorsStatistics",
+             summary = "Retrieve connectors statistics",
+             description = "Retrieves the statistics of the connectors.",
+             tags = {"Org Connector"})
+  @ApiResponses(value =
+                {
+                  @ApiResponse(responseCode = "200",
+                               description = "Connector statistics response",
+                               content = @Content(
+                                   mediaType = "application/json",
+                                   schema = @Schema(
+                                       implementation =
+                                           ConnectorStatisticsResponse.class)))
+                })
+  Response
+  getOrgScopedConnectorsStatistics(
+      @PathParam("org")
+
+      @Parameter(description =
+                     "Slug field of the organization the resource is scoped to")
+      String org,
+      @QueryParam("account")
+
+      @Parameter(
+          description =
+              "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
+      String account);
+  @GET
+  @Path("/{connector}/test-connection")
+  @Produces({"application/json", "application/yaml"})
+  @Operation(
+      operationId = "testOrgScopedConnector", summary = "Test a connector",
+      description =
+          "Tests connection of the connector with the matching connector slug. ",
+      tags = {"Org Connector"})
+  @ApiResponses(
+      value =
+      {
+        @ApiResponse(
+            responseCode = "200",
+            description =
+                "This has test connection details for the Connector defined in Harness.",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation =
+                                     ConnectorTestConnectionResponse.class)))
+      })
+  Response
+  testOrgScopedConnector(
+      @PathParam("org")
+
+      @Parameter(description =
+                     "Slug field of the organization the resource is scoped to")
+      String org,
+      @PathParam("connector")
+
+      @Parameter(description = "Connector slug") String connector,
+      @QueryParam("account")
+
+      @Parameter(
+          description =
+              "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
+      String account);
   @PUT
   @Path("/{connector}")
   @Consumes({"application/json", "application/yaml"})
@@ -160,6 +230,40 @@ public interface OrgConnectorApi {
   Response
   updateOrgScopedConnector(
       @Valid ConnectorRequest body,
+      @PathParam("org")
+
+      @Parameter(description =
+                     "Slug field of the organization the resource is scoped to")
+      String org,
+      @PathParam("connector")
+
+      @Parameter(description = "Connector slug") String connector,
+      @QueryParam("account")
+
+      @Parameter(
+          description =
+              "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
+      String account);
+  @HEAD
+  @Path("/{connector}")
+  @Produces({"application/json", "application/yaml"})
+  @Operation(operationId = "validateUniqueOrgScopedConnectorSlug",
+             summary = "Validate unique connector slug",
+             description = "Validates connector slug is unique",
+             tags = {"Org Connector"})
+  @ApiResponses(value =
+                {
+                  @ApiResponse(
+                      responseCode = "200",
+                      description = "Validate connector slug response",
+                      content = @Content(
+                          mediaType = "application/json",
+                          schema =
+                              @Schema(implementation =
+                                          ValidateConnectorSlugResponse.class)))
+                })
+  Response
+  validateUniqueOrgScopedConnectorSlug(
       @PathParam("org")
 
       @Parameter(description =
