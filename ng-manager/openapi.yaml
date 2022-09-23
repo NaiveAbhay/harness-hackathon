@@ -146,37 +146,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
-  '/v1/orgs/{org}/projects/{project}/services/batch':
-    post:
-      summary: Create Services
-      operationId: create-services-batch
-      responses:
-        '201':
-          $ref: '#/components/responses/ServiceListResponse'
-      parameters:
-        - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/AccountHeaderParam'
-      security:
-        - x-api-key: []
-      description: Creates Multiple Services
-      requestBody:
-        $ref: '#/components/requestBodies/ServiceBatchRequest'
-      tags:
-        - Services
-    parameters:
-      - name: org
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Slug field of the organization the resource is scoped to
-      - name: project
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Slug field of the project the resource is scoped to
   /v1/orgs:
     post:
       summary: Create an organization
@@ -2057,48 +2026,6 @@ components:
                     tags: {}
       description: Create Service request body
       required: true
-    ServiceBatchRequest:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceRequest'
-          examples:
-            example-1:
-              value:
-                - slug: example_service
-                  name: Example_service
-                  description: This is a example service
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
-                  yaml: |
-                    service:
-                      name: "Example_service"
-                      identifier: "example_service"
-                      tags: {}
-        application/yaml:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/ServiceRequest'
-          examples:
-            example-1:
-              value: |
-                - slug: example_service
-                  name: Example_service
-                  description: This is a example service
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
-                  yaml: |
-                    service:
-                      name: "Example_service"
-                      identifier: "example_service"
-                      tags: {}
-      description: Create array of Service request body
-      required: true
     UpdateProjectRequest:
       content:
         application/json:
@@ -2688,7 +2615,7 @@ components:
         type: string
       description: Parameter on the basis of which sorting is done.
     AccountHeaderParam:
-      name: account
+      name: harness_account
       in: header
       required: false
       schema:

@@ -72,7 +72,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "harness_account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
           "required" : false,
@@ -181,7 +181,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "harness_account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
           "required" : false,
@@ -293,7 +293,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "harness_account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
           "required" : false,
@@ -481,7 +481,7 @@
             "type" : "boolean"
           }
         }, {
-          "name" : "account",
+          "name" : "harness_account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
           "required" : false,
@@ -607,7 +607,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
+          "name" : "harness_account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
           "required" : false,
@@ -672,148 +672,6 @@
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "x-api-key" : [ ]
-        } ]
-      }
-    },
-    "/v1/orgs/{org}/projects/{project}/services/batch" : {
-      "post" : {
-        "tags" : [ "Services" ],
-        "summary" : "Create Services",
-        "description" : "Creates Multiple Services",
-        "operationId" : "create-services-batch",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "project",
-          "in" : "path",
-          "description" : "Slug field of the project the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "page",
-          "in" : "query",
-          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "default" : 0
-          }
-        }, {
-          "name" : "limit",
-          "in" : "query",
-          "description" : "Pagination: Number of items to return",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "integer",
-            "default" : 30
-          }
-        }, {
-          "name" : "account",
-          "in" : "header",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
-          "required" : false,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "requestBody" : {
-          "$ref" : "#/components/requestBodies/ServiceBatchRequest"
-        },
-        "responses" : {
-          "201" : {
-            "description" : "Example response",
-            "headers" : {
-              "Link" : {
-                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
-                "style" : "simple",
-                "explode" : false,
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ServiceListResponse"
-                },
-                "examples" : {
-                  "example-1" : {
-                    "value" : {
-                      "content" : [ {
-                        "service" : {
-                          "account" : "sample_account",
-                          "slug" : "example_service",
-                          "org" : "sample_organization",
-                          "project" : "sample_project",
-                          "name" : "Example_service",
-                          "description" : "This is a example service",
-                          "tags" : {
-                            "example-tag-1" : "example-tag-1-value",
-                            "example-tag-2" : "example-tag-2-value"
-                          },
-                          "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                        },
-                        "created" : 1234567890,
-                        "updated" : 1234567890
-                      } ],
-                      "empty" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ServiceListResponse"
-                },
-                "examples" : {
-                  "example-1" : {
-                    "value" : {
-                      "content" : [ {
-                        "service" : {
-                          "account" : "sample_account",
-                          "slug" : "example_service",
-                          "org" : "sample_organization",
-                          "project" : "sample_project",
-                          "name" : "Example_service",
-                          "description" : "This is a example service",
-                          "tags" : {
-                            "example-tag-1" : "example-tag-1-value",
-                            "example-tag-2" : "example-tag-2-value"
-                          },
-                          "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                        },
-                        "created" : 1234567890,
-                        "updated" : 1234567890
-                      } ],
-                      "empty" : true
                     }
                   }
                 }
@@ -5548,7 +5406,7 @@
         }
       },
       "AccountHeaderParam" : {
-        "name" : "account",
+        "name" : "harness_account",
         "in" : "header",
         "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
         "required" : false,
@@ -5610,47 +5468,6 @@
                   },
                   "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
                 }
-              }
-            }
-          }
-        },
-        "required" : true
-      },
-      "ServiceBatchRequest" : {
-        "description" : "Create array of Service request body",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/components/schemas/ServiceRequest"
-              }
-            },
-            "examples" : {
-              "example-1" : {
-                "value" : [ {
-                  "slug" : "example_service",
-                  "name" : "Example_service",
-                  "description" : "This is a example service",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                } ]
-              }
-            }
-          },
-          "application/yaml" : {
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/components/schemas/ServiceRequest"
-              }
-            },
-            "examples" : {
-              "example-1" : {
-                "value" : "- slug: example_service\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\n"
               }
             }
           }

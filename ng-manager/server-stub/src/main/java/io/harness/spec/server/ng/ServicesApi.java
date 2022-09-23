@@ -39,33 +39,9 @@ public interface ServicesApi {
 , @PathParam("project")
 
  @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @HeaderParam("account") 
+,  @HeaderParam("harness_account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
-);
-    @POST
-    @Path("/batch")
-    @Consumes({ "application/json", "application/yaml" })
-    @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createServicesBatch", summary = "Create Services", description = "Creates Multiple Services", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceListResponse.class))) })
-    Response createServicesBatch(@Valid List<ServiceRequest> body, @PathParam("org")
-
- @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-, @PathParam("project")
-
- @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @HeaderParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
-,  @QueryParam("page") @DefaultValue("0") 
-
- @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page ")  Integer page
-,  @QueryParam("limit") @DefaultValue("30") 
-
- @Parameter(description = "Pagination: Number of items to return")  Integer limit
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{service}")
@@ -83,9 +59,9 @@ public interface ServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("account") 
+,  @HeaderParam("harness_account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{service}")
@@ -103,9 +79,9 @@ public interface ServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("account") 
+,  @HeaderParam("harness_account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -143,9 +119,9 @@ public interface ServicesApi {
 ,  @QueryParam("git_ops_enabled") 
 
  @Parameter(description = "Enables use of this service in Harness GitOps PR Pipelines")  Boolean gitOpsEnabled
-,  @HeaderParam("account") 
+,  @HeaderParam("harness_account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
 ,  @QueryParam("order") 
 
  @Parameter(description = "Order on the basis of which sorting is done.")  String order
@@ -167,7 +143,7 @@ public interface ServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("account") 
+,  @HeaderParam("harness_account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
 );}
