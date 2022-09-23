@@ -1525,6 +1525,76 @@
         } ]
       }
     },
+    "/v1/connectors/stats" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Retrieve connectors statistics",
+        "description" : "Retrieves the statistics of the connectors.",
+        "operationId" : "get-account-scoped-connectors-statistics",
+        "parameters" : [ {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector statistics response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-json" : {
+                    "value" : {
+                      "type_stats" : [ {
+                        "type" : "GitHttp",
+                        "count" : 17
+                      }, {
+                        "type" : "Appdynamics",
+                        "count" : 22
+                      }, {
+                        "type" : "Artifactory",
+                        "count" : 20
+                      }, {
+                        "type" : "AwsCodeCommit",
+                        "count" : 8
+                      } ],
+                      "status_stats" : [ {
+                        "status" : "UNKNOWN",
+                        "count" : 13
+                      }, {
+                        "status" : "SUCCESS",
+                        "count" : 25
+                      }, {
+                        "status" : "FAILURE",
+                        "count" : 225
+                      } ]
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-yaml" : {
+                    "value" : "type_stats:\n- type: GitHttp\n  count: 17\n- type: Appdynamics\n  count: 22\n- type: Artifactory\n  count: 20\n- type: AwsCodeCommit\n  count: 8\nstatus_stats:\n- status: UNKNOWN\n  count: 13\n- status: SUCCESS\n  count: 25\n- status: FAILURE\n  count: 225\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/connectors/{connector}" : {
       "get" : {
         "tags" : [ "Account Connector" ],
@@ -1710,6 +1780,108 @@
             "description" : "OK"
           }
         }
+      },
+      "head" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Validate unique connector slug",
+        "description" : "Validates connector slug is unique",
+        "operationId" : "validate-unique-account-scoped-connector-slug",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Validate connector slug response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/orgs/{org}/connectors" : {
@@ -1861,6 +2033,86 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
+      }
+    },
+    "/v1/orgs/{org}/connectors/stats" : {
+      "get" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Retrieve connectors statistics",
+        "description" : "Retrieves the statistics of the connectors.",
+        "operationId" : "get-org-scoped-connectors-statistics",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector statistics response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-json" : {
+                    "value" : {
+                      "type_stats" : [ {
+                        "type" : "GitHttp",
+                        "count" : 17
+                      }, {
+                        "type" : "Appdynamics",
+                        "count" : 22
+                      }, {
+                        "type" : "Artifactory",
+                        "count" : 20
+                      }, {
+                        "type" : "AwsCodeCommit",
+                        "count" : 8
+                      } ],
+                      "status_stats" : [ {
+                        "status" : "UNKNOWN",
+                        "count" : 13
+                      }, {
+                        "status" : "SUCCESS",
+                        "count" : 25
+                      }, {
+                        "status" : "FAILURE",
+                        "count" : 225
+                      } ]
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-yaml" : {
+                    "value" : "type_stats:\n- type: GitHttp\n  count: 17\n- type: Appdynamics\n  count: 22\n- type: Artifactory\n  count: 20\n- type: AwsCodeCommit\n  count: 8\nstatus_stats:\n- status: UNKNOWN\n  count: 13\n- status: SUCCESS\n  count: 25\n- status: FAILURE\n  count: 225\n"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/orgs/{org}/connectors/{connector}" : {
@@ -2078,6 +2330,128 @@
             "description" : "OK"
           }
         }
+      },
+      "head" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Validate unique connector slug",
+        "description" : "Validates connector slug is unique",
+        "operationId" : "validate-unique-org-scoped-connector-slug",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Validate connector slug response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/orgs/{org}/projects/{project}/connectors" : {
@@ -2249,6 +2623,96 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/connectors/stats" : {
+      "get" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Retrieve connectors statistics",
+        "description" : "Retrieves the statistics of the connectors.",
+        "operationId" : "get-project-scoped-connectors-statistics",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector statistics response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-json" : {
+                    "value" : {
+                      "type_stats" : [ {
+                        "type" : "GitHttp",
+                        "count" : 17
+                      }, {
+                        "type" : "Appdynamics",
+                        "count" : 22
+                      }, {
+                        "type" : "Artifactory",
+                        "count" : 20
+                      }, {
+                        "type" : "AwsCodeCommit",
+                        "count" : 8
+                      } ],
+                      "status_stats" : [ {
+                        "status" : "UNKNOWN",
+                        "count" : 13
+                      }, {
+                        "status" : "SUCCESS",
+                        "count" : 25
+                      }, {
+                        "status" : "FAILURE",
+                        "count" : 225
+                      } ]
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+                },
+                "examples" : {
+                  "example-connector-statistics-response-yaml" : {
+                    "value" : "type_stats:\n- type: GitHttp\n  count: 17\n- type: Appdynamics\n  count: 22\n- type: Artifactory\n  count: 20\n- type: AwsCodeCommit\n  count: 8\nstatus_stats:\n- status: UNKNOWN\n  count: 13\n- status: SUCCESS\n  count: 25\n- status: FAILURE\n  count: 225\n"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/orgs/{org}/projects/{project}/connectors/{connector}" : {
@@ -2494,6 +2958,148 @@
         "responses" : {
           "200" : {
             "description" : "OK"
+          }
+        }
+      },
+      "head" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Validate unique connector slug",
+        "description" : "Validates connector slug is unique",
+        "operationId" : "validate-unique-project-scoped-connector-slug",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Validate connector slug response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : {
+                      "valid" : true
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+                },
+                "examples" : {
+                  "example-validate-connector-slug-response-json" : {
+                    "value" : "valid: true\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "account",
+          "in" : "query",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
           }
         }
       }
@@ -3583,7 +4189,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3921,7 +4527,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -4299,7 +4905,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -5019,7 +5625,8 @@
             "type" : "boolean"
           },
           "governance_metadata" : {
-            "type" : "object"
+            "type" : "object",
+            "description" : "Governance metadata information"
           }
         },
         "description" : "Secret response model"
@@ -5033,6 +5640,114 @@
           }
         },
         "description" : "Validate unique secret slug response model"
+      },
+      "ValidateConnectorSlugResponse" : {
+        "title" : "ValidateConnectorSlugResponse",
+        "type" : "object",
+        "properties" : {
+          "valid" : {
+            "type" : "boolean"
+          }
+        },
+        "description" : "Validate unique connector slug response model"
+      },
+      "ConnectorTypeStatistics" : {
+        "title" : "ConnectorTypeStatistics",
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "enum" : [ "K8sCluster", "Git", "Splunk", "AppDynamics", "Prometheus", "Dynatrace", "Vault", "AzureKeyVault", "DockerRegistry", "Local", "AwsKms", "GcpKms", "AwsSecretManager", "Gcp", "Aws", "Azure", "Artifactory", "Jira", "Nexus", "Github", "Gitlab", "Bitbucket", "Codecommit", "CEAws", "CEAzure", "GcpCloudCost", "CEK8sCluster", "HttpHelmRepo", "NewRelic", "Datadog", "SumoLogic", "PagerDuty", "CustomHealth", "ServiceNow", "ErrorTracking", "Pdc", "AzureRepo", "Jenkins", "OciHelmRepo" ]
+          },
+          "count" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "description" : "Count of Connectors grouped by type."
+      },
+      "ConnectorStatusStatistics" : {
+        "title" : "ConnectorStatusStatistics",
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "enum" : [ "SUCCESS", "FALURE", "PARTIAL", "UNKNOWN" ]
+          },
+          "count" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "description" : "Count of Connectors grouped by status."
+      },
+      "ConnectorStatisticsResponse" : {
+        "title" : "ConnectorStatisticsResponse",
+        "type" : "object",
+        "properties" : {
+          "types_stats" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorTypeStatistics"
+            }
+          },
+          "status_stats" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorStatusStatistics"
+            }
+          }
+        },
+        "description" : "Connector statistics response model"
+      },
+      "ConnectorTestConnectionErrorDetail" : {
+        "title" : "ConnectorTestConnectionErrorDetail",
+        "type" : "object",
+        "properties" : {
+          "reason" : {
+            "type" : "string",
+            "description" : "Reason of test connection error"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Test connection error message"
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "Test connection error code"
+          }
+        },
+        "description" : "Connector test connection errors and their details."
+      },
+      "ConnectorTestConnectionResponse" : {
+        "title" : "ConnectorTestConnectionResponse",
+        "type" : "object",
+        "properties" : {
+          "stats" : {
+            "type" : "string",
+            "enum" : [ "SUCCESS", "PARTIAL", "FAILURE", "UNKNOWN" ]
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionErrorDetail"
+            }
+          },
+          "error_summary" : {
+            "type" : "string",
+            "description" : "Error summary"
+          },
+          "tested_at" : {
+            "type" : "integer",
+            "description" : "Time at which Test Connection was completed",
+            "format" : "int64"
+          },
+          "delegate_id" : {
+            "type" : "string",
+            "description" : "ID of Delegate on which Test Connection is executed"
+          }
+        },
+        "description" : "This has test connection details for the Connector defined in Harness."
       },
       "ConnectorResponse" : {
         "title" : "ConnectorResponse",
@@ -5051,8 +5766,13 @@
             "description" : "Updated timestamp for the connector",
             "format" : "int64"
           },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector."
+          },
           "governance_metadata" : {
-            "type" : "object"
+            "type" : "object",
+            "description" : "Governance metadata information"
           }
         },
         "description" : "Connector response model"
@@ -6510,7 +7230,7 @@
         }
       },
       "ValidateSecretSlugResponse" : {
-        "description" : "Example response",
+        "description" : "Validate secret slug response",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -6531,6 +7251,97 @@
             "examples" : {
               "example-validate-secret-slug-response-json" : {
                 "value" : "valid: true\n"
+              }
+            }
+          }
+        }
+      },
+      "ValidateConnectorSlugResponse" : {
+        "description" : "Validate connector slug response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+            },
+            "examples" : {
+              "example-validate-connector-slug-response-json" : {
+                "value" : {
+                  "valid" : true
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
+            },
+            "examples" : {
+              "example-validate-connector-slug-response-json" : {
+                "value" : "valid: true\n"
+              }
+            }
+          }
+        }
+      },
+      "ConnectorTestConnectionResponse" : {
+        "description" : "This has test connection details for the Connector defined in Harness.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+            }
+          }
+        }
+      },
+      "ConnectorStatisticsResponse" : {
+        "description" : "Connector statistics response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+            },
+            "examples" : {
+              "example-connector-statistics-response-json" : {
+                "value" : {
+                  "type_stats" : [ {
+                    "type" : "GitHttp",
+                    "count" : 17
+                  }, {
+                    "type" : "Appdynamics",
+                    "count" : 22
+                  }, {
+                    "type" : "Artifactory",
+                    "count" : 20
+                  }, {
+                    "type" : "AwsCodeCommit",
+                    "count" : 8
+                  } ],
+                  "status_stats" : [ {
+                    "status" : "UNKNOWN",
+                    "count" : 13
+                  }, {
+                    "status" : "SUCCESS",
+                    "count" : 25
+                  }, {
+                    "status" : "FAILURE",
+                    "count" : 225
+                  } ]
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorStatisticsResponse"
+            },
+            "examples" : {
+              "example-connector-statistics-response-yaml" : {
+                "value" : "type_stats:\n- type: GitHttp\n  count: 17\n- type: Appdynamics\n  count: 22\n- type: Artifactory\n  count: 20\n- type: AwsCodeCommit\n  count: 8\nstatus_stats:\n- status: UNKNOWN\n  count: 13\n- status: SUCCESS\n  count: 25\n- status: FAILURE\n  count: 225\n"
               }
             }
           }
