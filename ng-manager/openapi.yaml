@@ -409,6 +409,26 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
+  '/v1/connectors/{connector}/test-connection':
+    get:
+      summary: Test a connector
+      operationId: test-account-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorTestConnectionResponse'
+      description: |
+        Tests connection of the connector with the matching connector slug.
+      tags:
+        - Account Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -494,6 +514,27 @@ paths:
         '200':
           $ref: '#/components/responses/ValidateConnectorSlugResponse'
       description: Validates connector slug is unique
+      tags:
+        - Org Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
+  '/v1/orgs/{org}/connectors/{connector}/test-connection':
+    get:
+      summary: Test a connector
+      operationId: test-org-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorTestConnectionResponse'
+      description: |
+        Tests connection of the connector with the matching connector slug.
       tags:
         - Org Connector
       parameters:
@@ -593,6 +634,28 @@ paths:
         '200':
           $ref: '#/components/responses/ValidateConnectorSlugResponse'
       description: Validates connector slug is unique
+      tags:
+        - Project Connector
+      parameters:
+        - $ref: '#/components/parameters/AccountQueryParam'
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - schema:
+          type: string
+        name: connector
+        in: path
+        required: true
+        description: Connector slug
+  '/v1/orgs/{org}/projects/{project}/connectors/{connector}/test-connection':
+    get:
+      summary: Test a connector
+      operationId: test-project-scoped-connector
+      responses:
+        '200':
+          $ref: '#/components/responses/ConnectorTestConnectionResponse'
+      description: |
+        Tests connection of the connector with the matching connector slug.
       tags:
         - Project Connector
       parameters:
@@ -1669,6 +1732,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ConnectorStatusStatistics'
+    ConnectorTestConnectionErrorDetail:
+      title: ConnectorTestConnectionErrorDetail
+      type: object
+      description: Connector test connection errors and their details.
+      properties:
+        reason:
+          type: string
+          description: Reason of test connection error
+        message:
+          type: string
+          description: Test connection error message
+        code:
+          type: string
+          description: Test connection error code
+    ConnectorTestConnectionResponse:
+      title: ConnectorTestConnectionResponse
+      type: object
+      description: This has test connection details for the Connector defined in Harness.
+      properties:
+        stats:
+          type: string
+          enum:
+            - SUCCESS
+            - PARTIAL
+            - FAILURE
+            - UNKNOWN
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectorTestConnectionErrorDetail'
+        error_summary:
+          type: string
+          description: Error summary
+        tested_at:
+          type: integer
+          format: int64
+          description: Time at which Test Connection was completed
+        delegate_id:
+          type: string
+          description: ID of Delegate on which Test Connection is executed
     ConnectorResponse:
       title: ConnectorResponse
       type: object
@@ -2996,6 +3099,15 @@ components:
             example-validate-connector-slug-response-json:
               value: |
                 valid: true
+    ConnectorTestConnectionResponse:
+      description: This has test connection details for the Connector defined in Harness.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ConnectorTestConnectionResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ConnectorTestConnectionResponse'
     ConnectorStatisticsResponse:
       description: Connector statistics response
       content:
