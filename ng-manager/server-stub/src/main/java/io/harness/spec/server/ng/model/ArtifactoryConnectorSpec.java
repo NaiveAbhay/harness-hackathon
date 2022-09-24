@@ -2,18 +2,18 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+@Schema(
+    description =
+        "This contains details of the artifactory connector with username/password")
 
-
-@Schema(description = "This contains details of the artifactory connector with username/password")
-
-public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
+public class ArtifactoryConnectorSpec
+    extends ConnectorSpec implements OneOfConnectorSpec {
 
   private @Valid String url = null;
 
@@ -33,7 +33,6 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     return this;
   }
 
-  
   @Schema(required = true, description = "artifactory repo url")
   @JsonProperty("url")
   @NotNull
@@ -41,9 +40,7 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
   public String getUrl() {
     return url;
   }
-  public void setUrl(String url) {
-    this.url = url;
-  }
+  public void setUrl(String url) { this.url = url; }
 
   /**
    * artifactory username
@@ -53,7 +50,6 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     return this;
   }
 
-  
   @Schema(required = true, description = "artifactory username")
   @JsonProperty("username")
   @NotNull
@@ -61,9 +57,7 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) {
-    this.username = username;
-  }
+  public void setUsername(String username) { this.username = username; }
 
   /**
    * Reference to encrypted Harness secret for artifactory password
@@ -73,12 +67,14 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     return this;
   }
 
-  
-  @Schema(required = true, description = "Reference to encrypted Harness secret for artifactory password")
+  @Schema(required = true,
+          description =
+              "Reference to encrypted Harness secret for artifactory password")
   @JsonProperty("password_ref")
   @NotNull
 
-  public String getPasswordRef() {
+  public String
+  getPasswordRef() {
     return passwordRef;
   }
   public void setPasswordRef(String passwordRef) {
@@ -88,12 +84,12 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
   /**
    * List of unique delegate selectors
    **/
-  public ArtifactoryConnectorSpec delegateSelectors(List<String> delegateSelectors) {
+  public ArtifactoryConnectorSpec
+  delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -112,7 +108,6 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     return this;
   }
 
-  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -123,7 +118,6 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     this.executeOnDelegate = executeOnDelegate;
   }
 
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -132,17 +126,21 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ArtifactoryConnectorSpec artifactoryConnectorSpec = (ArtifactoryConnectorSpec) o;
+    ArtifactoryConnectorSpec artifactoryConnectorSpec =
+        (ArtifactoryConnectorSpec)o;
     return Objects.equals(url, artifactoryConnectorSpec.url) &&
         Objects.equals(username, artifactoryConnectorSpec.username) &&
         Objects.equals(passwordRef, artifactoryConnectorSpec.passwordRef) &&
-        Objects.equals(delegateSelectors, artifactoryConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate, artifactoryConnectorSpec.executeOnDelegate);
+        Objects.equals(delegateSelectors,
+                       artifactoryConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate,
+                       artifactoryConnectorSpec.executeOnDelegate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, username, passwordRef, delegateSelectors, executeOnDelegate);
+    return Objects.hash(url, username, passwordRef, delegateSelectors,
+                        executeOnDelegate);
   }
 
   @Override
@@ -152,9 +150,15 @@ public class ArtifactoryConnectorSpec extends ConnectorSpec implements OneOfConn
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    passwordRef: ").append(toIndentedString(passwordRef)).append("\n");
-    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
-    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
+    sb.append("    passwordRef: ")
+        .append(toIndentedString(passwordRef))
+        .append("\n");
+    sb.append("    delegateSelectors: ")
+        .append(toIndentedString(delegateSelectors))
+        .append("\n");
+    sb.append("    executeOnDelegate: ")
+        .append(toIndentedString(executeOnDelegate))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

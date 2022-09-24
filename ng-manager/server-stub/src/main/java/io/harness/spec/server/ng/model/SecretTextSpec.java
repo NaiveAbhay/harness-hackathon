@@ -4,50 +4,44 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
+@Schema(description =
+            "This is the SSH key authentication details defined in Harness.")
 
-
-@Schema(description = "This is the SSH key authentication details defined in Harness.")
-
-public class SecretTextSpec extends SecretSpec implements OneOfSecretSpec  {
+public class SecretTextSpec extends SecretSpec implements OneOfSecretSpec {
 
   private @Valid String secretManagerSlug = null;
 
-public enum ValueTypeEnum {
+  public enum ValueTypeEnum {
 
-    INLINE(String.valueOf("Inline")), REFERENCE(String.valueOf("Reference"));
-
+    INLINE(String.valueOf("Inline")),
+    REFERENCE(String.valueOf("Reference"));
 
     private String value;
 
-    ValueTypeEnum (String v) {
-        value = v;
-    }
+    ValueTypeEnum(String v) { value = v; }
 
-    public String value() {
-        return value;
-    }
+    public String value() { return value; }
 
     @Override
     @JsonValue
     public String toString() {
-        return String.valueOf(value);
+      return String.valueOf(value);
     }
 
     @JsonCreator
     public static ValueTypeEnum fromValue(String v) {
-        for (ValueTypeEnum b : ValueTypeEnum.values()) {
-            if (String.valueOf(b.value).equals(v)) {
-                return b;
-            }
+      for (ValueTypeEnum b : ValueTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(v)) {
+          return b;
         }
-        return null;
+      }
+      return null;
     }
-}
+  }
   private @Valid ValueTypeEnum valueType = null;
 
   private @Valid String value = null;
@@ -60,12 +54,13 @@ public enum ValueTypeEnum {
     return this;
   }
 
-  
-  @Schema(required = true, description = "Slug of the secret manager used to manage the secret")
+  @Schema(required = true,
+          description = "Slug of the secret manager used to manage the secret")
   @JsonProperty("secret_manager_slug")
   @NotNull
 
-  public String getSecretManagerSlug() {
+  public String
+  getSecretManagerSlug() {
     return secretManagerSlug;
   }
   public void setSecretManagerSlug(String secretManagerSlug) {
@@ -80,12 +75,15 @@ public enum ValueTypeEnum {
     return this;
   }
 
-  
-  @Schema(required = true, description = "This has details to specify if the secret value is inline or referenced")
+  @Schema(
+      required = true,
+      description =
+          "This has details to specify if the secret value is inline or referenced")
   @JsonProperty("value_type")
   @NotNull
 
-  public ValueTypeEnum getValueType() {
+  public ValueTypeEnum
+  getValueType() {
     return valueType;
   }
   public void setValueType(ValueTypeEnum valueType) {
@@ -100,17 +98,13 @@ public enum ValueTypeEnum {
     return this;
   }
 
-  
   @Schema(description = "Value of the Secret")
   @JsonProperty("value")
 
   public String getValue() {
     return value;
   }
-  public void setValue(String value) {
-    this.value = value;
-  }
-
+  public void setValue(String value) { this.value = value; }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,8 +114,9 @@ public enum ValueTypeEnum {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SecretTextSpec secretTextSpec = (SecretTextSpec) o;
-    return Objects.equals(secretManagerSlug, secretTextSpec.secretManagerSlug) &&
+    SecretTextSpec secretTextSpec = (SecretTextSpec)o;
+    return Objects.equals(secretManagerSlug,
+                          secretTextSpec.secretManagerSlug) &&
         Objects.equals(valueType, secretTextSpec.valueType) &&
         Objects.equals(value, secretTextSpec.value);
   }
@@ -136,8 +131,12 @@ public enum ValueTypeEnum {
     StringBuilder sb = new StringBuilder();
     sb.append("class SecretTextSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    secretManagerSlug: ").append(toIndentedString(secretManagerSlug)).append("\n");
-    sb.append("    valueType: ").append(toIndentedString(valueType)).append("\n");
+    sb.append("    secretManagerSlug: ")
+        .append(toIndentedString(secretManagerSlug))
+        .append("\n");
+    sb.append("    valueType: ")
+        .append(toIndentedString(valueType))
+        .append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -4,54 +4,51 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(
+    description =
+        "This contains details of the Azure connector and uses Azure client certificate details")
 
-
-@Schema(description = "This contains details of the Azure connector and uses Azure client certificate details")
-
-public class AzureClientCertificateConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
+public class AzureClientCertificateConnectorSpec
+    extends ConnectorSpec implements OneOfConnectorSpec {
 
   private @Valid List<String> delegateSelectors = new ArrayList<>();
 
-public enum AzureEnvironmentTypeEnum {
+  public enum AzureEnvironmentTypeEnum {
 
-    AZURE(String.valueOf("AZURE")), AZURE_US_GOVERNMENT(String.valueOf("AZURE_US_GOVERNMENT"));
-
+    AZURE(String.valueOf("AZURE")),
+    AZURE_US_GOVERNMENT(String.valueOf("AZURE_US_GOVERNMENT"));
 
     private String value;
 
-    AzureEnvironmentTypeEnum (String v) {
-        value = v;
-    }
+    AzureEnvironmentTypeEnum(String v) { value = v; }
 
-    public String value() {
-        return value;
-    }
+    public String value() { return value; }
 
     @Override
     @JsonValue
     public String toString() {
-        return String.valueOf(value);
+      return String.valueOf(value);
     }
 
     @JsonCreator
     public static AzureEnvironmentTypeEnum fromValue(String v) {
-        for (AzureEnvironmentTypeEnum b : AzureEnvironmentTypeEnum.values()) {
-            if (String.valueOf(b.value).equals(v)) {
-                return b;
-            }
+      for (AzureEnvironmentTypeEnum b : AzureEnvironmentTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(v)) {
+          return b;
         }
-        return null;
+      }
+      return null;
     }
-}
-  private @Valid AzureEnvironmentTypeEnum azureEnvironmentType = AzureEnvironmentTypeEnum.AZURE;
+  }
+  private @Valid AzureEnvironmentTypeEnum azureEnvironmentType =
+      AzureEnvironmentTypeEnum.AZURE;
 
   private @Valid Boolean executeOnDelegate = true;
 
@@ -62,18 +59,22 @@ public enum AzureEnvironmentTypeEnum {
   private @Valid String certificateRef = null;
 
   /**
-   * List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+   * List of Delegate Selectors that belong to the same Delegate and are used to
+   *connect to the Secret Manager
    **/
-  public AzureClientCertificateConnectorSpec delegateSelectors(List<String> delegateSelectors) {
+  public AzureClientCertificateConnectorSpec
+  delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  
-  @Schema(description = "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
+  @Schema(
+      description =
+          "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
   @JsonProperty("delegate_selectors")
- @Size(min=1)
-  public List<String> getDelegateSelectors() {
+  @Size(min = 1)
+  public List<String>
+  getDelegateSelectors() {
     return delegateSelectors;
   }
   public void setDelegateSelectors(List<String> delegateSelectors) {
@@ -83,32 +84,37 @@ public enum AzureEnvironmentTypeEnum {
   /**
    * This specifies the Azure Environment type, which is AZURE by default.
    **/
-  public AzureClientCertificateConnectorSpec azureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
+  public AzureClientCertificateConnectorSpec
+  azureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
     this.azureEnvironmentType = azureEnvironmentType;
     return this;
   }
 
-  
-  @Schema(required = true, description = "This specifies the Azure Environment type, which is AZURE by default.")
+  @Schema(
+      required = true,
+      description =
+          "This specifies the Azure Environment type, which is AZURE by default.")
   @JsonProperty("azure_environment_type")
   @NotNull
 
-  public AzureEnvironmentTypeEnum getAzureEnvironmentType() {
+  public AzureEnvironmentTypeEnum
+  getAzureEnvironmentType() {
     return azureEnvironmentType;
   }
-  public void setAzureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
+  public void
+  setAzureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
     this.azureEnvironmentType = azureEnvironmentType;
   }
 
   /**
    * execute on delegate
    **/
-  public AzureClientCertificateConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
+  public AzureClientCertificateConnectorSpec
+  executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
-  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -122,12 +128,12 @@ public enum AzureEnvironmentTypeEnum {
   /**
    * Application ID of the Azure App
    **/
-  public AzureClientCertificateConnectorSpec applicationId(String applicationId) {
+  public AzureClientCertificateConnectorSpec
+  applicationId(String applicationId) {
     this.applicationId = applicationId;
     return this;
   }
 
-  
   @Schema(required = true, description = "Application ID of the Azure App")
   @JsonProperty("application_id")
   @NotNull
@@ -140,45 +146,49 @@ public enum AzureEnvironmentTypeEnum {
   }
 
   /**
-   * The Azure Active Directory (AAD) directory ID where you created your application
+   * The Azure Active Directory (AAD) directory ID where you created your
+   *application
    **/
   public AzureClientCertificateConnectorSpec tenantId(String tenantId) {
     this.tenantId = tenantId;
     return this;
   }
 
-  
-  @Schema(required = true, description = "The Azure Active Directory (AAD) directory ID where you created your application")
+  @Schema(
+      required = true,
+      description =
+          "The Azure Active Directory (AAD) directory ID where you created your application")
   @JsonProperty("tenant_id")
   @NotNull
 
-  public String getTenantId() {
+  public String
+  getTenantId() {
     return tenantId;
   }
-  public void setTenantId(String tenantId) {
-    this.tenantId = tenantId;
-  }
+  public void setTenantId(String tenantId) { this.tenantId = tenantId; }
 
   /**
    * Reference to encrypted Harness secret for Azure client secret
    **/
-  public AzureClientCertificateConnectorSpec certificateRef(String certificateRef) {
+  public AzureClientCertificateConnectorSpec
+  certificateRef(String certificateRef) {
     this.certificateRef = certificateRef;
     return this;
   }
 
-  
-  @Schema(required = true, description = "Reference to encrypted Harness secret for Azure client secret")
+  @Schema(required = true,
+          description =
+              "Reference to encrypted Harness secret for Azure client secret")
   @JsonProperty("certificate_ref")
   @NotNull
 
-  public String getCertificateRef() {
+  public String
+  getCertificateRef() {
     return certificateRef;
   }
   public void setCertificateRef(String certificateRef) {
     this.certificateRef = certificateRef;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -188,18 +198,29 @@ public enum AzureEnvironmentTypeEnum {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AzureClientCertificateConnectorSpec azureClientCertificateConnectorSpec = (AzureClientCertificateConnectorSpec) o;
-    return Objects.equals(delegateSelectors, azureClientCertificateConnectorSpec.delegateSelectors) &&
-        Objects.equals(azureEnvironmentType, azureClientCertificateConnectorSpec.azureEnvironmentType) &&
-        Objects.equals(executeOnDelegate, azureClientCertificateConnectorSpec.executeOnDelegate) &&
-        Objects.equals(applicationId, azureClientCertificateConnectorSpec.applicationId) &&
-        Objects.equals(tenantId, azureClientCertificateConnectorSpec.tenantId) &&
-        Objects.equals(certificateRef, azureClientCertificateConnectorSpec.certificateRef);
+    AzureClientCertificateConnectorSpec azureClientCertificateConnectorSpec =
+        (AzureClientCertificateConnectorSpec)o;
+    return Objects.equals(
+               delegateSelectors,
+               azureClientCertificateConnectorSpec.delegateSelectors) &&
+        Objects.equals(
+            azureEnvironmentType,
+            azureClientCertificateConnectorSpec.azureEnvironmentType) &&
+        Objects.equals(executeOnDelegate,
+                       azureClientCertificateConnectorSpec.executeOnDelegate) &&
+        Objects.equals(applicationId,
+                       azureClientCertificateConnectorSpec.applicationId) &&
+        Objects.equals(tenantId,
+                       azureClientCertificateConnectorSpec.tenantId) &&
+        Objects.equals(certificateRef,
+                       azureClientCertificateConnectorSpec.certificateRef);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(delegateSelectors, azureEnvironmentType, executeOnDelegate, applicationId, tenantId, certificateRef);
+    return Objects.hash(delegateSelectors, azureEnvironmentType,
+                        executeOnDelegate, applicationId, tenantId,
+                        certificateRef);
   }
 
   @Override
@@ -207,12 +228,22 @@ public enum AzureEnvironmentTypeEnum {
     StringBuilder sb = new StringBuilder();
     sb.append("class AzureClientCertificateConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
-    sb.append("    azureEnvironmentType: ").append(toIndentedString(azureEnvironmentType)).append("\n");
-    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
-    sb.append("    applicationId: ").append(toIndentedString(applicationId)).append("\n");
+    sb.append("    delegateSelectors: ")
+        .append(toIndentedString(delegateSelectors))
+        .append("\n");
+    sb.append("    azureEnvironmentType: ")
+        .append(toIndentedString(azureEnvironmentType))
+        .append("\n");
+    sb.append("    executeOnDelegate: ")
+        .append(toIndentedString(executeOnDelegate))
+        .append("\n");
+    sb.append("    applicationId: ")
+        .append(toIndentedString(applicationId))
+        .append("\n");
     sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
-    sb.append("    certificateRef: ").append(toIndentedString(certificateRef)).append("\n");
+    sb.append("    certificateRef: ")
+        .append(toIndentedString(certificateRef))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

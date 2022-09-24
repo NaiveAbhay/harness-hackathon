@@ -2,15 +2,12 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
 import java.util.Objects;
-
-
+import javax.validation.Valid;
 
 @Schema(description = "Organization response Model")
 
-public class OrganizationResponse   {
+public class OrganizationResponse {
 
   private @Valid Organization org = null;
 
@@ -27,16 +24,13 @@ public class OrganizationResponse   {
     return this;
   }
 
-  
   @Schema(description = "")
   @JsonProperty("org")
 
   public Organization getOrg() {
     return org;
   }
-  public void setOrg(Organization org) {
-    this.org = org;
-  }
+  public void setOrg(Organization org) { this.org = org; }
 
   /**
    * Creation timestamp for organization
@@ -46,16 +40,13 @@ public class OrganizationResponse   {
     return this;
   }
 
-  
   @Schema(description = "Creation timestamp for organization")
   @JsonProperty("created")
 
   public Long getCreated() {
     return created;
   }
-  public void setCreated(Long created) {
-    this.created = created;
-  }
+  public void setCreated(Long created) { this.created = created; }
 
   /**
    * Updated timestamp for organization
@@ -65,36 +56,35 @@ public class OrganizationResponse   {
     return this;
   }
 
-  
   @Schema(description = "Updated timestamp for organization")
   @JsonProperty("updated")
 
   public Long getUpdated() {
     return updated;
   }
-  public void setUpdated(Long updated) {
-    this.updated = updated;
-  }
+  public void setUpdated(Long updated) { this.updated = updated; }
 
   /**
-   * This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.
+   * This indicates if this organization is managed by Harness or not. If true,
+   *Harness can manage and modify this organization.
    **/
   public OrganizationResponse harnessManaged(Boolean harnessManaged) {
     this.harnessManaged = harnessManaged;
     return this;
   }
 
-  
-  @Schema(description = "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.")
+  @Schema(
+      description =
+          "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.")
   @JsonProperty("harness_managed")
 
-  public Boolean isHarnessManaged() {
+  public Boolean
+  isHarnessManaged() {
     return harnessManaged;
   }
   public void setHarnessManaged(Boolean harnessManaged) {
     this.harnessManaged = harnessManaged;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -104,7 +94,7 @@ public class OrganizationResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrganizationResponse organizationResponse = (OrganizationResponse) o;
+    OrganizationResponse organizationResponse = (OrganizationResponse)o;
     return Objects.equals(org, organizationResponse.org) &&
         Objects.equals(created, organizationResponse.created) &&
         Objects.equals(updated, organizationResponse.updated) &&
@@ -120,11 +110,13 @@ public class OrganizationResponse   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationResponse {\n");
-    
+
     sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
+    sb.append("    harnessManaged: ")
+        .append(toIndentedString(harnessManaged))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

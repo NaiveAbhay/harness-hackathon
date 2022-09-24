@@ -2,16 +2,13 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
-
-
 
 @Schema(description = "Update oganization request")
 
-public class UpdateOrganizationRequest   {
+public class UpdateOrganizationRequest {
 
   private @Valid Organization org = null;
 
@@ -22,7 +19,6 @@ public class UpdateOrganizationRequest   {
     return this;
   }
 
-  
   @Schema(required = true, description = "")
   @JsonProperty("org")
   @NotNull
@@ -30,10 +26,7 @@ public class UpdateOrganizationRequest   {
   public Organization getOrg() {
     return org;
   }
-  public void setOrg(Organization org) {
-    this.org = org;
-  }
-
+  public void setOrg(Organization org) { this.org = org; }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -43,7 +36,8 @@ public class UpdateOrganizationRequest   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UpdateOrganizationRequest updateOrganizationRequest = (UpdateOrganizationRequest) o;
+    UpdateOrganizationRequest updateOrganizationRequest =
+        (UpdateOrganizationRequest)o;
     return Objects.equals(org, updateOrganizationRequest.org);
   }
 
@@ -56,7 +50,7 @@ public class UpdateOrganizationRequest   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateOrganizationRequest {\n");
-    
+
     sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("}");
     return sb.toString();

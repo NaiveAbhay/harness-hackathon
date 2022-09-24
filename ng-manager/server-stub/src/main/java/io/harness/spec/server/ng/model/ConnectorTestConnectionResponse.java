@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 public class ConnectorTestConnectionResponse {
 
-  public enum StatsEnum {
+  public enum StatusEnum {
 
     SUCCESS(String.valueOf("SUCCESS")),
     PARTIAL(String.valueOf("PARTIAL")),
@@ -24,7 +24,7 @@ public class ConnectorTestConnectionResponse {
 
     private String value;
 
-    StatsEnum(String v) { value = v; }
+    StatusEnum(String v) { value = v; }
 
     public String value() { return value; }
 
@@ -35,8 +35,8 @@ public class ConnectorTestConnectionResponse {
     }
 
     @JsonCreator
-    public static StatsEnum fromValue(String v) {
-      for (StatsEnum b : StatsEnum.values()) {
+    public static StatusEnum fromValue(String v) {
+      for (StatusEnum b : StatusEnum.values()) {
         if (String.valueOf(b.value).equals(v)) {
           return b;
         }
@@ -44,7 +44,7 @@ public class ConnectorTestConnectionResponse {
       return null;
     }
   }
-  private @Valid StatsEnum stats = null;
+  private @Valid StatusEnum status = null;
 
   private @Valid List<ConnectorTestConnectionErrorDetail> errors =
       new ArrayList<>();
@@ -56,19 +56,20 @@ public class ConnectorTestConnectionResponse {
   private @Valid String delegateId = null;
 
   /**
+   * Connectivity status of a Connector
    **/
-  public ConnectorTestConnectionResponse stats(StatsEnum stats) {
-    this.stats = stats;
+  public ConnectorTestConnectionResponse status(StatusEnum status) {
+    this.status = status;
     return this;
   }
 
-  @Schema(description = "")
-  @JsonProperty("stats")
+  @Schema(description = "Connectivity status of a Connector")
+  @JsonProperty("status")
 
-  public StatsEnum getStats() {
-    return stats;
+  public StatusEnum getStatus() {
+    return status;
   }
-  public void setStats(StatsEnum stats) { this.stats = stats; }
+  public void setStatus(StatusEnum status) { this.status = status; }
 
   /**
    **/
@@ -89,14 +90,14 @@ public class ConnectorTestConnectionResponse {
   }
 
   /**
-   * Error summary
+   * Summary of errors
    **/
   public ConnectorTestConnectionResponse errorSummary(String errorSummary) {
     this.errorSummary = errorSummary;
     return this;
   }
 
-  @Schema(description = "Error summary")
+  @Schema(description = "Summary of errors")
   @JsonProperty("error_summary")
 
   public String getErrorSummary() {
@@ -148,7 +149,7 @@ public class ConnectorTestConnectionResponse {
     }
     ConnectorTestConnectionResponse connectorTestConnectionResponse =
         (ConnectorTestConnectionResponse)o;
-    return Objects.equals(stats, connectorTestConnectionResponse.stats) &&
+    return Objects.equals(status, connectorTestConnectionResponse.status) &&
         Objects.equals(errors, connectorTestConnectionResponse.errors) &&
         Objects.equals(errorSummary,
                        connectorTestConnectionResponse.errorSummary) &&
@@ -158,7 +159,7 @@ public class ConnectorTestConnectionResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(stats, errors, errorSummary, testedAt, delegateId);
+    return Objects.hash(status, errors, errorSummary, testedAt, delegateId);
   }
 
   @Override
@@ -166,7 +167,7 @@ public class ConnectorTestConnectionResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConnectorTestConnectionResponse {\n");
 
-    sb.append("    stats: ").append(toIndentedString(stats)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
     sb.append("    errorSummary: ")
         .append(toIndentedString(errorSummary))

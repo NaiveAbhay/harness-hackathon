@@ -13,7 +13,7 @@ public class ConnectorTestConnectionErrorDetail {
 
   private @Valid String message = null;
 
-  private @Valid String code = null;
+  private @Valid Integer code = null;
 
   /**
    * Reason of test connection error
@@ -50,7 +50,7 @@ public class ConnectorTestConnectionErrorDetail {
   /**
    * Test connection error code
    **/
-  public ConnectorTestConnectionErrorDetail code(String code) {
+  public ConnectorTestConnectionErrorDetail code(Integer code) {
     this.code = code;
     return this;
   }
@@ -58,10 +58,10 @@ public class ConnectorTestConnectionErrorDetail {
   @Schema(description = "Test connection error code")
   @JsonProperty("code")
 
-  public String getCode() {
+  public Integer getCode() {
     return code;
   }
-  public void setCode(String code) { this.code = code; }
+  public void setCode(Integer code) { this.code = code; }
 
   @Override
   public boolean equals(java.lang.Object o) {

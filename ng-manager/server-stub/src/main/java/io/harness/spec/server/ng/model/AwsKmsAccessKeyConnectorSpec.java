@@ -2,18 +2,18 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+@Schema(
+    description =
+        "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.")
 
-
-@Schema(description = "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.")
-
-public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
+public class AwsKmsAccessKeyConnectorSpec
+    extends ConnectorSpec implements OneOfConnectorSpec {
 
   private @Valid String kmsArn = null;
 
@@ -35,7 +35,6 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "Amazon Resource Name (ARN)")
   @JsonProperty("kms_arn")
   @NotNull
@@ -43,9 +42,7 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
   public String getKmsArn() {
     return kmsArn;
   }
-  public void setKmsArn(String kmsArn) {
-    this.kmsArn = kmsArn;
-  }
+  public void setKmsArn(String kmsArn) { this.kmsArn = kmsArn; }
 
   /**
    * AWS Region for kms
@@ -55,7 +52,6 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "AWS Region for kms")
   @JsonProperty("region")
   @NotNull
@@ -63,28 +59,27 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
   public String getRegion() {
     return region;
   }
-  public void setRegion(String region) {
-    this.region = region;
-  }
+  public void setRegion(String region) { this.region = region; }
 
   /**
-   * Boolean value to indicate if the Secret Manager is your default Secret Manager
+   * Boolean value to indicate if the Secret Manager is your default Secret
+   *Manager
    **/
   public AwsKmsAccessKeyConnectorSpec _default(Boolean _default) {
     this._default = _default;
     return this;
   }
 
-  
-  @Schema(description = "Boolean value to indicate if the Secret Manager is your default Secret Manager")
+  @Schema(
+      description =
+          "Boolean value to indicate if the Secret Manager is your default Secret Manager")
   @JsonProperty("default")
 
-  public Boolean isDefault() {
+  public Boolean
+  isDefault() {
     return _default;
   }
-  public void setDefault(Boolean _default) {
-    this._default = _default;
-  }
+  public void setDefault(Boolean _default) { this._default = _default; }
 
   /**
    * Access Key for AWS authentication
@@ -94,7 +89,6 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "Access Key for AWS authentication")
   @JsonProperty("access_key")
   @NotNull
@@ -102,9 +96,7 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
   public String getAccessKey() {
     return accessKey;
   }
-  public void setAccessKey(String accessKey) {
-    this.accessKey = accessKey;
-  }
+  public void setAccessKey(String accessKey) { this.accessKey = accessKey; }
 
   /**
    * Secret Key for AWS authentication
@@ -114,7 +106,6 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "Secret Key for AWS authentication")
   @JsonProperty("secret_key")
   @NotNull
@@ -122,29 +113,30 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
   public String getSecretKey() {
     return secretKey;
   }
-  public void setSecretKey(String secretKey) {
-    this.secretKey = secretKey;
-  }
+  public void setSecretKey(String secretKey) { this.secretKey = secretKey; }
 
   /**
-   * List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+   * List of Delegate Selectors that belong to the same Delegate and are used to
+   *connect to the Secret Manager
    **/
-  public AwsKmsAccessKeyConnectorSpec delegateSelectors(List<String> delegateSelectors) {
+  public AwsKmsAccessKeyConnectorSpec
+  delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  
-  @Schema(description = "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
+  @Schema(
+      description =
+          "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
   @JsonProperty("delegate_selectors")
 
-  public List<String> getDelegateSelectors() {
+  public List<String>
+  getDelegateSelectors() {
     return delegateSelectors;
   }
   public void setDelegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -154,18 +146,21 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AwsKmsAccessKeyConnectorSpec awsKmsAccessKeyConnectorSpec = (AwsKmsAccessKeyConnectorSpec) o;
+    AwsKmsAccessKeyConnectorSpec awsKmsAccessKeyConnectorSpec =
+        (AwsKmsAccessKeyConnectorSpec)o;
     return Objects.equals(kmsArn, awsKmsAccessKeyConnectorSpec.kmsArn) &&
         Objects.equals(region, awsKmsAccessKeyConnectorSpec.region) &&
         Objects.equals(_default, awsKmsAccessKeyConnectorSpec._default) &&
         Objects.equals(accessKey, awsKmsAccessKeyConnectorSpec.accessKey) &&
         Objects.equals(secretKey, awsKmsAccessKeyConnectorSpec.secretKey) &&
-        Objects.equals(delegateSelectors, awsKmsAccessKeyConnectorSpec.delegateSelectors);
+        Objects.equals(delegateSelectors,
+                       awsKmsAccessKeyConnectorSpec.delegateSelectors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(kmsArn, region, _default, accessKey, secretKey, delegateSelectors);
+    return Objects.hash(kmsArn, region, _default, accessKey, secretKey,
+                        delegateSelectors);
   }
 
   @Override
@@ -176,9 +171,15 @@ public class AwsKmsAccessKeyConnectorSpec extends ConnectorSpec implements OneOf
     sb.append("    kmsArn: ").append(toIndentedString(kmsArn)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("    _default: ").append(toIndentedString(_default)).append("\n");
-    sb.append("    accessKey: ").append(toIndentedString(accessKey)).append("\n");
-    sb.append("    secretKey: ").append(toIndentedString(secretKey)).append("\n");
-    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    accessKey: ")
+        .append(toIndentedString(accessKey))
+        .append("\n");
+    sb.append("    secretKey: ")
+        .append(toIndentedString(secretKey))
+        .append("\n");
+    sb.append("    delegateSelectors: ")
+        .append(toIndentedString(delegateSelectors))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

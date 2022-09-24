@@ -2,19 +2,19 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+@Schema(
+    description =
+        "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.")
 
-
-@Schema(description = "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.")
-
-public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
+public class AwsKmsAssumeSTSConnectorSpec
+    extends ConnectorSpec implements OneOfConnectorSpec {
 
   private @Valid String kmsArn = null;
 
@@ -38,7 +38,6 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "Amazon Resource Name (ARN)")
   @JsonProperty("kms_arn")
   @NotNull
@@ -46,9 +45,7 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
   public String getKmsArn() {
     return kmsArn;
   }
-  public void setKmsArn(String kmsArn) {
-    this.kmsArn = kmsArn;
-  }
+  public void setKmsArn(String kmsArn) { this.kmsArn = kmsArn; }
 
   /**
    * AWS Region for kms
@@ -58,7 +55,6 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(required = true, description = "AWS Region for kms")
   @JsonProperty("region")
   @NotNull
@@ -66,43 +62,47 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
   public String getRegion() {
     return region;
   }
-  public void setRegion(String region) {
-    this.region = region;
-  }
+  public void setRegion(String region) { this.region = region; }
 
   /**
-   * Boolean value to indicate if the Secret Manager is your default Secret Manager
+   * Boolean value to indicate if the Secret Manager is your default Secret
+   *Manager
    **/
   public AwsKmsAssumeSTSConnectorSpec _default(Boolean _default) {
     this._default = _default;
     return this;
   }
 
-  
-  @Schema(description = "Boolean value to indicate if the Secret Manager is your default Secret Manager")
+  @Schema(
+      description =
+          "Boolean value to indicate if the Secret Manager is your default Secret Manager")
   @JsonProperty("default")
 
-  public Boolean isDefault() {
+  public Boolean
+  isDefault() {
     return _default;
   }
-  public void setDefault(Boolean _default) {
-    this._default = _default;
-  }
+  public void setDefault(Boolean _default) { this._default = _default; }
 
   /**
-   * List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
+   * List of Delegate Selectors that belong to the same Delegate and are used to
+   *connect to the Secret Manager
    **/
-  public AwsKmsAssumeSTSConnectorSpec delegateSelectors(List<String> delegateSelectors) {
+  public AwsKmsAssumeSTSConnectorSpec
+  delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  
-  @Schema(required = true, description = "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
+  @Schema(
+      required = true,
+      description =
+          "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
   @JsonProperty("delegate_selectors")
   @NotNull
- @Size(min=1)
-  public List<String> getDelegateSelectors() {
+  @Size(min = 1)
+  public List<String>
+  getDelegateSelectors() {
     return delegateSelectors;
   }
   public void setDelegateSelectors(List<String> delegateSelectors) {
@@ -117,45 +117,43 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     return this;
   }
 
-  
   @Schema(description = "Role ARN for the Delegate with STS Role")
   @JsonProperty("role_arn")
 
   public String getRoleArn() {
     return roleArn;
   }
-  public void setRoleArn(String roleArn) {
-    this.roleArn = roleArn;
-  }
+  public void setRoleArn(String roleArn) { this.roleArn = roleArn; }
 
   /**
-   * If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.
+   * If the administrator of the account to which the role belongs provided you
+   *with an external ID, then enter that value.
    **/
   public AwsKmsAssumeSTSConnectorSpec externalId(String externalId) {
     this.externalId = externalId;
     return this;
   }
 
-  
-  @Schema(description = "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.")
+  @Schema(
+      description =
+          "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.")
   @JsonProperty("external_id")
 
-  public String getExternalId() {
+  public String
+  getExternalId() {
     return externalId;
   }
-  public void setExternalId(String externalId) {
-    this.externalId = externalId;
-  }
+  public void setExternalId(String externalId) { this.externalId = externalId; }
 
   /**
    * This is the AssumeRole Session Duration
    **/
-  public AwsKmsAssumeSTSConnectorSpec assumeStsRoleDuration(String assumeStsRoleDuration) {
+  public AwsKmsAssumeSTSConnectorSpec
+  assumeStsRoleDuration(String assumeStsRoleDuration) {
     this.assumeStsRoleDuration = assumeStsRoleDuration;
     return this;
   }
 
-  
   @Schema(description = "This is the AssumeRole Session Duration")
   @JsonProperty("assume_sts_role_duration")
 
@@ -166,7 +164,6 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     this.assumeStsRoleDuration = assumeStsRoleDuration;
   }
 
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -175,19 +172,23 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AwsKmsAssumeSTSConnectorSpec awsKmsAssumeSTSConnectorSpec = (AwsKmsAssumeSTSConnectorSpec) o;
+    AwsKmsAssumeSTSConnectorSpec awsKmsAssumeSTSConnectorSpec =
+        (AwsKmsAssumeSTSConnectorSpec)o;
     return Objects.equals(kmsArn, awsKmsAssumeSTSConnectorSpec.kmsArn) &&
         Objects.equals(region, awsKmsAssumeSTSConnectorSpec.region) &&
         Objects.equals(_default, awsKmsAssumeSTSConnectorSpec._default) &&
-        Objects.equals(delegateSelectors, awsKmsAssumeSTSConnectorSpec.delegateSelectors) &&
+        Objects.equals(delegateSelectors,
+                       awsKmsAssumeSTSConnectorSpec.delegateSelectors) &&
         Objects.equals(roleArn, awsKmsAssumeSTSConnectorSpec.roleArn) &&
         Objects.equals(externalId, awsKmsAssumeSTSConnectorSpec.externalId) &&
-        Objects.equals(assumeStsRoleDuration, awsKmsAssumeSTSConnectorSpec.assumeStsRoleDuration);
+        Objects.equals(assumeStsRoleDuration,
+                       awsKmsAssumeSTSConnectorSpec.assumeStsRoleDuration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(kmsArn, region, _default, delegateSelectors, roleArn, externalId, assumeStsRoleDuration);
+    return Objects.hash(kmsArn, region, _default, delegateSelectors, roleArn,
+                        externalId, assumeStsRoleDuration);
   }
 
   @Override
@@ -198,10 +199,16 @@ public class AwsKmsAssumeSTSConnectorSpec extends ConnectorSpec implements OneOf
     sb.append("    kmsArn: ").append(toIndentedString(kmsArn)).append("\n");
     sb.append("    region: ").append(toIndentedString(region)).append("\n");
     sb.append("    _default: ").append(toIndentedString(_default)).append("\n");
-    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    delegateSelectors: ")
+        .append(toIndentedString(delegateSelectors))
+        .append("\n");
     sb.append("    roleArn: ").append(toIndentedString(roleArn)).append("\n");
-    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
-    sb.append("    assumeStsRoleDuration: ").append(toIndentedString(assumeStsRoleDuration)).append("\n");
+    sb.append("    externalId: ")
+        .append(toIndentedString(externalId))
+        .append("\n");
+    sb.append("    assumeStsRoleDuration: ")
+        .append(toIndentedString(assumeStsRoleDuration))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -2,16 +2,13 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
-
-
 
 @Schema(description = "Update project request")
 
-public class UpdateProjectRequest   {
+public class UpdateProjectRequest {
 
   private @Valid Project project = null;
 
@@ -22,7 +19,6 @@ public class UpdateProjectRequest   {
     return this;
   }
 
-  
   @Schema(required = true, description = "")
   @JsonProperty("project")
   @NotNull
@@ -30,10 +26,7 @@ public class UpdateProjectRequest   {
   public Project getProject() {
     return project;
   }
-  public void setProject(Project project) {
-    this.project = project;
-  }
-
+  public void setProject(Project project) { this.project = project; }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -43,7 +36,7 @@ public class UpdateProjectRequest   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UpdateProjectRequest updateProjectRequest = (UpdateProjectRequest) o;
+    UpdateProjectRequest updateProjectRequest = (UpdateProjectRequest)o;
     return Objects.equals(project, updateProjectRequest.project);
   }
 
@@ -56,7 +49,7 @@ public class UpdateProjectRequest   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateProjectRequest {\n");
-    
+
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("}");
     return sb.toString();

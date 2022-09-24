@@ -2,16 +2,11 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
-
-
-
-
-public class SecretRequest   {
+public class SecretRequest {
 
   private @Valid Secret secret = null;
 
@@ -22,7 +17,6 @@ public class SecretRequest   {
     return this;
   }
 
-  
   @Schema(required = true, description = "")
   @JsonProperty("secret")
   @NotNull
@@ -30,10 +24,7 @@ public class SecretRequest   {
   public Secret getSecret() {
     return secret;
   }
-  public void setSecret(Secret secret) {
-    this.secret = secret;
-  }
-
+  public void setSecret(Secret secret) { this.secret = secret; }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -43,7 +34,7 @@ public class SecretRequest   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SecretRequest secretRequest = (SecretRequest) o;
+    SecretRequest secretRequest = (SecretRequest)o;
     return Objects.equals(secret, secretRequest.secret);
   }
 
@@ -56,7 +47,7 @@ public class SecretRequest   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SecretRequest {\n");
-    
+
     sb.append("    secret: ").append(toIndentedString(secret)).append("\n");
     sb.append("}");
     return sb.toString();

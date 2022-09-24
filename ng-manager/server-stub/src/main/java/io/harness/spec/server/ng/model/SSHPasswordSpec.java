@@ -2,16 +2,14 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import java.util.Objects;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
+@Schema(description =
+            "This is the SSH key authentication details defined in Harness.")
 
-
-@Schema(description = "This is the SSH key authentication details defined in Harness.")
-
-public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
+public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec {
 
   private @Valid Integer port = null;
 
@@ -27,16 +25,13 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
     return this;
   }
 
-  
   @Schema(description = "SSH port")
   @JsonProperty("port")
 
   public Integer getPort() {
     return port;
   }
-  public void setPort(Integer port) {
-    this.port = port;
-  }
+  public void setPort(Integer port) { this.port = port; }
 
   /**
    * SSH username
@@ -46,7 +41,6 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
     return this;
   }
 
-  
   @Schema(required = true, description = "SSH username")
   @JsonProperty("username")
   @NotNull
@@ -54,9 +48,7 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) {
-    this.username = username;
-  }
+  public void setUsername(String username) { this.username = username; }
 
   /**
    * SSH password
@@ -66,7 +58,6 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
     return this;
   }
 
-  
   @Schema(required = true, description = "SSH password")
   @JsonProperty("password")
   @NotNull
@@ -74,10 +65,7 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
   public String getPassword() {
     return password;
   }
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
+  public void setPassword(String password) { this.password = password; }
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -87,7 +75,7 @@ public class SSHPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SSHPasswordSpec ssHPasswordSpec = (SSHPasswordSpec) o;
+    SSHPasswordSpec ssHPasswordSpec = (SSHPasswordSpec)o;
     return Objects.equals(port, ssHPasswordSpec.port) &&
         Objects.equals(username, ssHPasswordSpec.username) &&
         Objects.equals(password, ssHPasswordSpec.password);

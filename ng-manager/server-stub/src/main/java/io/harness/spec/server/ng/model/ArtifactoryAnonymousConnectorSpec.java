@@ -2,18 +2,18 @@ package io.harness.spec.server.ng.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
+@Schema(
+    description =
+        "This contains details of the artifactory connector with anonymous user")
 
-
-@Schema(description = "This contains details of the artifactory connector with anonymous user")
-
-public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
+public class ArtifactoryAnonymousConnectorSpec
+    extends ConnectorSpec implements OneOfConnectorSpec {
 
   private @Valid String url = null;
 
@@ -29,7 +29,6 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
     return this;
   }
 
-  
   @Schema(required = true, description = "artifactory repo url")
   @JsonProperty("url")
   @NotNull
@@ -37,19 +36,17 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
   public String getUrl() {
     return url;
   }
-  public void setUrl(String url) {
-    this.url = url;
-  }
+  public void setUrl(String url) { this.url = url; }
 
   /**
    * List of unique delegate selectors
    **/
-  public ArtifactoryAnonymousConnectorSpec delegateSelectors(List<String> delegateSelectors) {
+  public ArtifactoryAnonymousConnectorSpec
+  delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -63,12 +60,12 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
   /**
    * execute on delegate
    **/
-  public ArtifactoryAnonymousConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
+  public ArtifactoryAnonymousConnectorSpec
+  executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
-  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -79,7 +76,6 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
     this.executeOnDelegate = executeOnDelegate;
   }
 
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -88,10 +84,13 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ArtifactoryAnonymousConnectorSpec artifactoryAnonymousConnectorSpec = (ArtifactoryAnonymousConnectorSpec) o;
+    ArtifactoryAnonymousConnectorSpec artifactoryAnonymousConnectorSpec =
+        (ArtifactoryAnonymousConnectorSpec)o;
     return Objects.equals(url, artifactoryAnonymousConnectorSpec.url) &&
-        Objects.equals(delegateSelectors, artifactoryAnonymousConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate, artifactoryAnonymousConnectorSpec.executeOnDelegate);
+        Objects.equals(delegateSelectors,
+                       artifactoryAnonymousConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate,
+                       artifactoryAnonymousConnectorSpec.executeOnDelegate);
   }
 
   @Override
@@ -105,8 +104,12 @@ public class ArtifactoryAnonymousConnectorSpec extends ConnectorSpec implements 
     sb.append("class ArtifactoryAnonymousConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
-    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
+    sb.append("    delegateSelectors: ")
+        .append(toIndentedString(delegateSelectors))
+        .append("\n");
+    sb.append("    executeOnDelegate: ")
+        .append(toIndentedString(executeOnDelegate))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
