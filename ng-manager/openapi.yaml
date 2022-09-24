@@ -342,18 +342,15 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-  /v1/connectors/stats:
-    get:
-      summary: Retrieve connectors statistics
-      operationId: get-account-scoped-connectors-statistics
-      responses:
-        '200':
-          $ref: '#/components/responses/ConnectorStatisticsResponse'
-      description: Retrieves the statistics of the connectors.
-      tags:
-        - Account Connector
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: recursive
+          description: 'Expand current scope to include all child scopes '
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
   '/v1/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -456,20 +453,17 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Org Connector
-  '/v1/orgs/{org}/connectors/stats':
-    get:
-      summary: Retrieve connectors statistics
-      operationId: get-org-scoped-connectors-statistics
-      responses:
-        '200':
-          $ref: '#/components/responses/ConnectorStatisticsResponse'
-      description: Retrieves the statistics of the connectors.
-      tags:
-        - Org Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-    parameters:
-      - $ref: '#/components/parameters/OrgPathParam'
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: recursive
+          description: 'Expand current scope to include all child scopes '
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
   '/v1/orgs/{org}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -575,21 +569,17 @@ paths:
       description: Retrieves the information of the connectors.
       tags:
         - Project Connector
-  '/v1/orgs/{org}/projects/{project}/connectors/stats':
-    get:
-      summary: Retrieve connectors statistics
-      operationId: get-project-scoped-connectors-statistics
-      responses:
-        '200':
-          $ref: '#/components/responses/ConnectorStatisticsResponse'
-      description: Retrieves the statistics of the connectors.
-      tags:
-        - Project Connector
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-    parameters:
-      - $ref: '#/components/parameters/OrgPathParam'
-      - $ref: '#/components/parameters/ProjectPathParam'
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: recursive
+          description: 'Expand current scope to include all child scopes '
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -1654,84 +1644,6 @@ components:
         valid:
           type: boolean
       description: Validate unique connector slug response model
-    ConnectorTypeStatistics:
-      title: ConnectorTypeStatistics
-      type: object
-      description: Count of Connectors grouped by type.
-      properties:
-        type:
-          type: string
-          enum:
-            - K8sCluster
-            - Git
-            - Splunk
-            - AppDynamics
-            - Prometheus
-            - Dynatrace
-            - Vault
-            - AzureKeyVault
-            - DockerRegistry
-            - Local
-            - AwsKms
-            - GcpKms
-            - AwsSecretManager
-            - Gcp
-            - Aws
-            - Azure
-            - Artifactory
-            - Jira
-            - Nexus
-            - Github
-            - Gitlab
-            - Bitbucket
-            - Codecommit
-            - CEAws
-            - CEAzure
-            - GcpCloudCost
-            - CEK8sCluster
-            - HttpHelmRepo
-            - NewRelic
-            - Datadog
-            - SumoLogic
-            - PagerDuty
-            - CustomHealth
-            - ServiceNow
-            - ErrorTracking
-            - Pdc
-            - AzureRepo
-            - Jenkins
-            - OciHelmRepo
-        count:
-          type: integer
-          format: int32
-    ConnectorStatusStatistics:
-      title: ConnectorStatusStatistics
-      type: object
-      description: Count of Connectors grouped by status.
-      properties:
-        type:
-          type: string
-          enum:
-            - SUCCESS
-            - FALURE
-            - PARTIAL
-            - UNKNOWN
-        count:
-          type: integer
-          format: int32
-    ConnectorStatisticsResponse:
-      title: ConnectorStatisticsResponse
-      type: object
-      description: Connector statistics response model
-      properties:
-        types_stats:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectorTypeStatistics'
-        status_stats:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConnectorStatusStatistics'
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
@@ -1744,27 +1656,28 @@ components:
           type: string
           description: Test connection error message
         code:
-          type: string
+          type: integer
           description: Test connection error code
     ConnectorTestConnectionResponse:
       title: ConnectorTestConnectionResponse
       type: object
       description: This has test connection details for the Connector defined in Harness.
       properties:
-        stats:
+        status:
           type: string
           enum:
             - SUCCESS
             - PARTIAL
             - FAILURE
             - UNKNOWN
+          description: Connectivity status of a Connector
         errors:
           type: array
           items:
             $ref: '#/components/schemas/ConnectorTestConnectionErrorDetail'
         error_summary:
           type: string
-          description: Error summary
+          description: Summary of errors
         tested_at:
           type: integer
           format: int64
@@ -1976,7 +1889,7 @@ components:
             type:
               type: string
               enum:
-                - GitHttp
+                - GitHttpEncrypted
               description: This specifies the type of connector
             url:
               type: string
@@ -3108,53 +3021,6 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/ConnectorTestConnectionResponse'
-    ConnectorStatisticsResponse:
-      description: Connector statistics response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ConnectorStatisticsResponse'
-          examples:
-            example-connector-statistics-response-json:
-              value:
-                type_stats:
-                  - type: GitHttp
-                    count: 17
-                  - type: Appdynamics
-                    count: 22
-                  - type: Artifactory
-                    count: 20
-                  - type: AwsCodeCommit
-                    count: 8
-                status_stats:
-                  - status: UNKNOWN
-                    count: 13
-                  - status: SUCCESS
-                    count: 25
-                  - status: FAILURE
-                    count: 225
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/ConnectorStatisticsResponse'
-          examples:
-            example-connector-statistics-response-yaml:
-              value: |
-                type_stats:
-                - type: GitHttp
-                  count: 17
-                - type: Appdynamics
-                  count: 22
-                - type: Artifactory
-                  count: 20
-                - type: AwsCodeCommit
-                  count: 8
-                status_stats:
-                - status: UNKNOWN
-                  count: 13
-                - status: SUCCESS
-                  count: 25
-                - status: FAILURE
-                  count: 225
     ConnectorResponse:
       description: Connector response
       content:
@@ -3255,6 +3121,14 @@ components:
                         password_ref: account.git-http-password
                   created: 1234567890
                   updated: 1234567890
+      headers:
+        Link:
+          schema:
+            type: string
+          description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
+          examples:
+            sample:
+              value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
   requestBodies:
     UpdateProjectRequest:
       content:
@@ -3744,7 +3618,7 @@ components:
           schema:
             $ref: '#/components/schemas/ConnectorRequest'
           examples:
-            example-create-git-http-connector-request-json:
+            example-git-http-connector-request-json:
               value:
                 connector:
                   name: example_connector
@@ -3762,7 +3636,26 @@ components:
                     username: git-http-user
                     password_ref: account.git-http-password
                     execute_on_delegate: false
-            example-create-git-ssh-connector-request-json:
+            example-git-http-encrypted-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitHttpEncrypted
+                    url: https://github.com/example/example-repo.git
+                    branch: example_branch
+                    connection_type: Repo
+                    username_ref: account.git-http-user
+                    password_ref: account.git-http-password
+                    validation_repo: https://github.com/example/example-validation-repo.git
+                    execute_on_delegate: false
+            example-git-ssh-connector-request-json:
               value:
                 connector:
                   name: example_connector
@@ -3779,7 +3672,162 @@ components:
                     connection_type: Repo
                     ssh_key_ref: account.git-http-password
                     execute_on_delegate: false
-            example-create-aws-code-commit-connector-request-json:
+            example-appdynamics-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: Appdynamics
+                    account_name: appdynamics-account-name
+                    controller_url: https://appdynamics.com/controller/
+                    username: appdynamics-username
+                    password_ref: account.appdynamics-password
+                    delegate_selectors: []
+            example-appdynamics-client-id-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AppdynamicsClientId
+                    account_name: appdynamics-account-name
+                    controller_url: https://appdynamics.com/controller/
+                    client_id: appdynamics-client-id
+                    client_secret_ref: account.appdynamics-client-secret
+                    delegate_selectors: []
+            example-artifactory-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: Artifactory
+                    url: https://artifactory.com/example/example-artifactory
+                    username: artifactory-user
+                    password_ref: account.artifactory-password
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-artifactory-anonymous-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: ArtifactoryAnonymous
+                    url: https://artifactory.com/example/example-artifactory
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-artifactory-encrypted-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: ArtifactoryEncrypted
+                    url: https://artifactory.com/example/example-artifactory
+                    username_ref: account.artifactory-user
+                    password_ref: account.artifactory-password
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-azure-client-certificate-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureClientCertificate
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    tenant_id: '1234567890'
+                    certificate_ref: account.azure-client-certificate
+            example-azure-client-secret-connector-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureClientSecretKey
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    tenant_id: '1234567890'
+                    secret_ref: account.azure-secret-key
+            example-azure-system-assigned-managed-identity-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureInheritFromDelegateSystemAssignedManagedIdentity
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+            example-azure-user-assigned-managed-identity-request-json:
+              value:
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureInheritFromDelegateUserAssignedManagedIdentity
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    client_id: '1234567890'
+            example-aws-code-commit-connector-request-json:
               value:
                 connector:
                   name: example_connector
@@ -3799,7 +3847,7 @@ components:
           schema:
             $ref: '#/components/schemas/ConnectorRequest'
           examples:
-            example-create-git-http-connector-request-yaml:
+            example-git-http-connector-request-yaml:
               value: |
                 connector:
                   name: example_connector
@@ -3810,14 +3858,14 @@ components:
                   tags:
                     property1: example_connector
                   spec:
-                    type: GitHttpConnector
-                    url: https://github.com/example/example-repo.git
+                    type: GitHttp
+                    url: 'https://github.com/example/example-repo.git'
                     branch: example_branch
                     connection_type: Repo
                     username: git-http-user
                     password_ref: account.git-http-password
                     execute_on_delegate: false
-            example-create-git-ssh-connector-request-yaml:
+            example-git-http-encrypted-connector-request-yaml:
               value: |
                 connector:
                   name: example_connector
@@ -3828,13 +3876,187 @@ components:
                   tags:
                     property1: example_connector
                   spec:
-                    type: GitSshConnector
+                    type: GitHttpEncrypted
+                    url: https://github.com/example/example-repo.git
+                    branch: example_branch
+                    connection_type: Repo
+                    username_ref: account.git-http-user
+                    password_ref: account.git-http-password
+                    validation_repo: https://github.com/example/example-validation-repo.git
+                    execute_on_delegate: false
+            example-git-ssh-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: GitSsh
                     url: 'https://github.com/example/example-repo.git'
                     branch: example_branch
                     connection_type: Repo
                     ssh_key_ref: account.git-http-password
                     execute_on_delegate: false
-            example-create-aws-code-commit-connector-request-yaml:
+            example-appdynamics-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: Appdynamics
+                    account_name: appdynamics-account-name
+                    controller_url: https://appdynamics.com/controller/
+                    username: appdynamics-username
+                    password_ref: account.appdynamics-password
+                    delegate_selectors: []
+            example-appdynamics-client-id-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AppdynamicsClientId
+                    account_name: appdynamics-account-name
+                    controller_url: https://appdynamics.com/controller/
+                    client_id: appdynamics-client-id
+                    client_secret_ref: account.appdynamics-client-secret
+                    delegate_selectors: []
+            example-artifactory-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: Artifactory
+                    url: https://artifactory.com/example/example-artifactory
+                    username: artifactory-user
+                    password_ref: account.artifactory-password
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-artifactory-anonymous-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: ArtifactoryAnonymous
+                    url: https://artifactory.com/example/example-artifactory
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-artifactory-encrypted-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: ArtifactoryEncrypted
+                    url: https://artifactory.com/example/example-artifactory
+                    username_ref: account.artifactory-user
+                    password_ref: account.artifactory-password
+                    delegate_selectors: []
+                    execute_on_delegate: false
+            example-azure-client-certificate-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureClientCertificate
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    tenant_id: '1234567890'
+                    certificate_ref: account.azure-client-certificate
+            example-azure-client-secret-connector-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureClientSecretKey
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    tenant_id: '1234567890'
+                    secret_ref: account.azure-secret-key
+            example-azure-system-assigned-managed-identity-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureInheritFromDelegateSystemAssignedManagedIdentity
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+            example-azure-user-assigned-managed-identity-request-yaml:
+              value: |
+                connector:
+                  name: example_connector
+                  slug: example_connector
+                  description: example_connector
+                  org: default
+                  project: example_project
+                  tags:
+                    property1: example_connector
+                  spec:
+                    type: AzureInheritFromDelegateUserAssignedManagedIdentity
+                    delegate_selectors:
+                    - pl1
+                    azure_environment_type: AZURE
+                    execute_on_delegate: false
+                    application_id: '1234567890'
+                    client_id: '1234567890'
+            example-aws-code-commit-connector-request-yaml:
               value: |
                 connector:
                   name: example_connector
