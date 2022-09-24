@@ -2,7 +2,6 @@ package io.harness.spec.server.ng;
 
 import io.harness.spec.server.ng.model.ConnectorRequest;
 import io.harness.spec.server.ng.model.ConnectorResponse;
-import io.harness.spec.server.ng.model.ConnectorStatisticsResponse;
 import io.harness.spec.server.ng.model.ConnectorTestConnectionResponse;
 import io.harness.spec.server.ng.model.ValidateConnectorSlugResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +15,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
 import javax.ws.rs.POST;
@@ -130,32 +130,28 @@ public interface AccountConnectorApi {
       @Parameter(
           description =
               "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
-      String account);
-  @GET
-  @Path("/stats")
-  @Produces({"application/json", "application/yaml"})
-  @Operation(operationId = "getAccountScopedConnectorsStatistics",
-             summary = "Retrieve connectors statistics",
-             description = "Retrieves the statistics of the connectors.",
-             tags = {"Account Connector"})
-  @ApiResponses(value =
-                {
-                  @ApiResponse(responseCode = "200",
-                               description = "Connector statistics response",
-                               content = @Content(
-                                   mediaType = "application/json",
-                                   schema = @Schema(
-                                       implementation =
-                                           ConnectorStatisticsResponse.class)))
-                })
-  Response
-  getAccountScopedConnectorsStatistics(
-      @QueryParam("account")
+      String account,
+      @QueryParam("recursive") @DefaultValue("false")
+
+      @Parameter(
+          description = "Expand current scope to include all child scopes ")
+      Boolean recursive,
+      @QueryParam("search_term")
 
       @Parameter(
           description =
-              "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")
-      String account);
+              "This would be used to filter resources having attributes matching with search term.")
+      String searchTerm,
+      @QueryParam("page") @DefaultValue("0")
+
+      @Parameter(
+          description =
+              "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page ")
+      Integer page,
+      @QueryParam("limit") @DefaultValue("30")
+
+      @Parameter(description = "Pagination: Number of items to return")
+      Integer limit);
   @GET
   @Path("/{connector}/test-connection")
   @Produces({"application/json", "application/yaml"})
