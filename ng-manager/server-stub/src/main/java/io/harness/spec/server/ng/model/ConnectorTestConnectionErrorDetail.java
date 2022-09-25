@@ -1,13 +1,24 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
+
+/**
+ * Connector test connection errors and their details.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "Connector test connection errors and their details.")
 
-public class ConnectorTestConnectionErrorDetail {
+public class ConnectorTestConnectionErrorDetail   {
 
   private @Valid String reason = null;
 
@@ -23,13 +34,16 @@ public class ConnectorTestConnectionErrorDetail {
     return this;
   }
 
+  
   @Schema(description = "Reason of test connection error")
   @JsonProperty("reason")
 
   public String getReason() {
     return reason;
   }
-  public void setReason(String reason) { this.reason = reason; }
+  public void setReason(String reason) {
+    this.reason = reason;
+  }
 
   /**
    * Test connection error message
@@ -39,13 +53,16 @@ public class ConnectorTestConnectionErrorDetail {
     return this;
   }
 
+  
   @Schema(description = "Test connection error message")
   @JsonProperty("message")
 
   public String getMessage() {
     return message;
   }
-  public void setMessage(String message) { this.message = message; }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
   /**
    * Test connection error code
@@ -55,13 +72,17 @@ public class ConnectorTestConnectionErrorDetail {
     return this;
   }
 
+  
   @Schema(description = "Test connection error code")
   @JsonProperty("code")
 
   public Integer getCode() {
     return code;
   }
-  public void setCode(Integer code) { this.code = code; }
+  public void setCode(Integer code) {
+    this.code = code;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -71,8 +92,7 @@ public class ConnectorTestConnectionErrorDetail {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConnectorTestConnectionErrorDetail connectorTestConnectionErrorDetail =
-        (ConnectorTestConnectionErrorDetail)o;
+    ConnectorTestConnectionErrorDetail connectorTestConnectionErrorDetail = (ConnectorTestConnectionErrorDetail) o;
     return Objects.equals(reason, connectorTestConnectionErrorDetail.reason) &&
         Objects.equals(message, connectorTestConnectionErrorDetail.message) &&
         Objects.equals(code, connectorTestConnectionErrorDetail.code);
@@ -87,7 +107,7 @@ public class ConnectorTestConnectionErrorDetail {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConnectorTestConnectionErrorDetail {\n");
-
+    
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");

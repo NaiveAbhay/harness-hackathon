@@ -1,19 +1,27 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-@Schema(
-    description =
-        "This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.")
+/**
+ * This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class AwsAccessKeyConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.")
+
+public class AwsAccessKeyConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid String accessKey = null;
 
@@ -37,6 +45,7 @@ public class AwsAccessKeyConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "AWS access key")
   @JsonProperty("access_key")
   @NotNull
@@ -44,7 +53,9 @@ public class AwsAccessKeyConnectorSpec
   public String getAccessKey() {
     return accessKey;
   }
-  public void setAccessKey(String accessKey) { this.accessKey = accessKey; }
+  public void setAccessKey(String accessKey) {
+    this.accessKey = accessKey;
+  }
 
   /**
    * Reference to encrypted Harness secret for AWS secret key
@@ -54,14 +65,12 @@ public class AwsAccessKeyConnectorSpec
     return this;
   }
 
-  @Schema(
-      required = true,
-      description = "Reference to encrypted Harness secret for AWS secret key")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for AWS secret key")
   @JsonProperty("secret_key_ref")
   @NotNull
 
-  public String
-  getSecretKeyRef() {
+  public String getSecretKeyRef() {
     return secretKeyRef;
   }
   public void setSecretKeyRef(String secretKeyRef) {
@@ -69,25 +78,18 @@ public class AwsAccessKeyConnectorSpec
   }
 
   /**
-   * If you want to use one AWS account for the connection, but you want to
-   *deploy or build in a different AWS account. In this scenario, the AWS
-   *account used for AWS access in Credentials will assume the IAM role you
-   *specify in Cross-account role ARN setting. This option uses the AWS Security
-   *Token Service (STS) feature.
+   * If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.
    **/
-  public AwsAccessKeyConnectorSpec
-  crossAccountRoleArn(String crossAccountRoleArn) {
+  public AwsAccessKeyConnectorSpec crossAccountRoleArn(String crossAccountRoleArn) {
     this.crossAccountRoleArn = crossAccountRoleArn;
     return this;
   }
 
-  @Schema(
-      description =
-          "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.")
+  
+  @Schema(description = "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature.")
   @JsonProperty("cross_account_role_arn")
 
-  public String
-  getCrossAccountRoleArn() {
+  public String getCrossAccountRoleArn() {
     return crossAccountRoleArn;
   }
   public void setCrossAccountRoleArn(String crossAccountRoleArn) {
@@ -95,58 +97,52 @@ public class AwsAccessKeyConnectorSpec
   }
 
   /**
-   * If the administrator of the account to which the role belongs provided you
-   *with an external ID, then enter that value.
+   * If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.
    **/
   public AwsAccessKeyConnectorSpec externalId(String externalId) {
     this.externalId = externalId;
     return this;
   }
 
-  @Schema(
-      description =
-          "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.")
+  
+  @Schema(description = "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value.")
   @JsonProperty("external_id")
 
-  public String
-  getExternalId() {
+  public String getExternalId() {
     return externalId;
   }
-  public void setExternalId(String externalId) { this.externalId = externalId; }
+  public void setExternalId(String externalId) {
+    this.externalId = externalId;
+  }
 
   /**
-   * By default, Harness uses the us-east-1 region to test the credentials for
-   *this Connector. If you want to use an AWS GovCloud account for this
-   *Connector, select it in Test Region. GovCloud is used by organizations such
-   *as government agencies at the federal, state, and local level, as well as
-   *contractors, educational institutions. It is also used for regulatory
-   *compliance with these organizations.
+   * By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.
    **/
   public AwsAccessKeyConnectorSpec testRegion(String testRegion) {
     this.testRegion = testRegion;
     return this;
   }
 
-  @Schema(
-      description =
-          "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.")
+  
+  @Schema(description = "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations.")
   @JsonProperty("test_region")
 
-  public String
-  getTestRegion() {
+  public String getTestRegion() {
     return testRegion;
   }
-  public void setTestRegion(String testRegion) { this.testRegion = testRegion; }
+  public void setTestRegion(String testRegion) {
+    this.testRegion = testRegion;
+  }
 
   /**
    * List of unique delegate selectors
    **/
-  public AwsAccessKeyConnectorSpec
-  delegateSelectors(List<String> delegateSelectors) {
+  public AwsAccessKeyConnectorSpec delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
+  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -160,12 +156,12 @@ public class AwsAccessKeyConnectorSpec
   /**
    * execute on delegate
    **/
-  public AwsAccessKeyConnectorSpec
-  executeOnDelegate(Boolean executeOnDelegate) {
+  public AwsAccessKeyConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
+  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -176,6 +172,7 @@ public class AwsAccessKeyConnectorSpec
     this.executeOnDelegate = executeOnDelegate;
   }
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -184,25 +181,19 @@ public class AwsAccessKeyConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AwsAccessKeyConnectorSpec awsAccessKeyConnectorSpec =
-        (AwsAccessKeyConnectorSpec)o;
+    AwsAccessKeyConnectorSpec awsAccessKeyConnectorSpec = (AwsAccessKeyConnectorSpec) o;
     return Objects.equals(accessKey, awsAccessKeyConnectorSpec.accessKey) &&
         Objects.equals(secretKeyRef, awsAccessKeyConnectorSpec.secretKeyRef) &&
-        Objects.equals(crossAccountRoleArn,
-                       awsAccessKeyConnectorSpec.crossAccountRoleArn) &&
+        Objects.equals(crossAccountRoleArn, awsAccessKeyConnectorSpec.crossAccountRoleArn) &&
         Objects.equals(externalId, awsAccessKeyConnectorSpec.externalId) &&
         Objects.equals(testRegion, awsAccessKeyConnectorSpec.testRegion) &&
-        Objects.equals(delegateSelectors,
-                       awsAccessKeyConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate,
-                       awsAccessKeyConnectorSpec.executeOnDelegate);
+        Objects.equals(delegateSelectors, awsAccessKeyConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate, awsAccessKeyConnectorSpec.executeOnDelegate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accessKey, secretKeyRef, crossAccountRoleArn,
-                        externalId, testRegion, delegateSelectors,
-                        executeOnDelegate);
+    return Objects.hash(accessKey, secretKeyRef, crossAccountRoleArn, externalId, testRegion, delegateSelectors, executeOnDelegate);
   }
 
   @Override
@@ -210,27 +201,13 @@ public class AwsAccessKeyConnectorSpec
     StringBuilder sb = new StringBuilder();
     sb.append("class AwsAccessKeyConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    accessKey: ")
-        .append(toIndentedString(accessKey))
-        .append("\n");
-    sb.append("    secretKeyRef: ")
-        .append(toIndentedString(secretKeyRef))
-        .append("\n");
-    sb.append("    crossAccountRoleArn: ")
-        .append(toIndentedString(crossAccountRoleArn))
-        .append("\n");
-    sb.append("    externalId: ")
-        .append(toIndentedString(externalId))
-        .append("\n");
-    sb.append("    testRegion: ")
-        .append(toIndentedString(testRegion))
-        .append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    executeOnDelegate: ")
-        .append(toIndentedString(executeOnDelegate))
-        .append("\n");
+    sb.append("    accessKey: ").append(toIndentedString(accessKey)).append("\n");
+    sb.append("    secretKeyRef: ").append(toIndentedString(secretKeyRef)).append("\n");
+    sb.append("    crossAccountRoleArn: ").append(toIndentedString(crossAccountRoleArn)).append("\n");
+    sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+    sb.append("    testRegion: ").append(toIndentedString(testRegion)).append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

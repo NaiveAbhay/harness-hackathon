@@ -1,13 +1,24 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
+
+/**
+ * Validate unique connector slug response model
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "Validate unique connector slug response model")
 
-public class ValidateConnectorSlugResponse {
+public class ValidateConnectorSlugResponse   {
 
   private @Valid Boolean valid = null;
 
@@ -18,13 +29,17 @@ public class ValidateConnectorSlugResponse {
     return this;
   }
 
+  
   @Schema(description = "")
   @JsonProperty("valid")
 
   public Boolean isValid() {
     return valid;
   }
-  public void setValid(Boolean valid) { this.valid = valid; }
+  public void setValid(Boolean valid) {
+    this.valid = valid;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -34,8 +49,7 @@ public class ValidateConnectorSlugResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidateConnectorSlugResponse validateConnectorSlugResponse =
-        (ValidateConnectorSlugResponse)o;
+    ValidateConnectorSlugResponse validateConnectorSlugResponse = (ValidateConnectorSlugResponse) o;
     return Objects.equals(valid, validateConnectorSlugResponse.valid);
   }
 
@@ -48,7 +62,7 @@ public class ValidateConnectorSlugResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidateConnectorSlugResponse {\n");
-
+    
     sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
     sb.append("}");
     return sb.toString();

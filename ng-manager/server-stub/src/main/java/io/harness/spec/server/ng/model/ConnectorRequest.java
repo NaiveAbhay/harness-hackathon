@@ -1,12 +1,22 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import io.harness.spec.server.ng.model.Connector;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-public class ConnectorRequest {
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+
+
+public class ConnectorRequest   {
 
   private @Valid Connector connector = null;
 
@@ -17,6 +27,7 @@ public class ConnectorRequest {
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("connector")
   @NotNull
@@ -24,7 +35,10 @@ public class ConnectorRequest {
   public Connector getConnector() {
     return connector;
   }
-  public void setConnector(Connector connector) { this.connector = connector; }
+  public void setConnector(Connector connector) {
+    this.connector = connector;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -34,7 +48,7 @@ public class ConnectorRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ConnectorRequest connectorRequest = (ConnectorRequest)o;
+    ConnectorRequest connectorRequest = (ConnectorRequest) o;
     return Objects.equals(connector, connectorRequest.connector);
   }
 
@@ -47,10 +61,8 @@ public class ConnectorRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConnectorRequest {\n");
-
-    sb.append("    connector: ")
-        .append(toIndentedString(connector))
-        .append("\n");
+    
+    sb.append("    connector: ").append(toIndentedString(connector)).append("\n");
     sb.append("}");
     return sb.toString();
   }

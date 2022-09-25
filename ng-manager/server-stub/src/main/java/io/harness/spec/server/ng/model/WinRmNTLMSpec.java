@@ -1,15 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.SecretSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-@Schema(description =
-            "This is the SSH key authentication details defined in Harness.")
+/**
+ * This is the SSH key authentication details defined in Harness.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This is the SSH key authentication details defined in Harness.")
+
+public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec  {
 
   private @Valid Integer port = 5986;
 
@@ -33,13 +43,16 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(description = "WinRm port")
   @JsonProperty("port")
 
   public Integer getPort() {
     return port;
   }
-  public void setPort(Integer port) { this.port = port; }
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
   /**
    * This is the NTLM domain name
@@ -49,6 +62,7 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(required = true, description = "This is the NTLM domain name")
   @JsonProperty("domain")
   @NotNull
@@ -56,7 +70,9 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
   public String getDomain() {
     return domain;
   }
-  public void setDomain(String domain) { this.domain = domain; }
+  public void setDomain(String domain) {
+    this.domain = domain;
+  }
 
   /**
    * This is the NTLM user name
@@ -66,6 +82,7 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(required = true, description = "This is the NTLM user name")
   @JsonProperty("username")
   @NotNull
@@ -73,7 +90,9 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) { this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   /**
    * This is the NTLM password
@@ -83,6 +102,7 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(required = true, description = "This is the NTLM password")
   @JsonProperty("password")
   @NotNull
@@ -90,7 +110,9 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
   public String getPassword() {
     return password;
   }
-  public void setPassword(String password) { this.password = password; }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
   /**
    * This is the NTLM either to use SSL/https
@@ -100,13 +122,16 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(description = "This is the NTLM either to use SSL/https")
   @JsonProperty("use_ssl")
 
   public Boolean isUseSsl() {
     return useSsl;
   }
-  public void setUseSsl(Boolean useSsl) { this.useSsl = useSsl; }
+  public void setUseSsl(Boolean useSsl) {
+    this.useSsl = useSsl;
+  }
 
   /**
    * This is the Kerberos either to skip certificate checks
@@ -116,12 +141,11 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
-  @Schema(
-      description = "This is the Kerberos either to skip certificate checks")
+  
+  @Schema(description = "This is the Kerberos either to skip certificate checks")
   @JsonProperty("skip_cert_checks")
 
-  public Boolean
-  isSkipCertChecks() {
+  public Boolean isSkipCertChecks() {
     return skipCertChecks;
   }
   public void setSkipCertChecks(Boolean skipCertChecks) {
@@ -136,17 +160,17 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
-  @Schema(description =
-              "This is the Kerberos powershell runs without loading profile")
+  
+  @Schema(description = "This is the Kerberos powershell runs without loading profile")
   @JsonProperty("use_no_profile")
 
-  public Boolean
-  isUseNoProfile() {
+  public Boolean isUseNoProfile() {
     return useNoProfile;
   }
   public void setUseNoProfile(Boolean useNoProfile) {
     this.useNoProfile = useNoProfile;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -156,7 +180,7 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    WinRmNTLMSpec winRmNTLMSpec = (WinRmNTLMSpec)o;
+    WinRmNTLMSpec winRmNTLMSpec = (WinRmNTLMSpec) o;
     return Objects.equals(port, winRmNTLMSpec.port) &&
         Objects.equals(domain, winRmNTLMSpec.domain) &&
         Objects.equals(username, winRmNTLMSpec.username) &&
@@ -168,8 +192,7 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hash(port, domain, username, password, useSsl,
-                        skipCertChecks, useNoProfile);
+    return Objects.hash(port, domain, username, password, useSsl, skipCertChecks, useNoProfile);
   }
 
   @Override
@@ -182,12 +205,8 @@ public class WinRmNTLMSpec extends SecretSpec implements OneOfSecretSpec {
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    useSsl: ").append(toIndentedString(useSsl)).append("\n");
-    sb.append("    skipCertChecks: ")
-        .append(toIndentedString(skipCertChecks))
-        .append("\n");
-    sb.append("    useNoProfile: ")
-        .append(toIndentedString(useNoProfile))
-        .append("\n");
+    sb.append("    skipCertChecks: ").append(toIndentedString(skipCertChecks)).append("\n");
+    sb.append("    useNoProfile: ").append(toIndentedString(useNoProfile)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,52 +1,63 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+/**
+ * This contains details of the Generic Git ssh connector
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "This contains details of the Generic Git ssh connector")
 
-public class GitSshConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+public class GitSshConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid String url = null;
 
   private @Valid String branch = null;
 
-  public enum ConnectionTypeEnum {
+public enum ConnectionTypeEnum {
 
-    ACCOUNT(String.valueOf("Account")),
-    REPO(String.valueOf("Repo")),
-    PROJECT(String.valueOf("Project"));
+    ACCOUNT(String.valueOf("Account")), REPO(String.valueOf("Repo")), PROJECT(String.valueOf("Project"));
+
 
     private String value;
 
-    ConnectionTypeEnum(String v) { value = v; }
+    ConnectionTypeEnum (String v) {
+        value = v;
+    }
 
-    public String value() { return value; }
+    public String value() {
+        return value;
+    }
 
     @Override
     @JsonValue
     public String toString() {
-      return String.valueOf(value);
+        return String.valueOf(value);
     }
 
     @JsonCreator
     public static ConnectionTypeEnum fromValue(String v) {
-      for (ConnectionTypeEnum b : ConnectionTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(v)) {
-          return b;
+        for (ConnectionTypeEnum b : ConnectionTypeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
         }
-      }
-      return null;
+        return null;
     }
-  }
+}
   private @Valid ConnectionTypeEnum connectionType = null;
 
   private @Valid String sshKeyRef = null;
@@ -65,6 +76,7 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "Git repo url")
   @JsonProperty("url")
   @NotNull
@@ -72,7 +84,9 @@ public class GitSshConnectorSpec
   public String getUrl() {
     return url;
   }
-  public void setUrl(String url) { this.url = url; }
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
   /**
    * branch name
@@ -82,13 +96,16 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "branch name")
   @JsonProperty("branch")
 
   public String getBranch() {
     return branch;
   }
-  public void setBranch(String branch) { this.branch = branch; }
+  public void setBranch(String branch) {
+    this.branch = branch;
+  }
 
   /**
    **/
@@ -97,6 +114,7 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("connection_type")
   @NotNull
@@ -116,16 +134,17 @@ public class GitSshConnectorSpec
     return this;
   }
 
-  @Schema(required = true,
-          description = "Reference to encrypted Harness secret for git ssh key")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for git ssh key")
   @JsonProperty("ssh_key_ref")
   @NotNull
 
-  public String
-  getSshKeyRef() {
+  public String getSshKeyRef() {
     return sshKeyRef;
   }
-  public void setSshKeyRef(String sshKeyRef) { this.sshKeyRef = sshKeyRef; }
+  public void setSshKeyRef(String sshKeyRef) {
+    this.sshKeyRef = sshKeyRef;
+  }
 
   /**
    * validation repo
@@ -135,6 +154,7 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "validation repo")
   @JsonProperty("validation_repo")
 
@@ -153,6 +173,7 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -171,6 +192,7 @@ public class GitSshConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -181,6 +203,7 @@ public class GitSshConnectorSpec
     this.executeOnDelegate = executeOnDelegate;
   }
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -189,22 +212,19 @@ public class GitSshConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GitSshConnectorSpec gitSshConnectorSpec = (GitSshConnectorSpec)o;
+    GitSshConnectorSpec gitSshConnectorSpec = (GitSshConnectorSpec) o;
     return Objects.equals(url, gitSshConnectorSpec.url) &&
         Objects.equals(branch, gitSshConnectorSpec.branch) &&
         Objects.equals(connectionType, gitSshConnectorSpec.connectionType) &&
         Objects.equals(sshKeyRef, gitSshConnectorSpec.sshKeyRef) &&
         Objects.equals(validationRepo, gitSshConnectorSpec.validationRepo) &&
-        Objects.equals(delegateSelectors,
-                       gitSshConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate,
-                       gitSshConnectorSpec.executeOnDelegate);
+        Objects.equals(delegateSelectors, gitSshConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate, gitSshConnectorSpec.executeOnDelegate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, branch, connectionType, sshKeyRef, validationRepo,
-                        delegateSelectors, executeOnDelegate);
+    return Objects.hash(url, branch, connectionType, sshKeyRef, validationRepo, delegateSelectors, executeOnDelegate);
   }
 
   @Override
@@ -214,21 +234,11 @@ public class GitSshConnectorSpec
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
-    sb.append("    connectionType: ")
-        .append(toIndentedString(connectionType))
-        .append("\n");
-    sb.append("    sshKeyRef: ")
-        .append(toIndentedString(sshKeyRef))
-        .append("\n");
-    sb.append("    validationRepo: ")
-        .append(toIndentedString(validationRepo))
-        .append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    executeOnDelegate: ")
-        .append(toIndentedString(executeOnDelegate))
-        .append("\n");
+    sb.append("    connectionType: ").append(toIndentedString(connectionType)).append("\n");
+    sb.append("    sshKeyRef: ").append(toIndentedString(sshKeyRef)).append("\n");
+    sb.append("    validationRepo: ").append(toIndentedString(validationRepo)).append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

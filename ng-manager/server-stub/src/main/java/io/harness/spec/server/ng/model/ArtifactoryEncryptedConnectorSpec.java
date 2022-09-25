@@ -1,19 +1,27 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-@Schema(
-    description =
-        "This contains details of the artifactory connector with encrypted username/password")
+/**
+ * This contains details of the artifactory connector with encrypted username/password
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class ArtifactoryEncryptedConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This contains details of the artifactory connector with encrypted username/password")
+
+public class ArtifactoryEncryptedConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid String url = null;
 
@@ -33,6 +41,7 @@ public class ArtifactoryEncryptedConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "artifactory repo url")
   @JsonProperty("url")
   @NotNull
@@ -40,7 +49,9 @@ public class ArtifactoryEncryptedConnectorSpec
   public String getUrl() {
     return url;
   }
-  public void setUrl(String url) { this.url = url; }
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
   /**
    * Reference to encrypted Harness secret for artifactory username
@@ -50,14 +61,12 @@ public class ArtifactoryEncryptedConnectorSpec
     return this;
   }
 
-  @Schema(required = true,
-          description =
-              "Reference to encrypted Harness secret for artifactory username")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for artifactory username")
   @JsonProperty("username_ref")
   @NotNull
 
-  public String
-  getUsernameRef() {
+  public String getUsernameRef() {
     return usernameRef;
   }
   public void setUsernameRef(String usernameRef) {
@@ -72,14 +81,12 @@ public class ArtifactoryEncryptedConnectorSpec
     return this;
   }
 
-  @Schema(required = true,
-          description =
-              "Reference to encrypted Harness secret for artifactory password")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for artifactory password")
   @JsonProperty("password_ref")
   @NotNull
 
-  public String
-  getPasswordRef() {
+  public String getPasswordRef() {
     return passwordRef;
   }
   public void setPasswordRef(String passwordRef) {
@@ -89,12 +96,12 @@ public class ArtifactoryEncryptedConnectorSpec
   /**
    * List of unique delegate selectors
    **/
-  public ArtifactoryEncryptedConnectorSpec
-  delegateSelectors(List<String> delegateSelectors) {
+  public ArtifactoryEncryptedConnectorSpec delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
+  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -108,12 +115,12 @@ public class ArtifactoryEncryptedConnectorSpec
   /**
    * execute on delegate
    **/
-  public ArtifactoryEncryptedConnectorSpec
-  executeOnDelegate(Boolean executeOnDelegate) {
+  public ArtifactoryEncryptedConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
+  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -124,6 +131,7 @@ public class ArtifactoryEncryptedConnectorSpec
     this.executeOnDelegate = executeOnDelegate;
   }
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -132,23 +140,17 @@ public class ArtifactoryEncryptedConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ArtifactoryEncryptedConnectorSpec artifactoryEncryptedConnectorSpec =
-        (ArtifactoryEncryptedConnectorSpec)o;
+    ArtifactoryEncryptedConnectorSpec artifactoryEncryptedConnectorSpec = (ArtifactoryEncryptedConnectorSpec) o;
     return Objects.equals(url, artifactoryEncryptedConnectorSpec.url) &&
-        Objects.equals(usernameRef,
-                       artifactoryEncryptedConnectorSpec.usernameRef) &&
-        Objects.equals(passwordRef,
-                       artifactoryEncryptedConnectorSpec.passwordRef) &&
-        Objects.equals(delegateSelectors,
-                       artifactoryEncryptedConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate,
-                       artifactoryEncryptedConnectorSpec.executeOnDelegate);
+        Objects.equals(usernameRef, artifactoryEncryptedConnectorSpec.usernameRef) &&
+        Objects.equals(passwordRef, artifactoryEncryptedConnectorSpec.passwordRef) &&
+        Objects.equals(delegateSelectors, artifactoryEncryptedConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate, artifactoryEncryptedConnectorSpec.executeOnDelegate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, usernameRef, passwordRef, delegateSelectors,
-                        executeOnDelegate);
+    return Objects.hash(url, usernameRef, passwordRef, delegateSelectors, executeOnDelegate);
   }
 
   @Override
@@ -157,18 +159,10 @@ public class ArtifactoryEncryptedConnectorSpec
     sb.append("class ArtifactoryEncryptedConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("    usernameRef: ")
-        .append(toIndentedString(usernameRef))
-        .append("\n");
-    sb.append("    passwordRef: ")
-        .append(toIndentedString(passwordRef))
-        .append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    executeOnDelegate: ")
-        .append(toIndentedString(executeOnDelegate))
-        .append("\n");
+    sb.append("    usernameRef: ").append(toIndentedString(usernameRef)).append("\n");
+    sb.append("    passwordRef: ").append(toIndentedString(passwordRef)).append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

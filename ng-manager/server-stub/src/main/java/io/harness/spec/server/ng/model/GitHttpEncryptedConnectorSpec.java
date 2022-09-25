@@ -1,52 +1,63 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+/**
+ * This contains details of the Generic Git http connector
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "This contains details of the Generic Git http connector")
 
-public class GitHttpEncryptedConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+public class GitHttpEncryptedConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid String url = null;
 
   private @Valid String branch = null;
 
-  public enum ConnectionTypeEnum {
+public enum ConnectionTypeEnum {
 
-    ACCOUNT(String.valueOf("Account")),
-    REPO(String.valueOf("Repo")),
-    PROJECT(String.valueOf("Project"));
+    ACCOUNT(String.valueOf("Account")), REPO(String.valueOf("Repo")), PROJECT(String.valueOf("Project"));
+
 
     private String value;
 
-    ConnectionTypeEnum(String v) { value = v; }
+    ConnectionTypeEnum (String v) {
+        value = v;
+    }
 
-    public String value() { return value; }
+    public String value() {
+        return value;
+    }
 
     @Override
     @JsonValue
     public String toString() {
-      return String.valueOf(value);
+        return String.valueOf(value);
     }
 
     @JsonCreator
     public static ConnectionTypeEnum fromValue(String v) {
-      for (ConnectionTypeEnum b : ConnectionTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(v)) {
-          return b;
+        for (ConnectionTypeEnum b : ConnectionTypeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
         }
-      }
-      return null;
+        return null;
     }
-  }
+}
   private @Valid ConnectionTypeEnum connectionType = null;
 
   private @Valid String usernameRef = null;
@@ -67,6 +78,7 @@ public class GitHttpEncryptedConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "Git repo url")
   @JsonProperty("url")
   @NotNull
@@ -74,7 +86,9 @@ public class GitHttpEncryptedConnectorSpec
   public String getUrl() {
     return url;
   }
-  public void setUrl(String url) { this.url = url; }
+  public void setUrl(String url) {
+    this.url = url;
+  }
 
   /**
    * branch name
@@ -84,22 +98,25 @@ public class GitHttpEncryptedConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "branch name")
   @JsonProperty("branch")
 
   public String getBranch() {
     return branch;
   }
-  public void setBranch(String branch) { this.branch = branch; }
+  public void setBranch(String branch) {
+    this.branch = branch;
+  }
 
   /**
    **/
-  public GitHttpEncryptedConnectorSpec
-  connectionType(ConnectionTypeEnum connectionType) {
+  public GitHttpEncryptedConnectorSpec connectionType(ConnectionTypeEnum connectionType) {
     this.connectionType = connectionType;
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("connection_type")
   @NotNull
@@ -119,14 +136,12 @@ public class GitHttpEncryptedConnectorSpec
     return this;
   }
 
-  @Schema(
-      required = true,
-      description = "Reference to encrypted Harness secret for git username")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for git username")
   @JsonProperty("username_ref")
   @NotNull
 
-  public String
-  getUsernameRef() {
+  public String getUsernameRef() {
     return usernameRef;
   }
   public void setUsernameRef(String usernameRef) {
@@ -141,14 +156,12 @@ public class GitHttpEncryptedConnectorSpec
     return this;
   }
 
-  @Schema(
-      required = true,
-      description = "Reference to encrypted Harness secret for git password")
+  
+  @Schema(required = true, description = "Reference to encrypted Harness secret for git password")
   @JsonProperty("password_ref")
   @NotNull
 
-  public String
-  getPasswordRef() {
+  public String getPasswordRef() {
     return passwordRef;
   }
   public void setPasswordRef(String passwordRef) {
@@ -163,6 +176,7 @@ public class GitHttpEncryptedConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "validation repo")
   @JsonProperty("validation_repo")
 
@@ -176,12 +190,12 @@ public class GitHttpEncryptedConnectorSpec
   /**
    * List of unique delegate selectors
    **/
-  public GitHttpEncryptedConnectorSpec
-  delegateSelectors(List<String> delegateSelectors) {
+  public GitHttpEncryptedConnectorSpec delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
+  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -195,12 +209,12 @@ public class GitHttpEncryptedConnectorSpec
   /**
    * execute on delegate
    **/
-  public GitHttpEncryptedConnectorSpec
-  executeOnDelegate(Boolean executeOnDelegate) {
+  public GitHttpEncryptedConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
+  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -211,6 +225,7 @@ public class GitHttpEncryptedConnectorSpec
     this.executeOnDelegate = executeOnDelegate;
   }
 
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -219,28 +234,20 @@ public class GitHttpEncryptedConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GitHttpEncryptedConnectorSpec gitHttpEncryptedConnectorSpec =
-        (GitHttpEncryptedConnectorSpec)o;
+    GitHttpEncryptedConnectorSpec gitHttpEncryptedConnectorSpec = (GitHttpEncryptedConnectorSpec) o;
     return Objects.equals(url, gitHttpEncryptedConnectorSpec.url) &&
         Objects.equals(branch, gitHttpEncryptedConnectorSpec.branch) &&
-        Objects.equals(connectionType,
-                       gitHttpEncryptedConnectorSpec.connectionType) &&
-        Objects.equals(usernameRef,
-                       gitHttpEncryptedConnectorSpec.usernameRef) &&
-        Objects.equals(passwordRef,
-                       gitHttpEncryptedConnectorSpec.passwordRef) &&
-        Objects.equals(validationRepo,
-                       gitHttpEncryptedConnectorSpec.validationRepo) &&
-        Objects.equals(delegateSelectors,
-                       gitHttpEncryptedConnectorSpec.delegateSelectors) &&
-        Objects.equals(executeOnDelegate,
-                       gitHttpEncryptedConnectorSpec.executeOnDelegate);
+        Objects.equals(connectionType, gitHttpEncryptedConnectorSpec.connectionType) &&
+        Objects.equals(usernameRef, gitHttpEncryptedConnectorSpec.usernameRef) &&
+        Objects.equals(passwordRef, gitHttpEncryptedConnectorSpec.passwordRef) &&
+        Objects.equals(validationRepo, gitHttpEncryptedConnectorSpec.validationRepo) &&
+        Objects.equals(delegateSelectors, gitHttpEncryptedConnectorSpec.delegateSelectors) &&
+        Objects.equals(executeOnDelegate, gitHttpEncryptedConnectorSpec.executeOnDelegate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, branch, connectionType, usernameRef, passwordRef,
-                        validationRepo, delegateSelectors, executeOnDelegate);
+    return Objects.hash(url, branch, connectionType, usernameRef, passwordRef, validationRepo, delegateSelectors, executeOnDelegate);
   }
 
   @Override
@@ -250,24 +257,12 @@ public class GitHttpEncryptedConnectorSpec
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    branch: ").append(toIndentedString(branch)).append("\n");
-    sb.append("    connectionType: ")
-        .append(toIndentedString(connectionType))
-        .append("\n");
-    sb.append("    usernameRef: ")
-        .append(toIndentedString(usernameRef))
-        .append("\n");
-    sb.append("    passwordRef: ")
-        .append(toIndentedString(passwordRef))
-        .append("\n");
-    sb.append("    validationRepo: ")
-        .append(toIndentedString(validationRepo))
-        .append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    executeOnDelegate: ")
-        .append(toIndentedString(executeOnDelegate))
-        .append("\n");
+    sb.append("    connectionType: ").append(toIndentedString(connectionType)).append("\n");
+    sb.append("    usernameRef: ").append(toIndentedString(usernameRef)).append("\n");
+    sb.append("    passwordRef: ").append(toIndentedString(passwordRef)).append("\n");
+    sb.append("    validationRepo: ").append(toIndentedString(validationRepo)).append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,17 +1,27 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+/**
+ * This contains details of the appdynamics connector
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "This contains details of the appdynamics connector")
 
-public class AppdynamicsConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+public class AppdynamicsConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid List<String> delegateSelectors = new ArrayList<>();
 
@@ -26,12 +36,12 @@ public class AppdynamicsConnectorSpec
   /**
    * List of unique delegate selectors
    **/
-  public AppdynamicsConnectorSpec
-  delegateSelectors(List<String> delegateSelectors) {
+  public AppdynamicsConnectorSpec delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
+  
   @Schema(description = "List of unique delegate selectors")
   @JsonProperty("delegate_selectors")
 
@@ -50,6 +60,7 @@ public class AppdynamicsConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "appdymanics account name")
   @JsonProperty("account_name")
   @NotNull
@@ -69,6 +80,7 @@ public class AppdynamicsConnectorSpec
     return this;
   }
 
+  
   @Schema(required = true, description = "appdynamics controller url")
   @JsonProperty("controller_url")
   @NotNull
@@ -88,13 +100,16 @@ public class AppdynamicsConnectorSpec
     return this;
   }
 
+  
   @Schema(description = "appdynamics username")
   @JsonProperty("username")
 
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) { this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   /**
    * Reference to encrypted Harness secret for appdynamics password secret
@@ -104,18 +119,17 @@ public class AppdynamicsConnectorSpec
     return this;
   }
 
-  @Schema(
-      description =
-          "Reference to encrypted Harness secret for appdynamics password secret")
+  
+  @Schema(description = "Reference to encrypted Harness secret for appdynamics password secret")
   @JsonProperty("password_ref")
 
-  public String
-  getPasswordRef() {
+  public String getPasswordRef() {
     return passwordRef;
   }
   public void setPasswordRef(String passwordRef) {
     this.passwordRef = passwordRef;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -125,10 +139,8 @@ public class AppdynamicsConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AppdynamicsConnectorSpec appdynamicsConnectorSpec =
-        (AppdynamicsConnectorSpec)o;
-    return Objects.equals(delegateSelectors,
-                          appdynamicsConnectorSpec.delegateSelectors) &&
+    AppdynamicsConnectorSpec appdynamicsConnectorSpec = (AppdynamicsConnectorSpec) o;
+    return Objects.equals(delegateSelectors, appdynamicsConnectorSpec.delegateSelectors) &&
         Objects.equals(accountName, appdynamicsConnectorSpec.accountName) &&
         Objects.equals(controllerUrl, appdynamicsConnectorSpec.controllerUrl) &&
         Objects.equals(username, appdynamicsConnectorSpec.username) &&
@@ -137,8 +149,7 @@ public class AppdynamicsConnectorSpec
 
   @Override
   public int hashCode() {
-    return Objects.hash(delegateSelectors, accountName, controllerUrl, username,
-                        passwordRef);
+    return Objects.hash(delegateSelectors, accountName, controllerUrl, username, passwordRef);
   }
 
   @Override
@@ -146,19 +157,11 @@ public class AppdynamicsConnectorSpec
     StringBuilder sb = new StringBuilder();
     sb.append("class AppdynamicsConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    accountName: ")
-        .append(toIndentedString(accountName))
-        .append("\n");
-    sb.append("    controllerUrl: ")
-        .append(toIndentedString(controllerUrl))
-        .append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
+    sb.append("    controllerUrl: ").append(toIndentedString(controllerUrl)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    passwordRef: ")
-        .append(toIndentedString(passwordRef))
-        .append("\n");
+    sb.append("    passwordRef: ").append(toIndentedString(passwordRef)).append("\n");
     sb.append("}");
     return sb.toString();
   }

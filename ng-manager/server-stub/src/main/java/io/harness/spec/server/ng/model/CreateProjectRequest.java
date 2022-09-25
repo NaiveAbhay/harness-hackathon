@@ -1,14 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.Project;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+
+/**
+ * Create project request
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "Create project request")
 
-public class CreateProjectRequest {
+public class CreateProjectRequest   {
 
   private @Valid Project project = null;
 
@@ -19,6 +30,7 @@ public class CreateProjectRequest {
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("project")
   @NotNull
@@ -26,7 +38,10 @@ public class CreateProjectRequest {
   public Project getProject() {
     return project;
   }
-  public void setProject(Project project) { this.project = project; }
+  public void setProject(Project project) {
+    this.project = project;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -36,7 +51,7 @@ public class CreateProjectRequest {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CreateProjectRequest createProjectRequest = (CreateProjectRequest)o;
+    CreateProjectRequest createProjectRequest = (CreateProjectRequest) o;
     return Objects.equals(project, createProjectRequest.project);
   }
 
@@ -49,7 +64,7 @@ public class CreateProjectRequest {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreateProjectRequest {\n");
-
+    
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("}");
     return sb.toString();

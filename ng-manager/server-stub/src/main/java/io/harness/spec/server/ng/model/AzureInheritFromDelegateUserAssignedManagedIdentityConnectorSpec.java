@@ -1,76 +1,80 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
-@Schema(
-    description =
-        "This contains details of the Azure connector and for azure UserAssigned MSI auth details")
+/**
+ * This contains details of the Azure connector and for azure UserAssigned MSI auth details
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-    extends ConnectorSpec implements OneOfConnectorSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This contains details of the Azure connector and for azure UserAssigned MSI auth details")
+
+public class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec extends ConnectorSpec implements OneOfConnectorSpec  {
 
   private @Valid List<String> delegateSelectors = new ArrayList<>();
 
-  public enum AzureEnvironmentTypeEnum {
+public enum AzureEnvironmentTypeEnum {
 
-    AZURE(String.valueOf("AZURE")),
-    AZURE_US_GOVERNMENT(String.valueOf("AZURE_US_GOVERNMENT"));
+    AZURE(String.valueOf("AZURE")), AZURE_US_GOVERNMENT(String.valueOf("AZURE_US_GOVERNMENT"));
+
 
     private String value;
 
-    AzureEnvironmentTypeEnum(String v) { value = v; }
+    AzureEnvironmentTypeEnum (String v) {
+        value = v;
+    }
 
-    public String value() { return value; }
+    public String value() {
+        return value;
+    }
 
     @Override
     @JsonValue
     public String toString() {
-      return String.valueOf(value);
+        return String.valueOf(value);
     }
 
     @JsonCreator
     public static AzureEnvironmentTypeEnum fromValue(String v) {
-      for (AzureEnvironmentTypeEnum b : AzureEnvironmentTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(v)) {
-          return b;
+        for (AzureEnvironmentTypeEnum b : AzureEnvironmentTypeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
         }
-      }
-      return null;
+        return null;
     }
-  }
-  private @Valid AzureEnvironmentTypeEnum azureEnvironmentType =
-      AzureEnvironmentTypeEnum.AZURE;
+}
+  private @Valid AzureEnvironmentTypeEnum azureEnvironmentType = AzureEnvironmentTypeEnum.AZURE;
 
   private @Valid Boolean executeOnDelegate = true;
 
   private @Valid String clientId = null;
 
   /**
-   * List of Delegate Selectors that belong to the same Delegate and are used to
-   *connect to the Secret Manager
+   * List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager
    **/
-  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-  delegateSelectors(List<String> delegateSelectors) {
+  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec delegateSelectors(List<String> delegateSelectors) {
     this.delegateSelectors = delegateSelectors;
     return this;
   }
 
-  @Schema(
-      description =
-          "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
+  
+  @Schema(description = "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager")
   @JsonProperty("delegate_selectors")
-  @Size(min = 1)
-  public List<String>
-  getDelegateSelectors() {
+ @Size(min=1)
+  public List<String> getDelegateSelectors() {
     return delegateSelectors;
   }
   public void setDelegateSelectors(List<String> delegateSelectors) {
@@ -80,37 +84,32 @@ public class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
   /**
    * This specifies the Azure Environment type, which is AZURE by default.
    **/
-  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-  azureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
+  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec azureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
     this.azureEnvironmentType = azureEnvironmentType;
     return this;
   }
 
-  @Schema(
-      required = true,
-      description =
-          "This specifies the Azure Environment type, which is AZURE by default.")
+  
+  @Schema(required = true, description = "This specifies the Azure Environment type, which is AZURE by default.")
   @JsonProperty("azure_environment_type")
   @NotNull
 
-  public AzureEnvironmentTypeEnum
-  getAzureEnvironmentType() {
+  public AzureEnvironmentTypeEnum getAzureEnvironmentType() {
     return azureEnvironmentType;
   }
-  public void
-  setAzureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
+  public void setAzureEnvironmentType(AzureEnvironmentTypeEnum azureEnvironmentType) {
     this.azureEnvironmentType = azureEnvironmentType;
   }
 
   /**
    * execute on delegate
    **/
-  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-  executeOnDelegate(Boolean executeOnDelegate) {
+  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec executeOnDelegate(Boolean executeOnDelegate) {
     this.executeOnDelegate = executeOnDelegate;
     return this;
   }
 
+  
   @Schema(description = "execute on delegate")
   @JsonProperty("execute_on_delegate")
 
@@ -124,22 +123,23 @@ public class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
   /**
    * Client Id of the ManagedIdentity resource
    **/
-  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-  clientId(String clientId) {
+  public AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec clientId(String clientId) {
     this.clientId = clientId;
     return this;
   }
 
-  @Schema(required = true,
-          description = "Client Id of the ManagedIdentity resource")
+  
+  @Schema(required = true, description = "Client Id of the ManagedIdentity resource")
   @JsonProperty("client_id")
   @NotNull
 
-  public String
-  getClientId() {
+  public String getClientId() {
     return clientId;
   }
-  public void setClientId(String clientId) { this.clientId = clientId; }
+  public void setClientId(String clientId) {
+    this.clientId = clientId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -149,48 +149,26 @@ public class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-        azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec =
-            (AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec)o;
-    return Objects.equals(
-               delegateSelectors,
-               azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-                   .delegateSelectors) &&
-        Objects.equals(
-            azureEnvironmentType,
-            azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-                .azureEnvironmentType) &&
-        Objects.equals(
-            executeOnDelegate,
-            azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-                .executeOnDelegate) &&
-        Objects.equals(
-            clientId,
-            azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec
-                .clientId);
+    AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec = (AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec) o;
+    return Objects.equals(delegateSelectors, azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec.delegateSelectors) &&
+        Objects.equals(azureEnvironmentType, azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec.azureEnvironmentType) &&
+        Objects.equals(executeOnDelegate, azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec.executeOnDelegate) &&
+        Objects.equals(clientId, azureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec.clientId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(delegateSelectors, azureEnvironmentType,
-                        executeOnDelegate, clientId);
+    return Objects.hash(delegateSelectors, azureEnvironmentType, executeOnDelegate, clientId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append(
-        "class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec {\n");
+    sb.append("class AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    delegateSelectors: ")
-        .append(toIndentedString(delegateSelectors))
-        .append("\n");
-    sb.append("    azureEnvironmentType: ")
-        .append(toIndentedString(azureEnvironmentType))
-        .append("\n");
-    sb.append("    executeOnDelegate: ")
-        .append(toIndentedString(executeOnDelegate))
-        .append("\n");
+    sb.append("    delegateSelectors: ").append(toIndentedString(delegateSelectors)).append("\n");
+    sb.append("    azureEnvironmentType: ").append(toIndentedString(azureEnvironmentType)).append("\n");
+    sb.append("    executeOnDelegate: ").append(toIndentedString(executeOnDelegate)).append("\n");
     sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
     sb.append("}");
     return sb.toString();

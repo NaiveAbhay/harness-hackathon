@@ -1,16 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.harness.spec.server.ng.model.SecretSpec;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-public class Secret {
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+
+
+public class Secret   {
 
   private @Valid String name = null;
 
@@ -34,14 +43,17 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(required = true, description = "Secret name")
   @JsonProperty("name")
   @NotNull
-  @Pattern(regexp = "^[0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[0-9a-zA-Z-_ ]{0,63}$")
   public String getName() {
     return name;
   }
-  public void setName(String name) { this.name = name; }
+  public void setName(String name) {
+    this.name = name;
+  }
 
   /**
    * Secret slug
@@ -51,15 +63,17 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(required = true, description = "Secret slug")
   @JsonProperty("slug")
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$")
-  @Size(min = 1, max = 64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
-  public void setSlug(String slug) { this.slug = slug; }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
 
   /**
    * Organization slug for secret
@@ -69,13 +83,16 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(description = "Organization slug for secret")
   @JsonProperty("org")
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getOrg() {
     return org;
   }
-  public void setOrg(String org) { this.org = org; }
+  public void setOrg(String org) {
+    this.org = org;
+  }
 
   /**
    * Project slug for secret
@@ -85,13 +102,16 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(description = "Project slug for secret")
   @JsonProperty("project")
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getProject() {
     return project;
   }
-  public void setProject(String project) { this.project = project; }
+  public void setProject(String project) {
+    this.project = project;
+  }
 
   /**
    * Secret tags
@@ -101,13 +121,16 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(description = "Secret tags")
   @JsonProperty("tags")
 
   public Map<String, String> getTags() {
     return tags;
   }
-  public void setTags(Map<String, String> tags) { this.tags = tags; }
+  public void setTags(Map<String, String> tags) {
+    this.tags = tags;
+  }
 
   /**
    * Secret description
@@ -117,6 +140,7 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(description = "Secret description")
   @JsonProperty("description")
 
@@ -134,6 +158,7 @@ public class Secret {
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("spec")
   @NotNull
@@ -141,7 +166,10 @@ public class Secret {
   public SecretSpec getSpec() {
     return spec;
   }
-  public void setSpec(SecretSpec spec) { this.spec = spec; }
+  public void setSpec(SecretSpec spec) {
+    this.spec = spec;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -151,9 +179,10 @@ public class Secret {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Secret secret = (Secret)o;
+    Secret secret = (Secret) o;
     return Objects.equals(name, secret.name) &&
-        Objects.equals(slug, secret.slug) && Objects.equals(org, secret.org) &&
+        Objects.equals(slug, secret.slug) &&
+        Objects.equals(org, secret.org) &&
         Objects.equals(project, secret.project) &&
         Objects.equals(tags, secret.tags) &&
         Objects.equals(description, secret.description) &&
@@ -169,15 +198,13 @@ public class Secret {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Secret {\n");
-
+    
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
-    sb.append("    description: ")
-        .append(toIndentedString(description))
-        .append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    spec: ").append(toIndentedString(spec)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -1,15 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.SecretSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-@Schema(description =
-            "This is the SSH key authentication details defined in Harness.")
+/**
+ * This is the SSH key authentication details defined in Harness.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class WinRmTGTKeyTabFileSpec
-    extends SecretSpec implements OneOfSecretSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This is the SSH key authentication details defined in Harness.")
+
+public class WinRmTGTKeyTabFileSpec extends SecretSpec implements OneOfSecretSpec  {
 
   private @Valid Integer port = 5986;
 
@@ -33,13 +43,16 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
+  
   @Schema(description = "WinRm port")
   @JsonProperty("port")
 
   public Integer getPort() {
     return port;
   }
-  public void setPort(Integer port) { this.port = port; }
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
   /**
    * Kerberos principal
@@ -49,13 +62,16 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
+  
   @Schema(description = "Kerberos principal")
   @JsonProperty("principal")
 
   public String getPrincipal() {
     return principal;
   }
-  public void setPrincipal(String principal) { this.principal = principal; }
+  public void setPrincipal(String principal) {
+    this.principal = principal;
+  }
 
   /**
    * Kerberos realm
@@ -65,13 +81,16 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
+  
   @Schema(description = "Kerberos realm")
   @JsonProperty("realm")
 
   public String getRealm() {
     return realm;
   }
-  public void setRealm(String realm) { this.realm = realm; }
+  public void setRealm(String realm) {
+    this.realm = realm;
+  }
 
   /**
    * Keytab file path
@@ -81,13 +100,16 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
+  
   @Schema(description = "Keytab file path")
   @JsonProperty("key_path")
 
   public String getKeyPath() {
     return keyPath;
   }
-  public void setKeyPath(String keyPath) { this.keyPath = keyPath; }
+  public void setKeyPath(String keyPath) {
+    this.keyPath = keyPath;
+  }
 
   /**
    * This is the Kerberos either to use SSL/https
@@ -97,13 +119,16 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
+  
   @Schema(description = "This is the Kerberos either to use SSL/https")
   @JsonProperty("use_ssl")
 
   public Boolean isUseSsl() {
     return useSsl;
   }
-  public void setUseSsl(Boolean useSsl) { this.useSsl = useSsl; }
+  public void setUseSsl(Boolean useSsl) {
+    this.useSsl = useSsl;
+  }
 
   /**
    * This is the Kerberos either to skip certificate checks
@@ -113,12 +138,11 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
-  @Schema(
-      description = "This is the Kerberos either to skip certificate checks")
+  
+  @Schema(description = "This is the Kerberos either to skip certificate checks")
   @JsonProperty("skip_cert_checks")
 
-  public Boolean
-  isSkipCertChecks() {
+  public Boolean isSkipCertChecks() {
     return skipCertChecks;
   }
   public void setSkipCertChecks(Boolean skipCertChecks) {
@@ -133,17 +157,17 @@ public class WinRmTGTKeyTabFileSpec
     return this;
   }
 
-  @Schema(description =
-              "This is the Kerberos powershell runs without loading profile")
+  
+  @Schema(description = "This is the Kerberos powershell runs without loading profile")
   @JsonProperty("use_no_profile")
 
-  public Boolean
-  isUseNoProfile() {
+  public Boolean isUseNoProfile() {
     return useNoProfile;
   }
   public void setUseNoProfile(Boolean useNoProfile) {
     this.useNoProfile = useNoProfile;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -153,7 +177,7 @@ public class WinRmTGTKeyTabFileSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    WinRmTGTKeyTabFileSpec winRmTGTKeyTabFileSpec = (WinRmTGTKeyTabFileSpec)o;
+    WinRmTGTKeyTabFileSpec winRmTGTKeyTabFileSpec = (WinRmTGTKeyTabFileSpec) o;
     return Objects.equals(port, winRmTGTKeyTabFileSpec.port) &&
         Objects.equals(principal, winRmTGTKeyTabFileSpec.principal) &&
         Objects.equals(realm, winRmTGTKeyTabFileSpec.realm) &&
@@ -165,8 +189,7 @@ public class WinRmTGTKeyTabFileSpec
 
   @Override
   public int hashCode() {
-    return Objects.hash(port, principal, realm, keyPath, useSsl, skipCertChecks,
-                        useNoProfile);
+    return Objects.hash(port, principal, realm, keyPath, useSsl, skipCertChecks, useNoProfile);
   }
 
   @Override
@@ -175,18 +198,12 @@ public class WinRmTGTKeyTabFileSpec
     sb.append("class WinRmTGTKeyTabFileSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
-    sb.append("    principal: ")
-        .append(toIndentedString(principal))
-        .append("\n");
+    sb.append("    principal: ").append(toIndentedString(principal)).append("\n");
     sb.append("    realm: ").append(toIndentedString(realm)).append("\n");
     sb.append("    keyPath: ").append(toIndentedString(keyPath)).append("\n");
     sb.append("    useSsl: ").append(toIndentedString(useSsl)).append("\n");
-    sb.append("    skipCertChecks: ")
-        .append(toIndentedString(skipCertChecks))
-        .append("\n");
-    sb.append("    useNoProfile: ")
-        .append(toIndentedString(useNoProfile))
-        .append("\n");
+    sb.append("    skipCertChecks: ").append(toIndentedString(skipCertChecks)).append("\n");
+    sb.append("    useNoProfile: ").append(toIndentedString(useNoProfile)).append("\n");
     sb.append("}");
     return sb.toString();
   }

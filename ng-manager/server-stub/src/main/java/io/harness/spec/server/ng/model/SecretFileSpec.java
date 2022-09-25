@@ -1,15 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.SecretSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-@Schema(description =
-            "This is the SSH key authentication details defined in Harness.")
+/**
+ * This is the SSH key authentication details defined in Harness.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This is the SSH key authentication details defined in Harness.")
+
+public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec  {
 
   private @Valid String secretManagerSlug = null;
 
@@ -21,18 +31,18 @@ public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
-  @Schema(required = true,
-          description = "Slug of the secret manager used to manage the secret")
+  
+  @Schema(required = true, description = "Slug of the secret manager used to manage the secret")
   @JsonProperty("secret_manager_slug")
   @NotNull
 
-  public String
-  getSecretManagerSlug() {
+  public String getSecretManagerSlug() {
     return secretManagerSlug;
   }
   public void setSecretManagerSlug(String secretManagerSlug) {
     this.secretManagerSlug = secretManagerSlug;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -42,7 +52,7 @@ public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SecretFileSpec secretFileSpec = (SecretFileSpec)o;
+    SecretFileSpec secretFileSpec = (SecretFileSpec) o;
     return Objects.equals(secretManagerSlug, secretFileSpec.secretManagerSlug);
   }
 
@@ -56,9 +66,7 @@ public class SecretFileSpec extends SecretSpec implements OneOfSecretSpec {
     StringBuilder sb = new StringBuilder();
     sb.append("class SecretFileSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    secretManagerSlug: ")
-        .append(toIndentedString(secretManagerSlug))
-        .append("\n");
+    sb.append("    secretManagerSlug: ").append(toIndentedString(secretManagerSlug)).append("\n");
     sb.append("}");
     return sb.toString();
   }

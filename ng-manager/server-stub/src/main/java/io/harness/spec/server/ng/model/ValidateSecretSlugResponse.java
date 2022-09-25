@@ -1,13 +1,24 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
+
+/**
+ * Validate unique secret slug response model
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
 
 @Schema(description = "Validate unique secret slug response model")
 
-public class ValidateSecretSlugResponse {
+public class ValidateSecretSlugResponse   {
 
   private @Valid Boolean valid = null;
 
@@ -18,13 +29,17 @@ public class ValidateSecretSlugResponse {
     return this;
   }
 
+  
   @Schema(description = "")
   @JsonProperty("valid")
 
   public Boolean isValid() {
     return valid;
   }
-  public void setValid(Boolean valid) { this.valid = valid; }
+  public void setValid(Boolean valid) {
+    this.valid = valid;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -34,8 +49,7 @@ public class ValidateSecretSlugResponse {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidateSecretSlugResponse validateSecretSlugResponse =
-        (ValidateSecretSlugResponse)o;
+    ValidateSecretSlugResponse validateSecretSlugResponse = (ValidateSecretSlugResponse) o;
     return Objects.equals(valid, validateSecretSlugResponse.valid);
   }
 
@@ -48,7 +62,7 @@ public class ValidateSecretSlugResponse {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidateSecretSlugResponse {\n");
-
+    
     sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
     sb.append("}");
     return sb.toString();

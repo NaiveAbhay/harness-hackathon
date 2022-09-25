@@ -1,15 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.SecretSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-@Schema(description =
-            "This is the SSH key authentication details defined in Harness.")
+/**
+ * This is the SSH key authentication details defined in Harness.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class SSHKerberosTGTPasswordSpec
-    extends SecretSpec implements OneOfSecretSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This is the SSH key authentication details defined in Harness.")
+
+public class SSHKerberosTGTPasswordSpec extends SecretSpec implements OneOfSecretSpec  {
 
   private @Valid Integer port = null;
 
@@ -27,13 +37,16 @@ public class SSHKerberosTGTPasswordSpec
     return this;
   }
 
+  
   @Schema(description = "SSH port")
   @JsonProperty("port")
 
   public Integer getPort() {
     return port;
   }
-  public void setPort(Integer port) { this.port = port; }
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
   /**
    * Kerberos principal
@@ -43,13 +56,16 @@ public class SSHKerberosTGTPasswordSpec
     return this;
   }
 
+  
   @Schema(description = "Kerberos principal")
   @JsonProperty("principal")
 
   public String getPrincipal() {
     return principal;
   }
-  public void setPrincipal(String principal) { this.principal = principal; }
+  public void setPrincipal(String principal) {
+    this.principal = principal;
+  }
 
   /**
    * Kerberos realm
@@ -59,13 +75,16 @@ public class SSHKerberosTGTPasswordSpec
     return this;
   }
 
+  
   @Schema(description = "Kerberos realm")
   @JsonProperty("realm")
 
   public String getRealm() {
     return realm;
   }
-  public void setRealm(String realm) { this.realm = realm; }
+  public void setRealm(String realm) {
+    this.realm = realm;
+  }
 
   /**
    * Kerberos password
@@ -75,13 +94,17 @@ public class SSHKerberosTGTPasswordSpec
     return this;
   }
 
+  
   @Schema(description = "Kerberos password")
   @JsonProperty("password")
 
   public String getPassword() {
     return password;
   }
-  public void setPassword(String password) { this.password = password; }
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -91,8 +114,7 @@ public class SSHKerberosTGTPasswordSpec
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SSHKerberosTGTPasswordSpec ssHKerberosTGTPasswordSpec =
-        (SSHKerberosTGTPasswordSpec)o;
+    SSHKerberosTGTPasswordSpec ssHKerberosTGTPasswordSpec = (SSHKerberosTGTPasswordSpec) o;
     return Objects.equals(port, ssHKerberosTGTPasswordSpec.port) &&
         Objects.equals(principal, ssHKerberosTGTPasswordSpec.principal) &&
         Objects.equals(realm, ssHKerberosTGTPasswordSpec.realm) &&
@@ -110,9 +132,7 @@ public class SSHKerberosTGTPasswordSpec
     sb.append("class SSHKerberosTGTPasswordSpec {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
-    sb.append("    principal: ")
-        .append(toIndentedString(principal))
-        .append("\n");
+    sb.append("    principal: ").append(toIndentedString(principal)).append("\n");
     sb.append("    realm: ").append(toIndentedString(realm)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");

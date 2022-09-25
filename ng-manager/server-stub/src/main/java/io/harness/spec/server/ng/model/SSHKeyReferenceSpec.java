@@ -1,15 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.SecretSpec;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-@Schema(description =
-            "This is the SSH key authentication details defined in Harness.")
+/**
+ * This is the SSH key authentication details defined in Harness.
+ **/
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+@Schema(description = "This is the SSH key authentication details defined in Harness.")
+
+public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec  {
 
   private @Valid Integer port = null;
 
@@ -27,13 +37,16 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(description = "SSH port")
   @JsonProperty("port")
 
   public Integer getPort() {
     return port;
   }
-  public void setPort(Integer port) { this.port = port; }
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
   /**
    * SSH username
@@ -43,6 +56,7 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(required = true, description = "SSH username")
   @JsonProperty("username")
   @NotNull
@@ -50,7 +64,9 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
   public String getUsername() {
     return username;
   }
-  public void setUsername(String username) { this.username = username; }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
   /**
    * SSH key
@@ -60,35 +76,36 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
     return this;
   }
 
+  
   @Schema(description = "SSH key")
   @JsonProperty("key")
 
   public String getKey() {
     return key;
   }
-  public void setKey(String key) { this.key = key; }
+  public void setKey(String key) {
+    this.key = key;
+  }
 
   /**
-   * This is the passphrase provided while creating the SSH key for local
-   *encryption
+   * This is the passphrase provided while creating the SSH key for local encryption
    **/
   public SSHKeyReferenceSpec encryptedPassphrase(String encryptedPassphrase) {
     this.encryptedPassphrase = encryptedPassphrase;
     return this;
   }
 
-  @Schema(
-      description =
-          "This is the passphrase provided while creating the SSH key for local encryption")
+  
+  @Schema(description = "This is the passphrase provided while creating the SSH key for local encryption")
   @JsonProperty("encrypted_passphrase")
 
-  public String
-  getEncryptedPassphrase() {
+  public String getEncryptedPassphrase() {
     return encryptedPassphrase;
   }
   public void setEncryptedPassphrase(String encryptedPassphrase) {
     this.encryptedPassphrase = encryptedPassphrase;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -98,12 +115,11 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SSHKeyReferenceSpec ssHKeyReferenceSpec = (SSHKeyReferenceSpec)o;
+    SSHKeyReferenceSpec ssHKeyReferenceSpec = (SSHKeyReferenceSpec) o;
     return Objects.equals(port, ssHKeyReferenceSpec.port) &&
         Objects.equals(username, ssHKeyReferenceSpec.username) &&
         Objects.equals(key, ssHKeyReferenceSpec.key) &&
-        Objects.equals(encryptedPassphrase,
-                       ssHKeyReferenceSpec.encryptedPassphrase);
+        Objects.equals(encryptedPassphrase, ssHKeyReferenceSpec.encryptedPassphrase);
   }
 
   @Override
@@ -119,9 +135,7 @@ public class SSHKeyReferenceSpec extends SecretSpec implements OneOfSecretSpec {
     sb.append("    port: ").append(toIndentedString(port)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
-    sb.append("    encryptedPassphrase: ")
-        .append(toIndentedString(encryptedPassphrase))
-        .append("\n");
+    sb.append("    encryptedPassphrase: ").append(toIndentedString(encryptedPassphrase)).append("\n");
     sb.append("}");
     return sb.toString();
   }

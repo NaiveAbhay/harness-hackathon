@@ -1,16 +1,25 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.harness.spec.server.ng.model.ConnectorSpec;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import javax.validation.constraints.*;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-public class Connector {
+
+import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+
+
+
+public class Connector   {
 
   private @Valid String name = null;
 
@@ -34,14 +43,17 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(required = true, description = "Connector name")
   @JsonProperty("name")
   @NotNull
-  @Pattern(regexp = "^[0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[0-9a-zA-Z-_ ]{0,63}$")
   public String getName() {
     return name;
   }
-  public void setName(String name) { this.name = name; }
+  public void setName(String name) {
+    this.name = name;
+  }
 
   /**
    * Connector slug
@@ -51,15 +63,17 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(required = true, description = "Connector slug")
   @JsonProperty("slug")
   @NotNull
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$")
-  @Size(min = 1, max = 64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
-  public void setSlug(String slug) { this.slug = slug; }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
 
   /**
    * Connector description
@@ -69,6 +83,7 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(description = "Connector description")
   @JsonProperty("description")
 
@@ -87,13 +102,16 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(description = "Organization slug for connector")
   @JsonProperty("org")
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getOrg() {
     return org;
   }
-  public void setOrg(String org) { this.org = org; }
+  public void setOrg(String org) {
+    this.org = org;
+  }
 
   /**
    * Project slug for connector
@@ -103,13 +121,16 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(description = "Project slug for connector")
   @JsonProperty("project")
-  @Pattern(regexp = "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$")
   public String getProject() {
     return project;
   }
-  public void setProject(String project) { this.project = project; }
+  public void setProject(String project) {
+    this.project = project;
+  }
 
   /**
    * Connector tags
@@ -119,13 +140,16 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(description = "Connector tags")
   @JsonProperty("tags")
 
   public Map<String, String> getTags() {
     return tags;
   }
-  public void setTags(Map<String, String> tags) { this.tags = tags; }
+  public void setTags(Map<String, String> tags) {
+    this.tags = tags;
+  }
 
   /**
    **/
@@ -134,6 +158,7 @@ public class Connector {
     return this;
   }
 
+  
   @Schema(required = true, description = "")
   @JsonProperty("spec")
   @NotNull
@@ -141,7 +166,10 @@ public class Connector {
   public ConnectorSpec getSpec() {
     return spec;
   }
-  public void setSpec(ConnectorSpec spec) { this.spec = spec; }
+  public void setSpec(ConnectorSpec spec) {
+    this.spec = spec;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -151,7 +179,7 @@ public class Connector {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Connector connector = (Connector)o;
+    Connector connector = (Connector) o;
     return Objects.equals(name, connector.name) &&
         Objects.equals(slug, connector.slug) &&
         Objects.equals(description, connector.description) &&
@@ -170,12 +198,10 @@ public class Connector {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Connector {\n");
-
+    
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
-    sb.append("    description: ")
-        .append(toIndentedString(description))
-        .append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    org: ").append(toIndentedString(org)).append("\n");
     sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
