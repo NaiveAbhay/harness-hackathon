@@ -22,8 +22,8 @@
     "name" : "Project Resource Groups",
     "description" : "This contains APIs for performing CRUD operations on Project level Resource Groups."
   }, {
-    "name" : "Search Resource Groups",
-    "description" : "This contains search endpoint for Resource Groups."
+    "name" : "Filter Resource Groups",
+    "description" : "This contains the filter endpoint for Resource Groups."
   } ],
   "paths" : {
     "/v1/resource-groups" : {
@@ -1623,12 +1623,12 @@
         } ]
       }
     },
-    "/v1/resource-groups/search" : {
+    "/v1/resource-groups/filter" : {
       "post" : {
-        "tags" : [ "Search Resource Groups" ],
-        "summary" : "Search Resource Groups",
-        "description" : "Returns a list of Resource Groups based on search criteria.",
-        "operationId" : "search-resource-groups",
+        "tags" : [ "Filter Resource Groups" ],
+        "summary" : "Filter Resource Groups",
+        "description" : "Returns a list of Resource Groups based on filter criteria.",
+        "operationId" : "filter-resource-groups",
         "parameters" : [ {
           "name" : "Harness-Account",
           "in" : "header",
@@ -1685,7 +1685,7 @@
           }
         } ],
         "requestBody" : {
-          "$ref" : "#/components/requestBodies/SearchResourceGroupRequest"
+          "$ref" : "#/components/requestBodies/FilterResourceGroupRequest"
         },
         "responses" : {
           "200" : {
@@ -2085,8 +2085,8 @@
           }
         }
       },
-      "ResourceGroupSearchRequestBody" : {
-        "title" : "Resource Group Search Request Body",
+      "ResourceGroupFilterRequestBody" : {
+        "title" : "Resource Group Filter Request Body",
         "type" : "object",
         "properties" : {
           "account" : {
@@ -2139,12 +2139,12 @@
             "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
           }
         },
-        "description" : "Search request body for Resource Groups.",
+        "description" : "Filter request body for Resource Groups.",
         "x-stoplight" : {
           "id" : "bzgvkhevpa4rq"
         },
         "x-examples" : {
-          "example-search" : {
+          "example-filter" : {
             "account" : "example_account",
             "org" : "example_organization",
             "project" : "example_project",
@@ -2440,15 +2440,15 @@
         },
         "required" : true
       },
-      "SearchResourceGroupRequest" : {
-        "description" : "Search Resource Group request body",
+      "FilterResourceGroupRequest" : {
+        "description" : "Filter Resource Group request body",
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/ResourceGroupSearchRequestBody"
+              "$ref" : "#/components/schemas/ResourceGroupFilterRequestBody"
             },
             "examples" : {
-              "example-search" : {
+              "example-filter" : {
                 "value" : {
                   "account" : "example_account",
                   "org" : "example_organization",
@@ -2466,10 +2466,10 @@
           },
           "application/yaml" : {
             "schema" : {
-              "$ref" : "#/components/schemas/ResourceGroupSearchRequestBody"
+              "$ref" : "#/components/schemas/ResourceGroupFilterRequestBody"
             },
             "examples" : {
-              "example-search" : {
+              "example-filter" : {
                 "value" : "account: example_account\norg: example_organization\nproject: example_project\nsearch_term: search\nidentifier_filter:\n  - example_resource_group\nresource_selector_filter:\n  - resource_type: RESOURCE\n    resource_slug: example_resource\nmanaged_filter: NO_FILTER\n"
               }
             }
@@ -2491,6 +2491,6 @@
   },
   "x-tagGroups" : [ {
     "name" : "Resource Groups",
-    "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups", "Search Resource Groups" ]
+    "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups", "Filter Resource Groups" ]
   } ]
 }

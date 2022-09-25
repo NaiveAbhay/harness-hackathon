@@ -8,16 +8,16 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Search request body for Resource Groups.
+ * Filter request body for Resource Groups.
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Search request body for Resource Groups.")
+@Schema(description = "Filter request body for Resource Groups.")
 
-public class ResourceGroupSearchRequestBody   {
+public class ResourceGroupFilterRequestBody   {
 
   private @Valid String account = null;
 
@@ -67,7 +67,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter by Account identifier.
    **/
-  public ResourceGroupSearchRequestBody account(String account) {
+  public ResourceGroupFilterRequestBody account(String account) {
     this.account = account;
     return this;
   }
@@ -86,7 +86,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter by Organization identifier.
    **/
-  public ResourceGroupSearchRequestBody org(String org) {
+  public ResourceGroupFilterRequestBody org(String org) {
     this.org = org;
     return this;
   }
@@ -105,7 +105,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter by Project identifier.
    **/
-  public ResourceGroupSearchRequestBody project(String project) {
+  public ResourceGroupFilterRequestBody project(String project) {
     this.project = project;
     return this;
   }
@@ -124,7 +124,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter Resource Group matching by identifier/name.
    **/
-  public ResourceGroupSearchRequestBody searchTerm(String searchTerm) {
+  public ResourceGroupFilterRequestBody searchTerm(String searchTerm) {
     this.searchTerm = searchTerm;
     return this;
   }
@@ -143,7 +143,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter by Resource Group identifiers
    **/
-  public ResourceGroupSearchRequestBody identifierFilter(List<String> identifierFilter) {
+  public ResourceGroupFilterRequestBody identifierFilter(List<String> identifierFilter) {
     this.identifierFilter = identifierFilter;
     return this;
   }
@@ -162,7 +162,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter based on whether it has a particular Resource.
    **/
-  public ResourceGroupSearchRequestBody resourceSelectorFilter(List<ResourceSelectorFilter> resourceSelectorFilter) {
+  public ResourceGroupFilterRequestBody resourceSelectorFilter(List<ResourceSelectorFilter> resourceSelectorFilter) {
     this.resourceSelectorFilter = resourceSelectorFilter;
     return this;
   }
@@ -181,7 +181,7 @@ public enum ManagedFilterEnum {
   /**
    * Filter based on whether the Resource Group is Harness Managed.
    **/
-  public ResourceGroupSearchRequestBody managedFilter(ManagedFilterEnum managedFilter) {
+  public ResourceGroupFilterRequestBody managedFilter(ManagedFilterEnum managedFilter) {
     this.managedFilter = managedFilter;
     return this;
   }
@@ -206,14 +206,14 @@ public enum ManagedFilterEnum {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceGroupSearchRequestBody resourceGroupSearchRequestBody = (ResourceGroupSearchRequestBody) o;
-    return Objects.equals(account, resourceGroupSearchRequestBody.account) &&
-        Objects.equals(org, resourceGroupSearchRequestBody.org) &&
-        Objects.equals(project, resourceGroupSearchRequestBody.project) &&
-        Objects.equals(searchTerm, resourceGroupSearchRequestBody.searchTerm) &&
-        Objects.equals(identifierFilter, resourceGroupSearchRequestBody.identifierFilter) &&
-        Objects.equals(resourceSelectorFilter, resourceGroupSearchRequestBody.resourceSelectorFilter) &&
-        Objects.equals(managedFilter, resourceGroupSearchRequestBody.managedFilter);
+    ResourceGroupFilterRequestBody resourceGroupFilterRequestBody = (ResourceGroupFilterRequestBody) o;
+    return Objects.equals(account, resourceGroupFilterRequestBody.account) &&
+        Objects.equals(org, resourceGroupFilterRequestBody.org) &&
+        Objects.equals(project, resourceGroupFilterRequestBody.project) &&
+        Objects.equals(searchTerm, resourceGroupFilterRequestBody.searchTerm) &&
+        Objects.equals(identifierFilter, resourceGroupFilterRequestBody.identifierFilter) &&
+        Objects.equals(resourceSelectorFilter, resourceGroupFilterRequestBody.resourceSelectorFilter) &&
+        Objects.equals(managedFilter, resourceGroupFilterRequestBody.managedFilter);
   }
 
   @Override
@@ -224,7 +224,7 @@ public enum ManagedFilterEnum {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ResourceGroupSearchRequestBody {\n");
+    sb.append("class ResourceGroupFilterRequestBody {\n");
     
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    org: ").append(toIndentedString(org)).append("\n");

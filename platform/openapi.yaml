@@ -17,15 +17,15 @@ tags:
     description: This contains APIs for performing CRUD operations on Organization level Resource Groups.
   - name: Project Resource Groups
     description: This contains APIs for performing CRUD operations on Project level Resource Groups.
-  - name: Search Resource Groups
-    description: This contains search endpoint for Resource Groups.
+  - name: Filter Resource Groups
+    description: This contains the filter endpoint for Resource Groups.
 x-tagGroups:
   - name: Resource Groups
     tags:
       - Account Resource Groups
       - Organization Resource Groups
       - Project Resource Groups
-      - Search Resource Groups
+      - Filter Resource Groups
 paths:
   /v1/resource-groups:
     parameters: []
@@ -271,15 +271,15 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Resource Groups
-  /v1/resource-groups/search:
+  /v1/resource-groups/filter:
     parameters: []
     post:
-      summary: Search Resource Groups
-      operationId: search-resource-groups
+      summary: Filter Resource Groups
+      operationId: filter-resource-groups
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsListResponse'
-      description: Returns a list of Resource Groups based on search criteria.
+      description: Returns a list of Resource Groups based on filter criteria.
       security:
         - x-api-key: []
       parameters:
@@ -289,9 +289,9 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
       tags:
-        - Search Resource Groups
+        - Filter Resource Groups
       requestBody:
-        $ref: '#/components/requestBodies/SearchResourceGroupRequest'
+        $ref: '#/components/requestBodies/FilterResourceGroupRequest'
 components:
   schemas:
     ResourceGroupsResponse:
@@ -557,14 +557,14 @@ components:
           maxLength: 64
       required:
         - resource_type
-    ResourceGroupSearchRequestBody:
-      title: Resource Group Search Request Body
+    ResourceGroupFilterRequestBody:
+      title: Resource Group Filter Request Body
       x-stoplight:
         id: bzgvkhevpa4rq
       type: object
-      description: Search request body for Resource Groups.
+      description: Filter request body for Resource Groups.
       x-examples:
-        example-search:
+        example-filter:
           account: example_account
           org: example_organization
           project: example_project
@@ -896,13 +896,13 @@ components:
                 include_all: false
       description: Resource Group request body
       required: true
-    SearchResourceGroupRequest:
+    FilterResourceGroupRequest:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ResourceGroupSearchRequestBody'
+            $ref: '#/components/schemas/ResourceGroupFilterRequestBody'
           examples:
-            example-search:
+            example-filter:
               value:
                 account: example_account
                 org: example_organization
@@ -916,9 +916,9 @@ components:
                 managed_filter: NO_FILTER
         application/yaml:
           schema:
-            $ref: '#/components/schemas/ResourceGroupSearchRequestBody'
+            $ref: '#/components/schemas/ResourceGroupFilterRequestBody'
           examples:
-            example-search:
+            example-filter:
               value: |
                 account: example_account
                 org: example_organization
@@ -930,5 +930,5 @@ components:
                   - resource_type: RESOURCE
                     resource_slug: example_resource
                 managed_filter: NO_FILTER
-      description: Search Resource Group request body
+      description: Filter Resource Group request body
       required: true

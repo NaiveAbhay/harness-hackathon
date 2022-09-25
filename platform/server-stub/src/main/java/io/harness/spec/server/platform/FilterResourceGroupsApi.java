@@ -1,6 +1,6 @@
 package io.harness.spec.server.platform;
 
-import io.harness.spec.server.platform.model.ResourceGroupSearchRequestBody;
+import io.harness.spec.server.platform.model.ResourceGroupFilterRequestBody;
 import io.harness.spec.server.platform.model.ResourceGroupsResponse;
 
 import javax.ws.rs.*;
@@ -20,19 +20,19 @@ import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-@Path("/v1/resource-groups/search")
+@Path("/v1/resource-groups/filter")
 
 
-public interface SearchResourceGroupsApi {
+public interface FilterResourceGroupsApi {
 
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "searchResourceGroups", summary = "Search Resource Groups", description = "Returns a list of Resource Groups based on search criteria.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Search Resource Groups" })
+    @Operation(operationId = "filterResourceGroups", summary = "Filter Resource Groups", description = "Returns a list of Resource Groups based on filter criteria.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Filter Resource Groups" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Resource Groups List response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResourceGroupsResponse.class)))) })
-    Response searchResourceGroups(@Valid ResourceGroupSearchRequestBody body,  @HeaderParam("Harness-Account") 
+    Response filterResourceGroups(@Valid ResourceGroupFilterRequestBody body,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("page") @DefaultValue("0") 
