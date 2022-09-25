@@ -1,5 +1,12 @@
 package io.harness.spec.server.ng.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
+
+/**
+ * Type of Modules
+ **/
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
