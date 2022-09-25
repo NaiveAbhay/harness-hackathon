@@ -324,7 +324,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Creates a new connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       requestBody:
@@ -341,7 +341,6 @@ paths:
       tags:
         - Account Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
             type: boolean
             default: false
@@ -351,6 +350,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
   '/v1/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -363,7 +363,7 @@ paths:
       tags:
         - Account Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     put:
       summary: Update a connector
       operationId: update-account-scoped-connector
@@ -372,7 +372,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
@@ -394,7 +394,7 @@ paths:
       tags:
         - Account Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     head:
       summary: Validate unique connector slug
       operationId: validate-unique-account-scoped-connector-slug
@@ -405,7 +405,7 @@ paths:
       tags:
         - Account Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
   '/v1/connectors/{connector}/test-connection':
     get:
       summary: Test a connector
@@ -418,7 +418,7 @@ paths:
       tags:
         - Account Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     parameters:
       - schema:
           type: string
@@ -435,7 +435,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Creates a new connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       requestBody:
@@ -454,7 +454,6 @@ paths:
       tags:
         - Org Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
             type: boolean
             default: false
@@ -464,6 +463,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -476,7 +476,7 @@ paths:
       tags:
         - Org Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     put:
       summary: Update a connector
       operationId: update-org-scoped-connector
@@ -485,7 +485,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
@@ -500,7 +500,7 @@ paths:
       tags:
         - Org Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     head:
       summary: Validate unique connector slug
       operationId: validate-unique-org-scoped-connector-slug
@@ -511,7 +511,7 @@ paths:
       tags:
         - Org Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -532,7 +532,7 @@ paths:
       tags:
         - Org Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -550,7 +550,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Creates a new connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       requestBody:
@@ -570,7 +570,6 @@ paths:
       tags:
         - Project Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
             type: boolean
             default: false
@@ -580,6 +579,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -592,7 +592,7 @@ paths:
       tags:
         - Project Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     put:
       summary: Update a connector
       operationId: update-project-scoped-connector
@@ -601,7 +601,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
@@ -616,7 +616,7 @@ paths:
       tags:
         - Project Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     head:
       summary: Validate unique connector slug
       operationId: validate-unique-project-scoped-connector-slug
@@ -627,7 +627,7 @@ paths:
       tags:
         - Project Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -649,7 +649,7 @@ paths:
       tags:
         - Project Connector
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -3648,12 +3648,12 @@ components:
                     property1: example_connector
                   spec:
                     type: GitHttpEncrypted
-                    url: https://github.com/example/example-repo.git
+                    url: 'https://github.com/example/example-repo.git'
                     branch: example_branch
                     connection_type: Repo
                     username_ref: account.git-http-user
                     password_ref: account.git-http-password
-                    validation_repo: https://github.com/example/example-validation-repo.git
+                    validation_repo: 'https://github.com/example/example-validation-repo.git'
                     execute_on_delegate: false
             example-git-ssh-connector-request-json:
               value:
@@ -3685,7 +3685,7 @@ components:
                   spec:
                     type: Appdynamics
                     account_name: appdynamics-account-name
-                    controller_url: https://appdynamics.com/controller/
+                    controller_url: 'https://appdynamics.com/controller/'
                     username: appdynamics-username
                     password_ref: account.appdynamics-password
                     delegate_selectors: []
@@ -3702,7 +3702,7 @@ components:
                   spec:
                     type: AppdynamicsClientId
                     account_name: appdynamics-account-name
-                    controller_url: https://appdynamics.com/controller/
+                    controller_url: 'https://appdynamics.com/controller/'
                     client_id: appdynamics-client-id
                     client_secret_ref: account.appdynamics-client-secret
                     delegate_selectors: []
@@ -3718,7 +3718,7 @@ components:
                     property1: example_connector
                   spec:
                     type: Artifactory
-                    url: https://artifactory.com/example/example-artifactory
+                    url: 'https://artifactory.com/example/example-artifactory'
                     username: artifactory-user
                     password_ref: account.artifactory-password
                     delegate_selectors: []
@@ -3735,7 +3735,7 @@ components:
                     property1: example_connector
                   spec:
                     type: ArtifactoryAnonymous
-                    url: https://artifactory.com/example/example-artifactory
+                    url: 'https://artifactory.com/example/example-artifactory'
                     delegate_selectors: []
                     execute_on_delegate: false
             example-artifactory-encrypted-connector-request-json:
@@ -3750,7 +3750,7 @@ components:
                     property1: example_connector
                   spec:
                     type: ArtifactoryEncrypted
-                    url: https://artifactory.com/example/example-artifactory
+                    url: 'https://artifactory.com/example/example-artifactory'
                     username_ref: account.artifactory-user
                     password_ref: account.artifactory-password
                     delegate_selectors: []
@@ -3768,7 +3768,7 @@ components:
                   spec:
                     type: AzureClientCertificate
                     delegate_selectors:
-                    - pl1
+                      - pl1
                     azure_environment_type: AZURE
                     execute_on_delegate: false
                     application_id: '1234567890'
@@ -3787,7 +3787,7 @@ components:
                   spec:
                     type: AzureClientSecretKey
                     delegate_selectors:
-                    - pl1
+                      - pl1
                     azure_environment_type: AZURE
                     execute_on_delegate: false
                     application_id: '1234567890'
@@ -3806,7 +3806,7 @@ components:
                   spec:
                     type: AzureInheritFromDelegateSystemAssignedManagedIdentity
                     delegate_selectors:
-                    - pl1
+                      - pl1
                     azure_environment_type: AZURE
                     execute_on_delegate: false
             example-azure-user-assigned-managed-identity-request-json:
@@ -3822,7 +3822,7 @@ components:
                   spec:
                     type: AzureInheritFromDelegateUserAssignedManagedIdentity
                     delegate_selectors:
-                    - pl1
+                      - pl1
                     azure_environment_type: AZURE
                     execute_on_delegate: false
                     application_id: '1234567890'
@@ -4116,6 +4116,13 @@ components:
       schema:
         type: string
       description: Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.
+    AccountHeader:
+      name: Harness-Account
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     OrgsQueryParam:
       name: org
       in: query
