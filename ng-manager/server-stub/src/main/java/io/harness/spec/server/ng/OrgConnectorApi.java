@@ -3,7 +3,6 @@ package io.harness.spec.server.ng;
 import io.harness.spec.server.ng.model.ConnectorRequest;
 import io.harness.spec.server.ng.model.ConnectorResponse;
 import io.harness.spec.server.ng.model.ConnectorTestConnectionResponse;
-import io.harness.spec.server.ng.model.ValidateConnectorSlugResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -133,10 +132,9 @@ public interface OrgConnectorApi {
 );
     @HEAD
     @Path("/{connector}")
-    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "validateUniqueOrgScopedConnectorSlug", summary = "Validate unique connector slug", description = "Validates connector slug is unique", tags={ "Org Connector" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Validate connector slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateConnectorSlugResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "This specifies slug is already taken for the scope") })
     Response validateUniqueOrgScopedConnectorSlug( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org

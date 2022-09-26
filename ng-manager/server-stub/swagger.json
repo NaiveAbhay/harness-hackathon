@@ -1344,31 +1344,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate connector slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         }
       }
@@ -1892,31 +1868,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate connector slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         }
       }
@@ -2510,31 +2462,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate connector slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-connector-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         }
       }
@@ -5142,16 +5070,6 @@
         },
         "description" : "Validate unique secret slug response model"
       },
-      "ValidateConnectorSlugResponse" : {
-        "title" : "ValidateConnectorSlugResponse",
-        "type" : "object",
-        "properties" : {
-          "valid" : {
-            "type" : "boolean"
-          }
-        },
-        "description" : "Validate unique connector slug response model"
-      },
       "ConnectorTestConnectionErrorDetail" : {
         "title" : "ConnectorTestConnectionErrorDetail",
         "type" : "object",
@@ -6739,33 +6657,6 @@
             },
             "examples" : {
               "example-validate-secret-slug-response-json" : {
-                "value" : "valid: true\n"
-              }
-            }
-          }
-        }
-      },
-      "ValidateConnectorSlugResponse" : {
-        "description" : "Validate connector slug response",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-            },
-            "examples" : {
-              "example-validate-connector-slug-response-json" : {
-                "value" : {
-                  "valid" : true
-                }
-              }
-            }
-          },
-          "application/yaml" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/ValidateConnectorSlugResponse"
-            },
-            "examples" : {
-              "example-validate-connector-slug-response-json" : {
                 "value" : "valid: true\n"
               }
             }

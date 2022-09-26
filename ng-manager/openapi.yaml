@@ -302,7 +302,7 @@ paths:
       operationId: validate-unique-account-scoped-connector-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates connector slug is unique
       tags:
         - Account Connector
@@ -408,7 +408,7 @@ paths:
       operationId: validate-unique-org-scoped-connector-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates connector slug is unique
       tags:
         - Org Connector
@@ -524,7 +524,7 @@ paths:
       operationId: validate-unique-project-scoped-connector-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateConnectorSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates connector slug is unique
       tags:
         - Project Connector
@@ -1539,13 +1539,6 @@ components:
         valid:
           type: boolean
       description: Validate unique secret slug response model
-    ValidateConnectorSlugResponse:
-      title: ValidateConnectorSlugResponse
-      type: object
-      properties:
-        valid:
-          type: boolean
-      description: Validate unique connector slug response model
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
@@ -2926,23 +2919,6 @@ components:
             $ref: '#/components/schemas/ValidateSecretSlugResponse'
           examples:
             example-validate-secret-slug-response-json:
-              value: |
-                valid: true
-    ValidateConnectorSlugResponse:
-      description: Validate connector slug response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidateConnectorSlugResponse'
-          examples:
-            example-validate-connector-slug-response-json:
-              value:
-                valid: true
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/ValidateConnectorSlugResponse'
-          examples:
-            example-validate-connector-slug-response-json:
               value: |
                 valid: true
     ConnectorTestConnectionResponse:
