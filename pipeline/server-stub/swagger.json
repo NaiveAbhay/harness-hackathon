@@ -13,16 +13,16 @@
     "description" : "localhost"
   } ],
   "tags" : [ {
-    "name" : "Pipeline Resource",
+    "name" : "Project Pipelines",
     "description" : "This contains APIs for performing CRUD operations on Pipelines."
   } ],
   "paths" : {
     "/v1/orgs/{org}/projects/{project}/pipelines" : {
       "get" : {
-        "tags" : [ "Pipeline Resource" ],
+        "tags" : [ "Project Pipelines" ],
         "summary" : "List Pipelines",
         "description" : "Returns a list of Pipelines.",
-        "operationId" : "list-pipelines",
+        "operationId" : "list-pipelines-project",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -94,7 +94,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "name", "identifier", "createdAt", "lastUpdatedAt" ]
           }
         }, {
           "name" : "order",
@@ -115,7 +116,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO" ]
           }
         }, {
           "name" : "filter_identifier",
@@ -177,6 +179,16 @@
             "example" : "key:value",
             "items" : {
               "type" : "string"
+            }
+          },
+          "examples" : {
+            "key_and_value" : {
+              "summary" : "Tag having both Key and Value.",
+              "value" : "key:value"
+            },
+            "key_only" : {
+              "summary" : "Tag having only Key.",
+              "value" : "key"
             }
           }
         }, {
@@ -252,8 +264,8 @@
                       "updated" : 1234567890,
                       "modules" : "CD",
                       "execution_summary" : {
-                        "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                        "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
+                        "errors_count" : [ 1, 2, 3, 4, 5, 6, 7 ],
+                        "deployments_count" : [ 1, 2, 3, 4, 5, 6, 7 ]
                       },
                       "recent_execution_info" : [ {
                         "executor_info" : {
@@ -271,8 +283,8 @@
                       "connector_ref" : "example_connector",
                       "valid" : true,
                       "git_details" : {
-                        "object" : "example_object",
-                        "branch" : "branch",
+                        "entity_identifier" : "example_object",
+                        "branch_name" : "branch",
                         "file_path" : "/folder/file.json",
                         "repo_name" : "example_repository",
                         "commit_id" : "abcd123",
@@ -293,7 +305,7 @@
                 },
                 "examples" : {
                   "example-list-response" : {
-                    "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                    "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                   }
                 }
               }
@@ -305,10 +317,10 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Pipeline Resource" ],
+        "tags" : [ "Project Pipelines" ],
         "summary" : "Create a Pipeline",
         "description" : "Creates a Pipeline.",
-        "operationId" : "create-pipeline",
+        "operationId" : "create-pipeline-project",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -340,7 +352,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "branch",
+          "name" : "branch_name",
           "in" : "query",
           "description" : "Name of the branch (for Git Experience).",
           "required" : false,
@@ -461,10 +473,10 @@
     },
     "/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}" : {
       "get" : {
-        "tags" : [ "Pipeline Resource" ],
+        "tags" : [ "Project Pipelines" ],
         "summary" : "Retrieve a Pipeline",
         "description" : "Retrieves a Pipeline.",
-        "operationId" : "get-pipeline",
+        "operationId" : "get-pipeline-project",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -506,7 +518,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "branch",
+          "name" : "branch_name",
           "in" : "query",
           "description" : "Name of the branch (for Git Experience).",
           "required" : false,
@@ -518,7 +530,7 @@
         }, {
           "name" : "template_applied",
           "in" : "query",
-          "description" : "If true, returns Pipeline YAML with Templates resolved.",
+          "description" : "If true, returns Pipeline YAML with Templates applied on it.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -540,9 +552,10 @@
                     "value" : {
                       "pipeline_yaml" : "example_yaml_text",
                       "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
+                      "modules" : [ "cd" ],
                       "git_details" : {
-                        "object" : "example_object",
-                        "branch" : "branch",
+                        "entity_identifier" : "example_object",
+                        "branch_name" : "branch",
                         "file_path" : "/folder/file.json",
                         "repo_name" : "example_repository",
                         "commit_id" : "abcd123",
@@ -580,7 +593,7 @@
                 },
                 "examples" : {
                   "example-response" : {
-                    "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\ngit_details:\n  object: example_object\n  branch: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -592,10 +605,10 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Pipeline Resource" ],
+        "tags" : [ "Project Pipelines" ],
         "summary" : "Update a Pipeline",
         "description" : "Updates a Pipeline.",
-        "operationId" : "update-pipeline",
+        "operationId" : "update-pipeline-project",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -637,7 +650,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "branch",
+          "name" : "branch_name",
           "in" : "query",
           "description" : "Name of the branch (for Git Experience).",
           "required" : false,
@@ -724,10 +737,10 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Pipeline Resource" ],
+        "tags" : [ "Project Pipelines" ],
         "summary" : "Delete a Pipeline",
         "description" : "Deletes a Pipeline.",
-        "operationId" : "delete-pipeline",
+        "operationId" : "delete-pipeline-project",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -786,14 +799,14 @@
         "title" : "Git Details",
         "type" : "object",
         "properties" : {
-          "object" : {
+          "entity_identifier" : {
             "maxLength" : 64,
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Object identifier of the Entity."
+            "description" : "Entity identifier"
           },
-          "branch" : {
+          "branch_name" : {
             "type" : "string",
             "description" : "Name of the branch (for Git Experience)."
           },
@@ -811,11 +824,11 @@
           },
           "file_url" : {
             "type" : "string",
-            "description" : "File URL of the Entity."
+            "description" : "File URL of the Entity (for Git Experience)."
           },
           "repo_url" : {
             "type" : "string",
-            "description" : "Repository URL of the Entity."
+            "description" : "Repository URL of the Entity (for Git Experience)."
           }
         },
         "description" : "Git details of the Entity.",
@@ -824,8 +837,8 @@
         },
         "x-examples" : {
           "example-git" : {
-            "object" : "example_object",
-            "branch" : "branch",
+            "entity_identifier" : "example_object",
+            "branch_name" : "branch",
             "file_path" : "/folder/file.json",
             "repo_name" : "example_repository",
             "commit_id" : "abcd123",
@@ -887,9 +900,10 @@
           "example-get" : {
             "pipeline_yaml" : "example_yaml_text",
             "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
+            "modules" : [ "cd" ],
             "git_details" : {
-              "object" : "example_object",
-              "branch" : "branch",
+              "entity_identifier" : "example_object",
+              "branch_name" : "branch",
               "file_path" : "/folder/file.json",
               "repo_name" : "example_repository",
               "commit_id" : "abcd123",
@@ -1013,8 +1027,8 @@
             "updated" : 1234567890,
             "modules" : "CD",
             "execution_summary" : {
-              "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-              "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
+              "errors_count" : [ 1, 2, 3, 4, 5, 6, 7 ],
+              "deployments_count" : [ 1, 2, 3, 4, 5, 6, 7 ]
             },
             "recent_execution_info" : [ {
               "executor_info" : {
@@ -1032,8 +1046,8 @@
             "connector_ref" : "example_connector",
             "valid" : true,
             "git_details" : {
-              "object" : "example_object",
-              "branch" : "branch",
+              "entity_identifier" : "example_object",
+              "branch_name" : "branch",
               "file_path" : "/folder/file.json",
               "repo_name" : "example_repository",
               "commit_id" : "abcd123",
@@ -1047,7 +1061,7 @@
         "title" : "ExecutionSummary",
         "type" : "object",
         "properties" : {
-          "error_last_week" : {
+          "errors_count" : {
             "type" : "array",
             "description" : "Number of errors on each of the last 7 days.",
             "items" : {
@@ -1055,7 +1069,7 @@
               "format" : "int32"
             }
           },
-          "deployments" : {
+          "deployments_count" : {
             "type" : "array",
             "description" : "Number of deployments on each of the last 7 days.",
             "items" : {
@@ -1070,8 +1084,8 @@
         },
         "x-examples" : {
           "example-execution-summary" : {
-            "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-            "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
+            "errors_count" : [ 1, 2, 3, 4, 5, 6, 7 ],
+            "deployments_count" : [ 1, 2, 3, 4, 5, 6, 7 ]
           }
         }
       },
@@ -1137,7 +1151,7 @@
           },
           "fqn" : {
             "type" : "string",
-            "description" : "Fully Qualified Name"
+            "description" : "Fully Qualified Name as per YAML"
           },
           "hint_message" : {
             "type" : "string",
@@ -1338,9 +1352,10 @@
                 "value" : {
                   "pipeline_yaml" : "example_yaml_text",
                   "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
+                  "modules" : [ "cd" ],
                   "git_details" : {
-                    "object" : "example_object",
-                    "branch" : "branch",
+                    "entity_identifier" : "example_object",
+                    "branch_name" : "branch",
                     "file_path" : "/folder/file.json",
                     "repo_name" : "example_repository",
                     "commit_id" : "abcd123",
@@ -1378,7 +1393,7 @@
             },
             "examples" : {
               "example-response" : {
-                "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\ngit_details:\n  object: example_object\n  branch: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -1409,8 +1424,8 @@
                   "updated" : 1234567890,
                   "modules" : "CD",
                   "execution_summary" : {
-                    "error_last_week" : [ 1, 2, 3, 4, 5, 6, 7 ],
-                    "deployments" : [ 1, 2, 3, 4, 5, 6, 7 ]
+                    "errors_count" : [ 1, 2, 3, 4, 5, 6, 7 ],
+                    "deployments_count" : [ 1, 2, 3, 4, 5, 6, 7 ]
                   },
                   "recent_execution_info" : [ {
                     "executor_info" : {
@@ -1428,8 +1443,8 @@
                   "connector_ref" : "example_connector",
                   "valid" : true,
                   "git_details" : {
-                    "object" : "example_object",
-                    "branch" : "branch",
+                    "entity_identifier" : "example_object",
+                    "branch_name" : "branch",
                     "file_path" : "/folder/file.json",
                     "repo_name" : "example_repository",
                     "commit_id" : "abcd123",
@@ -1450,7 +1465,7 @@
             },
             "examples" : {
               "example-list-response" : {
-                "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    error_last_week:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object: example_object\n    branch: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                "value" : "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
               }
             }
           }
@@ -1528,7 +1543,7 @@
         }
       },
       "Branch" : {
-        "name" : "branch",
+        "name" : "branch_name",
         "in" : "query",
         "description" : "Name of the branch (for Git Experience).",
         "required" : false,
@@ -1636,7 +1651,8 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "enum" : [ "name", "identifier", "createdAt", "lastUpdatedAt" ]
         }
       },
       "Order" : {
@@ -1687,6 +1703,7 @@
     "securitySchemes" : {
       "x-api-key" : {
         "type" : "apiKey",
+        "description" : "API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.",
         "name" : "x-api-key",
         "in" : "header"
       }
@@ -1697,6 +1714,6 @@
   },
   "x-tagGroups" : [ {
     "name" : "Pipelines",
-    "tags" : [ "Pipeline Resource" ]
+    "tags" : [ "Project Pipelines" ]
   } ]
 }

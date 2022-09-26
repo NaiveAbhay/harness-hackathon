@@ -104,7 +104,7 @@ public class YAMLSchemaErrorWrapper   {
   }
 
   /**
-   * Fully Qualified Name
+   * Fully Qualified Name as per YAML
    **/
   public YAMLSchemaErrorWrapper fqn(String fqn) {
     this.fqn = fqn;
@@ -112,7 +112,7 @@ public class YAMLSchemaErrorWrapper   {
   }
 
   
-  @Schema(description = "Fully Qualified Name")
+  @Schema(description = "Fully Qualified Name as per YAML")
   @JsonProperty("fqn")
 
   public String getFqn() {

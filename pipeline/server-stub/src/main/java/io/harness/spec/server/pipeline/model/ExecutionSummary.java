@@ -18,46 +18,46 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public class ExecutionSummary   {
 
-  private @Valid List<Integer> errorLastWeek = new ArrayList<>();
+  private @Valid List<Integer> errorsCount = new ArrayList<>();
 
-  private @Valid List<Integer> deployments = new ArrayList<>();
+  private @Valid List<Integer> deploymentsCount = new ArrayList<>();
 
   /**
    * Number of errors on each of the last 7 days.
    **/
-  public ExecutionSummary errorLastWeek(List<Integer> errorLastWeek) {
-    this.errorLastWeek = errorLastWeek;
+  public ExecutionSummary errorsCount(List<Integer> errorsCount) {
+    this.errorsCount = errorsCount;
     return this;
   }
 
   
   @Schema(description = "Number of errors on each of the last 7 days.")
-  @JsonProperty("error_last_week")
+  @JsonProperty("errors_count")
 
-  public List<Integer> getErrorLastWeek() {
-    return errorLastWeek;
+  public List<Integer> getErrorsCount() {
+    return errorsCount;
   }
-  public void setErrorLastWeek(List<Integer> errorLastWeek) {
-    this.errorLastWeek = errorLastWeek;
+  public void setErrorsCount(List<Integer> errorsCount) {
+    this.errorsCount = errorsCount;
   }
 
   /**
    * Number of deployments on each of the last 7 days.
    **/
-  public ExecutionSummary deployments(List<Integer> deployments) {
-    this.deployments = deployments;
+  public ExecutionSummary deploymentsCount(List<Integer> deploymentsCount) {
+    this.deploymentsCount = deploymentsCount;
     return this;
   }
 
   
   @Schema(description = "Number of deployments on each of the last 7 days.")
-  @JsonProperty("deployments")
+  @JsonProperty("deployments_count")
 
-  public List<Integer> getDeployments() {
-    return deployments;
+  public List<Integer> getDeploymentsCount() {
+    return deploymentsCount;
   }
-  public void setDeployments(List<Integer> deployments) {
-    this.deployments = deployments;
+  public void setDeploymentsCount(List<Integer> deploymentsCount) {
+    this.deploymentsCount = deploymentsCount;
   }
 
 
@@ -70,13 +70,13 @@ public class ExecutionSummary   {
       return false;
     }
     ExecutionSummary executionSummary = (ExecutionSummary) o;
-    return Objects.equals(errorLastWeek, executionSummary.errorLastWeek) &&
-        Objects.equals(deployments, executionSummary.deployments);
+    return Objects.equals(errorsCount, executionSummary.errorsCount) &&
+        Objects.equals(deploymentsCount, executionSummary.deploymentsCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(errorLastWeek, deployments);
+    return Objects.hash(errorsCount, deploymentsCount);
   }
 
   @Override
@@ -84,8 +84,8 @@ public class ExecutionSummary   {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExecutionSummary {\n");
     
-    sb.append("    errorLastWeek: ").append(toIndentedString(errorLastWeek)).append("\n");
-    sb.append("    deployments: ").append(toIndentedString(deployments)).append("\n");
+    sb.append("    errorsCount: ").append(toIndentedString(errorsCount)).append("\n");
+    sb.append("    deploymentsCount: ").append(toIndentedString(deploymentsCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

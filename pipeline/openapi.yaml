@@ -11,12 +11,12 @@ servers:
   - url: 'http://app.harness.io'
     description: localhost
 tags:
-  - name: Pipeline Resource
+  - name: Project Pipelines
     description: This contains APIs for performing CRUD operations on Pipelines.
 x-tagGroups:
   - name: Pipelines
     tags:
-      - Pipeline Resource
+      - Project Pipelines
 paths:
   '/v1/orgs/{org}/projects/{project}/pipelines':
     parameters:
@@ -24,7 +24,7 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
     get:
       summary: List Pipelines
-      operationId: list-pipelines
+      operationId: list-pipelines-project
       description: Returns a list of Pipelines.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -35,6 +35,13 @@ paths:
         - $ref: '#/components/parameters/Order'
         - schema:
             type: string
+            enum:
+              - CD
+              - CI
+              - CV
+              - CF
+              - CE
+              - STO
           in: query
           name: module
           description: Harness module which is part of the Pipeline.
@@ -70,6 +77,13 @@ paths:
               type: string
             maxItems: 128
             example: 'key:value'
+          examples:
+            key_and_value:
+              value: 'key:value'
+              summary: Tag having both Key and Value.
+            key_only:
+              value: key
+              summary: Tag having only Key.
           in: query
           name: tags
           description: 'Filter tags as a key:value pair.'
@@ -100,13 +114,13 @@ paths:
       security:
         - x-api-key: []
       tags:
-        - Pipeline Resource
+        - Project Pipelines
       responses:
         '200':
           $ref: '#/components/responses/PipelineListResponseBody'
     post:
       summary: Create a Pipeline
-      operationId: create-pipeline
+      operationId: create-pipeline-project
       description: Creates a Pipeline.
       security:
         - x-api-key: []
@@ -121,7 +135,7 @@ paths:
         - $ref: '#/components/parameters/StoreType'
         - $ref: '#/components/parameters/RepoName'
       tags:
-        - Pipeline Resource
+        - Project Pipelines
       requestBody:
         $ref: '#/components/requestBodies/PipelineRequestBody'
       responses:
@@ -134,7 +148,7 @@ paths:
       - $ref: '#/components/parameters/PipelineParam'
     get:
       summary: Retrieve a Pipeline
-      operationId: get-pipeline
+      operationId: get-pipeline-project
       security:
         - x-api-key: []
       description: Retrieves a Pipeline.
@@ -146,15 +160,15 @@ paths:
             default: false
           in: query
           name: template_applied
-          description: 'If true, returns Pipeline YAML with Templates resolved.'
+          description: 'If true, returns Pipeline YAML with Templates applied on it.'
       tags:
-        - Pipeline Resource
+        - Project Pipelines
       responses:
         '200':
           $ref: '#/components/responses/PipelineGetResponseBody'
     put:
       summary: Update a Pipeline
-      operationId: update-pipeline
+      operationId: update-pipeline-project
       security:
         - x-api-key: []
       description: Updates a Pipeline.
@@ -174,7 +188,7 @@ paths:
           name: last_commit_id
           description: Last commit identifier (for Git Repositories other than Github).
       tags:
-        - Pipeline Resource
+        - Project Pipelines
       requestBody:
         $ref: '#/components/requestBodies/PipelineRequestBody'
       responses:
@@ -182,14 +196,14 @@ paths:
           $ref: '#/components/responses/PipelineCreateResponseBody'
     delete:
       summary: Delete a Pipeline
-      operationId: delete-pipeline
+      operationId: delete-pipeline-project
       description: Deletes a Pipeline.
       security:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
-        - Pipeline Resource
+        - Project Pipelines
       responses:
         '204':
           description: No Content
@@ -203,21 +217,21 @@ components:
       description: Git details of the Entity.
       x-examples:
         example-git:
-          object: example_object
-          branch: branch
+          entity_identifier: example_object
+          branch_name: branch
           file_path: /folder/file.json
           repo_name: example_repository
           commit_id: abcd123
           file_url: www.repo/folder/file.com
           repo_url: www.repo.com
       properties:
-        object:
+        entity_identifier:
           type: string
-          description: Object identifier of the Entity.
+          description: Entity identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
-        branch:
+        branch_name:
           type: string
           description: Name of the branch (for Git Experience).
         file_path:
@@ -231,10 +245,10 @@ components:
           description: Latest commit identifier (for Git Experience).
         file_url:
           type: string
-          description: File URL of the Entity.
+          description: File URL of the Entity (for Git Experience).
         repo_url:
           type: string
-          description: Repository URL of the Entity.
+          description: Repository URL of the Entity (for Git Experience).
     PipelineGetResponseBody:
       title: Pipeline Get Response Body
       x-stoplight:
@@ -244,9 +258,11 @@ components:
         example-get:
           pipeline_yaml: example_yaml_text
           template_applied_pipeline_yaml: example_yaml_text_with_template
+          modules:
+            - cd
           git_details:
-            object: example_object
-            branch: branch
+            entity_identifier: example_object
+            branch_name: branch
             file_path: /folder/file.json
             repo_name: example_repository
             commit_id: abcd123
@@ -319,7 +335,7 @@ components:
           updated: 1234567890
           modules: CD
           execution_summary:
-            error_last_week:
+            errors_count:
               - 1
               - 2
               - 3
@@ -327,7 +343,7 @@ components:
               - 5
               - 6
               - 7
-            deployments:
+            deployments_count:
               - 1
               - 2
               - 3
@@ -349,8 +365,8 @@ components:
           connector_ref: example_connector
           valid: true
           git_details:
-            object: example_object
-            branch: branch
+            entity_identifier: example_object
+            branch_name: branch
             file_path: /folder/file.json
             repo_name: example_repository
             commit_id: abcd123
@@ -423,7 +439,7 @@ components:
       description: Execution Summary
       x-examples:
         example-execution-summary:
-          error_last_week:
+          errors_count:
             - 1
             - 2
             - 3
@@ -431,7 +447,7 @@ components:
             - 5
             - 6
             - 7
-          deployments:
+          deployments_count:
             - 1
             - 2
             - 3
@@ -440,13 +456,13 @@ components:
             - 6
             - 7
       properties:
-        error_last_week:
+        errors_count:
           type: array
           description: Number of errors on each of the last 7 days.
           items:
             type: integer
             format: int32
-        deployments:
+        deployments_count:
           type: array
           description: Number of deployments on each of the last 7 days.
           items:
@@ -589,11 +605,13 @@ components:
           description: Error message with FQN
         stage_info:
           $ref: '#/components/schemas/NodeInfo'
+          description: Stage where the error occcurred.
         step_info:
           $ref: '#/components/schemas/NodeInfo'
+          description: Step where the error occcurred.
         fqn:
           type: string
-          description: Fully Qualified Name
+          description: Fully Qualified Name as per YAML
         hint_message:
           type: string
           description: Hint message
@@ -749,6 +767,7 @@ components:
       name: x-api-key
       type: apiKey
       in: header
+      description: API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.
   parameters:
     Limit:
       name: limit
@@ -796,7 +815,7 @@ components:
         type: string
       description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     Branch:
-      name: branch
+      name: branch_name
       in: query
       required: false
       schema:
@@ -867,6 +886,11 @@ components:
       required: false
       schema:
         type: string
+        enum:
+          - name
+          - identifier
+          - createdAt
+          - lastUpdatedAt
       description: Parameter on the basis of which sorting is done.
     Order:
       name: order
@@ -907,9 +931,11 @@ components:
               value:
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
+                modules:
+                  - cd
                 git_details:
-                  object: example_object
-                  branch: branch
+                  entity_identifier: example_object
+                  branch_name: branch
                   file_path: /folder/file.json
                   repo_name: example_repository
                   commit_id: abcd123
@@ -941,9 +967,11 @@ components:
               value: |
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
+                modules:
+                  - cd
                 git_details:
-                  object: example_object
-                  branch: branch
+                  entity_identifier: example_object
+                  branch_name: branch
                   file_path: /folder/file.json
                   repo_name: example_repository
                   commit_id: abcd123
@@ -989,7 +1017,7 @@ components:
                   updated: 1234567890
                   modules: CD
                   execution_summary:
-                    error_last_week:
+                    errors_count:
                       - 1
                       - 2
                       - 3
@@ -997,7 +1025,7 @@ components:
                       - 5
                       - 6
                       - 7
-                    deployments:
+                    deployments_count:
                       - 1
                       - 2
                       - 3
@@ -1019,8 +1047,8 @@ components:
                   connector_ref: example_connector
                   valid: true
                   git_details:
-                    object: example_object
-                    branch: branch
+                    entity_identifier: example_object
+                    branch_name: branch
                     file_path: /folder/file.json
                     repo_name: example_repository
                     commit_id: abcd123
@@ -1045,7 +1073,7 @@ components:
                   updated: 1234567890
                   modules: CD
                   execution_summary:
-                    error_last_week:
+                    errors_count:
                       - 1
                       - 2
                       - 3
@@ -1053,7 +1081,7 @@ components:
                       - 5
                       - 6
                       - 7
-                    deployments:
+                    deployments_count:
                       - 1
                       - 2
                       - 3
@@ -1075,8 +1103,8 @@ components:
                   connector_ref: example_connector
                   valid: true
                   git_details:
-                    object: example_object
-                    branch: branch
+                    entity_identifier: example_object
+                    branch_name: branch
                     file_path: /folder/file.json
                     repo_name: example_repository
                     commit_id: abcd123

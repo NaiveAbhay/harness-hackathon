@@ -25,16 +25,16 @@ import javax.validation.Valid;
 @Path("/v1/orgs/{org}/projects/{project}/pipelines")
 
 
-public interface PipelineResourceApi {
+public interface ProjectPipelinesApi {
 
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createPipeline", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
+    @Operation(operationId = "createPipelineProject", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response createPipeline(@Valid PipelineRequestBody body, @PathParam("org")
+    Response createPipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -43,9 +43,9 @@ public interface PipelineResourceApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("branch") 
+,  @QueryParam("branch_name") 
 
- @Parameter(description = "Name of the branch (for Git Experience).")  String branch
+ @Parameter(description = "Name of the branch (for Git Experience).")  String branchName
 ,  @QueryParam("file_path") 
 
  @Parameter(description = "File path of the Entity in the repository (for Git Experience).")  String filePath
@@ -70,11 +70,11 @@ public interface PipelineResourceApi {
 );
     @DELETE
     @Path("/{pipeline}")
-    @Operation(operationId = "deletePipeline", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
+    @Operation(operationId = "deletePipelineProject", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deletePipeline( @PathParam("org")
+    Response deletePipelineProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -90,11 +90,11 @@ public interface PipelineResourceApi {
     @GET
     @Path("/{pipeline}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getPipeline", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
+    @Operation(operationId = "getPipelineProject", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineGetResponseBody.class))) })
-    Response getPipeline( @PathParam("org")
+    Response getPipelineProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -106,20 +106,20 @@ public interface PipelineResourceApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("branch") 
+,  @QueryParam("branch_name") 
 
- @Parameter(description = "Name of the branch (for Git Experience).")  String branch
+ @Parameter(description = "Name of the branch (for Git Experience).")  String branchName
 ,  @QueryParam("template_applied") @DefaultValue("false") 
 
- @Parameter(description = "If true, returns Pipeline YAML with Templates resolved.")  Boolean templateApplied
+ @Parameter(description = "If true, returns Pipeline YAML with Templates applied on it.")  Boolean templateApplied
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "listPipelines", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
+    @Operation(operationId = "listPipelinesProject", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PipelineListResponseBody.class)))) })
-    Response listPipelines( @PathParam("org")
+    Response listPipelinesProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -178,11 +178,11 @@ public interface PipelineResourceApi {
     @Path("/{pipeline}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updatePipeline", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipeline Resource" })
+    @Operation(operationId = "updatePipelineProject", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response updatePipeline(@Valid PipelineRequestBody body, @PathParam("org")
+    Response updatePipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -194,9 +194,9 @@ public interface PipelineResourceApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("branch") 
+,  @QueryParam("branch_name") 
 
- @Parameter(description = "Name of the branch (for Git Experience).")  String branch
+ @Parameter(description = "Name of the branch (for Git Experience).")  String branchName
 ,  @QueryParam("commit_message") 
 
  @Parameter(description = "Commit message used for the merge commit (for Git Experience).")  String commitMessage
