@@ -1273,6 +1273,7 @@ components:
           type: boolean
         governance_metadata:
           type: object
+          description: Governance metadata information
       description: Secret response model
     ValidateSecretSlugResponse:
       title: ValidateSecretSlugResponse
@@ -1574,7 +1575,7 @@ components:
             sample:
               value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     ValidateSecretSlugResponse:
-      description: Example response
+      description: Validate secret slug response
       content:
         application/json:
           schema:

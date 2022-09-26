@@ -155,7 +155,7 @@ public interface AccountSecretApi {
     @Operation(operationId = "validateUniqueAccountScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates secret slug is unique", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Validate secret slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueAccountScopedSecretSlug( @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret

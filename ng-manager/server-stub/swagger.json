@@ -2460,7 +2460,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -2798,7 +2798,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3176,7 +3176,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Validate secret slug response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -3896,7 +3896,8 @@
             "type" : "boolean"
           },
           "governance_metadata" : {
-            "type" : "object"
+            "type" : "object",
+            "description" : "Governance metadata information"
           }
         },
         "description" : "Secret response model"
@@ -4225,7 +4226,7 @@
         }
       },
       "ValidateSecretSlugResponse" : {
-        "description" : "Example response",
+        "description" : "Validate secret slug response",
         "content" : {
           "application/json" : {
             "schema" : {

@@ -173,7 +173,7 @@ public interface OrgSecretApi {
     @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates org scoped secret slug is unique", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Validate secret slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueOrgScopedSecretSlug( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
