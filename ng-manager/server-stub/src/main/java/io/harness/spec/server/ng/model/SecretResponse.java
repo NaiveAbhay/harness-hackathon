@@ -106,6 +106,7 @@ public class SecretResponse   {
   }
 
   /**
+   * Governance metadata information
    **/
   public SecretResponse governanceMetadata(Object governanceMetadata) {
     this.governanceMetadata = governanceMetadata;
@@ -113,7 +114,7 @@ public class SecretResponse   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Governance metadata information")
   @JsonProperty("governance_metadata")
 
   public Object getGovernanceMetadata() {
