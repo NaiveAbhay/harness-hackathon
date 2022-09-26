@@ -14,7 +14,6 @@ x-tagGroups:
       - Organization
   - name: Project
     tags:
-      - Account Project
       - Org Project
   - name: Secret
     tags:
@@ -29,8 +28,6 @@ x-tagGroups:
 tags:
   - name: Organization
     description: Everything about organization
-  - name: Account Project
-    description: Everything about account scoped project
   - name: Org Project
     description: Everything about org scoped project
   - name: Account Secret
@@ -129,52 +126,6 @@ paths:
         - Organization
       parameters:
         - $ref: '#/components/parameters/AccountQueryParam'
-  /v1/projects:
-    post:
-      summary: Create a project
-      responses:
-        '201':
-          $ref: '#/components/responses/ProjectResponse'
-      operationId: create-account-scoped-project
-      security:
-        - x-api-key: []
-      description: Creates a new project
-      requestBody:
-        $ref: '#/components/requestBodies/CreateProjectRequest'
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-      tags:
-        - Account Project
-    get:
-      summary: List projects
-      responses:
-        '200':
-          $ref: '#/components/responses/ProjectListResponse'
-      operationId: get-account-scoped-projects
-      description: Retrieves the information of the projects.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgsQueryParam'
-        - $ref: '#/components/parameters/ProjectsQueryParam'
-        - schema:
-            type: boolean
-            default: true
-          in: query
-          name: has_module
-          description: This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not
-        - schema:
-            type: string
-          in: query
-          name: module_type
-          description: Project's module type
-        - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit'
-      tags:
-        - Account Project
-    parameters: []
   '/v1/orgs/{org}/projects':
     post:
       summary: Creates a project
@@ -221,55 +172,6 @@ paths:
         - Org Project
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
-  '/v1/projects/{project}':
-    get:
-      summary: Retrieve a project
-      responses:
-        '200':
-          $ref: '#/components/responses/ProjectResponse'
-      operationId: get-account-scoped-project
-      description: Retrieves the information of the project with the matching project slug.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-      tags:
-        - Account Project
-    put:
-      summary: Update a project
-      responses:
-        '200':
-          $ref: '#/components/responses/ProjectResponse'
-      operationId: update-account-scoped-project
-      description: Updates the information of the project with the matching project slug.
-      security:
-        - x-api-key: []
-      requestBody:
-        $ref: '#/components/requestBodies/UpdateProjectRequest'
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-      tags:
-        - Account Project
-    delete:
-      summary: Delete a project
-      responses:
-        '200':
-          $ref: '#/components/responses/ProjectResponse'
-      operationId: delete-account-scoped-project
-      description: Deletes the information of the project with the matching project slug.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-      tags:
-        - Account Project
-    parameters:
-      - schema:
-          type: string
-        name: project
-        in: path
-        required: true
-        description: Project slug
   '/v1/orgs/{org}/projects/{project}':
     get:
       summary: Retrieve a project
