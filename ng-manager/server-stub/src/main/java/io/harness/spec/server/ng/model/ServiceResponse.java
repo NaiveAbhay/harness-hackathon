@@ -61,7 +61,7 @@ public class ServiceResponse   {
   }
 
   /**
-   * Last modification timestamp for Resource Group.
+   * Last modification timestamp for Service.
    **/
   public ServiceResponse updated(Long updated) {
     this.updated = updated;
@@ -69,7 +69,7 @@ public class ServiceResponse   {
   }
 
   
-  @Schema(description = "Last modification timestamp for Resource Group.")
+  @Schema(description = "Last modification timestamp for Service.")
   @JsonProperty("updated")
 
   public Long getUpdated() {

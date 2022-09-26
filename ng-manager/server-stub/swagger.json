@@ -31,13 +31,13 @@
     "name" : "Project Secret",
     "description" : "Everything about project scoped secret"
   }, {
-    "name" : "Services",
+    "name" : "Project Services",
     "description" : "This contains APIs for performing CRUD operations on Services."
   } ],
   "paths" : {
     "/v1/orgs/{org}/projects/{project}/services/{service}" : {
       "get" : {
-        "tags" : [ "Services" ],
+        "tags" : [ "Project Services" ],
         "summary" : "Retrieve a Service",
         "description" : "Retrieves specified Service ",
         "operationId" : "get-service",
@@ -118,23 +118,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : {
-                      "service" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
-                        "tags" : {
-                          "example-tag-1" : "example-tag-1-value",
-                          "example-tag-2" : "example-tag-2-value"
-                        },
-                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -146,7 +130,7 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Services" ],
+        "tags" : [ "Project Services" ],
         "summary" : "Update Service",
         "description" : "Update Services",
         "operationId" : "update-service",
@@ -230,23 +214,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : {
-                      "service" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
-                        "tags" : {
-                          "example-tag-1" : "example-tag-1-value",
-                          "example-tag-2" : "example-tag-2-value"
-                        },
-                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -258,7 +226,7 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Services" ],
+        "tags" : [ "Project Services" ],
         "summary" : "Delete a Service",
         "description" : "Deletes the requested service",
         "operationId" : "delete-service",
@@ -339,23 +307,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : {
-                      "service" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
-                        "tags" : {
-                          "example-tag-1" : "example-tag-1-value",
-                          "example-tag-2" : "example-tag-2-value"
-                        },
-                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -369,7 +321,7 @@
     },
     "/v1/orgs/{org}/projects/{project}/services" : {
       "get" : {
-        "tags" : [ "Services" ],
+        "tags" : [ "Project Services" ],
         "summary" : "List Services",
         "description" : "Returns all services that the current user has view permissions for given project.",
         "operationId" : "get-services",
@@ -447,7 +399,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "name", "slug", "created", "updated", "description" ]
           }
         }, {
           "name" : "is_access_list",
@@ -551,26 +504,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : {
-                      "content" : [ {
-                        "service" : {
-                          "account" : "sample_account",
-                          "slug" : "example_service",
-                          "org" : "sample_organization",
-                          "project" : "sample_project",
-                          "name" : "Example_service",
-                          "description" : "This is a example service",
-                          "tags" : {
-                            "example-tag-1" : "example-tag-1-value",
-                            "example-tag-2" : "example-tag-2-value"
-                          },
-                          "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                        },
-                        "created" : 1234567890,
-                        "updated" : 1234567890
-                      } ],
-                      "empty" : true
-                    }
+                    "value" : "content:\n  - service:\n      account: sample_account\n      slug: example_service\n      org: sample_organization\n      project: sample_project\n      name: Example_service\n      description: This is a example service\n      tags:\n        example-tag-1: example-tag-1-value\n        example-tag-2: example-tag-2-value\n      yaml: |\n        service:\n          name: \"Example_service\"\n          identifier: \"example_service\"\n          tags: {}\n    created: 1234567890\n    updated: 1234567890\nempty: true\n"
                   }
                 }
               }
@@ -582,7 +516,7 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Services" ],
+        "tags" : [ "Project Services" ],
         "summary" : "Create a Service",
         "description" : "Creates a Service",
         "operationId" : "create-service",
@@ -656,23 +590,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : {
-                      "service" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
-                        "tags" : {
-                          "example-tag-1" : "example-tag-1-value",
-                          "example-tag-2" : "example-tag-2-value"
-                        },
-                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                      },
-                      "created" : 1234567890,
-                      "updated" : 1234567890
-                    }
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -3952,7 +3870,7 @@
           },
           "updated" : {
             "type" : "integer",
-            "description" : "Last modification timestamp for Resource Group.",
+            "description" : "Last modification timestamp for Service.",
             "format" : "int64"
           }
         },
@@ -4025,14 +3943,14 @@
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Identifier of the Service Request"
+            "description" : "Identifier of the Service"
           },
           "name" : {
             "maxLength" : 64,
             "minLength" : 1,
             "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string",
-            "description" : "Name of the Service Request"
+            "description" : "Name of the Service"
           },
           "description" : {
             "maxLength" : 1024,
@@ -4816,26 +4734,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : {
-                  "content" : [ {
-                    "service" : {
-                      "account" : "sample_account",
-                      "slug" : "example_service",
-                      "org" : "sample_organization",
-                      "project" : "sample_project",
-                      "name" : "Example_service",
-                      "description" : "This is a example service",
-                      "tags" : {
-                        "example-tag-1" : "example-tag-1-value",
-                        "example-tag-2" : "example-tag-2-value"
-                      },
-                      "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                    },
-                    "created" : 1234567890,
-                    "updated" : 1234567890
-                  } ],
-                  "empty" : true
-                }
+                "value" : "content:\n  - service:\n      account: sample_account\n      slug: example_service\n      org: sample_organization\n      project: sample_project\n      name: Example_service\n      description: This is a example service\n      tags:\n        example-tag-1: example-tag-1-value\n        example-tag-2: example-tag-2-value\n      yaml: |\n        service:\n          name: \"Example_service\"\n          identifier: \"example_service\"\n          tags: {}\n    created: 1234567890\n    updated: 1234567890\nempty: true\n"
               }
             }
           }
@@ -4876,23 +4775,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : {
-                  "service" : {
-                    "account" : "sample_account",
-                    "slug" : "example_service",
-                    "org" : "sample_organization",
-                    "project" : "sample_project",
-                    "name" : "Example_service",
-                    "description" : "This is a example service",
-                    "tags" : {
-                      "example-tag-1" : "example-tag-1-value",
-                      "example-tag-2" : "example-tag-2-value"
-                    },
-                    "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                  },
-                  "created" : 1234567890,
-                  "updated" : 1234567890
-                }
+                "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -5402,7 +5285,8 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "enum" : [ "name", "slug", "created", "updated", "description" ]
         }
       },
       "AccountHeaderParam" : {
@@ -5458,16 +5342,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : {
-                  "slug" : "example_service",
-                  "name" : "Example_service",
-                  "description" : "This is a example service",
-                  "tags" : {
-                    "example-tag-1" : "example-tag-1-value",
-                    "example-tag-2" : "example-tag-2-value"
-                  },
-                  "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-                }
+                "value" : "slug: example_service\nname: Example_service\ndescription: This is a example service\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  service:\n    name: \"Example_service\"\n    identifier: \"example_service\"\n    tags: {}\n"
               }
             }
           }
@@ -5937,6 +5812,6 @@
     "tags" : [ "Account Secret", "Org Secret", "Project Secret" ]
   }, {
     "name" : "Services",
-    "tags" : [ "Services" ]
+    "tags" : [ "Project Services" ]
   } ]
 }

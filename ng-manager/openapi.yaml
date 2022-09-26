@@ -23,7 +23,7 @@ x-tagGroups:
       - Project Secret
   - name: Services
     tags:
-      - Services
+      - Project Services
 tags:
   - name: Organization
     description: Everything about organization
@@ -37,7 +37,7 @@ tags:
     description: Everything about org scoped secret
   - name: Project Secret
     description: Everything about project scoped secret
-  - name: Services
+  - name: Project Services
     description: This contains APIs for performing CRUD operations on Services.
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
@@ -53,7 +53,7 @@ paths:
         '200':
           $ref: '#/components/responses/ServiceResponse'
       tags:
-        - Services
+        - Project Services
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -69,10 +69,10 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/ServiceRequest'
       description: Update Services
-      tags:
-        - Services
       security:
         - x-api-key: []
+      tags:
+        - Project Services
     delete:
       summary: Delete a Service
       operationId: delete-service
@@ -82,10 +82,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
       description: Deletes the requested service
-      tags:
-        - Services
       security:
         - x-api-key: []
+      tags:
+        - Project Services
   '/v1/orgs/{org}/projects/{project}/services':
     get:
       summary: List Services
@@ -127,7 +127,7 @@ paths:
         - x-api-key: []
       description: Returns all services that the current user has view permissions for given project.
       tags:
-        - Services
+        - Project Services
     post:
       summary: Create a Service
       operationId: create-service
@@ -139,10 +139,10 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/ServiceRequest'
       description: Creates a Service
-      tags:
-        - Services
       security:
         - x-api-key: []
+      tags:
+        - Project Services
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -906,7 +906,7 @@ components:
         updated:
           type: integer
           format: int64
-          description: Last modification timestamp for Resource Group.
+          description: Last modification timestamp for Service.
     ServiceListResponse:
       type: object
       x-examples:
@@ -959,13 +959,13 @@ components:
       properties:
         slug:
           type: string
-          description: Identifier of the Service Request
+          description: Identifier of the Service
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
         name:
           type: string
-          description: Name of the Service Request
+          description: Name of the Service
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
@@ -1610,7 +1610,7 @@ components:
             $ref: '#/components/schemas/ServiceListResponse'
           examples:
             example-1:
-              value:
+              value: |
                 content:
                   - service:
                       account: sample_account
@@ -1666,7 +1666,7 @@ components:
             $ref: '#/components/schemas/ServiceResponse'
           examples:
             example-1:
-              value:
+              value: |
                 service:
                   account: sample_account
                   slug: example_service
@@ -2012,7 +2012,7 @@ components:
             $ref: '#/components/schemas/ServiceRequest'
           examples:
             example-1:
-              value:
+              value: |
                 slug: example_service
                 name: Example_service
                 description: This is a example service
@@ -2613,6 +2613,12 @@ components:
       required: false
       schema:
         type: string
+        enum:
+          - name
+          - slug
+          - created
+          - updated
+          - description
       description: Parameter on the basis of which sorting is done.
     AccountHeaderParam:
       name: harness_account

@@ -24,13 +24,13 @@ import javax.validation.Valid;
 @Path("/v1/orgs/{org}/projects/{project}/services")
 
 
-public interface ServicesApi {
+public interface ProjectServicesApi {
 
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createService", summary = "Create a Service", description = "Creates a Service", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceResponse.class))) })
     Response createService(@Valid ServiceRequest body, @PathParam("org")
@@ -47,7 +47,7 @@ public interface ServicesApi {
     @Path("/{service}")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "deleteService", summary = "Delete a Service", description = "Deletes the requested service", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceResponse.class))) })
     Response deleteService( @PathParam("org")
@@ -67,7 +67,7 @@ public interface ServicesApi {
     @Path("/{service}")
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getService", summary = "Retrieve a Service", description = "Retrieves specified Service ", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceResponse.class))) })
     Response getService( @PathParam("org")
@@ -86,7 +86,7 @@ public interface ServicesApi {
     @GET
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getServices", summary = "List Services", description = "Returns all services that the current user has view permissions for given project.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceListResponse.class))) })
     Response getServices( @PathParam("org")
@@ -131,7 +131,7 @@ public interface ServicesApi {
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateService", summary = "Update Service", description = "Update Services", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Services" })
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceResponse.class))) })
     Response updateService(@Valid ServiceRequest body, @PathParam("org")

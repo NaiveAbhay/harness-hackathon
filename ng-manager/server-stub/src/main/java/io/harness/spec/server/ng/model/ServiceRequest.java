@@ -30,7 +30,7 @@ public class ServiceRequest   {
   private @Valid String yaml = null;
 
   /**
-   * Identifier of the Service Request
+   * Identifier of the Service
    **/
   public ServiceRequest slug(String slug) {
     this.slug = slug;
@@ -38,7 +38,7 @@ public class ServiceRequest   {
   }
 
   
-  @Schema(required = true, description = "Identifier of the Service Request")
+  @Schema(required = true, description = "Identifier of the Service")
   @JsonProperty("slug")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
@@ -50,7 +50,7 @@ public class ServiceRequest   {
   }
 
   /**
-   * Name of the Service Request
+   * Name of the Service
    **/
   public ServiceRequest name(String name) {
     this.name = name;
@@ -58,7 +58,7 @@ public class ServiceRequest   {
   }
 
   
-  @Schema(required = true, description = "Name of the Service Request")
+  @Schema(required = true, description = "Name of the Service")
   @JsonProperty("name")
   @NotNull
  @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
