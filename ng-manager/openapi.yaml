@@ -1658,6 +1658,35 @@ components:
         code:
           type: integer
           description: Test connection error code
+    ConnectorConnectivityDetail:
+      title: ConnectorConnectivityDetail
+      type: object
+      description: This has details of the connectivity status of the Connector.
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - PARTIAL
+            - FAILURE
+            - UNKNOWN
+          description: Connectivity status of a Connector
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConnectorTestConnectionErrorDetail'
+          description: List of errors and their details
+        error_summary:
+          type: string
+          description: Summary of errors
+        tested_at:
+          type: integer
+          format: int64
+          description: Time at which Test Connection was completed
+        connected_at:
+          type: integer
+          format: int64
+          description: This is the last time at which the Connector was successfully connected
     ConnectorTestConnectionResponse:
       title: ConnectorTestConnectionResponse
       type: object
@@ -1700,6 +1729,8 @@ components:
           type: integer
           format: int64
           description: Updated timestamp for the connector
+        status:
+          $ref: '#/components/schemas/ConnectorConnectivityDetail'
         harness_managed:
           type: boolean
           description: 'This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector.'

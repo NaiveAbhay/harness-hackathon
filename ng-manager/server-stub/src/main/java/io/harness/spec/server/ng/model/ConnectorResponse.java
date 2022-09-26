@@ -1,6 +1,7 @@
 package io.harness.spec.server.ng.model;
 
 import io.harness.spec.server.ng.model.Connector;
+import io.harness.spec.server.ng.model.ConnectorConnectivityDetail;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -26,6 +27,8 @@ public class ConnectorResponse   {
   private @Valid Long created = null;
 
   private @Valid Long updated = null;
+
+  private @Valid ConnectorConnectivityDetail status = null;
 
   private @Valid Boolean harnessManaged = null;
 
@@ -88,6 +91,24 @@ public class ConnectorResponse   {
   }
 
   /**
+   **/
+  public ConnectorResponse status(ConnectorConnectivityDetail status) {
+    this.status = status;
+    return this;
+  }
+
+  
+  @Schema(description = "")
+  @JsonProperty("status")
+
+  public ConnectorConnectivityDetail getStatus() {
+    return status;
+  }
+  public void setStatus(ConnectorConnectivityDetail status) {
+    this.status = status;
+  }
+
+  /**
    * This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector.
    **/
   public ConnectorResponse harnessManaged(Boolean harnessManaged) {
@@ -138,13 +159,14 @@ public class ConnectorResponse   {
     return Objects.equals(connector, connectorResponse.connector) &&
         Objects.equals(created, connectorResponse.created) &&
         Objects.equals(updated, connectorResponse.updated) &&
+        Objects.equals(status, connectorResponse.status) &&
         Objects.equals(harnessManaged, connectorResponse.harnessManaged) &&
         Objects.equals(governanceMetadata, connectorResponse.governanceMetadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connector, created, updated, harnessManaged, governanceMetadata);
+    return Objects.hash(connector, created, updated, status, harnessManaged, governanceMetadata);
   }
 
   @Override
@@ -155,6 +177,7 @@ public class ConnectorResponse   {
     sb.append("    connector: ").append(toIndentedString(connector)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    harnessManaged: ").append(toIndentedString(harnessManaged)).append("\n");
     sb.append("    governanceMetadata: ").append(toIndentedString(governanceMetadata)).append("\n");
     sb.append("}");

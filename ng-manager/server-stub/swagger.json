@@ -5624,6 +5624,39 @@
         },
         "description" : "Connector test connection errors and their details."
       },
+      "ConnectorConnectivityDetail" : {
+        "title" : "ConnectorConnectivityDetail",
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Connectivity status of a Connector",
+            "enum" : [ "SUCCESS", "PARTIAL", "FAILURE", "UNKNOWN" ]
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "List of errors and their details",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionErrorDetail"
+            }
+          },
+          "error_summary" : {
+            "type" : "string",
+            "description" : "Summary of errors"
+          },
+          "tested_at" : {
+            "type" : "integer",
+            "description" : "Time at which Test Connection was completed",
+            "format" : "int64"
+          },
+          "connected_at" : {
+            "type" : "integer",
+            "description" : "This is the last time at which the Connector was successfully connected",
+            "format" : "int64"
+          }
+        },
+        "description" : "This has details of the connectivity status of the Connector."
+      },
       "ConnectorTestConnectionResponse" : {
         "title" : "ConnectorTestConnectionResponse",
         "type" : "object",
@@ -5671,6 +5704,9 @@
             "type" : "integer",
             "description" : "Updated timestamp for the connector",
             "format" : "int64"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/ConnectorConnectivityDetail"
           },
           "harness_managed" : {
             "type" : "boolean",
