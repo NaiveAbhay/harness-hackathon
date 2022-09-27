@@ -1,33 +1,28 @@
 package io.harness.spec.server.ng;
 
+import java.io.File;
 import io.harness.spec.server.ng.model.SecretRequest;
 import io.harness.spec.server.ng.model.SecretResponse;
 import io.harness.spec.server.ng.model.ValidateSecretSlugResponse;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 
-import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.HEAD;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import java.io.InputStream;
+import java.util.Map;
 import java.util.List;
+import java.io.InputStream;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 @Path("/v1/orgs/{org}/projects/{project}/secrets")
 
@@ -196,7 +191,7 @@ public interface ProjectSecretApi {
     @Operation(operationId = "validateUniqueProjectScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates project scoped secret slug is unique", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Validate secret slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
     Response validateUniqueProjectScopedSecretSlug( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org

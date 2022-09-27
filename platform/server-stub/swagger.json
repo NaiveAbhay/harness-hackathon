@@ -21,6 +21,9 @@
   }, {
     "name" : "Project Resource Groups",
     "description" : "This contains APIs for performing CRUD operations on Project level Resource Groups."
+  }, {
+    "name" : "Filter Resource Groups",
+    "description" : "This contains the filter endpoint for Resource Groups."
   } ],
   "paths" : {
     "/v1/resource-groups" : {
@@ -30,16 +33,6 @@
         "description" : "Returns a list of Resource Groups present in the Account scope.",
         "operationId" : "list-resource-groups-acc",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "page",
           "in" : "query",
           "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
@@ -73,44 +66,35 @@
             "type" : "string"
           }
         }, {
-          "name" : "identifier_filter",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
           "in" : "query",
-          "description" : "Filter by Resource Group Identifiers",
+          "description" : "Parameter on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
+            "type" : "string"
           }
         }, {
-          "name" : "managed_filter",
+          "name" : "order",
           "in" : "query",
-          "description" : "Filter by Harness managed or not",
+          "description" : "Order on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
-          }
-        }, {
-          "name" : "resource_selector_filter",
-          "in" : "query",
-          "description" : "Filter by whether the Resource Group has a particular Resource.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "example" : "type=resource,slug=example_resource",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -199,12 +183,12 @@
         "description" : "Creates a custom Resource Group in the Account scope.",
         "operationId" : "create-resource-group-acc",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -287,12 +271,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -371,12 +355,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -457,12 +441,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -542,16 +526,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "page",
           "in" : "query",
           "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
@@ -585,44 +559,35 @@
             "type" : "string"
           }
         }, {
-          "name" : "identifier_filter",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
           "in" : "query",
-          "description" : "Filter by Resource Group Identifiers",
+          "description" : "Parameter on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
+            "type" : "string"
           }
         }, {
-          "name" : "managed_filter",
+          "name" : "order",
           "in" : "query",
-          "description" : "Filter by Harness managed or not",
+          "description" : "Order on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
-          }
-        }, {
-          "name" : "resource_selector_filter",
-          "in" : "query",
-          "description" : "Filter by whether the Resource Group has a particular Resource.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "example" : "type=resource,slug=example_resource",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -721,12 +686,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -819,12 +784,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -912,12 +877,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1008,12 +973,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1103,16 +1068,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "page",
           "in" : "query",
           "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
@@ -1146,44 +1101,35 @@
             "type" : "string"
           }
         }, {
-          "name" : "identifier_filter",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
           "in" : "query",
-          "description" : "Filter by Resource Group Identifiers",
+          "description" : "Parameter on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
+            "type" : "string"
           }
         }, {
-          "name" : "managed_filter",
+          "name" : "order",
           "in" : "query",
-          "description" : "Filter by Harness managed or not",
+          "description" : "Order on the basis of which sorting is done.",
           "required" : false,
           "style" : "form",
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
-          }
-        }, {
-          "name" : "resource_selector_filter",
-          "in" : "query",
-          "description" : "Filter by whether the Resource Group has a particular Resource.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "uniqueItems" : true,
-            "type" : "array",
-            "example" : "type=resource,slug=example_resource",
-            "items" : {
-              "$ref" : "#/components/schemas/ResourceSelectorFilter"
-            }
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -1292,12 +1238,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1400,12 +1346,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1503,12 +1449,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1609,12 +1555,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
+          "name" : "Harness-Account",
+          "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1666,6 +1612,151 @@
                 "examples" : {
                   "resource-group-response" : {
                     "value" : "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/resource-groups/filter" : {
+      "post" : {
+        "tags" : [ "Filter Resource Groups" ],
+        "summary" : "Filter Resource Groups",
+        "description" : "Returns a list of Resource Groups based on filter criteria.",
+        "operationId" : "filter-resource-groups",
+        "parameters" : [ {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/FilterResourceGroupRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Resource Groups List response body",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "List of Resource Groups",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                  }
+                },
+                "examples" : {
+                  "resource-group-list-response" : {
+                    "value" : [ {
+                      "slug" : "example_resource_group",
+                      "name" : "Example Resource Group",
+                      "color" : "#0063F7",
+                      "tags" : {
+                        "example-tag-1" : "example-tag-1-value",
+                        "example-tag-2" : "example-tag-2-value"
+                      },
+                      "description" : "This is an Example Resource Group",
+                      "allowed_scope_levels" : [ "account" ],
+                      "included_scope" : [ {
+                        "filter" : "EXCLUDING_CHILD_SCOPES",
+                        "account" : "sample_account",
+                        "org" : "sample_organization",
+                        "project" : "sample_project"
+                      } ],
+                      "resource_filter" : [ {
+                        "resource_type" : "resource",
+                        "identifiers" : [ "example_resource" ],
+                        "attribute_name" : "resource_attribute",
+                        "attribute_values" : [ "example_resource_attribute" ]
+                      } ],
+                      "include_all_resources" : false,
+                      "harness_managed" : true,
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "description" : "List of Resource Groups",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ResourceGroupsResponse"
+                  }
+                },
+                "examples" : {
+                  "resource-group-list-response" : {
+                    "value" : "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -1993,6 +2084,79 @@
             "resource_slug" : "example_resource"
           }
         }
+      },
+      "ResourceGroupFilterRequestBody" : {
+        "title" : "Resource Group Filter Request Body",
+        "type" : "object",
+        "properties" : {
+          "account" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Filter by Account identifier."
+          },
+          "org" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Filter by Organization identifier."
+          },
+          "project" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Filter by Project identifier."
+          },
+          "search_term" : {
+            "type" : "string",
+            "description" : "Filter Resource Group matching by identifier/name."
+          },
+          "identifier_filter" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Filter by Resource Group identifiers",
+            "items" : {
+              "maxLength" : 64,
+              "minLength" : 1,
+              "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+              "type" : "string"
+            }
+          },
+          "resource_selector_filter" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "description" : "Filter based on whether it has a particular Resource.",
+            "items" : {
+              "$ref" : "#/components/schemas/ResourceSelectorFilter"
+            }
+          },
+          "managed_filter" : {
+            "type" : "string",
+            "description" : "Filter based on whether the Resource Group is Harness Managed.",
+            "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
+          }
+        },
+        "description" : "Filter request body for Resource Groups.",
+        "x-stoplight" : {
+          "id" : "bzgvkhevpa4rq"
+        },
+        "x-examples" : {
+          "example-filter" : {
+            "account" : "example_account",
+            "org" : "example_organization",
+            "project" : "example_project",
+            "search_term" : "search",
+            "identifier_filter" : [ "example_resource_group" ],
+            "resource_selector_filter" : [ {
+              "resource_type" : "RESOURCE",
+              "resource_slug" : "example_resource"
+            } ],
+            "managed_filter" : "NO_FILTER"
+          }
+        }
       }
     },
     "responses" : {
@@ -2123,17 +2287,6 @@
       }
     },
     "parameters" : {
-      "AccountParam" : {
-        "name" : "account",
-        "in" : "query",
-        "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
       "Limit" : {
         "name" : "limit",
         "in" : "query",
@@ -2203,47 +2356,38 @@
           "type" : "string"
         }
       },
-      "IdentifierFilter" : {
-        "name" : "identifier_filter",
+      "AccountHeader" : {
+        "name" : "Harness-Account",
+        "in" : "header",
+        "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+        "required" : false,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "Sort" : {
+        "name" : "sort",
         "in" : "query",
-        "description" : "Filter by Resource Group Identifiers",
+        "description" : "Parameter on the basis of which sorting is done.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "uniqueItems" : true,
-          "type" : "array",
-          "items" : {
-            "type" : "string"
-          }
+          "type" : "string"
         }
       },
-      "ManagedFilter" : {
-        "name" : "managed_filter",
+      "Order" : {
+        "name" : "order",
         "in" : "query",
-        "description" : "Filter by Harness managed or not",
+        "description" : "Order on the basis of which sorting is done.",
         "required" : false,
         "style" : "form",
         "explode" : true,
         "schema" : {
           "type" : "string",
-          "enum" : [ "NO_FILTER", "ONLY_MANAGED", "ONLY_CUSTOM" ]
-        }
-      },
-      "ResourceSelectorFilter" : {
-        "name" : "resource_selector_filter",
-        "in" : "query",
-        "description" : "Filter by whether the Resource Group has a particular Resource.",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "uniqueItems" : true,
-          "type" : "array",
-          "example" : "type=resource,slug=example_resource",
-          "items" : {
-            "$ref" : "#/components/schemas/ResourceSelectorFilter"
-          }
+          "enum" : [ "ASC", "DESC" ]
         }
       }
     },
@@ -2295,6 +2439,43 @@
           }
         },
         "required" : true
+      },
+      "FilterResourceGroupRequest" : {
+        "description" : "Filter Resource Group request body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResourceGroupFilterRequestBody"
+            },
+            "examples" : {
+              "example-filter" : {
+                "value" : {
+                  "account" : "example_account",
+                  "org" : "example_organization",
+                  "project" : "example_project",
+                  "search_term" : "search",
+                  "identifier_filter" : [ "example_resource_group" ],
+                  "resource_selector_filter" : [ {
+                    "resource_type" : "RESOURCE",
+                    "resource_slug" : "example_resource"
+                  } ],
+                  "managed_filter" : "NO_FILTER"
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ResourceGroupFilterRequestBody"
+            },
+            "examples" : {
+              "example-filter" : {
+                "value" : "account: example_account\norg: example_organization\nproject: example_project\nsearch_term: search\nidentifier_filter:\n  - example_resource_group\nresource_selector_filter:\n  - resource_type: RESOURCE\n    resource_slug: example_resource\nmanaged_filter: NO_FILTER\n"
+              }
+            }
+          }
+        },
+        "required" : true
       }
     },
     "securitySchemes" : {
@@ -2310,6 +2491,6 @@
   },
   "x-tagGroups" : [ {
     "name" : "Resource Groups",
-    "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups" ]
+    "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups", "Filter Resource Groups" ]
   } ]
 }

@@ -2,7 +2,6 @@ package io.harness.spec.server.platform;
 
 import io.harness.spec.server.platform.model.CreateResourceGroupRequest;
 import io.harness.spec.server.platform.model.ResourceGroupsResponse;
-import io.harness.spec.server.platform.model.ResourceSelectorFilter;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -39,9 +38,9 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{resource-group}")
@@ -59,9 +58,9 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{resource-group}")
@@ -79,9 +78,9 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -95,9 +94,6 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 ,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.")  Integer page
@@ -107,15 +103,15 @@ public interface ProjectResourceGroupsApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
-,  @QueryParam("identifier_filter") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Filter by Resource Group Identifiers")  List<String> identifierFilter
-,  @QueryParam("managed_filter") 
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+,  @QueryParam("sort") 
 
- @Parameter(description = "Filter by Harness managed or not")  String managedFilter
-,  @QueryParam("resource_selector_filter") 
+ @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
+,  @QueryParam("order") 
 
- @Parameter(description = "Filter by whether the Resource Group has a particular Resource.")  List<ResourceSelectorFilter> resourceSelectorFilter
+ @Parameter(description = "Order on the basis of which sorting is done.")  String order
 );
     @PUT
     @Path("/{resource-group}")
@@ -134,7 +130,7 @@ public interface ProjectResourceGroupsApi {
 , @PathParam("resource-group")
 
  @Parameter(description = "Resource Group identifier") String resourceGroup
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}

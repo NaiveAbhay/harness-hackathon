@@ -1,10 +1,19 @@
 package io.harness.spec.server.ng.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import io.harness.spec.server.ng.model.Secret;
 import io.swagger.v3.oas.annotations.media.Schema;
-
+import javax.validation.constraints.*;
 import javax.validation.Valid;
+
+/**
+ * Secret response model
+ **/
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
@@ -97,6 +106,7 @@ public class SecretResponse   {
   }
 
   /**
+   * Governance metadata information
    **/
   public SecretResponse governanceMetadata(Object governanceMetadata) {
     this.governanceMetadata = governanceMetadata;
@@ -104,7 +114,7 @@ public class SecretResponse   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Governance metadata information")
   @JsonProperty("governance_metadata")
 
   public Object getGovernanceMetadata() {

@@ -17,12 +17,15 @@ tags:
     description: This contains APIs for performing CRUD operations on Organization level Resource Groups.
   - name: Project Resource Groups
     description: This contains APIs for performing CRUD operations on Project level Resource Groups.
+  - name: Filter Resource Groups
+    description: This contains the filter endpoint for Resource Groups.
 x-tagGroups:
   - name: Resource Groups
     tags:
       - Account Resource Groups
       - Organization Resource Groups
       - Project Resource Groups
+      - Filter Resource Groups
 paths:
   /v1/resource-groups:
     parameters: []
@@ -33,13 +36,12 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceSelectorFilter'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsListResponse'
@@ -50,7 +52,7 @@ paths:
       operationId: create-resource-group-acc
       description: Creates a custom Resource Group in the Account scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       tags:
@@ -70,7 +72,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Resource Groups
       responses:
@@ -87,7 +89,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Resource Groups
       requestBody:
@@ -102,7 +104,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Resource Groups
   '/v1/orgs/{org}/resource-groups':
@@ -120,13 +122,12 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceSelectorFilter'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
     post:
       summary: Create a Resource Group
       operationId: create-resource-group-org
@@ -134,7 +135,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Organization Resource Groups
       requestBody:
@@ -153,7 +154,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Organization Resource Groups
       responses:
@@ -169,7 +170,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateResourceGroupRequest'
       tags:
@@ -182,7 +183,7 @@ paths:
           $ref: '#/components/responses/ResourceGroupsResponse'
       description: Deletes a custom Resource Group from Organization scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       tags:
@@ -199,13 +200,12 @@ paths:
       operationId: list-resource-groups-project
       description: Returns a list of Resource Groups present in the Project scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/IdentifierFilter'
-        - $ref: '#/components/parameters/ManagedFilter'
-        - $ref: '#/components/parameters/ResourceSelectorFilter'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       tags:
@@ -217,7 +217,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Resource Groups
       requestBody:
@@ -237,7 +237,7 @@ paths:
         - x-api-key: []
       description: Retrieves a Resource Group from Project scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Resource Groups
       responses:
@@ -257,7 +257,7 @@ paths:
       tags:
         - Project Resource Groups
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
     delete:
       summary: Delete a Resource Group
       operationId: delete-resource-group-project
@@ -268,9 +268,30 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Resource Groups
+  /v1/resource-groups/filter:
+    parameters: []
+    post:
+      summary: Filter Resource Groups
+      operationId: filter-resource-groups
+      responses:
+        '200':
+          $ref: '#/components/responses/ResourceGroupsListResponse'
+      description: Returns a list of Resource Groups based on filter criteria.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      tags:
+        - Filter Resource Groups
+      requestBody:
+        $ref: '#/components/requestBodies/FilterResourceGroupRequest'
 components:
   schemas:
     ResourceGroupsResponse:
@@ -536,19 +557,74 @@ components:
           maxLength: 64
       required:
         - resource_type
+    ResourceGroupFilterRequestBody:
+      title: Resource Group Filter Request Body
+      x-stoplight:
+        id: bzgvkhevpa4rq
+      type: object
+      description: Filter request body for Resource Groups.
+      x-examples:
+        example-filter:
+          account: example_account
+          org: example_organization
+          project: example_project
+          search_term: search
+          identifier_filter:
+            - example_resource_group
+          resource_selector_filter:
+            - resource_type: RESOURCE
+              resource_slug: example_resource
+          managed_filter: NO_FILTER
+      properties:
+        account:
+          type: string
+          description: Filter by Account identifier.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        org:
+          type: string
+          description: Filter by Organization identifier.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        project:
+          type: string
+          description: Filter by Project identifier.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        search_term:
+          type: string
+          description: Filter Resource Group matching by identifier/name.
+        identifier_filter:
+          type: array
+          description: Filter by Resource Group identifiers
+          uniqueItems: true
+          items:
+            type: string
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            minLength: 1
+            maxLength: 64
+        resource_selector_filter:
+          type: array
+          description: Filter based on whether it has a particular Resource.
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ResourceSelectorFilter'
+        managed_filter:
+          type: string
+          description: Filter based on whether the Resource Group is Harness Managed.
+          enum:
+            - NO_FILTER
+            - ONLY_MANAGED
+            - ONLY_CUSTOM
   securitySchemes:
     x-api-key:
       name: x-api-key
       type: apiKey
       in: header
   parameters:
-    AccountParam:
-      name: account
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     Limit:
       name: limit
       in: query
@@ -594,37 +670,30 @@ components:
       schema:
         type: string
       description: Resource Group identifier
-    IdentifierFilter:
-      name: identifier_filter
+    AccountHeader:
+      name: Harness-Account
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
+    Sort:
+      name: sort
       in: query
       required: false
       schema:
-        type: array
-        uniqueItems: true
-        items:
-          type: string
-      description: Filter by Resource Group Identifiers
-    ManagedFilter:
-      name: managed_filter
+        type: string
+      description: Parameter on the basis of which sorting is done.
+    Order:
+      name: order
       in: query
+      required: false
       schema:
         type: string
         enum:
-          - NO_FILTER
-          - ONLY_MANAGED
-          - ONLY_CUSTOM
-      description: Filter by Harness managed or not
-    ResourceSelectorFilter:
-      name: resource_selector_filter
-      in: query
-      required: false
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          $ref: '#/components/schemas/ResourceSelectorFilter'
-        example: 'type=resource,slug=example_resource'
-      description: Filter by whether the Resource Group has a particular Resource.
+          - ASC
+          - DESC
+      description: Order on the basis of which sorting is done.
   responses:
     ResourceGroupsListResponse:
       description: Resource Groups List response body
@@ -826,4 +895,40 @@ components:
                       - example_resource_attribute
                 include_all: false
       description: Resource Group request body
+      required: true
+    FilterResourceGroupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceGroupFilterRequestBody'
+          examples:
+            example-filter:
+              value:
+                account: example_account
+                org: example_organization
+                project: example_project
+                search_term: search
+                identifier_filter:
+                  - example_resource_group
+                resource_selector_filter:
+                  - resource_type: RESOURCE
+                    resource_slug: example_resource
+                managed_filter: NO_FILTER
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ResourceGroupFilterRequestBody'
+          examples:
+            example-filter:
+              value: |
+                account: example_account
+                org: example_organization
+                project: example_project
+                search_term: search
+                identifier_filter:
+                  - example_resource_group
+                resource_selector_filter:
+                  - resource_type: RESOURCE
+                    resource_slug: example_resource
+                managed_filter: NO_FILTER
+      description: Filter Resource Group request body
       required: true
