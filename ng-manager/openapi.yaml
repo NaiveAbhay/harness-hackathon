@@ -215,8 +215,8 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Creates a new secret
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       requestBody:
@@ -231,9 +231,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
-        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -268,6 +265,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       security:
@@ -285,8 +283,8 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Secret
       security:
@@ -299,8 +297,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -335,6 +331,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Secret
       security:
@@ -353,8 +350,8 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Secret
       security:
@@ -367,7 +364,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
             type: array
             items:
@@ -402,6 +398,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Secret
       security:
@@ -422,7 +419,7 @@ paths:
       operationId: get-account-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       security:
@@ -437,7 +434,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -448,7 +445,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       requestBody:
@@ -460,12 +457,12 @@ paths:
       operationId: validate-unique-account-scoped-secret-slug
       responses:
         '200':
-          description: "This specifies slug is already taken for the scope"
+          description: This specifies slug is already taken for the scope
       description: Validates secret slug is unique
       tags:
         - Account Secret
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
   '/v1/orgs/{org}/secrets/{secret}':
@@ -487,7 +484,7 @@ paths:
       operationId: get-org-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     delete:
@@ -500,7 +497,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -511,7 +508,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
@@ -523,12 +520,12 @@ paths:
       operationId: validate-unique-org-scoped-secret-slug
       responses:
         '200':
-          description: "This specifies slug is already taken for the scope"
+          description: This specifies slug is already taken for the scope
       description: Validates org scoped secret slug is unique
       tags:
         - Org Secret
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/secrets/{secret}':
@@ -551,7 +548,7 @@ paths:
       operationId: get-project-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     delete:
@@ -564,7 +561,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -575,7 +572,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
@@ -587,12 +584,12 @@ paths:
       operationId: validate-unique-project-scoped-secret-slug
       responses:
         '200':
-          description: "This specifies slug is already taken for the scope"
+          description: This specifies slug is already taken for the scope
       description: Validates project scoped secret slug is unique
       tags:
         - Project Secret
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
 components:
@@ -1995,6 +1992,13 @@ components:
       schema:
         type: string
       description: Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.
+    AccountHeader:
+      name: Harness-Account
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     OrgsQueryParam:
       name: org
       in: query
