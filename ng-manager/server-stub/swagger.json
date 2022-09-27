@@ -3407,7 +3407,7 @@
         }
       },
       "ServiceResponse" : {
-        "title" : "Default Response",
+        "title" : "ServiceResponse",
         "type" : "object",
         "properties" : {
           "service" : {
@@ -3446,7 +3446,7 @@
         }
       },
       "ServiceRequest" : {
-        "title" : "Request Body",
+        "title" : "ServiceRequest",
         "required" : [ "name", "slug" ],
         "type" : "object",
         "properties" : {
@@ -3482,7 +3482,7 @@
             "description" : "YAML for the Service Request"
           }
         },
-        "description" : "General Request Body ",
+        "description" : "Service Request Body ",
         "x-examples" : {
           "example-1" : {
             "slug" : "example_service",

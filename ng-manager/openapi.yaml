@@ -797,7 +797,7 @@ components:
           created: 1234567890
           updated: 1234567890
       description: Default response when a service is returned
-      title: Default Response
+      title: ServiceResponse
       properties:
         service:
           $ref: '#/components/schemas/Service'
@@ -824,8 +824,8 @@ components:
               name: "Example_service"
               identifier: "example_service"
               tags: {}
-      title: Request Body
-      description: 'General Request Body '
+      title: ServiceRequest
+      description: 'Service Request Body '
       properties:
         slug:
           type: string
