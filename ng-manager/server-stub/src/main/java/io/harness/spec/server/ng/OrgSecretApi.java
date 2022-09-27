@@ -38,9 +38,9 @@ public interface OrgSecretApi {
     Response createOrgScopedSecret(@Valid SecretRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("private_secret") @DefaultValue("false") 
 
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
@@ -55,9 +55,9 @@ public interface OrgSecretApi {
     Response createOrgScopedSecret(@FormDataParam(value = "spec")  SecretRequest spec, @FormDataParam(value = "file") InputStream fileInputStream, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("private_secret") @DefaultValue("false") 
 
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
@@ -75,9 +75,9 @@ public interface OrgSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{secret}")
@@ -92,9 +92,9 @@ public interface OrgSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -105,12 +105,6 @@ public interface OrgSecretApi {
     Response getOrgScopedSecrets( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-,  @QueryParam("project") 
-
- @Parameter(description = "Slug field of the project the resource is scoped to")  String project
 ,  @QueryParam("secret") 
 
  @Parameter(description = "Slug field of secrets")  List<String> secret
@@ -129,6 +123,9 @@ public interface OrgSecretApi {
 ,  @QueryParam("limit") @DefaultValue("30") 
 
  @Parameter(description = "Pagination: Number of items to return")  Integer limit
+,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{secret}")
@@ -144,9 +141,9 @@ public interface OrgSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{secret}")
@@ -162,9 +159,9 @@ public interface OrgSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @HEAD
     @Path("/{secret}")
@@ -178,7 +175,7 @@ public interface OrgSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
