@@ -460,7 +460,7 @@ paths:
       operationId: validate-unique-account-scoped-secret-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates secret slug is unique
       tags:
         - Account Secret
@@ -523,7 +523,7 @@ paths:
       operationId: validate-unique-org-scoped-secret-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates org scoped secret slug is unique
       tags:
         - Org Secret
@@ -587,7 +587,7 @@ paths:
       operationId: validate-unique-project-scoped-secret-slug
       responses:
         '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
+          description: "This specifies slug is already taken for the scope"
       description: Validates project scoped secret slug is unique
       tags:
         - Project Secret
@@ -1177,13 +1177,6 @@ components:
           type: object
           description: Governance metadata information
       description: Secret response model
-    ValidateSecretSlugResponse:
-      title: ValidateSecretSlugResponse
-      type: object
-      properties:
-        valid:
-          type: boolean
-      description: Validate unique secret slug response model
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1476,23 +1469,6 @@ components:
           examples:
             sample:
               value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
-    ValidateSecretSlugResponse:
-      description: Validate secret slug response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidateSecretSlugResponse'
-          examples:
-            example-validate-secret-slug-response-json:
-              value:
-                valid: true
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/ValidateSecretSlugResponse'
-          examples:
-            example-validate-secret-slug-response-json:
-              value: |
-                valid: true
   requestBodies:
     UpdateProjectRequest:
       content:
