@@ -2007,31 +2007,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate secret slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         },
         "security" : [ {
@@ -2345,31 +2321,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate secret slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         },
         "security" : [ {
@@ -2723,31 +2675,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Validate secret slug response",
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : {
-                      "valid" : true
-                    }
-                  }
-                }
-              },
-              "application/yaml" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-                },
-                "examples" : {
-                  "example-validate-secret-slug-response-json" : {
-                    "value" : "valid: true\n"
-                  }
-                }
-              }
-            }
+            "description" : "This specifies slug is already taken for the scope"
           }
         },
         "security" : [ {
@@ -3448,16 +3376,6 @@
           }
         },
         "description" : "Secret response model"
-      },
-      "ValidateSecretSlugResponse" : {
-        "title" : "ValidateSecretSlugResponse",
-        "type" : "object",
-        "properties" : {
-          "valid" : {
-            "type" : "boolean"
-          }
-        },
-        "description" : "Validate unique secret slug response model"
       }
     },
     "responses" : {
@@ -3767,33 +3685,6 @@
             "examples" : {
               "example-list-secret-response-yaml" : {
                 "value" : "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
-              }
-            }
-          }
-        }
-      },
-      "ValidateSecretSlugResponse" : {
-        "description" : "Validate secret slug response",
-        "content" : {
-          "application/json" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-            },
-            "examples" : {
-              "example-validate-secret-slug-response-json" : {
-                "value" : {
-                  "valid" : true
-                }
-              }
-            }
-          },
-          "application/yaml" : {
-            "schema" : {
-              "$ref" : "#/components/schemas/ValidateSecretSlugResponse"
-            },
-            "examples" : {
-              "example-validate-secret-slug-response-json" : {
-                "value" : "valid: true\n"
               }
             }
           }

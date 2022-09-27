@@ -3,7 +3,6 @@ package io.harness.spec.server.ng;
 import java.io.File;
 import io.harness.spec.server.ng.model.SecretRequest;
 import io.harness.spec.server.ng.model.SecretResponse;
-import io.harness.spec.server.ng.model.ValidateSecretSlugResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -169,11 +168,10 @@ public interface OrgSecretApi {
 );
     @HEAD
     @Path("/{secret}")
-    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates org scoped secret slug is unique", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Validate secret slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "This specifies slug is already taken for the scope") })
     Response validateUniqueOrgScopedSecretSlug( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
