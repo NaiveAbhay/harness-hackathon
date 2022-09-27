@@ -297,17 +297,6 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-    head:
-      summary: Validate unique connector slug
-      operationId: validate-unique-account-scoped-connector-slug
-      responses:
-        '200':
-          description: "This specifies slug is already taken for the scope"
-      description: Validates connector slug is unique
-      tags:
-        - Account Connector
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
   '/v1/connectors/{connector}/test-connection':
     get:
       summary: Test a connector
@@ -399,17 +388,6 @@ paths:
         '200':
           description: OK
       description: Deletes the information of the connector with the matching connector slug.
-      tags:
-        - Org Connector
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    head:
-      summary: Validate unique connector slug
-      operationId: validate-unique-org-scoped-connector-slug
-      responses:
-        '200':
-          description: "This specifies slug is already taken for the scope"
-      description: Validates connector slug is unique
       tags:
         - Org Connector
       parameters:
@@ -515,17 +493,6 @@ paths:
         '200':
           description: OK
       description: Deletes the information of the connector with the matching connector slug.
-      tags:
-        - Project Connector
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    head:
-      summary: Validate unique connector slug
-      operationId: validate-unique-project-scoped-connector-slug
-      responses:
-        '200':
-          description: "This specifies slug is already taken for the scope"
-      description: Validates connector slug is unique
       tags:
         - Project Connector
       parameters:
