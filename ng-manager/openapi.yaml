@@ -908,37 +908,30 @@ components:
           format: int64
           description: Last modification timestamp for Service.
     ServiceListResponse:
-      type: object
+      type: array
       x-examples:
         example-1:
-          content:
-            - service:
-                account: sample_account
-                slug: example_service
-                org: sample_organization
-                project: sample_project
-                name: Example_service
-                description: This is a example service
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-                yaml: |
-                  service:
-                    name: "Example_service"
-                    identifier: "example_service"
-                    tags: {}
-              created: 1234567890
-              updated: 1234567890
-          empty: true
+          - service:
+              account: sample_account
+              slug: example_service
+              org: sample_organization
+              project: sample_project
+              name: Example_service
+              description: This is a example service
+              tags:
+                example-tag-1: example-tag-1-value
+                example-tag-2: example-tag-2-value
+              yaml: |
+                service:
+                  name: "Example_service"
+                  identifier: "example_service"
+                  tags: {}
+            created: 1234567890
+            updated: 1234567890
       description: 'Response when a list of services are created '
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ServiceResponse'
-        empty:
-          type: boolean
       title: Services Model
+      items:
+        $ref: '#/components/schemas/ServiceResponse'
     ServiceRequest:
       type: object
       x-examples:
@@ -1586,50 +1579,46 @@ components:
           examples:
             example-1:
               value:
-                content:
-                  - service:
-                      account: sample_account
-                      slug: example_service
-                      org: sample_organization
-                      project: sample_project
-                      name: Example_service
-                      description: This is a example service
-                      tags:
-                        example-tag-1: example-tag-1-value
-                        example-tag-2: example-tag-2-value
-                      yaml: |
-                        service:
-                          name: "Example_service"
-                          identifier: "example_service"
-                          tags: {}
-                    created: 1234567890
-                    updated: 1234567890
-                empty: true
+                - service:
+                    account: sample_account
+                    slug: example_service
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_service
+                    description: This is a example service
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      service:
+                        name: "Example_service"
+                        identifier: "example_service"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
         application/yaml:
           schema:
             $ref: '#/components/schemas/ServiceListResponse'
           examples:
             example-1:
               value: |
-                content:
-                  - service:
-                      account: sample_account
-                      slug: example_service
-                      org: sample_organization
-                      project: sample_project
-                      name: Example_service
-                      description: This is a example service
-                      tags:
-                        example-tag-1: example-tag-1-value
-                        example-tag-2: example-tag-2-value
-                      yaml: |
-                        service:
-                          name: "Example_service"
-                          identifier: "example_service"
-                          tags: {}
-                    created: 1234567890
-                    updated: 1234567890
-                empty: true
+                - service:
+                    account: sample_account
+                    slug: example_service
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_service
+                    description: This is a example service
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      service:
+                        name: "Example_service"
+                        identifier: "example_service"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
       headers:
         Link:
           schema:

@@ -17,47 +17,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @Schema(description = "Response when a list of services are created ")
 
-public class ServiceListResponse   {
-
-  private @Valid List<ServiceResponse> content = new ArrayList<>();
-
-  private @Valid Boolean empty = null;
-
-  /**
-   **/
-  public ServiceListResponse content(List<ServiceResponse> content) {
-    this.content = content;
-    return this;
-  }
-
-  
-  @Schema(description = "")
-  @JsonProperty("content")
-
-  public List<ServiceResponse> getContent() {
-    return content;
-  }
-  public void setContent(List<ServiceResponse> content) {
-    this.content = content;
-  }
-
-  /**
-   **/
-  public ServiceListResponse empty(Boolean empty) {
-    this.empty = empty;
-    return this;
-  }
-
-  
-  @Schema(description = "")
-  @JsonProperty("empty")
-
-  public Boolean isEmpty() {
-    return empty;
-  }
-  public void setEmpty(Boolean empty) {
-    this.empty = empty;
-  }
+public class ServiceListResponse extends ArrayList<ServiceResponse>  {
 
 
   @Override
@@ -69,22 +29,19 @@ public class ServiceListResponse   {
       return false;
     }
     ServiceListResponse serviceListResponse = (ServiceListResponse) o;
-    return Objects.equals(content, serviceListResponse.content) &&
-        Objects.equals(empty, serviceListResponse.empty);
+    return true;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, empty);
+    return Objects.hash();
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ServiceListResponse {\n");
-    
-    sb.append("    content: ").append(toIndentedString(content)).append("\n");
-    sb.append("    empty: ").append(toIndentedString(empty)).append("\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }
