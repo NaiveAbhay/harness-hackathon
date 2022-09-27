@@ -1,6 +1,5 @@
 package io.harness.spec.server.ng;
 
-import io.harness.spec.server.ng.model.ServiceListResponse;
 import io.harness.spec.server.ng.model.ServiceRequest;
 import io.harness.spec.server.ng.model.ServiceResponse;
 
@@ -88,7 +87,7 @@ public interface ProjectServicesApi {
     @Operation(operationId = "getServices", summary = "List Services", description = "Returns all services that the current user has view permissions for given project.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Services" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ServiceListResponse.class))) })
+        @ApiResponse(responseCode = "200", description = "Example response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ServiceResponse.class)))) })
     Response getServices( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org

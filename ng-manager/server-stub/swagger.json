@@ -471,7 +471,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ServiceListResponse"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
                 },
                 "examples" : {
                   "example-1" : {
@@ -497,7 +500,10 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ServiceListResponse"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
                 },
                 "examples" : {
                   "example-1" : {
@@ -3892,33 +3898,6 @@
           }
         }
       },
-      "ServiceListResponse" : {
-        "title" : "Services Model",
-        "type" : "array",
-        "description" : "Response when a list of services are created ",
-        "items" : {
-          "$ref" : "#/components/schemas/ServiceResponse"
-        },
-        "x-examples" : {
-          "example-1" : [ {
-            "service" : {
-              "account" : "sample_account",
-              "slug" : "example_service",
-              "org" : "sample_organization",
-              "project" : "sample_project",
-              "name" : "Example_service",
-              "description" : "This is a example service",
-              "tags" : {
-                "example-tag-1" : "example-tag-1-value",
-                "example-tag-2" : "example-tag-2-value"
-              },
-              "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
-            },
-            "created" : 1234567890,
-            "updated" : 1234567890
-          } ]
-        }
-      },
       "ServiceRequest" : {
         "title" : "Request Body",
         "required" : [ "name", "slug" ],
@@ -4687,7 +4666,10 @@
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/ServiceListResponse"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
             },
             "examples" : {
               "example-1" : {
@@ -4713,7 +4695,10 @@
           },
           "application/yaml" : {
             "schema" : {
-              "$ref" : "#/components/schemas/ServiceListResponse"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
             },
             "examples" : {
               "example-1" : {
