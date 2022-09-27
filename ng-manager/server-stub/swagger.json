@@ -1315,38 +1315,6 @@
             "description" : "OK"
           }
         }
-      },
-      "head" : {
-        "tags" : [ "Account Connector" ],
-        "summary" : "Validate unique connector slug",
-        "description" : "Validates connector slug is unique",
-        "operationId" : "validate-unique-account-scoped-connector-slug",
-        "parameters" : [ {
-          "name" : "connector",
-          "in" : "path",
-          "description" : "Connector slug",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Harness-Account",
-          "in" : "header",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "This specifies slug is already taken for the scope"
-          }
-        }
       }
     },
     "/v1/connectors/{connector}/test-connection" : {
@@ -1827,48 +1795,6 @@
         "responses" : {
           "200" : {
             "description" : "OK"
-          }
-        }
-      },
-      "head" : {
-        "tags" : [ "Org Connector" ],
-        "summary" : "Validate unique connector slug",
-        "description" : "Validates connector slug is unique",
-        "operationId" : "validate-unique-org-scoped-connector-slug",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "connector",
-          "in" : "path",
-          "description" : "Connector slug",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Harness-Account",
-          "in" : "header",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "This specifies slug is already taken for the scope"
           }
         }
       }
@@ -2411,58 +2337,6 @@
         "responses" : {
           "200" : {
             "description" : "OK"
-          }
-        }
-      },
-      "head" : {
-        "tags" : [ "Project Connector" ],
-        "summary" : "Validate unique connector slug",
-        "description" : "Validates connector slug is unique",
-        "operationId" : "validate-unique-project-scoped-connector-slug",
-        "parameters" : [ {
-          "name" : "org",
-          "in" : "path",
-          "description" : "Slug field of the organization the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "project",
-          "in" : "path",
-          "description" : "Slug field of the project the resource is scoped to",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "connector",
-          "in" : "path",
-          "description" : "Connector slug",
-          "required" : true,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "Harness-Account",
-          "in" : "header",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
-          "required" : false,
-          "style" : "simple",
-          "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "This specifies slug is already taken for the scope"
           }
         }
       }

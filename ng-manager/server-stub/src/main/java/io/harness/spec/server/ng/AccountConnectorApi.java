@@ -111,16 +111,4 @@ public interface AccountConnectorApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-);
-    @HEAD
-    @Path("/{connector}")
-    @Operation(operationId = "validateUniqueAccountScopedConnectorSlug", summary = "Validate unique connector slug", description = "Validates connector slug is unique", tags={ "Account Connector" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "This specifies slug is already taken for the scope") })
-    Response validateUniqueAccountScopedConnectorSlug( @PathParam("connector")
-
- @Parameter(description = "Connector slug") String connector
-,  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
