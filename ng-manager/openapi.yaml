@@ -452,19 +452,6 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       security:
         - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-account-scoped-secret-slug
-      responses:
-        '200':
-          description: This specifies slug is already taken for the scope
-      description: Validates secret slug is unique
-      tags:
-        - Account Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      security:
-        - x-api-key: []
   '/v1/orgs/{org}/secrets/{secret}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -513,19 +500,6 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Org Secret
-      security:
-        - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-org-scoped-secret-slug
-      responses:
-        '200':
-          description: This specifies slug is already taken for the scope
-      description: Validates org scoped secret slug is unique
-      tags:
-        - Org Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/secrets/{secret}':
@@ -577,19 +551,6 @@ paths:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Project Secret
-      security:
-        - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-project-scoped-secret-slug
-      responses:
-        '200':
-          description: This specifies slug is already taken for the scope
-      description: Validates project scoped secret slug is unique
-      tags:
-        - Project Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
 components:
