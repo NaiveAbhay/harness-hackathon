@@ -83,6 +83,11 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
@@ -507,6 +512,11 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
@@ -981,6 +991,11 @@
                 "explode" : false,
                 "schema" : {
                   "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
                 }
               }
             },
@@ -1609,6 +1624,11 @@
             "explode" : false,
             "schema" : {
               "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+              }
             }
           }
         },
