@@ -162,20 +162,4 @@ public interface OrgSecretApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-);
-    @HEAD
-    @Path("/{secret}")
-    @Operation(operationId = "validateUniqueOrgScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates org scoped secret slug is unique", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Secret" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "This specifies slug is already taken for the scope") })
-    Response validateUniqueOrgScopedSecretSlug( @PathParam("org")
-
- @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-, @PathParam("secret")
-
- @Parameter(description = "Slug field of the secret") String secret
-,  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}

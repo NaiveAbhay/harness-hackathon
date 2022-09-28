@@ -183,23 +183,4 @@ public interface ProjectSecretApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-);
-    @HEAD
-    @Path("/{secret}")
-    @Operation(operationId = "validateUniqueProjectScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates project scoped secret slug is unique", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "This specifies slug is already taken for the scope") })
-    Response validateUniqueProjectScopedSecretSlug( @PathParam("org")
-
- @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-, @PathParam("project")
-
- @Parameter(description = "Slug field of the project the resource is scoped to") String project
-, @PathParam("secret")
-
- @Parameter(description = "Slug field of the secret") String secret
-,  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
