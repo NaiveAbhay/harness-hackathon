@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "inputFile": "access-control/openapi.yaml"
+    },
+    {
+      "inputFile": "ng-manager/openapi.yaml"
+    },
+    {
+      "inputFile": "platform/openapi.yaml"
+    }
+  ], 
+  "output": "./spec-first.json"
+}
