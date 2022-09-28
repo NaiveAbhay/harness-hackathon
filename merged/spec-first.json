@@ -1,0 +1,4881 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Harness NextGen Software Delivery Platform API Reference",
+    "version": "1.0",
+    "description": "This is the Open Api Spec 3 for the Access Control Service. This is under active development. Beware of the breaking change with respect to the generated code stub.",
+    "contact": {
+      "email": "contact@harness.io"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://app.harness.io",
+      "description": "localhost"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Account Roles",
+      "description": "This contains APIs for performing CRUD operations on Account level Roles."
+    },
+    {
+      "name": "Organization Roles",
+      "description": "This contains APIs for performing CRUD operations on Organization level Roles."
+    },
+    {
+      "name": "Project Roles",
+      "description": "This contains APIs for performing CRUD operations on Project level Roles."
+    },
+    {
+      "name": "Organization",
+      "description": "Everything about organization"
+    },
+    {
+      "name": "Org Project",
+      "description": "Everything about org scoped project"
+    },
+    {
+      "name": "Account Secret",
+      "description": "Everything about account scoped secret"
+    },
+    {
+      "name": "Org Secret",
+      "description": "Everything about org scoped secret"
+    },
+    {
+      "name": "Project Secret",
+      "description": "Everything about project scoped secret"
+    },
+    {
+      "name": "Account Resource Groups",
+      "description": "This contains APIs for performing CRUD operations on Account level Resource Groups."
+    },
+    {
+      "name": "Organization Resource Groups",
+      "description": "This contains APIs for performing CRUD operations on Organization level Resource Groups."
+    },
+    {
+      "name": "Project Resource Groups",
+      "description": "This contains APIs for performing CRUD operations on Project level Resource Groups."
+    },
+    {
+      "name": "Filter Resource Groups",
+      "description": "This contains the filter endpoint for Resource Groups."
+    }
+  ],
+  "paths": {
+    "/v1/roles": {
+      "parameters": [],
+      "get": {
+        "summary": "List Roles",
+        "operationId": "list-roles-acc",
+        "description": "Returns a list of Roles present in the Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          },
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RolesListResponse"
+          }
+        },
+        "tags": [
+          "Account Roles"
+        ]
+      },
+      "post": {
+        "summary": "Create a Role",
+        "operationId": "create-role-acc",
+        "description": "Creates a custom Role in the Account scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Account Roles"
+        ]
+      }
+    },
+    "/v1/roles/{role}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/RoleParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Role",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "operationId": "get-role-acc",
+        "description": "Retrieves a Role from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Account Roles"
+        ]
+      },
+      "put": {
+        "summary": "Update a Role",
+        "operationId": "update-role-acc",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Updates a Role from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "tags": [
+          "Account Roles"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Role",
+        "operationId": "delete-role-acc",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Deletes a custom Role from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Account Roles"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/roles": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        }
+      ],
+      "get": {
+        "summary": "List Roles",
+        "tags": [
+          "Organization Roles"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RolesListResponse"
+          }
+        },
+        "operationId": "list-roles-org",
+        "description": "Returns a list of Roles present in the Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          },
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a Role",
+        "operationId": "create-role-org",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Creates a custom Role in the Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Organization Roles"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/roles/{role}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/RoleParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Role",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "operationId": "get-role-org",
+        "description": "Retrieves a Role from Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Organization Roles"
+        ]
+      },
+      "put": {
+        "summary": "Update a Role",
+        "operationId": "update-role-org",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Updates a Role from Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "tags": [
+          "Organization Roles"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Role",
+        "operationId": "delete-role-org",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Deletes a custom Role from Organization scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization Roles"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roles": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectParam"
+        }
+      ],
+      "get": {
+        "summary": "List Roles",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/RolesListResponse"
+          }
+        },
+        "operationId": "list-roles-project",
+        "description": "Returns a list of Roles present in the Project scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          },
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Project Roles"
+        ]
+      },
+      "post": {
+        "summary": "Create a Role",
+        "operationId": "create-role-project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Creates a custom Role in the Project scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Project Roles"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roles/{role}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectParam"
+        },
+        {
+          "$ref": "#/components/parameters/RoleParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Role",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "operationId": "get-role-project",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "description": "Retrieves a Role from Project scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Project Roles"
+        ]
+      },
+      "put": {
+        "summary": "Update a Role",
+        "operationId": "update-role-project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateRoleRequest"
+        },
+        "description": "Updates a Role from Project scope.",
+        "tags": [
+          "Project Roles"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Role",
+        "operationId": "delete-role-project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/RoleResponse"
+          }
+        },
+        "description": "Deletes a custom Role from Project scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountParam"
+          }
+        ],
+        "tags": [
+          "Project Roles"
+        ]
+      }
+    },
+    "/v1/orgs": {
+      "post": {
+        "summary": "Create an organization",
+        "operationId": "create-organization",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/OrganizationResponse"
+          }
+        },
+        "description": "Creates a new organization.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateOrganizationRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ]
+      },
+      "get": {
+        "summary": "List organizations",
+        "operationId": "get-organizations",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationListResponse"
+          }
+        },
+        "description": "Retrieves the information of the organizations.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/OrgsQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm1"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit1"
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/v1/orgs/{org}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "org",
+          "in": "path",
+          "required": true,
+          "description": "Organization slug"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve an organization",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationResponse"
+          }
+        },
+        "operationId": "get-organization",
+        "description": "Retrieves the information of the organization with the matching organization slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update an organization",
+        "operationId": "update-organization",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationResponse"
+          }
+        },
+        "description": "Updates the information of the organization with the matching organization slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UpdateOrganizationRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete an organization",
+        "operationId": "delete-organization",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/OrganizationResponse"
+          }
+        },
+        "description": "Deletes the information of the organization with the matching organization slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects": {
+      "post": {
+        "summary": "Creates a project",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/ProjectResponse"
+          }
+        },
+        "operationId": "create-org-scoped-project",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "description": "Creates a new project",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateProjectRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Org Project"
+        ]
+      },
+      "get": {
+        "summary": "List projects",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ProjectListResponse"
+          }
+        },
+        "operationId": "get-org-scoped-projects",
+        "description": "Retrieves the information of the projects.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectsQueryParam"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "in": "query",
+            "name": "has_module",
+            "description": "This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "module_type",
+            "description": "Project's module type"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm1"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit1"
+          }
+        ],
+        "tags": [
+          "Org Project"
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        }
+      ]
+    },
+    "/v1/orgs/{org}/projects/{project}": {
+      "get": {
+        "summary": "Retrieve a project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ProjectResponse"
+          }
+        },
+        "operationId": "get-org-scoped-project",
+        "description": "Retrieves the information of the project with the matching project slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Org Project"
+        ]
+      },
+      "put": {
+        "summary": "Update a project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ProjectResponse"
+          }
+        },
+        "operationId": "update-org-scoped-project",
+        "description": "Updates the information of the project with the matching project slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UpdateProjectRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Org Project"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ProjectResponse"
+          }
+        },
+        "operationId": "delete-org-scoped-project",
+        "description": "Deletes the information of the project with the matching project slug.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Org Project"
+        ]
+      },
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectPathParam"
+        }
+      ]
+    },
+    "/v1/secrets": {
+      "post": {
+        "summary": "Create a secret",
+        "operationId": "create-account-scoped-secret",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Creates a new secret",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PrivateSecret"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "tags": [
+          "Account Secret"
+        ]
+      },
+      "get": {
+        "summary": "List secrets",
+        "operationId": "get-account-scoped-secrets",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretListResponse"
+          }
+        },
+        "description": "Retrieves the information of the secrets.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/OrgQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectQueryParam"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "in": "query",
+            "name": "secret",
+            "description": "Slug field of secrets"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "SSHKeyPath",
+                  "SSHKeyReference",
+                  "SSHPassword",
+                  "SSHKerberosTGTKeyTabFile",
+                  "SSHKerberosTGTPassword",
+                  "SecretFile",
+                  "SecretText",
+                  "WinRmTGTKeyTabFile",
+                  "WinRmTGTPassword",
+                  "WinRmNTLM"
+                ]
+              }
+            },
+            "in": "query",
+            "name": "type",
+            "description": "Secret types on which the filter will be applied"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "in": "query",
+            "name": "recursive",
+            "description": "Expand current scope to include all child scopes "
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm1"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit1"
+          }
+        ],
+        "tags": [
+          "Account Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/orgs/{org}/secrets": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        }
+      ],
+      "post": {
+        "summary": "Create a secret",
+        "operationId": "create-org-scoped-secret",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Creates a new secret",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PrivateSecret"
+          }
+        ],
+        "tags": [
+          "Org Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List secrets",
+        "operationId": "get-org-scoped-secrets",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretListResponse"
+          }
+        },
+        "description": "Retrieves the information of the secrets.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/ProjectQueryParam"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "in": "query",
+            "name": "secret",
+            "description": "Slug field of secrets"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "SSHKeyPath",
+                  "SSHKeyReference",
+                  "SSHPassword",
+                  "SSHKerberosTGTKeyTabFile",
+                  "SSHKerberosTGTPassword",
+                  "SecretFile",
+                  "SecretText",
+                  "WinRmTGTKeyTabFile",
+                  "WinRmTGTPassword",
+                  "WinRmNTLM"
+                ]
+              }
+            },
+            "in": "query",
+            "name": "type",
+            "description": "Secret types on which the filter will be applied"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "in": "query",
+            "name": "recursive",
+            "description": "Expand current scope to include all child scopes "
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm1"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit1"
+          }
+        ],
+        "tags": [
+          "Org Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/secrets": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectPathParam"
+        }
+      ],
+      "post": {
+        "summary": "Create a secret",
+        "operationId": "create-project-scoped-secret",
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Creates a new secret",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/PrivateSecret"
+          }
+        ],
+        "tags": [
+          "Project Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "List secrets",
+        "operationId": "get-project-scoped-secrets",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretListResponse"
+          }
+        },
+        "description": "Retrieves the information of the secrets.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "in": "query",
+            "name": "secret",
+            "description": "Slug field of secrets"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "SSHKeyPath",
+                  "SSHKeyReference",
+                  "SSHPassword",
+                  "SSHKerberosTGTKeyTabFile",
+                  "SSHKerberosTGTPassword",
+                  "SecretFile",
+                  "SecretText",
+                  "WinRmTGTKeyTabFile",
+                  "WinRmTGTPassword",
+                  "WinRmNTLM"
+                ]
+              }
+            },
+            "in": "query",
+            "name": "type",
+            "description": "Secret types on which the filter will be applied"
+          },
+          {
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "in": "query",
+            "name": "recursive",
+            "description": "Expand current scope to include all child scopes "
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm1"
+          },
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/Limit1"
+          }
+        ],
+        "tags": [
+          "Project Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/secrets/{secret}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "secret",
+          "in": "path",
+          "required": true,
+          "description": "Slug field of the secret"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "operationId": "get-account-scoped-secret",
+        "description": "Retrieves the information of the secret.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Account Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Deletes a secret",
+        "tags": [
+          "Account Secret"
+        ],
+        "operationId": "delete-account-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Deletes the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a secret",
+        "operationId": "update-account-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Updates the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "tags": [
+          "Account Secret"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "head": {
+        "summary": "Validate unique secret slug",
+        "operationId": "validate-unique-account-scoped-secret-slug",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ValidateSecretSlugResponse"
+          }
+        },
+        "description": "Validates secret slug is unique",
+        "tags": [
+          "Account Secret"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/orgs/{org}/secrets/{secret}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "secret",
+          "in": "path",
+          "required": true,
+          "description": "Slug field of the secret"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a secret",
+        "tags": [
+          "Org Secret"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "operationId": "get-org-scoped-secret",
+        "description": "Retrieves the information of the secret.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a secret",
+        "tags": [
+          "Org Secret"
+        ],
+        "operationId": "delete-org-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Deletes the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a secret",
+        "operationId": "update-org-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Updates the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "tags": [
+          "Org Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "head": {
+        "summary": "Validate unique secret slug",
+        "operationId": "validate-unique-org-scoped-secret-slug",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ValidateSecretSlugResponse"
+          }
+        },
+        "description": "Validates org scoped secret slug is unique",
+        "tags": [
+          "Org Secret"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/secrets/{secret}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgPathParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectPathParam"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "secret",
+          "in": "path",
+          "required": true,
+          "description": "Slug field of the secret"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a secret",
+        "tags": [
+          "Project Secret"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "operationId": "get-project-scoped-secret",
+        "description": "Retrieves the information of the secret.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a secret",
+        "tags": [
+          "Project Secret"
+        ],
+        "operationId": "delete-project-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Deletes the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a secret",
+        "operationId": "update-project-scoped-secret",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/SecretResponse"
+          }
+        },
+        "description": "Updates the information of the secret with the matching secret slug.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/SecretRequest"
+        },
+        "tags": [
+          "Project Secret"
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      },
+      "head": {
+        "summary": "Validate unique secret slug",
+        "operationId": "validate-unique-project-scoped-secret-slug",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ValidateSecretSlugResponse"
+          }
+        },
+        "description": "Validates project scoped secret slug is unique",
+        "tags": [
+          "Project Secret"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountQueryParam"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ]
+      }
+    },
+    "/v1/resource-groups": {
+      "parameters": [],
+      "get": {
+        "summary": "List Resource Groups",
+        "operationId": "list-resource-groups-acc",
+        "description": "Returns a list of Resource Groups present in the Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          },
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Order"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsListResponse"
+          }
+        },
+        "tags": [
+          "Account Resource Groups"
+        ]
+      },
+      "post": {
+        "summary": "Create a Resource Group",
+        "operationId": "create-resource-group-acc",
+        "description": "Creates a custom Resource Group in the Account scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Account Resource Groups"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        }
+      }
+    },
+    "/v1/resource-groups/{resource-group}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/ResourceGroupParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Resource Group",
+        "operationId": "get-resource-group-acc",
+        "description": "Retrieves a Resource Group from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Account Resource Groups"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "x-internal": false
+      },
+      "put": {
+        "summary": "Update a Resource Group",
+        "operationId": "update-resource-group-acc",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "description": "Updates a Resource Group from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Account Resource Groups"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        }
+      },
+      "delete": {
+        "summary": "Delete a Resource Group",
+        "operationId": "delete-resource-group-acc",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "description": "Deletes a custom Resource Group from Account scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Account Resource Groups"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/resource-groups": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        }
+      ],
+      "get": {
+        "summary": "List Resource Groups",
+        "tags": [
+          "Organization Resource Groups"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsListResponse"
+          }
+        },
+        "operationId": "list-resource-groups-org",
+        "description": "Returns a list of Resource Groups present in the Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          },
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Order"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a Resource Group",
+        "operationId": "create-resource-group-org",
+        "description": "Creates a custom Resource Group in the Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Organization Resource Groups"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/resource-groups/{resource-group}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/ResourceGroupParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Resource Group",
+        "operationId": "get-resource-group-org",
+        "description": "Retrieves a Resource Group from Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Organization Resource Groups"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Resource Group",
+        "operationId": "update-resource-group-org",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "description": "Updates a Resource Group from Organization scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        },
+        "tags": [
+          "Organization Resource Groups"
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Resource Group",
+        "operationId": "delete-resource-group-org",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "description": "Deletes a custom Resource Group from Organization scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Organization Resource Groups"
+        ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/resource-groups": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectParam"
+        }
+      ],
+      "get": {
+        "summary": "List Resource Groups",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsListResponse"
+          }
+        },
+        "operationId": "list-resource-groups-project",
+        "description": "Returns a list of Resource Groups present in the Project scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/SearchTerm"
+          },
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Order"
+          }
+        ],
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "tags": [
+          "Project Resource Groups"
+        ]
+      },
+      "post": {
+        "summary": "Create a Resource Group",
+        "operationId": "create-resource-group-project",
+        "description": "Creates a custom Resource Group in the Project scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Project Resource Groups"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/resource-groups/{resource-group}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/OrgParam"
+        },
+        {
+          "$ref": "#/components/parameters/ProjectParam"
+        },
+        {
+          "$ref": "#/components/parameters/ResourceGroupParam"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a Resource Group",
+        "operationId": "get-resource-group-project",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "description": "Retrieves a Resource Group from Project scope.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Project Resource Groups"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a Resource Group",
+        "operationId": "update-resource-group-project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/CreateResourceGroupRequest"
+        },
+        "description": "Updates a Resource Group from Project scope.",
+        "tags": [
+          "Project Resource Groups"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a Resource Group",
+        "operationId": "delete-resource-group-project",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsResponse"
+          }
+        },
+        "description": "Deletes a custom Resource Group from Project scope.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          }
+        ],
+        "tags": [
+          "Project Resource Groups"
+        ]
+      }
+    },
+    "/v1/resource-groups/filter": {
+      "parameters": [],
+      "post": {
+        "summary": "Filter Resource Groups",
+        "operationId": "filter-resource-groups",
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ResourceGroupsListResponse"
+          }
+        },
+        "description": "Returns a list of Resource Groups based on filter criteria.",
+        "security": [
+          {
+            "x-api-key": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AccountHeader"
+          },
+          {
+            "$ref": "#/components/parameters/PageIndex"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Order"
+          }
+        ],
+        "tags": [
+          "Filter Resource Groups"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/FilterResourceGroupRequest"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "RolesResponse": {
+        "title": "RolesResponse",
+        "x-stoplight": {
+          "id": "q6oq3jxkd2who"
+        },
+        "type": "object",
+        "description": "Role Response Model",
+        "x-examples": {
+          "example-role": {
+            "slug": "example_role",
+            "name": "Example_Role",
+            "permissions": [
+              "core_resource_view"
+            ],
+            "allowed_scope_levels": [
+              "account"
+            ],
+            "description": "This is an Example Role",
+            "tags": {
+              "example-tag-1": "example-tag-1-value",
+              "example-tag-2": "example-tag-2-value"
+            },
+            "scope": {
+              "account": "sample_account",
+              "org": "sample_organization",
+              "project": "sample_project"
+            },
+            "created": 1234567890,
+            "updated": 1234567890,
+            "harness_managed": true
+          }
+        },
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Role Identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "name": {
+            "type": "string",
+            "description": "Role Name",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "permissions": {
+            "type": "array",
+            "description": "Permissions for this Role.",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "allowed_scope_levels": {
+            "type": "array",
+            "description": "The Scope levels at which this Role can be used.",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "account",
+                "organization",
+                "project"
+              ]
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Role description",
+            "maxLength": 1024
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Role tags",
+            "maxProperties": 128
+          },
+          "scope": {
+            "$ref": "#/components/schemas/RoleScope"
+          },
+          "created": {
+            "type": "integer",
+            "description": "Creation timestamp for Role.",
+            "format": "int64"
+          },
+          "updated": {
+            "type": "integer",
+            "description": "Last modification timestamp for Role.",
+            "format": "int64"
+          },
+          "harness_managed": {
+            "type": "boolean",
+            "description": "This indicates if this Role is managed by Harness or not. If true, Harness can manage and modify this Role."
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "CreateRoleRequest": {
+        "title": "CreateRoleRequest",
+        "x-stoplight": {
+          "id": "z8g6ol73nsqjs"
+        },
+        "type": "object",
+        "description": "Role request body",
+        "x-examples": {
+          "role-request": {
+            "slug": "example_role",
+            "name": "Example_Role",
+            "permissions": [
+              "core_view"
+            ],
+            "description": "This is an Example Role",
+            "tags": {
+              "example-tag-1": "example-tag-1-value",
+              "example-tag-2": "example-tag-2-value"
+            }
+          }
+        },
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "description": "Role identifier"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "description": "Role name"
+          },
+          "permissions": {
+            "type": "array",
+            "uniqueItems": true,
+            "description": "List of the permission identifiers.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Role description"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 128,
+            "description": "Role tags"
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "RoleScope": {
+        "title": "Scope",
+        "x-stoplight": {
+          "id": "w8j3bc9323bxb"
+        },
+        "type": "object",
+        "description": "Scope of the Role",
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Account identifier"
+          },
+          "org": {
+            "type": "string",
+            "description": "Organization identifier"
+          },
+          "project": {
+            "type": "string",
+            "description": "Project identifier"
+          }
+        },
+        "x-examples": {
+          "example-1": {
+            "account": "sample_account",
+            "org": "sample_organization",
+            "project": "sample_project"
+          }
+        }
+      },
+      "CreateOrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "org": {
+            "$ref": "#/components/schemas/Organization"
+          }
+        },
+        "required": [
+          "org"
+        ]
+      },
+      "Organization": {
+        "description": "Organization model",
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "description": "Organization slug",
+            "maxLength": 64
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "description": "Organization name",
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Organization description"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 128,
+            "description": "Organization tags"
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "ModuleType": {
+        "type": "string",
+        "description": "Type of Modules",
+        "enum": [
+          "CD",
+          "CI",
+          "CV",
+          "CF",
+          "CE",
+          "STO",
+          "CORE",
+          "PMS",
+          "TEMPLATESERVICE",
+          "GOVERNANCE"
+        ]
+      },
+      "CreateProjectRequest": {
+        "description": "Create project request",
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "required": [
+          "project"
+        ]
+      },
+      "Project": {
+        "description": "Project model",
+        "type": "object",
+        "x-examples": {
+          "example-1": {
+            "slug": "example_project_slug",
+            "name": "example-project-name",
+            "color": "#0063F7",
+            "modules": [
+              "CD"
+            ],
+            "description": "This is a example project",
+            "tags": {
+              "property1": "value1",
+              "property2": "value2"
+            }
+          }
+        },
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "description": "Project slug",
+            "maxLength": 64
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "description": "Project name",
+            "maxLength": 64
+          },
+          "org": {
+            "type": "string",
+            "description": "Organization slug for the project"
+          },
+          "color": {
+            "type": "string",
+            "description": "Project color"
+          },
+          "modules": {
+            "type": "array",
+            "maxItems": 1024,
+            "description": "List of modules for project",
+            "items": {
+              "$ref": "#/components/schemas/ModuleType"
+            }
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Project description"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 128,
+            "description": "Project tags"
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "ProjectResponse": {
+        "description": "Project response model",
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          },
+          "created": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Creation timestamp for the project"
+          },
+          "updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Updated timestamp for the project"
+          }
+        }
+      },
+      "OrganizationResponse": {
+        "title": "OrganizationResponse",
+        "type": "object",
+        "description": "Organization response Model",
+        "x-examples": {
+          "example-1": {
+            "org": {
+              "slug": "example_organization",
+              "name": "Example Organization",
+              "description": "This is an Example Organization",
+              "tags": {
+                "example-tag-1": "example-tag-1-value",
+                "example-tag-2": "example-tag-2-value"
+              }
+            },
+            "created": 1234567890,
+            "updated": 1234567890,
+            "harness_managed": true
+          }
+        },
+        "properties": {
+          "org": {
+            "$ref": "#/components/schemas/Organization"
+          },
+          "created": {
+            "type": "integer",
+            "description": "Creation timestamp for organization",
+            "format": "int64"
+          },
+          "updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Updated timestamp for organization"
+          },
+          "harness_managed": {
+            "type": "boolean",
+            "description": "This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization."
+          }
+        }
+      },
+      "UpdateOrganizationRequest": {
+        "description": "Update oganization request",
+        "type": "object",
+        "properties": {
+          "org": {
+            "$ref": "#/components/schemas/Organization"
+          }
+        },
+        "required": [
+          "org"
+        ]
+      },
+      "UpdateProjectRequest": {
+        "description": "Update project request",
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "required": [
+          "project"
+        ]
+      },
+      "SecretSpec": {
+        "title": "SecretSpec",
+        "type": "object",
+        "description": "Details of the secret defined in Harness",
+        "required": [
+          "type"
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "SSHKeyPath": "#/components/schemas/SSHKeyPathSpec",
+            "SSHKeyReference": "#/components/schemas/SSHKeyReferenceSpec",
+            "SSHPassword": "#/components/schemas/SSHPasswordSpec",
+            "SSHKerberosTGTKeyTabFile": "#/components/schemas/SSHKerberosTGTKeyTabFileSpec",
+            "SSHKerberosTGTPassword": "#/components/schemas/SSHKerberosTGTPasswordSpec",
+            "SecretFile": "#/components/schemas/SecretFileSpec",
+            "SecretText": "#/components/schemas/SecretTextSpec",
+            "WinRmTGTKeyTabFile": "#/components/schemas/WinRmTGTKeyTabFileSpec",
+            "WinRmTGTPassword": "#/components/schemas/WinRmTGTPasswordSpec",
+            "WinRmNTLM": "#/components/schemas/WinRmNTLMSpec"
+          }
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/SSHKeyPathSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SSHKeyReferenceSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SSHPasswordSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SSHKerberosTGTKeyTabFileSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SSHKerberosTGTPasswordSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SecretFileSpec"
+          },
+          {
+            "$ref": "#/components/schemas/SecretTextSpec"
+          },
+          {
+            "$ref": "#/components/schemas/WinRmTGTKeyTabFileSpec"
+          },
+          {
+            "$ref": "#/components/schemas/WinRmTGTPasswordSpec"
+          },
+          {
+            "$ref": "#/components/schemas/WinRmNTLMSpec"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "SSHKeyPath",
+              "SSHKeyReference",
+              "SSHPassword",
+              "SSHKerberosTGTKeyTabFile",
+              "SSHKerberosTGTPassword",
+              "SecretFile",
+              "SecretText",
+              "WinRmTGTKeyTabFile",
+              "WinRmTGTPassword",
+              "WinRmNTLM"
+            ],
+            "description": "This specifies the type of secret"
+          }
+        }
+      },
+      "SSHKeyPathSpec": {
+        "title": "SSHKeyPath",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSHKeyPath"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "SSH port"
+              },
+              "username": {
+                "type": "string",
+                "description": "SSH username"
+              },
+              "key_path": {
+                "type": "string",
+                "description": "Path of the key file"
+              },
+              "encrypted_passphrase": {
+                "type": "string",
+                "description": "This is the passphrase provided while creating the SSH key for local encryption"
+              }
+            },
+            "required": [
+              "type",
+              "username",
+              "key_path"
+            ]
+          }
+        ]
+      },
+      "SSHKeyReferenceSpec": {
+        "title": "SSHKeyReference",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSHKeyReference"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "SSH port"
+              },
+              "username": {
+                "type": "string",
+                "description": "SSH username"
+              },
+              "key": {
+                "type": "string",
+                "description": "SSH key"
+              },
+              "encrypted_passphrase": {
+                "type": "string",
+                "description": "This is the passphrase provided while creating the SSH key for local encryption"
+              }
+            },
+            "required": [
+              "type",
+              "username"
+            ]
+          }
+        ]
+      },
+      "SSHPasswordSpec": {
+        "title": "SSHPassword",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSHPassword"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "SSH port"
+              },
+              "username": {
+                "type": "string",
+                "description": "SSH username"
+              },
+              "password": {
+                "type": "string",
+                "description": "SSH password"
+              }
+            },
+            "required": [
+              "type",
+              "username",
+              "password"
+            ]
+          }
+        ]
+      },
+      "SSHKerberosTGTKeyTabFileSpec": {
+        "title": "SSHKerberosTGTKeyTabFile",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSHKerberosTGTKeyTabFile"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "SSH port"
+              },
+              "principal": {
+                "type": "string",
+                "description": "Kerberos principal"
+              },
+              "realm": {
+                "type": "string",
+                "description": "Kerberos realm"
+              },
+              "key_path": {
+                "type": "string",
+                "description": "Kerberos keytab file path"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        ]
+      },
+      "SSHKerberosTGTPasswordSpec": {
+        "title": "SSHKerberosTGTPassword",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SSHKerberosTGTPassword"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "SSH port"
+              },
+              "principal": {
+                "type": "string",
+                "description": "Kerberos principal"
+              },
+              "realm": {
+                "type": "string",
+                "description": "Kerberos realm"
+              },
+              "password": {
+                "type": "string",
+                "description": "Kerberos password"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        ]
+      },
+      "SecretFileSpec": {
+        "title": "SecretFile",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SecretFile"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "secret_manager_slug": {
+                "type": "string",
+                "description": "Slug of the secret manager used to manage the secret"
+              }
+            },
+            "required": [
+              "type",
+              "secret_manager_slug"
+            ]
+          }
+        ]
+      },
+      "SecretTextSpec": {
+        "title": "SecretText",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SecretText"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "secret_manager_slug": {
+                "type": "string",
+                "description": "Slug of the secret manager used to manage the secret"
+              },
+              "value_type": {
+                "type": "string",
+                "enum": [
+                  "Inline",
+                  "Reference"
+                ],
+                "description": "This has details to specify if the secret value is inline or referenced"
+              },
+              "value": {
+                "type": "string",
+                "description": "Value of the Secret"
+              }
+            },
+            "required": [
+              "type",
+              "secret_manager_slug",
+              "value_type"
+            ]
+          }
+        ]
+      },
+      "WinRmTGTKeyTabFileSpec": {
+        "title": "WinRmTGTKeyTabFile",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "WinRmTGTKeyTabFile"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "default": 5986,
+                "description": "WinRm port"
+              },
+              "principal": {
+                "type": "string",
+                "description": "Kerberos principal"
+              },
+              "realm": {
+                "type": "string",
+                "description": "Kerberos realm"
+              },
+              "key_path": {
+                "type": "string",
+                "description": "Keytab file path"
+              },
+              "use_ssl": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the Kerberos either to use SSL/https"
+              },
+              "skip_cert_checks": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the Kerberos either to skip certificate checks"
+              },
+              "use_no_profile": {
+                "type": "boolean",
+                "description": "This is the Kerberos powershell runs without loading profile"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        ]
+      },
+      "WinRmTGTPasswordSpec": {
+        "title": "WinRmTGTPassword",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "WinRmTGTPassword"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "default": 5986,
+                "description": "WinRm port"
+              },
+              "principal": {
+                "type": "string",
+                "description": "Kerberos principal"
+              },
+              "realm": {
+                "type": "string",
+                "description": "Kerberos realm"
+              },
+              "password": {
+                "type": "string",
+                "description": "Kerberos password"
+              },
+              "use_ssl": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the Kerberos either to use SSL/https"
+              },
+              "skip_cert_checks": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the Kerberos either to skip certificate checks"
+              },
+              "use_no_profile": {
+                "type": "boolean",
+                "description": "This is the Kerberos powershell runs without loading profile"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          }
+        ]
+      },
+      "WinRmNTLMSpec": {
+        "title": "WinRmNTLM",
+        "description": "This is the SSH key authentication details defined in Harness.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SecretSpec"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "WinRmNTLM"
+                ],
+                "description": "This specifies the type of secret"
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "default": 5986,
+                "description": "WinRm port"
+              },
+              "domain": {
+                "type": "string",
+                "description": "This is the NTLM domain name"
+              },
+              "username": {
+                "type": "string",
+                "description": "This is the NTLM user name"
+              },
+              "password": {
+                "type": "string",
+                "description": "This is the NTLM password"
+              },
+              "use_ssl": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the NTLM either to use SSL/https"
+              },
+              "skip_cert_checks": {
+                "type": "boolean",
+                "default": true,
+                "description": "This is the Kerberos either to skip certificate checks"
+              },
+              "use_no_profile": {
+                "type": "boolean",
+                "description": "This is the Kerberos powershell runs without loading profile"
+              }
+            },
+            "required": [
+              "type",
+              "domain",
+              "username",
+              "password"
+            ]
+          }
+        ]
+      },
+      "SecretRequest": {
+        "type": "object",
+        "properties": {
+          "secret": {
+            "$ref": "#/components/schemas/Secret"
+          }
+        },
+        "required": [
+          "secret"
+        ]
+      },
+      "Secret": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Secret name",
+            "pattern": "^[0-9a-zA-Z-_ ]{0,63}$"
+          },
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "description": "Secret slug",
+            "maxLength": 64
+          },
+          "org": {
+            "type": "string",
+            "description": "Organization slug for secret",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$"
+          },
+          "project": {
+            "type": "string",
+            "description": "Project slug for secret",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Secret tags"
+          },
+          "description": {
+            "type": "string",
+            "description": "Secret description"
+          },
+          "spec": {
+            "$ref": "#/components/schemas/SecretSpec"
+          }
+        },
+        "required": [
+          "name",
+          "slug",
+          "spec"
+        ]
+      },
+      "SecretResponse": {
+        "title": "SecretResponse",
+        "type": "object",
+        "properties": {
+          "secret": {
+            "$ref": "#/components/schemas/Secret"
+          },
+          "created": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Creation timestamp for the secret"
+          },
+          "updated": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Updated timestamp for the secret"
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "governance_metadata": {
+            "type": "object",
+            "description": "Governance metadata information"
+          }
+        },
+        "description": "Secret response model"
+      },
+      "ValidateSecretSlugResponse": {
+        "title": "ValidateSecretSlugResponse",
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "boolean"
+          }
+        },
+        "description": "Validate unique secret slug response model"
+      },
+      "ResourceGroupsResponse": {
+        "title": "Resource Groups Response",
+        "x-stoplight": {
+          "id": "q6oq3jxkd2who"
+        },
+        "type": "object",
+        "description": "Resource Group response body",
+        "x-examples": {
+          "example-resource-group": {
+            "slug": "example_resource_group",
+            "name": "Example_Resource Group",
+            "color": "#0063F7",
+            "tags": {
+              "example-tag-1": "example-tag-1-value",
+              "example-tag-2": "example-tag-2-value"
+            },
+            "description": "This is an Example Resource Group",
+            "allowed_scope_levels": [
+              "account"
+            ],
+            "included_scope": [
+              {
+                "filter": "EXCLUDING_CHILD_SCOPES",
+                "account": "sample_account",
+                "org": "sample_organization",
+                "project": "sample_project"
+              }
+            ],
+            "resource_filter": [
+              {
+                "resource_type": "resource",
+                "identifiers": [
+                  "example_resource"
+                ],
+                "attribute_name": "resource_attribute",
+                "attribute_values": [
+                  "example_resource_attribute"
+                ]
+              }
+            ],
+            "include_all_resources": false,
+            "harness_managed": true,
+            "created": 1234567890,
+            "updated": 1234567890
+          }
+        },
+        "properties": {
+          "slug": {
+            "type": "string",
+            "description": "Resource Group Identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "name": {
+            "type": "string",
+            "description": "Resource Group Name",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "color": {
+            "type": "string",
+            "description": "Color associated with the Resource Group."
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Resource Group tags",
+            "maxProperties": 128
+          },
+          "description": {
+            "type": "string",
+            "description": "Resource Group description",
+            "maxLength": 1024
+          },
+          "allowed_scope_levels": {
+            "type": "array",
+            "description": "Allowed scope levels for this Resource Group.",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "account",
+                "organization",
+                "project"
+              ]
+            }
+          },
+          "included_scope": {
+            "type": "array",
+            "description": "Included scopes for the resources belonging to the Resource Group.",
+            "items": {
+              "$ref": "#/components/schemas/ResourceGroupScope"
+            }
+          },
+          "resource_filter": {
+            "type": "array",
+            "description": "Specifies the actual resources present in the Resource Group.",
+            "items": {
+              "$ref": "#/components/schemas/ResourceFilter"
+            }
+          },
+          "include_all_resources": {
+            "type": "boolean",
+            "description": "Boolean value for including all resources in Resource Group."
+          },
+          "harness_managed": {
+            "type": "boolean",
+            "description": "This indicates if this Resource Group is managed by Harness or not. If true, Harness can manage and modify this Resource Group."
+          },
+          "created": {
+            "type": "integer",
+            "description": "Creation timestamp for Resource Group.",
+            "format": "int64"
+          },
+          "updated": {
+            "type": "integer",
+            "description": "Last modification timestamp for Resource Group.",
+            "format": "int64"
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "CreateResourceGroupRequest": {
+        "title": "Create Resource Group Request",
+        "x-stoplight": {
+          "id": "z8g6ol73nsqjs"
+        },
+        "type": "object",
+        "description": "Resource Group request body",
+        "x-examples": {
+          "resource-group-request": {
+            "slug": "example_resource_group",
+            "name": "Example_Resource Group",
+            "color": "#0063F7",
+            "tags": {
+              "example-tag-1": "example-tag-1-value",
+              "example-tag-2": "example-tag-2-value"
+            },
+            "description": "This is an Example Resource Group",
+            "included_scope": [
+              {
+                "filter": "EXCLUDING_CHILD_SCOPES",
+                "account": "sample_account",
+                "org": "sample_organization",
+                "project": "sample_project"
+              }
+            ],
+            "resource_filter": [
+              {
+                "resource_type": "resource",
+                "identifiers": [
+                  "example_resource"
+                ],
+                "attribute_name": "resource_attribute",
+                "attribute_values": [
+                  "example_resource_attribute"
+                ]
+              }
+            ],
+            "include_all_resources": false
+          }
+        },
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "description": "Resource Group identifier"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "description": "Resource Group name"
+          },
+          "color": {
+            "type": "string",
+            "description": "Color associated with the Resource Group."
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "maxProperties": 128,
+            "description": "Resource Group tags"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Resource Group description"
+          },
+          "included_scope": {
+            "type": "array",
+            "description": "Included scopes for the resources belonging to the Resource Group.",
+            "items": {
+              "$ref": "#/components/schemas/ResourceGroupScope"
+            }
+          },
+          "resource_filter": {
+            "type": "array",
+            "description": "Specifies the actual resources present in the Resource Group.",
+            "items": {
+              "$ref": "#/components/schemas/ResourceFilter"
+            }
+          },
+          "include_all_resources": {
+            "type": "boolean",
+            "description": "Boolean value for including all resources in Resource Group."
+          }
+        },
+        "required": [
+          "slug",
+          "name"
+        ]
+      },
+      "ResourceGroupScope": {
+        "title": "Resource Group Scope",
+        "x-stoplight": {
+          "id": "w8j3bc9323bxb"
+        },
+        "type": "object",
+        "description": "Included scopes for the Resources belonging to the Resource Group",
+        "x-examples": {
+          "example-1": {
+            "filter": "EXCLUDING_CHILD_SCOPES",
+            "account": "sample_account",
+            "org": "sample_organization",
+            "project": "sample_project"
+          }
+        },
+        "properties": {
+          "filter": {
+            "type": "string",
+            "enum": [
+              "EXCLUDING_CHILD_SCOPES",
+              "INCLUDING_CHILD_SCOPES"
+            ],
+            "description": "Including or Excluding Child scopes."
+          },
+          "account": {
+            "type": "string",
+            "description": "Account identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "org": {
+            "type": "string",
+            "description": "Organization identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "project": {
+            "type": "string",
+            "description": "Project identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "filter"
+        ]
+      },
+      "ResourceFilter": {
+        "title": "Resource Filter",
+        "x-stoplight": {
+          "id": "m5qhp13hm6o1z"
+        },
+        "type": "object",
+        "description": "Specifies resources in Resource Group.",
+        "x-examples": {
+          "example-resource-filter": {
+            "resource_type": "resource",
+            "identifiers": [
+              "example_resource"
+            ],
+            "attribute_name": "resource_attribute",
+            "attribute_values": [
+              "example_resource_attribute"
+            ]
+          }
+        },
+        "properties": {
+          "resource_type": {
+            "type": "string",
+            "description": "Specifies the type of Resource."
+          },
+          "identifiers": {
+            "type": "array",
+            "description": "Identifiers for the Resource Type.",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "attribute_name": {
+            "type": "string",
+            "description": "Attribute name on the basis of which filtering will be done."
+          },
+          "attribute_values": {
+            "type": "array",
+            "description": "Attribute values selected.",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "resource_type"
+        ]
+      },
+      "ResourceSelectorFilter": {
+        "title": "Resource Selector Filter",
+        "x-stoplight": {
+          "id": "0eh9msctzz3fy"
+        },
+        "type": "object",
+        "description": "Filter by whether the Resource Group has a particular Resource.",
+        "x-examples": {
+          "example-resource-selector-filter": {
+            "resource_type": "resource",
+            "resource_slug": "example_resource"
+          }
+        },
+        "properties": {
+          "resource_type": {
+            "type": "string",
+            "description": "Filter by Resource type"
+          },
+          "resource_slug": {
+            "type": "string",
+            "description": "Filter by Resource identifier",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "resource_type"
+        ]
+      },
+      "ResourceGroupFilterRequestBody": {
+        "title": "Resource Group Filter Request Body",
+        "x-stoplight": {
+          "id": "bzgvkhevpa4rq"
+        },
+        "type": "object",
+        "description": "Filter request body for Resource Groups.",
+        "x-examples": {
+          "example-filter": {
+            "account": "example_account",
+            "org": "example_organization",
+            "project": "example_project",
+            "search_term": "search",
+            "identifier_filter": [
+              "example_resource_group"
+            ],
+            "resource_selector_filter": [
+              {
+                "resource_type": "RESOURCE",
+                "resource_slug": "example_resource"
+              }
+            ],
+            "managed_filter": "NO_FILTER"
+          }
+        },
+        "properties": {
+          "account": {
+            "type": "string",
+            "description": "Filter by Account identifier.",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "org": {
+            "type": "string",
+            "description": "Filter by Organization identifier.",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "project": {
+            "type": "string",
+            "description": "Filter by Project identifier.",
+            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "search_term": {
+            "type": "string",
+            "description": "Filter Resource Group matching by identifier/name."
+          },
+          "identifier_filter": {
+            "type": "array",
+            "description": "Filter by Resource Group identifiers",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          },
+          "resource_selector_filter": {
+            "type": "array",
+            "description": "Filter based on whether it has a particular Resource.",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/components/schemas/ResourceSelectorFilter"
+            }
+          },
+          "managed_filter": {
+            "type": "string",
+            "description": "Filter based on whether the Resource Group is Harness Managed.",
+            "enum": [
+              "NO_FILTER",
+              "ONLY_MANAGED",
+              "ONLY_CUSTOM"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "RolesListResponse": {
+        "description": "Roles List Response body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/RolesResponse"
+              }
+            },
+            "examples": {
+              "role-list-response": {
+                "value": [
+                  {
+                    "slug": "example_role",
+                    "name": "Example_Role",
+                    "permissions": [
+                      "core_resource_view"
+                    ],
+                    "allowed_scope_levels": [
+                      "account"
+                    ],
+                    "description": "This is an Example Role",
+                    "tags": {
+                      "example-tag-1": "example-tag-1-value",
+                      "example-tag-2": "example-tag-2-value"
+                    },
+                    "scope": {
+                      "account": "sample_account",
+                      "org": "sample_organization",
+                      "project": "sample_project"
+                    },
+                    "created": 1234567890,
+                    "updated": 1234567890,
+                    "harness_managed": true
+                  }
+                ]
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/RolesResponse"
+              }
+            },
+            "examples": {
+              "role-list-response": {
+                "value": "- slug: example_role\n  name: Example_Role\n  permissions:\n    - core_resource_view\n  allowed_scope_levels:\n    - account\n  description: This is an Example Role\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  scope:\n    account: sample_account\n    org: sample_organization\n    project: sample_project\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
+              }
+            }
+          }
+        },
+        "headers": {
+          "Link": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "examples": {
+              "sample": {
+                "value": "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        }
+      },
+      "RoleResponse": {
+        "description": "Role Response body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/RolesResponse"
+            },
+            "examples": {
+              "role-response": {
+                "value": {
+                  "slug": "example_role",
+                  "name": "Example_Role",
+                  "permissions": [
+                    "core_resource_view"
+                  ],
+                  "allowed_scope_levels": [
+                    "account"
+                  ],
+                  "description": "This is an Example Role",
+                  "tags": {
+                    "example-tag-1": "example-tag-1-value",
+                    "example-tag-2": "example-tag-2-value"
+                  },
+                  "scope": {
+                    "account": "sample_account",
+                    "org": "sample_organization",
+                    "project": "sample_project"
+                  },
+                  "created": 1234567890,
+                  "updated": 1234567890,
+                  "harness_managed": true
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/RolesResponse"
+            },
+            "examples": {
+              "role-response": {
+                "value": "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+              }
+            }
+          }
+        }
+      },
+      "OrganizationResponse": {
+        "description": "Organization response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/OrganizationResponse"
+            },
+            "examples": {
+              "example-organization-response-json": {
+                "value": {
+                  "org": {
+                    "slug": "example_organization",
+                    "name": "Example Organization",
+                    "description": "This is an example organization",
+                    "tags": {
+                      "example-tag-1": "example-tag-1-value",
+                      "example-tag-2": "example-tag-2-value"
+                    }
+                  },
+                  "created": 1234567890,
+                  "updated": 1234567890,
+                  "harness_managed": true
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/OrganizationResponse"
+            },
+            "examples": {
+              "example-organization-response-yaml": {
+                "value": "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+              }
+            }
+          }
+        }
+      },
+      "ProjectResponse": {
+        "description": "Project response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ProjectResponse"
+            },
+            "examples": {
+              "example-project-response-json": {
+                "value": {
+                  "project": {
+                    "org": "example_org_slug",
+                    "slug": "example_project_slug",
+                    "name": "example-project-name",
+                    "color": "#0063F7",
+                    "modules": [
+                      "CD"
+                    ],
+                    "description": "This is a example project",
+                    "tags": {
+                      "property1": "value1",
+                      "property2": "value2"
+                    }
+                  },
+                  "created": 1234567890,
+                  "updated": 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/ProjectResponse"
+            },
+            "examples": {
+              "example-project-response-yaml": {
+                "value": "project:\n  org: example_org_slug\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "ProjectListResponse": {
+        "description": "Project list response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples": {
+              "example-project-list-response-json": {
+                "value": [
+                  {
+                    "project": {
+                      "org": "example_org_slug",
+                      "slug": "example_project_slug",
+                      "name": "example-project-name",
+                      "color": "#0063F7",
+                      "modules": [
+                        "CD"
+                      ],
+                      "description": "This is a example project",
+                      "tags": {
+                        "property1": "value1",
+                        "property2": "value2"
+                      }
+                    },
+                    "created": 1234567890,
+                    "updated": 1234567890
+                  }
+                ]
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ProjectResponse"
+              }
+            },
+            "examples": {
+              "example-project-list-response-yaml": {
+                "value": "- project:\n    org: example_org_slug\n    slug: example_project_slug\n    name: example-project-name\n    color: '#0063F7'\n    modules:\n      - CD\n    description: This is a example project\n    tags:\n      property1: value1\n      property2: value2\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        },
+        "headers": {
+          "Link": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "examples": {
+              "sample": {
+                "value": "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        }
+      },
+      "OrganizationListResponse": {
+        "description": "Organization list response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples": {
+              "example-organizations-list-response-json": {
+                "value": [
+                  {
+                    "org": {
+                      "slug": "example_organization",
+                      "name": "Example Organization",
+                      "description": "This is an example organization",
+                      "tags": {
+                        "example-tag-1": "example-tag-1-value",
+                        "example-tag-2": "example-tag-2-value"
+                      }
+                    },
+                    "created": 1234567890,
+                    "updated": 1234567890,
+                    "harness_managed": true
+                  }
+                ]
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OrganizationResponse"
+              }
+            },
+            "examples": {
+              "example-organizations-list-response-yaml": {
+                "value": "- org:\n    slug: example_organization\n    name: Example Organization\n    description: This is an example organization\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  harness_managed: true\n"
+              }
+            }
+          }
+        },
+        "headers": {
+          "Link": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "examples": {
+              "sample": {
+                "value": "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        }
+      },
+      "SecretResponse": {
+        "description": "Secret response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SecretResponse"
+            },
+            "examples": {
+              "example-secret-response-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHKeyPath",
+                      "port": 80,
+                      "username": "example_secret",
+                      "key_path": "example_secret",
+                      "encrypted_passphrase": "account.example_secret"
+                    }
+                  },
+                  "created": 1234567890,
+                  "updated": 1234567890,
+                  "draft": false
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/SecretResponse"
+            },
+            "examples": {
+              "example-secret-response-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 80\n    username: example_secret\n    key_path: example_secret\n    encrypted_passphrase: account.example_secret\ncreated: 1234567890\nupdated: 1234567890\ndraft: false\n"
+              }
+            }
+          }
+        }
+      },
+      "SecretListResponse": {
+        "description": "Secret list response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples": {
+              "example-list-secret-response-json": {
+                "value": [
+                  {
+                    "secret": {
+                      "name": "example_secret",
+                      "slug": "example_secret",
+                      "org": "default",
+                      "project": "example_project",
+                      "tags": {
+                        "property1": "example_secret"
+                      },
+                      "description": "example_secret",
+                      "spec": {
+                        "type": "SSHKeyPath",
+                        "port": 80,
+                        "username": "example_secret",
+                        "key_path": "example_secret",
+                        "encrypted_passphrase": "account.example_secret"
+                      }
+                    },
+                    "created": 1234567890,
+                    "updated": 1234567890,
+                    "draft": false
+                  }
+                ]
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SecretResponse"
+              }
+            },
+            "examples": {
+              "example-list-secret-response-yaml": {
+                "value": "- secret:\n    name: example_secret\n    slug: example_secret\n    org: default\n    project: example_project\n    tags:\n      property1: example_secret\n    description: example_secret\n    spec:\n      type: SSHKeyPath\n      port: 80\n      username: example_secret\n      key_path: example_secret\n      encrypted_passphrase: account.example_secret\n  created: 1234567890\n  updated: 1234567890\n  draft: false\n"
+              }
+            }
+          }
+        },
+        "headers": {
+          "Link": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
+            "examples": {
+              "sample": {
+                "value": "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        }
+      },
+      "ValidateSecretSlugResponse": {
+        "description": "Validate secret slug response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ValidateSecretSlugResponse"
+            },
+            "examples": {
+              "example-validate-secret-slug-response-json": {
+                "value": {
+                  "valid": true
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/ValidateSecretSlugResponse"
+            },
+            "examples": {
+              "example-validate-secret-slug-response-json": {
+                "value": "valid: true\n"
+              }
+            }
+          }
+        }
+      },
+      "ResourceGroupsListResponse": {
+        "description": "Resource Groups List response body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "description": "List of Resource Groups",
+              "items": {
+                "$ref": "#/components/schemas/ResourceGroupsResponse"
+              }
+            },
+            "examples": {
+              "resource-group-list-response": {
+                "value": [
+                  {
+                    "slug": "example_resource_group",
+                    "name": "Example Resource Group",
+                    "color": "#0063F7",
+                    "tags": {
+                      "example-tag-1": "example-tag-1-value",
+                      "example-tag-2": "example-tag-2-value"
+                    },
+                    "description": "This is an Example Resource Group",
+                    "allowed_scope_levels": [
+                      "account"
+                    ],
+                    "included_scope": [
+                      {
+                        "filter": "EXCLUDING_CHILD_SCOPES",
+                        "account": "sample_account",
+                        "org": "sample_organization",
+                        "project": "sample_project"
+                      }
+                    ],
+                    "resource_filter": [
+                      {
+                        "resource_type": "resource",
+                        "identifiers": [
+                          "example_resource"
+                        ],
+                        "attribute_name": "resource_attribute",
+                        "attribute_values": [
+                          "example_resource_attribute"
+                        ]
+                      }
+                    ],
+                    "include_all_resources": false,
+                    "harness_managed": true,
+                    "created": 1234567890,
+                    "updated": 1234567890
+                  }
+                ]
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "type": "array",
+              "description": "List of Resource Groups",
+              "items": {
+                "$ref": "#/components/schemas/ResourceGroupsResponse"
+              }
+            },
+            "examples": {
+              "resource-group-list-response": {
+                "value": "- slug: example_resource_group\n  name: Example Resource Group\n  color: '#0063F7'\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  description: This is an Example Resource Group\n  allowed_scope_levels:\n    - account\n  included_scope:\n    - filter: EXCLUDING_CHILD_SCOPES\n      account: sample_account\n      org: sample_organization\n      project: sample_project\n  resource_filter:\n    - resource_type: resource\n      identifiers:\n        - example_resource\n      attribute_name: resource_attribute\n      attribute_values:\n        - example_resource_attribute\n  include_all: false\n  harness_managed: true\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        },
+        "headers": {
+          "Link": {
+            "schema": {
+              "type": "string"
+            },
+            "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "examples": {
+              "sample": {
+                "value": "</v1/resource-groups?page=2&limit=1>; rel=\"next\", </v1/resource-groups?page=1&limit=1>; rel=\"self\", </v1/resource-groups?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        }
+      },
+      "ResourceGroupsResponse": {
+        "description": "Resource Group response body",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourceGroupsResponse"
+            },
+            "examples": {
+              "resource-group-response": {
+                "value": {
+                  "slug": "example_resource_group",
+                  "name": "Example Resource Group",
+                  "color": "#0063F7",
+                  "tags": {
+                    "example-tag-1": "example-tag-1-value",
+                    "example-tag-2": "example-tag-2-value"
+                  },
+                  "description": "This is an Example Resource Group",
+                  "allowed_scope_levels": [
+                    "account"
+                  ],
+                  "included_scope": [
+                    {
+                      "filter": "EXCLUDING_CHILD_SCOPES",
+                      "account": "sample_account",
+                      "org": "sample_organization",
+                      "project": "sample_project"
+                    }
+                  ],
+                  "resource_filter": [
+                    {
+                      "resource_type": "resource",
+                      "identifiers": [
+                        "example_resource"
+                      ],
+                      "attribute_name": "resource_attribute",
+                      "attribute_values": [
+                        "example_resource_attribute"
+                      ]
+                    }
+                  ],
+                  "include_all_resources": false,
+                  "harness_managed": true,
+                  "created": 1234567890,
+                  "updated": 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourceGroupsResponse"
+            },
+            "examples": {
+              "resource-group-response": {
+                "value": "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nallowed_scope_levels:\n  - account\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\nharness_managed: true\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AccountParam": {
+        "name": "account",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
+      },
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 30,
+          "maximum": 100
+        },
+        "description": "Pagination: Number of items to return."
+      },
+      "PageIndex": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 0
+        },
+        "description": "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page."
+      },
+      "SearchTerm": {
+        "name": "search_term",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "This would be used to filter resources having attributes matching the search term."
+      },
+      "OrgParam": {
+        "name": "org",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Organization identifier"
+      },
+      "ProjectParam": {
+        "name": "project",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Project identifier"
+      },
+      "RoleParam": {
+        "name": "role",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Role identifier"
+      },
+      "Page": {
+        "name": "page",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 0
+        },
+        "description": "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
+      },
+      "Limit1": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "default": 30
+        },
+        "description": "Pagination: Number of items to return"
+      },
+      "SearchTerm1": {
+        "name": "search_term",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "This would be used to filter resources having attributes matching with search term."
+      },
+      "OrgQueryParam": {
+        "name": "org",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the organization the resource is scoped to"
+      },
+      "ProjectQueryParam": {
+        "name": "project",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the project the resource is scoped to"
+      },
+      "AccountQueryParam": {
+        "name": "account",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped."
+      },
+      "OrgsQueryParam": {
+        "name": "org",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": "Slug field of the organizations the resource is scoped to"
+      },
+      "ProjectsQueryParam": {
+        "name": "project",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "description": "Slug field of the projects the resource is scoped to"
+      },
+      "OrgPathParam": {
+        "name": "org",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the organization the resource is scoped to"
+      },
+      "PrivateSecret": {
+        "name": "private_secret",
+        "in": "query",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        },
+        "description": "This would be used to define secret as private."
+      },
+      "ProjectPathParam": {
+        "name": "project",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the project the resource is scoped to"
+      },
+      "ResourceGroupParam": {
+        "name": "resource-group",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Resource Group identifier"
+      },
+      "AccountHeader": {
+        "name": "Harness-Account",
+        "in": "header",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
+      },
+      "Sort": {
+        "name": "sort",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "description": "Parameter on the basis of which sorting is done."
+      },
+      "Order": {
+        "name": "order",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "ASC",
+            "DESC"
+          ]
+        },
+        "description": "Order on the basis of which sorting is done."
+      }
+    },
+    "requestBodies": {
+      "CreateRoleRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateRoleRequest"
+            },
+            "examples": {
+              "role-request": {
+                "value": {
+                  "slug": "example_role",
+                  "name": "Example_Role",
+                  "permissions": [
+                    "core_view"
+                  ],
+                  "description": "This is an Example Role",
+                  "tags": {
+                    "example-tag-1": "example-tag-1-value",
+                    "example-tag-2": "example-tag-2-value"
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateRoleRequest"
+            },
+            "examples": {
+              "role-request": {
+                "value": "slug: example_role\nname: Example_Role\npermissions:\n  - core_view\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\n"
+              }
+            }
+          }
+        },
+        "description": "Role Request body",
+        "required": true
+      },
+      "UpdateProjectRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples": {
+              "example-project-update-request-json": {
+                "value": {
+                  "project": {
+                    "slug": "example_project_slug",
+                    "name": "example-project-name",
+                    "color": "#0063F7",
+                    "modules": [
+                      "CD"
+                    ],
+                    "description": "This is a example project",
+                    "tags": {
+                      "property1": "value1",
+                      "property2": "value2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateProjectRequest"
+            },
+            "examples": {
+              "example-project-update-request-yaml": {
+                "value": "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
+              }
+            }
+          }
+        },
+        "description": "Put the necessary fields for the API to update a Project.",
+        "required": true
+      },
+      "CreateOrganizationRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples": {
+              "example-create-organization-request-json": {
+                "value": {
+                  "org": {
+                    "slug": "example_organization",
+                    "name": "Example Organization",
+                    "description": "This is an Example organization",
+                    "tags": {
+                      "example-tag-1": "example-tag-1-value",
+                      "example-tag-2": "example-tag-2-value"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateOrganizationRequest"
+            },
+            "examples": {
+              "example-create-organization-request-yaml": {
+                "value": "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an Example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
+              }
+            }
+          }
+        },
+        "description": "Post the necessary fields for the API to create an organization.",
+        "required": true
+      },
+      "UpdateOrganizationRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples": {
+              "example-organization-update-request-json": {
+                "value": {
+                  "org": {
+                    "slug": "example_organization",
+                    "name": "Example Organization",
+                    "description": "This is an example organization",
+                    "tags": {
+                      "example-tag-1": "example-tag-1-value",
+                      "example-tag-2": "example-tag-2-value"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/UpdateOrganizationRequest"
+            },
+            "examples": {
+              "example-organization-update-request-json": {
+                "value": "org:\n  slug: example_organization\n  name: Example Organization\n  description: This is an example organization\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n"
+              }
+            }
+          }
+        },
+        "description": "Put the necessary fields for the API to update a organization.",
+        "required": true
+      },
+      "CreateProjectRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateProjectRequest"
+            },
+            "examples": {
+              "example-create-project-request-json": {
+                "value": {
+                  "project": {
+                    "slug": "example_project_slug",
+                    "name": "example-project-name",
+                    "color": "#0063F7",
+                    "modules": [
+                      "CD"
+                    ],
+                    "description": "This is a example project",
+                    "tags": {
+                      "property1": "value1",
+                      "property2": "value2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateProjectRequest"
+            },
+            "examples": {
+              "example-create-project-request-yaml": {
+                "value": "project:\n  slug: example_project_slug\n  name: example-project-name\n  color: '#0063F7'\n  modules:\n    - CD\n  description: This is a example project\n  tags:\n    property1: value1\n    property2: value2\n"
+              }
+            }
+          }
+        },
+        "description": "Post the necessary fields for the API to create a project.",
+        "required": true
+      },
+      "SecretRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SecretRequest"
+            },
+            "examples": {
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHKerberosTGTKeyTabFile",
+                      "port": 22,
+                      "principal": "example-principal",
+                      "realm": "example-realm",
+                      "key_path": "key/file/path"
+                    }
+                  }
+                }
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHKerberosTGTPassword",
+                      "port": 22,
+                      "principal": "example-principal",
+                      "realm": "example-realm",
+                      "password": "account.example-password"
+                    }
+                  }
+                }
+              },
+              "example-secret-file-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SecretFile",
+                      "secret_manager_slug": "example_secret_manager_slug"
+                    }
+                  }
+                }
+              },
+              "example-secret-text-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SecretText",
+                      "secret_manager_slug": "example_secret_manager_slug",
+                      "value_type": "Inline",
+                      "value": "example_secret_text_value"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-path-file-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHKeyPath",
+                      "port": 22,
+                      "username": "example_username",
+                      "key_path": "ssh/key/path",
+                      "encrypted_passphrase": "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-key-reference-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHKeyReference",
+                      "port": 22,
+                      "username": "example_username",
+                      "key": "example/secret/key/path",
+                      "encrypted_passphrase": "account.example_passphrase"
+                    }
+                  }
+                }
+              },
+              "example-ssh-password-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "SSHPassword",
+                      "port": 22,
+                      "username": "example_username",
+                      "password": "account.example_password"
+                    }
+                  }
+                }
+              },
+              "example-winrm-ntlm-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "WinRmNTLM",
+                      "port": 5986,
+                      "domain": "example-domain",
+                      "username": "example-username",
+                      "password": "example-password",
+                      "use_ssl": true,
+                      "skip_cert_checks": true,
+                      "use_no_profile": true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "WinRmTGTKeyTabFile",
+                      "port": 5986,
+                      "principal": "example-principal",
+                      "realm": "example-realm",
+                      "key_path": "key/file/path",
+                      "use_ssl": true,
+                      "skip_cert_checks": true,
+                      "use_no_profile": true
+                    }
+                  }
+                }
+              },
+              "example-winrm-tgt-password-secret-request-json": {
+                "value": {
+                  "secret": {
+                    "name": "example_secret",
+                    "slug": "example_secret",
+                    "org": "default",
+                    "project": "example_project",
+                    "tags": {
+                      "property1": "example_secret"
+                    },
+                    "description": "example_secret",
+                    "spec": {
+                      "type": "WinRmTGTPassword",
+                      "port": 5986,
+                      "principal": "example-principal",
+                      "realm": "example-realm",
+                      "password": "example-password",
+                      "use_ssl": true,
+                      "skip_cert_checks": true,
+                      "use_no_profile": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/SecretRequest"
+            },
+            "examples": {
+              "example-ssh-kerberos-tgt-key-tab-file-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTKeyTabFile\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n"
+              },
+              "example-ssh-kerberos-tgt-password-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKerberosTGTPassword\n    port: 22\n    principal: example-principal\n    realm: example-realm\n    password: account.example-password\n"
+              },
+              "example-secret-file-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SecretFile\n    secret_manager_slug: example_secret_manager_slug\n"
+              },
+              "example-secret-text-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SecretText\n    secret_manager_slug: example_secret_manager_slug\n    value_type: Inline\n    value: example_secret_text_value\n"
+              },
+              "example-ssh-key-path-file-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyPath\n    port: 22\n    username: example_username\n    key_path: ssh/key/path\n    encrypted_passphrase: account.example_passphrase\n"
+              },
+              "example-ssh-key-reference-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHKeyReference\n    port: 22\n    username: example_username\n    key: example/secret/key/path\n    encrypted_passphrase: account.example_passphrase\n"
+              },
+              "example-ssh-password-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: SSHPassword\n    port: 22\n    username: example_username\n    password: account.example_password\n"
+              },
+              "example-winrm-ntlm-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmNTLM\n    port: 5986\n    domain: example-domain\n    username: example-username\n    password: example-password\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
+              },
+              "example-winrm-tgt-key-file-tab-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmTGTKeyTabFile\n    port: 5986\n    principal: example-principal\n    realm: example-realm\n    key_path: key/file/path\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
+              },
+              "example-winrm-tgt-password-secret-request-yaml": {
+                "value": "secret:\n  name: example_secret\n  slug: example_secret\n  org: default\n  project: example_project\n  tags:\n    property1: example_secret\n  description: example_secret\n  spec:\n    type: WinRmTGTPassword\n    port: 5986\n    principal: example-principal\n    realm: example-realm\n    password: example-password\n    use_ssl: true\n    skip_cert_checks: true\n    use_no_profile: true\n"
+              }
+            }
+          },
+          "multipart/form-data": {
+            "schema": {
+              "properties": {
+                "spec": {
+                  "$ref": "#/components/schemas/SecretRequest"
+                },
+                "file": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "required": [
+                "file",
+                "spec"
+              ]
+            }
+          }
+        },
+        "required": true
+      },
+      "CreateResourceGroupRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateResourceGroupRequest"
+            },
+            "examples": {
+              "resource-group-request": {
+                "value": {
+                  "slug": "example_resource_group",
+                  "name": "Example Resource Group",
+                  "color": "#0063F7",
+                  "tags": {
+                    "example-tag-1": "example-tag-1-value",
+                    "example-tag-2": "example-tag-2-value"
+                  },
+                  "description": "This is an Example Resource Group",
+                  "included_scope": [
+                    {
+                      "filter": "EXCLUDING_CHILD_SCOPES",
+                      "account": "sample_account",
+                      "org": "sample_organization",
+                      "project": "sample_project"
+                    }
+                  ],
+                  "resource_filter": [
+                    {
+                      "resource_type": "resource",
+                      "identifiers": [
+                        "example_resource"
+                      ],
+                      "attribute_name": "resource_attribute",
+                      "attribute_values": [
+                        "example_resource_attribute"
+                      ]
+                    }
+                  ],
+                  "include_all_resources": false
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/CreateResourceGroupRequest"
+            },
+            "examples": {
+              "resource-group-request": {
+                "value": "slug: example_resource_group\nname: Example Resource Group\ncolor: '#0063F7'\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ndescription: This is an Example Resource Group\nincluded_scope:\n  - filter: EXCLUDING_CHILD_SCOPES\n    account: sample_account\n    org: sample_organization\n    project: sample_project\nresource_filter:\n  - resource_type: resource\n    identifiers:\n      - example_resource\n    attribute_name: resource_attribute\n    attribute_values:\n      - example_resource_attribute\ninclude_all: false\n"
+              }
+            }
+          }
+        },
+        "description": "Resource Group request body",
+        "required": true
+      },
+      "FilterResourceGroupRequest": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourceGroupFilterRequestBody"
+            },
+            "examples": {
+              "example-filter": {
+                "value": {
+                  "account": "example_account",
+                  "org": "example_organization",
+                  "project": "example_project",
+                  "search_term": "search",
+                  "identifier_filter": [
+                    "example_resource_group"
+                  ],
+                  "resource_selector_filter": [
+                    {
+                      "resource_type": "RESOURCE",
+                      "resource_slug": "example_resource"
+                    }
+                  ],
+                  "managed_filter": "NO_FILTER"
+                }
+              }
+            }
+          },
+          "application/yaml": {
+            "schema": {
+              "$ref": "#/components/schemas/ResourceGroupFilterRequestBody"
+            },
+            "examples": {
+              "example-filter": {
+                "value": "account: example_account\norg: example_organization\nproject: example_project\nsearch_term: search\nidentifier_filter:\n  - example_resource_group\nresource_selector_filter:\n  - resource_type: RESOURCE\n    resource_slug: example_resource\nmanaged_filter: NO_FILTER\n"
+              }
+            }
+          }
+        },
+        "description": "Filter Resource Group request body",
+        "required": true
+      }
+    },
+    "securitySchemes": {
+      "x-api-key": {
+        "name": "x-api-key",
+        "type": "apiKey",
+        "in": "header"
+      }
+    }
+  },
+  "x-stoplight": {
+    "id": "bfet7n314xd4i"
+  },
+  "x-tagGroups": [
+    {
+      "name": "Roles",
+      "tags": [
+        "Account Roles",
+        "Organization Roles",
+        "Project Roles"
+      ]
+    }
+  ]
+}
