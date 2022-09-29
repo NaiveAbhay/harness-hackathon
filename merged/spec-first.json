@@ -9133,7 +9133,7 @@
                     },
                     "application/yaml": {
                         "schema": {
-                            "$ref": "#/components/schemas/PipelineRequestBody"
+                            "$ref": "#/components/schemas/PipelineCreateRequestBody"
                         },
                         "examples": {
                             "example-pipeline": {
@@ -9168,7 +9168,7 @@
                     },
                     "application/yaml": {
                         "schema": {
-                            "$ref": "#/components/schemas/PipelineRequestBody"
+                            "$ref": "#/components/schemas/PipelineUpdateRequestBody"
                         },
                         "examples": {
                             "example-pipeline": {
