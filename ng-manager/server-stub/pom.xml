@@ -4,7 +4,7 @@
   <artifactId>ng-manager-server-spec</artifactId>
   <packaging>jar</packaging>
   <name>ng-manager-server-spec</name>
-  <version>1.0.16</version>
+  <version>0.0.24</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <plugins>
