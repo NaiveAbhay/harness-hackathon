@@ -624,6 +624,7 @@ components:
       name: x-api-key
       type: apiKey
       in: header
+      description: API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.
   parameters:
     Limit:
       name: limit
@@ -683,6 +684,11 @@ components:
       required: false
       schema:
         type: string
+        enum:
+          - slug
+          - name
+          - created
+          - updated
       description: Parameter on the basis of which sorting is done.
     Order:
       name: order

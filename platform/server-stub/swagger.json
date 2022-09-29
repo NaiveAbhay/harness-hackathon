@@ -83,7 +83,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -576,7 +577,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -1118,7 +1120,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -1670,7 +1673,8 @@
           "style" : "form",
           "explode" : true,
           "schema" : {
-            "type" : "string"
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -2375,7 +2379,8 @@
         "style" : "form",
         "explode" : true,
         "schema" : {
-          "type" : "string"
+          "type" : "string",
+          "enum" : [ "slug", "name", "created", "updated" ]
         }
       },
       "Order" : {
@@ -2481,6 +2486,7 @@
     "securitySchemes" : {
       "x-api-key" : {
         "type" : "apiKey",
+        "description" : "API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.",
         "name" : "x-api-key",
         "in" : "header"
       }
