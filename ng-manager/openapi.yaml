@@ -648,8 +648,8 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Creates a new secret
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       requestBody:
@@ -664,9 +664,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/OrgQueryParam'
-        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -701,6 +698,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       security:
@@ -718,8 +716,8 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Secret
       security:
@@ -732,8 +730,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
-        - $ref: '#/components/parameters/ProjectQueryParam'
         - schema:
             type: array
             items:
@@ -768,6 +764,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Secret
       security:
@@ -786,8 +783,8 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/PrivateSecret'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Secret
       security:
@@ -800,7 +797,6 @@ paths:
           $ref: '#/components/responses/SecretListResponse'
       description: Retrieves the information of the secrets.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - schema:
             type: array
             items:
@@ -835,6 +831,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Secret
       security:
@@ -855,7 +852,7 @@ paths:
       operationId: get-account-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       security:
@@ -870,7 +867,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -881,24 +878,11 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
-      security:
-        - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-account-scoped-secret-slug
-      responses:
-        '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
-      description: Validates secret slug is unique
-      tags:
-        - Account Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
       security:
         - x-api-key: []
   '/v1/orgs/{org}/secrets/{secret}':
@@ -920,7 +904,7 @@ paths:
       operationId: get-org-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     delete:
@@ -933,7 +917,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -944,24 +928,11 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Org Secret
-      security:
-        - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-org-scoped-secret-slug
-      responses:
-        '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
-      description: Validates org scoped secret slug is unique
-      tags:
-        - Org Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
       security:
         - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/secrets/{secret}':
@@ -984,7 +955,7 @@ paths:
       operationId: get-project-scoped-secret
       description: Retrieves the information of the secret.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     delete:
@@ -997,7 +968,7 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Deletes the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
     put:
@@ -1008,24 +979,11 @@ paths:
           $ref: '#/components/responses/SecretResponse'
       description: Updates the information of the secret with the matching secret slug.
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/SecretRequest'
       tags:
         - Project Secret
-      security:
-        - x-api-key: []
-    head:
-      summary: Validate unique secret slug
-      operationId: validate-unique-project-scoped-secret-slug
-      responses:
-        '200':
-          $ref: '#/components/responses/ValidateSecretSlugResponse'
-      description: Validates project scoped secret slug is unique
-      tags:
-        - Project Secret
-      parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
       security:
         - x-api-key: []
 components:
@@ -3236,23 +3194,6 @@ components:
           examples:
             sample:
               value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
-    ValidateSecretSlugResponse:
-      description: Validate secret slug response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidateSecretSlugResponse'
-          examples:
-            example-validate-secret-slug-response-json:
-              value:
-                valid: true
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/ValidateSecretSlugResponse'
-          examples:
-            example-validate-secret-slug-response-json:
-              value: |
-                valid: true
     ConnectorTestConnectionResponse:
       description: This has test connection details for the Connector defined in Harness.
       content:

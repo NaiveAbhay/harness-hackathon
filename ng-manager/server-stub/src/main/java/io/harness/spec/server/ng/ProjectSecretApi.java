@@ -3,7 +3,6 @@ package io.harness.spec.server.ng;
 import java.io.File;
 import io.harness.spec.server.ng.model.SecretRequest;
 import io.harness.spec.server.ng.model.SecretResponse;
-import io.harness.spec.server.ng.model.ValidateSecretSlugResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -42,9 +41,9 @@ public interface ProjectSecretApi {
 , @PathParam("project")
 
  @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("private_secret") @DefaultValue("false") 
 
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
@@ -62,9 +61,9 @@ public interface ProjectSecretApi {
 , @PathParam("project")
 
  @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("private_secret") @DefaultValue("false") 
 
  @Parameter(description = "This would be used to define secret as private.")  Boolean privateSecret
@@ -85,9 +84,9 @@ public interface ProjectSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{secret}")
@@ -105,9 +104,9 @@ public interface ProjectSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -121,9 +120,6 @@ public interface ProjectSecretApi {
 , @PathParam("project")
 
  @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
 ,  @QueryParam("secret") 
 
  @Parameter(description = "Slug field of secrets")  List<String> secret
@@ -142,6 +138,9 @@ public interface ProjectSecretApi {
 ,  @QueryParam("limit") @DefaultValue("30") 
 
  @Parameter(description = "Pagination: Number of items to return")  Integer limit
+,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{secret}")
@@ -160,9 +159,9 @@ public interface ProjectSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{secret}")
@@ -181,27 +180,7 @@ public interface ProjectSecretApi {
 , @PathParam("secret")
 
  @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-);
-    @HEAD
-    @Path("/{secret}")
-    @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "validateUniqueProjectScopedSecretSlug", summary = "Validate unique secret slug", description = "Validates project scoped secret slug is unique", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Secret" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Validate secret slug response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ValidateSecretSlugResponse.class))) })
-    Response validateUniqueProjectScopedSecretSlug( @PathParam("org")
-
- @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-, @PathParam("project")
-
- @Parameter(description = "Slug field of the project the resource is scoped to") String project
-, @PathParam("secret")
-
- @Parameter(description = "Slug field of the secret") String secret
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
