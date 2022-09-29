@@ -1341,7 +1341,7 @@ components:
                   repo_name: example_repository
         application/yaml:
           schema:
-            $ref: '#/components/schemas/PipelineRequestBody'
+            $ref: '#/components/schemas/PipelineCreateRequestBody'
           examples:
             example-pipeline:
               value: |
@@ -1464,7 +1464,7 @@ components:
                   last_commit_id: abcdXYZ
         application/yaml:
           schema:
-            $ref: '#/components/schemas/PipelineRequestBody'
+            $ref: '#/components/schemas/PipelineUpdateRequestBody'
           examples:
             example-pipeline:
               value: |
