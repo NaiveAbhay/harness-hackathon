@@ -5,14 +5,14 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 /**
- * Git details of the Entity.
+ * Git Experience related details of the Entity.
  **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-@Schema(description = "Git details of the Entity.")
+@Schema(description = "Git Experience related details of the Entity.")
 
 public class GitDetails   {
 
@@ -50,7 +50,7 @@ public class GitDetails   {
   }
 
   /**
-   * Name of the branch (for Git Experience).
+   * Name of the branch.
    **/
   public GitDetails branchName(String branchName) {
     this.branchName = branchName;
@@ -58,7 +58,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "Name of the branch (for Git Experience).")
+  @Schema(description = "Name of the branch.")
   @JsonProperty("branch_name")
 
   public String getBranchName() {
@@ -69,7 +69,7 @@ public class GitDetails   {
   }
 
   /**
-   * File path of the Entity in the repository (for Git Experience).
+   * File path of the Entity in the repository.
    **/
   public GitDetails filePath(String filePath) {
     this.filePath = filePath;
@@ -77,7 +77,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "File path of the Entity in the repository (for Git Experience).")
+  @Schema(description = "File path of the Entity in the repository.")
   @JsonProperty("file_path")
 
   public String getFilePath() {
@@ -88,7 +88,7 @@ public class GitDetails   {
   }
 
   /**
-   * Name of the repository (for Git Experience).
+   * Name of the repository.
    **/
   public GitDetails repoName(String repoName) {
     this.repoName = repoName;
@@ -96,7 +96,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "Name of the repository (for Git Experience).")
+  @Schema(description = "Name of the repository.")
   @JsonProperty("repo_name")
 
   public String getRepoName() {
@@ -107,7 +107,7 @@ public class GitDetails   {
   }
 
   /**
-   * Latest commit identifier (for Git Experience).
+   * Latest commit identifier.
    **/
   public GitDetails commitId(String commitId) {
     this.commitId = commitId;
@@ -115,7 +115,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "Latest commit identifier (for Git Experience).")
+  @Schema(description = "Latest commit identifier.")
   @JsonProperty("commit_id")
 
   public String getCommitId() {
@@ -126,7 +126,7 @@ public class GitDetails   {
   }
 
   /**
-   * File URL of the Entity (for Git Experience).
+   * File URL of the Entity.
    **/
   public GitDetails fileUrl(String fileUrl) {
     this.fileUrl = fileUrl;
@@ -134,7 +134,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "File URL of the Entity (for Git Experience).")
+  @Schema(description = "File URL of the Entity.")
   @JsonProperty("file_url")
 
   public String getFileUrl() {
@@ -145,7 +145,7 @@ public class GitDetails   {
   }
 
   /**
-   * Repository URL of the Entity (for Git Experience).
+   * Repository URL of the Entity.
    **/
   public GitDetails repoUrl(String repoUrl) {
     this.repoUrl = repoUrl;
@@ -153,7 +153,7 @@ public class GitDetails   {
   }
 
   
-  @Schema(description = "Repository URL of the Entity (for Git Experience).")
+  @Schema(description = "Repository URL of the Entity.")
   @JsonProperty("repo_url")
 
   public String getRepoUrl() {

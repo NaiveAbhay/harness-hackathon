@@ -13,16 +13,16 @@
     "description" : "localhost"
   } ],
   "tags" : [ {
-    "name" : "Project Pipelines",
+    "name" : "Pipelines",
     "description" : "This contains APIs for performing CRUD operations on Pipelines."
   } ],
   "paths" : {
     "/v1/orgs/{org}/projects/{project}/pipelines" : {
       "get" : {
-        "tags" : [ "Project Pipelines" ],
+        "tags" : [ "Pipelines" ],
         "summary" : "List Pipelines",
         "description" : "Returns a list of Pipelines.",
-        "operationId" : "list-pipelines-project",
+        "operationId" : "list-pipelines",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -95,7 +95,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "name", "identifier", "createdAt", "lastUpdatedAt" ]
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -122,7 +122,7 @@
         }, {
           "name" : "filter_identifier",
           "in" : "query",
-          "description" : "Identifier of an existing Filter.",
+          "description" : "Identifier of a saved Filter.",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -228,7 +228,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "repo_name",
+          "name" : "repository",
           "in" : "query",
           "description" : "Repository name on the basis of which the Pipelines are filtered.",
           "required" : false,
@@ -317,10 +317,10 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Project Pipelines" ],
+        "tags" : [ "Pipelines" ],
         "summary" : "Create a Pipeline",
         "description" : "Creates a Pipeline.",
-        "operationId" : "create-pipeline-project",
+        "operationId" : "create-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -351,91 +351,9 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "branch_name",
-          "in" : "query",
-          "description" : "Name of the branch (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "file_path",
-          "in" : "query",
-          "description" : "File path of the Entity in the repository (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "commit_message",
-          "in" : "query",
-          "description" : "Commit message used for the merge commit (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "create_new_branch",
-          "in" : "query",
-          "description" : "Checks out a new branch in the repository (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "base_branch",
-          "in" : "query",
-          "description" : "Name of the default branch (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "connector_ref",
-          "in" : "query",
-          "description" : "Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "store_type",
-          "in" : "query",
-          "description" : "Specifies whether the Entity is to be stored in Git or not (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "INLINE", "REMOTE" ]
-          }
-        }, {
-          "name" : "repo_name",
-          "in" : "query",
-          "description" : "Name of the repository (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
         } ],
         "requestBody" : {
-          "$ref" : "#/components/requestBodies/PipelineRequestBody"
+          "$ref" : "#/components/requestBodies/PipelineCreateRequestBody"
         },
         "responses" : {
           "201" : {
@@ -473,10 +391,10 @@
     },
     "/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}" : {
       "get" : {
-        "tags" : [ "Project Pipelines" ],
+        "tags" : [ "Pipelines" ],
         "summary" : "Retrieve a Pipeline",
         "description" : "Retrieves a Pipeline.",
-        "operationId" : "get-pipeline-project",
+        "operationId" : "get-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -605,10 +523,10 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Project Pipelines" ],
+        "tags" : [ "Pipelines" ],
         "summary" : "Update a Pipeline",
         "description" : "Updates a Pipeline.",
-        "operationId" : "update-pipeline-project",
+        "operationId" : "update-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -649,59 +567,9 @@
           "schema" : {
             "type" : "string"
           }
-        }, {
-          "name" : "branch_name",
-          "in" : "query",
-          "description" : "Name of the branch (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "commit_message",
-          "in" : "query",
-          "description" : "Commit message used for the merge commit (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "last_object_id",
-          "in" : "query",
-          "description" : "Last object identifier (for Github).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "base_branch",
-          "in" : "query",
-          "description" : "Name of the default branch (for Git Experience).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "last_commit_id",
-          "in" : "query",
-          "description" : "Last commit identifier (for Git Repositories other than Github).",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
         } ],
         "requestBody" : {
-          "$ref" : "#/components/requestBodies/PipelineRequestBody"
+          "$ref" : "#/components/requestBodies/PipelineUpdateRequestBody"
         },
         "responses" : {
           "200" : {
@@ -737,10 +605,10 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Project Pipelines" ],
+        "tags" : [ "Pipelines" ],
         "summary" : "Delete a Pipeline",
         "description" : "Deletes a Pipeline.",
-        "operationId" : "delete-pipeline-project",
+        "operationId" : "delete-pipeline",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -796,7 +664,7 @@
   "components" : {
     "schemas" : {
       "GitDetails" : {
-        "title" : "Git Details",
+        "title" : "Git Response Details",
         "type" : "object",
         "properties" : {
           "entity_identifier" : {
@@ -808,30 +676,30 @@
           },
           "branch_name" : {
             "type" : "string",
-            "description" : "Name of the branch (for Git Experience)."
+            "description" : "Name of the branch."
           },
           "file_path" : {
             "type" : "string",
-            "description" : "File path of the Entity in the repository (for Git Experience)."
+            "description" : "File path of the Entity in the repository."
           },
           "repo_name" : {
             "type" : "string",
-            "description" : "Name of the repository (for Git Experience)."
+            "description" : "Name of the repository."
           },
           "commit_id" : {
             "type" : "string",
-            "description" : "Latest commit identifier (for Git Experience)."
+            "description" : "Latest commit identifier."
           },
           "file_url" : {
             "type" : "string",
-            "description" : "File URL of the Entity (for Git Experience)."
+            "description" : "File URL of the Entity."
           },
           "repo_url" : {
             "type" : "string",
-            "description" : "Repository URL of the Entity (for Git Experience)."
+            "description" : "Repository URL of the Entity."
           }
         },
-        "description" : "Git details of the Entity.",
+        "description" : "Git Experience related details of the Entity.",
         "x-stoplight" : {
           "id" : "qkq00fbqykhxw"
         },
@@ -1058,7 +926,7 @@
         }
       },
       "ExecutionSummary" : {
-        "title" : "ExecutionSummary",
+        "title" : "Execution Summary",
         "type" : "object",
         "properties" : {
           "errors_count" : {
@@ -1089,14 +957,17 @@
           }
         }
       },
-      "PipelineRequestBody" : {
-        "title" : "Pipeline Request Body",
+      "PipelineCreateRequestBody" : {
+        "title" : "Pipeline Create Request Body",
         "required" : [ "pipeline_yaml" ],
         "type" : "object",
         "properties" : {
           "pipeline_yaml" : {
             "type" : "string",
             "description" : "Pipeline YAML (to be passed as a String)."
+          },
+          "git_details" : {
+            "$ref" : "#/components/schemas/GitCreateDetails"
           }
         },
         "description" : "Pipeline request body object ",
@@ -1105,7 +976,16 @@
         },
         "x-examples" : {
           "example-pipeline" : {
-            "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n"
+            "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+            "git_details" : {
+              "branch_name" : "branch",
+              "file_path" : "/folder/file.json",
+              "commit_message" : "Added Harness Git Experience",
+              "base_branch" : "old_branch",
+              "connector_ref" : "git_connector",
+              "store_type" : "INLINE",
+              "repo_name" : "example_repository"
+            }
           }
         }
       },
@@ -1308,6 +1188,125 @@
             "trigger_type" : "NOOP",
             "username" : "harness_user",
             "email" : "noreply@harness.io"
+          }
+        }
+      },
+      "GitCreateDetails" : {
+        "title" : "Create Git Details",
+        "type" : "object",
+        "properties" : {
+          "branch_name" : {
+            "type" : "string",
+            "description" : "Name of the branch."
+          },
+          "file_path" : {
+            "type" : "string",
+            "description" : "File path of the Entity in the repository."
+          },
+          "commit_message" : {
+            "type" : "string",
+            "description" : "Commit message used for the merge commit."
+          },
+          "base_branch" : {
+            "type" : "string",
+            "description" : "Name of the default branch (this checks out a new branch titled by branch_name)."
+          },
+          "connector_ref" : {
+            "type" : "string",
+            "description" : "Identifier of the Harness Connector used for CRUD operations on the Entity."
+          },
+          "store_type" : {
+            "type" : "string",
+            "description" : "Specifies whether the Entity is to be stored in Git or not.",
+            "enum" : [ "INLINE", "REMOTE" ]
+          },
+          "repo_name" : {
+            "type" : "string",
+            "description" : "Name of the repository."
+          }
+        },
+        "description" : "Contains parameters related to creating an Entity for Git Experience.",
+        "x-stoplight" : {
+          "id" : "36li0g4pug41q"
+        },
+        "x-examples" : {
+          "example-create-git" : {
+            "branch_name" : "branch",
+            "file_path" : "/folder/file.json",
+            "commit_message" : "Added Harness Git Experience",
+            "base_branch" : "old_branch",
+            "connector_ref" : "git_connector",
+            "store_type" : "INLINE",
+            "repo_name" : "example_repository"
+          }
+        }
+      },
+      "GitUpdateDetails" : {
+        "title" : "Update Git Details",
+        "type" : "object",
+        "properties" : {
+          "branch_name" : {
+            "type" : "string",
+            "description" : "Name of the branch."
+          },
+          "commit_message" : {
+            "type" : "string",
+            "description" : "Commit message used for the merge commit."
+          },
+          "last_object_id" : {
+            "type" : "string",
+            "description" : "Last object identifier (for Github)."
+          },
+          "base_branch" : {
+            "type" : "string",
+            "description" : "Name of the default branch (this checks out a new branch titled by branch_name)."
+          },
+          "last_commit_id" : {
+            "type" : "string",
+            "description" : "Last commit identifier (for Git Repositories other than Github)."
+          }
+        },
+        "description" : "Contains parameters related to updating an Entity for Git Experience.",
+        "x-stoplight" : {
+          "id" : "cko6b02f6trvt"
+        },
+        "x-examples" : {
+          "example-update-git" : {
+            "branch_name" : "branch",
+            "commit_message" : "Added Harness Git Experience",
+            "last_object_id" : "abcdXYZ",
+            "base_branch" : "old_branch",
+            "last_commit_id" : "abcdXYZ"
+          }
+        }
+      },
+      "PipelineUpdateRequestBody" : {
+        "title" : "Pipeline Update Request Body",
+        "required" : [ "pipeline_yaml" ],
+        "type" : "object",
+        "properties" : {
+          "pipeline_yaml" : {
+            "type" : "string",
+            "description" : "Pipeline YAML (to be passed as a String)."
+          },
+          "git_details" : {
+            "$ref" : "#/components/schemas/GitUpdateDetails"
+          }
+        },
+        "description" : "Pipeline request body object ",
+        "x-stoplight" : {
+          "id" : "u6xvv15ghw7kk"
+        },
+        "x-examples" : {
+          "example-pipeline" : {
+            "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+            "git_details" : {
+              "branch_name" : "branch",
+              "commit_message" : "Added Harness Git Experience",
+              "last_object_id" : "abcdXYZ",
+              "base_branch" : "old_branch",
+              "last_commit_id" : "abcdXYZ"
+            }
           }
         }
       }
@@ -1553,85 +1552,6 @@
           "type" : "string"
         }
       },
-      "FilePath" : {
-        "name" : "file_path",
-        "in" : "query",
-        "description" : "File path of the Entity in the repository (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "CommitMsg" : {
-        "name" : "commit_message",
-        "in" : "query",
-        "description" : "Commit message used for the merge commit (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "NewBranch" : {
-        "name" : "create_new_branch",
-        "in" : "query",
-        "description" : "Checks out a new branch in the repository (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "boolean",
-          "default" : false
-        }
-      },
-      "BaseBranch" : {
-        "name" : "base_branch",
-        "in" : "query",
-        "description" : "Name of the default branch (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "Connector" : {
-        "name" : "connector_ref",
-        "in" : "query",
-        "description" : "Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
-      "StoreType" : {
-        "name" : "store_type",
-        "in" : "query",
-        "description" : "Specifies whether the Entity is to be stored in Git or not (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string",
-          "enum" : [ "INLINE", "REMOTE" ]
-        }
-      },
-      "RepoName" : {
-        "name" : "repo_name",
-        "in" : "query",
-        "description" : "Name of the repository (for Git Experience).",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "string"
-        }
-      },
       "PipelineParam" : {
         "name" : "pipeline",
         "in" : "path",
@@ -1652,7 +1572,7 @@
         "explode" : true,
         "schema" : {
           "type" : "string",
-          "enum" : [ "name", "identifier", "createdAt", "lastUpdatedAt" ]
+          "enum" : [ "slug", "name", "created", "updated" ]
         }
       },
       "Order" : {
@@ -1669,17 +1589,26 @@
       }
     },
     "requestBodies" : {
-      "PipelineRequestBody" : {
+      "PipelineCreateRequestBody" : {
         "description" : "Pipeline request body",
         "content" : {
           "application/json" : {
             "schema" : {
-              "$ref" : "#/components/schemas/PipelineRequestBody"
+              "$ref" : "#/components/schemas/PipelineCreateRequestBody"
             },
             "examples" : {
               "example-pipeline" : {
                 "value" : {
-                  "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n"
+                  "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                  "git_details" : {
+                    "branch_name" : "branch",
+                    "file_path" : "/folder/file.json",
+                    "commit_message" : "Added Harness Git Experience",
+                    "base_branch" : "old_branch",
+                    "connector_ref" : "git_connector",
+                    "store_type" : "INLINE",
+                    "repo_name" : "example_repository"
+                  }
                 }
               }
             }
@@ -1690,7 +1619,62 @@
             },
             "examples" : {
               "example-pipeline" : {
-                "value" : "pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'\n"
+                "value" : {
+                  "pipeline_yaml" : "pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback",
+                  "git_details" : {
+                    "branch_name" : "branch",
+                    "file_path" : "/folder/file.json",
+                    "commit_message" : "Added Harness Git Experience",
+                    "base_branch" : "old_branch",
+                    "connector_ref" : "git_connector",
+                    "store_type" : "INLINE",
+                    "repo_name" : "example_repository"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required" : true
+      },
+      "PipelineUpdateRequestBody" : {
+        "description" : "Pipeline request body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/PipelineUpdateRequestBody"
+            },
+            "examples" : {
+              "example-pipeline" : {
+                "value" : {
+                  "pipeline_yaml" : "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                  "git_details" : {
+                    "branch_name" : "branch",
+                    "commit_message" : "Added Harness Git Experience",
+                    "last_object_id" : "abcdXYZ",
+                    "base_branch" : "old_branch",
+                    "last_commit_id" : "abcdXYZ"
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/PipelineRequestBody"
+            },
+            "examples" : {
+              "example-pipeline" : {
+                "value" : {
+                  "pipeline_yaml" : "pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback",
+                  "git_details" : {
+                    "branch_name" : "branch",
+                    "commit_message" : "Added Harness Git Experience",
+                    "last_object_id" : "abcdXYZ",
+                    "base_branch" : "old_branch",
+                    "last_commit_id" : "abcdXYZ"
+                  }
+                }
               }
             }
           }
@@ -1712,6 +1696,6 @@
   },
   "x-tagGroups" : [ {
     "name" : "Pipelines",
-    "tags" : [ "Project Pipelines" ]
+    "tags" : [ "Pipelines" ]
   } ]
 }

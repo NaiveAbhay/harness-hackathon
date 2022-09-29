@@ -1,9 +1,10 @@
 package io.harness.spec.server.pipeline;
 
+import io.harness.spec.server.pipeline.model.PipelineCreateRequestBody;
 import io.harness.spec.server.pipeline.model.PipelineCreateResponseBody;
 import io.harness.spec.server.pipeline.model.PipelineGetResponseBody;
 import io.harness.spec.server.pipeline.model.PipelineListResponseBody;
-import io.harness.spec.server.pipeline.model.PipelineRequestBody;
+import io.harness.spec.server.pipeline.model.PipelineUpdateRequestBody;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -25,16 +26,16 @@ import javax.validation.Valid;
 @Path("/v1/orgs/{org}/projects/{project}/pipelines")
 
 
-public interface ProjectPipelinesApi {
+public interface PipelinesApi {
 
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createPipelineProject", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
+    @Operation(operationId = "createPipeline", summary = "Create a Pipeline", description = "Creates a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response createPipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
+    Response createPipeline(@Valid PipelineCreateRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -43,38 +44,14 @@ public interface ProjectPipelinesApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("branch_name") 
-
- @Parameter(description = "Name of the branch (for Git Experience).")  String branchName
-,  @QueryParam("file_path") 
-
- @Parameter(description = "File path of the Entity in the repository (for Git Experience).")  String filePath
-,  @QueryParam("commit_message") 
-
- @Parameter(description = "Commit message used for the merge commit (for Git Experience).")  String commitMessage
-,  @QueryParam("create_new_branch") @DefaultValue("false") 
-
- @Parameter(description = "Checks out a new branch in the repository (for Git Experience).")  Boolean createNewBranch
-,  @QueryParam("base_branch") 
-
- @Parameter(description = "Name of the default branch (for Git Experience).")  String baseBranch
-,  @QueryParam("connector_ref") 
-
- @Parameter(description = "Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).")  String connectorRef
-,  @QueryParam("store_type") 
-
- @Parameter(description = "Specifies whether the Entity is to be stored in Git or not (for Git Experience).")  String storeType
-,  @QueryParam("repo_name") 
-
- @Parameter(description = "Name of the repository (for Git Experience).")  String repoName
 );
     @DELETE
     @Path("/{pipeline}")
-    @Operation(operationId = "deletePipelineProject", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
+    @Operation(operationId = "deletePipeline", summary = "Delete a Pipeline", description = "Deletes a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deletePipelineProject( @PathParam("org")
+    Response deletePipeline( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -90,11 +67,11 @@ public interface ProjectPipelinesApi {
     @GET
     @Path("/{pipeline}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getPipelineProject", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
+    @Operation(operationId = "getPipeline", summary = "Retrieve a Pipeline", description = "Retrieves a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineGetResponseBody.class))) })
-    Response getPipelineProject( @PathParam("org")
+    Response getPipeline( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -115,11 +92,11 @@ public interface ProjectPipelinesApi {
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "listPipelinesProject", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
+    @Operation(operationId = "listPipelines", summary = "List Pipelines", description = "Returns a list of Pipelines.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Response body for List Pipelines.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PipelineListResponseBody.class)))) })
-    Response listPipelinesProject( @PathParam("org")
+    Response listPipelines( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -148,7 +125,7 @@ public interface ProjectPipelinesApi {
  @Parameter(description = "Harness module which is part of the Pipeline.")  String module
 ,  @QueryParam("filter_identifier") 
 
- @Parameter(description = "Identifier of an existing Filter.")  String filterIdentifier
+ @Parameter(description = "Identifier of a saved Filter.")  String filterIdentifier
 ,  @QueryParam("pipeline_identifiers") 
 
  @Parameter(description = "List of Pipeline identifiers on the basis of which the Pipelines are filtered.")  List<String> pipelineIdentifiers
@@ -170,19 +147,19 @@ public interface ProjectPipelinesApi {
 ,  @QueryParam("deployment_type") 
 
  @Parameter(description = "Deployment type on the basis of which the Pipelines are filtered.")  String deploymentType
-,  @QueryParam("repo_name") 
+,  @QueryParam("repository") 
 
- @Parameter(description = "Repository name on the basis of which the Pipelines are filtered.")  String repoName
+ @Parameter(description = "Repository name on the basis of which the Pipelines are filtered.")  String repository
 );
     @PUT
     @Path("/{pipeline}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updatePipelineProject", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Pipelines" })
+    @Operation(operationId = "updatePipeline", summary = "Update a Pipeline", description = "Updates a Pipeline.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Pipelines" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Pipeline response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = PipelineCreateResponseBody.class))) })
-    Response updatePipelineProject(@Valid PipelineRequestBody body, @PathParam("org")
+    Response updatePipeline(@Valid PipelineUpdateRequestBody body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
@@ -194,19 +171,4 @@ public interface ProjectPipelinesApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("branch_name") 
-
- @Parameter(description = "Name of the branch (for Git Experience).")  String branchName
-,  @QueryParam("commit_message") 
-
- @Parameter(description = "Commit message used for the merge commit (for Git Experience).")  String commitMessage
-,  @QueryParam("last_object_id") 
-
- @Parameter(description = "Last object identifier (for Github).")  String lastObjectId
-,  @QueryParam("base_branch") 
-
- @Parameter(description = "Name of the default branch (for Git Experience).")  String baseBranch
-,  @QueryParam("last_commit_id") 
-
- @Parameter(description = "Last commit identifier (for Git Repositories other than Github).")  String lastCommitId
 );}

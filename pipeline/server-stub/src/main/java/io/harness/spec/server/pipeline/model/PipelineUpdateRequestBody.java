@@ -1,5 +1,6 @@
 package io.harness.spec.server.pipeline.model;
 
+import io.harness.spec.server.pipeline.model.GitUpdateDetails;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -14,14 +15,16 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @Schema(description = "Pipeline request body object ")
 
-public class PipelineRequestBody   {
+public class PipelineUpdateRequestBody   {
 
   private @Valid String pipelineYaml = null;
+
+  private @Valid GitUpdateDetails gitDetails = null;
 
   /**
    * Pipeline YAML (to be passed as a String).
    **/
-  public PipelineRequestBody pipelineYaml(String pipelineYaml) {
+  public PipelineUpdateRequestBody pipelineYaml(String pipelineYaml) {
     this.pipelineYaml = pipelineYaml;
     return this;
   }
@@ -38,6 +41,24 @@ public class PipelineRequestBody   {
     this.pipelineYaml = pipelineYaml;
   }
 
+  /**
+   **/
+  public PipelineUpdateRequestBody gitDetails(GitUpdateDetails gitDetails) {
+    this.gitDetails = gitDetails;
+    return this;
+  }
+
+  
+  @Schema(description = "")
+  @JsonProperty("git_details")
+
+  public GitUpdateDetails getGitDetails() {
+    return gitDetails;
+  }
+  public void setGitDetails(GitUpdateDetails gitDetails) {
+    this.gitDetails = gitDetails;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -47,21 +68,23 @@ public class PipelineRequestBody   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PipelineRequestBody pipelineRequestBody = (PipelineRequestBody) o;
-    return Objects.equals(pipelineYaml, pipelineRequestBody.pipelineYaml);
+    PipelineUpdateRequestBody pipelineUpdateRequestBody = (PipelineUpdateRequestBody) o;
+    return Objects.equals(pipelineYaml, pipelineUpdateRequestBody.pipelineYaml) &&
+        Objects.equals(gitDetails, pipelineUpdateRequestBody.gitDetails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml);
+    return Objects.hash(pipelineYaml, gitDetails);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PipelineRequestBody {\n");
+    sb.append("class PipelineUpdateRequestBody {\n");
     
     sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
+    sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
     sb.append("}");
     return sb.toString();
   }

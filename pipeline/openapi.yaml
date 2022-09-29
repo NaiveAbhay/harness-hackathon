@@ -11,12 +11,12 @@ servers:
   - url: 'http://app.harness.io'
     description: localhost
 tags:
-  - name: Project Pipelines
+  - name: Pipelines
     description: This contains APIs for performing CRUD operations on Pipelines.
 x-tagGroups:
   - name: Pipelines
     tags:
-      - Project Pipelines
+      - Pipelines
 paths:
   '/v1/orgs/{org}/projects/{project}/pipelines':
     parameters:
@@ -24,7 +24,7 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
     get:
       summary: List Pipelines
-      operationId: list-pipelines-project
+      operationId: list-pipelines
       description: Returns a list of Pipelines.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -49,7 +49,7 @@ paths:
             type: string
           in: query
           name: filter_identifier
-          description: Identifier of an existing Filter.
+          description: Identifier of a saved Filter.
         - schema:
             type: array
             items:
@@ -109,35 +109,27 @@ paths:
         - schema:
             type: string
           in: query
-          name: repo_name
+          name: repository
           description: Repository name on the basis of which the Pipelines are filtered.
       security:
         - x-api-key: []
       tags:
-        - Project Pipelines
+        - Pipelines
       responses:
         '200':
           $ref: '#/components/responses/PipelineListResponseBody'
     post:
       summary: Create a Pipeline
-      operationId: create-pipeline-project
+      operationId: create-pipeline
       description: Creates a Pipeline.
       security:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Branch'
-        - $ref: '#/components/parameters/FilePath'
-        - $ref: '#/components/parameters/CommitMsg'
-        - $ref: '#/components/parameters/NewBranch'
-        - $ref: '#/components/parameters/BaseBranch'
-        - $ref: '#/components/parameters/Connector'
-        - $ref: '#/components/parameters/StoreType'
-        - $ref: '#/components/parameters/RepoName'
       tags:
-        - Project Pipelines
+        - Pipelines
       requestBody:
-        $ref: '#/components/requestBodies/PipelineRequestBody'
+        $ref: '#/components/requestBodies/PipelineCreateRequestBody'
       responses:
         '201':
           $ref: '#/components/responses/PipelineCreateResponseBody'
@@ -148,7 +140,7 @@ paths:
       - $ref: '#/components/parameters/PipelineParam'
     get:
       summary: Retrieve a Pipeline
-      operationId: get-pipeline-project
+      operationId: get-pipeline
       security:
         - x-api-key: []
       description: Retrieves a Pipeline.
@@ -162,59 +154,46 @@ paths:
           name: template_applied
           description: 'If true, returns Pipeline YAML with Templates applied on it.'
       tags:
-        - Project Pipelines
+        - Pipelines
       responses:
         '200':
           $ref: '#/components/responses/PipelineGetResponseBody'
     put:
       summary: Update a Pipeline
-      operationId: update-pipeline-project
+      operationId: update-pipeline
       security:
         - x-api-key: []
       description: Updates a Pipeline.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Branch'
-        - $ref: '#/components/parameters/CommitMsg'
-        - schema:
-            type: string
-          in: query
-          name: last_object_id
-          description: Last object identifier (for Github).
-        - $ref: '#/components/parameters/BaseBranch'
-        - schema:
-            type: string
-          in: query
-          name: last_commit_id
-          description: Last commit identifier (for Git Repositories other than Github).
       tags:
-        - Project Pipelines
+        - Pipelines
       requestBody:
-        $ref: '#/components/requestBodies/PipelineRequestBody'
+        $ref: '#/components/requestBodies/PipelineUpdateRequestBody'
       responses:
         '200':
           $ref: '#/components/responses/PipelineCreateResponseBody'
     delete:
       summary: Delete a Pipeline
-      operationId: delete-pipeline-project
+      operationId: delete-pipeline
       description: Deletes a Pipeline.
       security:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
-        - Project Pipelines
+        - Pipelines
       responses:
         '204':
           description: No Content
 components:
   schemas:
     GitDetails:
-      title: Git Details
+      title: Git Response Details
       x-stoplight:
         id: qkq00fbqykhxw
       type: object
-      description: Git details of the Entity.
+      description: Git Experience related details of the Entity.
       x-examples:
         example-git:
           entity_identifier: example_object
@@ -233,22 +212,22 @@ components:
           maxLength: 64
         branch_name:
           type: string
-          description: Name of the branch (for Git Experience).
+          description: Name of the branch.
         file_path:
           type: string
-          description: File path of the Entity in the repository (for Git Experience).
+          description: File path of the Entity in the repository.
         repo_name:
           type: string
-          description: Name of the repository (for Git Experience).
+          description: Name of the repository.
         commit_id:
           type: string
-          description: Latest commit identifier (for Git Experience).
+          description: Latest commit identifier.
         file_url:
           type: string
-          description: File URL of the Entity (for Git Experience).
+          description: File URL of the Entity.
         repo_url:
           type: string
-          description: Repository URL of the Entity (for Git Experience).
+          description: Repository URL of the Entity.
     PipelineGetResponseBody:
       title: Pipeline Get Response Body
       x-stoplight:
@@ -432,7 +411,7 @@ components:
         git_details:
           $ref: '#/components/schemas/GitDetails'
     ExecutionSummary:
-      title: ExecutionSummary
+      title: Execution Summary
       x-stoplight:
         id: mxtmp0n5g1bsg
       type: object
@@ -468,8 +447,8 @@ components:
           items:
             type: integer
             format: int32
-    PipelineRequestBody:
-      title: Pipeline Request Body
+    PipelineCreateRequestBody:
+      title: Pipeline Create Request Body
       x-stoplight:
         id: enghevjhz64ca
       type: object
@@ -568,10 +547,20 @@ components:
                             - AllErrors
                           action:
                             type: StageRollback
+          git_details:
+            branch_name: branch
+            file_path: /folder/file.json
+            commit_message: Added Harness Git Experience
+            base_branch: old_branch
+            connector_ref: git_connector
+            store_type: INLINE
+            repo_name: example_repository
       properties:
         pipeline_yaml:
           type: string
           description: Pipeline YAML (to be passed as a String).
+        git_details:
+          $ref: '#/components/schemas/GitCreateDetails'
       required:
         - pipeline_yaml
     PipelineCreateResponseBody:
@@ -762,6 +751,189 @@ components:
           trigger_type: NOOP
           username: harness_user
           email: noreply@harness.io
+    GitCreateDetails:
+      title: Create Git Details
+      x-stoplight:
+        id: 36li0g4pug41q
+      type: object
+      description: Contains parameters related to creating an Entity for Git Experience.
+      properties:
+        branch_name:
+          type: string
+          description: Name of the branch.
+        file_path:
+          type: string
+          description: File path of the Entity in the repository.
+        commit_message:
+          type: string
+          description: Commit message used for the merge commit.
+        base_branch:
+          type: string
+          description: Name of the default branch (this checks out a new branch titled by branch_name).
+        connector_ref:
+          type: string
+          description: Identifier of the Harness Connector used for CRUD operations on the Entity.
+        store_type:
+          type: string
+          description: Specifies whether the Entity is to be stored in Git or not.
+          enum:
+            - INLINE
+            - REMOTE
+        repo_name:
+          type: string
+          description: Name of the repository.
+      x-examples:
+        example-create-git:
+          branch_name: branch
+          file_path: /folder/file.json
+          commit_message: Added Harness Git Experience
+          base_branch: old_branch
+          connector_ref: git_connector
+          store_type: INLINE
+          repo_name: example_repository
+    GitUpdateDetails:
+      title: Update Git Details
+      x-stoplight:
+        id: cko6b02f6trvt
+      type: object
+      description: Contains parameters related to updating an Entity for Git Experience.
+      properties:
+        branch_name:
+          type: string
+          description: Name of the branch.
+        commit_message:
+          type: string
+          description: Commit message used for the merge commit.
+        last_object_id:
+          type: string
+          description: Last object identifier (for Github).
+        base_branch:
+          type: string
+          description: Name of the default branch (this checks out a new branch titled by branch_name).
+        last_commit_id:
+          type: string
+          description: Last commit identifier (for Git Repositories other than Github).
+      x-examples:
+        example-update-git:
+          branch_name: branch
+          commit_message: Added Harness Git Experience
+          last_object_id: abcdXYZ
+          base_branch: old_branch
+          last_commit_id: abcdXYZ
+    PipelineUpdateRequestBody:
+      title: Pipeline Update Request Body
+      x-stoplight:
+        id: u6xvv15ghw7kk
+      type: object
+      description: 'Pipeline request body object '
+      x-examples:
+        example-pipeline:
+          pipeline_yaml: |
+            pipeline:
+              name: example pipeline
+              identifier: example_pipeline
+              allowStageExecutions: false
+              projectIdentifier: example_project
+              orgIdentifier: example_organization
+              tags: {}
+              stages:
+                - stage:
+                    name: Example Build Stage
+                    identifier: example_build_stage
+                    description: ''
+                    type: Approval
+                    spec:
+                      execution:
+                        steps:
+                          - step:
+                              name: Approval Step
+                              identifier: Approval_Step
+                              type: HarnessApproval
+                              timeout: 1d
+                              spec:
+                                approvalMessage: |-
+                                  Please review the following information
+                                  and approve the pipeline progression
+                                includePipelineExecutionHistory: true
+                                approvers:
+                                  minimumCount: 1
+                                  disallowPipelineExecutor: false
+                                  userGroups: <+input>
+                                approverInputs: []
+                          - step:
+                              type: ShellScript
+                              name: ShellScript Step
+                              identifier: ShellScript_Step
+                              spec:
+                                shell: Bash
+                                onDelegate: true
+                                source:
+                                  type: Inline
+                                  spec:
+                                    script: <+input>
+                                environmentVariables: []
+                                outputVariables: []
+                                executionTarget: {}
+                              timeout: 10m
+                    tags: {}
+                - stage:
+                    name: Example Deploy Stage
+                    identifier: example_deploy_stage
+                    description: ''
+                    type: Deployment
+                    spec:
+                      serviceConfig:
+                        serviceRef: <+input>
+                        serviceDefinition:
+                          spec:
+                            variables: []
+                          type: Kubernetes
+                      infrastructure:
+                        environmentRef: <+input>
+                        infrastructureDefinition:
+                          type: KubernetesDirect
+                          spec:
+                            connectorRef: <+input>
+                            namespace: <+input>
+                            releaseName: release-<+INFRA_KEY>
+                        allowSimultaneousDeployments: false
+                      execution:
+                        steps:
+                          - step:
+                              name: Rollout Deployment
+                              identifier: rolloutDeployment
+                              type: K8sRollingDeploy
+                              timeout: 10m
+                              spec:
+                                skipDryRun: false
+                        rollbackSteps:
+                          - step:
+                              name: Rollback Rollout Deployment
+                              identifier: rollbackRolloutDeployment
+                              type: K8sRollingRollback
+                              timeout: 10m
+                              spec: {}
+                    tags: {}
+                    failureStrategies:
+                      - onFailure:
+                          errors:
+                            - AllErrors
+                          action:
+                            type: StageRollback
+          git_details:
+            branch_name: branch
+            commit_message: Added Harness Git Experience
+            last_object_id: abcdXYZ
+            base_branch: old_branch
+            last_commit_id: abcdXYZ
+      properties:
+        pipeline_yaml:
+          type: string
+          description: Pipeline YAML (to be passed as a String).
+        git_details:
+          $ref: '#/components/schemas/GitUpdateDetails'
+      required:
+        - pipeline_yaml
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -821,58 +993,6 @@ components:
       schema:
         type: string
       description: Name of the branch (for Git Experience).
-    FilePath:
-      name: file_path
-      in: query
-      required: false
-      schema:
-        type: string
-      description: File path of the Entity in the repository (for Git Experience).
-    CommitMsg:
-      name: commit_message
-      in: query
-      schema:
-        type: string
-      description: Commit message used for the merge commit (for Git Experience).
-    NewBranch:
-      name: create_new_branch
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: 'false'
-      description: Checks out a new branch in the repository (for Git Experience).
-    BaseBranch:
-      name: base_branch
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Name of the default branch (for Git Experience).
-    Connector:
-      name: connector_ref
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
-    StoreType:
-      name: store_type
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-          - INLINE
-          - REMOTE
-      description: Specifies whether the Entity is to be stored in Git or not (for Git Experience).
-    RepoName:
-      name: repo_name
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Name of the repository (for Git Experience).
     PipelineParam:
       name: pipeline
       in: path
@@ -887,10 +1007,10 @@ components:
       schema:
         type: string
         enum:
+          - slug
           - name
-          - identifier
-          - createdAt
-          - lastUpdatedAt
+          - created
+          - updated
       description: Parameter on the basis of which sorting is done.
     Order:
       name: order
@@ -1111,11 +1231,11 @@ components:
                     file_url: www.repo/folder/file.com
                     repo_url: www.repo.com
   requestBodies:
-    PipelineRequestBody:
+    PipelineCreateRequestBody:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/PipelineRequestBody'
+            $ref: '#/components/schemas/PipelineCreateRequestBody'
           examples:
             example-pipeline:
               value:
@@ -1211,6 +1331,14 @@ components:
                                   - AllErrors
                                 action:
                                   type: StageRollback
+                git_details:
+                  branch_name: branch
+                  file_path: /folder/file.json
+                  commit_message: Added Harness Git Experience
+                  base_branch: old_branch
+                  connector_ref: git_connector
+                  store_type: INLINE
+                  repo_name: example_repository
         application/yaml:
           schema:
             $ref: '#/components/schemas/PipelineRequestBody'
@@ -1218,5 +1346,134 @@ components:
             example-pipeline:
               value: |
                 pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'
+                git_details:
+                  branch_name: branch
+                  file_path: /folder/file.json
+                  commit_message: Added Harness Git Experience
+                  base_branch: old_branch
+                  connector_ref: git_connector
+                  store_type: INLINE
+                  repo_name: example_repository
+      description: Pipeline request body
+      required: true
+    PipelineUpdateRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineUpdateRequestBody'
+          examples:
+            example-pipeline:
+              value:
+                pipeline_yaml: |
+                  pipeline:
+                    name: example pipeline
+                    identifier: example_pipeline
+                    allowStageExecutions: false
+                    projectIdentifier: example_project
+                    orgIdentifier: example_organization
+                    tags: {}
+                    stages:
+                      - stage:
+                          name: Example Build Stage
+                          identifier: example_build_stage
+                          description: ''
+                          type: Approval
+                          spec:
+                            execution:
+                              steps:
+                                - step:
+                                    name: Approval Step
+                                    identifier: Approval_Step
+                                    type: HarnessApproval
+                                    timeout: 1d
+                                    spec:
+                                      approvalMessage: |-
+                                        Please review the following information
+                                        and approve the pipeline progression
+                                      includePipelineExecutionHistory: true
+                                      approvers:
+                                        minimumCount: 1
+                                        disallowPipelineExecutor: false
+                                        userGroups: <+input>
+                                      approverInputs: []
+                                - step:
+                                    type: ShellScript
+                                    name: ShellScript Step
+                                    identifier: ShellScript_Step
+                                    spec:
+                                      shell: Bash
+                                      onDelegate: true
+                                      source:
+                                        type: Inline
+                                        spec:
+                                          script: <+input>
+                                      environmentVariables: []
+                                      outputVariables: []
+                                      executionTarget: {}
+                                    timeout: 10m
+                          tags: {}
+                      - stage:
+                          name: Example Deploy Stage
+                          identifier: example_deploy_stage
+                          description: ''
+                          type: Deployment
+                          spec:
+                            serviceConfig:
+                              serviceRef: <+input>
+                              serviceDefinition:
+                                spec:
+                                  variables: []
+                                type: Kubernetes
+                            infrastructure:
+                              environmentRef: <+input>
+                              infrastructureDefinition:
+                                type: KubernetesDirect
+                                spec:
+                                  connectorRef: <+input>
+                                  namespace: <+input>
+                                  releaseName: release-<+INFRA_KEY>
+                              allowSimultaneousDeployments: false
+                            execution:
+                              steps:
+                                - step:
+                                    name: Rollout Deployment
+                                    identifier: rolloutDeployment
+                                    type: K8sRollingDeploy
+                                    timeout: 10m
+                                    spec:
+                                      skipDryRun: false
+                              rollbackSteps:
+                                - step:
+                                    name: Rollback Rollout Deployment
+                                    identifier: rollbackRolloutDeployment
+                                    type: K8sRollingRollback
+                                    timeout: 10m
+                                    spec: {}
+                          tags: {}
+                          failureStrategies:
+                            - onFailure:
+                                errors:
+                                  - AllErrors
+                                action:
+                                  type: StageRollback
+                git_details:
+                  branch_name: branch
+                  commit_message: Added Harness Git Experience
+                  last_object_id: abcdXYZ
+                  base_branch: old_branch
+                  last_commit_id: abcdXYZ
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/PipelineRequestBody'
+          examples:
+            example-pipeline:
+              value: |
+                pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'
+                git_details:
+                  branch_name: branch
+                  commit_message: Added Harness Git Experience
+                  last_object_id: abcdXYZ
+                  base_branch: old_branch
+                  last_commit_id: abcdXYZ
       description: Pipeline request body
       required: true
