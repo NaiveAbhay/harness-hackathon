@@ -1569,10 +1569,10 @@
                 "description": "Creates a new secret",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/PrivateSecret"
                     },
                     {
-                        "$ref": "#/components/parameters/PrivateSecret"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -1597,15 +1597,6 @@
                 },
                 "description": "Retrieves the information of the secrets.",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/OrgQueryParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/ProjectQueryParam"
-                    },
                     {
                         "schema": {
                             "type": "array",
@@ -1657,6 +1648,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/Limit1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1689,10 +1683,10 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/PrivateSecret"
                     },
                     {
-                        "$ref": "#/components/parameters/PrivateSecret"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1714,12 +1708,6 @@
                 },
                 "description": "Retrieves the information of the secrets.",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/ProjectQueryParam"
-                    },
                     {
                         "schema": {
                             "type": "array",
@@ -1771,6 +1759,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/Limit1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1806,10 +1797,10 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/PrivateSecret"
                     },
                     {
-                        "$ref": "#/components/parameters/PrivateSecret"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1831,9 +1822,6 @@
                 },
                 "description": "Retrieves the information of the secrets.",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    },
                     {
                         "schema": {
                             "type": "array",
@@ -1885,6 +1873,9 @@
                     },
                     {
                         "$ref": "#/components/parameters/Limit1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1920,7 +1911,7 @@
                 "description": "Retrieves the information of the secret.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1946,7 +1937,7 @@
                 "description": "Deletes the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -1966,7 +1957,7 @@
                 "description": "Updates the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1975,29 +1966,6 @@
                 "requestBody": {
                     "$ref": "#/components/requestBodies/SecretRequest"
                 },
-                "security": [
-                    {
-                        "x-api-key": []
-                    }
-                ]
-            },
-            "head": {
-                "summary": "Validate unique secret slug",
-                "operationId": "validate-unique-account-scoped-secret-slug",
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/ValidateSecretSlugResponse"
-                    }
-                },
-                "description": "Validates secret slug is unique",
-                "tags": [
-                    "Account Secret"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    }
-                ],
                 "security": [
                     {
                         "x-api-key": []
@@ -2034,7 +2002,7 @@
                 "description": "Retrieves the information of the secret.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -2057,7 +2025,7 @@
                 "description": "Deletes the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -2077,7 +2045,7 @@
                 "description": "Updates the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "requestBody": {
@@ -2085,29 +2053,6 @@
                 },
                 "tags": [
                     "Org Secret"
-                ],
-                "security": [
-                    {
-                        "x-api-key": []
-                    }
-                ]
-            },
-            "head": {
-                "summary": "Validate unique secret slug",
-                "operationId": "validate-unique-org-scoped-secret-slug",
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/ValidateSecretSlugResponse"
-                    }
-                },
-                "description": "Validates org scoped secret slug is unique",
-                "tags": [
-                    "Org Secret"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    }
                 ],
                 "security": [
                     {
@@ -2148,7 +2093,7 @@
                 "description": "Retrieves the information of the secret.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -2171,7 +2116,7 @@
                 "description": "Deletes the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -2191,7 +2136,7 @@
                 "description": "Updates the information of the secret with the matching secret slug.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "requestBody": {
@@ -2199,29 +2144,6 @@
                 },
                 "tags": [
                     "Project Secret"
-                ],
-                "security": [
-                    {
-                        "x-api-key": []
-                    }
-                ]
-            },
-            "head": {
-                "summary": "Validate unique secret slug",
-                "operationId": "validate-unique-project-scoped-secret-slug",
-                "responses": {
-                    "200": {
-                        "$ref": "#/components/responses/ValidateSecretSlugResponse"
-                    }
-                },
-                "description": "Validates project scoped secret slug is unique",
-                "tags": [
-                    "Project Secret"
-                ],
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    }
                 ],
                 "security": [
                     {
@@ -6471,33 +6393,6 @@
                     }
                 }
             },
-            "ValidateSecretSlugResponse": {
-                "description": "Validate secret slug response",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/ValidateSecretSlugResponse"
-                        },
-                        "examples": {
-                            "example-validate-secret-slug-response-json": {
-                                "value": {
-                                    "valid": true
-                                }
-                            }
-                        }
-                    },
-                    "application/yaml": {
-                        "schema": {
-                            "$ref": "#/components/schemas/ValidateSecretSlugResponse"
-                        },
-                        "examples": {
-                            "example-validate-secret-slug-response-json": {
-                                "value": "valid: true\n"
-                            }
-                        }
-                    }
-                }
-            },
             "ConnectorTestConnectionResponse": {
                 "description": "This has test connection details for the Connector defined in Harness.",
                 "content": {
@@ -7015,7 +6910,13 @@
                 "in": "query",
                 "required": false,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "slug",
+                        "name",
+                        "created",
+                        "updated"
+                    ]
                 },
                 "description": "Parameter on the basis of which sorting is done."
             }
