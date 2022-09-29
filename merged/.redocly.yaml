@@ -1,0 +1,6 @@
+referenceDocs:
+  sortOperationsAlphabetically: true
+  sortTagsAlphabetically: true
+lint:
+  extends:
+    -  minimal
