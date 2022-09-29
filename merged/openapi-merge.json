@@ -8,6 +8,9 @@
     },
     {
       "inputFile": "../platform/openapi.yaml"
+    },
+    {
+      "inputFile": "../pipeline/openapi.yaml"
     }
   ], 
   "output": "./spec-first.json"
