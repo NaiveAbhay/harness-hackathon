@@ -27,8 +27,590 @@
   }, {
     "name" : "Project Secret",
     "description" : "Everything about project scoped secret"
+  }, {
+    "name" : "Project Services",
+    "description" : "This contains APIs for performing CRUD operations on Services."
+  }, {
+    "name" : "Account Connector",
+    "description" : "Everything about account scoped connector"
+  }, {
+    "name" : "Org Connector",
+    "description" : "Everything about org scoped connector"
+  }, {
+    "name" : "Project Connector",
+    "description" : "Everything about project scoped connector"
   } ],
   "paths" : {
+    "/v1/orgs/{org}/projects/{project}/services/{service}" : {
+      "get" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Retrieve a Service",
+        "description" : "Retrieves specified Service ",
+        "operationId" : "get-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Update Service",
+        "description" : "Update Services",
+        "operationId" : "update-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ServiceRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Delete a Service",
+        "description" : "Deletes the requested service",
+        "operationId" : "delete-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/services" : {
+      "get" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "List Services",
+        "description" : "Returns all services that the current user has view permissions for given project.",
+        "operationId" : "get-services",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service_ids",
+          "in" : "query",
+          "description" : "List of Service Identifiers",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "name", "slug", "created", "updated", "description" ]
+          }
+        }, {
+          "name" : "is_access_list",
+          "in" : "query",
+          "description" : "Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Service Definition type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Kubernetes", "NativeHelm", "Ssh", "WinRm", "ServerlessAwsLambda", "AzureWebApp" ]
+          }
+        }, {
+          "name" : "git_ops_enabled",
+          "in" : "query",
+          "description" : "Enables use of this service in Harness GitOps PR Pipelines",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : [ {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "- service:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      service:\n        name: \"Example_service\"\n        identifier: \"example_service\"\n        tags: {}\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Create a Service",
+        "description" : "Creates a Service",
+        "operationId" : "create-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ServiceRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
     "/v1/orgs" : {
       "get" : {
         "tags" : [ "Organization" ],
@@ -920,6 +1502,1482 @@
         "security" : [ {
           "x-api-key" : [ ]
         } ]
+      }
+    },
+    "/v1/connectors" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "List connectors",
+        "description" : "Retrieves the information of the connectors.",
+        "operationId" : "get-account-scoped-connectors",
+        "parameters" : [ {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-connector-response-json" : {
+                    "value" : [ {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-list-connector-response-yaml" : {
+                    "value" : "- connector:\n    name: example_connector\n    slug: example_connector\n    org: default\n    project: example_project\n    tags:\n      property1: example_connector\n    description: example_connector\n    spec:\n        type: GitHttp\n        url: 'https://github.com/example/example-repo.git'\n        branch: example_branch\n        connection_type: Repo\n        username: git-http-user\n        password_ref: account.git-http-password\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Create a Connector",
+        "description" : "Creates a new connector",
+        "operationId" : "create-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/connectors/{connector}" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Retrieve a connector",
+        "description" : "Retrieves the information of the connector with the matching connector slug.\n",
+        "operationId" : "get-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Update a connector",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Delete a connector",
+        "description" : "Deletes the information of the connector with the matching connector slug.",
+        "operationId" : "delete-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/v1/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Account Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-account-scoped-connector",
+        "parameters" : [ {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/connectors" : {
+      "get" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "List connectors",
+        "description" : "Retrieves the information of the connectors.",
+        "operationId" : "get-org-scoped-connectors",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-connector-response-json" : {
+                    "value" : [ {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-list-connector-response-yaml" : {
+                    "value" : "- connector:\n    name: example_connector\n    slug: example_connector\n    org: default\n    project: example_project\n    tags:\n      property1: example_connector\n    description: example_connector\n    spec:\n        type: GitHttp\n        url: 'https://github.com/example/example-repo.git'\n        branch: example_branch\n        connection_type: Repo\n        username: git-http-user\n        password_ref: account.git-http-password\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Create a Connector",
+        "description" : "Creates a new connector",
+        "operationId" : "create-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/connectors/{connector}" : {
+      "get" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Retrieve a connector",
+        "description" : "Retrieves the information of the connector with the matching connector slug.\n",
+        "operationId" : "get-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Update a connector",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Delete a connector",
+        "description" : "Deletes the information of the connector with the matching connector slug.",
+        "operationId" : "delete-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Org Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-org-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/connectors" : {
+      "get" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "List connectors",
+        "description" : "Retrieves the information of the connectors.",
+        "operationId" : "get-project-scoped-connectors",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "recursive",
+          "in" : "query",
+          "description" : "Expand current scope to include all child scopes ",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector list response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ConnectorResponse"
+                  }
+                },
+                "examples" : {
+                  "example-list-connector-response-json" : {
+                    "value" : [ {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-list-connector-response-yaml" : {
+                    "value" : "- connector:\n    name: example_connector\n    slug: example_connector\n    org: default\n    project: example_project\n    tags:\n      property1: example_connector\n    description: example_connector\n    spec:\n        type: GitHttp\n        url: 'https://github.com/example/example-repo.git'\n        branch: example_branch\n        connection_type: Repo\n        username: git-http-user\n        password_ref: account.git-http-password\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Create a Connector",
+        "description" : "Creates a new connector",
+        "operationId" : "create-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/connectors/{connector}" : {
+      "get" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Retrieve a connector",
+        "description" : "Retrieves the information of the connector with the matching connector slug.\n",
+        "operationId" : "get-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Update a connector",
+        "description" : "Updates the information of the secret with the matching secret slug.",
+        "operationId" : "update-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ConnectorRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Connector response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-json" : {
+                    "value" : {
+                      "connector" : {
+                        "name" : "example_connector",
+                        "slug" : "example_connector",
+                        "org" : "default",
+                        "project" : "example_project",
+                        "tags" : {
+                          "property1" : "example_connector"
+                        },
+                        "description" : "example_connector",
+                        "spec" : {
+                          "type" : "GitHttp",
+                          "url" : "https://github.com/example/example-repo.git",
+                          "branch" : "example_branch",
+                          "connection_type" : "Repo",
+                          "username" : "git-http-user",
+                          "password_ref" : "account.git-http-password"
+                        }
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorResponse"
+                },
+                "examples" : {
+                  "example-connector-response-yaml" : {
+                    "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Delete a connector",
+        "description" : "Deletes the information of the connector with the matching connector slug.",
+        "operationId" : "delete-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/connectors/{connector}/test-connection" : {
+      "get" : {
+        "tags" : [ "Project Connector" ],
+        "summary" : "Test a connector",
+        "description" : "Tests connection of the connector with the matching connector slug.\n",
+        "operationId" : "test-project-scoped-connector",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "connector",
+          "in" : "path",
+          "description" : "Connector slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "This has test connection details for the Connector defined in Harness.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/v1/secrets" : {
@@ -2521,6 +4579,171 @@
   },
   "components" : {
     "schemas" : {
+      "Service" : {
+        "title" : "Service",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "account" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Account Identifier"
+          },
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Identifier of the Service Request."
+          },
+          "org" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Organization Identifier for the Entity."
+          },
+          "project" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Project Identifier for the Entity."
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Name of the Service Request."
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Description of the entity"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Service tags"
+          },
+          "yaml" : {
+            "type" : "string",
+            "description" : "Yaml related to service"
+          }
+        },
+        "description" : "This is the Service entity defined in Harness",
+        "x-examples" : {
+          "example-1" : {
+            "account" : "sample_account",
+            "slug" : "example_service",
+            "org" : "sample_organization",
+            "project" : "sample_project",
+            "name" : "Example_service",
+            "description" : "This is a example service",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+          }
+        }
+      },
+      "ServiceResponse" : {
+        "title" : "ServiceResponse",
+        "type" : "object",
+        "properties" : {
+          "service" : {
+            "$ref" : "#/components/schemas/Service"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for Service.",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for Service.",
+            "format" : "int64"
+          }
+        },
+        "description" : "Default response when a service is returned",
+        "x-examples" : {
+          "example-1" : {
+            "service" : {
+              "account" : "sample_account",
+              "slug" : "example_service",
+              "org" : "sample_organization",
+              "project" : "sample_project",
+              "name" : "Example_service",
+              "description" : "This is a example service",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              },
+              "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+            },
+            "created" : 1234567890,
+            "updated" : 1234567890
+          }
+        }
+      },
+      "ServiceRequest" : {
+        "title" : "ServiceRequest",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Identifier of the Service"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Name of the Service"
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Description of the entity"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Service tags"
+          },
+          "yaml" : {
+            "type" : "string",
+            "description" : "YAML for the Service Request"
+          }
+        },
+        "description" : "Service Request Body ",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_service",
+            "name" : "Example_service",
+            "description" : "This is a example service",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+          }
+        }
+      },
       "CreateOrganizationRequest" : {
         "required" : [ "org" ],
         "type" : "object",
@@ -3211,9 +5434,1370 @@
           }
         },
         "description" : "Secret response model"
+      },
+      "ValidateSecretSlugResponse" : {
+        "title" : "ValidateSecretSlugResponse",
+        "type" : "object",
+        "properties" : {
+          "valid" : {
+            "type" : "boolean"
+          }
+        },
+        "description" : "Validate unique secret slug response model"
+      },
+      "ConnectorTestConnectionErrorDetail" : {
+        "title" : "ConnectorTestConnectionErrorDetail",
+        "type" : "object",
+        "properties" : {
+          "reason" : {
+            "type" : "string",
+            "description" : "Reason of test connection error"
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Test connection error message"
+          },
+          "code" : {
+            "type" : "integer",
+            "description" : "Test connection error code"
+          }
+        },
+        "description" : "Connector test connection errors and their details."
+      },
+      "ConnectorConnectivityDetail" : {
+        "title" : "ConnectorConnectivityDetail",
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Connectivity status of a Connector",
+            "enum" : [ "SUCCESS", "PARTIAL", "FAILURE", "UNKNOWN" ]
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "List of errors and their details",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionErrorDetail"
+            }
+          },
+          "error_summary" : {
+            "type" : "string",
+            "description" : "Summary of errors"
+          },
+          "tested_at" : {
+            "type" : "integer",
+            "description" : "Time at which Test Connection was completed",
+            "format" : "int64"
+          },
+          "connected_at" : {
+            "type" : "integer",
+            "description" : "This is the last time at which the Connector was successfully connected",
+            "format" : "int64"
+          }
+        },
+        "description" : "This has details of the connectivity status of the Connector."
+      },
+      "ConnectorTestConnectionResponse" : {
+        "title" : "ConnectorTestConnectionResponse",
+        "type" : "object",
+        "properties" : {
+          "status" : {
+            "type" : "string",
+            "description" : "Connectivity status of a Connector",
+            "enum" : [ "SUCCESS", "PARTIAL", "FAILURE", "UNKNOWN" ]
+          },
+          "errors" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionErrorDetail"
+            }
+          },
+          "error_summary" : {
+            "type" : "string",
+            "description" : "Summary of errors"
+          },
+          "tested_at" : {
+            "type" : "integer",
+            "description" : "Time at which Test Connection was completed",
+            "format" : "int64"
+          },
+          "delegate_id" : {
+            "type" : "string",
+            "description" : "ID of Delegate on which Test Connection is executed"
+          }
+        },
+        "description" : "This has test connection details for the Connector defined in Harness."
+      },
+      "ConnectorResponse" : {
+        "title" : "ConnectorResponse",
+        "type" : "object",
+        "properties" : {
+          "connector" : {
+            "$ref" : "#/components/schemas/Connector"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for the connector",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Updated timestamp for the connector",
+            "format" : "int64"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/ConnectorConnectivityDetail"
+          },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "This indicates if this Connector is managed by Harness or not. If True, Harness can manage and modify this Connector."
+          },
+          "governance_metadata" : {
+            "type" : "object",
+            "description" : "Governance metadata information"
+          }
+        },
+        "description" : "Connector response model"
+      },
+      "ConnectorRequest" : {
+        "required" : [ "connector" ],
+        "type" : "object",
+        "properties" : {
+          "connector" : {
+            "$ref" : "#/components/schemas/Connector"
+          }
+        }
+      },
+      "Connector" : {
+        "required" : [ "name", "slug", "spec" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "pattern" : "^[0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Connector name"
+          },
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Connector slug"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Connector description"
+          },
+          "org" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Organization slug for connector"
+          },
+          "project" : {
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
+            "type" : "string",
+            "description" : "Project slug for connector"
+          },
+          "tags" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Connector tags"
+          },
+          "spec" : {
+            "$ref" : "#/components/schemas/ConnectorSpec"
+          }
+        }
+      },
+      "ConnectorSpec" : {
+        "title" : "ConnectorSpec",
+        "required" : [ "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "description" : "This specifies the type of connector",
+            "enum" : [ "GitHttp", "GitHttpEncrypted", "GitSsh", "Appdynamics", "AppdynamicsClientId", "Artifactory", "ArtifactoryEncrypted", "ArtifactoryAnonymous", "AwsCodeCommit", "AwsAccessKey", "AwsEncryptedAccessKey", "AwsIAMRole", "AwsIRSA", "AwsKmsAccessKey", "AwsKmsAssumeIAM", "AwsKmsAssumeSTS", "AwsSecretManagerAccessKey", "AwsSecretManagerAssumeIAM", "AwsSecretManagerAssumeSTS", "AzureClientSecretKey", "AzureClientCertificate", "AzureInheritFromDelegateUserAssignedManagedIdentity", "AzureInheritFromDelegateSystemAssignedManagedIdentity" ]
+          }
+        },
+        "description" : "Details of the connector defined in Harness",
+        "discriminator" : {
+          "propertyName" : "type",
+          "mapping" : {
+            "GitHttp" : "#/components/schemas/GitHttpConnectorSpec",
+            "GitHttpEncrypted" : "#/components/schemas/GitHttpEncryptedConnectorSpec",
+            "GitSsh" : "#/components/schemas/GitSshConnectorSpec",
+            "Appdynamics" : "#/components/schemas/AppdynamicsConnectorSpec",
+            "AppdynamicsClientId" : "#/components/schemas/AppdynamicsClientIdConnectorSpec",
+            "Artifactory" : "#/components/schemas/ArtifactoryConnectorSpec",
+            "ArtifactoryEncrypted" : "#/components/schemas/ArtifactoryEncryptedConnectorSpec",
+            "ArtifactoryAnonymous" : "#/components/schemas/ArtifactoryAnonymousConnectorSpec",
+            "AwsCodeCommit" : "#/components/schemas/AwsCodeCommitConnectorSpec",
+            "AwsAccessKey" : "#/components/schemas/AwsAccessKeyConnectorSpec",
+            "AwsEncryptedAccessKey" : "#/components/schemas/AwsEncryptedAccessKeyConnectorSpec",
+            "AwsIAMRole" : "#/components/schemas/AwsIAMRoleConnectorSpec",
+            "AwsIRSA" : "#/components/schemas/AwsIRSAConnectorSpec",
+            "AwsKmsAccessKey" : "#/components/schemas/AwsKmsAccessKeyConnectorSpec",
+            "AwsKmsAssumeIAM" : "#/components/schemas/AwsKmsAssumeIAMConnectorSpec",
+            "AwsKmsAssumeSTS" : "#/components/schemas/AwsKmsAssumeSTSConnectorSpec",
+            "AwsSecretManagerAccessKey" : "#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec",
+            "AwsSecretManagerAssumeIAM" : "#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec",
+            "AwsSecretManagerAssumeSTS" : "#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec",
+            "AzureClientSecretKey" : "#/components/schemas/AzureClientSecretKeyConnectorSpec",
+            "AzureClientCertificate" : "#/components/schemas/AzureClientCertificateConnectorSpec",
+            "AzureInheritFromDelegateUserAssignedManagedIdentity" : "#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec",
+            "AzureInheritFromDelegateSystemAssignedManagedIdentity" : "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
+          }
+        },
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/GitHttpConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/GitHttpEncryptedConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/GitSshConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AppdynamicsConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AppdynamicsClientIdConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/ArtifactoryConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/ArtifactoryEncryptedConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/ArtifactoryAnonymousConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsCodeCommitConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsAccessKeyConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsEncryptedAccessKeyConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsIAMRoleConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsIRSAConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsKmsAccessKeyConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsKmsAssumeIAMConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsKmsAssumeSTSConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureClientSecretKeyConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureClientCertificateConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec"
+        }, {
+          "$ref" : "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
+        } ]
+      },
+      "GitHttpConnectorSpec" : {
+        "title" : "GitHttp",
+        "description" : "This contains details of the Generic Git http connector",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "connection_type", "password_ref", "type", "url", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "GitHttp" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "Git repo url"
+            },
+            "branch" : {
+              "type" : "string",
+              "description" : "branch name"
+            },
+            "connection_type" : {
+              "type" : "string",
+              "enum" : [ "Account", "Repo", "Project" ]
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "git username"
+            },
+            "password_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for git password"
+            },
+            "validation_repo" : {
+              "type" : "string",
+              "description" : "validation repo"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "GitHttpEncryptedConnectorSpec" : {
+        "title" : "GitHttpEncrypted",
+        "description" : "This contains details of the Generic Git http connector",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "connection_type", "password_ref", "type", "url", "username_ref" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "GitHttpEncrypted" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "Git repo url"
+            },
+            "branch" : {
+              "type" : "string",
+              "description" : "branch name"
+            },
+            "connection_type" : {
+              "type" : "string",
+              "enum" : [ "Account", "Repo", "Project" ]
+            },
+            "username_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for git username"
+            },
+            "password_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for git password"
+            },
+            "validation_repo" : {
+              "type" : "string",
+              "description" : "validation repo"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "GitSshConnectorSpec" : {
+        "title" : "GitSsh",
+        "description" : "This contains details of the Generic Git ssh connector",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "connection_type", "ssh_key_ref", "type", "url" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "GitSsh" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "Git repo url"
+            },
+            "branch" : {
+              "type" : "string",
+              "description" : "branch name"
+            },
+            "connection_type" : {
+              "type" : "string",
+              "enum" : [ "Account", "Repo", "Project" ]
+            },
+            "ssh_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for git ssh key"
+            },
+            "validation_repo" : {
+              "type" : "string",
+              "description" : "validation repo"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "AppdynamicsConnectorSpec" : {
+        "title" : "Appdynamics",
+        "description" : "This contains details of the appdynamics connector",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "account_name", "controller_url", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "Appdynamics" ]
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "account_name" : {
+              "type" : "string",
+              "description" : "appdymanics account name"
+            },
+            "controller_url" : {
+              "type" : "string",
+              "description" : "appdynamics controller url"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "appdynamics username"
+            },
+            "password_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for appdynamics password secret"
+            }
+          }
+        } ]
+      },
+      "AppdynamicsClientIdConnectorSpec" : {
+        "title" : "AppdynamicsClientId",
+        "description" : "This contains details of the appdynamics connector with client secrets",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "account_name", "controller_url", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "enum" : [ "AppdynamicsClientId" ]
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "account_name" : {
+              "type" : "string",
+              "description" : "appdymanics account name"
+            },
+            "controller_url" : {
+              "type" : "string",
+              "description" : "appdynamics controller url"
+            },
+            "client_id" : {
+              "type" : "string",
+              "description" : "appdynamics client id"
+            },
+            "client_secret_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for appdynamics client secret"
+            }
+          }
+        } ]
+      },
+      "ArtifactoryAnonymousConnectorSpec" : {
+        "title" : "ArtifactoryAnonymous",
+        "description" : "This contains details of the artifactory connector with anonymous user",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "type", "url" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "ArtifactoryAnonymous" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "artifactory repo url"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "ArtifactoryConnectorSpec" : {
+        "title" : "Artifactory",
+        "description" : "This contains details of the artifactory connector with username/password",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "password_ref", "type", "url", "username" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "Artifactory" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "artifactory repo url"
+            },
+            "username" : {
+              "type" : "string",
+              "description" : "artifactory username"
+            },
+            "password_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for artifactory password"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "ArtifactoryEncryptedConnectorSpec" : {
+        "title" : "ArtifactoryEncrypted",
+        "description" : "This contains details of the artifactory connector with encrypted username/password",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "password_ref", "type", "url", "username_ref" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "ArtifactoryEncrypted" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "artifactory repo url"
+            },
+            "username_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for artifactory username"
+            },
+            "password_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for artifactory password"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate"
+            }
+          }
+        } ]
+      },
+      "AwsCodeCommitConnectorSpec" : {
+        "title" : "AwsCodeCommit",
+        "description" : "This contains details of the AWS code commit connector",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "secret_key_ref", "type", "url", "url_type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsCodeCommit" ]
+            },
+            "url" : {
+              "type" : "string",
+              "description" : "AWS codecommit repository url"
+            },
+            "url_type" : {
+              "type" : "string",
+              "description" : "AWS codecommit repository url type",
+              "enum" : [ "Repo", "Region" ]
+            },
+            "access_key" : {
+              "type" : "string",
+              "description" : "AWS access key"
+            },
+            "access_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for AWS access key"
+            },
+            "secret_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for AWS secret key"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ]
+      },
+      "AwsAccessKeyConnectorSpec" : {
+        "title" : "AwsAccessKey",
+        "description" : "This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "access_key", "secret_key_ref", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsAccessKey" ]
+            },
+            "access_key" : {
+              "type" : "string",
+              "description" : "AWS access key"
+            },
+            "secret_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for AWS secret key"
+            },
+            "cross_account_role_arn" : {
+              "type" : "string",
+              "description" : "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature."
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "test_region" : {
+              "type" : "string",
+              "description" : "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations."
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            }
+          }
+        } ]
+      },
+      "AwsEncryptedAccessKeyConnectorSpec" : {
+        "title" : "AwsEncryptedAccessKey",
+        "description" : "This contains details of the AWS connector and needs AWS encrypted access and secret keys for an AWS IAM user.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "access_key_ref", "secret_key_ref", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsEncryptedAccessKey" ]
+            },
+            "access_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for AWS access key"
+            },
+            "secret_key_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for AWS secret key"
+            },
+            "cross_account_role_arn" : {
+              "type" : "string",
+              "description" : "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature."
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "test_region" : {
+              "type" : "string",
+              "description" : "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations."
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            }
+          }
+        } ]
+      },
+      "AwsIAMRoleConnectorSpec" : {
+        "title" : "AwsIAMRole",
+        "description" : "This contains details of the AWS connector. This assume IAM role on Delegate and uses the IAM role of a Harness Delegate running in your AWS account.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsIAMRole" ]
+            },
+            "cross_account_role_arn" : {
+              "type" : "string",
+              "description" : "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature."
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "test_region" : {
+              "type" : "string",
+              "description" : "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations."
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            }
+          }
+        } ]
+      },
+      "AwsIRSAConnectorSpec" : {
+        "title" : "AwsIRSA",
+        "description" : "This contains details of the AWS connector. This uses IRSA and forces the Harness kubernetes delegate in AWS EKS to use a specific IAM role.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsIRSA" ]
+            },
+            "cross_account_role_arn" : {
+              "type" : "string",
+              "description" : "If you want to use one AWS account for the connection, but you want to deploy or build in a different AWS account. In this scenario, the AWS account used for AWS access in Credentials will assume the IAM role you specify in Cross-account role ARN setting. This option uses the AWS Security Token Service (STS) feature."
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "test_region" : {
+              "type" : "string",
+              "description" : "By default, Harness uses the us-east-1 region to test the credentials for this Connector. If you want to use an AWS GovCloud account for this Connector, select it in Test Region. GovCloud is used by organizations such as government agencies at the federal, state, and local level, as well as contractors, educational institutions. It is also used for regulatory compliance with these organizations."
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of unique delegate selectors",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            }
+          }
+        } ]
+      },
+      "AwsKmsAccessKeyConnectorSpec" : {
+        "title" : "AwsKmsAccessKey",
+        "description" : "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "access_key", "kms_arn", "region", "secret_key", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsKmsAccessKey" ]
+            },
+            "kms_arn" : {
+              "type" : "string",
+              "description" : "Amazon Resource Name (ARN)"
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "access_key" : {
+              "type" : "string",
+              "description" : "Access Key for AWS authentication"
+            },
+            "secret_key" : {
+              "type" : "string",
+              "description" : "Secret Key for AWS authentication"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ]
+      },
+      "AwsKmsAssumeIAMConnectorSpec" : {
+        "title" : "AwsKmsAssumeIAM",
+        "description" : "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "delegate_selectors", "kms_arn", "region", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsKmsAssumeIAM" ]
+            },
+            "kms_arn" : {
+              "type" : "string",
+              "description" : "Amazon Resource Name (ARN)"
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ]
+      },
+      "AwsKmsAssumeSTSConnectorSpec" : {
+        "title" : "AwsKmsAssumeSTS",
+        "description" : "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "delegate_selectors", "kms_arn", "region", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsKmsAssumeSTS" ]
+            },
+            "kms_arn" : {
+              "type" : "string",
+              "description" : "Amazon Resource Name (ARN)"
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "role_arn" : {
+              "type" : "string",
+              "description" : "Role ARN for the Delegate with STS Role"
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "assume_sts_role_duration" : {
+              "type" : "string",
+              "description" : "This is the AssumeRole Session Duration"
+            }
+          }
+        } ]
+      },
+      "AwsSecretManagerAccessKeyConnectorSpec" : {
+        "title" : "AwsSecretManagerAccessKey",
+        "description" : "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS Secret Manager.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "access_key", "region", "secret_key", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsSecretManagerAccessKey" ]
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "access_key" : {
+              "type" : "string",
+              "description" : "Access Key for AWS authentication"
+            },
+            "secret_key" : {
+              "type" : "string",
+              "description" : "Secret Key for AWS authentication"
+            },
+            "secret_name_prefix" : {
+              "type" : "string",
+              "description" : "Text that is prepended to the Secret name as a prefix"
+            },
+            "delegate_selectors" : {
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ]
+      },
+      "AwsSecretManagerAssumeIAMConnectorSpec" : {
+        "title" : "AwsSecretManagerAssumeIAM",
+        "description" : "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "region", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsSecretManagerAssumeIAM" ]
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "secret_name_prefix" : {
+              "type" : "string",
+              "description" : "Text that is prepended to the Secret name as a prefix"
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        } ]
+      },
+      "AwsSecretManagerAssumeSTSConnectorSpec" : {
+        "title" : "AwsSecretManagerAssumeSTS",
+        "description" : "This contains details of the AWS connector and Harness will authenticate using the STS role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "region", "role_arn", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AwsSecretManagerAssumeSTS" ]
+            },
+            "region" : {
+              "type" : "string",
+              "description" : "AWS Region for kms"
+            },
+            "default" : {
+              "type" : "boolean",
+              "description" : "Boolean value to indicate if the Secret Manager is your default Secret Manager"
+            },
+            "secret_name_prefix" : {
+              "type" : "string",
+              "description" : "Text that is prepended to the Secret name as a prefix"
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "role_arn" : {
+              "type" : "string",
+              "description" : "Role ARN for the Delegate with STS Role"
+            },
+            "external_id" : {
+              "type" : "string",
+              "description" : "If the administrator of the account to which the role belongs provided you with an external ID, then enter that value."
+            },
+            "assume_sts_role_duration" : {
+              "type" : "string",
+              "description" : "This is the AssumeRole Session Duration"
+            }
+          }
+        } ]
+      },
+      "AzureClientSecretKeyConnectorSpec" : {
+        "title" : "AzureClientSecretKey",
+        "description" : "This contains details of the Azure connector and uses Azure client secret key details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "application_id", "azure_environment_type", "secret_ref", "tenant_id", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureClientSecretKey" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            },
+            "application_id" : {
+              "type" : "string",
+              "description" : "Application ID of the Azure App"
+            },
+            "tenant_id" : {
+              "type" : "string",
+              "description" : "The Azure Active Directory (AAD) directory ID where you created your application"
+            },
+            "secret_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for Azure client secret"
+            }
+          }
+        } ]
+      },
+      "AzureClientCertificateConnectorSpec" : {
+        "title" : "AzureClientCertificate",
+        "description" : "This contains details of the Azure connector and uses Azure client certificate details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "application_id", "azure_environment_type", "certificate_ref", "tenant_id", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureClientCertificate" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            },
+            "application_id" : {
+              "type" : "string",
+              "description" : "Application ID of the Azure App"
+            },
+            "tenant_id" : {
+              "type" : "string",
+              "description" : "The Azure Active Directory (AAD) directory ID where you created your application"
+            },
+            "certificate_ref" : {
+              "type" : "string",
+              "description" : "Reference to encrypted Harness secret for Azure client secret"
+            }
+          }
+        } ]
+      },
+      "AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec" : {
+        "title" : "AzureInheritFromDelegateUserAssignedManagedIdentity",
+        "description" : "This contains details of the Azure connector and for azure UserAssigned MSI auth details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "azure_environment_type", "client_id", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureInheritFromDelegateUserAssignedManagedIdentity" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            },
+            "client_id" : {
+              "type" : "string",
+              "description" : "Client Id of the ManagedIdentity resource"
+            }
+          }
+        } ]
+      },
+      "AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec" : {
+        "title" : "AzureInheritFromDelegateSystemAssignedManagedIdentity",
+        "description" : "This contains details of the Azure connector for contains azure MSI auth details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ConnectorSpec"
+        }, {
+          "required" : [ "azure_environment_type", "type" ],
+          "type" : "object",
+          "properties" : {
+            "type" : {
+              "type" : "string",
+              "description" : "This specifies the type of connector",
+              "enum" : [ "AzureInheritFromDelegateSystemAssignedManagedIdentity" ]
+            },
+            "delegate_selectors" : {
+              "minItems" : 1,
+              "type" : "array",
+              "description" : "List of Delegate Selectors that belong to the same Delegate and are used to connect to the Secret Manager",
+              "items" : {
+                "type" : "string"
+              }
+            },
+            "azure_environment_type" : {
+              "type" : "string",
+              "description" : "This specifies the Azure Environment type, which is AZURE by default.",
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
+            },
+            "execute_on_delegate" : {
+              "type" : "boolean",
+              "description" : "execute on delegate",
+              "default" : true
+            }
+          }
+        } ]
       }
     },
     "responses" : {
+      "ServiceListResponse" : {
+        "description" : "Example response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : [ {
+                  "service" : {
+                    "account" : "sample_account",
+                    "slug" : "example_service",
+                    "org" : "sample_organization",
+                    "project" : "sample_project",
+                    "name" : "Example_service",
+                    "description" : "This is a example service",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    },
+                    "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "- service:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      service:\n        name: \"Example_service\"\n        identifier: \"example_service\"\n        tags: {}\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "ServiceResponse" : {
+        "description" : "Example response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceResponse"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : {
+                  "service" : {
+                    "account" : "sample_account",
+                    "slug" : "example_service",
+                    "org" : "sample_organization",
+                    "project" : "sample_project",
+                    "name" : "Example_service",
+                    "description" : "This is a example service",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    },
+                    "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceResponse"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
       "OrganizationResponse" : {
         "description" : "Organization response",
         "content" : {
@@ -3524,6 +7108,131 @@
             }
           }
         }
+      },
+      "ConnectorTestConnectionResponse" : {
+        "description" : "This has test connection details for the Connector defined in Harness.",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorTestConnectionResponse"
+            }
+          }
+        }
+      },
+      "ConnectorResponse" : {
+        "description" : "Connector response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorResponse"
+            },
+            "examples" : {
+              "example-connector-response-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "description" : "example_connector",
+                    "spec" : {
+                      "type" : "GitHttp",
+                      "url" : "https://github.com/example/example-repo.git",
+                      "branch" : "example_branch",
+                      "connection_type" : "Repo",
+                      "username" : "git-http-user",
+                      "password_ref" : "account.git-http-password"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorResponse"
+            },
+            "examples" : {
+              "example-connector-response-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  description: example_connector\n  spec:\n      type: GitHttp\n      url: 'https://github.com/example/example-repo.git'\n      branch: example_branch\n      connection_type: Repo\n      username: git-http-user\n      password_ref: account.git-http-password\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "ConnectorListResponse" : {
+        "description" : "Connector list response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "<{url}?page=2&limit=1>; rel=\"next\", <{url}?page=1&limit=1>; rel=\"self\", <{url}?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ConnectorResponse"
+              }
+            },
+            "examples" : {
+              "example-list-connector-response-json" : {
+                "value" : [ {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "description" : "example_connector",
+                    "spec" : {
+                      "type" : "GitHttp",
+                      "url" : "https://github.com/example/example-repo.git",
+                      "branch" : "example_branch",
+                      "connection_type" : "Repo",
+                      "username" : "git-http-user",
+                      "password_ref" : "account.git-http-password"
+                    }
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorResponse"
+            },
+            "examples" : {
+              "example-list-connector-response-yaml" : {
+                "value" : "- connector:\n    name: example_connector\n    slug: example_connector\n    org: default\n    project: example_project\n    tags:\n      property1: example_connector\n    description: example_connector\n    spec:\n        type: GitHttp\n        url: 'https://github.com/example/example-repo.git'\n        branch: example_branch\n        connection_type: Repo\n        username: git-http-user\n        password_ref: account.git-http-password\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        }
       }
     },
     "parameters" : {
@@ -3667,9 +7376,94 @@
         "schema" : {
           "type" : "string"
         }
+      },
+      "ServicePathParam" : {
+        "name" : "service",
+        "in" : "path",
+        "description" : "Slug field of the service the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ServiceIdentifiers" : {
+        "name" : "service_ids",
+        "in" : "query",
+        "description" : "List of Service Identifiers",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Sort" : {
+        "name" : "sort",
+        "in" : "query",
+        "description" : "Parameter on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "name", "slug", "created", "updated", "description" ]
+        }
+      },
+      "Order" : {
+        "name" : "order",
+        "in" : "query",
+        "description" : "Order on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "ASC", "DESC" ]
+        }
       }
     },
     "requestBodies" : {
+      "ServiceRequest" : {
+        "description" : "Create Service request body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceRequest"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : {
+                  "slug" : "example_service",
+                  "name" : "Example_service",
+                  "description" : "This is a example service",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceRequest"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "slug: example_service\nname: Example_service\ndescription: This is a example service\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  service:\n    name: \"Example_service\"\n    identifier: \"example_service\"\n    tags: {}\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
       "UpdateProjectRequest" : {
         "description" : "Put the necessary fields for the API to update a Project.",
         "content" : {
@@ -4094,6 +7888,350 @@
           }
         },
         "required" : true
+      },
+      "ConnectorRequest" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorRequest"
+            },
+            "examples" : {
+              "example-git-http-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "GitHttp",
+                      "url" : "https://github.com/example/example-repo.git",
+                      "branch" : "example_branch",
+                      "connection_type" : "Repo",
+                      "username" : "git-http-user",
+                      "password_ref" : "account.git-http-password",
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-git-http-encrypted-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "GitHttpEncrypted",
+                      "url" : "https://github.com/example/example-repo.git",
+                      "branch" : "example_branch",
+                      "connection_type" : "Repo",
+                      "username_ref" : "account.git-http-user",
+                      "password_ref" : "account.git-http-password",
+                      "validation_repo" : "https://github.com/example/example-validation-repo.git",
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-git-ssh-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "GitSsh",
+                      "url" : "https://github.com/example/example-repo.git",
+                      "branch" : "example_branch",
+                      "connection_type" : "Repo",
+                      "ssh_key_ref" : "account.git-http-password",
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-appdynamics-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "Appdynamics",
+                      "account_name" : "appdynamics-account-name",
+                      "controller_url" : "https://appdynamics.com/controller/",
+                      "username" : "appdynamics-username",
+                      "password_ref" : "account.appdynamics-password",
+                      "delegate_selectors" : [ ]
+                    }
+                  }
+                }
+              },
+              "example-appdynamics-client-id-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AppdynamicsClientId",
+                      "account_name" : "appdynamics-account-name",
+                      "controller_url" : "https://appdynamics.com/controller/",
+                      "client_id" : "appdynamics-client-id",
+                      "client_secret_ref" : "account.appdynamics-client-secret",
+                      "delegate_selectors" : [ ]
+                    }
+                  }
+                }
+              },
+              "example-artifactory-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "Artifactory",
+                      "url" : "https://artifactory.com/example/example-artifactory",
+                      "username" : "artifactory-user",
+                      "password_ref" : "account.artifactory-password",
+                      "delegate_selectors" : [ ],
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-artifactory-anonymous-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "ArtifactoryAnonymous",
+                      "url" : "https://artifactory.com/example/example-artifactory",
+                      "delegate_selectors" : [ ],
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-artifactory-encrypted-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "ArtifactoryEncrypted",
+                      "url" : "https://artifactory.com/example/example-artifactory",
+                      "username_ref" : "account.artifactory-user",
+                      "password_ref" : "account.artifactory-password",
+                      "delegate_selectors" : [ ],
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-azure-client-certificate-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AzureClientCertificate",
+                      "delegate_selectors" : [ "pl1" ],
+                      "azure_environment_type" : "AZURE",
+                      "execute_on_delegate" : false,
+                      "application_id" : "1234567890",
+                      "tenant_id" : "1234567890",
+                      "certificate_ref" : "account.azure-client-certificate"
+                    }
+                  }
+                }
+              },
+              "example-azure-client-secret-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AzureClientSecretKey",
+                      "delegate_selectors" : [ "pl1" ],
+                      "azure_environment_type" : "AZURE",
+                      "execute_on_delegate" : false,
+                      "application_id" : "1234567890",
+                      "tenant_id" : "1234567890",
+                      "secret_ref" : "account.azure-secret-key"
+                    }
+                  }
+                }
+              },
+              "example-azure-system-assigned-managed-identity-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AzureInheritFromDelegateSystemAssignedManagedIdentity",
+                      "delegate_selectors" : [ "pl1" ],
+                      "azure_environment_type" : "AZURE",
+                      "execute_on_delegate" : false
+                    }
+                  }
+                }
+              },
+              "example-azure-user-assigned-managed-identity-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AzureInheritFromDelegateUserAssignedManagedIdentity",
+                      "delegate_selectors" : [ "pl1" ],
+                      "azure_environment_type" : "AZURE",
+                      "execute_on_delegate" : false,
+                      "application_id" : "1234567890",
+                      "client_id" : "1234567890"
+                    }
+                  }
+                }
+              },
+              "example-aws-code-commit-connector-request-json" : {
+                "value" : {
+                  "connector" : {
+                    "name" : "example_connector",
+                    "slug" : "example_connector",
+                    "description" : "example_connector",
+                    "org" : "default",
+                    "project" : "example_project",
+                    "tags" : {
+                      "property1" : "example_connector"
+                    },
+                    "spec" : {
+                      "type" : "AwsCodeCommit",
+                      "url" : "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo",
+                      "url_type" : "Repo",
+                      "access_key_ref" : "account.aws-access-key",
+                      "secret_key_ref" : "account.aws-secret-key"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ConnectorRequest"
+            },
+            "examples" : {
+              "example-git-http-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: GitHttp\n    url: 'https://github.com/example/example-repo.git'\n    branch: example_branch\n    connection_type: Repo\n    username: git-http-user\n    password_ref: account.git-http-password\n    execute_on_delegate: false\n"
+              },
+              "example-git-http-encrypted-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: GitHttpEncrypted\n    url: https://github.com/example/example-repo.git\n    branch: example_branch\n    connection_type: Repo\n    username_ref: account.git-http-user\n    password_ref: account.git-http-password\n    validation_repo: https://github.com/example/example-validation-repo.git\n    execute_on_delegate: false\n"
+              },
+              "example-git-ssh-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: GitSsh\n    url: 'https://github.com/example/example-repo.git'\n    branch: example_branch\n    connection_type: Repo\n    ssh_key_ref: account.git-http-password\n    execute_on_delegate: false\n"
+              },
+              "example-appdynamics-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: Appdynamics\n    account_name: appdynamics-account-name\n    controller_url: https://appdynamics.com/controller/\n    username: appdynamics-username\n    password_ref: account.appdynamics-password\n    delegate_selectors: []\n"
+              },
+              "example-appdynamics-client-id-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AppdynamicsClientId\n    account_name: appdynamics-account-name\n    controller_url: https://appdynamics.com/controller/\n    client_id: appdynamics-client-id\n    client_secret_ref: account.appdynamics-client-secret\n    delegate_selectors: []\n"
+              },
+              "example-artifactory-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: Artifactory\n    url: https://artifactory.com/example/example-artifactory\n    username: artifactory-user\n    password_ref: account.artifactory-password\n    delegate_selectors: []\n    execute_on_delegate: false\n"
+              },
+              "example-artifactory-anonymous-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: ArtifactoryAnonymous\n    url: https://artifactory.com/example/example-artifactory\n    delegate_selectors: []\n    execute_on_delegate: false\n"
+              },
+              "example-artifactory-encrypted-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: ArtifactoryEncrypted\n    url: https://artifactory.com/example/example-artifactory\n    username_ref: account.artifactory-user\n    password_ref: account.artifactory-password\n    delegate_selectors: []\n    execute_on_delegate: false\n"
+              },
+              "example-azure-client-certificate-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AzureClientCertificate\n    delegate_selectors:\n    - pl1\n    azure_environment_type: AZURE\n    execute_on_delegate: false\n    application_id: '1234567890'\n    tenant_id: '1234567890'\n    certificate_ref: account.azure-client-certificate\n"
+              },
+              "example-azure-client-secret-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AzureClientSecretKey\n    delegate_selectors:\n    - pl1\n    azure_environment_type: AZURE\n    execute_on_delegate: false\n    application_id: '1234567890'\n    tenant_id: '1234567890'\n    secret_ref: account.azure-secret-key\n"
+              },
+              "example-azure-system-assigned-managed-identity-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AzureInheritFromDelegateSystemAssignedManagedIdentity\n    delegate_selectors:\n    - pl1\n    azure_environment_type: AZURE\n    execute_on_delegate: false\n"
+              },
+              "example-azure-user-assigned-managed-identity-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AzureInheritFromDelegateUserAssignedManagedIdentity\n    delegate_selectors:\n    - pl1\n    azure_environment_type: AZURE\n    execute_on_delegate: false\n    application_id: '1234567890'\n    client_id: '1234567890'\n"
+              },
+              "example-aws-code-commit-connector-request-yaml" : {
+                "value" : "connector:\n  name: example_connector\n  slug: example_connector\n  description: example_connector\n  org: default\n  project: example_project\n  tags:\n    property1: example_connector\n  spec:\n    type: AwsCodeCommit\n    url: 'https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo'\n    url_type: Repo\n    access_key_ref: account.aws-access-key\n    secret_key_ref: account.aws-secret-key\n"
+              }
+            }
+          }
+        },
+        "required" : true
       }
     },
     "securitySchemes" : {
@@ -4113,5 +8251,11 @@
   }, {
     "name" : "Secret",
     "tags" : [ "Account Secret", "Org Secret", "Project Secret" ]
+  }, {
+    "name" : "Services",
+    "tags" : [ "Project Services" ]
+  }, {
+    "name" : "Connector",
+    "tags" : [ "Account Connector", "Org Connector", "Project Connector" ]
   } ]
 }
