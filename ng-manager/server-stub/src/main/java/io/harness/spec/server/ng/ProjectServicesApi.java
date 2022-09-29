@@ -40,9 +40,9 @@ public interface ProjectServicesApi {
 , @PathParam("project")
 
  @Parameter(description = "Slug field of the project the resource is scoped to") String project
-,  @HeaderParam("harness_account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{service}")
@@ -60,9 +60,9 @@ public interface ProjectServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("harness_account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{service}")
@@ -80,9 +80,9 @@ public interface ProjectServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("harness_account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -120,9 +120,9 @@ public interface ProjectServicesApi {
 ,  @QueryParam("git_ops_enabled") 
 
  @Parameter(description = "Enables use of this service in Harness GitOps PR Pipelines")  Boolean gitOpsEnabled
-,  @HeaderParam("harness_account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("order") 
 
  @Parameter(description = "Order on the basis of which sorting is done.")  String order
@@ -144,7 +144,7 @@ public interface ProjectServicesApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @HeaderParam("harness_account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}

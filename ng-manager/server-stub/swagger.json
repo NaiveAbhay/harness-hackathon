@@ -28,6 +28,9 @@
     "name" : "Project Secret",
     "description" : "Everything about project scoped secret"
   }, {
+    "name" : "Project Services",
+    "description" : "This contains APIs for performing CRUD operations on Services."
+  }, {
     "name" : "Account Connector",
     "description" : "Everything about account scoped connector"
   }, {
@@ -38,6 +41,576 @@
     "description" : "Everything about project scoped connector"
   } ],
   "paths" : {
+    "/v1/orgs/{org}/projects/{project}/services/{service}" : {
+      "get" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Retrieve a Service",
+        "description" : "Retrieves specified Service ",
+        "operationId" : "get-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "put" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Update Service",
+        "description" : "Update Services",
+        "operationId" : "update-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ServiceRequest"
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "delete" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Delete a Service",
+        "description" : "Deletes the requested service",
+        "operationId" : "delete-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service",
+          "in" : "path",
+          "description" : "Slug field of the service the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/services" : {
+      "get" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "List Services",
+        "description" : "Returns all services that the current user has view permissions for given project.",
+        "operationId" : "get-services",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "search_term",
+          "in" : "query",
+          "description" : "This would be used to filter resources having attributes matching with search term.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "service_ids",
+          "in" : "query",
+          "description" : "List of Service Identifiers",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "uniqueItems" : true,
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "name", "slug", "created", "updated", "description" ]
+          }
+        }, {
+          "name" : "is_access_list",
+          "in" : "query",
+          "description" : "Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Service Definition type",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Kubernetes", "NativeHelm", "Ssh", "WinRm", "ServerlessAwsLambda", "AzureWebApp" ]
+          }
+        }, {
+          "name" : "git_ops_enabled",
+          "in" : "query",
+          "description" : "Enables use of this service in Harness GitOps PR Pipelines",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Example response",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : [ {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ServiceResponse"
+                  }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "- service:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      service:\n        name: \"Example_service\"\n        identifier: \"example_service\"\n        tags: {}\n  created: 1234567890\n  updated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      },
+      "post" : {
+        "tags" : [ "Project Services" ],
+        "summary" : "Create a Service",
+        "description" : "Creates a Service",
+        "operationId" : "create-service",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Slug field of the organization the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Slug field of the project the resource is scoped to",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/ServiceRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Example response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "service" : {
+                        "account" : "sample_account",
+                        "slug" : "example_service",
+                        "org" : "sample_organization",
+                        "project" : "sample_project",
+                        "name" : "Example_service",
+                        "description" : "This is a example service",
+                        "tags" : {
+                          "example-tag-1" : "example-tag-1-value",
+                          "example-tag-2" : "example-tag-2-value"
+                        },
+                        "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ServiceResponse"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
+      }
+    },
     "/v1/orgs" : {
       "get" : {
         "tags" : [ "Organization" ],
@@ -4243,6 +4816,171 @@
   },
   "components" : {
     "schemas" : {
+      "Service" : {
+        "title" : "Service",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "account" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Account Identifier"
+          },
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Identifier of the Service Request."
+          },
+          "org" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Organization Identifier for the Entity."
+          },
+          "project" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Project Identifier for the Entity."
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Name of the Service Request."
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Description of the entity"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Service tags"
+          },
+          "yaml" : {
+            "type" : "string",
+            "description" : "Yaml related to service"
+          }
+        },
+        "description" : "This is the Service entity defined in Harness",
+        "x-examples" : {
+          "example-1" : {
+            "account" : "sample_account",
+            "slug" : "example_service",
+            "org" : "sample_organization",
+            "project" : "sample_project",
+            "name" : "Example_service",
+            "description" : "This is a example service",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+          }
+        }
+      },
+      "ServiceResponse" : {
+        "title" : "ServiceResponse",
+        "type" : "object",
+        "properties" : {
+          "service" : {
+            "$ref" : "#/components/schemas/Service"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for Service.",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for Service.",
+            "format" : "int64"
+          }
+        },
+        "description" : "Default response when a service is returned",
+        "x-examples" : {
+          "example-1" : {
+            "service" : {
+              "account" : "sample_account",
+              "slug" : "example_service",
+              "org" : "sample_organization",
+              "project" : "sample_project",
+              "name" : "Example_service",
+              "description" : "This is a example service",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              },
+              "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+            },
+            "created" : 1234567890,
+            "updated" : 1234567890
+          }
+        }
+      },
+      "ServiceRequest" : {
+        "title" : "ServiceRequest",
+        "required" : [ "name", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Identifier of the Service"
+          },
+          "name" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Name of the Service"
+          },
+          "description" : {
+            "maxLength" : 1024,
+            "type" : "string",
+            "description" : "Description of the entity"
+          },
+          "tags" : {
+            "maxProperties" : 128,
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Service tags"
+          },
+          "yaml" : {
+            "type" : "string",
+            "description" : "YAML for the Service Request"
+          }
+        },
+        "description" : "Service Request Body ",
+        "x-examples" : {
+          "example-1" : {
+            "slug" : "example_service",
+            "name" : "Example_service",
+            "description" : "This is a example service",
+            "tags" : {
+              "example-tag-1" : "example-tag-1-value",
+              "example-tag-2" : "example-tag-2-value"
+            },
+            "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+          }
+        }
+      },
       "CreateOrganizationRequest" : {
         "required" : [ "org" ],
         "type" : "object",
@@ -6199,6 +6937,104 @@
       }
     },
     "responses" : {
+      "ServiceListResponse" : {
+        "description" : "Example response",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : [ {
+                  "service" : {
+                    "account" : "sample_account",
+                    "slug" : "example_service",
+                    "org" : "sample_organization",
+                    "project" : "sample_project",
+                    "name" : "Example_service",
+                    "description" : "This is a example service",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    },
+                    "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/ServiceResponse"
+              }
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "- service:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      service:\n        name: \"Example_service\"\n        identifier: \"example_service\"\n        tags: {}\n  created: 1234567890\n  updated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
+      "ServiceResponse" : {
+        "description" : "Example response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceResponse"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : {
+                  "service" : {
+                    "account" : "sample_account",
+                    "slug" : "example_service",
+                    "org" : "sample_organization",
+                    "project" : "sample_project",
+                    "name" : "Example_service",
+                    "description" : "This is a example service",
+                    "tags" : {
+                      "example-tag-1" : "example-tag-1-value",
+                      "example-tag-2" : "example-tag-2-value"
+                    },
+                    "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceResponse"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "service:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    service:\n      name: \"Example_service\"\n      identifier: \"example_service\"\n      tags: {}\ncreated: 1234567890\nupdated: 1234567890\n"
+              }
+            }
+          }
+        }
+      },
       "OrganizationResponse" : {
         "description" : "Organization response",
         "content" : {
@@ -6804,9 +7640,94 @@
         "schema" : {
           "type" : "string"
         }
+      },
+      "ServicePathParam" : {
+        "name" : "service",
+        "in" : "path",
+        "description" : "Slug field of the service the resource is scoped to",
+        "required" : true,
+        "style" : "simple",
+        "explode" : false,
+        "schema" : {
+          "type" : "string"
+        }
+      },
+      "ServiceIdentifiers" : {
+        "name" : "service_ids",
+        "in" : "query",
+        "description" : "List of Service Identifiers",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "uniqueItems" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Sort" : {
+        "name" : "sort",
+        "in" : "query",
+        "description" : "Parameter on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "name", "slug", "created", "updated", "description" ]
+        }
+      },
+      "Order" : {
+        "name" : "order",
+        "in" : "query",
+        "description" : "Order on the basis of which sorting is done.",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string",
+          "enum" : [ "ASC", "DESC" ]
+        }
       }
     },
     "requestBodies" : {
+      "ServiceRequest" : {
+        "description" : "Create Service request body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceRequest"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : {
+                  "slug" : "example_service",
+                  "name" : "Example_service",
+                  "description" : "This is a example service",
+                  "tags" : {
+                    "example-tag-1" : "example-tag-1-value",
+                    "example-tag-2" : "example-tag-2-value"
+                  },
+                  "yaml" : "service:\n  name: \"Example_service\"\n  identifier: \"example_service\"\n  tags: {}\n"
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/ServiceRequest"
+            },
+            "examples" : {
+              "example-1" : {
+                "value" : "slug: example_service\nname: Example_service\ndescription: This is a example service\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  service:\n    name: \"Example_service\"\n    identifier: \"example_service\"\n    tags: {}\n"
+              }
+            }
+          }
+        },
+        "required" : true
+      },
       "UpdateProjectRequest" : {
         "description" : "Put the necessary fields for the API to update a Project.",
         "content" : {
@@ -7594,6 +8515,9 @@
   }, {
     "name" : "Secret",
     "tags" : [ "Account Secret", "Org Secret", "Project Secret" ]
+  }, {
+    "name" : "Services",
+    "tags" : [ "Project Services" ]
   }, {
     "name" : "Connector",
     "tags" : [ "Account Connector", "Org Connector", "Project Connector" ]
