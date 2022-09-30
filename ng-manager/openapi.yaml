@@ -1719,13 +1719,6 @@ components:
           type: object
           description: Governance metadata information
       description: Secret response model
-    ValidateSecretSlugResponse:
-      title: ValidateSecretSlugResponse
-      type: object
-      properties:
-        valid:
-          type: boolean
-      description: Validate unique secret slug response model
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
