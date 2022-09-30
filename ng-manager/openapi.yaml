@@ -187,6 +187,8 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
     parameters: []
   '/v1/orgs/{org}':
     parameters:
@@ -279,6 +281,8 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       tags:
         - Org Project
     parameters:
@@ -4410,7 +4414,6 @@ components:
           - slug
           - created
           - updated
-          - description
       description: Parameter on the basis of which sorting is done.
     Order:
       name: order
