@@ -88,6 +88,12 @@ public interface OrganizationApi {
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+,  @QueryParam("sort") 
+
+ @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
+,  @QueryParam("order") 
+
+ @Parameter(description = "Order on the basis of which sorting is done.")  String order
 );
     @PUT
     @Path("/{org}")
