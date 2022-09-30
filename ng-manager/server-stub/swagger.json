@@ -618,16 +618,6 @@
         "description" : "Retrieves the information of the organizations.",
         "operationId" : "get-organizations",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organizations the resource is scoped to",
@@ -671,6 +661,16 @@
           "schema" : {
             "type" : "integer",
             "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
           }
         } ],
         "responses" : {
@@ -744,12 +744,12 @@
         "description" : "Creates a new organization.",
         "operationId" : "create-organization",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -819,12 +819,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -889,12 +889,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -962,12 +962,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1030,16 +1030,6 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1108,6 +1098,16 @@
           "schema" : {
             "type" : "integer",
             "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
           }
         } ],
         "responses" : {
@@ -1193,12 +1193,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1280,12 +1280,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1362,12 +1362,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1447,12 +1447,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }

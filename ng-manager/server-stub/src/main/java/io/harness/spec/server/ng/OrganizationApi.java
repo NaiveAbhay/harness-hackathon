@@ -35,9 +35,9 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Organization response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrganizationResponse.class))) })
-    Response createOrganization(@Valid CreateOrganizationRequest body,  @QueryParam("account") 
+    Response createOrganization(@Valid CreateOrganizationRequest body,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{org}")
@@ -49,9 +49,9 @@ public interface OrganizationApi {
     Response deleteOrganization( @PathParam("org")
 
  @Parameter(description = "Organization slug") String org
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{org}")
@@ -63,9 +63,9 @@ public interface OrganizationApi {
     Response getOrganization( @PathParam("org")
 
  @Parameter(description = "Organization slug") String org
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
@@ -73,10 +73,7 @@ public interface OrganizationApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Organization" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Organization list response", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrganizationResponse.class)))) })
-    Response getOrganizations(  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
-,  @QueryParam("org") 
+    Response getOrganizations(  @QueryParam("org") 
 
  @Parameter(description = "Slug field of the organizations the resource is scoped to")  List<String> org
 ,  @QueryParam("search_term") 
@@ -88,6 +85,9 @@ public interface OrganizationApi {
 ,  @QueryParam("limit") @DefaultValue("30") 
 
  @Parameter(description = "Pagination: Number of items to return")  Integer limit
+,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{org}")
@@ -100,7 +100,7 @@ public interface OrganizationApi {
     Response updateOrganization(@Valid UpdateOrganizationRequest body, @PathParam("org")
 
  @Parameter(description = "Organization slug") String org
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
