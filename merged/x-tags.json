@@ -30,5 +30,9 @@
     {
     "name" : "Pipelines",
     "tags" : [ "Pipelines" ]
+    },
+    {
+        "name" : "Templates",
+        "tags" : [ "Account Template", "Org Template", "Project Template" ]
     }
 ]
