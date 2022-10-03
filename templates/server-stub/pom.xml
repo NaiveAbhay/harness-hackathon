@@ -50,6 +50,14 @@
       <version>${junit-version}</version>
       <scope>test</scope>
     </dependency>
+    <!--    Manually added-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <scope>provided</scope>
+      <version>2.7.9</version>
+    </dependency>
+    <!--    Manually added-->
     <!-- Bean Validation API support -->
     <dependency>
         <groupId>javax.validation</groupId>
@@ -63,4 +71,11 @@
     <maven.compiler.target>11</maven.compiler.target>
     <junit-version>4.13.1</junit-version>
   </properties>
+  <distributionManagement>
+    <repository>
+      <id>harness-internal</id>
+      <name>harness-internal</name>
+      <url>https://harness.jfrog.io/artifactory/harness-internal</url>
+    </repository>
+  </distributionManagement>
 </project>
