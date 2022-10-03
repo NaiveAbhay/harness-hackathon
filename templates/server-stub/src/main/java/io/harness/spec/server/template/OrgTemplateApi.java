@@ -29,6 +29,26 @@ import javax.validation.Valid;
 
 public interface OrgTemplateApi {
 
+    @POST
+    @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
+    @Operation(operationId = "createTemplatesOrg", summary = "Create Template", description = "Creates a Template in the Organization scope.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Template" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "201", description = "Template Response Body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResponse.class))) })
+    Response createTemplatesOrg( @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+,@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
+,  @QueryParam("is_stable") @DefaultValue("false") 
+
+ @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
+,  @QueryParam("comments") 
+
+ @Parameter(description = "Specify comment with respect to changes  ")  String comments
+);
     @DELETE
     @Path("/{template}/versions/{version}")
     @Operation(operationId = "deleteTemplateOrg", summary = "Delete Template", description = "Deletes particular version of Template at Organization scope.", security = {
@@ -105,34 +125,14 @@ public interface OrgTemplateApi {
 
  @Parameter(description = "Specify true if all accessible Templates are to be included")  Boolean recursive
 );
-    @POST
-    @Consumes({ "application/json", "application/yaml" })
-    @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "postTemplatesOrg", summary = "Create Template", description = "Creates a Template in the Organization scope.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Template" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Template Response Body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResponse.class))) })
-    Response postTemplatesOrg( @PathParam("org")
-
- @Parameter(description = "Organization Identifier") String org
-,@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("is_stable") @DefaultValue("false") 
-
- @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
-,  @QueryParam("comments") 
-
- @Parameter(description = "Specify comment with respect to changes  ")  String comments
-);
     @PUT
     @Path("/{template}/versions/{version}")
     @Consumes({ "application/json", "application/yaml" })
-    @Operation(operationId = "putTemplateOrg", summary = "Update Template", description = "Updates particular version of Template at Organization scope.", security = {
+    @Operation(operationId = "updateTemplateOrg", summary = "Update Template", description = "Updates particular version of Template at Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Template" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "") })
-    Response putTemplateOrg(@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+    Response updateTemplateOrg(@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("is_stable") @DefaultValue("false") 
@@ -145,11 +145,11 @@ public interface OrgTemplateApi {
     @PUT
     @Path("/{template}/versions/{version}/stable")
     @Consumes({ "application/json", "application/yaml" })
-    @Operation(operationId = "putTemplateStableOrg", summary = "Update Stable Template", description = "Updates the stable version of Template at Organization scope.", security = {
+    @Operation(operationId = "updateTemplateStableOrg", summary = "Update Stable Template", description = "Updates the stable version of Template at Organization scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Org Template" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "") })
-    Response putTemplateStableOrg(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+    Response updateTemplateStableOrg(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("comments") 

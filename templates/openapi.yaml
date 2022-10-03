@@ -27,7 +27,7 @@ paths:
   /v1/templates:
     post:
       summary: Create Template
-      operationId: post-templates-acc
+      operationId: create-templates-acc
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/SetDefaultTemplate'
@@ -99,7 +99,7 @@ paths:
         $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
-      operationId: put-template-acc
+      operationId: update-template-acc
       responses:
         '200':
           $ref: '#/components/responses/TemplateResponse'
@@ -130,7 +130,7 @@ paths:
       - $ref: '#/components/parameters/Version'
     put:
       summary: Update Stable Template
-      operationId: put-template-stable-acc
+      operationId: update-template-stable-acc
       responses:
         '200':
           $ref: '#/components/responses/TemplateUpdateStableResponse'
@@ -147,7 +147,7 @@ paths:
       - $ref: '#/components/parameters/Org'
     post:
       summary: Create Template
-      operationId: post-templates-org
+      operationId: create-templates-org
       responses:
         '201':
           $ref: '#/components/responses/TemplateResponse'
@@ -222,7 +222,7 @@ paths:
         $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
-      operationId: put-template-org
+      operationId: update-template-org
       responses:
         '200':
           $ref: '#/components/responses/TemplateResponse'
@@ -254,7 +254,7 @@ paths:
       - $ref: '#/components/parameters/Version'
     put:
       summary: Update Stable Template
-      operationId: put-template-stable-org
+      operationId: update-template-stable-org
       responses:
         '200':
           $ref: '#/components/responses/TemplateUpdateStableResponse'
@@ -272,7 +272,7 @@ paths:
       - $ref: '#/components/parameters/Project'
     post:
       summary: Create Template
-      operationId: post-templates-project
+      operationId: create-templates-project
       responses:
         '201':
           $ref: '#/components/responses/TemplateResponse'
@@ -350,7 +350,7 @@ paths:
         $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
-      operationId: put-template-project
+      operationId: update-template-project
       responses:
         '200':
           $ref: '#/components/responses/TemplateResponse'
@@ -383,7 +383,7 @@ paths:
       - $ref: '#/components/parameters/Version'
     put:
       summary: Update Stable Template
-      operationId: put-template-stable-project
+      operationId: update-template-stable-project
       responses:
         '200':
           $ref: '#/components/responses/TemplateUpdateStableResponse'
