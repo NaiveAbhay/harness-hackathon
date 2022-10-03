@@ -31,7 +31,7 @@
         "tags" : [ "Account Template" ],
         "summary" : "Create Template",
         "description" : "Creates a Template in the Account scope.",
-        "operationId" : "post-templates-acc",
+        "operationId" : "create-templates-acc",
         "parameters" : [ {
           "name" : "Harness-Account",
           "in" : "header",
@@ -506,7 +506,7 @@
         "tags" : [ "Account Template" ],
         "summary" : "Update Template",
         "description" : "Updates particular version of Template at Account scope.",
-        "operationId" : "put-template-acc",
+        "operationId" : "update-template-acc",
         "parameters" : [ {
           "name" : "template",
           "in" : "path",
@@ -684,7 +684,7 @@
         "tags" : [ "Account Template" ],
         "summary" : "Update Stable Template",
         "description" : "Updates the stable version of Template at Account scope.",
-        "operationId" : "put-template-stable-acc",
+        "operationId" : "update-template-stable-acc",
         "parameters" : [ {
           "name" : "template",
           "in" : "path",
@@ -779,7 +779,7 @@
         "tags" : [ "Org Template" ],
         "summary" : "Create Template",
         "description" : "Creates a Template in the Organization scope.",
-        "operationId" : "post-templates-org",
+        "operationId" : "create-templates-org",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -972,7 +972,7 @@
         "tags" : [ "Org Template" ],
         "summary" : "Update Template",
         "description" : "Updates particular version of Template at Organization scope.",
-        "operationId" : "put-template-org",
+        "operationId" : "update-template-org",
         "parameters" : [ {
           "$ref" : "#/components/parameters/AccountHeaderParam"
         }, {
@@ -1018,7 +1018,7 @@
         "tags" : [ "Org Template" ],
         "summary" : "Update Stable Template",
         "description" : "Updates the stable version of Template at Organization scope.",
-        "operationId" : "put-template-stable-org",
+        "operationId" : "update-template-stable-org",
         "parameters" : [ {
           "$ref" : "#/components/parameters/AccountHeaderParam"
         }, {
@@ -1046,7 +1046,7 @@
         "tags" : [ "Project Template" ],
         "summary" : "Create Template",
         "description" : "Creates a Template in the Project scope.",
-        "operationId" : "post-templates-project",
+        "operationId" : "create-templates-project",
         "parameters" : [ {
           "$ref" : "#/components/parameters/AccountHeaderParam"
         }, {
@@ -1159,7 +1159,7 @@
         "tags" : [ "Project Template" ],
         "summary" : "Update Template",
         "description" : "Updates particular version of Template at Project scope.",
-        "operationId" : "put-template-project",
+        "operationId" : "update-template-project",
         "parameters" : [ {
           "$ref" : "#/components/parameters/AccountHeaderParam"
         }, {
@@ -1207,7 +1207,7 @@
         "tags" : [ "Project Template" ],
         "summary" : "Update Stable Template",
         "description" : "Updates the stable version of Template at Project scope.",
-        "operationId" : "put-template-stable-project",
+        "operationId" : "update-template-stable-project",
         "parameters" : [ {
           "$ref" : "#/components/parameters/AccountHeaderParam"
         }, {

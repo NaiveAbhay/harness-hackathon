@@ -28,6 +28,22 @@ import javax.validation.Valid;
 
 public interface ProjectTemplateApi {
 
+    @POST
+    @Consumes({ "application/json", "application/yaml" })
+    @Operation(operationId = "createTemplatesProject", summary = "Create Template", description = "Creates a Template in the Project scope.", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "201", description = "") })
+    Response createTemplatesProject(@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
+,  @QueryParam("is_stable") @DefaultValue("false") 
+
+ @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
+,  @QueryParam("comments") 
+
+ @Parameter(description = "Specify comment with respect to changes  ")  String comments
+);
     @DELETE
     @Path("/{template}/versions/{version}")
     @Operation(operationId = "deleteTemplateProject", summary = "Delete Template", description = "Deletes particular version of Template at Project scope.", security = {
@@ -101,30 +117,14 @@ public interface ProjectTemplateApi {
 
  @Parameter(description = "Specify true if all accessible Templates are to be included")  Boolean recursive
 );
-    @POST
-    @Consumes({ "application/json", "application/yaml" })
-    @Operation(operationId = "postTemplatesProject", summary = "Create Template", description = "Creates a Template in the Project scope.", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "") })
-    Response postTemplatesProject(@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("is_stable") @DefaultValue("false") 
-
- @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
-,  @QueryParam("comments") 
-
- @Parameter(description = "Specify comment with respect to changes  ")  String comments
-);
     @PUT
     @Path("/{template}/versions/{version}")
     @Consumes({ "application/json", "application/yaml" })
-    @Operation(operationId = "putTemplateProject", summary = "Update Template", description = "Updates particular version of Template at Project scope.", security = {
+    @Operation(operationId = "updateTemplateProject", summary = "Update Template", description = "Updates particular version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "") })
-    Response putTemplateProject(@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+    Response updateTemplateProject(@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("is_stable") @DefaultValue("false") 
@@ -137,11 +137,11 @@ public interface ProjectTemplateApi {
     @PUT
     @Path("/{template}/versions/{version}/stable")
     @Consumes({ "application/json", "application/yaml" })
-    @Operation(operationId = "putTemplateStableProject", summary = "Update Stable Template", description = "Updates the stable version of Template at Project scope.", security = {
+    @Operation(operationId = "updateTemplateStableProject", summary = "Update Stable Template", description = "Updates the stable version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "") })
-    Response putTemplateStableProject(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+    Response updateTemplateStableProject(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("comments") 
