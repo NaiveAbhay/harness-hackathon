@@ -23,7 +23,8 @@ public enum ModuleType {
     CORE("CORE"),
     PMS("PMS"),
     TEMPLATESERVICE("TEMPLATESERVICE"),
-    GOVERNANCE("GOVERNANCE");
+    GOVERNANCE("GOVERNANCE"),
+    CHAOS("CHAOS");
 
   private String value;
 
