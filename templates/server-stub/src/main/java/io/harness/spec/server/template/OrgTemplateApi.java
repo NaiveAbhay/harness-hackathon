@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Map;
 import java.util.List;
 import java.io.InputStream;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
