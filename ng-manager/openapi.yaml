@@ -169,7 +169,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateOrganizationRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     get:
       summary: List organizations
       operationId: get-organizations
@@ -182,11 +182,13 @@ paths:
       tags:
         - Organization
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/OrgsQueryParam'
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
     parameters: []
   '/v1/orgs/{org}':
     parameters:
@@ -208,7 +210,7 @@ paths:
       tags:
         - Organization
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     put:
       summary: Update an organization
       operationId: update-organization
@@ -223,7 +225,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/UpdateOrganizationRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
     delete:
       summary: Delete an organization
       operationId: delete-organization
@@ -236,7 +238,7 @@ paths:
       tags:
         - Organization
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects':
     post:
       summary: Creates a project
@@ -250,7 +252,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateProjectRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Project
     get:
@@ -263,7 +265,6 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
         - $ref: '#/components/parameters/ProjectsQueryParam'
         - schema:
             type: boolean
@@ -279,6 +280,9 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       tags:
         - Org Project
     parameters:
@@ -294,7 +298,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Project
     put:
@@ -309,7 +313,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/UpdateProjectRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Project
     delete:
@@ -322,7 +326,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Project
     parameters:
@@ -1185,6 +1189,7 @@ components:
         - PMS
         - TEMPLATESERVICE
         - GOVERNANCE
+        - CHAOS
     CreateProjectRequest:
       description: Create project request
       type: object
@@ -1715,13 +1720,6 @@ components:
           type: object
           description: Governance metadata information
       description: Secret response model
-    ValidateSecretSlugResponse:
-      title: ValidateSecretSlugResponse
-      type: object
-      properties:
-        valid:
-          type: boolean
-      description: Validate unique secret slug response model
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
@@ -4410,7 +4408,6 @@ components:
           - slug
           - created
           - updated
-          - description
       description: Parameter on the basis of which sorting is done.
     Order:
       name: order
