@@ -40,7 +40,6 @@ paths:
       tags:
         - Account Template
       description: Creates a Template in the Account scope.
-  /v1/templates/list:
     get:
       summary: Get Templates List
       operationId: get-templates-list-acc
@@ -160,9 +159,6 @@ paths:
       description: Creates a Template in the Organization scope.
       requestBody:
         $ref: '#/components/requestBodies/TemplateCreateBody'
-  '/v1/orgs/{org}/templates/list':
-    parameters:
-      - $ref: '#/components/parameters/Org'
     get:
       summary: Get Templates List
       operationId: get-templates-list-org
@@ -173,9 +169,9 @@ paths:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
-        - $ref: ../ngmanager.yaml#/components/parameters/Sort
-        - $ref: ../ngmanager.yaml#/components/parameters/Order
-        - $ref: ../ngmanager.yaml#/components/parameters/SearchTerm
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
       requestBody:
@@ -285,10 +281,6 @@ paths:
       description: Creates a Template in the Project scope.
       requestBody:
         $ref: '#/components/requestBodies/TemplateCreateBody'
-  '/v1/orgs/{org}/projects/{project}/templates/list':
-    parameters:
-      - $ref: '#/components/parameters/Org'
-      - $ref: '#/components/parameters/Project'
     get:
       summary: Get Templates List
       operationId: get-templates-list-project
@@ -299,9 +291,9 @@ paths:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
-        - $ref: ../ngmanager.yaml#/components/parameters/Sort
-        - $ref: ../ngmanager.yaml#/components/parameters/Order
-        - $ref: ../ngmanager.yaml#/components/parameters/SearchTerm
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
       requestBody:
@@ -1066,6 +1058,16 @@ components:
           description: Yaml for creating new Template
         git_details:
           $ref: '#/components/schemas/GitCreateDetails'
+    TemplateUpdateStableResponse:
+      title: TemplateUpdateStableResponse
+      x-stoplight:
+        id: 1h4plmwhpjnp4
+      type: object
+      properties:
+        stable_version:
+          type: string
+          description: |
+            Version which is set as stable for the given Template
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1726,11 +1728,7 @@ components:
       content:
         application/json:
           schema:
-            type: object
-            properties:
-              stable_version:
-                type: string
-                description: Version which is set as stable for the given Template
+            $ref: '#/components/schemas/TemplateUpdateStableResponse'
           examples:
             example-1:
               value:

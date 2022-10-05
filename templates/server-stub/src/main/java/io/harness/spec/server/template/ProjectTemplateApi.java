@@ -3,7 +3,11 @@ package io.harness.spec.server.template;
 import io.harness.spec.server.template.model.GitFindDetails;
 import io.harness.spec.server.template.model.TemplateCreateRequestBody;
 import io.harness.spec.server.template.model.TemplateFilterProperties;
+import io.harness.spec.server.template.model.TemplateMetaDataList;
+import io.harness.spec.server.template.model.TemplateResponse;
 import io.harness.spec.server.template.model.TemplateUpdateRequestBody;
+import io.harness.spec.server.template.model.TemplateUpdateStableResponse;
+import io.harness.spec.server.template.model.TemplateWithInputsResponse;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -31,11 +35,18 @@ public interface ProjectTemplateApi {
 
     @POST
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createTemplatesProject", summary = "Create Template", description = "Creates a Template in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "") })
-    Response createTemplatesProject(@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "201", description = "Template Response Body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResponse.class))) })
+    Response createTemplatesProject( @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+,@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("is_stable") @DefaultValue("false") 
@@ -51,7 +62,19 @@ public interface ProjectTemplateApi {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deleteTemplateProject( @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+    Response deleteTemplateProject( @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+, @PathParam("template")
+
+ @Parameter(description = "Template Identifier") String template
+, @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("version")
+
+ @Parameter(description = "Version Label for Template") String version
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("comments") 
@@ -61,11 +84,24 @@ public interface ProjectTemplateApi {
     @GET
     @Path("/{template}/versions/{version}")
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplateProject", summary = "Retrieve a Template", description = "Retrieves particular version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "") })
-    Response getTemplateProject(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "200", description = "Template With Input reference", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateWithInputsResponse.class))) })
+    Response getTemplateProject( @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+, @PathParam("template")
+
+ @Parameter(description = "Template Identifier") String template
+, @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("version")
+
+ @Parameter(description = "Version Label for Template") String version
+,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("get_input_yaml") 
@@ -75,11 +111,21 @@ public interface ProjectTemplateApi {
     @GET
     @Path("/{template}")
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplateStableProject", summary = "Get Stable Template", description = "Retrieves stable version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "") })
-    Response getTemplateStableProject(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "200", description = "Template With Input reference", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateWithInputsResponse.class))) })
+    Response getTemplateStableProject( @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+, @PathParam("template")
+
+ @Parameter(description = "Template Identifier") String template
+,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("get_input_yaml") 
@@ -87,13 +133,19 @@ public interface ProjectTemplateApi {
  @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
 );
     @GET
-    @Path("/list")
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplatesListProject", summary = "Get Templates List", description = "Retrieves list of Template with meta-data at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "") })
-    Response getTemplatesListProject(@Valid TemplateFilterProperties body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "200", description = "Template Lists Meta Data Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateMetaDataList.class))) })
+    Response getTemplatesListProject( @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+,@Valid TemplateFilterProperties body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("page") 
@@ -121,11 +173,24 @@ public interface ProjectTemplateApi {
     @PUT
     @Path("/{template}/versions/{version}")
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateTemplateProject", summary = "Update Template", description = "Updates particular version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "") })
-    Response updateTemplateProject(@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "200", description = "Template Response Body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateResponse.class))) })
+    Response updateTemplateProject( @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+, @PathParam("template")
+
+ @Parameter(description = "Template Identifier") String template
+, @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("version")
+
+ @Parameter(description = "Version Label for Template") String version
+,@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("is_stable") @DefaultValue("false") 
@@ -138,11 +203,24 @@ public interface ProjectTemplateApi {
     @PUT
     @Path("/{template}/versions/{version}/stable")
     @Consumes({ "application/json", "application/yaml" })
+    @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "updateTemplateStableProject", summary = "Update Stable Template", description = "Updates the stable version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "") })
-    Response updateTemplateStableProject(@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+        @ApiResponse(responseCode = "200", description = "Template stable version update Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateUpdateStableResponse.class))) })
+    Response updateTemplateStableProject( @PathParam("org")
+
+ @Parameter(description = "Organization Identifier") String org
+, @PathParam("project")
+
+ @Parameter(description = "Project Identifier") String project
+, @PathParam("template")
+
+ @Parameter(description = "Template Identifier") String template
+, @PathParam("version")
+
+ @Parameter(description = "Version Label for Template") String version
+,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("comments") 

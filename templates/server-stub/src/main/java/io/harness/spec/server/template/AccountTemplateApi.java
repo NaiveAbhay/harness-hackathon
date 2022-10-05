@@ -6,6 +6,7 @@ import io.harness.spec.server.template.model.TemplateFilterProperties;
 import io.harness.spec.server.template.model.TemplateMetaDataList;
 import io.harness.spec.server.template.model.TemplateResponse;
 import io.harness.spec.server.template.model.TemplateUpdateRequestBody;
+import io.harness.spec.server.template.model.TemplateUpdateStableResponse;
 import io.harness.spec.server.template.model.TemplateWithInputsResponse;
 
 import javax.ws.rs.*;
@@ -108,7 +109,6 @@ public interface AccountTemplateApi {
  @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
 );
     @GET
-    @Path("/list")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplatesListAcc", summary = "Get Templates List", description = "Retrieves list of Template with meta-data at Account scope.", security = {
@@ -171,7 +171,7 @@ public interface AccountTemplateApi {
     @Operation(operationId = "updateTemplateStableAcc", summary = "Update Stable Template", description = "Updates the stable version of Template at Account scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Template" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Template stable version update Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Object.class))) })
+        @ApiResponse(responseCode = "200", description = "Template stable version update Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = TemplateUpdateStableResponse.class))) })
     Response updateTemplateStableAcc( @PathParam("template")
 
  @Parameter(description = "Template Identifier") String template
