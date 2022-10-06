@@ -22,6 +22,10 @@ public class PipelineUpdateRequestBody   {
 
   private @Valid String pipelineYaml = null;
 
+  private @Valid String slug = null;
+
+  private @Valid String name = null;
+
   private @Valid String description = null;
 
   private @Valid Map<String, String> tags = new HashMap<>();
@@ -46,6 +50,46 @@ public class PipelineUpdateRequestBody   {
   }
   public void setPipelineYaml(String pipelineYaml) {
     this.pipelineYaml = pipelineYaml;
+  }
+
+  /**
+   * Pipeline identifier
+   **/
+  public PipelineUpdateRequestBody slug(String slug) {
+    this.slug = slug;
+    return this;
+  }
+
+  
+  @Schema(required = true, description = "Pipeline identifier")
+  @JsonProperty("slug")
+  @NotNull
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getSlug() {
+    return slug;
+  }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  /**
+   * Pipeline name
+   **/
+  public PipelineUpdateRequestBody name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  
+  @Schema(required = true, description = "Pipeline name")
+  @JsonProperty("name")
+  @NotNull
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -115,6 +159,8 @@ public class PipelineUpdateRequestBody   {
     }
     PipelineUpdateRequestBody pipelineUpdateRequestBody = (PipelineUpdateRequestBody) o;
     return Objects.equals(pipelineYaml, pipelineUpdateRequestBody.pipelineYaml) &&
+        Objects.equals(slug, pipelineUpdateRequestBody.slug) &&
+        Objects.equals(name, pipelineUpdateRequestBody.name) &&
         Objects.equals(description, pipelineUpdateRequestBody.description) &&
         Objects.equals(tags, pipelineUpdateRequestBody.tags) &&
         Objects.equals(gitDetails, pipelineUpdateRequestBody.gitDetails);
@@ -122,7 +168,7 @@ public class PipelineUpdateRequestBody   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml, description, tags, gitDetails);
+    return Objects.hash(pipelineYaml, slug, name, description, tags, gitDetails);
   }
 
   @Override
@@ -131,6 +177,8 @@ public class PipelineUpdateRequestBody   {
     sb.append("class PipelineUpdateRequestBody {\n");
     
     sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
+    sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
