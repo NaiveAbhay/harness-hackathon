@@ -2,6 +2,9 @@ package io.harness.spec.server.pipeline.model;
 
 import io.harness.spec.server.pipeline.model.GitUpdateDetails;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -18,6 +21,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public class PipelineUpdateRequestBody   {
 
   private @Valid String pipelineYaml = null;
+
+  private @Valid String description = null;
+
+  private @Valid Map<String, String> tags = new HashMap<>();
 
   private @Valid GitUpdateDetails gitDetails = null;
 
@@ -39,6 +46,44 @@ public class PipelineUpdateRequestBody   {
   }
   public void setPipelineYaml(String pipelineYaml) {
     this.pipelineYaml = pipelineYaml;
+  }
+
+  /**
+   * Pipeline description
+   **/
+  public PipelineUpdateRequestBody description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline description")
+  @JsonProperty("description")
+ @Size(max=1024)
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * Pipeline tags
+   **/
+  public PipelineUpdateRequestBody tags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline tags")
+  @JsonProperty("tags")
+ @Size(max=128)
+  public Map<String, String> getTags() {
+    return tags;
+  }
+  public void setTags(Map<String, String> tags) {
+    this.tags = tags;
   }
 
   /**
@@ -70,12 +115,14 @@ public class PipelineUpdateRequestBody   {
     }
     PipelineUpdateRequestBody pipelineUpdateRequestBody = (PipelineUpdateRequestBody) o;
     return Objects.equals(pipelineYaml, pipelineUpdateRequestBody.pipelineYaml) &&
+        Objects.equals(description, pipelineUpdateRequestBody.description) &&
+        Objects.equals(tags, pipelineUpdateRequestBody.tags) &&
         Objects.equals(gitDetails, pipelineUpdateRequestBody.gitDetails);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml, gitDetails);
+    return Objects.hash(pipelineYaml, description, tags, gitDetails);
   }
 
   @Override
@@ -84,6 +131,8 @@ public class PipelineUpdateRequestBody   {
     sb.append("class PipelineUpdateRequestBody {\n");
     
     sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
     sb.append("}");
     return sb.toString();
