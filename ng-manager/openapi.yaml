@@ -1357,6 +1357,7 @@ components:
           description: This specifies the type of secret
     SSHKeyPathSpec:
       title: SSHKeyPath
+      x-discriminator-value: SSHKeyPath
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1386,6 +1387,7 @@ components:
             - key_path
     SSHKeyReferenceSpec:
       title: SSHKeyReference
+      x-discriminator-value: SSHKeyReference
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1414,6 +1416,7 @@ components:
             - username
     SSHPasswordSpec:
       title: SSHPassword
+      x-discriminator-value: SSHPassword
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1440,6 +1443,7 @@ components:
             - password
     SSHKerberosTGTKeyTabFileSpec:
       title: SSHKerberosTGTKeyTabFile
+      x-discriminator-value: SSHKerberosTGTKeyTabFile
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1467,6 +1471,7 @@ components:
             - type
     SSHKerberosTGTPasswordSpec:
       title: SSHKerberosTGTPassword
+      x-discriminator-value: SSHKerberosTGTPassword
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1494,6 +1499,7 @@ components:
             - type
     SecretFileSpec:
       title: SecretFile
+      x-discriminator-value: SecretFile
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1512,6 +1518,7 @@ components:
             - secret_manager_slug
     SecretTextSpec:
       title: SecretText
+      x-discriminator-value: SecretText
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1540,6 +1547,7 @@ components:
             - value_type
     WinRmTGTKeyTabFileSpec:
       title: WinRmTGTKeyTabFile
+      x-discriminator-value: WinRmTGTKeyTabFile
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1579,6 +1587,7 @@ components:
             - type
     WinRmTGTPasswordSpec:
       title: WinRmTGTPassword
+      x-discriminator-value: WinRmTGTPassword
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1618,6 +1627,7 @@ components:
             - type
     WinRmNTLMSpec:
       title: WinRmNTLM
+      x-discriminator-value: WinRmNTLM
       description: This is the SSH key authentication details defined in Harness.
       allOf:
         - $ref: '#/components/schemas/SecretSpec'
@@ -1941,6 +1951,7 @@ components:
           description: This specifies the type of connector
     GitHttpConnectorSpec:
       title: GitHttp
+      x-discriminator-value: GitHttp
       description: This contains details of the Generic Git http connector
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -1988,6 +1999,7 @@ components:
             - password_ref
     GitHttpEncryptedConnectorSpec:
       title: GitHttpEncrypted
+      x-discriminator-value: GitHttpEncrypted
       description: This contains details of the Generic Git http connector
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2035,6 +2047,7 @@ components:
             - password_ref
     GitSshConnectorSpec:
       title: GitSsh
+      x-discriminator-value: GitSsh
       description: This contains details of the Generic Git ssh connector
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2078,6 +2091,7 @@ components:
             - ssh_key_ref
     AppdynamicsConnectorSpec:
       title: Appdynamics
+      x-discriminator-value: Appdynamics
       description: This contains details of the appdynamics connector
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2111,6 +2125,7 @@ components:
             - controller_url
     AppdynamicsClientIdConnectorSpec:
       title: AppdynamicsClientId
+      x-discriminator-value: AppdynamicsClientId
       description: This contains details of the appdynamics connector with client secrets
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2143,6 +2158,7 @@ components:
             - controller_url
     ArtifactoryAnonymousConnectorSpec:
       title: ArtifactoryAnonymous
+      x-discriminator-value: ArtifactoryAnonymous
       description: This contains details of the artifactory connector with anonymous user
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2169,6 +2185,7 @@ components:
             - url
     ArtifactoryConnectorSpec:
       title: Artifactory
+      x-discriminator-value: Artifactory
       description: This contains details of the artifactory connector with username/password
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2203,6 +2220,7 @@ components:
             - password_ref
     ArtifactoryEncryptedConnectorSpec:
       title: ArtifactoryEncrypted
+      x-discriminator-value: ArtifactoryEncrypted
       description: This contains details of the artifactory connector with encrypted username/password
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2237,6 +2255,7 @@ components:
             - password_ref
     AwsCodeCommitConnectorSpec:
       title: AwsCodeCommit
+      x-discriminator-value: AwsCodeCommit
       description: This contains details of the AWS code commit connector
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2277,6 +2296,7 @@ components:
             - secret_key_ref
     AwsAccessKeyConnectorSpec:
       title: AwsAccessKey
+      x-discriminator-value: AwsAccessKey
       description: This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2317,6 +2337,7 @@ components:
             - secret_key_ref
     AwsEncryptedAccessKeyConnectorSpec:
       title: AwsEncryptedAccessKey
+      x-discriminator-value: AwsEncryptedAccessKey
       description: This contains details of the AWS connector and needs AWS encrypted access and secret keys for an AWS IAM user.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2357,6 +2378,7 @@ components:
             - secret_key_ref
     AwsIAMRoleConnectorSpec:
       title: AwsIAMRole
+      x-discriminator-value: AwsIAMRole
       description: This contains details of the AWS connector. This assume IAM role on Delegate and uses the IAM role of a Harness Delegate running in your AWS account.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2389,6 +2411,7 @@ components:
             - type
     AwsIRSAConnectorSpec:
       title: AwsIRSA
+      x-discriminator-value: AwsIRSA
       description: This contains details of the AWS connector. This uses IRSA and forces the Harness kubernetes delegate in AWS EKS to use a specific IAM role.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2421,6 +2444,7 @@ components:
             - type
     AwsKmsAccessKeyConnectorSpec:
       title: AwsKmsAccessKey
+      x-discriminator-value: AwsKmsAccessKey
       description: This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2459,6 +2483,7 @@ components:
             - secret_key
     AwsKmsAssumeIAMConnectorSpec:
       title: AwsKmsAssumeIAM
+      x-discriminator-value: AwsKmsAssumeIAM
       description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2491,6 +2516,7 @@ components:
             - delegate_selectors
     AwsKmsAssumeSTSConnectorSpec:
       title: AwsKmsAssumeSTS
+      x-discriminator-value: AwsKmsAssumeSTS
       description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2532,6 +2558,7 @@ components:
             - delegate_selectors
     AwsSecretManagerAccessKeyConnectorSpec:
       title: AwsSecretManagerAccessKey
+      x-discriminator-value: AwsSecretManagerAccessKey
       description: This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS Secret Manager.
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2569,6 +2596,7 @@ components:
             - secret_key
     AwsSecretManagerAssumeIAMConnectorSpec:
       title: AwsSecretManagerAssumeIAM
+      x-discriminator-value: AwsSecretManagerAssumeIAM
       description: 'This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2599,6 +2627,7 @@ components:
             - region
     AwsSecretManagerAssumeSTSConnectorSpec:
       title: AwsSecretManagerAssumeSTS
+      x-discriminator-value: AwsSecretManagerAssumeSTS
       description: 'This contains details of the AWS connector and Harness will authenticate using the STS role assigned to the AWS host running the Delegate, you select using a Delegate Selector.'
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2639,6 +2668,7 @@ components:
             - role_arn
     AzureClientSecretKeyConnectorSpec:
       title: AzureClientSecretKey
+      x-discriminator-value: AzureClientSecretKey
       description: This contains details of the Azure connector and uses Azure client secret key details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2683,6 +2713,7 @@ components:
             - secret_ref
     AzureClientCertificateConnectorSpec:
       title: AzureClientCertificate
+      x-discriminator-value: AzureClientCertificate
       description: This contains details of the Azure connector and uses Azure client certificate details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2727,6 +2758,7 @@ components:
             - certificate_ref
     AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec:
       title: AzureInheritFromDelegateUserAssignedManagedIdentity
+      x-discriminator-value: AzureInheritFromDelegateUserAssignedManagedIdentity
       description: This contains details of the Azure connector and for azure UserAssigned MSI auth details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
@@ -2763,6 +2795,7 @@ components:
             - client_id
     AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec:
       title: AzureInheritFromDelegateSystemAssignedManagedIdentity
+      x-discriminator-value: AzureInheritFromDelegateSystemAssignedManagedIdentity
       description: This contains details of the Azure connector for contains azure MSI auth details
       allOf:
         - $ref: '#/components/schemas/ConnectorSpec'
