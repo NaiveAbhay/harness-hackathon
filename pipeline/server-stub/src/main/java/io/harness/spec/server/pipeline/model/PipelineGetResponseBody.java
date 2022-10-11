@@ -4,7 +4,9 @@ import io.harness.spec.server.pipeline.model.GitDetails;
 import io.harness.spec.server.pipeline.model.YAMLSchemaErrorWrapper;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -23,6 +25,14 @@ public class PipelineGetResponseBody   {
   private @Valid String pipelineYaml = null;
 
   private @Valid String templateAppliedPipelineYaml = null;
+
+  private @Valid String slug = null;
+
+  private @Valid String name = null;
+
+  private @Valid String description = null;
+
+  private @Valid Map<String, String> tags = new HashMap<>();
 
   private @Valid List<String> modules = new ArrayList<>();
 
@@ -72,6 +82,82 @@ public class PipelineGetResponseBody   {
   }
   public void setTemplateAppliedPipelineYaml(String templateAppliedPipelineYaml) {
     this.templateAppliedPipelineYaml = templateAppliedPipelineYaml;
+  }
+
+  /**
+   * Pipeline identifier
+   **/
+  public PipelineGetResponseBody slug(String slug) {
+    this.slug = slug;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline identifier")
+  @JsonProperty("slug")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getSlug() {
+    return slug;
+  }
+  public void setSlug(String slug) {
+    this.slug = slug;
+  }
+
+  /**
+   * Pipeline name
+   **/
+  public PipelineGetResponseBody name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline name")
+  @JsonProperty("name")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Pipeline description
+   **/
+  public PipelineGetResponseBody description(String description) {
+    this.description = description;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline description")
+  @JsonProperty("description")
+ @Size(max=1024)
+  public String getDescription() {
+    return description;
+  }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * Pipeline tags
+   **/
+  public PipelineGetResponseBody tags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  
+  @Schema(description = "Pipeline tags")
+  @JsonProperty("tags")
+ @Size(max=128)
+  public Map<String, String> getTags() {
+    return tags;
+  }
+  public void setTags(Map<String, String> tags) {
+    this.tags = tags;
   }
 
   /**
@@ -199,6 +285,10 @@ public class PipelineGetResponseBody   {
     PipelineGetResponseBody pipelineGetResponseBody = (PipelineGetResponseBody) o;
     return Objects.equals(pipelineYaml, pipelineGetResponseBody.pipelineYaml) &&
         Objects.equals(templateAppliedPipelineYaml, pipelineGetResponseBody.templateAppliedPipelineYaml) &&
+        Objects.equals(slug, pipelineGetResponseBody.slug) &&
+        Objects.equals(name, pipelineGetResponseBody.name) &&
+        Objects.equals(description, pipelineGetResponseBody.description) &&
+        Objects.equals(tags, pipelineGetResponseBody.tags) &&
         Objects.equals(modules, pipelineGetResponseBody.modules) &&
         Objects.equals(gitDetails, pipelineGetResponseBody.gitDetails) &&
         Objects.equals(valid, pipelineGetResponseBody.valid) &&
@@ -209,7 +299,7 @@ public class PipelineGetResponseBody   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml, templateAppliedPipelineYaml, modules, gitDetails, valid, yamlErrorWrapper, created, updated);
+    return Objects.hash(pipelineYaml, templateAppliedPipelineYaml, slug, name, description, tags, modules, gitDetails, valid, yamlErrorWrapper, created, updated);
   }
 
   @Override
@@ -219,6 +309,10 @@ public class PipelineGetResponseBody   {
     
     sb.append("    pipelineYaml: ").append(toIndentedString(pipelineYaml)).append("\n");
     sb.append("    templateAppliedPipelineYaml: ").append(toIndentedString(templateAppliedPipelineYaml)).append("\n");
+    sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
     sb.append("    valid: ").append(toIndentedString(valid)).append("\n");

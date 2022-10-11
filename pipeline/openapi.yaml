@@ -237,6 +237,12 @@ components:
         example-get:
           pipeline_yaml: example_yaml_text
           template_applied_pipeline_yaml: example_yaml_text_with_template
+          slug: example_pipeline
+          name: ExamplePipeline
+          description: Pipeline Description
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
           modules:
             - cd
           git_details:
@@ -273,6 +279,28 @@ components:
         template_applied_pipeline_yaml:
           type: string
           description: Pipeline YAML after resolving Templates (returned as a String).
+        slug:
+          type: string
+          description: Pipeline identifier
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        name:
+          type: string
+          description: Pipeline name
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+        description:
+          type: string
+          maxLength: 1024
+          description: Pipeline description
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+          description: Pipeline tags
         modules:
           type: array
           description: Modules utilised in the Pipeline.
@@ -1101,6 +1129,12 @@ components:
               value:
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
+                slug: example_pipeline
+                name: ExamplePipeline
+                description: Pipeline Description
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
                 modules:
                   - cd
                 git_details:
@@ -1137,6 +1171,12 @@ components:
               value: |
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
+                slug: example_pipeline
+                name: ExamplePipeline
+                description: Pipeline Description
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
                 modules:
                   - cd
                 git_details:
@@ -1178,14 +1218,15 @@ components:
             example-list-response:
               value:
                 - slug: example_pipeline
-                  name: Example Pipeline
+                  name: ExamplePipeline
                   description: This is an Example Pipeline
                   tags:
                     example-tag-1: example-tag-1-value
                     example-tag-2: example-tag-2-value
                   created: 1234567890
                   updated: 1234567890
-                  modules: CD
+                  modules:
+                    - CD
                   execution_summary:
                     errors_count:
                       - 1
@@ -1241,7 +1282,8 @@ components:
                     example-tag-2: example-tag-2-value
                   created: 1234567890
                   updated: 1234567890
-                  modules: CD
+                  modules:
+                    - CD
                   execution_summary:
                     errors_count:
                       - 1
