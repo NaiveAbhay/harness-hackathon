@@ -50,7 +50,7 @@ tags:
     description: Everything about org scoped connector
   - name: Project Connector
     description: Everything about project scoped connector
-  - name: Project Environment
+  - name: Project Environments
     description: This contains APIs for performing CRUD operations on Environments.
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
@@ -165,8 +165,6 @@ paths:
       - $ref: '#/components/parameters/ProjectPathParam'
     get:
       summary: List Environments
-      tags:
-        - Project Environment
       responses:
         '200':
           $ref: '#/components/responses/EnvironmentListResponse'
@@ -182,6 +180,14 @@ paths:
         - $ref: '#/components/parameters/EnvironmentIdentifiers'
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: is_access_list
+          description: Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.
+      tags:
+        - Project Environments
     post:
       summary: Create an Environment
       operationId: create-enviroment
@@ -196,7 +202,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/EnvironmentRequest'
       tags:
-        - Project Environment
+        - Project Environments
   '/v1/orgs/{org}/projects/{project}/environments/{environment}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -204,8 +210,6 @@ paths:
       - $ref: '#/components/parameters/EnvironmentPathParam'
     get:
       summary: Retrieve an Environment
-      tags:
-        - Project Environment
       responses:
         '200':
           $ref: '#/components/responses/EnvironmentResponse'
@@ -215,6 +219,8 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
+      tags:
+        - Project Environments
     put:
       summary: Update Environment
       operationId: update-enviroment
@@ -229,20 +235,20 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/EnvironmentRequest'
       tags:
-        - Project Environment
+        - Project Environments
     delete:
       summary: Delete an Environment
       operationId: delete-enviroment
       responses:
-        '200':
-          description: OK
+        '204':
+          description: No Content
       description: Deletes the requested environment
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       tags:
-        - Project Environment
+        - Project Environments
   '/v1/orgs/{org}/projects/{project}/environments/{environment}/services':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -250,17 +256,19 @@ paths:
       - $ref: '#/components/parameters/EnvironmentPathParam'
     get:
       summary: Retrieve Service Overrides list
-      tags:
-        - Project Environment
       responses:
         '200':
           $ref: '#/components/responses/ServiceOverrideListResponse'
-      operationId: get-service-env
+      operationId: get-env-service-overrides
       parameters:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       description: Gets Service Override List
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
   '/v1/orgs/{org}/projects/{project}/environments/{environment}/services/{service}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -269,8 +277,6 @@ paths:
       - $ref: '#/components/parameters/ServicePathParam'
     get:
       summary: Retrieve a Service Override
-      tags:
-        - Project Environment
       responses:
         '200':
           $ref: '#/components/responses/ServiceOverrideResponse'
@@ -280,6 +286,10 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       description: Gets a Service Override
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
     post:
       summary: Create Service Override
       operationId: create-env-service-override
@@ -288,9 +298,11 @@ paths:
           $ref: '#/components/responses/ServiceOverrideResponse'
       requestBody:
         $ref: '#/components/requestBodies/ServiceOverrideRequest'
-      tags:
-        - Project Environment
       description: Creates a Service Override
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
     put:
       summary: Update Service Override
       operationId: update-env-service-override
@@ -299,9 +311,11 @@ paths:
           $ref: '#/components/responses/ServiceOverrideResponse'
       requestBody:
         $ref: '#/components/requestBodies/ServiceOverrideRequest'
-      tags:
-        - Project Environment
       description: Update Service Override
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
     delete:
       summary: Delete Service Override
       operationId: delete-serv-env
@@ -310,9 +324,11 @@ paths:
           description: No Content
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Environment
       description: Deletes Service Override
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
   /v1/orgs:
     post:
       summary: Create an organization
@@ -1155,18 +1171,18 @@ components:
       type: object
       x-examples:
         example-1:
-          account: sample_account
+          account: example_account
           slug: example_environment
-          org: sample_organization
-          project: sample_project
+          org: example_organization
+          project: example_project
           name: Example_environment
-          description: This is a example environment
+          description: Sample Description
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
           yaml: |
             environment:
-              orgIdentifier: "default"
+              orgIdentifier: "example_organization"
               projectIdentifier: "example_project"
               identifier: "example_environment"
               tags:
@@ -1176,7 +1192,7 @@ components:
               description: "Sample Description"
               type: "Production"
           color: '#0063F7'
-          type: PreProduction
+          type: Production
       description: This is the Environment entity defined in Harness
       title: Environment
       properties:
@@ -1240,18 +1256,18 @@ components:
       x-examples:
         example-1:
           environment:
-            account: sample_account
+            account: example_account
             slug: example_environment
-            org: sample_organization
-            project: sample_project
+            org: example_organization
+            project: example_project
             name: Example_environment
-            description: This is a example environment
+            description: Sample Description
             tags:
               example-tag-1: example-tag-1-value
               example-tag-2: example-tag-2-value
             yaml: |
               environment:
-                orgIdentifier: "default"
+                orgIdentifier: "example_organization"
                 projectIdentifier: "example_project"
                 identifier: "example_environment"
                 tags:
@@ -1261,7 +1277,7 @@ components:
                 description: "Sample Description"
                 type: "Production"
             color: '#0063F7'
-            type: PreProduction
+            type: Production
           created: 1234567890
           updated: 1234567890
       description: Default response when a environment is returned
@@ -1277,19 +1293,53 @@ components:
           type: integer
           format: int64
           description: Last modification timestamp for Environment.
+    EnvironmentListResponse:
+      title: EnvironmentListResponse
+      x-stoplight:
+        id: xn30jotaxcafj
+      type: array
+      items:
+        $ref: '#/components/schemas/EnvironmentResponse'
+      x-examples:
+        example-1:
+          - environment:
+              account: example_account
+              slug: example_environment
+              org: example_organization
+              project: example_project
+              name: Example_environment
+              description: Sample Description
+              tags:
+                example-tag-1: example-tag-1-value
+                example-tag-2: example-tag-2-value
+              yaml: |
+                environment:
+                  orgIdentifier: "example_organization"
+                  projectIdentifier: "example_project"
+                  identifier: "example_environment"
+                  tags:
+                    example_tag: ""
+                    example_tag_2: ""
+                  name: "example_environment"
+                  description: "Sample Description"
+                  type: "Production"
+              color: '#0063F7'
+              type: Production
+            created: 1234567890
+            updated: 1234567890
     EnvironmentRequest:
       type: object
       x-examples:
         example-1:
           slug: example_environment
           name: Example_environment
-          description: This is a example environment
+          description: Sample Description
           tags:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
           yaml: |
             environment:
-              orgIdentifier: "default"
+              orgIdentifier: "example_organization"
               projectIdentifier: "example_project"
               identifier: "example_environment"
               tags:
@@ -1340,20 +1390,18 @@ components:
       required:
         - slug
         - name
+        - yaml
     ServiceOverrideRequest:
       title: ServiceOverrideRequest
       x-stoplight:
         id: 0licq81hyhkfk
       type: object
-      properties:
-        yaml:
-          type: string
       x-examples:
         example-1:
           yaml: |
             serviceOverrides:
-                environmentRef: sample_env
-                serviceRef: sample_service
+                environmentRef: example_environment
+                serviceRef: example_service
                 variables:
                     - name: sample_var_1
                       type: String
@@ -1362,11 +1410,36 @@ components:
                       value: example_val
                       type: String
       description: Service Override Request Body
+      properties:
+        yaml:
+          type: string
+          description: Yaml related to service override
+      required:
+        - yaml
     ServiceOverrideResponse:
       title: ServiceOverrideResponse
       x-stoplight:
         id: 6lpzwqbp1vb4l
       type: object
+      x-examples:
+        example-1:
+          account: example_account
+          org: example_organization
+          project: example_project
+          environemnt: example_environment
+          service: example_service
+          yaml: |
+            serviceOverrides:
+                environmentRef: example_environment
+                serviceRef: example_service
+                variables:
+                    - name: sample_var_1
+                      type: String
+                      value: example_val
+                    - name: sample_var_2
+                      value: example_val
+                      type: String
+      description: 'Default Service Override response '
       properties:
         account:
           type: string
@@ -1400,25 +1473,10 @@ components:
           maxLength: 64
         yaml:
           type: string
-      x-examples:
-        example-1:
-          account: string
-          org: string
-          project: string
-          environemnt: string
-          service: string
-          yaml: |
-            serviceOverrides:
-                environmentRef: sample_env
-                serviceRef: sample_service
-                variables:
-                    - name: sample_var_1
-                      type: String
-                      value: example_val
-                    - name: sample_var_2
-                      value: example_val
-                      type: String
-      description: 'Default Service Override response '
+          description: |
+            Yaml related to service override
+      required:
+        - yaml
     ServiceOverrideListResponse:
       title: ServiceOverrideListResponse
       x-stoplight:
@@ -1428,15 +1486,15 @@ components:
         $ref: '#/components/schemas/ServiceOverrideResponse'
       x-examples:
         example-1:
-          - account: string
-            org: string
-            project: string
-            environemnt: string
-            service: string
+          - account: example_account
+            org: example_organization
+            project: example_project
+            environemnt: example_environment
+            service: example_service
             yaml: |
               serviceOverrides:
-                  environmentRef: sample_env
-                  serviceRef: sample_service
+                  environmentRef: example_environment
+                  serviceRef: example_service
                   variables:
                       - name: sample_var_1
                         type: String
@@ -3344,23 +3402,21 @@ components:
             type: string
           description: 'Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.'
     EnvironmentListResponse:
-      description: Example response
+      description: Environment List Response
       content:
         application/json:
           schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/EnvironmentResponse'
+            $ref: '#/components/schemas/EnvironmentListResponse'
           examples:
             example-1:
               value:
                 - environment:
-                    account: sample_account
-                    slug: example_service
-                    org: sample_organization
-                    project: sample_project
-                    name: Example_service
-                    description: This is a example service
+                    account: example_account
+                    slug: example_environment
+                    org: example_organization
+                    project: example_project
+                    name: Example_environment
+                    description: Sample Description
                     tags:
                       example-tag-1: example-tag-1-value
                       example-tag-2: example-tag-2-value
@@ -3376,7 +3432,7 @@ components:
                         description: "Sample Description"
                         type: "Production"
                     color: '#0063F7'
-                    type: PreProduction
+                    type: Production
                   created: 1234567890
                   updated: 1234567890
         application/yaml:
@@ -3389,11 +3445,11 @@ components:
               value: |
                 - environment:
                     account: sample_account
-                    slug: example_service
+                    slug: example_environment
                     org: sample_organization
                     project: sample_project
-                    name: Example_service
-                    description: This is a example service
+                    name: Example_environment
+                    description: Sample Description
                     tags:
                       example-tag-1: example-tag-1-value
                       example-tag-2: example-tag-2-value
@@ -3409,7 +3465,7 @@ components:
                         description: "Sample Description"
                         type: "Production"
                     color: '#0063F7'
-                    type: PreProduction
+                    type: Production
                   created: 1234567890
                   updated: 1234567890
       headers:
@@ -3467,7 +3523,7 @@ components:
                 created: 1234567890
                 updated: 1234567890
     EnvironmentResponse:
-      description: Example response
+      description: Environment Response
       content:
         application/json:
           schema:
@@ -3476,12 +3532,12 @@ components:
             example-1:
               value:
                 environment:
-                  account: sample_account
-                  slug: example_service
-                  org: sample_organization
-                  project: sample_project
-                  name: Example_service
-                  description: This is a example service
+                  account: example_account
+                  slug: example_environment
+                  org: example_organization
+                  project: example_project
+                  name: Example_environment
+                  description: Sample Description
                   tags:
                     example-tag-1: example-tag-1-value
                     example-tag-2: example-tag-2-value
@@ -3497,7 +3553,7 @@ components:
                       description: "Sample Description"
                       type: "Production"
                   color: '#0063F7'
-                  type: PreProduction
+                  type: Production
                 created: 1234567890
                 updated: 1234567890
         application/yaml:
@@ -3507,12 +3563,12 @@ components:
             example-1:
               value: |
                 environment:
-                  account: sample_account
-                  slug: example_service
-                  org: sample_organization
-                  project: sample_project
-                  name: Example_service
-                  description: This is a example service
+                  account: example_account
+                  slug: example_environment
+                  org: example_organization
+                  project: example_project
+                  name: Example_environment
+                  description: Sample Description
                   tags:
                     example-tag-1: example-tag-1-value
                     example-tag-2: example-tag-2-value
@@ -3528,7 +3584,7 @@ components:
                       description: "Sample Description"
                       type: "Production"
                   color: '#0063F7'
-                  type: PreProduction
+                  type: Production
                 created: 1234567890
                 updated: 1234567890
     OrganizationResponse:
@@ -3935,7 +3991,7 @@ components:
             sample:
               value: '<{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>; rel="self", <{url}?page=0&limit=1>; rel="previous", '
     ServiceOverrideResponse:
-      description: Example response
+      description: Service Override Response
       content:
         application/json:
           schema:
@@ -3943,15 +3999,15 @@ components:
           examples:
             example-1:
               value:
-                account: string
-                org: string
-                project: string
-                environemnt: string
-                service: string
+                account: example_account
+                org: example_organization
+                project: example_project
+                environemnt: example_environment
+                service: example_service
                 yaml: |
                   serviceOverrides:
-                      environmentRef: sample_env
-                      serviceRef: sample_service
+                      environmentRef: example_environment
+                      serviceRef: example_service
                       variables:
                           - name: sample_var_1
                             type: String
@@ -3965,15 +4021,15 @@ components:
           examples:
             example-1:
               value: |
-                account: string
-                org: string
-                project: string
-                environemnt: string
-                service: string
+                account: example_account
+                org: example_organization
+                project: example_project
+                environemnt: example_environment
+                service: example_service
                 yaml: |
                   serviceOverrides:
-                      environmentRef: sample_env
-                      serviceRef: sample_service
+                      environmentRef: example_environment
+                      serviceRef: example_service
                       variables:
                           - name: sample_var_1
                             type: String
@@ -3982,7 +4038,7 @@ components:
                             value: example_val
                             type: String
     ServiceOverrideListResponse:
-      description: Example response
+      description: Serivce Order List Response
       content:
         application/json:
           schema:
@@ -3990,15 +4046,15 @@ components:
           examples:
             example-1:
               value:
-                - account: string
-                  org: string
-                  project: string
-                  environemnt: string
-                  service: string
+                - account: example_account
+                  org: example_organization
+                  project: example_project
+                  environemnt: example_environment
+                  service: example_service
                   yaml: |
                     serviceOverrides:
-                        environmentRef: sample_env
-                        serviceRef: sample_service
+                        environmentRef: example_environment
+                        serviceRef: example_service
                         variables:
                             - name: sample_var_1
                               type: String
@@ -4012,15 +4068,15 @@ components:
           examples:
             example-1:
               value: |
-                - account: string
-                  org: string
-                  project: string
-                  environemnt: string
-                  service: string
+                - account: example_account
+                  org: example_organization
+                  project: example_project
+                  environemnt: example_environment
+                  service: example_service
                   yaml: |
                     serviceOverrides:
-                        environmentRef: sample_env
-                        serviceRef: sample_service
+                        environmentRef: example_environment
+                        serviceRef: example_service
                         variables:
                             - name: sample_var_1
                               type: String
@@ -4044,13 +4100,13 @@ components:
               value:
                 slug: example_environment
                 name: Example_environment
-                description: This is a example environment
+                description: Sample Description
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
                 yaml: |
                   environment:
-                    orgIdentifier: "default"
+                    orgIdentifier: "example_organization"
                     projectIdentifier: "example_project"
                     identifier: "example_environment"
                     tags:
@@ -4060,7 +4116,7 @@ components:
                     description: "Sample Description"
                     type: "Production"
                 color: '#0063F7'
-                type: PreProduction
+                type: Production
         application/yaml:
           schema:
             $ref: '#/components/schemas/EnvironmentRequest'
@@ -4069,13 +4125,13 @@ components:
               value: |
                 slug: example_environment
                 name: Example_environment
-                description: This is a example environment
+                description: Sample Description
                 tags:
                   example-tag-1: example-tag-1-value
                   example-tag-2: example-tag-2-value
                 yaml: |
                   environment:
-                    orgIdentifier: "default"
+                    orgIdentifier: "example_organization"
                     projectIdentifier: "example_project"
                     identifier: "example_environment"
                     tags:
@@ -4085,7 +4141,7 @@ components:
                     description: "Sample Description"
                     type: "Production"
                 color: '#0063F7'
-                type: PreProduction
+                type: Production
       description: Create Environment request body
       required: true
     ServiceRequest:
@@ -5079,8 +5135,8 @@ components:
               value:
                 yaml: |
                   serviceOverrides:
-                      environmentRef: sample_env
-                      serviceRef: sample_service
+                      environmentRef: example_environment
+                      serviceRef: example_service
                       variables:
                           - name: sample_var_1
                             type: String
@@ -5096,8 +5152,8 @@ components:
               value: |
                 yaml: |
                   serviceOverrides:
-                      environmentRef: sample_env
-                      serviceRef: sample_service
+                      environmentRef: example_environment
+                      serviceRef: example_service
                       variables:
                           - name: sample_var_1
                             type: String
@@ -5202,7 +5258,7 @@ components:
         uniqueItems: true
         items:
           type: string
-      description: List of Environmnet Identifiers
+      description: List of Environment Identifiers
     Sort:
       name: sort
       in: query

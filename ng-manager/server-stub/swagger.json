@@ -40,7 +40,7 @@
     "name" : "Project Connector",
     "description" : "Everything about project scoped connector"
   }, {
-    "name" : "Project Environment",
+    "name" : "Project Environments",
     "description" : "This contains APIs for performing CRUD operations on Environments."
   } ],
   "paths" : {
@@ -616,7 +616,7 @@
     },
     "/v1/orgs/{org}/projects/{project}/environments" : {
       "get" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "List Environments",
         "description" : "Returns all environments that the current user has view permissions for given project.",
         "operationId" : "get-environments",
@@ -685,7 +685,7 @@
         }, {
           "name" : "environment_ids",
           "in" : "query",
-          "description" : "List of Environmnet Identifiers",
+          "description" : "List of Environment Identifiers",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -718,10 +718,21 @@
             "type" : "string",
             "enum" : [ "ASC", "DESC" ]
           }
+        }, {
+          "name" : "is_access_list",
+          "in" : "query",
+          "description" : "Specify whether list an access list or not. Access List refers to list of services that current user has permission to use in the pipeline.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "boolean",
+            "default" : false
+          }
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Environment List Response",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -735,28 +746,25 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "type" : "array",
-                  "items" : {
-                    "$ref" : "#/components/schemas/EnvironmentResponse"
-                  }
+                  "$ref" : "#/components/schemas/EnvironmentListResponse"
                 },
                 "examples" : {
                   "example-1" : {
                     "value" : [ {
                       "environment" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
+                        "account" : "example_account",
+                        "slug" : "example_environment",
+                        "org" : "example_organization",
+                        "project" : "example_project",
+                        "name" : "Example_environment",
+                        "description" : "Sample Description",
                         "tags" : {
                           "example-tag-1" : "example-tag-1-value",
                           "example-tag-2" : "example-tag-2-value"
                         },
                         "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                         "color" : "#0063F7",
-                        "type" : "PreProduction"
+                        "type" : "Production"
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -773,7 +781,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "- environment:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      environment:\n        orgIdentifier: \"default\"\n        projectIdentifier: \"example_project\"\n        identifier: \"example_environment\"\n        tags:\n          example_tag: \"\"\n          example_tag_2: \"\"\n        name: \"example_environment\"\n        description: \"Sample Description\"\n        type: \"Production\"\n    color: '#0063F7'\n    type: PreProduction\n  created: 1234567890\n  updated: 1234567890\n"
+                    "value" : "- environment:\n    account: sample_account\n    slug: example_environment\n    org: sample_organization\n    project: sample_project\n    name: Example_environment\n    description: Sample Description\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      environment:\n        orgIdentifier: \"default\"\n        projectIdentifier: \"example_project\"\n        identifier: \"example_environment\"\n        tags:\n          example_tag: \"\"\n          example_tag_2: \"\"\n        name: \"example_environment\"\n        description: \"Sample Description\"\n        type: \"Production\"\n    color: '#0063F7'\n    type: Production\n  created: 1234567890\n  updated: 1234567890\n"
                   }
                 }
               }
@@ -785,7 +793,7 @@
         } ]
       },
       "post" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Create an Environment",
         "description" : "Creates an Environment",
         "operationId" : "create-enviroment",
@@ -825,7 +833,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Example response",
+            "description" : "Environment Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -835,19 +843,19 @@
                   "example-1" : {
                     "value" : {
                       "environment" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
+                        "account" : "example_account",
+                        "slug" : "example_environment",
+                        "org" : "example_organization",
+                        "project" : "example_project",
+                        "name" : "Example_environment",
+                        "description" : "Sample Description",
                         "tags" : {
                           "example-tag-1" : "example-tag-1-value",
                           "example-tag-2" : "example-tag-2-value"
                         },
                         "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                         "color" : "#0063F7",
-                        "type" : "PreProduction"
+                        "type" : "Production"
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -861,7 +869,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "environment:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: PreProduction\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "environment:\n  account: example_account\n  slug: example_environment\n  org: example_organization\n  project: example_project\n  name: Example_environment\n  description: Sample Description\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: Production\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -875,7 +883,7 @@
     },
     "/v1/orgs/{org}/projects/{project}/environments/{environment}" : {
       "get" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Retrieve an Environment",
         "description" : "Retrieves specified Environment",
         "operationId" : "get-enviroment",
@@ -922,7 +930,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Environment Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -932,19 +940,19 @@
                   "example-1" : {
                     "value" : {
                       "environment" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
+                        "account" : "example_account",
+                        "slug" : "example_environment",
+                        "org" : "example_organization",
+                        "project" : "example_project",
+                        "name" : "Example_environment",
+                        "description" : "Sample Description",
                         "tags" : {
                           "example-tag-1" : "example-tag-1-value",
                           "example-tag-2" : "example-tag-2-value"
                         },
                         "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                         "color" : "#0063F7",
-                        "type" : "PreProduction"
+                        "type" : "Production"
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -958,7 +966,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "environment:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: PreProduction\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "environment:\n  account: example_account\n  slug: example_environment\n  org: example_organization\n  project: example_project\n  name: Example_environment\n  description: Sample Description\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: Production\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -970,7 +978,7 @@
         } ]
       },
       "put" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Update Environment",
         "description" : "Update Environment",
         "operationId" : "update-enviroment",
@@ -1020,7 +1028,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Environment Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1030,19 +1038,19 @@
                   "example-1" : {
                     "value" : {
                       "environment" : {
-                        "account" : "sample_account",
-                        "slug" : "example_service",
-                        "org" : "sample_organization",
-                        "project" : "sample_project",
-                        "name" : "Example_service",
-                        "description" : "This is a example service",
+                        "account" : "example_account",
+                        "slug" : "example_environment",
+                        "org" : "example_organization",
+                        "project" : "example_project",
+                        "name" : "Example_environment",
+                        "description" : "Sample Description",
                         "tags" : {
                           "example-tag-1" : "example-tag-1-value",
                           "example-tag-2" : "example-tag-2-value"
                         },
                         "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                         "color" : "#0063F7",
-                        "type" : "PreProduction"
+                        "type" : "Production"
                       },
                       "created" : 1234567890,
                       "updated" : 1234567890
@@ -1056,7 +1064,7 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "environment:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: PreProduction\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "environment:\n  account: example_account\n  slug: example_environment\n  org: example_organization\n  project: example_project\n  name: Example_environment\n  description: Sample Description\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: Production\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -1068,7 +1076,7 @@
         } ]
       },
       "delete" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Delete an Environment",
         "description" : "Deletes the requested environment",
         "operationId" : "delete-enviroment",
@@ -1114,8 +1122,8 @@
           }
         } ],
         "responses" : {
-          "200" : {
-            "description" : "OK"
+          "204" : {
+            "description" : "No Content"
           }
         },
         "security" : [ {
@@ -1125,10 +1133,10 @@
     },
     "/v1/orgs/{org}/projects/{project}/environments/{environment}/services" : {
       "get" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Retrieve Service Overrides list",
         "description" : "Gets Service Override List",
-        "operationId" : "get-service-env",
+        "operationId" : "get-env-service-overrides",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -1194,7 +1202,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Serivce Order List Response",
             "headers" : {
               "Link" : {
                 "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
@@ -1213,12 +1221,12 @@
                 "examples" : {
                   "example-1" : {
                     "value" : [ {
-                      "account" : "string",
-                      "org" : "string",
-                      "project" : "string",
-                      "environemnt" : "string",
-                      "service" : "string",
-                      "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                      "account" : "example_account",
+                      "org" : "example_organization",
+                      "project" : "example_project",
+                      "environemnt" : "example_environment",
+                      "service" : "example_service",
+                      "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                     } ]
                   }
                 }
@@ -1229,18 +1237,21 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "- account: string\n  org: string\n  project: string\n  environemnt: string\n  service: string\n  yaml: |\n    serviceOverrides:\n        environmentRef: sample_env\n        serviceRef: sample_service\n        variables:\n            - name: sample_var_1\n              type: String\n              value: example_val\n            - name: sample_var_2\n              value: example_val\n              type: String\n"
+                    "value" : "- account: example_account\n  org: example_organization\n  project: example_project\n  environemnt: example_environment\n  service: example_service\n  yaml: |\n    serviceOverrides:\n        environmentRef: example_environment\n        serviceRef: example_service\n        variables:\n            - name: sample_var_1\n              type: String\n              value: example_val\n            - name: sample_var_2\n              value: example_val\n              type: String\n"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/orgs/{org}/projects/{project}/environments/{environment}/services/{service}" : {
       "get" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Retrieve a Service Override",
         "description" : "Gets a Service Override",
         "operationId" : "get-env-service-override",
@@ -1319,7 +1330,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Service Override Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1328,12 +1339,12 @@
                 "examples" : {
                   "example-1" : {
                     "value" : {
-                      "account" : "string",
-                      "org" : "string",
-                      "project" : "string",
-                      "environemnt" : "string",
-                      "service" : "string",
-                      "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                      "account" : "example_account",
+                      "org" : "example_organization",
+                      "project" : "example_project",
+                      "environemnt" : "example_environment",
+                      "service" : "example_service",
+                      "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                     }
                   }
                 }
@@ -1344,16 +1355,19 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "account: string\norg: string\nproject: string\nenvironemnt: string\nservice: string\nyaml: |\n  serviceOverrides:\n      environmentRef: sample_env\n      serviceRef: sample_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
+                    "value" : "account: example_account\norg: example_organization\nproject: example_project\nenvironemnt: example_environment\nservice: example_service\nyaml: |\n  serviceOverrides:\n      environmentRef: example_environment\n      serviceRef: example_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "put" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Update Service Override",
         "description" : "Update Service Override",
         "operationId" : "update-env-service-override",
@@ -1403,7 +1417,7 @@
         },
         "responses" : {
           "200" : {
-            "description" : "Example response",
+            "description" : "Service Override Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1412,12 +1426,12 @@
                 "examples" : {
                   "example-1" : {
                     "value" : {
-                      "account" : "string",
-                      "org" : "string",
-                      "project" : "string",
-                      "environemnt" : "string",
-                      "service" : "string",
-                      "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                      "account" : "example_account",
+                      "org" : "example_organization",
+                      "project" : "example_project",
+                      "environemnt" : "example_environment",
+                      "service" : "example_service",
+                      "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                     }
                   }
                 }
@@ -1428,16 +1442,19 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "account: string\norg: string\nproject: string\nenvironemnt: string\nservice: string\nyaml: |\n  serviceOverrides:\n      environmentRef: sample_env\n      serviceRef: sample_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
+                    "value" : "account: example_account\norg: example_organization\nproject: example_project\nenvironemnt: example_environment\nservice: example_service\nyaml: |\n  serviceOverrides:\n      environmentRef: example_environment\n      serviceRef: example_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "post" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Create Service Override",
         "description" : "Creates a Service Override",
         "operationId" : "create-env-service-override",
@@ -1487,7 +1504,7 @@
         },
         "responses" : {
           "201" : {
-            "description" : "Example response",
+            "description" : "Service Override Response",
             "content" : {
               "application/json" : {
                 "schema" : {
@@ -1496,12 +1513,12 @@
                 "examples" : {
                   "example-1" : {
                     "value" : {
-                      "account" : "string",
-                      "org" : "string",
-                      "project" : "string",
-                      "environemnt" : "string",
-                      "service" : "string",
-                      "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                      "account" : "example_account",
+                      "org" : "example_organization",
+                      "project" : "example_project",
+                      "environemnt" : "example_environment",
+                      "service" : "example_service",
+                      "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                     }
                   }
                 }
@@ -1512,16 +1529,19 @@
                 },
                 "examples" : {
                   "example-1" : {
-                    "value" : "account: string\norg: string\nproject: string\nenvironemnt: string\nservice: string\nyaml: |\n  serviceOverrides:\n      environmentRef: sample_env\n      serviceRef: sample_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
+                    "value" : "account: example_account\norg: example_organization\nproject: example_project\nenvironemnt: example_environment\nservice: example_service\nyaml: |\n  serviceOverrides:\n      environmentRef: example_environment\n      serviceRef: example_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
                   }
                 }
               }
             }
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       },
       "delete" : {
-        "tags" : [ "Project Environment" ],
+        "tags" : [ "Project Environments" ],
         "summary" : "Delete Service Override",
         "description" : "Deletes Service Override",
         "operationId" : "delete-serv-env",
@@ -1580,7 +1600,10 @@
           "204" : {
             "description" : "No Content"
           }
-        }
+        },
+        "security" : [ {
+          "x-api-key" : [ ]
+        } ]
       }
     },
     "/v1/orgs" : {
@@ -5665,19 +5688,19 @@
         "description" : "This is the Environment entity defined in Harness",
         "x-examples" : {
           "example-1" : {
-            "account" : "sample_account",
+            "account" : "example_account",
             "slug" : "example_environment",
-            "org" : "sample_organization",
-            "project" : "sample_project",
+            "org" : "example_organization",
+            "project" : "example_project",
             "name" : "Example_environment",
-            "description" : "This is a example environment",
+            "description" : "Sample Description",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
             },
-            "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
+            "yaml" : "environment:\n  orgIdentifier: \"example_organization\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
             "color" : "#0063F7",
-            "type" : "PreProduction"
+            "type" : "Production"
           }
         }
       },
@@ -5703,28 +5726,59 @@
         "x-examples" : {
           "example-1" : {
             "environment" : {
-              "account" : "sample_account",
+              "account" : "example_account",
               "slug" : "example_environment",
-              "org" : "sample_organization",
-              "project" : "sample_project",
+              "org" : "example_organization",
+              "project" : "example_project",
               "name" : "Example_environment",
-              "description" : "This is a example environment",
+              "description" : "Sample Description",
               "tags" : {
                 "example-tag-1" : "example-tag-1-value",
                 "example-tag-2" : "example-tag-2-value"
               },
-              "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
+              "yaml" : "environment:\n  orgIdentifier: \"example_organization\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
               "color" : "#0063F7",
-              "type" : "PreProduction"
+              "type" : "Production"
             },
             "created" : 1234567890,
             "updated" : 1234567890
           }
         }
       },
+      "EnvironmentListResponse" : {
+        "title" : "EnvironmentListResponse",
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/EnvironmentResponse"
+        },
+        "x-stoplight" : {
+          "id" : "xn30jotaxcafj"
+        },
+        "x-examples" : {
+          "example-1" : [ {
+            "environment" : {
+              "account" : "example_account",
+              "slug" : "example_environment",
+              "org" : "example_organization",
+              "project" : "example_project",
+              "name" : "Example_environment",
+              "description" : "Sample Description",
+              "tags" : {
+                "example-tag-1" : "example-tag-1-value",
+                "example-tag-2" : "example-tag-2-value"
+              },
+              "yaml" : "environment:\n  orgIdentifier: \"example_organization\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
+              "color" : "#0063F7",
+              "type" : "Production"
+            },
+            "created" : 1234567890,
+            "updated" : 1234567890
+          } ]
+        }
+      },
       "EnvironmentRequest" : {
         "title" : "EnvironmentRequest",
-        "required" : [ "name", "slug" ],
+        "required" : [ "name", "slug", "yaml" ],
         "type" : "object",
         "properties" : {
           "slug" : {
@@ -5773,12 +5827,12 @@
           "example-1" : {
             "slug" : "example_environment",
             "name" : "Example_environment",
-            "description" : "This is a example environment",
+            "description" : "Sample Description",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
               "example-tag-2" : "example-tag-2-value"
             },
-            "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
+            "yaml" : "environment:\n  orgIdentifier: \"example_organization\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
             "color" : "#0063F7",
             "type" : "PreProduction"
           }
@@ -5786,10 +5840,12 @@
       },
       "ServiceOverrideRequest" : {
         "title" : "ServiceOverrideRequest",
+        "required" : [ "yaml" ],
         "type" : "object",
         "properties" : {
           "yaml" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "Yaml related to service override"
           }
         },
         "description" : "Service Override Request Body",
@@ -5798,12 +5854,13 @@
         },
         "x-examples" : {
           "example-1" : {
-            "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+            "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
           }
         }
       },
       "ServiceOverrideResponse" : {
         "title" : "ServiceOverrideResponse",
+        "required" : [ "yaml" ],
         "type" : "object",
         "properties" : {
           "account" : {
@@ -5842,7 +5899,8 @@
             "description" : "Service Identifier for the Entity."
           },
           "yaml" : {
-            "type" : "string"
+            "type" : "string",
+            "description" : "Yaml related to service override\n"
           }
         },
         "description" : "Default Service Override response ",
@@ -5851,12 +5909,12 @@
         },
         "x-examples" : {
           "example-1" : {
-            "account" : "string",
-            "org" : "string",
-            "project" : "string",
-            "environemnt" : "string",
-            "service" : "string",
-            "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+            "account" : "example_account",
+            "org" : "example_organization",
+            "project" : "example_project",
+            "environemnt" : "example_environment",
+            "service" : "example_service",
+            "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
           }
         }
       },
@@ -5872,12 +5930,12 @@
         },
         "x-examples" : {
           "example-1" : [ {
-            "account" : "string",
-            "org" : "string",
-            "project" : "string",
-            "environemnt" : "string",
-            "service" : "string",
-            "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+            "account" : "example_account",
+            "org" : "example_organization",
+            "project" : "example_project",
+            "environemnt" : "example_environment",
+            "service" : "example_service",
+            "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
           } ]
         }
       },
@@ -8083,7 +8141,7 @@
         }
       },
       "EnvironmentListResponse" : {
-        "description" : "Example response",
+        "description" : "Environment List Response",
         "headers" : {
           "Link" : {
             "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
@@ -8097,28 +8155,25 @@
         "content" : {
           "application/json" : {
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/components/schemas/EnvironmentResponse"
-              }
+              "$ref" : "#/components/schemas/EnvironmentListResponse"
             },
             "examples" : {
               "example-1" : {
                 "value" : [ {
                   "environment" : {
-                    "account" : "sample_account",
-                    "slug" : "example_service",
-                    "org" : "sample_organization",
-                    "project" : "sample_project",
-                    "name" : "Example_service",
-                    "description" : "This is a example service",
+                    "account" : "example_account",
+                    "slug" : "example_environment",
+                    "org" : "example_organization",
+                    "project" : "example_project",
+                    "name" : "Example_environment",
+                    "description" : "Sample Description",
                     "tags" : {
                       "example-tag-1" : "example-tag-1-value",
                       "example-tag-2" : "example-tag-2-value"
                     },
                     "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                     "color" : "#0063F7",
-                    "type" : "PreProduction"
+                    "type" : "Production"
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890
@@ -8135,7 +8190,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "- environment:\n    account: sample_account\n    slug: example_service\n    org: sample_organization\n    project: sample_project\n    name: Example_service\n    description: This is a example service\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      environment:\n        orgIdentifier: \"default\"\n        projectIdentifier: \"example_project\"\n        identifier: \"example_environment\"\n        tags:\n          example_tag: \"\"\n          example_tag_2: \"\"\n        name: \"example_environment\"\n        description: \"Sample Description\"\n        type: \"Production\"\n    color: '#0063F7'\n    type: PreProduction\n  created: 1234567890\n  updated: 1234567890\n"
+                "value" : "- environment:\n    account: sample_account\n    slug: example_environment\n    org: sample_organization\n    project: sample_project\n    name: Example_environment\n    description: Sample Description\n    tags:\n      example-tag-1: example-tag-1-value\n      example-tag-2: example-tag-2-value\n    yaml: |\n      environment:\n        orgIdentifier: \"default\"\n        projectIdentifier: \"example_project\"\n        identifier: \"example_environment\"\n        tags:\n          example_tag: \"\"\n          example_tag_2: \"\"\n        name: \"example_environment\"\n        description: \"Sample Description\"\n        type: \"Production\"\n    color: '#0063F7'\n    type: Production\n  created: 1234567890\n  updated: 1234567890\n"
               }
             }
           }
@@ -8183,7 +8238,7 @@
         }
       },
       "EnvironmentResponse" : {
-        "description" : "Example response",
+        "description" : "Environment Response",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -8193,19 +8248,19 @@
               "example-1" : {
                 "value" : {
                   "environment" : {
-                    "account" : "sample_account",
-                    "slug" : "example_service",
-                    "org" : "sample_organization",
-                    "project" : "sample_project",
-                    "name" : "Example_service",
-                    "description" : "This is a example service",
+                    "account" : "example_account",
+                    "slug" : "example_environment",
+                    "org" : "example_organization",
+                    "project" : "example_project",
+                    "name" : "Example_environment",
+                    "description" : "Sample Description",
                     "tags" : {
                       "example-tag-1" : "example-tag-1-value",
                       "example-tag-2" : "example-tag-2-value"
                     },
                     "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                     "color" : "#0063F7",
-                    "type" : "PreProduction"
+                    "type" : "Production"
                   },
                   "created" : 1234567890,
                   "updated" : 1234567890
@@ -8219,7 +8274,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "environment:\n  account: sample_account\n  slug: example_service\n  org: sample_organization\n  project: sample_project\n  name: Example_service\n  description: This is a example service\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: PreProduction\ncreated: 1234567890\nupdated: 1234567890\n"
+                "value" : "environment:\n  account: example_account\n  slug: example_environment\n  org: example_organization\n  project: example_project\n  name: Example_environment\n  description: Sample Description\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    environment:\n      orgIdentifier: \"default\"\n      projectIdentifier: \"example_project\"\n      identifier: \"example_environment\"\n      tags:\n        example_tag: \"\"\n        example_tag_2: \"\"\n      name: \"example_environment\"\n      description: \"Sample Description\"\n      type: \"Production\"\n  color: '#0063F7'\n  type: Production\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }
@@ -8662,7 +8717,7 @@
         }
       },
       "ServiceOverrideResponse" : {
-        "description" : "Example response",
+        "description" : "Service Override Response",
         "content" : {
           "application/json" : {
             "schema" : {
@@ -8671,12 +8726,12 @@
             "examples" : {
               "example-1" : {
                 "value" : {
-                  "account" : "string",
-                  "org" : "string",
-                  "project" : "string",
-                  "environemnt" : "string",
-                  "service" : "string",
-                  "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                  "account" : "example_account",
+                  "org" : "example_organization",
+                  "project" : "example_project",
+                  "environemnt" : "example_environment",
+                  "service" : "example_service",
+                  "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                 }
               }
             }
@@ -8687,14 +8742,14 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "account: string\norg: string\nproject: string\nenvironemnt: string\nservice: string\nyaml: |\n  serviceOverrides:\n      environmentRef: sample_env\n      serviceRef: sample_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
+                "value" : "account: example_account\norg: example_organization\nproject: example_project\nenvironemnt: example_environment\nservice: example_service\nyaml: |\n  serviceOverrides:\n      environmentRef: example_environment\n      serviceRef: example_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
               }
             }
           }
         }
       },
       "ServiceOverrideListResponse" : {
-        "description" : "Example response",
+        "description" : "Serivce Order List Response",
         "headers" : {
           "Link" : {
             "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.Link",
@@ -8713,12 +8768,12 @@
             "examples" : {
               "example-1" : {
                 "value" : [ {
-                  "account" : "string",
-                  "org" : "string",
-                  "project" : "string",
-                  "environemnt" : "string",
-                  "service" : "string",
-                  "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                  "account" : "example_account",
+                  "org" : "example_organization",
+                  "project" : "example_project",
+                  "environemnt" : "example_environment",
+                  "service" : "example_service",
+                  "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                 } ]
               }
             }
@@ -8729,7 +8784,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "- account: string\n  org: string\n  project: string\n  environemnt: string\n  service: string\n  yaml: |\n    serviceOverrides:\n        environmentRef: sample_env\n        serviceRef: sample_service\n        variables:\n            - name: sample_var_1\n              type: String\n              value: example_val\n            - name: sample_var_2\n              value: example_val\n              type: String\n"
+                "value" : "- account: example_account\n  org: example_organization\n  project: example_project\n  environemnt: example_environment\n  service: example_service\n  yaml: |\n    serviceOverrides:\n        environmentRef: example_environment\n        serviceRef: example_service\n        variables:\n            - name: sample_var_1\n              type: String\n              value: example_val\n            - name: sample_var_2\n              value: example_val\n              type: String\n"
               }
             }
           }
@@ -8874,7 +8929,7 @@
       "EnvironmentIdentifiers" : {
         "name" : "environment_ids",
         "in" : "query",
-        "description" : "List of Environmnet Identifiers",
+        "description" : "List of Environment Identifiers",
         "required" : false,
         "style" : "form",
         "explode" : true,
@@ -8935,14 +8990,14 @@
                 "value" : {
                   "slug" : "example_environment",
                   "name" : "Example_environment",
-                  "description" : "This is a example environment",
+                  "description" : "Sample Description",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
                     "example-tag-2" : "example-tag-2-value"
                   },
-                  "yaml" : "environment:\n  orgIdentifier: \"default\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
+                  "yaml" : "environment:\n  orgIdentifier: \"example_organization\"\n  projectIdentifier: \"example_project\"\n  identifier: \"example_environment\"\n  tags:\n    example_tag: \"\"\n    example_tag_2: \"\"\n  name: \"example_environment\"\n  description: \"Sample Description\"\n  type: \"Production\"\n",
                   "color" : "#0063F7",
-                  "type" : "PreProduction"
+                  "type" : "Production"
                 }
               }
             }
@@ -8953,7 +9008,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "slug: example_environment\nname: Example_environment\ndescription: This is a example environment\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  environment:\n    orgIdentifier: \"default\"\n    projectIdentifier: \"example_project\"\n    identifier: \"example_environment\"\n    tags:\n      example_tag: \"\"\n      example_tag_2: \"\"\n    name: \"example_environment\"\n    description: \"Sample Description\"\n    type: \"Production\"\ncolor: '#0063F7'\ntype: PreProduction\n"
+                "value" : "slug: example_environment\nname: Example_environment\ndescription: Sample Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  environment:\n    orgIdentifier: \"example_organization\"\n    projectIdentifier: \"example_project\"\n    identifier: \"example_environment\"\n    tags:\n      example_tag: \"\"\n      example_tag_2: \"\"\n    name: \"example_environment\"\n    description: \"Sample Description\"\n    type: \"Production\"\ncolor: '#0063F7'\ntype: Production\n"
               }
             }
           }
@@ -9774,7 +9829,7 @@
             "examples" : {
               "example-1" : {
                 "value" : {
-                  "yaml" : "serviceOverrides:\n    environmentRef: sample_env\n    serviceRef: sample_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
+                  "yaml" : "serviceOverrides:\n    environmentRef: example_environment\n    serviceRef: example_service\n    variables:\n        - name: sample_var_1\n          type: String\n          value: example_val\n        - name: sample_var_2\n          value: example_val\n          type: String\n"
                 }
               }
             }
@@ -9785,7 +9840,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "yaml: |\n  serviceOverrides:\n      environmentRef: sample_env\n      serviceRef: sample_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
+                "value" : "yaml: |\n  serviceOverrides:\n      environmentRef: example_environment\n      serviceRef: example_service\n      variables:\n          - name: sample_var_1\n            type: String\n            value: example_val\n          - name: sample_var_2\n            value: example_val\n            type: String\n"
               }
             }
           }

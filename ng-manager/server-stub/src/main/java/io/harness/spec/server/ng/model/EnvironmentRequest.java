@@ -155,8 +155,9 @@ public enum TypeEnum {
   }
 
   
-  @Schema(description = "YAML for the Environment Request")
+  @Schema(required = true, description = "YAML for the Environment Request")
   @JsonProperty("yaml")
+  @NotNull
 
   public String getYaml() {
     return yaml;

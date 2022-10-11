@@ -128,6 +128,7 @@ public class ServiceOverrideResponse   {
   }
 
   /**
+   * Yaml related to service override 
    **/
   public ServiceOverrideResponse yaml(String yaml) {
     this.yaml = yaml;
@@ -135,8 +136,9 @@ public class ServiceOverrideResponse   {
   }
 
   
-  @Schema(description = "")
+  @Schema(required = true, description = "Yaml related to service override ")
   @JsonProperty("yaml")
+  @NotNull
 
   public String getYaml() {
     return yaml;
