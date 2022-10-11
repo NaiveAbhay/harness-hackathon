@@ -24,16 +24,16 @@
     "tags" : [ "Project Services" ]
     },
     {
+        "name" : "Environments",
+        "tags" : [ "Project Environments" ]
+    },
+    {
       "name": "Roles",
       "tags": [ "Account Roles", "Organization Roles", "Project Roles" ]
     },
     {
     "name" : "Resource Groups",
     "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups", "Filter Resource Groups" ]
-    },
-    {
-        "name" : "Environments",
-        "tags" : [ "Project Environments" ]
     },
     {
       "name": "Role Assignments",
