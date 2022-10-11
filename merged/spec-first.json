@@ -33,6 +33,18 @@
             "description": "This contains APIs for performing CRUD operations on Project level Roles."
         },
         {
+            "name": "Account Role Assignments",
+            "description": "This contains APIs for performing CRUD operations on Account level Role Assignments."
+        },
+        {
+            "name": "Org Role Assignments",
+            "description": "This contains APIs for performing CRUD operations on Organization level Role Assignments."
+        },
+        {
+            "name": "Project Role Assignments",
+            "description": "This contains APIs for performing CRUD operations on Project level Role Assignments."
+        },
+        {
             "name": "Organization",
             "description": "Everything about organization"
         },
@@ -115,9 +127,6 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
-                    },
-                    {
                         "$ref": "#/components/parameters/PageIndex"
                     },
                     {
@@ -125,6 +134,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/SearchTerm"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
                     }
                 ],
                 "responses": {
@@ -142,7 +160,7 @@
                 "description": "Creates a custom Role in the Account scope.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "requestBody": {
@@ -185,7 +203,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -208,7 +226,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "requestBody": {
@@ -234,7 +252,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -267,9 +285,6 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
-                    },
-                    {
                         "$ref": "#/components/parameters/PageIndex"
                     },
                     {
@@ -277,6 +292,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/SearchTerm"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
                     }
                 ]
             },
@@ -299,7 +323,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -332,7 +356,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -355,7 +379,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "requestBody": {
@@ -376,7 +400,7 @@
                 "description": "Deletes a custom Role from Organization scope.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "security": [
@@ -401,16 +425,13 @@
             "get": {
                 "summary": "List Roles",
                 "responses": {
-                    "201": {
+                    "200": {
                         "$ref": "#/components/responses/RolesListResponse"
                     }
                 },
                 "operationId": "list-roles-project",
                 "description": "Returns a list of Roles present in the Project scope.",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountParam"
-                    },
                     {
                         "$ref": "#/components/parameters/PageIndex"
                     },
@@ -419,6 +440,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/SearchTerm"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
                     }
                 ],
                 "security": [
@@ -434,7 +464,7 @@
                 "summary": "Create a Role",
                 "operationId": "create-role-project",
                 "responses": {
-                    "200": {
+                    "201": {
                         "$ref": "#/components/responses/RoleResponse"
                     }
                 },
@@ -449,7 +479,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -485,7 +515,7 @@
                 "description": "Retrieves a Role from Project scope.",
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -514,7 +544,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ]
             },
@@ -534,11 +564,339 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
                     "Project Roles"
+                ]
+            }
+        },
+        "/v1/roleassignments": {
+            "get": {
+                "summary": "List role assignments",
+                "tags": [
+                    "Account Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentListResponse"
+                    }
+                },
+                "operationId": "get-account-scoped-role-assignments",
+                "description": "Retrieves the information of the role assignments",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PageIndex"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create a role assignment",
+                "operationId": "create-account-scoped-role-assignments",
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Create a role assignment",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Account Role Assignments"
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/RoleAssignmentRequest"
+                }
+            }
+        },
+        "/v1/roleassignments/{roleassignment}": {
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "roleassignment",
+                    "in": "path",
+                    "required": true,
+                    "description": "Role assignment slug"
+                }
+            ],
+            "get": {
+                "summary": "Retrieve a role assignment",
+                "tags": [
+                    "Account Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "operationId": "get-account-scoped-role-assignment",
+                "description": "Retrieves the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a role assignment",
+                "operationId": "delete-account-scoped-role-assignment",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Deletes the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Account Role Assignments"
+                ]
+            }
+        },
+        "/v1/orgs/{org}/roleassignments": {
+            "get": {
+                "summary": "List role assignments",
+                "tags": [
+                    "Org Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentListResponse"
+                    }
+                },
+                "operationId": "get-org-scoped-role-assignments",
+                "description": "Retrieves the information of the role assignments",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PageIndex"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create a role assignment",
+                "operationId": "create-org-scoped-role-assignments",
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Create a role assignment",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Org Role Assignments"
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/RoleAssignmentRequest"
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/OrgParam"
+                }
+            ]
+        },
+        "/v1/orgs/{org}/roleassignments/{roleassignment}": {
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "roleassignment",
+                    "in": "path",
+                    "required": true,
+                    "description": "Role assignment slug"
+                },
+                {
+                    "$ref": "#/components/parameters/OrgParam"
+                }
+            ],
+            "get": {
+                "summary": "Retrieve a role assignment",
+                "tags": [
+                    "Org Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "operationId": "get-org-scoped-role-assignment",
+                "description": "Retrieves the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a role assignment",
+                "operationId": "delete-org-scoped-role-assignment",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Deletes the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Org Role Assignments"
+                ]
+            }
+        },
+        "/v1/orgs/{org}/projects/{project}/roleassignments": {
+            "get": {
+                "summary": "List role assignments",
+                "tags": [
+                    "Project Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentListResponse"
+                    }
+                },
+                "operationId": "get-project-scoped-role-assignments",
+                "description": "Retrieves the information of the role assignments",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/PageIndex"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Create a role assignment",
+                "operationId": "create-project-scoped-role-assignments",
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Create a role assignment",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Project Role Assignments"
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/RoleAssignmentRequest"
+                }
+            },
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/OrgParam"
+                },
+                {
+                    "$ref": "#/components/parameters/ProjectParam"
+                }
+            ]
+        },
+        "/v1/orgs/{org}/projects/{project}/roleassignments/{roleassignment}": {
+            "parameters": [
+                {
+                    "schema": {
+                        "type": "string"
+                    },
+                    "name": "roleassignment",
+                    "in": "path",
+                    "required": true,
+                    "description": "Role assignment slug"
+                },
+                {
+                    "$ref": "#/components/parameters/OrgParam"
+                },
+                {
+                    "$ref": "#/components/parameters/ProjectParam"
+                }
+            ],
+            "get": {
+                "summary": "Retrieve a role assignment",
+                "tags": [
+                    "Project Role Assignments"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "operationId": "get-project-scoped-role-assignment",
+                "description": "Retrieves the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ]
+            },
+            "delete": {
+                "summary": "Delete a role assignment",
+                "operationId": "delete-project-scoped-role-assignment",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/RoleAssignmentResponse"
+                    }
+                },
+                "description": "Deletes the information of the role assignment with the matching role assignment slug.",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "tags": [
+                    "Project Role Assignments"
                 ]
             }
         },
@@ -650,7 +1008,7 @@
                         "$ref": "#/components/parameters/ServiceIdentifiers"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort"
+                        "$ref": "#/components/parameters/Sort1"
                     },
                     {
                         "schema": {
@@ -759,7 +1117,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ]
             },
@@ -782,9 +1140,6 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    },
-                    {
                         "$ref": "#/components/parameters/OrgsQueryParam"
                     },
                     {
@@ -795,6 +1150,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/Limit1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
                     }
                 ]
             },
@@ -831,7 +1195,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ]
             },
@@ -857,7 +1221,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ]
             },
@@ -880,7 +1244,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ]
             }
@@ -905,7 +1269,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -927,9 +1291,6 @@
                     }
                 ],
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/AccountQueryParam"
-                    },
                     {
                         "$ref": "#/components/parameters/ProjectsQueryParam"
                     },
@@ -958,6 +1319,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/Limit1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Sort1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Order"
                     }
                 ],
                 "tags": [
@@ -987,7 +1357,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1013,7 +1383,7 @@
                 },
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -1036,7 +1406,7 @@
                 ],
                 "parameters": [
                     {
-                        "$ref": "#/components/parameters/AccountQueryParam"
+                        "$ref": "#/components/parameters/AccountHeader"
                     }
                 ],
                 "tags": [
@@ -2198,7 +2568,7 @@
                         "$ref": "#/components/parameters/AccountHeader"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort1"
+                        "$ref": "#/components/parameters/Sort"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -2357,7 +2727,7 @@
                         "$ref": "#/components/parameters/AccountHeader"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort1"
+                        "$ref": "#/components/parameters/Sort"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -2505,7 +2875,7 @@
                         "$ref": "#/components/parameters/AccountHeader"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort1"
+                        "$ref": "#/components/parameters/Sort"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -2659,7 +3029,7 @@
                         "$ref": "#/components/parameters/Limit"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort1"
+                        "$ref": "#/components/parameters/Sort"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -2700,7 +3070,7 @@
                         "$ref": "#/components/parameters/SearchTerm"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort2"
+                        "$ref": "#/components/parameters/Sort"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -3007,7 +3377,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort3"
+                        "$ref": "#/components/parameters/Sort2"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -3231,7 +3601,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort3"
+                        "$ref": "#/components/parameters/Sort2"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -3466,7 +3836,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort3"
+                        "$ref": "#/components/parameters/Sort2"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -3854,6 +4224,96 @@
                     }
                 }
             },
+            "RoleAssignment": {
+                "title": "RoleAssignment",
+                "type": "object",
+                "description": "Role assignment request model",
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "description": "Role assignment slug"
+                    },
+                    "resource_group": {
+                        "type": "string",
+                        "description": "Resource group name"
+                    },
+                    "role": {
+                        "type": "string",
+                        "description": "Role slug"
+                    },
+                    "principal": {
+                        "$ref": "#/components/schemas/Principal"
+                    },
+                    "disabled": {
+                        "type": "boolean",
+                        "description": "Role assignment is disabled or not"
+                    },
+                    "managed": {
+                        "type": "boolean",
+                        "description": "Role assignment is managed or not"
+                    }
+                },
+                "required": [
+                    "slug",
+                    "resource_group",
+                    "role",
+                    "principal"
+                ]
+            },
+            "Principal": {
+                "title": "Principal",
+                "type": "object",
+                "description": "Role assignment principal",
+                "properties": {
+                    "scope_level": {
+                        "type": "string",
+                        "description": "Role assignment principal scope level"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "Role assignment principal slug"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "USER",
+                            "USER_GROUP",
+                            "SERVICE",
+                            "API_KEY",
+                            "SERVICE_ACCOUNT"
+                        ],
+                        "description": "Role assignment principal type"
+                    }
+                },
+                "required": [
+                    "slug",
+                    "type"
+                ]
+            },
+            "RoleAssignmentResponse": {
+                "title": "RoleAssignmentResponse",
+                "type": "object",
+                "description": "Role assignment response model",
+                "properties": {
+                    "roleassignment": {
+                        "$ref": "#/components/schemas/RoleAssignment"
+                    },
+                    "created": {
+                        "type": "integer",
+                        "description": "Creation timestamp for Role.",
+                        "format": "int64"
+                    },
+                    "updated": {
+                        "type": "integer",
+                        "description": "Last modification timestamp for Role.",
+                        "format": "int64"
+                    },
+                    "harness_managed": {
+                        "type": "boolean",
+                        "description": "Is harness managed"
+                    }
+                }
+            },
             "Service": {
                 "type": "object",
                 "x-examples": {
@@ -4086,7 +4546,8 @@
                     "CORE",
                     "PMS",
                     "TEMPLATESERVICE",
-                    "GOVERNANCE"
+                    "GOVERNANCE",
+                    "CHAOS"
                 ]
             },
             "CreateProjectRequest": {
@@ -4327,6 +4788,7 @@
             },
             "SSHKeyPathSpec": {
                 "title": "SSHKeyPath",
+                "x-discriminator-value": "SSHKeyPath",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4370,6 +4832,7 @@
             },
             "SSHKeyReferenceSpec": {
                 "title": "SSHKeyReference",
+                "x-discriminator-value": "SSHKeyReference",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4412,6 +4875,7 @@
             },
             "SSHPasswordSpec": {
                 "title": "SSHPassword",
+                "x-discriminator-value": "SSHPassword",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4451,6 +4915,7 @@
             },
             "SSHKerberosTGTKeyTabFileSpec": {
                 "title": "SSHKerberosTGTKeyTabFile",
+                "x-discriminator-value": "SSHKerberosTGTKeyTabFile",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4492,6 +4957,7 @@
             },
             "SSHKerberosTGTPasswordSpec": {
                 "title": "SSHKerberosTGTPassword",
+                "x-discriminator-value": "SSHKerberosTGTPassword",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4533,6 +4999,7 @@
             },
             "SecretFileSpec": {
                 "title": "SecretFile",
+                "x-discriminator-value": "SecretFile",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4562,6 +5029,7 @@
             },
             "SecretTextSpec": {
                 "title": "SecretText",
+                "x-discriminator-value": "SecretText",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4604,6 +5072,7 @@
             },
             "WinRmTGTKeyTabFileSpec": {
                 "title": "WinRmTGTKeyTabFile",
+                "x-discriminator-value": "WinRmTGTKeyTabFile",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4660,6 +5129,7 @@
             },
             "WinRmTGTPasswordSpec": {
                 "title": "WinRmTGTPassword",
+                "x-discriminator-value": "WinRmTGTPassword",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4716,6 +5186,7 @@
             },
             "WinRmNTLMSpec": {
                 "title": "WinRmNTLM",
+                "x-discriminator-value": "WinRmNTLM",
                 "description": "This is the SSH key authentication details defined in Harness.",
                 "allOf": [
                     {
@@ -4856,16 +5327,6 @@
                     }
                 },
                 "description": "Secret response model"
-            },
-            "ValidateSecretSlugResponse": {
-                "title": "ValidateSecretSlugResponse",
-                "type": "object",
-                "properties": {
-                    "valid": {
-                        "type": "boolean"
-                    }
-                },
-                "description": "Validate unique secret slug response model"
             },
             "ConnectorTestConnectionErrorDetail": {
                 "title": "ConnectorTestConnectionErrorDetail",
@@ -5188,6 +5649,7 @@
             },
             "GitHttpConnectorSpec": {
                 "title": "GitHttp",
+                "x-discriminator-value": "GitHttp",
                 "description": "This contains details of the Generic Git http connector",
                 "allOf": [
                     {
@@ -5255,6 +5717,7 @@
             },
             "GitHttpEncryptedConnectorSpec": {
                 "title": "GitHttpEncrypted",
+                "x-discriminator-value": "GitHttpEncrypted",
                 "description": "This contains details of the Generic Git http connector",
                 "allOf": [
                     {
@@ -5322,6 +5785,7 @@
             },
             "GitSshConnectorSpec": {
                 "title": "GitSsh",
+                "x-discriminator-value": "GitSsh",
                 "description": "This contains details of the Generic Git ssh connector",
                 "allOf": [
                     {
@@ -5384,6 +5848,7 @@
             },
             "AppdynamicsConnectorSpec": {
                 "title": "Appdynamics",
+                "x-discriminator-value": "Appdynamics",
                 "description": "This contains details of the appdynamics connector",
                 "allOf": [
                     {
@@ -5433,6 +5898,7 @@
             },
             "AppdynamicsClientIdConnectorSpec": {
                 "title": "AppdynamicsClientId",
+                "x-discriminator-value": "AppdynamicsClientId",
                 "description": "This contains details of the appdynamics connector with client secrets",
                 "allOf": [
                     {
@@ -5481,6 +5947,7 @@
             },
             "ArtifactoryAnonymousConnectorSpec": {
                 "title": "ArtifactoryAnonymous",
+                "x-discriminator-value": "ArtifactoryAnonymous",
                 "description": "This contains details of the artifactory connector with anonymous user",
                 "allOf": [
                     {
@@ -5521,6 +5988,7 @@
             },
             "ArtifactoryConnectorSpec": {
                 "title": "Artifactory",
+                "x-discriminator-value": "Artifactory",
                 "description": "This contains details of the artifactory connector with username/password",
                 "allOf": [
                     {
@@ -5571,6 +6039,7 @@
             },
             "ArtifactoryEncryptedConnectorSpec": {
                 "title": "ArtifactoryEncrypted",
+                "x-discriminator-value": "ArtifactoryEncrypted",
                 "description": "This contains details of the artifactory connector with encrypted username/password",
                 "allOf": [
                     {
@@ -5621,6 +6090,7 @@
             },
             "AwsCodeCommitConnectorSpec": {
                 "title": "AwsCodeCommit",
+                "x-discriminator-value": "AwsCodeCommit",
                 "description": "This contains details of the AWS code commit connector",
                 "allOf": [
                     {
@@ -5679,6 +6149,7 @@
             },
             "AwsAccessKeyConnectorSpec": {
                 "title": "AwsAccessKey",
+                "x-discriminator-value": "AwsAccessKey",
                 "description": "This contains details of the AWS connector and needs AWS access and secret keys for an AWS IAM user.",
                 "allOf": [
                     {
@@ -5737,6 +6208,7 @@
             },
             "AwsEncryptedAccessKeyConnectorSpec": {
                 "title": "AwsEncryptedAccessKey",
+                "x-discriminator-value": "AwsEncryptedAccessKey",
                 "description": "This contains details of the AWS connector and needs AWS encrypted access and secret keys for an AWS IAM user.",
                 "allOf": [
                     {
@@ -5795,6 +6267,7 @@
             },
             "AwsIAMRoleConnectorSpec": {
                 "title": "AwsIAMRole",
+                "x-discriminator-value": "AwsIAMRole",
                 "description": "This contains details of the AWS connector. This assume IAM role on Delegate and uses the IAM role of a Harness Delegate running in your AWS account.",
                 "allOf": [
                     {
@@ -5843,6 +6316,7 @@
             },
             "AwsIRSAConnectorSpec": {
                 "title": "AwsIRSA",
+                "x-discriminator-value": "AwsIRSA",
                 "description": "This contains details of the AWS connector. This uses IRSA and forces the Harness kubernetes delegate in AWS EKS to use a specific IAM role.",
                 "allOf": [
                     {
@@ -5891,6 +6365,7 @@
             },
             "AwsKmsAccessKeyConnectorSpec": {
                 "title": "AwsKmsAccessKey",
+                "x-discriminator-value": "AwsKmsAccessKey",
                 "description": "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS KMS.",
                 "allOf": [
                     {
@@ -5946,6 +6421,7 @@
             },
             "AwsKmsAssumeIAMConnectorSpec": {
                 "title": "AwsKmsAssumeIAM",
+                "x-discriminator-value": "AwsKmsAssumeIAM",
                 "description": "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
                 "allOf": [
                     {
@@ -5993,6 +6469,7 @@
             },
             "AwsKmsAssumeSTSConnectorSpec": {
                 "title": "AwsKmsAssumeSTS",
+                "x-discriminator-value": "AwsKmsAssumeSTS",
                 "description": "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
                 "allOf": [
                     {
@@ -6052,6 +6529,7 @@
             },
             "AwsSecretManagerAccessKeyConnectorSpec": {
                 "title": "AwsSecretManagerAccessKey",
+                "x-discriminator-value": "AwsSecretManagerAccessKey",
                 "description": "This contains details of the AWS and needs AWS encrypted access and secret keys for the AWS Secret Manager.",
                 "allOf": [
                     {
@@ -6106,6 +6584,7 @@
             },
             "AwsSecretManagerAssumeIAMConnectorSpec": {
                 "title": "AwsSecretManagerAssumeIAM",
+                "x-discriminator-value": "AwsSecretManagerAssumeIAM",
                 "description": "This contains details of the AWS connector and Harness will authenticate using the IAM role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
                 "allOf": [
                     {
@@ -6151,6 +6630,7 @@
             },
             "AwsSecretManagerAssumeSTSConnectorSpec": {
                 "title": "AwsSecretManagerAssumeSTS",
+                "x-discriminator-value": "AwsSecretManagerAssumeSTS",
                 "description": "This contains details of the AWS connector and Harness will authenticate using the STS role assigned to the AWS host running the Delegate, you select using a Delegate Selector.",
                 "allOf": [
                     {
@@ -6209,6 +6689,7 @@
             },
             "AzureClientSecretKeyConnectorSpec": {
                 "title": "AzureClientSecretKey",
+                "x-discriminator-value": "AzureClientSecretKey",
                 "description": "This contains details of the Azure connector and uses Azure client secret key details",
                 "allOf": [
                     {
@@ -6271,6 +6752,7 @@
             },
             "AzureClientCertificateConnectorSpec": {
                 "title": "AzureClientCertificate",
+                "x-discriminator-value": "AzureClientCertificate",
                 "description": "This contains details of the Azure connector and uses Azure client certificate details",
                 "allOf": [
                     {
@@ -6333,6 +6815,7 @@
             },
             "AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec": {
                 "title": "AzureInheritFromDelegateUserAssignedManagedIdentity",
+                "x-discriminator-value": "AzureInheritFromDelegateUserAssignedManagedIdentity",
                 "description": "This contains details of the Azure connector and for azure UserAssigned MSI auth details",
                 "allOf": [
                     {
@@ -6385,6 +6868,7 @@
             },
             "AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec": {
                 "title": "AzureInheritFromDelegateSystemAssignedManagedIdentity",
+                "x-discriminator-value": "AzureInheritFromDelegateSystemAssignedManagedIdentity",
                 "description": "This contains details of the Azure connector for contains azure MSI auth details",
                 "allOf": [
                     {
@@ -7208,7 +7692,14 @@
                 "description": "Pipeline request body object ",
                 "x-examples": {
                     "example-pipeline": {
-                        "pipeline_yaml": "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                        "pipeline_yaml": "pipeline:\n  allowStageExecutions: false\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                        "slug": "example_pipeline",
+                        "name": "ExamplePipeline",
+                        "description": "Pipeline Description",
+                        "tags": {
+                            "example-tag-1": "example-tag-1-value",
+                            "example-tag-2": "example-tag-2-value"
+                        },
                         "git_details": {
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
@@ -7225,12 +7716,41 @@
                         "type": "string",
                         "description": "Pipeline YAML (to be passed as a String)."
                     },
+                    "slug": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Pipeline identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Pipeline name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "description": "Pipeline description"
+                    },
+                    "tags": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "maxProperties": 128,
+                        "description": "Pipeline tags"
+                    },
                     "git_details": {
                         "$ref": "#/components/schemas/GitCreateDetails"
                     }
                 },
                 "required": [
-                    "pipeline_yaml"
+                    "pipeline_yaml",
+                    "slug",
+                    "name"
                 ]
             },
             "PipelineCreateResponseBody": {
@@ -7572,7 +8092,14 @@
                 "description": "Pipeline request body object ",
                 "x-examples": {
                     "example-pipeline": {
-                        "pipeline_yaml": "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                        "pipeline_yaml": "pipeline:\n  allowStageExecutions: false\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                        "slug": "example_pipeline",
+                        "name": "ExamplePipeline",
+                        "description": "Pipeline Description",
+                        "tags": {
+                            "example-tag-1": "example-tag-1-value",
+                            "example-tag-2": "example-tag-2-value"
+                        },
                         "git_details": {
                             "branch_name": "branch",
                             "commit_message": "Added Harness Git Experience",
@@ -7587,12 +8114,41 @@
                         "type": "string",
                         "description": "Pipeline YAML (to be passed as a String)."
                     },
+                    "slug": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Pipeline identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Pipeline name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "description": "Pipeline description"
+                    },
+                    "tags": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "maxProperties": 128,
+                        "description": "Pipeline tags"
+                    },
                     "git_details": {
                         "$ref": "#/components/schemas/GitUpdateDetails"
                     }
                 },
                 "required": [
-                    "pipeline_yaml"
+                    "pipeline_yaml",
+                    "slug",
+                    "name"
                 ]
             },
             "TemplateResponse": {
@@ -8441,6 +8997,109 @@
                         "examples": {
                             "role-response": {
                                 "value": "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+                            }
+                        }
+                    }
+                }
+            },
+            "RoleAssignmentResponse": {
+                "description": "Role assignment response body",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RoleAssignmentResponse"
+                        },
+                        "examples": {
+                            "role-assignment-response-json": {
+                                "value": {
+                                    "roleassignment": {
+                                        "slug": "example_role_assignment",
+                                        "resource_group": "example_resource_group_slug",
+                                        "role": "example_role_slug",
+                                        "principal": {
+                                            "scope": "ACCOUNT",
+                                            "slug": "example_principal_slug",
+                                            "type": "USER"
+                                        },
+                                        "disabled": false,
+                                        "managed": false
+                                    },
+                                    "created": 1234567890,
+                                    "updated": 1234567890,
+                                    "harness_managaed": false
+                                }
+                            }
+                        }
+                    },
+                    "application/yaml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RoleAssignmentResponse"
+                        },
+                        "examples": {
+                            "role-assignment-response-yaml": {
+                                "value": "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                            }
+                        }
+                    }
+                }
+            },
+            "RoleAssignmentListResponse": {
+                "description": "Role Assignment List Response body",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/RoleAssignmentResponse"
+                            }
+                        },
+                        "examples": {
+                            "role-assignment-response-json": {
+                                "value": [
+                                    {
+                                        "roleassignment": {
+                                            "slug": "example_role_assignment",
+                                            "resource_group": "example_resource_group_slug",
+                                            "role": "example_role_slug",
+                                            "principal": {
+                                                "scope": "ACCOUNT",
+                                                "slug": "example_principal_slug",
+                                                "type": "USER"
+                                            },
+                                            "disabled": false,
+                                            "managed": false
+                                        },
+                                        "created": 1234567890,
+                                        "updated": 1234567890,
+                                        "harness_managaed": false
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "application/yaml": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/RoleAssignmentResponse"
+                            }
+                        },
+                        "examples": {
+                            "role-assignment-response-json": {
+                                "value": "- roleassignment:\n    slug: example_role_assignment\n    resource_group: example_resource_group_slug\n    role: example_role_slug\n    principal:\n      scope: ACCOUNT\n      slug: example_principal_slug\n      type: USER\n    disabled: false\n    managed: false\n  created: 1234567890\n  updated: 1234567890\n  harness_managaed: false\n"
+                            }
+                        }
+                    }
+                },
+                "headers": {
+                    "Link": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                        "examples": {
+                            "sample": {
+                                "value": "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
                             }
                         }
                     }
@@ -9307,6 +9966,19 @@
                             }
                         }
                     }
+                },
+                "headers": {
+                    "Link": {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                        "examples": {
+                            "sample": {
+                                "value": "</v1/orgs/{org}/projects/{project}/pipelines?page=2&limit=1>; rel=\"next\", </v1/orgs/{org}/projects/{project}/pipelines?page=1&limit=1>; rel=\"self\", </v1/orgs/{org}/projects/{project}/pipelines?page=0&limit=1>; rel=\"previous\", "
+                            }
+                        }
+                    }
                 }
             },
             "TemplateResponse": {
@@ -9512,15 +10184,6 @@
             }
         },
         "parameters": {
-            "AccountParam": {
-                "name": "account",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                },
-                "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
-            },
             "Limit": {
                 "name": "limit",
                 "in": "query",
@@ -9531,6 +10194,34 @@
                     "maximum": 100
                 },
                 "description": "Pagination: Number of items to return."
+            },
+            "Sort": {
+                "name": "sort",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "slug",
+                        "name",
+                        "created",
+                        "updated"
+                    ]
+                },
+                "description": "Parameter on the basis of which sorting is done."
+            },
+            "Order": {
+                "name": "order",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "ASC",
+                        "DESC"
+                    ]
+                },
+                "description": "Order on the basis of which sorting is done."
             },
             "PageIndex": {
                 "name": "page",
@@ -9577,6 +10268,15 @@
                     "type": "string"
                 },
                 "description": "Role identifier"
+            },
+            "AccountHeader": {
+                "name": "Harness-Account",
+                "in": "header",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
             },
             "Page": {
                 "name": "page",
@@ -9631,15 +10331,6 @@
                     "type": "string"
                 },
                 "description": "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped."
-            },
-            "AccountHeader": {
-                "name": "Harness-Account",
-                "in": "header",
-                "required": false,
-                "schema": {
-                    "type": "string"
-                },
-                "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
             },
             "OrgsQueryParam": {
                 "name": "org",
@@ -9714,7 +10405,7 @@
                 },
                 "description": "List of Service Identifiers"
             },
-            "Sort": {
+            "Sort1": {
                 "name": "sort",
                 "in": "query",
                 "required": false,
@@ -9724,24 +10415,10 @@
                         "name",
                         "slug",
                         "created",
-                        "updated",
-                        "description"
+                        "updated"
                     ]
                 },
                 "description": "Parameter on the basis of which sorting is done."
-            },
-            "Order": {
-                "name": "order",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string",
-                    "enum": [
-                        "ASC",
-                        "DESC"
-                    ]
-                },
-                "description": "Order on the basis of which sorting is done."
             },
             "ResourceGroupParam": {
                 "name": "resource-group",
@@ -9751,21 +10428,6 @@
                     "type": "string"
                 },
                 "description": "Resource Group identifier"
-            },
-            "Sort1": {
-                "name": "sort",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string",
-                    "enum": [
-                        "slug",
-                        "name",
-                        "created",
-                        "updated"
-                    ]
-                },
-                "description": "Parameter on the basis of which sorting is done."
             },
             "Branch": {
                 "name": "branch_name",
@@ -9784,21 +10446,6 @@
                     "type": "string"
                 },
                 "description": "Pipeline identifier"
-            },
-            "Sort2": {
-                "name": "sort",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "string",
-                    "enum": [
-                        "slug",
-                        "name",
-                        "created",
-                        "updated"
-                    ]
-                },
-                "description": "Parameter on the basis of which sorting is done."
             },
             "Org": {
                 "name": "org",
@@ -9876,7 +10523,7 @@
                 },
                 "description": "Pagination: Number of items to return"
             },
-            "Sort3": {
+            "Sort2": {
                 "name": "sort",
                 "in": "query",
                 "required": false,
@@ -9967,6 +10614,43 @@
                         "examples": {
                             "role-request": {
                                 "value": "slug: example_role\nname: Example_Role\npermissions:\n  - core_view\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\n"
+                            }
+                        }
+                    }
+                },
+                "description": "Role Request body",
+                "required": true
+            },
+            "RoleAssignmentRequest": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RoleAssignment"
+                        },
+                        "examples": {
+                            "role-assignment-request-json": {
+                                "value": {
+                                    "slug": "example_role_assignment",
+                                    "resource_group": "example_resource_group_slug",
+                                    "role": "example_role_slug",
+                                    "principal": {
+                                        "scope": "ACCOUNT",
+                                        "slug": "example_principal_slug",
+                                        "type": "USER"
+                                    },
+                                    "disabled": false,
+                                    "managed": false
+                                }
+                            }
+                        }
+                    },
+                    "application/yaml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/RoleAssignment"
+                        },
+                        "examples": {
+                            "role-assignment-request-yaml": {
+                                "value": "slug: example_role_assignment\nresource_group: example_resource_group_slug\nrole: example_role_slug\nprincipal:\n  scope: ACCOUNT\n  slug: example_principal_slug\n  type: USER\ndisabled: false\nmanaged: false\n"
                             }
                         }
                     }
@@ -10899,7 +11583,14 @@
                         "examples": {
                             "example-pipeline": {
                                 "value": {
-                                    "pipeline_yaml": "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                                    "pipeline_yaml": "pipeline:\n  allowStageExecutions: false\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                                    "slug": "example_pipeline",
+                                    "name": "ExamplePipeline",
+                                    "description": "Pipeline Description",
+                                    "tags": {
+                                        "example-tag-1": "example-tag-1-value",
+                                        "example-tag-2": "example-tag-2-value"
+                                    },
                                     "git_details": {
                                         "branch_name": "branch",
                                         "file_path": "/folder/file.json",
@@ -10919,7 +11610,7 @@
                         },
                         "examples": {
                             "example-pipeline": {
-                                "value": "pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
+                                "value": "pipeline_yaml: 'pipeline: allowStageExecutions: false stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags: \n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
                             }
                         }
                     }
@@ -10936,7 +11627,14 @@
                         "examples": {
                             "example-pipeline": {
                                 "value": {
-                                    "pipeline_yaml": "pipeline:\n  name: example pipeline\n  identifier: example_pipeline\n  allowStageExecutions: false\n  projectIdentifier: example_project\n  orgIdentifier: example_organization\n  tags: {}\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                                    "pipeline_yaml": "pipeline:\n  allowStageExecutions: false\n  stages:\n    - stage:\n        name: Example Build Stage\n        identifier: example_build_stage\n        description: ''\n        type: Approval\n        spec:\n          execution:\n            steps:\n              - step:\n                  name: Approval Step\n                  identifier: Approval_Step\n                  type: HarnessApproval\n                  timeout: 1d\n                  spec:\n                    approvalMessage: |-\n                      Please review the following information\n                      and approve the pipeline progression\n                    includePipelineExecutionHistory: true\n                    approvers:\n                      minimumCount: 1\n                      disallowPipelineExecutor: false\n                      userGroups: <+input>\n                    approverInputs: []\n              - step:\n                  type: ShellScript\n                  name: ShellScript Step\n                  identifier: ShellScript_Step\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: <+input>\n                    environmentVariables: []\n                    outputVariables: []\n                    executionTarget: {}\n                  timeout: 10m\n        tags: {}\n    - stage:\n        name: Example Deploy Stage\n        identifier: example_deploy_stage\n        description: ''\n        type: Deployment\n        spec:\n          serviceConfig:\n            serviceRef: <+input>\n            serviceDefinition:\n              spec:\n                variables: []\n              type: Kubernetes\n          infrastructure:\n            environmentRef: <+input>\n            infrastructureDefinition:\n              type: KubernetesDirect\n              spec:\n                connectorRef: <+input>\n                namespace: <+input>\n                releaseName: release-<+INFRA_KEY>\n            allowSimultaneousDeployments: false\n          execution:\n            steps:\n              - step:\n                  name: Rollout Deployment\n                  identifier: rolloutDeployment\n                  type: K8sRollingDeploy\n                  timeout: 10m\n                  spec:\n                    skipDryRun: false\n            rollbackSteps:\n              - step:\n                  name: Rollback Rollout Deployment\n                  identifier: rollbackRolloutDeployment\n                  type: K8sRollingRollback\n                  timeout: 10m\n                  spec: {}\n        tags: {}\n        failureStrategies:\n          - onFailure:\n              errors:\n                - AllErrors\n              action:\n                type: StageRollback\n",
+                                    "slug": "example_pipeline",
+                                    "name": "ExamplePipeline",
+                                    "description": "Pipeline Description",
+                                    "tags": {
+                                        "example-tag-1": "example-tag-1-value",
+                                        "example-tag-2": "example-tag-2-value"
+                                    },
                                     "git_details": {
                                         "branch_name": "branch",
                                         "commit_message": "Added Harness Git Experience",
@@ -10954,7 +11652,7 @@
                         },
                         "examples": {
                             "example-pipeline": {
-                                "value": "pipeline_yaml: 'pipeline: name: example pipeline identifier: example_pipeline allowStageExecutions: false projectIdentifier: example_project orgIdentifier: example_organization tags: {} stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: abcdXYZ\n  base_branch: old_branch\n  last_commit_id: abcdXYZ\n"
+                                "value": "pipeline_yaml: 'pipeline: allowStageExecutions: false stages: - stage: name: Example Build Stage identifier: example_build_stage description: '''' type: Approval spec: execution: steps: - step: name: Approval Step identifier: Approval_Step type: HarnessApproval timeout: 1d spec: approvalMessage: |- Please review the following information and approve the pipeline progression includePipelineExecutionHistory: true approvers: minimumCount: 1 disallowPipelineExecutor: false userGroups: <+input> approverInputs: [] - step: type: ShellScript name: ShellScript Step identifier: ShellScript_Step spec: shell: Bash onDelegate: true source: type: Inline spec: script: <+input> environmentVariables: [] outputVariables: [] executionTarget: {} timeout: 10m tags: {} - stage: name: Example Deploy Stage identifier: example_deploy_stage description: '''' type: Deployment spec: serviceConfig: serviceRef: <+input> serviceDefinition: spec: variables: [] type: Kubernetes infrastructure: environmentRef: <+input> infrastructureDefinition: type: KubernetesDirect spec: connectorRef: <+input> namespace: <+input> releaseName: release-<+INFRA_KEY> allowSimultaneousDeployments: false execution: steps: - step: name: Rollout Deployment identifier: rolloutDeployment type: K8sRollingDeploy timeout: 10m spec: skipDryRun: false rollbackSteps: - step: name: Rollback Rollout Deployment identifier: rollbackRolloutDeployment type: K8sRollingRollback timeout: 10m spec: {} tags: {} failureStrategies: - onFailure: errors: - AllErrors action: type: StageRollback'\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags: \n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: abcdXYZ\n  base_branch: old_branch\n  last_commit_id: abcdXYZ\n"
                             }
                         }
                     }
@@ -11108,7 +11806,8 @@
             "x-api-key": {
                 "name": "x-api-key",
                 "type": "apiKey",
-                "in": "header"
+                "in": "header",
+                "description": "API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint."
             }
         }
     },
@@ -11145,6 +11844,20 @@
             ]
         },
         {
+            "name": "Pipelines",
+            "tags": [
+                "Pipelines"
+            ]
+        },
+        {
+            "name": "Templates",
+            "tags": [
+                "Account Template",
+                "Org Template",
+                "Project Template"
+            ]
+        },
+        {
             "name": "Services",
             "tags": [
                 "Project Services"
@@ -11168,17 +11881,11 @@
             ]
         },
         {
-            "name": "Pipelines",
+            "name": "Role Assignments",
             "tags": [
-                "Pipelines"
-            ]
-        },
-        {
-            "name": "Templates",
-            "tags": [
-                "Account Template",
-                "Org Template",
-                "Project Template"
+                "Account Role Assignments",
+                "Org Role Assignments",
+                "Project Role Assignments"
             ]
         }
     ]

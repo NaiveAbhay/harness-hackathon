@@ -406,7 +406,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "name", "slug", "created", "updated", "description" ]
+            "enum" : [ "name", "slug", "created", "updated" ]
           }
         }, {
           "name" : "is_access_list",
@@ -618,16 +618,6 @@
         "description" : "Retrieves the information of the organizations.",
         "operationId" : "get-organizations",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
           "name" : "org",
           "in" : "query",
           "description" : "Slug field of the organizations the resource is scoped to",
@@ -671,6 +661,38 @@
           "schema" : {
             "type" : "integer",
             "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "name", "slug", "created", "updated" ]
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -744,12 +766,12 @@
         "description" : "Creates a new organization.",
         "operationId" : "create-organization",
         "parameters" : [ {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -819,12 +841,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -889,12 +911,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -962,12 +984,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1030,16 +1052,6 @@
           "required" : true,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1108,6 +1120,38 @@
           "schema" : {
             "type" : "integer",
             "default" : 30
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "name", "slug", "created", "updated" ]
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -1193,12 +1237,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1280,12 +1324,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1362,12 +1406,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -1447,12 +1491,12 @@
             "type" : "string"
           }
         }, {
-          "name" : "account",
-          "in" : "query",
-          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization method other than x-api-key header. If you are using x-api-key header this can be skipped.",
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
-          "style" : "form",
-          "explode" : true,
+          "style" : "simple",
+          "explode" : false,
           "schema" : {
             "type" : "string"
           }
@@ -4790,7 +4834,7 @@
       "ModuleType" : {
         "type" : "string",
         "description" : "Type of Modules",
-        "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE" ]
+        "enum" : [ "CD", "CI", "CV", "CF", "CE", "STO", "CORE", "PMS", "TEMPLATESERVICE", "GOVERNANCE", "CHAOS" ]
       },
       "CreateProjectRequest" : {
         "required" : [ "project" ],
@@ -5025,7 +5069,8 @@
               "description" : "This is the passphrase provided while creating the SSH key for local encryption"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SSHKeyPath"
       },
       "SSHKeyReferenceSpec" : {
         "title" : "SSHKeyReference",
@@ -5059,7 +5104,8 @@
               "description" : "This is the passphrase provided while creating the SSH key for local encryption"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SSHKeyReference"
       },
       "SSHPasswordSpec" : {
         "title" : "SSHPassword",
@@ -5089,7 +5135,8 @@
               "description" : "SSH password"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SSHPassword"
       },
       "SSHKerberosTGTKeyTabFileSpec" : {
         "title" : "SSHKerberosTGTKeyTabFile",
@@ -5123,7 +5170,8 @@
               "description" : "Kerberos keytab file path"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SSHKerberosTGTKeyTabFile"
       },
       "SSHKerberosTGTPasswordSpec" : {
         "title" : "SSHKerberosTGTPassword",
@@ -5157,7 +5205,8 @@
               "description" : "Kerberos password"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SSHKerberosTGTPassword"
       },
       "SecretFileSpec" : {
         "title" : "SecretFile",
@@ -5178,7 +5227,8 @@
               "description" : "Slug of the secret manager used to manage the secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SecretFile"
       },
       "SecretTextSpec" : {
         "title" : "SecretText",
@@ -5208,7 +5258,8 @@
               "description" : "Value of the Secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "SecretText"
       },
       "WinRmTGTKeyTabFileSpec" : {
         "title" : "WinRmTGTKeyTabFile",
@@ -5257,7 +5308,8 @@
               "description" : "This is the Kerberos powershell runs without loading profile"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "WinRmTGTKeyTabFile"
       },
       "WinRmTGTPasswordSpec" : {
         "title" : "WinRmTGTPassword",
@@ -5306,7 +5358,8 @@
               "description" : "This is the Kerberos powershell runs without loading profile"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "WinRmTGTPassword"
       },
       "WinRmNTLMSpec" : {
         "title" : "WinRmNTLM",
@@ -5355,7 +5408,8 @@
               "description" : "This is the Kerberos powershell runs without loading profile"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "WinRmNTLM"
       },
       "SecretRequest" : {
         "required" : [ "secret" ],
@@ -5434,16 +5488,6 @@
           }
         },
         "description" : "Secret response model"
-      },
-      "ValidateSecretSlugResponse" : {
-        "title" : "ValidateSecretSlugResponse",
-        "type" : "object",
-        "properties" : {
-          "valid" : {
-            "type" : "boolean"
-          }
-        },
-        "description" : "Validate unique secret slug response model"
       },
       "ConnectorTestConnectionErrorDetail" : {
         "title" : "ConnectorTestConnectionErrorDetail",
@@ -5748,7 +5792,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "GitHttp"
       },
       "GitHttpEncryptedConnectorSpec" : {
         "title" : "GitHttpEncrypted",
@@ -5800,7 +5845,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "GitHttpEncrypted"
       },
       "GitSshConnectorSpec" : {
         "title" : "GitSsh",
@@ -5848,7 +5894,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "GitSsh"
       },
       "AppdynamicsConnectorSpec" : {
         "title" : "Appdynamics",
@@ -5888,7 +5935,8 @@
               "description" : "Reference to encrypted Harness secret for appdynamics password secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "Appdynamics"
       },
       "AppdynamicsClientIdConnectorSpec" : {
         "title" : "AppdynamicsClientId",
@@ -5927,7 +5975,8 @@
               "description" : "Reference to encrypted Harness secret for appdynamics client secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AppdynamicsClientId"
       },
       "ArtifactoryAnonymousConnectorSpec" : {
         "title" : "ArtifactoryAnonymous",
@@ -5959,7 +6008,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "ArtifactoryAnonymous"
       },
       "ArtifactoryConnectorSpec" : {
         "title" : "Artifactory",
@@ -5999,7 +6049,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "Artifactory"
       },
       "ArtifactoryEncryptedConnectorSpec" : {
         "title" : "ArtifactoryEncrypted",
@@ -6039,7 +6090,8 @@
               "description" : "execute on delegate"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "ArtifactoryEncrypted"
       },
       "AwsCodeCommitConnectorSpec" : {
         "title" : "AwsCodeCommit",
@@ -6084,7 +6136,8 @@
               }
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsCodeCommit"
       },
       "AwsAccessKeyConnectorSpec" : {
         "title" : "AwsAccessKey",
@@ -6133,7 +6186,8 @@
               "default" : true
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsAccessKey"
       },
       "AwsEncryptedAccessKeyConnectorSpec" : {
         "title" : "AwsEncryptedAccessKey",
@@ -6182,7 +6236,8 @@
               "default" : true
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsEncryptedAccessKey"
       },
       "AwsIAMRoleConnectorSpec" : {
         "title" : "AwsIAMRole",
@@ -6223,7 +6278,8 @@
               "default" : true
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsIAMRole"
       },
       "AwsIRSAConnectorSpec" : {
         "title" : "AwsIRSA",
@@ -6264,7 +6320,8 @@
               "default" : true
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsIRSA"
       },
       "AwsKmsAccessKeyConnectorSpec" : {
         "title" : "AwsKmsAccessKey",
@@ -6308,7 +6365,8 @@
               }
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsKmsAccessKey"
       },
       "AwsKmsAssumeIAMConnectorSpec" : {
         "title" : "AwsKmsAssumeIAM",
@@ -6345,7 +6403,8 @@
               }
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsKmsAssumeIAM"
       },
       "AwsKmsAssumeSTSConnectorSpec" : {
         "title" : "AwsKmsAssumeSTS",
@@ -6394,7 +6453,8 @@
               "description" : "This is the AssumeRole Session Duration"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsKmsAssumeSTS"
       },
       "AwsSecretManagerAccessKeyConnectorSpec" : {
         "title" : "AwsSecretManagerAccessKey",
@@ -6438,7 +6498,8 @@
               }
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsSecretManagerAccessKey"
       },
       "AwsSecretManagerAssumeIAMConnectorSpec" : {
         "title" : "AwsSecretManagerAssumeIAM",
@@ -6475,7 +6536,8 @@
               }
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsSecretManagerAssumeIAM"
       },
       "AwsSecretManagerAssumeSTSConnectorSpec" : {
         "title" : "AwsSecretManagerAssumeSTS",
@@ -6524,7 +6586,8 @@
               "description" : "This is the AssumeRole Session Duration"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AwsSecretManagerAssumeSTS"
       },
       "AzureClientSecretKeyConnectorSpec" : {
         "title" : "AzureClientSecretKey",
@@ -6572,7 +6635,8 @@
               "description" : "Reference to encrypted Harness secret for Azure client secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AzureClientSecretKey"
       },
       "AzureClientCertificateConnectorSpec" : {
         "title" : "AzureClientCertificate",
@@ -6620,7 +6684,8 @@
               "description" : "Reference to encrypted Harness secret for Azure client secret"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AzureClientCertificate"
       },
       "AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec" : {
         "title" : "AzureInheritFromDelegateUserAssignedManagedIdentity",
@@ -6660,7 +6725,8 @@
               "description" : "Client Id of the ManagedIdentity resource"
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AzureInheritFromDelegateUserAssignedManagedIdentity"
       },
       "AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec" : {
         "title" : "AzureInheritFromDelegateSystemAssignedManagedIdentity",
@@ -6696,7 +6762,8 @@
               "default" : true
             }
           }
-        } ]
+        } ],
+        "x-discriminator-value" : "AzureInheritFromDelegateSystemAssignedManagedIdentity"
       }
     },
     "responses" : {
@@ -7412,7 +7479,7 @@
         "explode" : true,
         "schema" : {
           "type" : "string",
-          "enum" : [ "name", "slug", "created", "updated", "description" ]
+          "enum" : [ "name", "slug", "created", "updated" ]
         }
       },
       "Order" : {

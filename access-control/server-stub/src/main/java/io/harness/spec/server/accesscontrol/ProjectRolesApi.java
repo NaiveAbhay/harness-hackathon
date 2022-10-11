@@ -17,6 +17,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import java.util.Map;
 import java.util.List;
+import java.io.InputStream;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -31,16 +33,16 @@ public interface ProjectRolesApi {
     @Operation(operationId = "createRoleProject", summary = "Create a Role", description = "Creates a custom Role in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "200", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
+        @ApiResponse(responseCode = "201", description = "Role Response body", content = @Content(mediaType = "application/json", schema = @Schema(implementation = RolesResponse.class))) })
     Response createRoleProject(@Valid CreateRoleRequest body, @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{role}")
@@ -58,9 +60,9 @@ public interface ProjectRolesApi {
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Path("/{role}")
@@ -78,25 +80,22 @@ public interface ProjectRolesApi {
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @GET
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "listRolesProject", summary = "List Roles", description = "Returns a list of Roles present in the Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Roles" })
     @ApiResponses(value = { 
-        @ApiResponse(responseCode = "201", description = "Roles List Response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
+        @ApiResponse(responseCode = "200", description = "Roles List Response body", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = RolesResponse.class)))) })
     Response listRolesProject( @PathParam("org")
 
  @Parameter(description = "Organization identifier") String org
 , @PathParam("project")
 
  @Parameter(description = "Project identifier") String project
-,  @QueryParam("account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
 ,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.")  Integer page
@@ -106,6 +105,15 @@ public interface ProjectRolesApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching the search term.")  String searchTerm
+,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+,  @QueryParam("sort") 
+
+ @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
+,  @QueryParam("order") 
+
+ @Parameter(description = "Order on the basis of which sorting is done.")  String order
 );
     @PUT
     @Path("/{role}")
@@ -124,7 +132,7 @@ public interface ProjectRolesApi {
 , @PathParam("role")
 
  @Parameter(description = "Role identifier") String role
-,  @QueryParam("account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.")  String account
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
