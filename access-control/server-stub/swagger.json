@@ -1553,7 +1553,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "slug", "created", "updated" ]
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -1896,7 +1896,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "slug", "created", "updated" ]
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
@@ -2279,7 +2279,7 @@
           "explode" : true,
           "schema" : {
             "type" : "string",
-            "enum" : [ "slug", "created", "updated" ]
+            "enum" : [ "slug", "name", "created", "updated" ]
           }
         }, {
           "name" : "order",
