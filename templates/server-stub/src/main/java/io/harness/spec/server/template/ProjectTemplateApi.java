@@ -2,7 +2,6 @@ package io.harness.spec.server.template;
 
 import io.harness.spec.server.template.model.GitFindDetails;
 import io.harness.spec.server.template.model.TemplateCreateRequestBody;
-import io.harness.spec.server.template.model.TemplateFilterProperties;
 import io.harness.spec.server.template.model.TemplateMetaDataList;
 import io.harness.spec.server.template.model.TemplateResponse;
 import io.harness.spec.server.template.model.TemplateUpdateRequestBody;
@@ -82,7 +81,6 @@ public interface ProjectTemplateApi {
 );
     @GET
     @Path("/{template}/versions/{version}")
-    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplateProject", summary = "Retrieve a Template", description = "Retrieves particular version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
@@ -100,16 +98,33 @@ public interface ProjectTemplateApi {
 , @PathParam("version")
 
  @Parameter(description = "Version Label for Template") String version
-,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("get_input_yaml") 
 
  @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
+,  @QueryParam("branch_name") 
+
+ @Parameter(description = "Name of the branch")  String branchName
+,  @QueryParam("parent_connector_ref") 
+
+ @Parameter(description = "Connector ref of parent template if its remote")  String parentConnectorRef
+,  @QueryParam("parent_repo_name") 
+
+ @Parameter(description = "Repo name of parent template if its remote")  String parentRepoName
+,  @QueryParam("parent_account_id") 
+
+ @Parameter(description = "Account name of parent template if its remote")  String parentAccountId
+,  @QueryParam("parent_org_id") 
+
+ @Parameter(description = "Organization name of parent template if its remote")  String parentOrgId
+,  @QueryParam("parent_project_id") 
+
+ @Parameter(description = "Project name of parent entity if its remote")  String parentProjectId
 );
     @GET
     @Path("/{template}")
-    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplateStableProject", summary = "Get Stable Template", description = "Retrieves stable version of Template at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
@@ -124,15 +139,32 @@ public interface ProjectTemplateApi {
 , @PathParam("template")
 
  @Parameter(description = "Template Identifier") String template
-,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
 ,  @QueryParam("get_input_yaml") 
 
  @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
+,  @QueryParam("branch_name") 
+
+ @Parameter(description = "Name of the branch")  String branchName
+,  @QueryParam("parent_connector_ref") 
+
+ @Parameter(description = "Connector ref of parent template if its remote")  String parentConnectorRef
+,  @QueryParam("parent_repo_name") 
+
+ @Parameter(description = "Repo name of parent template if its remote")  String parentRepoName
+,  @QueryParam("parent_account_id") 
+
+ @Parameter(description = "Account name of parent template if its remote")  String parentAccountId
+,  @QueryParam("parent_org_id") 
+
+ @Parameter(description = "Organization name of parent template if its remote")  String parentOrgId
+,  @QueryParam("parent_project_id") 
+
+ @Parameter(description = "Project name of parent entity if its remote")  String parentProjectId
 );
     @GET
-    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "getTemplatesListProject", summary = "Get Templates List", description = "Retrieves list of Template with meta-data at Project scope.", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Template" })
@@ -144,10 +176,10 @@ public interface ProjectTemplateApi {
 , @PathParam("project")
 
  @Parameter(description = "Project Identifier") String project
-,@Valid TemplateFilterProperties body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("page") 
+,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page ")  Integer page
 ,  @QueryParam("limit") @DefaultValue("30") 
@@ -165,9 +197,24 @@ public interface ProjectTemplateApi {
 ,  @QueryParam("list_type") 
 
  @Parameter(description = "Template List Type")  String listType
-,  @QueryParam("recursive") 
+,  @QueryParam("recursive") @DefaultValue("false") 
 
  @Parameter(description = "Specify true if all accessible Templates are to be included")  Boolean recursive
+,  @QueryParam("names") 
+
+ @Parameter(description = "Template names for filtering")  List<String> names
+,  @QueryParam("identifiers") 
+
+ @Parameter(description = "Template Ids for Filtering")  List<String> identifiers
+,  @QueryParam("description") 
+
+ @Parameter(description = "Filter properties description")  String description
+,  @QueryParam("entity_types") 
+
+ @Parameter(description = "Type of Template")  List<String> entityTypes
+,  @QueryParam("child_types") 
+
+ @Parameter(description = "Template Child Types for filtering")  List<String> childTypes
 );
     @PUT
     @Path("/{template}/versions/{version}")

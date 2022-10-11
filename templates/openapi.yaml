@@ -55,8 +55,11 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFilterProperties'
+        - $ref: '#/components/parameters/TemplateNames'
+        - $ref: '#/components/parameters/TemplateIds'
+        - $ref: '#/components/parameters/Description'
+        - $ref: '#/components/parameters/EntityType'
+        - $ref: '#/components/parameters/TemplateChildTypes'
       tags:
         - Account Template
       description: Retrieves list of Template with meta-data at Account scope.
@@ -75,9 +78,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       description: Retrieves stable version of Template at Account scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
   '/v1/templates/{template}/versions/{version}':
     parameters:
       - $ref: '#/components/parameters/Template'
@@ -93,9 +100,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       description: Retrieves particular version of Template at Account scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
       operationId: update-template-acc
@@ -174,8 +185,11 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFilterProperties'
+        - $ref: '#/components/parameters/TemplateNames'
+        - $ref: '#/components/parameters/TemplateIds'
+        - $ref: '#/components/parameters/Description'
+        - $ref: '#/components/parameters/EntityType'
+        - $ref: '#/components/parameters/TemplateChildTypes'
       tags:
         - Org Template
       description: Retrieves list of Template with meta-data at Organization scope.
@@ -192,11 +206,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       tags:
         - Org Template
       description: Retrieves stable version of Template at Organization scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
   '/v1/orgs/{org}/templates/{template}/versions/{version}':
     parameters:
       - $ref: '#/components/parameters/Template'
@@ -211,11 +229,15 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       tags:
         - Org Template
       description: Retrieves particular version of Template at Organization scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
       operationId: update-template-org
@@ -296,8 +318,11 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFilterProperties'
+        - $ref: '#/components/parameters/TemplateNames'
+        - $ref: '#/components/parameters/TemplateIds'
+        - $ref: '#/components/parameters/Description'
+        - $ref: '#/components/parameters/EntityType'
+        - $ref: '#/components/parameters/TemplateChildTypes'
       tags:
         - Project Template
       description: Retrieves list of Template with meta-data at Project scope.
@@ -317,9 +342,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       description: Retrieves stable version of Template at Project scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
   '/v1/orgs/{org}/projects/{project}/templates/{template}/versions/{version}':
     parameters:
       - $ref: '#/components/parameters/Project'
@@ -337,9 +366,13 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/GetTemplateInputYaml'
+        - $ref: '#/components/parameters/Branch'
+        - $ref: '#/components/parameters/ParentConnectorRef'
+        - $ref: '#/components/parameters/ParentRepoName'
+        - $ref: '#/components/parameters/ParentAccountId'
+        - $ref: '#/components/parameters/ParentOrgId'
+        - $ref: '#/components/parameters/ParentProjectId'
       description: Retrieves particular version of Template at Project scope.
-      requestBody:
-        $ref: '#/components/requestBodies/TemplateFetchBody'
     put:
       summary: Update Template
       operationId: update-template-project
@@ -397,9 +430,9 @@ components:
       description: Default response when a template is returned
       x-examples:
         example-1:
-          account: sample_account
-          org: sample_organization
-          project: sample_project
+          account: example_account
+          org: example_organization
+          project: example_project
           slug: example_template
           name: Example_template
           description: string
@@ -408,8 +441,8 @@ components:
             example-tag-2: example-tag-2-value
           yaml: |
             template:
-              name: sup
-              identifier: sup
+              name: Example_template
+              identifier: example_template
               versionLabel: v1
               type: Stage
               tags: {}
@@ -433,7 +466,7 @@ components:
                             outputVariables: []
                           timeout: 10m
           version_label: example_version
-          entity_type: Step
+          entity_type: Stage
           child_type: example_child_type
           scope: org
           version: 1234567890
@@ -553,9 +586,9 @@ components:
       type: object
       x-examples:
         example-1:
-          account: sample_account
-          org: sample_organization
-          project: sample_project
+          account: example_account
+          org: example_organization
+          project: example_project
           slug: example_template
           name: Example_template
           description: string
@@ -677,9 +710,9 @@ components:
       x-examples:
         example-1:
           template_response:
-            account: sample_account
-            org: sample_organization
-            project: sample_project
+            account: example_account
+            org: example_organization
+            project: example_project
             slug: example_template
             name: Example_template
             description: string
@@ -688,8 +721,8 @@ components:
               example-tag-2: example-tag-2-value
             yaml: |
               template:
-                name: sup
-                identifier: sup
+                name: Example_template
+                identifier: example_template
                 versionLabel: v1
                 type: Stage
                 tags: {}
@@ -713,7 +746,7 @@ components:
                               outputVariables: []
                             timeout: 10m
             version_label: example_version
-            entity_type: Step
+            entity_type: Stage
             child_type: example_child_type
             scope: org
             version: 1234567890
@@ -746,9 +779,9 @@ components:
         $ref: '#/components/schemas/TemplateMetadataSummaryResponse'
       x-examples:
         example-1:
-          - account: sample_account
-            org: sample_organization
-            project: sample_project
+          - account: example_account
+            org: example_organization
+            project: example_project
             slug: example_template
             name: Example_template
             description: string
@@ -773,54 +806,6 @@ components:
             connector_ref: example_connector_ref
             stable_template: true
       description: Template Meta Data List Model
-    TemplateFilterProperties:
-      title: TemplateFilterProperties
-      x-stoplight:
-        id: csuj1m41lnsdm
-      type: object
-      x-examples:
-        example-1:
-          names:
-            - Example_template
-          identifiers:
-            - example_identifier
-          description: sample description
-          entity_types:
-            - Step
-          child_types:
-            - example_child_type
-      description: Contains details of the Template Filter
-      properties:
-        names:
-          type: array
-          description: Template names for filtering
-          items:
-            type: string
-        identifiers:
-          type: array
-          description: Template Ids for Filtering
-          items:
-            type: string
-        description:
-          type: string
-          description: Filter properties description
-        entity_types:
-          type: array
-          description: |
-            Type of Template
-          items:
-            type: string
-            enum:
-              - Step
-              - Stage
-              - Pipeline
-              - CustomDeployment
-              - MonitoredService
-              - SecretManager
-        child_types:
-          type: array
-          items:
-            type: string
     EntityGitDetails:
       title: entityGitDetails
       x-stoplight:
@@ -861,6 +846,39 @@ components:
         repo_url:
           type: string
           description: Repository URL of the Entity.
+    GitFindDetails:
+      title: GitFindDetails
+      x-stoplight:
+        id: 8b3cs1apis8zf
+      type: object
+      x-examples:
+        example-1:
+          branch_name: branch
+          parent_connector_ref: example_connector_ref
+          parent_repo_name: example_repo_name
+          parent_account_id: example_account_id
+          parent_org_id: example_org_id
+          parent_project_id: example_project_id
+      description: Contains parameters related to Fetching an Entity for Git Experience.
+      properties:
+        branch_name:
+          type: string
+          description: Name of the branch.
+        parent_connector_ref:
+          type: string
+          description: Connector ref of parent template if its remote
+        parent_repo_name:
+          type: string
+          description: Repo name of parent template if its remote
+        parent_account_id:
+          type: string
+          description: Account name of parent template if its remote
+        parent_org_id:
+          type: string
+          description: Organization name of parent template if its remote
+        parent_project_id:
+          type: string
+          description: Project name of parent entity if its remote
     GitCreateDetails:
       title: Create Git Details
       x-stoplight:
@@ -930,40 +948,6 @@ components:
         last_commit_id:
           type: string
           description: Last commit identifier (for Git Repositories other than Github).
-    GitFindDetails:
-      title: GitFindDetails
-      x-stoplight:
-        id: 8b3cs1apis8zf
-      type: object
-      x-examples:
-        example-1:
-          branch_name: branch
-          parent_connector_ref: example_connector_ref
-          parent_repo_name: example_repo_name
-          parent_account_id: example_account_id
-          parent_org_id: example_org_id
-          parent_project_id: example_project_id
-      description: Contains parameters related to Fetching an Entity for Git Experience.
-      properties:
-        branch_name:
-          type: string
-          description: Name of the branch.
-        parent_connector_ref:
-          type: string
-          description: Connector ref of parent template if its remote
-        parent_repo_name:
-          type: string
-          description: Repo name of parent template if its remote
-        parent_account_id:
-          type: string
-          description: Account name of parent template if its remote
-        parent_org_id:
-          type: string
-          description: Organization name of parent template if its remote
-        parent_project_id:
-          type: string
-          description: |
-            Project name of parent entity if its remote
     TemplateUpdateRequestBody:
       title: TemplateUpdateRequestBody
       x-stoplight:
@@ -973,8 +957,8 @@ components:
         example-1:
           template_yaml: |
             template:
-              name: sup
-              identifier: sup
+              name: Example_template
+              identifier: example_template
               versionLabel: v1
               type: Stage
               tags: {}
@@ -1019,8 +1003,8 @@ components:
         example-1:
           template_yaml: |
             template:
-              name: sup
-              identifier: sup
+              name: Example_template
+              identifier: example_template
               versionLabel: v1
               type: Stage
               tags: {}
@@ -1164,6 +1148,7 @@ components:
       required: false
       schema:
         type: integer
+        default: 0
       description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
     TemplateListType:
       name: list_type
@@ -1182,6 +1167,7 @@ components:
       required: false
       schema:
         type: boolean
+        default: 'false'
       description: Specify true if all accessible Templates are to be included
     GetTemplateInputYaml:
       name: get_input_yaml
@@ -1190,67 +1176,102 @@ components:
       schema:
         type: boolean
       description: Use it to get Template along with Input Set YAML
+    Branch:
+      name: branch_name
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Name of the branch
+    ParentConnectorRef:
+      name: parent_connector_ref
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Connector ref of parent template if its remote
+    ParentRepoName:
+      name: parent_repo_name
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Repo name of parent template if its remote
+    ParentAccountId:
+      name: parent_account_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Account name of parent template if its remote
+    ParentOrgId:
+      name: parent_org_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Organization name of parent template if its remote
+    ParentProjectId:
+      name: parent_project_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Project name of parent entity if its remote
+    TemplateNames:
+      name: names
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Template names for filtering
+    TemplateIds:
+      name: identifiers
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Template Ids for Filtering
+    Description:
+      name: description
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Filter properties description
+    EntityType:
+      name: entity_types
+      in: query
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          enum:
+            - Step
+            - Stage
+            - Pipeline
+            - CustomDeployment
+            - MonitoredService
+            - SecretManager
+      description: Type of Template
+    TemplateChildTypes:
+      name: child_types
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: Template Child Types for filtering
   requestBodies:
-    TemplateFilterProperties:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TemplateFilterProperties'
-          examples:
-            example-1:
-              value:
-                names:
-                  - Example_template
-                identifiers:
-                  - example_identifier
-                description: sample description
-                entity_types:
-                  - Step
-                child_types:
-                  - example_child_type
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/TemplateFilterProperties'
-          examples:
-            example-1:
-              value: |
-                names:
-                  - Example_template
-                identifiers:
-                  - example_identifier
-                description: sample description
-                entity_types:
-                  - Step
-                child_types:
-                  - example_child_type
-      description: Templates Filter Properties Request Body
-    TemplateFetchBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GitFindDetails'
-          examples:
-            example-1:
-              value:
-                branch_name: branch
-                parent_connector_ref: example_connector_ref
-                parent_repo_name: example_repo_name
-                parent_account_id: example_account_id
-                parent_org_id: example_org_id
-                parent_project_id: example_project_id
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/GitFindDetails'
-          examples:
-            example-1:
-              value: |
-                branch_name: branch
-                parent_connector_ref: example_connector_ref
-                parent_repo_name: example_repo_name
-                parent_account_id: example_account_id
-                parent_org_id: example_org_id
-                parent_project_id: example_project_id
-      description: Templates Fetch Request Body
     TemplateUpdateBody:
       content:
         application/json:
@@ -1261,8 +1282,8 @@ components:
               value:
                 template_yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1299,8 +1320,8 @@ components:
               value: |
                 template_yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1330,6 +1351,33 @@ components:
                   base_branch: old_branch
                   last_commit_id: example_commit_id
       description: Templates Update Request Body
+    TemplateFetchBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitFindDetails'
+          examples:
+            example-1:
+              value:
+                branch_name: branch
+                parent_connector_ref: example_connector_ref
+                parent_repo_name: example_repo_name
+                parent_account_id: example_account_id
+                parent_org_id: example_org_id
+                parent_project_id: example_project_id
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/GitFindDetails'
+          examples:
+            example-1:
+              value: |
+                branch_name: branch
+                parent_connector_ref: example_connector_ref
+                parent_repo_name: example_repo_name
+                parent_account_id: example_account_id
+                parent_org_id: example_org_id
+                parent_project_id: example_project_id
+      description: Templates Fetch Request Body
     TemplateCreateBody:
       content:
         application/json:
@@ -1340,8 +1388,8 @@ components:
               value:
                 template_yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1380,8 +1428,8 @@ components:
               value: |
                 template_yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1423,9 +1471,9 @@ components:
           examples:
             example-1:
               value:
-                account: sample_account
-                org: sample_organization
-                project: sample_project
+                account: example_account
+                org: example_organization
+                project: example_project
                 slug: example_template
                 name: Example_template
                 description: string
@@ -1434,8 +1482,8 @@ components:
                   example-tag-2: example-tag-2-value
                 yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1459,7 +1507,7 @@ components:
                                   outputVariables: []
                                 timeout: 10m
                 version_label: example_version
-                entity_type: Step
+                entity_type: Stage
                 child_type: example_child_type
                 scope: org
                 version: 1234567890
@@ -1481,9 +1529,9 @@ components:
           examples:
             example-1:
               value: |
-                account: sample_account
-                org: sample_organization
-                project: sample_project
+                account: example_account
+                org: example_organization
+                project: example_project
                 slug: example_template
                 name: Example_template
                 description: string
@@ -1492,8 +1540,8 @@ components:
                   example-tag-2: example-tag-2-value
                 yaml: |
                   template:
-                    name: sup
-                    identifier: sup
+                    name: Example_template
+                    identifier: example_template
                     versionLabel: v1
                     type: Stage
                     tags: {}
@@ -1517,7 +1565,7 @@ components:
                                   outputVariables: []
                                 timeout: 10m
                 version_label: example_version
-                entity_type: Step
+                entity_type: Stage
                 child_type: example_child_type
                 scope: org
                 version: 1234567890
@@ -1543,9 +1591,9 @@ components:
             example-1:
               value:
                 template_response:
-                  account: sample_account
-                  org: sample_organization
-                  project: sample_project
+                  account: example_account
+                  org: example_organization
+                  project: example_project
                   slug: example_template
                   name: Example_template
                   description: string
@@ -1554,8 +1602,8 @@ components:
                     example-tag-2: example-tag-2-value
                   yaml: |
                     template:
-                      name: sup
-                      identifier: sup
+                      name: Example_template
+                      identifier: example_template
                       versionLabel: v1
                       type: Stage
                       tags: {}
@@ -1579,7 +1627,7 @@ components:
                                     outputVariables: []
                                   timeout: 10m
                   version_label: example_version
-                  entity_type: Step
+                  entity_type: Stage
                   child_type: example_child_type
                   scope: org
                   version: 1234567890
@@ -1603,9 +1651,9 @@ components:
             example-1:
               value: |
                 template_response:
-                  account: sample_account
-                  org: sample_organization
-                  project: sample_project
+                  account: example_account
+                  org: example_organization
+                  project: example_project
                   slug: example_template
                   name: Example_template
                   description: string
@@ -1614,8 +1662,8 @@ components:
                     example-tag-2: example-tag-2-value
                   yaml: |
                     template:
-                      name: sup
-                      identifier: sup
+                      name: Example_template
+                      identifier: example_template
                       versionLabel: v1
                       type: Stage
                       tags: {}
@@ -1639,7 +1687,7 @@ components:
                                     outputVariables: []
                                   timeout: 10m
                   version_label: example_version
-                  entity_type: Step
+                  entity_type: Stage
                   child_type: example_child_type
                   scope: org
                   version: 1234567890
@@ -1665,9 +1713,9 @@ components:
           examples:
             example-1:
               value:
-                - account: sample_account
-                  org: sample_organization
-                  project: sample_project
+                - account: example_account
+                  org: example_organization
+                  project: example_project
                   slug: example_template
                   name: Example_template
                   description: string
@@ -1697,9 +1745,9 @@ components:
           examples:
             example-1:
               value: |
-                - account: sample_account
-                  org: sample_organization
-                  project: sample_project
+                - account: example_account
+                  org: example_organization
+                  project: example_project
                   slug: example_template
                   name: Example_template
                   description: string
