@@ -44,10 +44,12 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       responses:
         '200':
           $ref: '#/components/responses/RolesListResponse'
@@ -58,7 +60,7 @@ paths:
       operationId: create-role-acc
       description: Creates a custom Role in the Account scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       responses:
@@ -81,7 +83,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Roles
     put:
@@ -94,7 +96,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
@@ -109,7 +111,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Roles
   '/v1/orgs/{org}/roles':
@@ -127,10 +129,12 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
     post:
       summary: Create a Role
       operationId: create-role-org
@@ -143,7 +147,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Organization Roles
   '/v1/orgs/{org}/roles/{role}':
@@ -160,7 +164,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Organization Roles
     put:
@@ -173,7 +177,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       tags:
@@ -186,7 +190,7 @@ paths:
           $ref: '#/components/responses/RoleResponse'
       description: Deletes a custom Role from Organization scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
       tags:
@@ -198,15 +202,17 @@ paths:
     get:
       summary: List Roles
       responses:
-        '201':
+        '200':
           $ref: '#/components/responses/RolesListResponse'
       operationId: list-roles-project
       description: Returns a list of Roles present in the Project scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
         - $ref: '#/components/parameters/PageIndex'
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       tags:
@@ -215,7 +221,7 @@ paths:
       summary: Create a Role
       operationId: create-role-project
       responses:
-        '200':
+        '201':
           $ref: '#/components/responses/RoleResponse'
       description: Creates a custom Role in the Project scope.
       security:
@@ -223,7 +229,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/CreateRoleRequest'
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Roles
   '/v1/orgs/{org}/projects/{project}/roles/{role}':
@@ -241,7 +247,7 @@ paths:
         - x-api-key: []
       description: Retrieves a Role from Project scope.
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Roles
     put:
@@ -258,7 +264,7 @@ paths:
       tags:
         - Project Roles
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
     delete:
       summary: Delete a Role
       operationId: delete-role-project
@@ -269,7 +275,7 @@ paths:
       security:
         - x-api-key: []
       parameters:
-        - $ref: '#/components/parameters/AccountParam'
+        - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Roles
   /v1/roleassignments:
@@ -681,21 +687,8 @@ components:
       name: x-api-key
       type: apiKey
       in: header
+      description: API key is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.
   parameters:
-    AccountParam:
-      name: account
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
-    AccountHeader:
-      name: Harness-Account
-      in: header
-      required: false
-      schema:
-        type: string
-      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     Limit:
       name: limit
       in: query
@@ -705,6 +698,28 @@ components:
         default: 30
         maximum: 100
       description: 'Pagination: Number of items to return.'
+    Sort:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - slug
+          - name
+          - created
+          - updated
+      description: Parameter on the basis of which sorting is done.
+    Order:
+      name: order
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+      description: Order on the basis of which sorting is done.
     PageIndex:
       name: page
       in: query
@@ -741,27 +756,13 @@ components:
       schema:
         type: string
       description: Role identifier
-    Sort:
-      name: sort
-      in: query
+    AccountHeader:
+      name: Harness-Account
+      in: header
       required: false
       schema:
         type: string
-        enum:
-          - slug
-          - created
-          - updated
-      description: Parameter on the basis of which sorting is done.
-    Order:
-      name: order
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-          - ASC
-          - DESC
-      description: Order on the basis of which sorting is done.
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
   responses:
     RolesListResponse:
       description: Roles List Response body
