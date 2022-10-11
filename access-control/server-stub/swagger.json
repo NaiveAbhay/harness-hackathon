@@ -21,6 +21,15 @@
   }, {
     "name" : "Project Roles",
     "description" : "This contains APIs for performing CRUD operations on Project level Roles."
+  }, {
+    "name" : "Account Role Assignments",
+    "description" : "This contains APIs for performing CRUD operations on Account level Role Assignments."
+  }, {
+    "name" : "Org Role Assignments",
+    "description" : "This contains APIs for performing CRUD operations on Organization level Role Assignments."
+  }, {
+    "name" : "Project Role Assignments",
+    "description" : "This contains APIs for performing CRUD operations on Project level Role Assignments."
   } ],
   "paths" : {
     "/v1/roles" : {
@@ -1495,6 +1504,1125 @@
           "x-api-key" : [ ]
         } ]
       }
+    },
+    "/v1/roleassignments" : {
+      "get" : {
+        "tags" : [ "Account Role Assignments" ],
+        "summary" : "List role assignments",
+        "description" : "Retrieves the information of the role assignments",
+        "operationId" : "get-account-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role Assignment List Response body",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : [ {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : "- roleassignment:\n    slug: example_role_assignment\n    resource_group: example_resource_group_slug\n    role: example_role_slug\n    principal:\n      scope: ACCOUNT\n      slug: example_principal_slug\n      type: USER\n    disabled: false\n    managed: false\n  created: 1234567890\n  updated: 1234567890\n  harness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Account Role Assignments" ],
+        "summary" : "Create a role assignment",
+        "description" : "Create a role assignment",
+        "operationId" : "create-account-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/RoleAssignmentRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/roleassignments/{roleassignment}" : {
+      "get" : {
+        "tags" : [ "Account Role Assignments" ],
+        "summary" : "Retrieve a role assignment",
+        "description" : "Retrieves the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "get-account-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Account Role Assignments" ],
+        "summary" : "Delete a role assignment",
+        "description" : "Deletes the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "delete-account-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/roleassignments" : {
+      "get" : {
+        "tags" : [ "Org Role Assignments" ],
+        "summary" : "List role assignments",
+        "description" : "Retrieves the information of the role assignments",
+        "operationId" : "get-org-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role Assignment List Response body",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : [ {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : "- roleassignment:\n    slug: example_role_assignment\n    resource_group: example_resource_group_slug\n    role: example_role_slug\n    principal:\n      scope: ACCOUNT\n      slug: example_principal_slug\n      type: USER\n    disabled: false\n    managed: false\n  created: 1234567890\n  updated: 1234567890\n  harness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Org Role Assignments" ],
+        "summary" : "Create a role assignment",
+        "description" : "Create a role assignment",
+        "operationId" : "create-org-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/RoleAssignmentRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/roleassignments/{roleassignment}" : {
+      "get" : {
+        "tags" : [ "Org Role Assignments" ],
+        "summary" : "Retrieve a role assignment",
+        "description" : "Retrieves the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "get-org-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Org Role Assignments" ],
+        "summary" : "Delete a role assignment",
+        "description" : "Deletes the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "delete-org-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roleassignments" : {
+      "get" : {
+        "tags" : [ "Project Role Assignments" ],
+        "summary" : "List role assignments",
+        "description" : "Retrieves the information of the role assignments",
+        "operationId" : "get-project-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items on each page.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 100,
+            "type" : "integer",
+            "default" : 30
+          }
+        }, {
+          "name" : "sort",
+          "in" : "query",
+          "description" : "Parameter on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "slug", "name", "created", "updated" ]
+          }
+        }, {
+          "name" : "order",
+          "in" : "query",
+          "description" : "Order on the basis of which sorting is done.",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASC", "DESC" ]
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role Assignment List Response body",
+            "headers" : {
+              "Link" : {
+                "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+                "style" : "simple",
+                "explode" : false,
+                "schema" : {
+                  "type" : "string"
+                },
+                "examples" : {
+                  "sample" : {
+                    "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+                  }
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : [ {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    } ]
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                  }
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : "- roleassignment:\n    slug: example_role_assignment\n    resource_group: example_resource_group_slug\n    role: example_role_slug\n    principal:\n      scope: ACCOUNT\n      slug: example_principal_slug\n      type: USER\n    disabled: false\n    managed: false\n  created: 1234567890\n  updated: 1234567890\n  harness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Project Role Assignments" ],
+        "summary" : "Create a role assignment",
+        "description" : "Create a role assignment",
+        "operationId" : "create-project-scoped-role-assignments",
+        "parameters" : [ {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "$ref" : "#/components/requestBodies/RoleAssignmentRequest"
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{org}/projects/{project}/roleassignments/{roleassignment}" : {
+      "get" : {
+        "tags" : [ "Project Role Assignments" ],
+        "summary" : "Retrieve a role assignment",
+        "description" : "Retrieves the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "get-project-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Project Role Assignments" ],
+        "summary" : "Delete a role assignment",
+        "description" : "Deletes the information of the role assignment with the matching role assignment slug.",
+        "operationId" : "delete-project-scoped-role-assignment",
+        "parameters" : [ {
+          "name" : "roleassignment",
+          "in" : "path",
+          "description" : "Role assignment slug",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "org",
+          "in" : "path",
+          "description" : "Organization identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "project",
+          "in" : "path",
+          "description" : "Project identifier",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Role assignment response body",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-json" : {
+                    "value" : {
+                      "roleassignment" : {
+                        "slug" : "example_role_assignment",
+                        "resource_group" : "example_resource_group_slug",
+                        "role" : "example_role_slug",
+                        "principal" : {
+                          "scope" : "ACCOUNT",
+                          "slug" : "example_principal_slug",
+                          "type" : "USER"
+                        },
+                        "disabled" : false,
+                        "managed" : false
+                      },
+                      "created" : 1234567890,
+                      "updated" : 1234567890,
+                      "harness_managaed" : false
+                    }
+                  }
+                }
+              },
+              "application/yaml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/RoleAssignmentResponse"
+                },
+                "examples" : {
+                  "role-assignment-response-yaml" : {
+                    "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -1678,6 +2806,82 @@
             "project" : "sample_project"
           }
         }
+      },
+      "RoleAssignment" : {
+        "title" : "RoleAssignment",
+        "required" : [ "principal", "resource_group", "role", "slug" ],
+        "type" : "object",
+        "properties" : {
+          "slug" : {
+            "type" : "string",
+            "description" : "Role assignment slug"
+          },
+          "resource_group" : {
+            "type" : "string",
+            "description" : "Resource group name"
+          },
+          "role" : {
+            "type" : "string",
+            "description" : "Role slug"
+          },
+          "principal" : {
+            "$ref" : "#/components/schemas/Principal"
+          },
+          "disabled" : {
+            "type" : "boolean",
+            "description" : "Role assignment is disabled or not"
+          },
+          "managed" : {
+            "type" : "boolean",
+            "description" : "Role assignment is managed or not"
+          }
+        },
+        "description" : "Role assignment request model"
+      },
+      "Principal" : {
+        "title" : "Principal",
+        "required" : [ "slug", "type" ],
+        "type" : "object",
+        "properties" : {
+          "scope_level" : {
+            "type" : "string",
+            "description" : "Role assignment principal scope level"
+          },
+          "slug" : {
+            "type" : "string",
+            "description" : "Role assignment principal slug"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "Role assignment principal type",
+            "enum" : [ "USER", "USER_GROUP", "SERVICE", "API_KEY", "SERVICE_ACCOUNT" ]
+          }
+        },
+        "description" : "Role assignment principal"
+      },
+      "RoleAssignmentResponse" : {
+        "title" : "RoleAssignmentResponse",
+        "type" : "object",
+        "properties" : {
+          "roleassignment" : {
+            "$ref" : "#/components/schemas/RoleAssignment"
+          },
+          "created" : {
+            "type" : "integer",
+            "description" : "Creation timestamp for Role.",
+            "format" : "int64"
+          },
+          "updated" : {
+            "type" : "integer",
+            "description" : "Last modification timestamp for Role.",
+            "format" : "int64"
+          },
+          "harness_managed" : {
+            "type" : "boolean",
+            "description" : "Is harness managed"
+          }
+        },
+        "description" : "Role assignment response model"
       }
     },
     "responses" : {
@@ -1783,6 +2987,109 @@
             "examples" : {
               "role-response" : {
                 "value" : "slug: example_role\nname: Example_Role\npermissions:\n  - core_resource_view\nallowed_scope_levels:\n  - account\ndescription: This is an Example Role\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nscope:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\ncreated: 1234567890\nupdated: 1234567890\nharness_managed: true\n"
+              }
+            }
+          }
+        }
+      },
+      "RoleAssignmentResponse" : {
+        "description" : "Role assignment response body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RoleAssignmentResponse"
+            },
+            "examples" : {
+              "role-assignment-response-json" : {
+                "value" : {
+                  "roleassignment" : {
+                    "slug" : "example_role_assignment",
+                    "resource_group" : "example_resource_group_slug",
+                    "role" : "example_role_slug",
+                    "principal" : {
+                      "scope" : "ACCOUNT",
+                      "slug" : "example_principal_slug",
+                      "type" : "USER"
+                    },
+                    "disabled" : false,
+                    "managed" : false
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "harness_managaed" : false
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RoleAssignmentResponse"
+            },
+            "examples" : {
+              "role-assignment-response-yaml" : {
+                "value" : "roleassignment:\n  slug: example_role_assignment\n  resource_group: example_resource_group_slug\n  role: example_role_slug\n  principal:\n    scope: ACCOUNT\n    slug: example_principal_slug\n    type: USER\n  disabled: false\n  managed: false\ncreated: 1234567890\nupdated: 1234567890\nharness_managaed: false\n"
+              }
+            }
+          }
+        }
+      },
+      "RoleAssignmentListResponse" : {
+        "description" : "Role Assignment List Response body",
+        "headers" : {
+          "Link" : {
+            "description" : "Links to related resources, in the format defined by [RFC 5988](https://tools.ietf.org/html/rfc5988#section-5). This will include a link with relation type `next` to the next page, if there is a next page.",
+            "style" : "simple",
+            "explode" : false,
+            "schema" : {
+              "type" : "string"
+            },
+            "examples" : {
+              "sample" : {
+                "value" : "</v1/roles?page=2&limit=1>; rel=\"next\", </v1/roles?page=1&limit=1>; rel=\"self\", </v1/roles?page=0&limit=1>; rel=\"previous\", "
+              }
+            }
+          }
+        },
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/RoleAssignmentResponse"
+              }
+            },
+            "examples" : {
+              "role-assignment-response-json" : {
+                "value" : [ {
+                  "roleassignment" : {
+                    "slug" : "example_role_assignment",
+                    "resource_group" : "example_resource_group_slug",
+                    "role" : "example_role_slug",
+                    "principal" : {
+                      "scope" : "ACCOUNT",
+                      "slug" : "example_principal_slug",
+                      "type" : "USER"
+                    },
+                    "disabled" : false,
+                    "managed" : false
+                  },
+                  "created" : 1234567890,
+                  "updated" : 1234567890,
+                  "harness_managaed" : false
+                } ]
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/RoleAssignmentResponse"
+              }
+            },
+            "examples" : {
+              "role-assignment-response-json" : {
+                "value" : "- roleassignment:\n    slug: example_role_assignment\n    resource_group: example_resource_group_slug\n    role: example_role_slug\n    principal:\n      scope: ACCOUNT\n      slug: example_principal_slug\n      type: USER\n    disabled: false\n    managed: false\n  created: 1234567890\n  updated: 1234567890\n  harness_managaed: false\n"
               }
             }
           }
@@ -1930,6 +3237,43 @@
           }
         },
         "required" : true
+      },
+      "RoleAssignmentRequest" : {
+        "description" : "Role Request body",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RoleAssignment"
+            },
+            "examples" : {
+              "role-assignment-request-json" : {
+                "value" : {
+                  "slug" : "example_role_assignment",
+                  "resource_group" : "example_resource_group_slug",
+                  "role" : "example_role_slug",
+                  "principal" : {
+                    "scope" : "ACCOUNT",
+                    "slug" : "example_principal_slug",
+                    "type" : "USER"
+                  },
+                  "disabled" : false,
+                  "managed" : false
+                }
+              }
+            }
+          },
+          "application/yaml" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/RoleAssignment"
+            },
+            "examples" : {
+              "role-assignment-request-yaml" : {
+                "value" : "slug: example_role_assignment\nresource_group: example_resource_group_slug\nrole: example_role_slug\nprincipal:\n  scope: ACCOUNT\n  slug: example_principal_slug\n  type: USER\ndisabled: false\nmanaged: false\n"
+              }
+            }
+          }
+        },
+        "required" : true
       }
     },
     "securitySchemes" : {
@@ -1947,5 +3291,8 @@
   "x-tagGroups" : [ {
     "name" : "Roles",
     "tags" : [ "Account Roles", "Organization Roles", "Project Roles" ]
+  }, {
+    "name" : "Role Assignments",
+    "tags" : [ "Account Role Assignments", "Org Role Assignments", "Project Role Assignments" ]
   } ]
 }

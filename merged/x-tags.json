@@ -16,6 +16,10 @@
     "tags" : [ "Account Connector", "Org Connector", "Project Connector" ]
     },
     {
+    "name" : "Pipelines",
+    "tags" : [ "Pipelines" ]
+    },
+    {
     "name" : "Services",
     "tags" : [ "Project Services" ]
     },
@@ -28,11 +32,11 @@
     "tags" : [ "Account Resource Groups", "Organization Resource Groups", "Project Resource Groups", "Filter Resource Groups" ]
     },
     {
-    "name" : "Pipelines",
-    "tags" : [ "Pipelines" ]
-    },
-    {
         "name" : "Environments",
         "tags" : [ "Project Environments" ]
+    },
+    {
+      "name": "Role Assignments",
+      "tags": [ "Account Role Assignments", "Org Role Assignments", "Project Role Assignments" ]
     }
 ]
