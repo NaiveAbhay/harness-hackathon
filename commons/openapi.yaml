@@ -1,0 +1,17 @@
+openapi: 3.1.0
+x-stoplight:
+  id: oc91t4vrfnjyi
+info:
+  title: BaseModels
+  version: '1.0'
+components:
+  schemas:
+    FieldError:
+      title: FieldError
+      type: object
+      properties:
+        field_name:
+          type: string
+        message:
+          type: string
+
