@@ -6700,6 +6700,13 @@
                     "example-get": {
                         "pipeline_yaml": "example_yaml_text",
                         "template_applied_pipeline_yaml": "example_yaml_text_with_template",
+                        "slug": "example_pipeline",
+                        "name": "ExamplePipeline",
+                        "description": "Pipeline Description",
+                        "tags": {
+                            "example-tag-1": "example-tag-1-value",
+                            "example-tag-2": "example-tag-2-value"
+                        },
                         "modules": [
                             "cd"
                         ],
@@ -6744,6 +6751,33 @@
                     "template_applied_pipeline_yaml": {
                         "type": "string",
                         "description": "Pipeline YAML after resolving Templates (returned as a String)."
+                    },
+                    "slug": {
+                        "type": "string",
+                        "description": "Pipeline identifier",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Pipeline name",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "description": "Pipeline description"
+                    },
+                    "tags": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "maxProperties": 128,
+                        "description": "Pipeline tags"
                     },
                     "modules": {
                         "type": "array",
@@ -8381,6 +8415,13 @@
                                 "value": {
                                     "pipeline_yaml": "example_yaml_text",
                                     "template_applied_pipeline_yaml": "example_yaml_text_with_template",
+                                    "slug": "example_pipeline",
+                                    "name": "ExamplePipeline",
+                                    "description": "Pipeline Description",
+                                    "tags": {
+                                        "example-tag-1": "example-tag-1-value",
+                                        "example-tag-2": "example-tag-2-value"
+                                    },
                                     "modules": [
                                         "cd"
                                     ],
@@ -8424,7 +8465,7 @@
                         },
                         "examples": {
                             "example-response": {
-                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
                             }
                         }
                     }
@@ -8446,7 +8487,7 @@
                                 "value": [
                                     {
                                         "slug": "example_pipeline",
-                                        "name": "Example Pipeline",
+                                        "name": "ExamplePipeline",
                                         "description": "This is an Example Pipeline",
                                         "tags": {
                                             "example-tag-1": "example-tag-1-value",
@@ -8454,7 +8495,9 @@
                                         },
                                         "created": 1234567890,
                                         "updated": 1234567890,
-                                        "modules": "CD",
+                                        "modules": [
+                                            "CD"
+                                        ],
                                         "execution_summary": {
                                             "errors_count": [
                                                 1,
@@ -8516,7 +8559,7 @@
                         },
                         "examples": {
                             "example-list-response": {
-                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules: CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules:\n    - CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                             }
                         }
                     }
