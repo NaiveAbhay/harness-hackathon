@@ -74,11 +74,11 @@ public interface ProjectEnvironmentsApi {
 );
     @DELETE
     @Path("/{environment}")
-    @Operation(operationId = "deleteEnviroment", summary = "Delete an Environment", description = "Deletes the requested environment", security = {
+    @Operation(operationId = "deleteEnvironment", summary = "Delete an Environment", description = "Deletes the requested environment", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deleteEnviroment( @PathParam("org")
+    Response deleteEnvironment( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")
@@ -171,11 +171,11 @@ public interface ProjectEnvironmentsApi {
     @GET
     @Path("/{environment}")
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "getEnviroment", summary = "Retrieve an Environment", description = "Retrieves specified Environment", security = {
+    @Operation(operationId = "getEnvironment", summary = "Retrieve an Environment", description = "Retrieves specified Environment", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Environment Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EnvironmentResponse.class))) })
-    Response getEnviroment( @PathParam("org")
+    Response getEnvironment( @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")
@@ -253,11 +253,11 @@ public interface ProjectEnvironmentsApi {
     @Path("/{environment}")
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "updateEnviroment", summary = "Update Environment", description = "Update Environment", security = {
+    @Operation(operationId = "updateEnvironment", summary = "Update Environment", description = "Update Environment", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Environment Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EnvironmentResponse.class))) })
-    Response updateEnviroment(@Valid EnvironmentRequest body, @PathParam("org")
+    Response updateEnvironment(@Valid EnvironmentRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")

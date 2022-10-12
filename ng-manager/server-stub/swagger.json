@@ -886,7 +886,7 @@
         "tags" : [ "Project Environments" ],
         "summary" : "Retrieve an Environment",
         "description" : "Retrieves specified Environment",
-        "operationId" : "get-enviroment",
+        "operationId" : "get-environment",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -981,7 +981,7 @@
         "tags" : [ "Project Environments" ],
         "summary" : "Update Environment",
         "description" : "Update Environment",
-        "operationId" : "update-enviroment",
+        "operationId" : "update-environment",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",
@@ -1079,7 +1079,7 @@
         "tags" : [ "Project Environments" ],
         "summary" : "Delete an Environment",
         "description" : "Deletes the requested environment",
-        "operationId" : "delete-enviroment",
+        "operationId" : "delete-environment",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",

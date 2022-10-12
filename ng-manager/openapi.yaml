@@ -213,7 +213,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EnvironmentResponse'
-      operationId: get-enviroment
+      operationId: get-environment
       description: Retrieves specified Environment
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -223,7 +223,7 @@ paths:
         - Project Environments
     put:
       summary: Update Environment
-      operationId: update-enviroment
+      operationId: update-environment
       responses:
         '200':
           $ref: '#/components/responses/EnvironmentResponse'
@@ -238,7 +238,7 @@ paths:
         - Project Environments
     delete:
       summary: Delete an Environment
-      operationId: delete-enviroment
+      operationId: delete-environment
       responses:
         '204':
           description: No Content
