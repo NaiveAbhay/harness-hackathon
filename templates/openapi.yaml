@@ -825,9 +825,6 @@ components:
         entity_identifier:
           type: string
           description: Entity identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
         branch_name:
           type: string
           description: Name of the branch.

@@ -45,7 +45,7 @@ public class EntityGitDetails   {
   
   @Schema(description = "Entity identifier")
   @JsonProperty("entity_identifier")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+
   public String getEntityIdentifier() {
     return entityIdentifier;
   }
