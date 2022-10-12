@@ -190,7 +190,7 @@ paths:
         - Project Environments
     post:
       summary: Create an Environment
-      operationId: create-enviroment
+      operationId: create-environment
       responses:
         '201':
           $ref: '#/components/responses/EnvironmentResponse'

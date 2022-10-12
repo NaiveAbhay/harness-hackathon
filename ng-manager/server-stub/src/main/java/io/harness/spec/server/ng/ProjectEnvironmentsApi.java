@@ -58,11 +58,11 @@ public interface ProjectEnvironmentsApi {
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
-    @Operation(operationId = "createEnviroment", summary = "Create an Environment", description = "Creates an Environment", security = {
+    @Operation(operationId = "createEnvironment", summary = "Create an Environment", description = "Creates an Environment", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "201", description = "Environment Response", content = @Content(mediaType = "application/json", schema = @Schema(implementation = EnvironmentResponse.class))) })
-    Response createEnviroment(@Valid EnvironmentRequest body, @PathParam("org")
+    Response createEnvironment(@Valid EnvironmentRequest body, @PathParam("org")
 
  @Parameter(description = "Slug field of the organization the resource is scoped to") String org
 , @PathParam("project")
