@@ -1411,6 +1411,16 @@
           "schema" : {
             "type" : "string"
           }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
         } ],
         "requestBody" : {
           "$ref" : "#/components/requestBodies/ServiceOverrideRequest"
@@ -1493,6 +1503,16 @@
           "in" : "path",
           "description" : "Slug field of the service the resource is scoped to",
           "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "Harness-Account",
+          "in" : "header",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
+          "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {

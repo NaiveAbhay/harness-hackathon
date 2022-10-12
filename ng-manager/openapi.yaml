@@ -303,6 +303,8 @@ paths:
         - x-api-key: []
       tags:
         - Project Environments
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
     put:
       summary: Update Service Override
       operationId: update-env-service-override
@@ -316,6 +318,8 @@ paths:
         - x-api-key: []
       tags:
         - Project Environments
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
     delete:
       summary: Delete Service Override
       operationId: delete-serv-env

@@ -51,7 +51,10 @@ public interface ProjectEnvironmentsApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,@Valid ServiceOverrideRequest body);
+,@Valid ServiceOverrideRequest body,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+);
     @POST
     @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
@@ -242,7 +245,10 @@ public interface ProjectEnvironmentsApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,@Valid ServiceOverrideRequest body);
+,@Valid ServiceOverrideRequest body,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+);
     @PUT
     @Path("/{environment}")
     @Consumes({ "application/json", "application/yaml" })
