@@ -1,7 +1,7 @@
 {
   "openapi" : "3.1.0",
   "info" : {
-    "title" : "BaseModels",
+    "title" : "Common Models",
     "version" : "1.0"
   },
   "servers" : [ {
@@ -9,11 +9,173 @@
   } ],
   "components" : {
     "schemas" : {
+      "GovernanceStatus" : {
+        "title" : "GovernanceStatus",
+        "description" : "Governance Status",
+        "enum" : [ "WARNING", "ERROR", "PASS" ],
+        "x-stoplight" : {
+          "id" : "kh0hxoiqon3so"
+        }
+      },
+      "Policy" : {
+        "title" : "Policy",
+        "properties" : {
+          "identifier" : {
+            "description" : "Policy Identifier"
+          },
+          "name" : {
+            "description" : "Policy Name"
+          },
+          "org" : {
+            "description" : "Organization identifier where the Policy is defined"
+          },
+          "project" : {
+            "description" : "Project Identifier where the Policy is defined"
+          },
+          "evaluation_error" : {
+            "description" : "Error message in Policy Evaluation"
+          },
+          "deny_messages" : {
+            "description" : "Deny messages",
+            "items" : { }
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/GovernanceStatus"
+          }
+        },
+        "description" : "Contains Details about Policy",
+        "x-stoplight" : {
+          "id" : "96ka3iug8rbc4"
+        }
+      },
+      "PolicySet" : {
+        "title" : "PolicySet",
+        "properties" : {
+          "identifier" : {
+            "description" : "Identifer of the Policy Set"
+          },
+          "name" : {
+            "description" : "Name of the Policy Set"
+          },
+          "org" : {
+            "description" : "Organization Identifier where the Policy Set is defined"
+          },
+          "project" : {
+            "description" : "Project Identifier where the Policy Set is defined"
+          },
+          "deny_messages" : {
+            "description" : "Deny messages",
+            "items" : { }
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/GovernanceStatus"
+          },
+          "policies" : {
+            "description" : "List of policies defined inside Policy Set",
+            "items" : {
+              "$ref" : "#/components/schemas/Policy"
+            }
+          }
+        },
+        "description" : "Contains Policy Set Detail",
+        "x-stoplight" : {
+          "id" : "lxrtpc1yji0pm"
+        }
+      },
+      "GovernanceMetadata" : {
+        "title" : "GovernanceMetadata",
+        "properties" : {
+          "deny" : {
+            "description" : "Indicate whether the action is denied or not based on Governance rules"
+          },
+          "message" : {
+            "description" : "Governance Message"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/GovernanceStatus"
+          },
+          "policy_sets" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PolicySet"
+            }
+          }
+        },
+        "description" : "Governace Error Details",
+        "x-stoplight" : {
+          "id" : "05qhnkvljwzzm"
+        }
+      },
+      "TestErrorMetadata" : {
+        "title" : "TestErrorMetadata",
+        "required" : [ "type" ],
+        "properties" : {
+          "type" : { },
+          "test" : { }
+        },
+        "description" : "Test Error Metadata",
+        "x-stoplight" : {
+          "id" : "mgogkf26yt2ka"
+        }
+      },
+      "ErrorMetadata" : {
+        "title" : "ErrorMetadata",
+        "description" : "Contains more details about the error",
+        "discriminator" : {
+          "propertyName" : "type",
+          "mapping" : {
+            "governance" : "/GovernanceMetadata.yaml",
+            "test" : "./TestErrorMetadata.yaml"
+          }
+        },
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/GovernanceMetadata"
+        }, {
+          "$ref" : "#/components/schemas/TestErrorMetadata"
+        } ],
+        "x-stoplight" : {
+          "id" : "344dmnhe1c5kt"
+        },
+        "x-internal" : false
+      },
       "FieldError" : {
         "title" : "FieldError",
         "properties" : {
-          "field_name" : { },
-          "message" : { }
+          "field_name" : {
+            "description" : "Name of the field"
+          },
+          "message" : {
+            "description" : "Error message"
+          }
+        },
+        "description" : "Contains Field-wise error detail",
+        "x-stoplight" : {
+          "id" : "ahdrlp251yecr"
+        }
+      },
+      "ErrorResponse" : {
+        "title" : "ErrorResponse",
+        "properties" : {
+          "message" : {
+            "description" : "Error Message"
+          },
+          "code" : {
+            "description" : "Error code",
+            "enum" : [ "RESOURCE_NOT_FOUND", "INVALID_ARGUMENT" ]
+          },
+          "errors" : {
+            "type" : "array",
+            "description" : "Contains field-wise error detail",
+            "items" : {
+              "$ref" : "#/components/schemas/FieldError"
+            }
+          },
+          "error_metadata" : {
+            "$ref" : "#/components/schemas/ErrorMetadata"
+          }
+        },
+        "description" : "Contains information about the error",
+        "x-stoplight" : {
+          "id" : "vn5jzgz2umbw0"
         }
       }
     }

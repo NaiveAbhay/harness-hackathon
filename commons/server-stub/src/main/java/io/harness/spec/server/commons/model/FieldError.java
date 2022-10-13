@@ -1,9 +1,12 @@
 package io.harness.spec.server.commons.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-
+/**
+ * Contains Field-wise error detail
+ **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-
+@Schema(description = "Contains Field-wise error detail")
 
 public class FieldError   {
 
@@ -22,6 +25,7 @@ public class FieldError   {
   private @Valid Object message = null;
 
   /**
+   * Name of the field
    **/
   public FieldError fieldName(Object fieldName) {
     this.fieldName = fieldName;
@@ -29,7 +33,7 @@ public class FieldError   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Name of the field")
   @JsonProperty("field_name")
 
   public Object getFieldName() {
@@ -40,6 +44,7 @@ public class FieldError   {
   }
 
   /**
+   * Error message
    **/
   public FieldError message(Object message) {
     this.message = message;
@@ -47,7 +52,7 @@ public class FieldError   {
   }
 
   
-  @Schema(description = "")
+  @Schema(description = "Error message")
   @JsonProperty("message")
 
   public Object getMessage() {
