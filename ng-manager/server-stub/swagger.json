@@ -1199,6 +1199,28 @@
             "type" : "string",
             "enum" : [ "ASC", "DESC" ]
           }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 0
+          }
+        }, {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Pagination: Number of items to return",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer",
+            "default" : 30
+          }
         } ],
         "responses" : {
           "200" : {
@@ -1296,17 +1318,6 @@
             "type" : "string"
           }
         }, {
-          "name" : "sort",
-          "in" : "query",
-          "description" : "Parameter on the basis of which sorting is done.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "name", "slug", "created", "updated" ]
-          }
-        }, {
           "name" : "Harness-Account",
           "in" : "header",
           "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
@@ -1315,17 +1326,6 @@
           "explode" : false,
           "schema" : {
             "type" : "string"
-          }
-        }, {
-          "name" : "order",
-          "in" : "query",
-          "description" : "Order on the basis of which sorting is done.",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "string",
-            "enum" : [ "ASC", "DESC" ]
           }
         } ],
         "responses" : {
@@ -1564,7 +1564,7 @@
         "tags" : [ "Project Environments" ],
         "summary" : "Delete Service Override",
         "description" : "Deletes Service Override",
-        "operationId" : "delete-serv-env",
+        "operationId" : "delete-env-service-override",
         "parameters" : [ {
           "name" : "org",
           "in" : "path",

@@ -264,6 +264,8 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
       description: Gets Service Override List
       security:
         - x-api-key: []
@@ -282,9 +284,7 @@ paths:
           $ref: '#/components/responses/ServiceOverrideResponse'
       operationId: get-env-service-override
       parameters:
-        - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Order'
       description: Gets a Service Override
       security:
         - x-api-key: []
@@ -322,7 +322,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
     delete:
       summary: Delete Service Override
-      operationId: delete-serv-env
+      operationId: delete-env-service-override
       responses:
         '204':
           description: No Content

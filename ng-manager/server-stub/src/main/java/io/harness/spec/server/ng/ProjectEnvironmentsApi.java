@@ -73,6 +73,28 @@ public interface ProjectEnvironmentsApi {
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
+    @Path("/{environment}/services/{service}")
+    @Operation(operationId = "deleteEnvServiceOverride", summary = "Delete Service Override", description = "Deletes Service Override", security = {
+        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "204", description = "No Content") })
+    Response deleteEnvServiceOverride( @PathParam("org")
+
+ @Parameter(description = "Slug field of the organization the resource is scoped to") String org
+, @PathParam("project")
+
+ @Parameter(description = "Slug field of the project the resource is scoped to") String project
+, @PathParam("environment")
+
+ @Parameter(description = "Slug field of the environemnt the resource is scoped to") String environment
+, @PathParam("service")
+
+ @Parameter(description = "Slug field of the service the resource is scoped to") String service
+,  @HeaderParam("Harness-Account") 
+
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+);
+    @DELETE
     @Path("/{environment}")
     @Operation(operationId = "deleteEnvironment", summary = "Delete an Environment", description = "Deletes the requested environment", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
@@ -87,28 +109,6 @@ public interface ProjectEnvironmentsApi {
 , @PathParam("environment")
 
  @Parameter(description = "Slug field of the environemnt the resource is scoped to") String environment
-,  @HeaderParam("Harness-Account") 
-
- @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-);
-    @DELETE
-    @Path("/{environment}/services/{service}")
-    @Operation(operationId = "deleteServEnv", summary = "Delete Service Override", description = "Deletes Service Override", security = {
-        @SecurityRequirement(name = "x-api-key")    }, tags={ "Project Environments" })
-    @ApiResponses(value = { 
-        @ApiResponse(responseCode = "204", description = "No Content") })
-    Response deleteServEnv( @PathParam("org")
-
- @Parameter(description = "Slug field of the organization the resource is scoped to") String org
-, @PathParam("project")
-
- @Parameter(description = "Slug field of the project the resource is scoped to") String project
-, @PathParam("environment")
-
- @Parameter(description = "Slug field of the environemnt the resource is scoped to") String environment
-, @PathParam("service")
-
- @Parameter(description = "Slug field of the service the resource is scoped to") String service
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
@@ -132,15 +132,9 @@ public interface ProjectEnvironmentsApi {
 , @PathParam("service")
 
  @Parameter(description = "Slug field of the service the resource is scoped to") String service
-,  @QueryParam("sort") 
-
- @Parameter(description = "Parameter on the basis of which sorting is done.")  String sort
 ,  @HeaderParam("Harness-Account") 
 
  @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
-,  @QueryParam("order") 
-
- @Parameter(description = "Order on the basis of which sorting is done.")  String order
 );
     @GET
     @Path("/{environment}/services")
@@ -167,6 +161,12 @@ public interface ProjectEnvironmentsApi {
 ,  @QueryParam("order") 
 
  @Parameter(description = "Order on the basis of which sorting is done.")  String order
+,  @QueryParam("page") @DefaultValue("0") 
+
+ @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page ")  Integer page
+,  @QueryParam("limit") @DefaultValue("30") 
+
+ @Parameter(description = "Pagination: Number of items to return")  Integer limit
 );
     @GET
     @Path("/{environment}")
