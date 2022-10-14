@@ -3517,6 +3517,10 @@
             "type" : "string",
             "description" : "Name of the default branch (this checks out a new branch titled by branch_name)."
           },
+          "connector_ref" : {
+            "type" : "string",
+            "description" : "Identifier of the Harness Connector used for CRUD operations on the Entity."
+          },
           "last_commit_id" : {
             "type" : "string",
             "description" : "Last commit identifier (for Git Repositories other than Github)."
@@ -3532,6 +3536,7 @@
             "commit_message" : "Added Harness Git Experience",
             "last_object_id" : "example_object_id",
             "base_branch" : "old_branch",
+            "connector_ref" : "git_connector",
             "last_commit_id" : "example_commit_id"
           }
         }
@@ -3560,6 +3565,7 @@
               "commit_message" : "Added Harness Git Experience",
               "last_object_id" : "example_object_id",
               "base_branch" : "old_branch",
+              "connector_ref" : "git_connector",
               "last_commit_id" : "example_commit_id"
             }
           }
@@ -4145,6 +4151,7 @@
                     "commit_message" : "Added Harness Git Experience",
                     "last_object_id" : "example_object_id",
                     "base_branch" : "old_branch",
+                    "connector_ref" : "git_connector",
                     "last_commit_id" : "example_commit_id"
                   }
                 }
@@ -4157,7 +4164,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  last_commit_id: example_commit_id\n"
+                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n"
               }
             }
           }

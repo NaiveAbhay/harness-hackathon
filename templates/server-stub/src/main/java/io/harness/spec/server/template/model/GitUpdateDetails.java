@@ -28,6 +28,8 @@ public class GitUpdateDetails   {
 
   private @Valid String baseBranch = null;
 
+  private @Valid String connectorRef = null;
+
   private @Valid String lastCommitId = null;
 
   /**
@@ -107,6 +109,25 @@ public class GitUpdateDetails   {
   }
 
   /**
+   * Identifier of the Harness Connector used for CRUD operations on the Entity.
+   **/
+  public GitUpdateDetails connectorRef(String connectorRef) {
+    this.connectorRef = connectorRef;
+    return this;
+  }
+
+  
+  @Schema(description = "Identifier of the Harness Connector used for CRUD operations on the Entity.")
+  @JsonProperty("connector_ref")
+
+  public String getConnectorRef() {
+    return connectorRef;
+  }
+  public void setConnectorRef(String connectorRef) {
+    this.connectorRef = connectorRef;
+  }
+
+  /**
    * Last commit identifier (for Git Repositories other than Github).
    **/
   public GitUpdateDetails lastCommitId(String lastCommitId) {
@@ -139,12 +160,13 @@ public class GitUpdateDetails   {
         Objects.equals(commitMessage, gitUpdateDetails.commitMessage) &&
         Objects.equals(lastObjectId, gitUpdateDetails.lastObjectId) &&
         Objects.equals(baseBranch, gitUpdateDetails.baseBranch) &&
+        Objects.equals(connectorRef, gitUpdateDetails.connectorRef) &&
         Objects.equals(lastCommitId, gitUpdateDetails.lastCommitId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, lastCommitId);
+    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, connectorRef, lastCommitId);
   }
 
   @Override
@@ -156,6 +178,7 @@ public class GitUpdateDetails   {
     sb.append("    commitMessage: ").append(toIndentedString(commitMessage)).append("\n");
     sb.append("    lastObjectId: ").append(toIndentedString(lastObjectId)).append("\n");
     sb.append("    baseBranch: ").append(toIndentedString(baseBranch)).append("\n");
+    sb.append("    connectorRef: ").append(toIndentedString(connectorRef)).append("\n");
     sb.append("    lastCommitId: ").append(toIndentedString(lastCommitId)).append("\n");
     sb.append("}");
     return sb.toString();
