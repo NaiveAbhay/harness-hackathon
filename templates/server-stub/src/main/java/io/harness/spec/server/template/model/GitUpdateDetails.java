@@ -36,6 +36,39 @@ public class GitUpdateDetails   {
 
   private @Valid String repoName = null;
 
+public enum StoreTypeEnum {
+
+    INLINE(String.valueOf("INLINE")), REMOTE(String.valueOf("REMOTE"));
+
+
+    private String value;
+
+    StoreTypeEnum (String v) {
+        value = v;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StoreTypeEnum fromValue(String v) {
+        for (StoreTypeEnum b : StoreTypeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
+        }
+        return null;
+    }
+}
+  private @Valid StoreTypeEnum storeType = null;
+
   /**
    * Name of the branch.
    **/
@@ -188,6 +221,25 @@ public class GitUpdateDetails   {
     this.repoName = repoName;
   }
 
+  /**
+   * Specifies whether the Entity is to be stored in Git or not.
+   **/
+  public GitUpdateDetails storeType(StoreTypeEnum storeType) {
+    this.storeType = storeType;
+    return this;
+  }
+
+  
+  @Schema(description = "Specifies whether the Entity is to be stored in Git or not.")
+  @JsonProperty("store_type")
+
+  public StoreTypeEnum getStoreType() {
+    return storeType;
+  }
+  public void setStoreType(StoreTypeEnum storeType) {
+    this.storeType = storeType;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -205,12 +257,13 @@ public class GitUpdateDetails   {
         Objects.equals(connectorRef, gitUpdateDetails.connectorRef) &&
         Objects.equals(lastCommitId, gitUpdateDetails.lastCommitId) &&
         Objects.equals(filePath, gitUpdateDetails.filePath) &&
-        Objects.equals(repoName, gitUpdateDetails.repoName);
+        Objects.equals(repoName, gitUpdateDetails.repoName) &&
+        Objects.equals(storeType, gitUpdateDetails.storeType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, connectorRef, lastCommitId, filePath, repoName);
+    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, connectorRef, lastCommitId, filePath, repoName, storeType);
   }
 
   @Override
@@ -226,6 +279,7 @@ public class GitUpdateDetails   {
     sb.append("    lastCommitId: ").append(toIndentedString(lastCommitId)).append("\n");
     sb.append("    filePath: ").append(toIndentedString(filePath)).append("\n");
     sb.append("    repoName: ").append(toIndentedString(repoName)).append("\n");
+    sb.append("    storeType: ").append(toIndentedString(storeType)).append("\n");
     sb.append("}");
     return sb.toString();
   }

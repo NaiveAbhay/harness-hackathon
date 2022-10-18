@@ -932,6 +932,7 @@ components:
           last_commit_id: example_commit_id
           file_path: /folder/file.json
           repo_name: example_repository
+          store_type: INLINE
       properties:
         branch_name:
           type: string
@@ -957,6 +958,12 @@ components:
         repo_name:
           type: string
           description: Name of the repository.
+        store_type:
+          type: string
+          description: Specifies whether the Entity is to be stored in Git or not.
+          enum:
+            - INLINE
+            - REMOTE
     TemplateUpdateRequestBody:
       title: TemplateUpdateRequestBody
       x-stoplight:
@@ -999,6 +1006,7 @@ components:
             last_commit_id: example_commit_id
             file_path: /folder/file.json
             repo_name: example_repository
+            store_type: INLINE
       description: Templates Update Request Body
       properties:
         template_yaml:
@@ -1327,6 +1335,7 @@ components:
                   last_commit_id: example_commit_id
                   file_path: /folder/file.json
                   repo_name: example_repository
+                  store_type: INLINE
         application/yaml:
           schema:
             $ref: '#/components/schemas/TemplateUpdateRequestBody'
@@ -1368,6 +1377,7 @@ components:
                   last_commit_id: example_commit_id
                   file_path: /folder/file.json
                   repo_name: example_repository
+                  store_type: INLINE
       description: Templates Update Request Body
     TemplateFetchBody:
       content:
