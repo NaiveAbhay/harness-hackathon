@@ -930,6 +930,8 @@ components:
           base_branch: old_branch
           connector_ref: git_connector
           last_commit_id: example_commit_id
+          file_path: /folder/file.json
+          repo_name: example_repository
       properties:
         branch_name:
           type: string
@@ -949,6 +951,12 @@ components:
         last_commit_id:
           type: string
           description: Last commit identifier (for Git Repositories other than Github).
+        file_path:
+          type: string
+          description: File path of the Entity in the repository.
+        repo_name:
+          type: string
+          description: Name of the repository.
     TemplateUpdateRequestBody:
       title: TemplateUpdateRequestBody
       x-stoplight:
@@ -989,6 +997,8 @@ components:
             base_branch: old_branch
             connector_ref: git_connector
             last_commit_id: example_commit_id
+            file_path: /folder/file.json
+            repo_name: example_repository
       description: Templates Update Request Body
       properties:
         template_yaml:
@@ -1315,6 +1325,8 @@ components:
                   base_branch: old_branch
                   connector_ref: git_connector
                   last_commit_id: example_commit_id
+                  file_path: /folder/file.json
+                  repo_name: example_repository
         application/yaml:
           schema:
             $ref: '#/components/schemas/TemplateUpdateRequestBody'
@@ -1354,6 +1366,8 @@ components:
                   base_branch: old_branch
                   connector_ref: git_connector
                   last_commit_id: example_commit_id
+                  file_path: /folder/file.json
+                  repo_name: example_repository
       description: Templates Update Request Body
     TemplateFetchBody:
       content:

@@ -32,6 +32,10 @@ public class GitUpdateDetails   {
 
   private @Valid String lastCommitId = null;
 
+  private @Valid String filePath = null;
+
+  private @Valid String repoName = null;
+
   /**
    * Name of the branch.
    **/
@@ -146,6 +150,44 @@ public class GitUpdateDetails   {
     this.lastCommitId = lastCommitId;
   }
 
+  /**
+   * File path of the Entity in the repository.
+   **/
+  public GitUpdateDetails filePath(String filePath) {
+    this.filePath = filePath;
+    return this;
+  }
+
+  
+  @Schema(description = "File path of the Entity in the repository.")
+  @JsonProperty("file_path")
+
+  public String getFilePath() {
+    return filePath;
+  }
+  public void setFilePath(String filePath) {
+    this.filePath = filePath;
+  }
+
+  /**
+   * Name of the repository.
+   **/
+  public GitUpdateDetails repoName(String repoName) {
+    this.repoName = repoName;
+    return this;
+  }
+
+  
+  @Schema(description = "Name of the repository.")
+  @JsonProperty("repo_name")
+
+  public String getRepoName() {
+    return repoName;
+  }
+  public void setRepoName(String repoName) {
+    this.repoName = repoName;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -161,12 +203,14 @@ public class GitUpdateDetails   {
         Objects.equals(lastObjectId, gitUpdateDetails.lastObjectId) &&
         Objects.equals(baseBranch, gitUpdateDetails.baseBranch) &&
         Objects.equals(connectorRef, gitUpdateDetails.connectorRef) &&
-        Objects.equals(lastCommitId, gitUpdateDetails.lastCommitId);
+        Objects.equals(lastCommitId, gitUpdateDetails.lastCommitId) &&
+        Objects.equals(filePath, gitUpdateDetails.filePath) &&
+        Objects.equals(repoName, gitUpdateDetails.repoName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, connectorRef, lastCommitId);
+    return Objects.hash(branchName, commitMessage, lastObjectId, baseBranch, connectorRef, lastCommitId, filePath, repoName);
   }
 
   @Override
@@ -180,6 +224,8 @@ public class GitUpdateDetails   {
     sb.append("    baseBranch: ").append(toIndentedString(baseBranch)).append("\n");
     sb.append("    connectorRef: ").append(toIndentedString(connectorRef)).append("\n");
     sb.append("    lastCommitId: ").append(toIndentedString(lastCommitId)).append("\n");
+    sb.append("    filePath: ").append(toIndentedString(filePath)).append("\n");
+    sb.append("    repoName: ").append(toIndentedString(repoName)).append("\n");
     sb.append("}");
     return sb.toString();
   }
