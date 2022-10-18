@@ -1329,17 +1329,6 @@ components:
           WinRmTGTKeyTabFile: '#/components/schemas/WinRmTGTKeyTabFileSpec'
           WinRmTGTPassword: '#/components/schemas/WinRmTGTPasswordSpec'
           WinRmNTLM: '#/components/schemas/WinRmNTLMSpec'
-      oneOf:
-        - $ref: '#/components/schemas/SSHKeyPathSpec'
-        - $ref: '#/components/schemas/SSHKeyReferenceSpec'
-        - $ref: '#/components/schemas/SSHPasswordSpec'
-        - $ref: '#/components/schemas/SSHKerberosTGTKeyTabFileSpec'
-        - $ref: '#/components/schemas/SSHKerberosTGTPasswordSpec'
-        - $ref: '#/components/schemas/SecretFileSpec'
-        - $ref: '#/components/schemas/SecretTextSpec'
-        - $ref: '#/components/schemas/WinRmTGTKeyTabFileSpec'
-        - $ref: '#/components/schemas/WinRmTGTPasswordSpec'
-        - $ref: '#/components/schemas/WinRmNTLMSpec'
       properties:
         type:
           type: string
@@ -1897,30 +1886,6 @@ components:
           AzureClientCertificate: '#/components/schemas/AzureClientCertificateConnectorSpec'
           AzureInheritFromDelegateUserAssignedManagedIdentity: '#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec'
           AzureInheritFromDelegateSystemAssignedManagedIdentity: '#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec'
-      oneOf:
-        - $ref: '#/components/schemas/GitHttpConnectorSpec'
-        - $ref: '#/components/schemas/GitHttpEncryptedConnectorSpec'
-        - $ref: '#/components/schemas/GitSshConnectorSpec'
-        - $ref: '#/components/schemas/AppdynamicsConnectorSpec'
-        - $ref: '#/components/schemas/AppdynamicsClientIdConnectorSpec'
-        - $ref: '#/components/schemas/ArtifactoryConnectorSpec'
-        - $ref: '#/components/schemas/ArtifactoryEncryptedConnectorSpec'
-        - $ref: '#/components/schemas/ArtifactoryAnonymousConnectorSpec'
-        - $ref: '#/components/schemas/AwsCodeCommitConnectorSpec'
-        - $ref: '#/components/schemas/AwsAccessKeyConnectorSpec'
-        - $ref: '#/components/schemas/AwsEncryptedAccessKeyConnectorSpec'
-        - $ref: '#/components/schemas/AwsIAMRoleConnectorSpec'
-        - $ref: '#/components/schemas/AwsIRSAConnectorSpec'
-        - $ref: '#/components/schemas/AwsKmsAccessKeyConnectorSpec'
-        - $ref: '#/components/schemas/AwsKmsAssumeIAMConnectorSpec'
-        - $ref: '#/components/schemas/AwsKmsAssumeSTSConnectorSpec'
-        - $ref: '#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec'
-        - $ref: '#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec'
-        - $ref: '#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec'
-        - $ref: '#/components/schemas/AzureClientSecretKeyConnectorSpec'
-        - $ref: '#/components/schemas/AzureClientCertificateConnectorSpec'
-        - $ref: '#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec'
-        - $ref: '#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec'
       properties:
         type:
           type: string
