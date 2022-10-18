@@ -2,6 +2,8 @@ package io.harness.spec.server.commons.model;
 
 import io.harness.spec.server.commons.model.GovernanceStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -21,24 +23,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class Policy   {
 
-  private @Valid Object identifier = null;
+  private @Valid String identifier = null;
 
-  private @Valid Object name = null;
+  private @Valid String name = null;
 
-  private @Valid Object org = null;
+  private @Valid String org = null;
 
-  private @Valid Object project = null;
+  private @Valid String project = null;
 
-  private @Valid Object evaluationError = null;
+  private @Valid String evaluationError = null;
 
-  private @Valid Object denyMessages = null;
+  private @Valid List<String> denyMessages = new ArrayList<String>();
 
   private @Valid GovernanceStatus status = null;
 
   /**
    * Policy Identifier
    **/
-  public Policy identifier(Object identifier) {
+  public Policy identifier(String identifier) {
     this.identifier = identifier;
     return this;
   }
@@ -47,17 +49,17 @@ public class Policy   {
   @Schema(description = "Policy Identifier")
   @JsonProperty("identifier")
 
-  public Object getIdentifier() {
+  public String getIdentifier() {
     return identifier;
   }
-  public void setIdentifier(Object identifier) {
+  public void setIdentifier(String identifier) {
     this.identifier = identifier;
   }
 
   /**
    * Policy Name
    **/
-  public Policy name(Object name) {
+  public Policy name(String name) {
     this.name = name;
     return this;
   }
@@ -66,17 +68,17 @@ public class Policy   {
   @Schema(description = "Policy Name")
   @JsonProperty("name")
 
-  public Object getName() {
+  public String getName() {
     return name;
   }
-  public void setName(Object name) {
+  public void setName(String name) {
     this.name = name;
   }
 
   /**
    * Organization identifier where the Policy is defined
    **/
-  public Policy org(Object org) {
+  public Policy org(String org) {
     this.org = org;
     return this;
   }
@@ -85,17 +87,17 @@ public class Policy   {
   @Schema(description = "Organization identifier where the Policy is defined")
   @JsonProperty("org")
 
-  public Object getOrg() {
+  public String getOrg() {
     return org;
   }
-  public void setOrg(Object org) {
+  public void setOrg(String org) {
     this.org = org;
   }
 
   /**
    * Project Identifier where the Policy is defined
    **/
-  public Policy project(Object project) {
+  public Policy project(String project) {
     this.project = project;
     return this;
   }
@@ -104,17 +106,17 @@ public class Policy   {
   @Schema(description = "Project Identifier where the Policy is defined")
   @JsonProperty("project")
 
-  public Object getProject() {
+  public String getProject() {
     return project;
   }
-  public void setProject(Object project) {
+  public void setProject(String project) {
     this.project = project;
   }
 
   /**
    * Error message in Policy Evaluation
    **/
-  public Policy evaluationError(Object evaluationError) {
+  public Policy evaluationError(String evaluationError) {
     this.evaluationError = evaluationError;
     return this;
   }
@@ -123,17 +125,17 @@ public class Policy   {
   @Schema(description = "Error message in Policy Evaluation")
   @JsonProperty("evaluation_error")
 
-  public Object getEvaluationError() {
+  public String getEvaluationError() {
     return evaluationError;
   }
-  public void setEvaluationError(Object evaluationError) {
+  public void setEvaluationError(String evaluationError) {
     this.evaluationError = evaluationError;
   }
 
   /**
    * Deny messages
    **/
-  public Policy denyMessages(Object denyMessages) {
+  public Policy denyMessages(List<String> denyMessages) {
     this.denyMessages = denyMessages;
     return this;
   }
@@ -142,15 +144,14 @@ public class Policy   {
   @Schema(description = "Deny messages")
   @JsonProperty("deny_messages")
 
-  public Object getDenyMessages() {
+  public List<String> getDenyMessages() {
     return denyMessages;
   }
-  public void setDenyMessages(Object denyMessages) {
+  public void setDenyMessages(List<String> denyMessages) {
     this.denyMessages = denyMessages;
   }
 
   /**
-   * Governance Status
    **/
   public Policy status(GovernanceStatus status) {
     this.status = status;
@@ -158,7 +159,7 @@ public class Policy   {
   }
 
   
-  @Schema(description = "Governance Status")
+  @Schema(description = "")
   @JsonProperty("status")
 
   public GovernanceStatus getStatus() {

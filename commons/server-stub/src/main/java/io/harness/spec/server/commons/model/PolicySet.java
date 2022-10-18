@@ -1,7 +1,10 @@
 package io.harness.spec.server.commons.model;
 
 import io.harness.spec.server.commons.model.GovernanceStatus;
+import io.harness.spec.server.commons.model.Policy;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -21,24 +24,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class PolicySet   {
 
-  private @Valid Object identifier = null;
+  private @Valid String identifier = null;
 
-  private @Valid Object name = null;
+  private @Valid String name = null;
 
-  private @Valid Object org = null;
+  private @Valid String org = null;
 
-  private @Valid Object project = null;
+  private @Valid String project = null;
 
-  private @Valid Object denyMessages = null;
+  private @Valid List<String> denyMessages = new ArrayList<String>();
 
   private @Valid GovernanceStatus status = null;
 
-  private @Valid Object policies = null;
+  private @Valid List<Policy> policies = new ArrayList<Policy>();
 
   /**
    * Identifer of the Policy Set
    **/
-  public PolicySet identifier(Object identifier) {
+  public PolicySet identifier(String identifier) {
     this.identifier = identifier;
     return this;
   }
@@ -47,17 +50,17 @@ public class PolicySet   {
   @Schema(description = "Identifer of the Policy Set")
   @JsonProperty("identifier")
 
-  public Object getIdentifier() {
+  public String getIdentifier() {
     return identifier;
   }
-  public void setIdentifier(Object identifier) {
+  public void setIdentifier(String identifier) {
     this.identifier = identifier;
   }
 
   /**
    * Name of the Policy Set
    **/
-  public PolicySet name(Object name) {
+  public PolicySet name(String name) {
     this.name = name;
     return this;
   }
@@ -66,17 +69,17 @@ public class PolicySet   {
   @Schema(description = "Name of the Policy Set")
   @JsonProperty("name")
 
-  public Object getName() {
+  public String getName() {
     return name;
   }
-  public void setName(Object name) {
+  public void setName(String name) {
     this.name = name;
   }
 
   /**
    * Organization Identifier where the Policy Set is defined
    **/
-  public PolicySet org(Object org) {
+  public PolicySet org(String org) {
     this.org = org;
     return this;
   }
@@ -85,17 +88,17 @@ public class PolicySet   {
   @Schema(description = "Organization Identifier where the Policy Set is defined")
   @JsonProperty("org")
 
-  public Object getOrg() {
+  public String getOrg() {
     return org;
   }
-  public void setOrg(Object org) {
+  public void setOrg(String org) {
     this.org = org;
   }
 
   /**
    * Project Identifier where the Policy Set is defined
    **/
-  public PolicySet project(Object project) {
+  public PolicySet project(String project) {
     this.project = project;
     return this;
   }
@@ -104,17 +107,17 @@ public class PolicySet   {
   @Schema(description = "Project Identifier where the Policy Set is defined")
   @JsonProperty("project")
 
-  public Object getProject() {
+  public String getProject() {
     return project;
   }
-  public void setProject(Object project) {
+  public void setProject(String project) {
     this.project = project;
   }
 
   /**
    * Deny messages
    **/
-  public PolicySet denyMessages(Object denyMessages) {
+  public PolicySet denyMessages(List<String> denyMessages) {
     this.denyMessages = denyMessages;
     return this;
   }
@@ -123,10 +126,10 @@ public class PolicySet   {
   @Schema(description = "Deny messages")
   @JsonProperty("deny_messages")
 
-  public Object getDenyMessages() {
+  public List<String> getDenyMessages() {
     return denyMessages;
   }
-  public void setDenyMessages(Object denyMessages) {
+  public void setDenyMessages(List<String> denyMessages) {
     this.denyMessages = denyMessages;
   }
 
@@ -151,7 +154,7 @@ public class PolicySet   {
   /**
    * List of policies defined inside Policy Set
    **/
-  public PolicySet policies(Object policies) {
+  public PolicySet policies(List<Policy> policies) {
     this.policies = policies;
     return this;
   }
@@ -160,10 +163,10 @@ public class PolicySet   {
   @Schema(description = "List of policies defined inside Policy Set")
   @JsonProperty("policies")
 
-  public Object getPolicies() {
+  public List<Policy> getPolicies() {
     return policies;
   }
-  public void setPolicies(Object policies) {
+  public void setPolicies(List<Policy> policies) {
     this.policies = policies;
   }
 

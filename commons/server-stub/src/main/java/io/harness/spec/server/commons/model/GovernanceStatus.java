@@ -18,9 +18,9 @@ public enum GovernanceStatus {
     ERROR("ERROR"),
     PASS("PASS");
 
-  private Object value;
+  private String value;
 
-  GovernanceStatus(Object value) {
+  GovernanceStatus(String value) {
     this.value = value;
   }
 

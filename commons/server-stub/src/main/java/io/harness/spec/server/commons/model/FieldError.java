@@ -20,14 +20,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class FieldError   {
 
-  private @Valid Object fieldName = null;
+  private @Valid String fieldName = null;
 
-  private @Valid Object message = null;
+  private @Valid String message = null;
 
   /**
    * Name of the field
    **/
-  public FieldError fieldName(Object fieldName) {
+  public FieldError fieldName(String fieldName) {
     this.fieldName = fieldName;
     return this;
   }
@@ -36,17 +36,17 @@ public class FieldError   {
   @Schema(description = "Name of the field")
   @JsonProperty("field_name")
 
-  public Object getFieldName() {
+  public String getFieldName() {
     return fieldName;
   }
-  public void setFieldName(Object fieldName) {
+  public void setFieldName(String fieldName) {
     this.fieldName = fieldName;
   }
 
   /**
    * Error message
    **/
-  public FieldError message(Object message) {
+  public FieldError message(String message) {
     this.message = message;
     return this;
   }
@@ -55,10 +55,10 @@ public class FieldError   {
   @Schema(description = "Error message")
   @JsonProperty("message")
 
-  public Object getMessage() {
+  public String getMessage() {
     return message;
   }
-  public void setMessage(Object message) {
+  public void setMessage(String message) {
     this.message = message;
   }
 

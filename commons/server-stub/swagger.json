@@ -1,5 +1,5 @@
 {
-  "openapi" : "3.1.0",
+  "openapi" : "3.0.3",
   "info" : {
     "title" : "Common Models",
     "version" : "1.0"
@@ -11,6 +11,7 @@
     "schemas" : {
       "GovernanceStatus" : {
         "title" : "GovernanceStatus",
+        "type" : "string",
         "description" : "Governance Status",
         "enum" : [ "WARNING", "ERROR", "PASS" ],
         "x-stoplight" : {
@@ -19,25 +20,34 @@
       },
       "Policy" : {
         "title" : "Policy",
+        "type" : "object",
         "properties" : {
           "identifier" : {
+            "type" : "string",
             "description" : "Policy Identifier"
           },
           "name" : {
+            "type" : "string",
             "description" : "Policy Name"
           },
           "org" : {
+            "type" : "string",
             "description" : "Organization identifier where the Policy is defined"
           },
           "project" : {
+            "type" : "string",
             "description" : "Project Identifier where the Policy is defined"
           },
           "evaluation_error" : {
+            "type" : "string",
             "description" : "Error message in Policy Evaluation"
           },
           "deny_messages" : {
+            "type" : "array",
             "description" : "Deny messages",
-            "items" : { }
+            "items" : {
+              "type" : "string"
+            }
           },
           "status" : {
             "$ref" : "#/components/schemas/GovernanceStatus"
@@ -50,27 +60,36 @@
       },
       "PolicySet" : {
         "title" : "PolicySet",
+        "type" : "object",
         "properties" : {
           "identifier" : {
+            "type" : "string",
             "description" : "Identifer of the Policy Set"
           },
           "name" : {
+            "type" : "string",
             "description" : "Name of the Policy Set"
           },
           "org" : {
+            "type" : "string",
             "description" : "Organization Identifier where the Policy Set is defined"
           },
           "project" : {
+            "type" : "string",
             "description" : "Project Identifier where the Policy Set is defined"
           },
           "deny_messages" : {
+            "type" : "array",
             "description" : "Deny messages",
-            "items" : { }
+            "items" : {
+              "type" : "string"
+            }
           },
           "status" : {
             "$ref" : "#/components/schemas/GovernanceStatus"
           },
           "policies" : {
+            "type" : "array",
             "description" : "List of policies defined inside Policy Set",
             "items" : {
               "$ref" : "#/components/schemas/Policy"
@@ -84,54 +103,69 @@
       },
       "GovernanceMetadata" : {
         "title" : "GovernanceMetadata",
-        "properties" : {
-          "deny" : {
-            "description" : "Indicate whether the action is denied or not based on Governance rules"
-          },
-          "message" : {
-            "description" : "Governance Message"
-          },
-          "status" : {
-            "$ref" : "#/components/schemas/GovernanceStatus"
-          },
-          "policy_sets" : {
-            "items" : {
-              "$ref" : "#/components/schemas/PolicySet"
+        "description" : "Governace Error Details",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ErrorMetadata"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "deny" : {
+              "type" : "boolean",
+              "description" : "Indicate whether the action is denied or not based on Governance rules"
+            },
+            "message" : {
+              "type" : "string",
+              "description" : "Governance Message"
+            },
+            "status" : {
+              "$ref" : "#/components/schemas/GovernanceStatus"
+            },
+            "policy_sets" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/components/schemas/PolicySet"
+              }
             }
           }
-        },
-        "description" : "Governace Error Details",
+        } ],
         "x-stoplight" : {
           "id" : "05qhnkvljwzzm"
         }
       },
       "TestErrorMetadata" : {
         "title" : "TestErrorMetadata",
-        "required" : [ "type" ],
-        "properties" : {
-          "type" : { },
-          "test" : { }
-        },
         "description" : "Test Error Metadata",
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/ErrorMetadata"
+        }, {
+          "type" : "object",
+          "properties" : {
+            "test" : {
+              "type" : "string"
+            }
+          }
+        } ],
         "x-stoplight" : {
           "id" : "mgogkf26yt2ka"
         }
       },
       "ErrorMetadata" : {
         "title" : "ErrorMetadata",
+        "required" : [ "type" ],
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          }
+        },
         "description" : "Contains more details about the error",
         "discriminator" : {
           "propertyName" : "type",
           "mapping" : {
-            "governance" : "/GovernanceMetadata.yaml",
-            "test" : "./TestErrorMetadata.yaml"
+            "governance" : "#/components/schemas/GovernanceMetadata",
+            "test" : "#/components/schemas/TestErrorMetadata"
           }
         },
-        "oneOf" : [ {
-          "$ref" : "#/components/schemas/GovernanceMetadata"
-        }, {
-          "$ref" : "#/components/schemas/TestErrorMetadata"
-        } ],
         "x-stoplight" : {
           "id" : "344dmnhe1c5kt"
         },
@@ -139,11 +173,14 @@
       },
       "FieldError" : {
         "title" : "FieldError",
+        "type" : "object",
         "properties" : {
           "field_name" : {
+            "type" : "string",
             "description" : "Name of the field"
           },
           "message" : {
+            "type" : "string",
             "description" : "Error message"
           }
         },
@@ -154,11 +191,14 @@
       },
       "ErrorResponse" : {
         "title" : "ErrorResponse",
+        "type" : "object",
         "properties" : {
           "message" : {
+            "type" : "string",
             "description" : "Error Message"
           },
           "code" : {
+            "type" : "string",
             "description" : "Error code",
             "enum" : [ "RESOURCE_NOT_FOUND", "INVALID_ARGUMENT" ]
           },

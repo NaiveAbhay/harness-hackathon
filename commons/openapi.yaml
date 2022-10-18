@@ -81,51 +81,60 @@ components:
       title: GovernanceMetadata
       x-stoplight:
         id: 05qhnkvljwzzm
-      type: object
       description: Governace Error Details
-      properties:
-        deny:
-          type: boolean
-          description: Indicate whether the action is denied or not based on Governance rules
-        message:
-          type: string
-          description: Governance Message
-        status:
-          $ref: '#/components/schemas/GovernanceStatus'
-          description: Governace Status
-        policy_sets:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicySet'
+      allOf:
+        - type: object
+          properties:
+            deny:
+              type: boolean
+              description: Indicate whether the action is denied or not based on Governance rules
+            message:
+              type: string
+              description: Governance Message
+            status:
+              $ref: '#/components/schemas/GovernanceStatus'
+              description: Governace Status
+            policy_sets:
+              type: array
+              items:
+                $ref: '#/components/schemas/PolicySet'
+            type:
+              type: string
+          required:
+            - type
+        - $ref: '#/components/schemas/ErrorMetadata'
     TestErrorMetadata:
       title: TestErrorMetadata
       x-stoplight:
         id: mgogkf26yt2ka
-      type: object
-      properties:
-        type:
-          type: string
-        test:
-          type: string
-      required:
-        - type
       description: Test Error Metadata
+      allOf:
+        - type: object
+          properties:
+            type:
+              type: string
+            test:
+              type: string
+          required:
+            - type
+        - $ref: '#/components/schemas/ErrorMetadata'
     ErrorMetadata:
       title: ErrorMetadata
       x-stoplight:
         id: 344dmnhe1c5kt
-      oneOf:
-        - $ref: '#/components/schemas/GovernanceMetadata'
-          description: Governance Error Details
-        - $ref: '#/components/schemas/TestErrorMetadata'
-          description: Test Error Details
       discriminator:
         propertyName: type
         mapping:
-          governance: /GovernanceMetadata.yaml
-          test: ./TestErrorMetadata.yaml
+          governance: '#/components/schemas/GovernanceMetadata'
+          test: '#/components/schemas/TestErrorMetadata'
       description: Contains more details about the error
       x-internal: false
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
     FieldError:
       title: FieldError
       x-stoplight:

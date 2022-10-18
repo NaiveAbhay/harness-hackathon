@@ -1,6 +1,7 @@
 package io.harness.spec.server.commons.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
@@ -19,10 +20,33 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type", visible = true )
 @JsonSubTypes({
+    @JsonSubTypes.Type(value = TestErrorMetadata.class, name = "TestErrorMetadata" ),
+    @JsonSubTypes.Type(value = GovernanceMetadata.class, name = "GovernanceMetadata" ),
 })
 @Schema(description = "Contains more details about the error")
 
 public class ErrorMetadata   {
+
+  private @Valid String type = null;
+
+  /**
+   **/
+  public ErrorMetadata type(String type) {
+    this.type = type;
+    return this;
+  }
+
+  
+  @Schema(required = true, description = "")
+  @JsonProperty("type")
+  @NotNull
+
+  public String getType() {
+    return type;
+  }
+  public void setType(String type) {
+    this.type = type;
+  }
 
 
   @Override
@@ -34,12 +58,12 @@ public class ErrorMetadata   {
       return false;
     }
     ErrorMetadata errorMetadata = (ErrorMetadata) o;
-    return true;
+    return Objects.equals(type, errorMetadata.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash();
+    return Objects.hash(type);
   }
 
   @Override
@@ -47,6 +71,7 @@ public class ErrorMetadata   {
     StringBuilder sb = new StringBuilder();
     sb.append("class ErrorMetadata {\n");
     
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

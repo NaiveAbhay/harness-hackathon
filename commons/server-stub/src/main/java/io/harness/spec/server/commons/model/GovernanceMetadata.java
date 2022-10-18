@@ -1,7 +1,11 @@
 package io.harness.spec.server.commons.model;
 
+import io.harness.spec.server.commons.model.ErrorMetadata;
 import io.harness.spec.server.commons.model.GovernanceStatus;
+import io.harness.spec.server.commons.model.PolicySet;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
@@ -19,20 +23,20 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Governace Error Details")
 
-public class GovernanceMetadata   {
+public class GovernanceMetadata extends ErrorMetadata  {
 
-  private @Valid Object deny = null;
+  private @Valid Boolean deny = null;
 
-  private @Valid Object message = null;
+  private @Valid String message = null;
 
   private @Valid GovernanceStatus status = null;
 
-  private @Valid Object policySets = null;
+  private @Valid List<PolicySet> policySets = new ArrayList<PolicySet>();
 
   /**
    * Indicate whether the action is denied or not based on Governance rules
    **/
-  public GovernanceMetadata deny(Object deny) {
+  public GovernanceMetadata deny(Boolean deny) {
     this.deny = deny;
     return this;
   }
@@ -41,17 +45,17 @@ public class GovernanceMetadata   {
   @Schema(description = "Indicate whether the action is denied or not based on Governance rules")
   @JsonProperty("deny")
 
-  public Object getDeny() {
+  public Boolean isDeny() {
     return deny;
   }
-  public void setDeny(Object deny) {
+  public void setDeny(Boolean deny) {
     this.deny = deny;
   }
 
   /**
    * Governance Message
    **/
-  public GovernanceMetadata message(Object message) {
+  public GovernanceMetadata message(String message) {
     this.message = message;
     return this;
   }
@@ -60,15 +64,14 @@ public class GovernanceMetadata   {
   @Schema(description = "Governance Message")
   @JsonProperty("message")
 
-  public Object getMessage() {
+  public String getMessage() {
     return message;
   }
-  public void setMessage(Object message) {
+  public void setMessage(String message) {
     this.message = message;
   }
 
   /**
-   * Governace Status
    **/
   public GovernanceMetadata status(GovernanceStatus status) {
     this.status = status;
@@ -76,7 +79,7 @@ public class GovernanceMetadata   {
   }
 
   
-  @Schema(description = "Governace Status")
+  @Schema(description = "")
   @JsonProperty("status")
 
   public GovernanceStatus getStatus() {
@@ -88,7 +91,7 @@ public class GovernanceMetadata   {
 
   /**
    **/
-  public GovernanceMetadata policySets(Object policySets) {
+  public GovernanceMetadata policySets(List<PolicySet> policySets) {
     this.policySets = policySets;
     return this;
   }
@@ -97,10 +100,10 @@ public class GovernanceMetadata   {
   @Schema(description = "")
   @JsonProperty("policy_sets")
 
-  public Object getPolicySets() {
+  public List<PolicySet> getPolicySets() {
     return policySets;
   }
-  public void setPolicySets(Object policySets) {
+  public void setPolicySets(List<PolicySet> policySets) {
     this.policySets = policySets;
   }
 
@@ -129,7 +132,7 @@ public class GovernanceMetadata   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class GovernanceMetadata {\n");
-    
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("    deny: ").append(toIndentedString(deny)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");

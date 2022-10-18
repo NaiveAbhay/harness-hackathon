@@ -24,9 +24,40 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ErrorResponse   {
 
-  private @Valid Object message = null;
+  private @Valid String message = null;
 
-  private @Valid Object code = null;
+public enum CodeEnum {
+
+    RESOURCE_NOT_FOUND(String.valueOf("RESOURCE_NOT_FOUND")), INVALID_ARGUMENT(String.valueOf("INVALID_ARGUMENT"));
+
+
+    private String value;
+
+    CodeEnum (String v) {
+        value = v;
+    }
+
+    public String value() {
+        return value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static CodeEnum fromValue(String v) {
+        for (CodeEnum b : CodeEnum.values()) {
+            if (String.valueOf(b.value).equals(v)) {
+                return b;
+            }
+        }
+        return null;
+    }
+}
+  private @Valid CodeEnum code = null;
 
   private @Valid List<FieldError> errors = new ArrayList<FieldError>();
 
@@ -35,7 +66,7 @@ public class ErrorResponse   {
   /**
    * Error Message
    **/
-  public ErrorResponse message(Object message) {
+  public ErrorResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -44,17 +75,17 @@ public class ErrorResponse   {
   @Schema(description = "Error Message")
   @JsonProperty("message")
 
-  public Object getMessage() {
+  public String getMessage() {
     return message;
   }
-  public void setMessage(Object message) {
+  public void setMessage(String message) {
     this.message = message;
   }
 
   /**
    * Error code
    **/
-  public ErrorResponse code(Object code) {
+  public ErrorResponse code(CodeEnum code) {
     this.code = code;
     return this;
   }
@@ -63,10 +94,10 @@ public class ErrorResponse   {
   @Schema(description = "Error code")
   @JsonProperty("code")
 
-  public Object getCode() {
+  public CodeEnum getCode() {
     return code;
   }
-  public void setCode(Object code) {
+  public void setCode(CodeEnum code) {
     this.code = code;
   }
 
@@ -90,7 +121,6 @@ public class ErrorResponse   {
   }
 
   /**
-   * Contains more details about the error
    **/
   public ErrorResponse errorMetadata(ErrorMetadata errorMetadata) {
     this.errorMetadata = errorMetadata;
@@ -98,7 +128,7 @@ public class ErrorResponse   {
   }
 
   
-  @Schema(description = "Contains more details about the error")
+  @Schema(description = "")
   @JsonProperty("error_metadata")
 
   public ErrorMetadata getErrorMetadata() {
