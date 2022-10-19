@@ -11,6 +11,9 @@
     },
     {
       "inputFile": "../pipeline/openapi.yaml"
+    },
+    {
+      "inputFile": "../templates/openapi.yaml"
     }
   ], 
   "output": "./spec-first.json"
