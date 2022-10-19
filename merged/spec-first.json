@@ -3371,7 +3371,7 @@
                         "$ref": "#/components/parameters/AccountHeaderParam"
                     },
                     {
-                        "$ref": "#/components/parameters/Page1"
+                        "$ref": "#/components/parameters/Page"
                     },
                     {
                         "$ref": "#/components/parameters/Limit2"
@@ -3390,11 +3390,23 @@
                     },
                     {
                         "$ref": "#/components/parameters/IncludeAllTemplatesAccessibleAtScope"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateNames"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateIds"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Description"
+                    },
+                    {
+                        "$ref": "#/components/parameters/EntityType"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateChildTypes"
                     }
                 ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFilterProperties"
-                },
                 "tags": [
                     "Account Template"
                 ],
@@ -3425,12 +3437,27 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
-                "description": "Retrieves stable version of Template at Account scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves stable version of Template at Account scope."
             }
         },
         "/v1/templates/{template}/versions/{version}": {
@@ -3459,12 +3486,27 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
-                "description": "Retrieves particular version of Template at Account scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves particular version of Template at Account scope."
             },
             "put": {
                 "summary": "Update Template",
@@ -3595,7 +3637,7 @@
                         "$ref": "#/components/parameters/AccountHeaderParam"
                     },
                     {
-                        "$ref": "#/components/parameters/Page1"
+                        "$ref": "#/components/parameters/Page"
                     },
                     {
                         "$ref": "#/components/parameters/Limit2"
@@ -3614,11 +3656,23 @@
                     },
                     {
                         "$ref": "#/components/parameters/IncludeAllTemplatesAccessibleAtScope"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateNames"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateIds"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Description"
+                    },
+                    {
+                        "$ref": "#/components/parameters/EntityType"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateChildTypes"
                     }
                 ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFilterProperties"
-                },
                 "tags": [
                     "Org Template"
                 ],
@@ -3648,15 +3702,30 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
                 "tags": [
                     "Org Template"
                 ],
-                "description": "Retrieves stable version of Template at Organization scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves stable version of Template at Organization scope."
             }
         },
         "/v1/orgs/{org}/templates/{template}/versions/{version}": {
@@ -3685,15 +3754,30 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
                 "tags": [
                     "Org Template"
                 ],
-                "description": "Retrieves particular version of Template at Organization scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves particular version of Template at Organization scope."
             },
             "put": {
                 "summary": "Update Template",
@@ -3830,7 +3914,7 @@
                         "$ref": "#/components/parameters/AccountHeaderParam"
                     },
                     {
-                        "$ref": "#/components/parameters/Page1"
+                        "$ref": "#/components/parameters/Page"
                     },
                     {
                         "$ref": "#/components/parameters/Limit2"
@@ -3849,11 +3933,23 @@
                     },
                     {
                         "$ref": "#/components/parameters/IncludeAllTemplatesAccessibleAtScope"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateNames"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateIds"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Description"
+                    },
+                    {
+                        "$ref": "#/components/parameters/EntityType"
+                    },
+                    {
+                        "$ref": "#/components/parameters/TemplateChildTypes"
                     }
                 ],
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFilterProperties"
-                },
                 "tags": [
                     "Project Template"
                 ],
@@ -3889,12 +3985,27 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
-                "description": "Retrieves stable version of Template at Project scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves stable version of Template at Project scope."
             }
         },
         "/v1/orgs/{org}/projects/{project}/templates/{template}/versions/{version}": {
@@ -3929,12 +4040,27 @@
                     },
                     {
                         "$ref": "#/components/parameters/GetTemplateInputYaml"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch1"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentConnectorRef"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentRepoName"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentAccountId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentOrgId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/ParentProjectId"
                     }
                 ],
-                "description": "Retrieves particular version of Template at Project scope.",
-                "requestBody": {
-                    "$ref": "#/components/requestBodies/TemplateFetchBody"
-                }
+                "description": "Retrieves particular version of Template at Project scope."
             },
             "put": {
                 "summary": "Update Template",
@@ -8160,9 +8286,9 @@
                 "description": "Default response when a template is returned",
                 "x-examples": {
                     "example-1": {
-                        "account": "sample_account",
-                        "org": "sample_organization",
-                        "project": "sample_project",
+                        "account": "example_account",
+                        "org": "example_organization",
+                        "project": "example_project",
                         "slug": "example_template",
                         "name": "Example_template",
                         "description": "string",
@@ -8170,9 +8296,9 @@
                             "example-tag-1": "example-tag-1-value",
                             "example-tag-2": "example-tag-2-value"
                         },
-                        "yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                        "yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                         "version_label": "example_version",
-                        "entity_type": "Step",
+                        "entity_type": "Stage",
                         "child_type": "example_child_type",
                         "scope": "org",
                         "version": 1234567890,
@@ -8319,9 +8445,9 @@
                 "type": "object",
                 "x-examples": {
                     "example-1": {
-                        "account": "sample_account",
-                        "org": "sample_organization",
-                        "project": "sample_project",
+                        "account": "example_account",
+                        "org": "example_organization",
+                        "project": "example_project",
                         "slug": "example_template",
                         "name": "Example_template",
                         "description": "string",
@@ -8469,9 +8595,9 @@
                 "x-examples": {
                     "example-1": {
                         "template_response": {
-                            "account": "sample_account",
-                            "org": "sample_organization",
-                            "project": "sample_project",
+                            "account": "example_account",
+                            "org": "example_organization",
+                            "project": "example_project",
                             "slug": "example_template",
                             "name": "Example_template",
                             "description": "string",
@@ -8479,9 +8605,9 @@
                                 "example-tag-1": "example-tag-1-value",
                                 "example-tag-2": "example-tag-2-value"
                             },
-                            "yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                            "yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                             "version_label": "example_version",
-                            "entity_type": "Step",
+                            "entity_type": "Stage",
                             "child_type": "example_child_type",
                             "scope": "org",
                             "version": 1234567890,
@@ -8525,9 +8651,9 @@
                 "x-examples": {
                     "example-1": [
                         {
-                            "account": "sample_account",
-                            "org": "sample_organization",
-                            "project": "sample_project",
+                            "account": "example_account",
+                            "org": "example_organization",
+                            "project": "example_project",
                             "slug": "example_template",
                             "name": "Example_template",
                             "description": "string",
@@ -8558,72 +8684,6 @@
                 },
                 "description": "Template Meta Data List Model"
             },
-            "TemplateFilterProperties": {
-                "title": "TemplateFilterProperties",
-                "x-stoplight": {
-                    "id": "csuj1m41lnsdm"
-                },
-                "type": "object",
-                "x-examples": {
-                    "example-1": {
-                        "names": [
-                            "Example_template"
-                        ],
-                        "identifiers": [
-                            "example_identifier"
-                        ],
-                        "description": "sample description",
-                        "entity_types": [
-                            "Step"
-                        ],
-                        "child_types": [
-                            "example_child_type"
-                        ]
-                    }
-                },
-                "description": "Contains details of the Template Filter",
-                "properties": {
-                    "names": {
-                        "type": "array",
-                        "description": "Template names for filtering",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "identifiers": {
-                        "type": "array",
-                        "description": "Template Ids for Filtering",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "Filter properties description"
-                    },
-                    "entity_types": {
-                        "type": "array",
-                        "description": "Type of Template\n",
-                        "items": {
-                            "type": "string",
-                            "enum": [
-                                "Step",
-                                "Stage",
-                                "Pipeline",
-                                "CustomDeployment",
-                                "MonitoredService",
-                                "SecretManager"
-                            ]
-                        }
-                    },
-                    "child_types": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
             "EntityGitDetails": {
                 "title": "entityGitDetails",
                 "x-stoplight": {
@@ -8645,10 +8705,7 @@
                 "properties": {
                     "entity_identifier": {
                         "type": "string",
-                        "description": "Entity identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-                        "minLength": 1,
-                        "maxLength": 64
+                        "description": "Entity identifier"
                     },
                     "branch_name": {
                         "type": "string",
@@ -8673,6 +8730,50 @@
                     "repo_url": {
                         "type": "string",
                         "description": "Repository URL of the Entity."
+                    }
+                }
+            },
+            "GitFindDetails": {
+                "title": "GitFindDetails",
+                "x-stoplight": {
+                    "id": "8b3cs1apis8zf"
+                },
+                "type": "object",
+                "x-examples": {
+                    "example-1": {
+                        "branch_name": "branch",
+                        "parent_connector_ref": "example_connector_ref",
+                        "parent_repo_name": "example_repo_name",
+                        "parent_account_id": "example_account_id",
+                        "parent_org_id": "example_org_id",
+                        "parent_project_id": "example_project_id"
+                    }
+                },
+                "description": "Contains parameters related to Fetching an Entity for Git Experience.",
+                "properties": {
+                    "branch_name": {
+                        "type": "string",
+                        "description": "Name of the branch."
+                    },
+                    "parent_connector_ref": {
+                        "type": "string",
+                        "description": "Connector ref of parent template if its remote"
+                    },
+                    "parent_repo_name": {
+                        "type": "string",
+                        "description": "Repo name of parent template if its remote"
+                    },
+                    "parent_account_id": {
+                        "type": "string",
+                        "description": "Account name of parent template if its remote"
+                    },
+                    "parent_org_id": {
+                        "type": "string",
+                        "description": "Organization name of parent template if its remote"
+                    },
+                    "parent_project_id": {
+                        "type": "string",
+                        "description": "Project name of parent entity if its remote"
                     }
                 }
             },
@@ -8742,7 +8843,11 @@
                         "commit_message": "Added Harness Git Experience",
                         "last_object_id": "example_object_id",
                         "base_branch": "old_branch",
-                        "last_commit_id": "example_commit_id"
+                        "connector_ref": "git_connector",
+                        "last_commit_id": "example_commit_id",
+                        "file_path": "/folder/file.json",
+                        "repo_name": "example_repository",
+                        "store_type": "INLINE"
                     }
                 },
                 "properties": {
@@ -8762,53 +8867,29 @@
                         "type": "string",
                         "description": "Name of the default branch (this checks out a new branch titled by branch_name)."
                     },
+                    "connector_ref": {
+                        "type": "string",
+                        "description": "Identifier of the Harness Connector used for CRUD operations on the Entity."
+                    },
                     "last_commit_id": {
                         "type": "string",
                         "description": "Last commit identifier (for Git Repositories other than Github)."
-                    }
-                }
-            },
-            "GitFindDetails": {
-                "title": "GitFindDetails",
-                "x-stoplight": {
-                    "id": "8b3cs1apis8zf"
-                },
-                "type": "object",
-                "x-examples": {
-                    "example-1": {
-                        "branch_name": "branch",
-                        "parent_connector_ref": "example_connector_ref",
-                        "parent_repo_name": "example_repo_name",
-                        "parent_account_id": "example_account_id",
-                        "parent_org_id": "example_org_id",
-                        "parent_project_id": "example_project_id"
-                    }
-                },
-                "description": "Contains parameters related to Fetching an Entity for Git Experience.",
-                "properties": {
-                    "branch_name": {
-                        "type": "string",
-                        "description": "Name of the branch."
                     },
-                    "parent_connector_ref": {
+                    "file_path": {
                         "type": "string",
-                        "description": "Connector ref of parent template if its remote"
+                        "description": "File path of the Entity in the repository."
                     },
-                    "parent_repo_name": {
+                    "repo_name": {
                         "type": "string",
-                        "description": "Repo name of parent template if its remote"
+                        "description": "Name of the repository."
                     },
-                    "parent_account_id": {
+                    "store_type": {
                         "type": "string",
-                        "description": "Account name of parent template if its remote"
-                    },
-                    "parent_org_id": {
-                        "type": "string",
-                        "description": "Organization name of parent template if its remote"
-                    },
-                    "parent_project_id": {
-                        "type": "string",
-                        "description": "Project name of parent entity if its remote\n"
+                        "description": "Specifies whether the Entity is to be stored in Git or not.",
+                        "enum": [
+                            "INLINE",
+                            "REMOTE"
+                        ]
                     }
                 }
             },
@@ -8820,13 +8901,17 @@
                 "type": "object",
                 "x-examples": {
                     "example-1": {
-                        "template_yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                        "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                         "git_details": {
                             "branch_name": "branch",
                             "commit_message": "Added Harness Git Experience",
                             "last_object_id": "example_object_id",
                             "base_branch": "old_branch",
-                            "last_commit_id": "example_commit_id"
+                            "connector_ref": "git_connector",
+                            "last_commit_id": "example_commit_id",
+                            "file_path": "/folder/file.json",
+                            "repo_name": "example_repository",
+                            "store_type": "INLINE"
                         }
                     }
                 },
@@ -8849,7 +8934,7 @@
                 "type": "object",
                 "x-examples": {
                     "example-1": {
-                        "template_yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                        "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                         "git_details": {
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
@@ -9991,9 +10076,9 @@
                         "examples": {
                             "example-1": {
                                 "value": {
-                                    "account": "sample_account",
-                                    "org": "sample_organization",
-                                    "project": "sample_project",
+                                    "account": "example_account",
+                                    "org": "example_organization",
+                                    "project": "example_project",
                                     "slug": "example_template",
                                     "name": "Example_template",
                                     "description": "string",
@@ -10001,9 +10086,9 @@
                                         "example-tag-1": "example-tag-1-value",
                                         "example-tag-2": "example-tag-2-value"
                                     },
-                                    "yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                                    "yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                                     "version_label": "example_version",
-                                    "entity_type": "Step",
+                                    "entity_type": "Stage",
                                     "child_type": "example_child_type",
                                     "scope": "org",
                                     "version": 1234567890,
@@ -10030,7 +10115,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "account: sample_account\norg: sample_organization\nproject: sample_project\nslug: example_template\nname: Example_template\ndescription: string\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  template:\n    name: sup\n    identifier: sup\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\nversion_label: example_version\nentity_type: Step\nchild_type: example_child_type\nscope: org\nversion: 1234567890\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nupdated: 1234567890\nstore_type: INLINE\nconnector_ref: example_connector_ref\nstable_template: true\n"
+                                "value": "account: example_account\norg: example_organization\nproject: example_project\nslug: example_template\nname: Example_template\ndescription: string\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\nversion_label: example_version\nentity_type: Stage\nchild_type: example_child_type\nscope: org\nversion: 1234567890\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nupdated: 1234567890\nstore_type: INLINE\nconnector_ref: example_connector_ref\nstable_template: true\n"
                             }
                         }
                     }
@@ -10047,9 +10132,9 @@
                             "example-1": {
                                 "value": {
                                     "template_response": {
-                                        "account": "sample_account",
-                                        "org": "sample_organization",
-                                        "project": "sample_project",
+                                        "account": "example_account",
+                                        "org": "example_organization",
+                                        "project": "example_project",
                                         "slug": "example_template",
                                         "name": "Example_template",
                                         "description": "string",
@@ -10057,9 +10142,9 @@
                                             "example-tag-1": "example-tag-1-value",
                                             "example-tag-2": "example-tag-2-value"
                                         },
-                                        "yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                                        "yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                                         "version_label": "example_version",
-                                        "entity_type": "Step",
+                                        "entity_type": "Stage",
                                         "child_type": "example_child_type",
                                         "scope": "org",
                                         "version": 1234567890,
@@ -10088,7 +10173,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "template_response:\n  account: sample_account\n  org: sample_organization\n  project: sample_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    template:\n      name: sup\n      identifier: sup\n      versionLabel: v1\n      type: Stage\n      tags: {}\n      spec:\n        type: Custom\n        spec:\n          execution:\n            steps:\n              - step:\n                  type: ShellScript\n                  name: ss1\n                  identifier: ss1\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: exit 1\n                    environmentVariables: []\n                    outputVariables: []\n                  timeout: 10m\n  version_label: example_version\n  entity_type: Step\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\ntemplate_input_yaml: example\n"
+                                "value": "template_response:\n  account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    template:\n      name: Example_template\n      identifier: example_template\n      versionLabel: v1\n      type: Stage\n      tags: {}\n      spec:\n        type: Custom\n        spec:\n          execution:\n            steps:\n              - step:\n                  type: ShellScript\n                  name: ss1\n                  identifier: ss1\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: exit 1\n                    environmentVariables: []\n                    outputVariables: []\n                  timeout: 10m\n  version_label: example_version\n  entity_type: Stage\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\ntemplate_input_yaml: example\n"
                             }
                         }
                     }
@@ -10105,9 +10190,9 @@
                             "example-1": {
                                 "value": [
                                     {
-                                        "account": "sample_account",
-                                        "org": "sample_organization",
-                                        "project": "sample_project",
+                                        "account": "example_account",
+                                        "org": "example_organization",
+                                        "project": "example_project",
                                         "slug": "example_template",
                                         "name": "Example_template",
                                         "description": "string",
@@ -10144,7 +10229,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "- account: sample_account\n  org: sample_organization\n  project: sample_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  version_label: example_version\n  entity_type: Step\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\n"
+                                "value": "- account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  version_label: example_version\n  entity_type: Step\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\n"
                             }
                         }
                     }
@@ -10541,15 +10626,6 @@
                 },
                 "description": "This would be used to filter resources having attributes matching with search term."
             },
-            "Page1": {
-                "name": "page",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "integer"
-                },
-                "description": "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
-            },
             "TemplateListType": {
                 "name": "list_type",
                 "in": "query",
@@ -10569,7 +10645,8 @@
                 "in": "query",
                 "required": false,
                 "schema": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "default": "false"
                 },
                 "description": "Specify true if all accessible Templates are to be included"
             },
@@ -10581,6 +10658,128 @@
                     "type": "boolean"
                 },
                 "description": "Use it to get Template along with Input Set YAML"
+            },
+            "Branch1": {
+                "name": "branch_name",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Name of the branch"
+            },
+            "ParentConnectorRef": {
+                "name": "parent_connector_ref",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Connector ref of parent template if its remote"
+            },
+            "ParentRepoName": {
+                "name": "parent_repo_name",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Repo name of parent template if its remote"
+            },
+            "ParentAccountId": {
+                "name": "parent_account_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Account name of parent template if its remote"
+            },
+            "ParentOrgId": {
+                "name": "parent_org_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Organization name of parent template if its remote"
+            },
+            "ParentProjectId": {
+                "name": "parent_project_id",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Project name of parent entity if its remote"
+            },
+            "TemplateNames": {
+                "name": "names",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": "Template names for filtering"
+            },
+            "TemplateIds": {
+                "name": "identifiers",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": "Template Ids for Filtering"
+            },
+            "Description": {
+                "name": "description",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "Filter properties description"
+            },
+            "EntityType": {
+                "name": "entity_types",
+                "in": "query",
+                "schema": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "Step",
+                            "Stage",
+                            "Pipeline",
+                            "CustomDeployment",
+                            "MonitoredService",
+                            "SecretManager"
+                        ]
+                    }
+                },
+                "description": "Type of Template"
+            },
+            "TemplateChildTypes": {
+                "name": "child_types",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": "Template Child Types for filtering"
             }
         },
         "requestBodies": {
@@ -11660,44 +11859,43 @@
                 "description": "Pipeline request body",
                 "required": true
             },
-            "TemplateFilterProperties": {
+            "TemplateUpdateBody": {
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "#/components/schemas/TemplateFilterProperties"
+                            "$ref": "#/components/schemas/TemplateUpdateRequestBody"
                         },
                         "examples": {
                             "example-1": {
                                 "value": {
-                                    "names": [
-                                        "Example_template"
-                                    ],
-                                    "identifiers": [
-                                        "example_identifier"
-                                    ],
-                                    "description": "sample description",
-                                    "entity_types": [
-                                        "Step"
-                                    ],
-                                    "child_types": [
-                                        "example_child_type"
-                                    ]
+                                    "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                                    "git_details": {
+                                        "branch_name": "branch",
+                                        "commit_message": "Added Harness Git Experience",
+                                        "last_object_id": "example_object_id",
+                                        "base_branch": "old_branch",
+                                        "connector_ref": "git_connector",
+                                        "last_commit_id": "example_commit_id",
+                                        "file_path": "/folder/file.json",
+                                        "repo_name": "example_repository",
+                                        "store_type": "INLINE"
+                                    }
                                 }
                             }
                         }
                     },
                     "application/yaml": {
                         "schema": {
-                            "$ref": "#/components/schemas/TemplateFilterProperties"
+                            "$ref": "#/components/schemas/TemplateUpdateRequestBody"
                         },
                         "examples": {
                             "example-1": {
-                                "value": "names:\n  - Example_template\nidentifiers:\n  - example_identifier\ndescription: sample description\nentity_types:\n  - Step\nchild_types:\n  - example_child_type\n"
+                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n  file_path: /folder/file.json\n  repo_name: example_repository\n  store_type: INLINE\n"
                             }
                         }
                     }
                 },
-                "description": "Templates Filter Properties Request Body"
+                "description": "Templates Update Request Body"
             },
             "TemplateFetchBody": {
                 "content": {
@@ -11731,40 +11929,6 @@
                 },
                 "description": "Templates Fetch Request Body"
             },
-            "TemplateUpdateBody": {
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "$ref": "#/components/schemas/TemplateUpdateRequestBody"
-                        },
-                        "examples": {
-                            "example-1": {
-                                "value": {
-                                    "template_yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
-                                    "git_details": {
-                                        "branch_name": "branch",
-                                        "commit_message": "Added Harness Git Experience",
-                                        "last_object_id": "example_object_id",
-                                        "base_branch": "old_branch",
-                                        "last_commit_id": "example_commit_id"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "application/yaml": {
-                        "schema": {
-                            "$ref": "#/components/schemas/TemplateUpdateRequestBody"
-                        },
-                        "examples": {
-                            "example-1": {
-                                "value": "template_yaml: |\n  template:\n    name: sup\n    identifier: sup\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  last_commit_id: example_commit_id\n"
-                            }
-                        }
-                    }
-                },
-                "description": "Templates Update Request Body"
-            },
             "TemplateCreateBody": {
                 "content": {
                     "application/json": {
@@ -11774,7 +11938,7 @@
                         "examples": {
                             "example-1": {
                                 "value": {
-                                    "template_yaml": "template:\n  name: sup\n  identifier: sup\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
+                                    "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                                     "git_details": {
                                         "branch_name": "branch",
                                         "file_path": "/folder/file.json",
@@ -11794,7 +11958,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "template_yaml: |\n  template:\n    name: sup\n    identifier: sup\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
+                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
                             }
                         }
                     }
