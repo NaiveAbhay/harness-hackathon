@@ -25,6 +25,8 @@ public class TemplateUpdateRequestBody   {
 
   private @Valid GitUpdateDetails gitDetails = null;
 
+  private @Valid String comments = null;
+
   /**
    * Yaml for updating existing Template
    **/
@@ -62,6 +64,25 @@ public class TemplateUpdateRequestBody   {
     this.gitDetails = gitDetails;
   }
 
+  /**
+   * Specify comment with respect to changes  
+   **/
+  public TemplateUpdateRequestBody comments(String comments) {
+    this.comments = comments;
+    return this;
+  }
+
+  
+  @Schema(description = "Specify comment with respect to changes  ")
+  @JsonProperty("comments")
+
+  public String getComments() {
+    return comments;
+  }
+  public void setComments(String comments) {
+    this.comments = comments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -73,12 +94,13 @@ public class TemplateUpdateRequestBody   {
     }
     TemplateUpdateRequestBody templateUpdateRequestBody = (TemplateUpdateRequestBody) o;
     return Objects.equals(templateYaml, templateUpdateRequestBody.templateYaml) &&
-        Objects.equals(gitDetails, templateUpdateRequestBody.gitDetails);
+        Objects.equals(gitDetails, templateUpdateRequestBody.gitDetails) &&
+        Objects.equals(comments, templateUpdateRequestBody.comments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(templateYaml, gitDetails);
+    return Objects.hash(templateYaml, gitDetails, comments);
   }
 
   @Override
@@ -88,6 +110,7 @@ public class TemplateUpdateRequestBody   {
     
     sb.append("    templateYaml: ").append(toIndentedString(templateYaml)).append("\n");
     sb.append("    gitDetails: ").append(toIndentedString(gitDetails)).append("\n");
+    sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

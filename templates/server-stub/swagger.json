@@ -35,14 +35,11 @@
         "parameters" : [ {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -99,7 +96,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "list_type",
+          "name" : "type",
           "in" : "query",
           "description" : "Template List Type",
           "required" : false,
@@ -253,34 +250,10 @@
         "parameters" : [ {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -366,18 +339,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -538,18 +508,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -708,34 +675,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -829,14 +772,11 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -886,23 +826,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -960,14 +887,11 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -1024,7 +948,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "list_type",
+          "name" : "type",
           "in" : "query",
           "description" : "Template List Type",
           "required" : false,
@@ -1188,34 +1112,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1311,18 +1211,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -1493,18 +1390,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -1673,34 +1567,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1804,14 +1674,11 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -1871,23 +1738,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -1955,14 +1809,11 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -2019,7 +1870,7 @@
             "type" : "string"
           }
         }, {
-          "name" : "list_type",
+          "name" : "type",
           "in" : "query",
           "description" : "Template List Type",
           "required" : false,
@@ -2193,34 +2044,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -2326,18 +2153,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -2518,18 +2342,15 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
-          "name" : "get_input_yaml",
+          "name" : "include_yaml",
           "in" : "query",
           "description" : "Use it to get Template along with Input Set YAML",
           "required" : false,
@@ -2708,34 +2529,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "is_stable",
-          "in" : "query",
-          "description" : "True if given version for template to be set as stable",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
-          "schema" : {
-            "type" : "boolean",
-            "default" : false
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -2849,14 +2646,11 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
           "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
             "type" : "string"
           }
         }, {
@@ -2926,23 +2720,10 @@
         }, {
           "name" : "Harness-Account",
           "in" : "header",
-          "description" : "Account Identifier for the Entity.",
+          "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
           "required" : false,
           "style" : "simple",
           "explode" : false,
-          "schema" : {
-            "maxLength" : 64,
-            "minLength" : 1,
-            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-            "type" : "string"
-          }
-        }, {
-          "name" : "comments",
-          "in" : "query",
-          "description" : "Specify comment with respect to changes  ",
-          "required" : false,
-          "style" : "form",
-          "explode" : true,
           "schema" : {
             "type" : "string"
           }
@@ -3430,6 +3211,10 @@
           "parent_project_id" : {
             "type" : "string",
             "description" : "Project name of parent entity if its remote"
+          },
+          "comments" : {
+            "type" : "string",
+            "description" : "Specify comment with respect to changes  "
           }
         },
         "description" : "Contains parameters related to Fetching an Entity for Git Experience.",
@@ -3443,7 +3228,8 @@
             "parent_repo_name" : "example_repo_name",
             "parent_account_id" : "example_account_id",
             "parent_org_id" : "example_org_id",
-            "parent_project_id" : "example_project_id"
+            "parent_project_id" : "example_project_id",
+            "comments" : "sample_comments"
           }
         }
       },
@@ -3567,6 +3353,10 @@
           },
           "git_details" : {
             "$ref" : "#/components/schemas/GitUpdateDetails"
+          },
+          "comments" : {
+            "type" : "string",
+            "description" : "Specify comment with respect to changes  "
           }
         },
         "description" : "Templates Update Request Body",
@@ -3574,7 +3364,7 @@
           "id" : "ok69fcmiqlm1c"
         },
         "x-examples" : {
-          "example-1" : {
+          "example-2" : {
             "template_yaml" : "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
             "git_details" : {
               "branch_name" : "branch",
@@ -3586,7 +3376,8 @@
               "file_path" : "/folder/file.json",
               "repo_name" : "example_repository",
               "store_type" : "INLINE"
-            }
+            },
+            "comments" : "sample_comment"
           }
         }
       },
@@ -3600,6 +3391,14 @@
           },
           "git_details" : {
             "$ref" : "#/components/schemas/GitCreateDetails"
+          },
+          "is_stable" : {
+            "type" : "boolean",
+            "description" : "True if given version for template to be set as stable"
+          },
+          "comments" : {
+            "type" : "string",
+            "description" : "Specify comment with respect to changes  "
           }
         },
         "description" : "Templates Create Request Body",
@@ -3607,7 +3406,7 @@
           "id" : "mp9rm9sp09yru"
         },
         "x-examples" : {
-          "example-1" : {
+          "example-2" : {
             "template_yaml" : "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
             "git_details" : {
               "branch_name" : "branch",
@@ -3617,7 +3416,9 @@
               "connector_ref" : "git_connector",
               "store_type" : "INLINE",
               "repo_name" : "example_repository"
-            }
+            },
+            "is_stable" : true,
+            "comments" : "sample_comment"
           }
         }
       },
@@ -3887,27 +3688,12 @@
       "AccountHeaderParam" : {
         "name" : "Harness-Account",
         "in" : "header",
-        "description" : "Account Identifier for the Entity.",
+        "description" : "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.",
         "required" : false,
         "style" : "simple",
         "explode" : false,
         "schema" : {
-          "maxLength" : 64,
-          "minLength" : 1,
-          "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
           "type" : "string"
-        }
-      },
-      "SetDefaultTemplate" : {
-        "name" : "is_stable",
-        "in" : "query",
-        "description" : "True if given version for template to be set as stable",
-        "required" : false,
-        "style" : "form",
-        "explode" : true,
-        "schema" : {
-          "type" : "boolean",
-          "default" : false
         }
       },
       "Comments" : {
@@ -3980,7 +3766,7 @@
         }
       },
       "TemplateListType" : {
-        "name" : "list_type",
+        "name" : "type",
         "in" : "query",
         "description" : "Template List Type",
         "required" : false,
@@ -4004,7 +3790,7 @@
         }
       },
       "GetTemplateInputYaml" : {
-        "name" : "get_input_yaml",
+        "name" : "include_yaml",
         "in" : "query",
         "description" : "Use it to get Template along with Input Set YAML",
         "required" : false,
@@ -4175,7 +3961,8 @@
                     "file_path" : "/folder/file.json",
                     "repo_name" : "example_repository",
                     "store_type" : "INLINE"
-                  }
+                  },
+                  "comments" : "sample_comments"
                 }
               }
             }
@@ -4186,7 +3973,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n  file_path: /folder/file.json\n  repo_name: example_repository\n  store_type: INLINE\n"
+                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n  file_path: /folder/file.json\n  repo_name: example_repository\n  store_type: INLINE\ncomments: sample_comments\n"
               }
             }
           }
@@ -4207,7 +3994,8 @@
                   "parent_repo_name" : "example_repo_name",
                   "parent_account_id" : "example_account_id",
                   "parent_org_id" : "example_org_id",
-                  "parent_project_id" : "example_project_id"
+                  "parent_project_id" : "example_project_id",
+                  "comments" : "sample_comments"
                 }
               }
             }
@@ -4218,7 +4006,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "branch_name: branch\nparent_connector_ref: example_connector_ref\nparent_repo_name: example_repo_name\nparent_account_id: example_account_id\nparent_org_id: example_org_id\nparent_project_id: example_project_id\n"
+                "value" : "branch_name: branch\nparent_connector_ref: example_connector_ref\nparent_repo_name: example_repo_name\nparent_account_id: example_account_id\nparent_org_id: example_org_id\nparent_project_id: example_project_id\ncomments: sample_comments\n"
               }
             }
           }
@@ -4243,7 +4031,9 @@
                     "connector_ref" : "git_connector",
                     "store_type" : "INLINE",
                     "repo_name" : "example_repository"
-                  }
+                  },
+                  "is_stable" : true,
+                  "comments" : "sample_comment"
                 }
               }
             }
@@ -4254,7 +4044,7 @@
             },
             "examples" : {
               "example-1" : {
-                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
+                "value" : "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\nis_stable: true\ncomments: sample_comment\n"
               }
             }
           }

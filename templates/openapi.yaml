@@ -30,8 +30,6 @@ paths:
       operationId: create-templates-acc
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       requestBody:
         $ref: '#/components/requestBodies/TemplateCreateBody'
       responses:
@@ -115,8 +113,6 @@ paths:
           $ref: '#/components/responses/TemplateResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Account Template
       description: Updates particular version of Template at Account scope.
@@ -146,7 +142,6 @@ paths:
           $ref: '#/components/responses/TemplateUpdateStableResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Account Template
       description: Updates the stable version of Template at Account scope.
@@ -163,8 +158,6 @@ paths:
           $ref: '#/components/responses/TemplateResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Org Template
       description: Creates a Template in the Organization scope.
@@ -246,8 +239,6 @@ paths:
           $ref: '#/components/responses/TemplateResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Org Template
       description: Updates particular version of Template at Organization scope.
@@ -278,7 +269,6 @@ paths:
           $ref: '#/components/responses/TemplateUpdateStableResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Org Template
       description: Updates the stable version of Template at Organization scope.
@@ -296,8 +286,6 @@ paths:
           $ref: '#/components/responses/TemplateResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Project Template
       description: Creates a Template in the Project scope.
@@ -381,8 +369,6 @@ paths:
           $ref: '#/components/responses/TemplateResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/SetDefaultTemplate'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Project Template
       description: Updates particular version of Template at Project scope.
@@ -414,7 +400,6 @@ paths:
           $ref: '#/components/responses/TemplateUpdateStableResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
-        - $ref: '#/components/parameters/Comments'
       tags:
         - Project Template
       description: Updates the stable version of Template at Project scope.
@@ -856,6 +841,7 @@ components:
           parent_account_id: example_account_id
           parent_org_id: example_org_id
           parent_project_id: example_project_id
+          comments: sample_comments
       description: Contains parameters related to Fetching an Entity for Git Experience.
       properties:
         branch_name:
@@ -876,6 +862,9 @@ components:
         parent_project_id:
           type: string
           description: Project name of parent entity if its remote
+        comments:
+          type: string
+          description: 'Specify comment with respect to changes  '
     GitCreateDetails:
       title: Create Git Details
       x-stoplight:
@@ -970,7 +959,7 @@ components:
         id: ok69fcmiqlm1c
       type: object
       x-examples:
-        example-1:
+        example-2:
           template_yaml: |
             template:
               name: Example_template
@@ -1007,6 +996,7 @@ components:
             file_path: /folder/file.json
             repo_name: example_repository
             store_type: INLINE
+          comments: sample_comment
       description: Templates Update Request Body
       properties:
         template_yaml:
@@ -1014,13 +1004,16 @@ components:
           description: Yaml for updating existing Template
         git_details:
           $ref: '#/components/schemas/GitUpdateDetails'
+        comments:
+          type: string
+          description: 'Specify comment with respect to changes  '
     TemplateCreateRequestBody:
       title: TemplateCreateRequestBody
       x-stoplight:
         id: mp9rm9sp09yru
       type: object
       x-examples:
-        example-1:
+        example-2:
           template_yaml: |
             template:
               name: Example_template
@@ -1055,6 +1048,8 @@ components:
             connector_ref: git_connector
             store_type: INLINE
             repo_name: example_repository
+          is_stable: true
+          comments: sample_comment
       description: Templates Create Request Body
       properties:
         template_yaml:
@@ -1062,6 +1057,12 @@ components:
           description: Yaml for creating new Template
         git_details:
           $ref: '#/components/schemas/GitCreateDetails'
+        is_stable:
+          type: boolean
+          description: True if given version for template to be set as stable
+        comments:
+          type: string
+          description: 'Specify comment with respect to changes  '
     TemplateUpdateStableResponse:
       title: TemplateUpdateStableResponse
       x-stoplight:
@@ -1111,18 +1112,7 @@ components:
       in: header
       schema:
         type: string
-        pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-        minLength: 1
-        maxLength: 64
-      description: Account Identifier for the Entity.
-    SetDefaultTemplate:
-      name: is_stable
-      in: query
-      required: false
-      schema:
-        type: boolean
-        default: false
-      description: True if given version for template to be set as stable
+      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     Comments:
       name: comments
       in: query
@@ -1171,7 +1161,7 @@ components:
         default: 0
       description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
     TemplateListType:
-      name: list_type
+      name: type
       in: query
       required: false
       schema:
@@ -1187,10 +1177,10 @@ components:
       required: false
       schema:
         type: boolean
-        default: 'false'
+        default: false
       description: Specify true if all accessible Templates are to be included
     GetTemplateInputYaml:
-      name: get_input_yaml
+      name: include_yaml
       in: query
       required: false
       schema:
@@ -1336,6 +1326,7 @@ components:
                   file_path: /folder/file.json
                   repo_name: example_repository
                   store_type: INLINE
+                comments: sample_comments
         application/yaml:
           schema:
             $ref: '#/components/schemas/TemplateUpdateRequestBody'
@@ -1378,6 +1369,7 @@ components:
                   file_path: /folder/file.json
                   repo_name: example_repository
                   store_type: INLINE
+                comments: sample_comments
       description: Templates Update Request Body
     TemplateFetchBody:
       content:
@@ -1393,6 +1385,7 @@ components:
                 parent_account_id: example_account_id
                 parent_org_id: example_org_id
                 parent_project_id: example_project_id
+                comments: sample_comments
         application/yaml:
           schema:
             $ref: '#/components/schemas/GitFindDetails'
@@ -1405,6 +1398,7 @@ components:
                 parent_account_id: example_account_id
                 parent_org_id: example_org_id
                 parent_project_id: example_project_id
+                comments: sample_comments
       description: Templates Fetch Request Body
     TemplateCreateBody:
       content:
@@ -1448,6 +1442,8 @@ components:
                   connector_ref: git_connector
                   store_type: INLINE
                   repo_name: example_repository
+                is_stable: true
+                comments: sample_comment
         application/yaml:
           schema:
             $ref: '#/components/schemas/TemplateCreateRequestBody'
@@ -1488,6 +1484,8 @@ components:
                   connector_ref: git_connector
                   store_type: INLINE
                   repo_name: example_repository
+                is_stable: true
+                comments: sample_comment
       description: Templates Create Request Body
   responses:
     TemplateResponse:

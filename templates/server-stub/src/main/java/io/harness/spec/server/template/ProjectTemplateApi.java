@@ -44,15 +44,9 @@ public interface ProjectTemplateApi {
 , @PathParam("project")
 
  @Parameter(description = "Project Identifier") String project
-,@Valid TemplateCreateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,@Valid TemplateCreateRequestBody body,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("is_stable") @DefaultValue("false") 
-
- @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
-,  @QueryParam("comments") 
-
- @Parameter(description = "Specify comment with respect to changes  ")  String comments
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @DELETE
     @Path("/{template}/versions/{version}")
@@ -72,9 +66,9 @@ public interface ProjectTemplateApi {
 , @PathParam("version")
 
  @Parameter(description = "Version Label for Template") String version
-, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("comments") 
 
  @Parameter(description = "Specify comment with respect to changes  ")  String comments
@@ -98,12 +92,12 @@ public interface ProjectTemplateApi {
 , @PathParam("version")
 
  @Parameter(description = "Version Label for Template") String version
-, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("get_input_yaml") 
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+,  @QueryParam("include_yaml") 
 
- @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
+ @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean includeYaml
 ,  @QueryParam("branch_name") 
 
  @Parameter(description = "Name of the branch")  String branchName
@@ -139,12 +133,12 @@ public interface ProjectTemplateApi {
 , @PathParam("template")
 
  @Parameter(description = "Template Identifier") String template
-, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("get_input_yaml") 
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
+,  @QueryParam("include_yaml") 
 
- @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean getInputYaml
+ @Parameter(description = "Use it to get Template along with Input Set YAML")  Boolean includeYaml
 ,  @QueryParam("branch_name") 
 
  @Parameter(description = "Name of the branch")  String branchName
@@ -176,9 +170,9 @@ public interface ProjectTemplateApi {
 , @PathParam("project")
 
  @Parameter(description = "Project Identifier") String project
-, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 ,  @QueryParam("page") @DefaultValue("0") 
 
  @Parameter(description = "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page ")  Integer page
@@ -194,9 +188,9 @@ public interface ProjectTemplateApi {
 ,  @QueryParam("search_term") 
 
  @Parameter(description = "This would be used to filter resources having attributes matching with search term.")  String searchTerm
-,  @QueryParam("list_type") 
+,  @QueryParam("type") 
 
- @Parameter(description = "Template List Type")  String listType
+ @Parameter(description = "Template List Type")  String type
 ,  @QueryParam("recursive") @DefaultValue("false") 
 
  @Parameter(description = "Specify true if all accessible Templates are to be included")  Boolean recursive
@@ -236,15 +230,9 @@ public interface ProjectTemplateApi {
 , @PathParam("version")
 
  @Parameter(description = "Version Label for Template") String version
-,@Valid TemplateUpdateRequestBody body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,@Valid TemplateUpdateRequestBody body,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("is_stable") @DefaultValue("false") 
-
- @Parameter(description = "True if given version for template to be set as stable")  Boolean isStable
-,  @QueryParam("comments") 
-
- @Parameter(description = "Specify comment with respect to changes  ")  String comments
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );
     @PUT
     @Path("/{template}/versions/{version}/stable")
@@ -266,10 +254,7 @@ public interface ProjectTemplateApi {
 , @PathParam("version")
 
  @Parameter(description = "Version Label for Template") String version
-,@Valid GitFindDetails body, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @HeaderParam("Harness-Account") 
+,@Valid GitFindDetails body,  @HeaderParam("Harness-Account") 
 
- @Parameter(description = "Account Identifier for the Entity.") String harnessAccount
-,  @QueryParam("comments") 
-
- @Parameter(description = "Specify comment with respect to changes  ")  String comments
+ @Parameter(description = "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.") String harnessAccount
 );}
