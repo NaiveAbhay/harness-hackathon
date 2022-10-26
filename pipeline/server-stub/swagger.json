@@ -487,6 +487,8 @@
                       "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
                       "slug" : "example_pipeline",
                       "name" : "ExamplePipeline",
+                      "org" : "example_org",
+                      "project" : "example_project",
                       "description" : "Pipeline Description",
                       "tags" : {
                         "example-tag-1" : "example-tag-1-value",
@@ -533,7 +535,7 @@
                 },
                 "examples" : {
                   "example-response" : {
-                    "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                    "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\norg: example_org\nproject: example_project\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
                   }
                 }
               }
@@ -763,6 +765,20 @@
             "type" : "string",
             "description" : "Pipeline name"
           },
+          "org" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Organization identifier"
+          },
+          "project" : {
+            "maxLength" : 64,
+            "minLength" : 1,
+            "pattern" : "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+            "type" : "string",
+            "description" : "Project identifier"
+          },
           "description" : {
             "maxLength" : 1024,
             "type" : "string",
@@ -819,6 +835,8 @@
             "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
             "slug" : "example_pipeline",
             "name" : "ExamplePipeline",
+            "org" : "example_org",
+            "project" : "example_project",
             "description" : "Pipeline Description",
             "tags" : {
               "example-tag-1" : "example-tag-1-value",
@@ -1477,6 +1495,8 @@
                   "template_applied_pipeline_yaml" : "example_yaml_text_with_template",
                   "slug" : "example_pipeline",
                   "name" : "ExamplePipeline",
+                  "org" : "example_org",
+                  "project" : "example_project",
                   "description" : "Pipeline Description",
                   "tags" : {
                     "example-tag-1" : "example-tag-1-value",
@@ -1523,7 +1543,7 @@
             },
             "examples" : {
               "example-response" : {
-                "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                "value" : "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\norg: example_org\nproject: example_project\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
               }
             }
           }

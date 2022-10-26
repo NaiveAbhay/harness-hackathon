@@ -239,6 +239,8 @@ components:
           template_applied_pipeline_yaml: example_yaml_text_with_template
           slug: example_pipeline
           name: ExamplePipeline
+          org: example_org
+          project: example_project
           description: Pipeline Description
           tags:
             example-tag-1: example-tag-1-value
@@ -291,6 +293,18 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
+        org:
+          type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+          description: Organization identifier
+        project:
+          type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+          description: Project identifier
         description:
           type: string
           maxLength: 1024
@@ -1131,6 +1145,8 @@ components:
                 template_applied_pipeline_yaml: example_yaml_text_with_template
                 slug: example_pipeline
                 name: ExamplePipeline
+                org: example_org
+                project: example_project
                 description: Pipeline Description
                 tags:
                   example-tag-1: example-tag-1-value
@@ -1173,6 +1189,8 @@ components:
                 template_applied_pipeline_yaml: example_yaml_text_with_template
                 slug: example_pipeline
                 name: ExamplePipeline
+                org: example_org
+                project: example_project
                 description: Pipeline Description
                 tags:
                   example-tag-1: example-tag-1-value

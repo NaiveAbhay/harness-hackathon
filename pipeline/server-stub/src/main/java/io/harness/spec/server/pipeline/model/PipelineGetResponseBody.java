@@ -30,6 +30,10 @@ public class PipelineGetResponseBody   {
 
   private @Valid String name = null;
 
+  private @Valid String org = null;
+
+  private @Valid String project = null;
+
   private @Valid String description = null;
 
   private @Valid Map<String, String> tags = new HashMap<>();
@@ -120,6 +124,44 @@ public class PipelineGetResponseBody   {
   }
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Organization identifier
+   **/
+  public PipelineGetResponseBody org(String org) {
+    this.org = org;
+    return this;
+  }
+
+  
+  @Schema(description = "Organization identifier")
+  @JsonProperty("org")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getOrg() {
+    return org;
+  }
+  public void setOrg(String org) {
+    this.org = org;
+  }
+
+  /**
+   * Project identifier
+   **/
+  public PipelineGetResponseBody project(String project) {
+    this.project = project;
+    return this;
+  }
+
+  
+  @Schema(description = "Project identifier")
+  @JsonProperty("project")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+  public String getProject() {
+    return project;
+  }
+  public void setProject(String project) {
+    this.project = project;
   }
 
   /**
@@ -287,6 +329,8 @@ public class PipelineGetResponseBody   {
         Objects.equals(templateAppliedPipelineYaml, pipelineGetResponseBody.templateAppliedPipelineYaml) &&
         Objects.equals(slug, pipelineGetResponseBody.slug) &&
         Objects.equals(name, pipelineGetResponseBody.name) &&
+        Objects.equals(org, pipelineGetResponseBody.org) &&
+        Objects.equals(project, pipelineGetResponseBody.project) &&
         Objects.equals(description, pipelineGetResponseBody.description) &&
         Objects.equals(tags, pipelineGetResponseBody.tags) &&
         Objects.equals(modules, pipelineGetResponseBody.modules) &&
@@ -299,7 +343,7 @@ public class PipelineGetResponseBody   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(pipelineYaml, templateAppliedPipelineYaml, slug, name, description, tags, modules, gitDetails, valid, yamlErrorWrapper, created, updated);
+    return Objects.hash(pipelineYaml, templateAppliedPipelineYaml, slug, name, org, project, description, tags, modules, gitDetails, valid, yamlErrorWrapper, created, updated);
   }
 
   @Override
@@ -311,6 +355,8 @@ public class PipelineGetResponseBody   {
     sb.append("    templateAppliedPipelineYaml: ").append(toIndentedString(templateAppliedPipelineYaml)).append("\n");
     sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    org: ").append(toIndentedString(org)).append("\n");
+    sb.append("    project: ").append(toIndentedString(project)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    tags: ").append(toIndentedString(tags)).append("\n");
     sb.append("    modules: ").append(toIndentedString(modules)).append("\n");
