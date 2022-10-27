@@ -32,6 +32,8 @@ public class GitFindDetails   {
 
   private @Valid String parentProjectId = null;
 
+  private @Valid String comments = null;
+
   /**
    * Name of the branch.
    **/
@@ -128,7 +130,7 @@ public class GitFindDetails   {
   }
 
   /**
-   * Project name of parent entity if its remote 
+   * Project name of parent entity if its remote
    **/
   public GitFindDetails parentProjectId(String parentProjectId) {
     this.parentProjectId = parentProjectId;
@@ -136,7 +138,7 @@ public class GitFindDetails   {
   }
 
   
-  @Schema(description = "Project name of parent entity if its remote ")
+  @Schema(description = "Project name of parent entity if its remote")
   @JsonProperty("parent_project_id")
 
   public String getParentProjectId() {
@@ -144,6 +146,25 @@ public class GitFindDetails   {
   }
   public void setParentProjectId(String parentProjectId) {
     this.parentProjectId = parentProjectId;
+  }
+
+  /**
+   * Specify comment with respect to changes  
+   **/
+  public GitFindDetails comments(String comments) {
+    this.comments = comments;
+    return this;
+  }
+
+  
+  @Schema(description = "Specify comment with respect to changes  ")
+  @JsonProperty("comments")
+
+  public String getComments() {
+    return comments;
+  }
+  public void setComments(String comments) {
+    this.comments = comments;
   }
 
 
@@ -161,12 +182,13 @@ public class GitFindDetails   {
         Objects.equals(parentRepoName, gitFindDetails.parentRepoName) &&
         Objects.equals(parentAccountId, gitFindDetails.parentAccountId) &&
         Objects.equals(parentOrgId, gitFindDetails.parentOrgId) &&
-        Objects.equals(parentProjectId, gitFindDetails.parentProjectId);
+        Objects.equals(parentProjectId, gitFindDetails.parentProjectId) &&
+        Objects.equals(comments, gitFindDetails.comments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branchName, parentConnectorRef, parentRepoName, parentAccountId, parentOrgId, parentProjectId);
+    return Objects.hash(branchName, parentConnectorRef, parentRepoName, parentAccountId, parentOrgId, parentProjectId, comments);
   }
 
   @Override
@@ -180,6 +202,7 @@ public class GitFindDetails   {
     sb.append("    parentAccountId: ").append(toIndentedString(parentAccountId)).append("\n");
     sb.append("    parentOrgId: ").append(toIndentedString(parentOrgId)).append("\n");
     sb.append("    parentProjectId: ").append(toIndentedString(parentProjectId)).append("\n");
+    sb.append("    comments: ").append(toIndentedString(comments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

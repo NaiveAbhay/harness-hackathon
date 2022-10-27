@@ -3337,12 +3337,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "requestBody": {
@@ -3519,12 +3513,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -3577,9 +3565,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -3608,12 +3593,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -3790,12 +3769,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -3851,9 +3824,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -3885,12 +3855,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -4073,12 +4037,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/SetDefaultTemplate"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -4137,9 +4095,6 @@
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/AccountHeaderParam"
-                    },
-                    {
-                        "$ref": "#/components/parameters/Comments"
                     }
                 ],
                 "tags": [
@@ -8780,7 +8735,8 @@
                         "parent_repo_name": "example_repo_name",
                         "parent_account_id": "example_account_id",
                         "parent_org_id": "example_org_id",
-                        "parent_project_id": "example_project_id"
+                        "parent_project_id": "example_project_id",
+                        "comments": "sample_comments"
                     }
                 },
                 "description": "Contains parameters related to Fetching an Entity for Git Experience.",
@@ -8808,6 +8764,10 @@
                     "parent_project_id": {
                         "type": "string",
                         "description": "Project name of parent entity if its remote"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Specify comment with respect to changes  "
                     }
                 }
             },
@@ -8934,7 +8894,7 @@
                 },
                 "type": "object",
                 "x-examples": {
-                    "example-1": {
+                    "example-2": {
                         "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                         "git_details": {
                             "branch_name": "branch",
@@ -8946,7 +8906,8 @@
                             "file_path": "/folder/file.json",
                             "repo_name": "example_repository",
                             "store_type": "INLINE"
-                        }
+                        },
+                        "comments": "sample_comment"
                     }
                 },
                 "description": "Templates Update Request Body",
@@ -8957,6 +8918,10 @@
                     },
                     "git_details": {
                         "$ref": "#/components/schemas/GitUpdateDetails1"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Specify comment with respect to changes  "
                     }
                 }
             },
@@ -8967,7 +8932,7 @@
                 },
                 "type": "object",
                 "x-examples": {
-                    "example-1": {
+                    "example-2": {
                         "template_yaml": "template:\n  name: Example_template\n  identifier: example_template\n  versionLabel: v1\n  type: Stage\n  tags: {}\n  spec:\n    type: Custom\n    spec:\n      execution:\n        steps:\n          - step:\n              type: ShellScript\n              name: ss1\n              identifier: ss1\n              spec:\n                shell: Bash\n                onDelegate: true\n                source:\n                  type: Inline\n                  spec:\n                    script: exit 1\n                environmentVariables: []\n                outputVariables: []\n              timeout: 10m\n",
                         "git_details": {
                             "branch_name": "branch",
@@ -8977,7 +8942,9 @@
                             "connector_ref": "git_connector",
                             "store_type": "INLINE",
                             "repo_name": "example_repository"
-                        }
+                        },
+                        "is_stable": true,
+                        "comments": "sample_comment"
                     }
                 },
                 "description": "Templates Create Request Body",
@@ -8988,6 +8955,14 @@
                     },
                     "git_details": {
                         "$ref": "#/components/schemas/GitCreateDetails1"
+                    },
+                    "is_stable": {
+                        "type": "boolean",
+                        "description": "True if given version for template to be set as stable"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Specify comment with respect to changes  "
                     }
                 }
             },
@@ -10615,22 +10590,9 @@
                 "name": "Harness-Account",
                 "in": "header",
                 "schema": {
-                    "type": "string",
-                    "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-                    "minLength": 1,
-                    "maxLength": 64
+                    "type": "string"
                 },
-                "description": "Account Identifier for the Entity."
-            },
-            "SetDefaultTemplate": {
-                "name": "is_stable",
-                "in": "query",
-                "required": false,
-                "schema": {
-                    "type": "boolean",
-                    "default": false
-                },
-                "description": "True if given version for template to be set as stable"
+                "description": "Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped."
             },
             "Comments": {
                 "name": "comments",
@@ -10670,7 +10632,7 @@
                 "description": "This would be used to filter resources having attributes matching with search term."
             },
             "TemplateListType": {
-                "name": "list_type",
+                "name": "type",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10689,12 +10651,12 @@
                 "required": false,
                 "schema": {
                     "type": "boolean",
-                    "default": "false"
+                    "default": false
                 },
                 "description": "Specify true if all accessible Templates are to be included"
             },
             "GetTemplateInputYaml": {
-                "name": "get_input_yaml",
+                "name": "include_yaml",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -11922,7 +11884,8 @@
                                         "file_path": "/folder/file.json",
                                         "repo_name": "example_repository",
                                         "store_type": "INLINE"
-                                    }
+                                    },
+                                    "comments": "sample_comments"
                                 }
                             }
                         }
@@ -11933,7 +11896,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n  file_path: /folder/file.json\n  repo_name: example_repository\n  store_type: INLINE\n"
+                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  commit_message: Added Harness Git Experience\n  last_object_id: example_object_id\n  base_branch: old_branch\n  connector_ref: git_connector\n  last_commit_id: example_commit_id\n  file_path: /folder/file.json\n  repo_name: example_repository\n  store_type: INLINE\ncomments: sample_comments\n"
                             }
                         }
                     }
@@ -11954,7 +11917,8 @@
                                     "parent_repo_name": "example_repo_name",
                                     "parent_account_id": "example_account_id",
                                     "parent_org_id": "example_org_id",
-                                    "parent_project_id": "example_project_id"
+                                    "parent_project_id": "example_project_id",
+                                    "comments": "sample_comments"
                                 }
                             }
                         }
@@ -11965,7 +11929,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "branch_name: branch\nparent_connector_ref: example_connector_ref\nparent_repo_name: example_repo_name\nparent_account_id: example_account_id\nparent_org_id: example_org_id\nparent_project_id: example_project_id\n"
+                                "value": "branch_name: branch\nparent_connector_ref: example_connector_ref\nparent_repo_name: example_repo_name\nparent_account_id: example_account_id\nparent_org_id: example_org_id\nparent_project_id: example_project_id\ncomments: sample_comments\n"
                             }
                         }
                     }
@@ -11990,7 +11954,9 @@
                                         "connector_ref": "git_connector",
                                         "store_type": "INLINE",
                                         "repo_name": "example_repository"
-                                    }
+                                    },
+                                    "is_stable": true,
+                                    "comments": "sample_comment"
                                 }
                             }
                         }
@@ -12001,7 +11967,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\n"
+                                "value": "template_yaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\ngit_details:\n  branch_name: branch\n  file_path: /folder/file.json\n  commit_message: Added Harness Git Experience\n  base_branch: old_branch\n  connector_ref: git_connector\n  store_type: INLINE\n  repo_name: example_repository\nis_stable: true\ncomments: sample_comment\n"
                             }
                         }
                     }
