@@ -855,7 +855,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/TemplateUpdateStableResponse"
                 },
                 "examples" : {
                   "example-1" : {
@@ -1767,7 +1767,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/TemplateUpdateStableResponse"
                 },
                 "examples" : {
                   "example-1" : {
@@ -2749,7 +2749,7 @@
               },
               "application/yaml" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/inline_response_200"
+                  "$ref" : "#/components/schemas/TemplateUpdateStableResponse"
                 },
                 "examples" : {
                   "example-1" : {
@@ -3431,16 +3431,9 @@
             "description" : "Version which is set as stable for the given Template\n"
           }
         },
+        "description" : "Template stable version update Response",
         "x-stoplight" : {
           "id" : "1h4plmwhpjnp4"
-        }
-      },
-      "inline_response_200" : {
-        "type" : "object",
-        "properties" : {
-          "stable_version" : {
-            "type" : "string"
-          }
         }
       }
     },
@@ -3629,7 +3622,7 @@
           },
           "application/yaml" : {
             "schema" : {
-              "$ref" : "#/components/schemas/inline_response_200"
+              "$ref" : "#/components/schemas/TemplateUpdateStableResponse"
             },
             "examples" : {
               "example-1" : {
