@@ -1073,6 +1073,7 @@ components:
           type: string
           description: |
             Version which is set as stable for the given Template
+      description: Template stable version update Response
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1809,10 +1810,7 @@ components:
                 stable_version: example_version
         application/yaml:
           schema:
-            type: object
-            properties:
-              stable_version:
-                type: string
+            $ref: '#/components/schemas/TemplateUpdateStableResponse'
           examples:
             example-1:
               value: |

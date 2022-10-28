@@ -1,9 +1,12 @@
 package io.harness.spec.server.template.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
-
+/**
+ * Template stable version update Response
+ **/
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 
 
-
+@Schema(description = "Template stable version update Response")
 
 public class TemplateUpdateStableResponse   {
 
