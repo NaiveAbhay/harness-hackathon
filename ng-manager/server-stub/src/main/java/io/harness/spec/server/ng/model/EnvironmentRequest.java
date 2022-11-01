@@ -194,8 +194,9 @@ public enum TypeEnum {
   }
 
   
-  @Schema(description = "Specify the environment type whether production or Preproduction.")
+  @Schema(required = true, description = "Specify the environment type whether production or Preproduction.")
   @JsonProperty("type")
+  @NotNull
 
   public TypeEnum getType() {
     return type;

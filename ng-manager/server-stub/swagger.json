@@ -5798,7 +5798,7 @@
       },
       "EnvironmentRequest" : {
         "title" : "EnvironmentRequest",
-        "required" : [ "name", "slug", "yaml" ],
+        "required" : [ "name", "slug", "type", "yaml" ],
         "type" : "object",
         "properties" : {
           "slug" : {
@@ -7950,8 +7950,8 @@
             "azure_environment_type" : {
               "type" : "string",
               "description" : "This specifies the Azure Environment type, which is AZURE by default.",
-              "default" : "AZURE",
-              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ]
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
             },
             "execute_on_delegate" : {
               "type" : "boolean",
@@ -7999,8 +7999,8 @@
             "azure_environment_type" : {
               "type" : "string",
               "description" : "This specifies the Azure Environment type, which is AZURE by default.",
-              "default" : "AZURE",
-              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ]
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
             },
             "execute_on_delegate" : {
               "type" : "boolean",
@@ -8048,8 +8048,8 @@
             "azure_environment_type" : {
               "type" : "string",
               "description" : "This specifies the Azure Environment type, which is AZURE by default.",
-              "default" : "AZURE",
-              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ]
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
             },
             "execute_on_delegate" : {
               "type" : "boolean",
@@ -8089,8 +8089,8 @@
             "azure_environment_type" : {
               "type" : "string",
               "description" : "This specifies the Azure Environment type, which is AZURE by default.",
-              "default" : "AZURE",
-              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ]
+              "enum" : [ "AZURE", "AZURE_US_GOVERNMENT" ],
+              "default" : "AZURE"
             },
             "execute_on_delegate" : {
               "type" : "boolean",

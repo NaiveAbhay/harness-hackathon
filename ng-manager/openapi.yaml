@@ -1395,6 +1395,7 @@ components:
         - slug
         - name
         - yaml
+        - type
     ServiceOverrideRequest:
       title: ServiceOverrideRequest
       x-stoplight:
