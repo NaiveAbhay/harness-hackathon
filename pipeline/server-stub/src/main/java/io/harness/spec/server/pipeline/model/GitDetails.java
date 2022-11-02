@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public class GitDetails   {
 
-  private @Valid String entityIdentifier = null;
+  private @Valid String objectId = null;
 
   private @Valid String branchName = null;
 
@@ -33,20 +33,20 @@ public class GitDetails   {
   /**
    * Entity identifier
    **/
-  public GitDetails entityIdentifier(String entityIdentifier) {
-    this.entityIdentifier = entityIdentifier;
+  public GitDetails objectId(String objectId) {
+    this.objectId = objectId;
     return this;
   }
 
   
   @Schema(description = "Entity identifier")
-  @JsonProperty("entity_identifier")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
-  public String getEntityIdentifier() {
-    return entityIdentifier;
+  @JsonProperty("object_id")
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
+  public String getObjectId() {
+    return objectId;
   }
-  public void setEntityIdentifier(String entityIdentifier) {
-    this.entityIdentifier = entityIdentifier;
+  public void setObjectId(String objectId) {
+    this.objectId = objectId;
   }
 
   /**
@@ -173,7 +173,7 @@ public class GitDetails   {
       return false;
     }
     GitDetails gitDetails = (GitDetails) o;
-    return Objects.equals(entityIdentifier, gitDetails.entityIdentifier) &&
+    return Objects.equals(objectId, gitDetails.objectId) &&
         Objects.equals(branchName, gitDetails.branchName) &&
         Objects.equals(filePath, gitDetails.filePath) &&
         Objects.equals(repoName, gitDetails.repoName) &&
@@ -184,7 +184,7 @@ public class GitDetails   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityIdentifier, branchName, filePath, repoName, commitId, fileUrl, repoUrl);
+    return Objects.hash(objectId, branchName, filePath, repoName, commitId, fileUrl, repoUrl);
   }
 
   @Override
@@ -192,7 +192,7 @@ public class GitDetails   {
     StringBuilder sb = new StringBuilder();
     sb.append("class GitDetails {\n");
     
-    sb.append("    entityIdentifier: ").append(toIndentedString(entityIdentifier)).append("\n");
+    sb.append("    objectId: ").append(toIndentedString(objectId)).append("\n");
     sb.append("    branchName: ").append(toIndentedString(branchName)).append("\n");
     sb.append("    filePath: ").append(toIndentedString(filePath)).append("\n");
     sb.append("    repoName: ").append(toIndentedString(repoName)).append("\n");

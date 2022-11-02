@@ -29,7 +29,7 @@ public class PipelineCreateResponseBody   {
   
   @Schema(description = "Pipeline identifier")
   @JsonProperty("slug")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }

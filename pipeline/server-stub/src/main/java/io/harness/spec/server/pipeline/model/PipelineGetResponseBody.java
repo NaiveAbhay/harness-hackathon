@@ -99,7 +99,7 @@ public class PipelineGetResponseBody   {
   
   @Schema(description = "Pipeline identifier")
   @JsonProperty("slug")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
@@ -118,7 +118,7 @@ public class PipelineGetResponseBody   {
   
   @Schema(description = "Pipeline name")
   @JsonProperty("name")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getName() {
     return name;
   }
@@ -137,7 +137,7 @@ public class PipelineGetResponseBody   {
   
   @Schema(description = "Organization identifier")
   @JsonProperty("org")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getOrg() {
     return org;
   }
@@ -156,7 +156,7 @@ public class PipelineGetResponseBody   {
   
   @Schema(description = "Project identifier")
   @JsonProperty("project")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getProject() {
     return project;
   }

@@ -64,7 +64,7 @@ public class PipelineUpdateRequestBody   {
   @Schema(required = true, description = "Pipeline identifier")
   @JsonProperty("slug")
   @NotNull
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
@@ -84,7 +84,7 @@ public class PipelineUpdateRequestBody   {
   @Schema(required = true, description = "Pipeline name")
   @JsonProperty("name")
   @NotNull
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getName() {
     return name;
   }

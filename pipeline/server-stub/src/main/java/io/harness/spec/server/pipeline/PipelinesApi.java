@@ -129,7 +129,7 @@ public interface PipelinesApi {
 ,  @QueryParam("pipeline_identifiers") 
 
  @Parameter(description = "List of Pipeline identifiers on the basis of which the Pipelines are filtered.")  List<String> pipelineIdentifiers
-, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)  @QueryParam("name") 
+, @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)  @QueryParam("name") 
 
  @Parameter(description = "Pipeline Name on the basis of which the Pipelines are filtered.")  String name
 , @Size(max=1024)  @QueryParam("description") 
