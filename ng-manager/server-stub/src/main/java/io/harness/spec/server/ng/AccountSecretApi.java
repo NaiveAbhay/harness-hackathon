@@ -44,7 +44,7 @@ import javax.validation.Valid;
 public interface AccountSecretApi {
 
     @POST
-    @Consumes({ "application/json", "application/yaml", "multipart/form-data" })
+    @Consumes({ "application/json", "application/yaml" })
     @Produces({ "application/json", "application/yaml" })
     @Operation(operationId = "createAccountScopedSecret", summary = "Create a secret", description = "Creates a new secret", security = {
         @SecurityRequirement(name = "x-api-key")    }, tags={ "Account Secret" })
