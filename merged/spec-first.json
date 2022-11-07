@@ -3113,7 +3113,7 @@
                     {
                         "schema": {
                             "type": "string",
-                            "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                             "minLength": 1,
                             "maxLength": 64
                         },
@@ -4816,38 +4816,6 @@
                         "WinRmNTLM": "#/components/schemas/WinRmNTLMSpec"
                     }
                 },
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/SSHKeyPathSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SSHKeyReferenceSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SSHPasswordSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SSHKerberosTGTKeyTabFileSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SSHKerberosTGTPasswordSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SecretFileSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/SecretTextSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/WinRmTGTKeyTabFileSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/WinRmTGTPasswordSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/WinRmNTLMSpec"
-                    }
-                ],
                 "properties": {
                     "type": {
                         "type": "string",
@@ -5625,77 +5593,6 @@
                         "AzureInheritFromDelegateSystemAssignedManagedIdentity": "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
                     }
                 },
-                "oneOf": [
-                    {
-                        "$ref": "#/components/schemas/GitHttpConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/GitHttpEncryptedConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/GitSshConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AppdynamicsConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AppdynamicsClientIdConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/ArtifactoryConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/ArtifactoryEncryptedConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/ArtifactoryAnonymousConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsCodeCommitConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsAccessKeyConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsEncryptedAccessKeyConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsIAMRoleConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsIRSAConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsKmsAccessKeyConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsKmsAssumeIAMConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsKmsAssumeSTSConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsSecretManagerAccessKeyConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsSecretManagerAssumeIAMConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AwsSecretManagerAssumeSTSConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AzureClientSecretKeyConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AzureClientCertificateConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AzureInheritFromDelegateUserAssignedManagedIdentityConnectorSpec"
-                    },
-                    {
-                        "$ref": "#/components/schemas/AzureInheritFromDelegateSystemAssignedManagedIdentityConnectorSpec"
-                    }
-                ],
                 "properties": {
                     "type": {
                         "type": "string",
@@ -7440,7 +7337,7 @@
                 "description": "Git Experience related details of the Entity.",
                 "x-examples": {
                     "example-git": {
-                        "entity_identifier": "example_object",
+                        "object_id": "example_object",
                         "branch_name": "branch",
                         "file_path": "/folder/file.json",
                         "repo_name": "example_repository",
@@ -7450,10 +7347,10 @@
                     }
                 },
                 "properties": {
-                    "entity_identifier": {
+                    "object_id": {
                         "type": "string",
                         "description": "Entity identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -7495,6 +7392,8 @@
                         "template_applied_pipeline_yaml": "example_yaml_text_with_template",
                         "slug": "example_pipeline",
                         "name": "ExamplePipeline",
+                        "org": "example_org",
+                        "project": "example_project",
                         "description": "Pipeline Description",
                         "tags": {
                             "example-tag-1": "example-tag-1-value",
@@ -7504,7 +7403,7 @@
                             "cd"
                         ],
                         "git_details": {
-                            "entity_identifier": "example_object",
+                            "object_id": "example_object",
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
                             "repo_name": "example_repository",
@@ -7548,16 +7447,30 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
                     "name": {
                         "type": "string",
                         "description": "Pipeline name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
+                    },
+                    "org": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Organization identifier"
+                    },
+                    "project": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "minLength": 1,
+                        "maxLength": 64,
+                        "description": "Project identifier"
                     },
                     "description": {
                         "type": "string",
@@ -7662,7 +7575,7 @@
                         "connector_ref": "example_connector",
                         "valid": true,
                         "git_details": {
-                            "entity_identifier": "example_object",
+                            "object_id": "example_object",
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
                             "repo_name": "example_repository",
@@ -7677,14 +7590,14 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
                     "name": {
                         "type": "string",
                         "description": "Pipeline name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -7833,14 +7746,14 @@
                     },
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline identifier"
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline name"
@@ -7884,7 +7797,7 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     }
@@ -7962,7 +7875,7 @@
                 "properties": {
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Entity identifier"
@@ -7973,7 +7886,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Name of Entity"
@@ -7997,7 +7910,7 @@
                     },
                     "execution_id": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Execution identifier"
@@ -8089,7 +8002,7 @@
                     "username": {
                         "type": "string",
                         "description": "Username of the Executor.",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -8231,14 +8144,14 @@
                     },
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline identifier"
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline name"
@@ -8977,7 +8890,8 @@
                         "type": "string",
                         "description": "Version which is set as stable for the given Template\n"
                     }
-                }
+                },
+                "description": "Template stable version update Response"
             }
         },
         "responses": {
@@ -9923,6 +9837,8 @@
                                     "template_applied_pipeline_yaml": "example_yaml_text_with_template",
                                     "slug": "example_pipeline",
                                     "name": "ExamplePipeline",
+                                    "org": "example_org",
+                                    "project": "example_project",
                                     "description": "Pipeline Description",
                                     "tags": {
                                         "example-tag-1": "example-tag-1-value",
@@ -9932,7 +9848,7 @@
                                         "cd"
                                     ],
                                     "git_details": {
-                                        "entity_identifier": "example_object",
+                                        "object_id": "example_object",
                                         "branch_name": "branch",
                                         "file_path": "/folder/file.json",
                                         "repo_name": "example_repository",
@@ -9971,7 +9887,7 @@
                         },
                         "examples": {
                             "example-response": {
-                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\norg: example_org\nproject: example_project\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  object_id: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
                             }
                         }
                     }
@@ -10042,7 +9958,7 @@
                                         "connector_ref": "example_connector",
                                         "valid": true,
                                         "git_details": {
-                                            "entity_identifier": "example_object",
+                                            "object_id": "example_object",
                                             "branch_name": "branch",
                                             "file_path": "/folder/file.json",
                                             "repo_name": "example_repository",
@@ -10065,7 +9981,7 @@
                         },
                         "examples": {
                             "example-list-response": {
-                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules:\n    - CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules:\n    - CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: INLINE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object_id: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                             }
                         }
                     }
@@ -10270,12 +10186,7 @@
                     },
                     "application/yaml": {
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "stable_version": {
-                                    "type": "string"
-                                }
-                            }
+                            "$ref": "#/components/schemas/TemplateUpdateStableResponse"
                         },
                         "examples": {
                             "example-1": {
