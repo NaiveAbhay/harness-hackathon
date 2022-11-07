@@ -59,7 +59,7 @@ paths:
           description: List of Pipeline identifiers on the basis of which the Pipelines are filtered.
         - schema:
             type: string
-            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
             minLength: 1
             maxLength: 64
           in: query
@@ -196,7 +196,7 @@ components:
       description: Git Experience related details of the Entity.
       x-examples:
         example-git:
-          entity_identifier: example_object
+          object_id: example_object
           branch_name: branch
           file_path: /folder/file.json
           repo_name: example_repository
@@ -204,10 +204,10 @@ components:
           file_url: www.repo/folder/file.com
           repo_url: www.repo.com
       properties:
-        entity_identifier:
+        object_id:
           type: string
           description: Entity identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
         branch_name:
@@ -239,6 +239,8 @@ components:
           template_applied_pipeline_yaml: example_yaml_text_with_template
           slug: example_pipeline
           name: ExamplePipeline
+          org: example_org
+          project: example_project
           description: Pipeline Description
           tags:
             example-tag-1: example-tag-1-value
@@ -246,7 +248,7 @@ components:
           modules:
             - cd
           git_details:
-            entity_identifier: example_object
+            object_id: example_object
             branch_name: branch
             file_path: /folder/file.json
             repo_name: example_repository
@@ -282,15 +284,27 @@ components:
         slug:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
         name:
           type: string
           description: Pipeline name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
+        org:
+          type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+          description: Organization identifier
+        project:
+          type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
+          minLength: 1
+          maxLength: 64
+          description: Project identifier
         description:
           type: string
           maxLength: 1024
@@ -372,7 +386,7 @@ components:
           connector_ref: example_connector
           valid: true
           git_details:
-            entity_identifier: example_object
+            object_id: example_object
             branch_name: branch
             file_path: /folder/file.json
             repo_name: example_repository
@@ -384,13 +398,13 @@ components:
         slug:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
         name:
           type: string
           description: Pipeline name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
         description:
@@ -590,13 +604,13 @@ components:
           description: Pipeline YAML (to be passed as a String).
         slug:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Pipeline identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Pipeline name
@@ -629,7 +643,7 @@ components:
         slug:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
     YAMLSchemaErrorWrapper:
@@ -688,7 +702,7 @@ components:
       properties:
         slug:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Entity identifier
@@ -697,7 +711,7 @@ components:
           description: Type of Entity
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Name of Entity
@@ -715,7 +729,7 @@ components:
           $ref: '#/components/schemas/ExecutorInfo'
         execution_id:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Execution identifier
@@ -793,7 +807,7 @@ components:
         username:
           type: string
           description: Username of the Executor.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
         email:
@@ -986,13 +1000,13 @@ components:
           description: Pipeline YAML (to be passed as a String).
         slug:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Pipeline identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
           minLength: 1
           maxLength: 64
           description: Pipeline name
@@ -1131,6 +1145,8 @@ components:
                 template_applied_pipeline_yaml: example_yaml_text_with_template
                 slug: example_pipeline
                 name: ExamplePipeline
+                org: example_org
+                project: example_project
                 description: Pipeline Description
                 tags:
                   example-tag-1: example-tag-1-value
@@ -1138,7 +1154,7 @@ components:
                 modules:
                   - cd
                 git_details:
-                  entity_identifier: example_object
+                  object_id: example_object
                   branch_name: branch
                   file_path: /folder/file.json
                   repo_name: example_repository
@@ -1173,6 +1189,8 @@ components:
                 template_applied_pipeline_yaml: example_yaml_text_with_template
                 slug: example_pipeline
                 name: ExamplePipeline
+                org: example_org
+                project: example_project
                 description: Pipeline Description
                 tags:
                   example-tag-1: example-tag-1-value
@@ -1180,7 +1198,7 @@ components:
                 modules:
                   - cd
                 git_details:
-                  entity_identifier: example_object
+                  object_id: example_object
                   branch_name: branch
                   file_path: /folder/file.json
                   repo_name: example_repository
@@ -1258,7 +1276,7 @@ components:
                   connector_ref: example_connector
                   valid: true
                   git_details:
-                    entity_identifier: example_object
+                    object_id: example_object
                     branch_name: branch
                     file_path: /folder/file.json
                     repo_name: example_repository
@@ -1315,7 +1333,7 @@ components:
                   connector_ref: example_connector
                   valid: true
                   git_details:
-                    entity_identifier: example_object
+                    object_id: example_object
                     branch_name: branch
                     file_path: /folder/file.json
                     repo_name: example_repository

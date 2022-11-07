@@ -35,7 +35,7 @@ public class NodeInfo   {
   
   @Schema(description = "Entity identifier")
   @JsonProperty("slug")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getSlug() {
     return slug;
   }
@@ -73,7 +73,7 @@ public class NodeInfo   {
   
   @Schema(description = "Name of Entity")
   @JsonProperty("name")
- @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$") @Size(min=1,max=64)
+ @Pattern(regexp="^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$") @Size(min=1,max=64)
   public String getName() {
     return name;
   }
