@@ -3113,7 +3113,7 @@
                     {
                         "schema": {
                             "type": "string",
-                            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                            "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                             "minLength": 1,
                             "maxLength": 64
                         },
@@ -3326,6 +3326,23 @@
                 "responses": {
                     "204": {
                         "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            },
+                            "application/yaml": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {}
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7349,7 +7366,7 @@
                 "properties": {
                     "object_id": {
                         "type": "string",
-                        "description": "Entity identifier",
+                        "description": "Object identifier / blob id",
                         "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
@@ -7447,27 +7464,27 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
                     "name": {
                         "type": "string",
                         "description": "Pipeline name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
                     "org": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Organization identifier"
                     },
                     "project": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Project identifier"
@@ -7590,14 +7607,14 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
                     "name": {
                         "type": "string",
                         "description": "Pipeline name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -7746,14 +7763,14 @@
                     },
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline identifier"
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline name"
@@ -7797,7 +7814,7 @@
                     "slug": {
                         "type": "string",
                         "description": "Pipeline identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     }
@@ -7875,7 +7892,7 @@
                 "properties": {
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Entity identifier"
@@ -7886,7 +7903,7 @@
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Name of Entity"
@@ -7910,7 +7927,7 @@
                     },
                     "execution_id": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Execution identifier"
@@ -8001,10 +8018,7 @@
                     },
                     "username": {
                         "type": "string",
-                        "description": "Username of the Executor.",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
-                        "minLength": 1,
-                        "maxLength": 64
+                        "description": "Username of the Executor."
                     },
                     "email": {
                         "type": "string",
@@ -8090,7 +8104,7 @@
                     },
                     "last_object_id": {
                         "type": "string",
-                        "description": "Last object identifier (for Github)."
+                        "description": "Last object identifier (for Github only)."
                     },
                     "base_branch": {
                         "type": "string",
@@ -8098,7 +8112,7 @@
                     },
                     "last_commit_id": {
                         "type": "string",
-                        "description": "Last commit identifier (for Git Repositories other than Github)."
+                        "description": "Last commit identifier."
                     }
                 },
                 "x-examples": {
@@ -8144,14 +8158,14 @@
                     },
                     "slug": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline identifier"
                     },
                     "name": {
                         "type": "string",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64,
                         "description": "Pipeline name"
