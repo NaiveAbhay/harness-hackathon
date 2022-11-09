@@ -102,15 +102,15 @@
         },
         {
             "name": "Account Template",
-            "description": "This contains APIs for performing CRUD operations on Templates at account laevel."
+            "description": "This contains APIs for performing CRUD operations on Templates at account scope."
         },
         {
             "name": "Org Template",
-            "description": "This contains APIs for performing CRUD operations on Templates at org laevel."
+            "description": "This contains APIs for performing CRUD operations on Templates at org scope."
         },
         {
             "name": "Project Template",
-            "description": "This contains APIs for performing CRUD operations on Templates at project laevel."
+            "description": "This contains APIs for performing CRUD operations on Templates at project scope."
         }
     ],
     "paths": {
@@ -8219,7 +8219,7 @@
                         "scope": "org",
                         "version": 1234567890,
                         "git_details": {
-                            "entity_identifier": "example_object",
+                            "object_id": "example_object",
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
                             "repo_name": "example_repository",
@@ -8236,10 +8236,7 @@
                 "properties": {
                     "account": {
                         "type": "string",
-                        "description": "Account identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-                        "minLength": 1,
-                        "maxLength": 64
+                        "description": "Account identifier"
                     },
                     "org": {
                         "type": "string",
@@ -8265,7 +8262,7 @@
                     "name": {
                         "type": "string",
                         "description": "Template Name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -8377,7 +8374,7 @@
                         "scope": "org",
                         "version": 1234567890,
                         "git_details": {
-                            "entity_identifier": "example_object",
+                            "object_id": "example_object",
                             "branch_name": "branch",
                             "file_path": "/folder/file.json",
                             "repo_name": "example_repository",
@@ -8395,10 +8392,7 @@
                 "properties": {
                     "account": {
                         "type": "string",
-                        "description": "Account identifier",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
-                        "minLength": 1,
-                        "maxLength": 64
+                        "description": "Account identifier"
                     },
                     "org": {
                         "type": "string",
@@ -8424,7 +8418,7 @@
                     "name": {
                         "type": "string",
                         "description": "Template Name",
-                        "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$",
+                        "pattern": "^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$",
                         "minLength": 1,
                         "maxLength": 64
                     },
@@ -8510,7 +8504,7 @@
                 "type": "object",
                 "x-examples": {
                     "example-1": {
-                        "template_response": {
+                        "template": {
                             "account": "example_account",
                             "org": "example_organization",
                             "project": "example_project",
@@ -8528,7 +8522,7 @@
                             "scope": "org",
                             "version": 1234567890,
                             "git_details": {
-                                "entity_identifier": "example_object",
+                                "object_id": "example_object",
                                 "branch_name": "branch",
                                 "file_path": "/folder/file.json",
                                 "repo_name": "example_repository",
@@ -8541,15 +8535,15 @@
                             "connector_ref": "example_connector_ref",
                             "stable_template": true
                         },
-                        "template_input_yaml": "example"
+                        "inputs": "example"
                     }
                 },
                 "description": "Returns Template input YAML with template response",
                 "properties": {
-                    "template_response": {
+                    "template": {
                         "$ref": "#/components/schemas/TemplateResponse"
                     },
-                    "input_yaml": {
+                    "inputs": {
                         "type": "string",
                         "description": "Input Yaml for the Template"
                     }
@@ -8583,7 +8577,7 @@
                             "scope": "org",
                             "version": 1234567890,
                             "git_details": {
-                                "entity_identifier": "example_object",
+                                "object_id": "example_object",
                                 "branch_name": "branch",
                                 "file_path": "/folder/file.json",
                                 "repo_name": "example_repository",
@@ -8609,7 +8603,7 @@
                 "description": "Git Experience related details of the Entity.",
                 "x-examples": {
                     "example-git": {
-                        "entity_identifier": "example_object",
+                        "object_id": "example_object",
                         "branch_name": "branch",
                         "file_path": "/folder/file.json",
                         "repo_name": "example_repository",
@@ -8619,7 +8613,7 @@
                     }
                 },
                 "properties": {
-                    "entity_identifier": {
+                    "object_id": {
                         "type": "string",
                         "description": "Entity identifier"
                     },
@@ -8658,11 +8652,11 @@
                 "x-examples": {
                     "example-1": {
                         "branch_name": "branch",
-                        "parent_connector_ref": "example_connector_ref",
-                        "parent_repo_name": "example_repo_name",
-                        "parent_account_id": "example_account_id",
-                        "parent_org_id": "example_org_id",
-                        "parent_project_id": "example_project_id",
+                        "parent_entity_connector_ref": "example_connector_ref",
+                        "parent_entity_repo_name": "example_repo_name",
+                        "parent_entity_account_id": "example_account_id",
+                        "parent_entity_org_id": "example_org_id",
+                        "parent_entity_project_id": "example_project_id",
                         "comments": "sample_comments"
                     }
                 },
@@ -8672,23 +8666,23 @@
                         "type": "string",
                         "description": "Name of the branch."
                     },
-                    "parent_connector_ref": {
+                    "parent_entity_connector_ref": {
                         "type": "string",
                         "description": "Connector ref of parent template if its remote"
                     },
-                    "parent_repo_name": {
+                    "parent_entity_repo_name": {
                         "type": "string",
                         "description": "Repo name of parent template if its remote"
                     },
-                    "parent_account_id": {
+                    "parent_entity_account_id": {
                         "type": "string",
                         "description": "Account name of parent template if its remote"
                     },
-                    "parent_org_id": {
+                    "parent_entity_org_id": {
                         "type": "string",
                         "description": "Organization name of parent template if its remote"
                     },
-                    "parent_project_id": {
+                    "parent_entity_project_id": {
                         "type": "string",
                         "description": "Project name of parent entity if its remote"
                     },
@@ -10041,7 +10035,7 @@
                                     "scope": "org",
                                     "version": 1234567890,
                                     "git_details": {
-                                        "entity_identifier": "example_object",
+                                        "object_id": "example_object",
                                         "branch_name": "branch",
                                         "file_path": "/folder/file.json",
                                         "repo_name": "example_repository",
@@ -10063,7 +10057,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "account: example_account\norg: example_organization\nproject: example_project\nslug: example_template\nname: Example_template\ndescription: string\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\nversion_label: example_version\nentity_type: Stage\nchild_type: example_child_type\nscope: org\nversion: 1234567890\ngit_details:\n  entity_identifier: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nupdated: 1234567890\nstore_type: INLINE\nconnector_ref: example_connector_ref\nstable_template: true\n"
+                                "value": "account: example_account\norg: example_organization\nproject: example_project\nslug: example_template\nname: Example_template\ndescription: string\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nyaml: |\n  template:\n    name: Example_template\n    identifier: example_template\n    versionLabel: v1\n    type: Stage\n    tags: {}\n    spec:\n      type: Custom\n      spec:\n        execution:\n          steps:\n            - step:\n                type: ShellScript\n                name: ss1\n                identifier: ss1\n                spec:\n                  shell: Bash\n                  onDelegate: true\n                  source:\n                    type: Inline\n                    spec:\n                      script: exit 1\n                  environmentVariables: []\n                  outputVariables: []\n                timeout: 10m\nversion_label: example_version\nentity_type: Stage\nchild_type: example_child_type\nscope: org\nversion: 1234567890\ngit_details:\n  object_id: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nupdated: 1234567890\nstore_type: INLINE\nconnector_ref: example_connector_ref\nstable_template: true\n"
                             }
                         }
                     }
@@ -10079,7 +10073,7 @@
                         "examples": {
                             "example-1": {
                                 "value": {
-                                    "template_response": {
+                                    "template": {
                                         "account": "example_account",
                                         "org": "example_organization",
                                         "project": "example_project",
@@ -10097,7 +10091,7 @@
                                         "scope": "org",
                                         "version": 1234567890,
                                         "git_details": {
-                                            "entity_identifier": "example_object",
+                                            "object_id": "example_object",
                                             "branch_name": "branch",
                                             "file_path": "/folder/file.json",
                                             "repo_name": "example_repository",
@@ -10110,7 +10104,7 @@
                                         "connector_ref": "example_connector_ref",
                                         "stable_template": true
                                     },
-                                    "template_input_yaml": "example"
+                                    "inputs": "example"
                                 }
                             }
                         }
@@ -10121,7 +10115,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "template_response:\n  account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    template:\n      name: Example_template\n      identifier: example_template\n      versionLabel: v1\n      type: Stage\n      tags: {}\n      spec:\n        type: Custom\n        spec:\n          execution:\n            steps:\n              - step:\n                  type: ShellScript\n                  name: ss1\n                  identifier: ss1\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: exit 1\n                    environmentVariables: []\n                    outputVariables: []\n                  timeout: 10m\n  version_label: example_version\n  entity_type: Stage\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\ntemplate_input_yaml: example\n"
+                                "value": "template:\n  account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  yaml: |\n    template:\n      name: Example_template\n      identifier: example_template\n      versionLabel: v1\n      type: Stage\n      tags: {}\n      spec:\n        type: Custom\n        spec:\n          execution:\n            steps:\n              - step:\n                  type: ShellScript\n                  name: ss1\n                  identifier: ss1\n                  spec:\n                    shell: Bash\n                    onDelegate: true\n                    source:\n                      type: Inline\n                      spec:\n                        script: exit 1\n                    environmentVariables: []\n                    outputVariables: []\n                  timeout: 10m\n  version_label: example_version\n  entity_type: Stage\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    object_id: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\ninputs: example\n"
                             }
                         }
                     }
@@ -10154,7 +10148,7 @@
                                         "scope": "org",
                                         "version": 1234567890,
                                         "git_details": {
-                                            "entity_identifier": "example_object",
+                                            "object_id": "example_object",
                                             "branch_name": "branch",
                                             "file_path": "/folder/file.json",
                                             "repo_name": "example_repository",
@@ -10177,7 +10171,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "- account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  version_label: example_version\n  entity_type: Step\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    entity_identifier: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\n"
+                                "value": "- account: example_account\n  org: example_organization\n  project: example_project\n  slug: example_template\n  name: Example_template\n  description: string\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  version_label: example_version\n  entity_type: Step\n  child_type: example_child_type\n  scope: org\n  version: 1234567890\n  git_details:\n    object_id: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n  updated: 1234567890\n  store_type: INLINE\n  connector_ref: example_connector_ref\n  stable_template: true\n"
                             }
                         }
                     }
@@ -10543,7 +10537,12 @@
                 "in": "query",
                 "required": false,
                 "schema": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "slug",
+                        "name",
+                        "updated"
+                    ]
                 },
                 "description": "Parameter on the basis of which sorting is done."
             },
@@ -10599,7 +10598,7 @@
                 "description": "Name of the branch"
             },
             "ParentConnectorRef": {
-                "name": "parent_connector_ref",
+                "name": "parent_entity_connector_ref",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10608,7 +10607,7 @@
                 "description": "Connector ref of parent template if its remote"
             },
             "ParentRepoName": {
-                "name": "parent_repo_name",
+                "name": "parent_entity_repo_name",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10617,7 +10616,7 @@
                 "description": "Repo name of parent template if its remote"
             },
             "ParentAccountId": {
-                "name": "parent_account_id",
+                "name": "parent_entity_account_id",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10626,7 +10625,7 @@
                 "description": "Account name of parent template if its remote"
             },
             "ParentOrgId": {
-                "name": "parent_org_id",
+                "name": "parent_entity_org_id",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10635,7 +10634,7 @@
                 "description": "Organization name of parent template if its remote"
             },
             "ParentProjectId": {
-                "name": "parent_project_id",
+                "name": "parent_entity_project_id",
                 "in": "query",
                 "required": false,
                 "schema": {
@@ -10709,7 +10708,7 @@
                         "type": "string"
                     }
                 },
-                "description": "Template Child Types for filtering"
+                "description": "Child types describe the type of Step or stage"
             }
         },
         "requestBodies": {
@@ -11838,11 +11837,11 @@
                             "example-1": {
                                 "value": {
                                     "branch_name": "branch",
-                                    "parent_connector_ref": "example_connector_ref",
-                                    "parent_repo_name": "example_repo_name",
-                                    "parent_account_id": "example_account_id",
-                                    "parent_org_id": "example_org_id",
-                                    "parent_project_id": "example_project_id",
+                                    "parent_entity_connector_ref": "example_connector_ref",
+                                    "parent_entity_repo_name": "example_repo_name",
+                                    "parent_entity_account_id": "example_account_id",
+                                    "parent_entity_org_id": "example_org_id",
+                                    "parent_entity_project_id": "example_project_id",
                                     "comments": "sample_comments"
                                 }
                             }
@@ -11854,7 +11853,7 @@
                         },
                         "examples": {
                             "example-1": {
-                                "value": "branch_name: branch\nparent_connector_ref: example_connector_ref\nparent_repo_name: example_repo_name\nparent_account_id: example_account_id\nparent_org_id: example_org_id\nparent_project_id: example_project_id\ncomments: sample_comments\n"
+                                "value": "branch_name: branch\nparent_entity_connector_ref: example_connector_ref\nparent_entity_repo_name: example_repo_name\nparent_entity_account_id: example_account_id\nparent_entity_org_id: example_org_id\nparent_entity_project_id: example_project_id\ncomments: sample_comments\n"
                             }
                         }
                     }
