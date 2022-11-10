@@ -156,33 +156,13 @@ paths:
         - schema:
             type: string
           in: query
-          name: parent_entity_connector_ref
-          description: Connector reference of parent Template if it is remote.
-        - schema:
-            type: string
-          in: query
-          name: parent_entity_repo_name
-          description: Repository name of parent Template if it is remote.
-        - schema:
-            type: string
-          in: query
-          name: parent_entity_account_id
-          description: Account identifier of parent Template if it is remote.
-        - schema:
-            type: string
-          in: query
-          name: parent_entity_org_id
-          description: Organization identifier of parent Template if it is remote.
-        - schema:
-            type: string
-          in: query
-          name: parent_entity_project_id
-          description: Project identifier of parent Template if it is remote.
+          name: connector_ref
+          description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
         - schema:
             type: string
           in: query
           name: repo_name
-          description: Name of the repository.
+          description: Name of the repository (for Git Experience).
       tags:
         - Pipelines
       responses:
