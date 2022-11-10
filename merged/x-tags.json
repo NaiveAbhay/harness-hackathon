@@ -28,6 +28,10 @@
     "tags" : [ "Project Services" ]
     },
     {
+        "name" : "Environments",
+        "tags" : [ "Project Environments" ]
+    },
+    {
       "name": "Roles",
       "tags": [ "Account Roles", "Organization Roles", "Project Roles" ]
     },
