@@ -1,6 +1,9 @@
 {
   "inputs": [
     {
+      "inputFile": "../commons/openapi.yaml"
+    },
+    {
       "inputFile": "../access-control/openapi.yaml"
     },
     {

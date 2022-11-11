@@ -42,5 +42,9 @@
     {
       "name": "Role Assignments",
       "tags": [ "Account Role Assignments", "Org Role Assignments", "Project Role Assignments" ]
+    },
+    {
+      "name" : "Error Models",
+      "tags" : [ "Governance Status", "Policy", "Policy Set", "Governance Metadata", "Test Error Metadata", "Error Metadata", "Field Error", "Error Response" ]
     }
 ]
