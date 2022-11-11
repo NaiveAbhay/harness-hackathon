@@ -3,10 +3,17 @@
     "info": {
         "title": "Harness NextGen Software Delivery Platform API Reference",
         "version": "1.0",
-        "description": "This is the Open Api Spec 3 for the Access Control Service. This is under active development. Beware of the breaking change with respect to the generated code stub.",
+        "description": "This is the Open Api Spec 3 for Harness. This is under active development. Beware of the breaking change with respect to the generated code stub.\n    \n# Introduction\nThis API is documented in **OpenAPI format** \n",
         "contact": {
-            "email": "contact@harness.io"
-        }
+            "name": "API Support",
+            "email": "contact@harness.io",
+            "url": "https://harness.io/"
+        },
+        "x-logo": {
+            "url": "https://assets-global.website-files.com/6222ca42ea87e1bd1aa1d10c/6222d7526cc398da63a4f639_nav-logo.svg",
+            "altText": "Harness"
+        },
+        "termsOfService": "https://harness.io/terms-of-use/"
     },
     "servers": [
         {
@@ -20,6 +27,38 @@
         }
     ],
     "tags": [
+        {
+            "name": "Governance Status",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/GovernanceStatus\" />\n"
+        },
+        {
+            "name": "Policy",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/Policy\" />\n"
+        },
+        {
+            "name": "Policy Set",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/PolicySet\" />\n"
+        },
+        {
+            "name": "Governance Metadata",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/GovernanceMetadata\" />\n"
+        },
+        {
+            "name": "Test Error Metadata",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/TestErrorMetadata\" />\n"
+        },
+        {
+            "name": "Error Metadata",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ErrorMetadata\" />\n"
+        },
+        {
+            "name": "Field Error",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/FieldError\" />\n"
+        },
+        {
+            "name": "Error Response",
+            "description": "<SchemaDefinition schemaRef=\"#/components/schemas/ErrorResponse\" />\n"
+        },
         {
             "name": "Account Roles",
             "description": "This contains APIs for performing CRUD operations on Account level Roles."
@@ -4489,6 +4528,245 @@
     },
     "components": {
         "schemas": {
+            "GovernanceStatus": {
+                "type": "string",
+                "title": "GovernanceStatus",
+                "x-stoplight": {
+                    "id": "kh0hxoiqon3so"
+                },
+                "enum": [
+                    "WARNING",
+                    "ERROR",
+                    "PASS"
+                ],
+                "description": "Governance Status"
+            },
+            "Policy": {
+                "title": "Policy",
+                "x-stoplight": {
+                    "id": "96ka3iug8rbc4"
+                },
+                "type": "object",
+                "properties": {
+                    "identifier": {
+                        "type": "string",
+                        "description": "Policy Identifier"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Policy Name"
+                    },
+                    "org": {
+                        "type": "string",
+                        "description": "Organization identifier where the Policy is defined"
+                    },
+                    "project": {
+                        "type": "string",
+                        "description": "Project Identifier where the Policy is defined"
+                    },
+                    "evaluation_error": {
+                        "type": "string",
+                        "description": "Error message in Policy Evaluation"
+                    },
+                    "deny_messages": {
+                        "type": "array",
+                        "description": "Deny messages",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/GovernanceStatus",
+                        "description": "Governance Status"
+                    }
+                },
+                "description": "Contains Details about Policy"
+            },
+            "PolicySet": {
+                "title": "PolicySet",
+                "x-stoplight": {
+                    "id": "lxrtpc1yji0pm"
+                },
+                "type": "object",
+                "properties": {
+                    "identifier": {
+                        "type": "string",
+                        "description": "Identifer of the Policy Set"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the Policy Set"
+                    },
+                    "org": {
+                        "type": "string",
+                        "description": "Organization Identifier where the Policy Set is defined"
+                    },
+                    "project": {
+                        "type": "string",
+                        "description": "Project Identifier where the Policy Set is defined"
+                    },
+                    "deny_messages": {
+                        "type": "array",
+                        "description": "Deny messages",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/GovernanceStatus"
+                    },
+                    "policies": {
+                        "type": "array",
+                        "description": "List of policies defined inside Policy Set",
+                        "items": {
+                            "$ref": "#/components/schemas/Policy"
+                        }
+                    }
+                },
+                "description": "Contains Policy Set Detail"
+            },
+            "GovernanceMetadata": {
+                "title": "GovernanceMetadata",
+                "x-stoplight": {
+                    "id": "05qhnkvljwzzm"
+                },
+                "description": "Governace Error Details",
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "deny": {
+                                "type": "boolean",
+                                "description": "Indicate whether the action is denied or not based on Governance rules"
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "Governance Message"
+                            },
+                            "status": {
+                                "$ref": "#/components/schemas/GovernanceStatus",
+                                "description": "Governace Status"
+                            },
+                            "policy_sets": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/PolicySet"
+                                }
+                            },
+                            "type": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type"
+                        ]
+                    },
+                    {
+                        "$ref": "#/components/schemas/ErrorMetadata"
+                    }
+                ]
+            },
+            "TestErrorMetadata": {
+                "title": "TestErrorMetadata",
+                "x-stoplight": {
+                    "id": "mgogkf26yt2ka"
+                },
+                "description": "Test Error Metadata",
+                "allOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "test": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "type"
+                        ]
+                    },
+                    {
+                        "$ref": "#/components/schemas/ErrorMetadata"
+                    }
+                ]
+            },
+            "ErrorMetadata": {
+                "title": "ErrorMetadata",
+                "x-stoplight": {
+                    "id": "344dmnhe1c5kt"
+                },
+                "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                        "governance": "#/components/schemas/GovernanceMetadata",
+                        "test": "#/components/schemas/TestErrorMetadata"
+                    }
+                },
+                "description": "Contains more details about the error",
+                "x-internal": false,
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "type"
+                ]
+            },
+            "FieldError": {
+                "title": "FieldError",
+                "x-stoplight": {
+                    "id": "ahdrlp251yecr"
+                },
+                "type": "object",
+                "properties": {
+                    "field_name": {
+                        "type": "string",
+                        "description": "Name of the field"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Error message"
+                    }
+                },
+                "description": "Contains Field-wise error detail"
+            },
+            "ErrorResponse": {
+                "title": "ErrorResponse",
+                "x-stoplight": {
+                    "id": "vn5jzgz2umbw0"
+                },
+                "type": "object",
+                "description": "Contains information about the error",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Error Message"
+                    },
+                    "code": {
+                        "type": "string",
+                        "enum": [
+                            "RESOURCE_NOT_FOUND",
+                            "INVALID_ARGUMENT"
+                        ],
+                        "description": "Error code"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "description": "Contains field-wise error detail",
+                        "items": {
+                            "$ref": "#/components/schemas/FieldError"
+                        }
+                    },
+                    "error_metadata": {
+                        "$ref": "#/components/schemas/ErrorMetadata",
+                        "description": "Contains more details about the error"
+                    }
+                }
+            },
             "RolesResponse": {
                 "title": "RolesResponse",
                 "x-stoplight": {
@@ -12874,7 +13152,7 @@
         }
     },
     "x-stoplight": {
-        "id": "bfet7n314xd4i"
+        "id": "oc91t4vrfnjyi"
     },
     "x-tagGroups": [
         {
@@ -12954,6 +13232,19 @@
                 "Account Role Assignments",
                 "Org Role Assignments",
                 "Project Role Assignments"
+            ]
+        },
+        {
+            "name": "Error Models",
+            "tags": [
+                "Governance Status",
+                "Policy",
+                "Policy Set",
+                "Governance Metadata",
+                "Test Error Metadata",
+                "Error Metadata",
+                "Field Error",
+                "Error Response"
             ]
         }
     ]
