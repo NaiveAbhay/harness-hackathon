@@ -9,7 +9,7 @@ info:
     email: contact@harness.io
 servers:
   - url: 'http://app.harness.io'
-    description: localhost
+    description: Harness host url
 tags:
   - name: Account Roles
     description: This contains APIs for performing CRUD operations on Account level Roles.
@@ -23,17 +23,6 @@ tags:
     description: This contains APIs for performing CRUD operations on Organization level Role Assignments.
   - name: Project Role Assignments
     description: This contains APIs for performing CRUD operations on Project level Role Assignments.
-x-tagGroups:
-  - name: Roles
-    tags:
-      - Account Roles
-      - Organization Roles
-      - Project Roles
-  - name: Role Assignments
-    tags:
-      - Account Role Assignments
-      - Org Role Assignments
-      - Project Role Assignments
 paths:
   /v1/roles:
     parameters: []
@@ -278,7 +267,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Roles
-  /v1/roleassignments:
+  /v1/role-assignments:
     get:
       summary: List role assignments
       tags:
@@ -307,7 +296,7 @@ paths:
         - Account Role Assignments
       requestBody:
         $ref: '#/components/requestBodies/RoleAssignmentRequest'
-  '/v1/roleassignments/{roleassignment}':
+  '/v1/role-assignments/{role-assignment}':
     parameters:
       - schema:
           type: string
@@ -337,7 +326,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Role Assignments
-  /v1/orgs/{org}/roleassignments:
+  /v1/orgs/{org}/role-assignments:
     get:
       summary: List role assignments
       tags:
@@ -368,7 +357,7 @@ paths:
         $ref: '#/components/requestBodies/RoleAssignmentRequest'
     parameters:
       - $ref: '#/components/parameters/OrgParam'
-  '/v1/orgs/{org}/roleassignments/{roleassignment}':
+  '/v1/orgs/{org}/role-assignments/{role-assignment}':
     parameters:
       - schema:
           type: string
@@ -399,7 +388,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Role Assignments
-  /v1/orgs/{org}/projects/{project}/roleassignments:
+  /v1/orgs/{org}/projects/{project}/role-assignments:
     get:
       summary: List role assignments
       tags:
@@ -431,7 +420,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
-  '/v1/orgs/{org}/projects/{project}/roleassignments/{roleassignment}':
+  '/v1/orgs/{org}/projects/{project}/role-assignments/{role-assignment}':
     parameters:
       - schema:
           type: string
