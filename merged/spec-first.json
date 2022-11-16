@@ -18,7 +18,7 @@
     "servers": [
         {
             "url": "http://app.harness.io",
-            "description": "localhost"
+            "description": "Harness host url"
         }
     ],
     "security": [
@@ -615,7 +615,7 @@
                 ]
             }
         },
-        "/v1/roleassignments": {
+        "/v1/role-assignments": {
             "get": {
                 "summary": "List role assignments",
                 "tags": [
@@ -668,7 +668,7 @@
                 }
             }
         },
-        "/v1/roleassignments/{roleassignment}": {
+        "/v1/role-assignments/{role-assignment}": {
             "parameters": [
                 {
                     "schema": {
@@ -717,7 +717,7 @@
                 ]
             }
         },
-        "/v1/orgs/{org}/roleassignments": {
+        "/v1/orgs/{org}/role-assignments": {
             "get": {
                 "summary": "List role assignments",
                 "tags": [
@@ -775,7 +775,7 @@
                 }
             ]
         },
-        "/v1/orgs/{org}/roleassignments/{roleassignment}": {
+        "/v1/orgs/{org}/role-assignments/{role-assignment}": {
             "parameters": [
                 {
                     "schema": {
@@ -827,7 +827,7 @@
                 ]
             }
         },
-        "/v1/orgs/{org}/projects/{project}/roleassignments": {
+        "/v1/orgs/{org}/projects/{project}/role-assignments": {
             "get": {
                 "summary": "List role assignments",
                 "tags": [
@@ -888,7 +888,7 @@
                 }
             ]
         },
-        "/v1/orgs/{org}/projects/{project}/roleassignments/{roleassignment}": {
+        "/v1/orgs/{org}/projects/{project}/role-assignments/{role-assignment}": {
             "parameters": [
                 {
                     "schema": {
@@ -8538,26 +8538,6 @@
                         "created": 1234567890,
                         "updated": 1234567890,
                         "modules": "CD",
-                        "execution_summary": {
-                            "errors_count": [
-                                1,
-                                2,
-                                3,
-                                4,
-                                5,
-                                6,
-                                7
-                            ],
-                            "deployments_count": [
-                                1,
-                                2,
-                                3,
-                                4,
-                                5,
-                                6,
-                                7
-                            ]
-                        },
                         "recent_execution_info": [
                             {
                                 "executor_info": {
@@ -8633,9 +8613,6 @@
                             "type": "string"
                         }
                     },
-                    "execution_summary": {
-                        "$ref": "#/components/schemas/ExecutionSummary"
-                    },
                     "recent_execution_info": {
                         "type": "array",
                         "description": "Array of recent Execution information",
@@ -8661,54 +8638,6 @@
                     },
                     "git_details": {
                         "$ref": "#/components/schemas/GitDetails"
-                    }
-                }
-            },
-            "ExecutionSummary": {
-                "title": "Execution Summary",
-                "x-stoplight": {
-                    "id": "mxtmp0n5g1bsg"
-                },
-                "type": "object",
-                "description": "Execution Summary",
-                "x-examples": {
-                    "example-execution-summary": {
-                        "errors_count": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7
-                        ],
-                        "deployments_count": [
-                            1,
-                            2,
-                            3,
-                            4,
-                            5,
-                            6,
-                            7
-                        ]
-                    }
-                },
-                "properties": {
-                    "errors_count": {
-                        "type": "array",
-                        "description": "Number of errors on each of the last 7 days.",
-                        "items": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
-                    },
-                    "deployments_count": {
-                        "type": "array",
-                        "description": "Number of deployments on each of the last 7 days.",
-                        "items": {
-                            "type": "integer",
-                            "format": "int32"
-                        }
                     }
                 }
             },
@@ -11096,7 +11025,7 @@
                                 "value": [
                                     {
                                         "slug": "example_pipeline",
-                                        "name": "ExamplePipeline",
+                                        "name": "Example Pipeline",
                                         "description": "This is an Example Pipeline",
                                         "tags": {
                                             "example-tag-1": "example-tag-1-value",
@@ -11107,26 +11036,6 @@
                                         "modules": [
                                             "CD"
                                         ],
-                                        "execution_summary": {
-                                            "errors_count": [
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7
-                                            ],
-                                            "deployments_count": [
-                                                1,
-                                                2,
-                                                3,
-                                                4,
-                                                5,
-                                                6,
-                                                7
-                                            ]
-                                        },
                                         "recent_execution_info": [
                                             {
                                                 "executor_info": {
@@ -11168,7 +11077,7 @@
                         },
                         "examples": {
                             "example-list-response": {
-                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules:\n    - CD\n  execution_summary:\n    errors_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n    deployments_count:\n      - 1\n      - 2\n      - 3\n      - 4\n      - 5\n      - 6\n      - 7\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: REMOTE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object_id: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
+                                "value": "- slug: example_pipeline\n  name: Example Pipeline\n  description: This is an Example Pipeline\n  tags:\n    example-tag-1: example-tag-1-value\n    example-tag-2: example-tag-2-value\n  created: 1234567890\n  updated: 1234567890\n  modules:\n    - CD\n  recent_execution_info:\n    - executor_info:\n        trigger_type: NOOP\n        username: harness_user\n        email: noreply@harness.io\n      execution_id: example_execution_slug\n      execution_status: Running\n      started: 1234567890\n      ended: 1234567890\n      run_number: 5\n  store_type: REMOTE\n  connector_ref: example_connector\n  valid: true\n  git_details:\n    object_id: example_object\n    branch_name: branch\n    file_path: /folder/file.json\n    repo_name: example_repository\n    commit_id: abcd123\n    file_url: www.repo/folder/file.com\n    repo_url: www.repo.com\n"
                             }
                         }
                     }
