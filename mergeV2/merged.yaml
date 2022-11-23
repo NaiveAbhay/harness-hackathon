@@ -3,9 +3,9 @@ info:
   title: Harness NextGen Software Delivery Platform API Reference
   version: '1.0'
   description: >-
-    This is the Open Api Spec 3 for the Access Control Service. This is under
-    active development. Beware of the breaking change with respect to the
-    generated code stub.
+    This is the Open Api Spec 3 for the NextGen Manager. This is under active
+    development. Beware of the breaking change with respect to the generated
+    code stub
   contact:
     email: contact@harness.io
 servers:
@@ -14,26 +14,6 @@ servers:
 security:
   - x-api-key: []
 tags:
-  - name: Account Roles
-    description: This contains APIs for performing CRUD operations on Account level Roles.
-  - name: Organization Roles
-    description: >-
-      This contains APIs for performing CRUD operations on Organization level
-      Roles.
-  - name: Project Roles
-    description: This contains APIs for performing CRUD operations on Project level Roles.
-  - name: Account Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Account level Role
-      Assignments.
-  - name: Org Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Organization level
-      Role Assignments.
-  - name: Project Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Project level Role
-      Assignments.
   - name: Organization
     description: Everything about organization
   - name: Org Project
@@ -67,446 +47,6 @@ tags:
       This contains APIs for performing CRUD operations on Templates at project
       scope.
 paths:
-  /v1/roles:
-    parameters: []
-    get:
-      summary: List Roles
-      operationId: list-roles-acc
-      description: Returns a list of Roles present in the Account scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-      responses:
-        '200':
-          $ref: '#/components/responses/RolesListResponse'
-      tags:
-        - Account Roles
-    post:
-      summary: Create a Role
-      operationId: create-role-acc
-      description: Creates a custom Role in the Account scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleResponse'
-      security:
-        - x-api-key: []
-      tags:
-        - Account Roles
-  '/v1/roles/{role}':
-    parameters:
-      - $ref: '#/components/parameters/RoleParam'
-    get:
-      summary: Retrieve a Role
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      operationId: get-role-acc
-      description: Retrieves a Role from Account scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Account Roles
-    put:
-      summary: Update a Role
-      operationId: update-role-acc
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      description: Updates a Role from Account scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      tags:
-        - Account Roles
-    delete:
-      summary: Delete a Role
-      operationId: delete-role-acc
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      description: Deletes a custom Role from Account scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Account Roles
-  '/v1/orgs/{org}/roles':
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-    get:
-      summary: List Roles
-      tags:
-        - Organization Roles
-      responses:
-        '200':
-          $ref: '#/components/responses/RolesListResponse'
-      operationId: list-roles-org
-      description: Returns a list of Roles present in the Organization scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-    post:
-      summary: Create a Role
-      operationId: create-role-org
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleResponse'
-      description: Creates a custom Role in the Organization scope.
-      security:
-        - x-api-key: []
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Organization Roles
-  '/v1/orgs/{org}/roles/{role}':
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/RoleParam'
-    get:
-      summary: Retrieve a Role
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      operationId: get-role-org
-      description: Retrieves a Role from Organization scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Organization Roles
-    put:
-      summary: Update a Role
-      operationId: update-role-org
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      description: Updates a Role from Organization scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      tags:
-        - Organization Roles
-    delete:
-      summary: Delete a Role
-      operationId: delete-role-org
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      description: Deletes a custom Role from Organization scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      security:
-        - x-api-key: []
-      tags:
-        - Organization Roles
-  '/v1/orgs/{org}/projects/{project}/roles':
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/ProjectParam'
-    get:
-      summary: List Roles
-      responses:
-        '200':
-          $ref: '#/components/responses/RolesListResponse'
-      operationId: list-roles-project
-      description: Returns a list of Roles present in the Project scope.
-      parameters:
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-      security:
-        - x-api-key: []
-      tags:
-        - Project Roles
-    post:
-      summary: Create a Role
-      operationId: create-role-project
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleResponse'
-      description: Creates a custom Role in the Project scope.
-      security:
-        - x-api-key: []
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Roles
-  '/v1/orgs/{org}/projects/{project}/roles/{role}':
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/ProjectParam'
-      - $ref: '#/components/parameters/RoleParam'
-    get:
-      summary: Retrieve a Role
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      operationId: get-role-project
-      security:
-        - x-api-key: []
-      description: Retrieves a Role from Project scope.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Roles
-    put:
-      summary: Update a Role
-      operationId: update-role-project
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      security:
-        - x-api-key: []
-      requestBody:
-        $ref: '#/components/requestBodies/CreateRoleRequest'
-      description: Updates a Role from Project scope.
-      tags:
-        - Project Roles
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    delete:
-      summary: Delete a Role
-      operationId: delete-role-project
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleResponse'
-      description: Deletes a custom Role from Project scope.
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Roles
-  /v1/role-assignments:
-    get:
-      summary: List role assignments
-      tags:
-        - Account Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentListResponse'
-      operationId: get-account-scoped-role-assignments
-      description: Retrieves the information of the role assignments
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-    post:
-      summary: Create a role assignment
-      operationId: create-account-scoped-role-assignments
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: Create a role assignment
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Account Role Assignments
-      requestBody:
-        $ref: '#/components/requestBodies/RoleAssignmentRequest'
-  '/v1/role-assignments/{role-assignment}':
-    parameters:
-      - schema:
-          type: string
-        name: role-assignment
-        in: path
-        required: true
-        description: Role assignment slug
-    get:
-      summary: Retrieve a role assignment
-      tags:
-        - Account Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      operationId: get-account-scoped-role-assignment
-      description: >-
-        Retrieves the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    delete:
-      summary: Delete a role assignment
-      operationId: delete-account-scoped-role-assignment
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: >-
-        Deletes the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Account Role Assignments
-  '/v1/orgs/{org}/role-assignments':
-    get:
-      summary: List role assignments
-      tags:
-        - Org Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentListResponse'
-      operationId: get-org-scoped-role-assignments
-      description: Retrieves the information of the role assignments
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-    post:
-      summary: Create a role assignment
-      operationId: create-org-scoped-role-assignments
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: Create a role assignment
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Org Role Assignments
-      requestBody:
-        $ref: '#/components/requestBodies/RoleAssignmentRequest'
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-  '/v1/orgs/{org}/role-assignments/{role-assignment}':
-    parameters:
-      - schema:
-          type: string
-        name: role-assignment
-        in: path
-        required: true
-        description: Role assignment slug
-      - $ref: '#/components/parameters/OrgParam'
-    get:
-      summary: Retrieve a role assignment
-      tags:
-        - Org Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      operationId: get-org-scoped-role-assignment
-      description: >-
-        Retrieves the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    delete:
-      summary: Delete a role assignment
-      operationId: delete-org-scoped-role-assignment
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: >-
-        Deletes the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Org Role Assignments
-  '/v1/orgs/{org}/projects/{project}/role-assignments':
-    get:
-      summary: List role assignments
-      tags:
-        - Project Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentListResponse'
-      operationId: get-project-scoped-role-assignments
-      description: Retrieves the information of the role assignments
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/Sort'
-        - $ref: '#/components/parameters/Order'
-    post:
-      summary: Create a role assignment
-      operationId: create-project-scoped-role-assignments
-      responses:
-        '201':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: Create a role assignment
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Role Assignments
-      requestBody:
-        $ref: '#/components/requestBodies/RoleAssignmentRequest'
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/ProjectParam'
-  '/v1/orgs/{org}/projects/{project}/role-assignments/{role-assignment}':
-    parameters:
-      - schema:
-          type: string
-        name: role-assignment
-        in: path
-        required: true
-        description: Role assignment slug
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/ProjectParam'
-    get:
-      summary: Retrieve a role assignment
-      tags:
-        - Project Role Assignments
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      operationId: get-project-scoped-role-assignment
-      description: >-
-        Retrieves the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-    delete:
-      summary: Delete a role assignment
-      operationId: delete-project-scoped-role-assignment
-      responses:
-        '200':
-          $ref: '#/components/responses/RoleAssignmentResponse'
-      description: >-
-        Deletes the information of the role assignment with the matching role
-        assignment slug.
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      tags:
-        - Project Role Assignments
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
       summary: Retrieve a Service
@@ -562,10 +102,10 @@ paths:
       operationId: get-services
       parameters:
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/ServiceIdentifiers'
-        - $ref: '#/components/parameters/Sort1'
+        - $ref: '#/components/parameters/Sort'
         - schema:
             type: boolean
           in: query
@@ -647,11 +187,11 @@ paths:
         - Organization
       parameters:
         - $ref: '#/components/parameters/OrgsQueryParam'
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Sort1'
+        - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
     parameters: []
   '/v1/orgs/{org}':
@@ -749,11 +289,11 @@ paths:
           in: query
           name: module_type
           description: Project's module type
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
-        - $ref: '#/components/parameters/Sort1'
+        - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
       tags:
         - Org Project
@@ -860,9 +400,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Secret
@@ -926,9 +466,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Secret
@@ -993,9 +533,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Secret
@@ -1183,9 +723,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm2'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit2'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/connectors/{connector}':
     get:
@@ -1288,9 +828,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm2'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit2'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/connectors/{connector}':
     get:
@@ -1396,9 +936,9 @@ paths:
           in: query
           name: recursive
           description: 'Expand current scope to include all child scopes '
-        - $ref: '#/components/parameters/SearchTerm2'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit2'
+        - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
     get:
@@ -1482,9 +1022,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/PageIndex'
-        - $ref: '#/components/parameters/Limit'
-        - $ref: '#/components/parameters/SearchTerm'
-        - $ref: '#/components/parameters/Sort2'
+        - $ref: '#/components/parameters/Limit1'
+        - $ref: '#/components/parameters/SearchTerm1'
+        - $ref: '#/components/parameters/Sort1'
         - $ref: '#/components/parameters/Order'
         - schema:
             type: string
@@ -1708,10 +1248,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit3'
-        - $ref: '#/components/parameters/Sort3'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort2'
         - $ref: '#/components/parameters/Order'
-        - $ref: '#/components/parameters/SearchTerm3'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
         - $ref: '#/components/parameters/TemplateNames'
@@ -1833,10 +1373,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit3'
-        - $ref: '#/components/parameters/Sort3'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort2'
         - $ref: '#/components/parameters/Order'
-        - $ref: '#/components/parameters/SearchTerm3'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
         - $ref: '#/components/parameters/TemplateNames'
@@ -1961,10 +1501,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Page'
-        - $ref: '#/components/parameters/Limit3'
-        - $ref: '#/components/parameters/Sort3'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort2'
         - $ref: '#/components/parameters/Order'
-        - $ref: '#/components/parameters/SearchTerm3'
+        - $ref: '#/components/parameters/SearchTerm'
         - $ref: '#/components/parameters/TemplateListType'
         - $ref: '#/components/parameters/IncludeAllTemplatesAccessibleAtScope'
         - $ref: '#/components/parameters/TemplateNames'
@@ -2068,225 +1608,6 @@ paths:
         $ref: '#/components/requestBodies/TemplateFetchBody'
 components:
   schemas:
-    RolesResponse:
-      title: RolesResponse
-      x-stoplight:
-        id: q6oq3jxkd2who
-      type: object
-      description: Role Response Model
-      x-examples:
-        example-role:
-          slug: example_role
-          name: Example_Role
-          permissions:
-            - core_resource_view
-          allowed_scope_levels:
-            - account
-          description: This is an Example Role
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
-          scope:
-            account: sample_account
-            org: sample_organization
-            project: sample_project
-          created: 1234567890
-          updated: 1234567890
-          harness_managed: true
-      properties:
-        slug:
-          type: string
-          description: Role Identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
-        name:
-          type: string
-          description: Role Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          minLength: 1
-          maxLength: 64
-        permissions:
-          type: array
-          description: Permissions for this Role.
-          uniqueItems: true
-          items:
-            type: string
-        allowed_scope_levels:
-          type: array
-          description: The Scope levels at which this Role can be used.
-          uniqueItems: true
-          items:
-            type: string
-            enum:
-              - account
-              - organization
-              - project
-        description:
-          type: string
-          description: Role description
-          maxLength: 1024
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-          description: Role tags
-          maxProperties: 128
-        scope:
-          $ref: '#/components/schemas/RoleScope'
-        created:
-          type: integer
-          description: Creation timestamp for Role.
-          format: int64
-        updated:
-          type: integer
-          description: Last modification timestamp for Role.
-          format: int64
-        harness_managed:
-          type: boolean
-          description: >-
-            This indicates if this Role is managed by Harness or not. If true,
-            Harness can manage and modify this Role.
-      required:
-        - slug
-        - name
-    CreateRoleRequest:
-      title: CreateRoleRequest
-      x-stoplight:
-        id: z8g6ol73nsqjs
-      type: object
-      description: Role request body
-      x-examples:
-        role-request:
-          slug: example_role
-          name: Example_Role
-          permissions:
-            - core_view
-          description: This is an Example Role
-          tags:
-            example-tag-1: example-tag-1-value
-            example-tag-2: example-tag-2-value
-      properties:
-        slug:
-          type: string
-          minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Role identifier
-        name:
-          type: string
-          minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
-          description: Role name
-        permissions:
-          type: array
-          uniqueItems: true
-          description: List of the permission identifiers.
-          items:
-            type: string
-        description:
-          type: string
-          maxLength: 1024
-          description: Role description
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-          maxProperties: 128
-          description: Role tags
-      required:
-        - slug
-        - name
-    RoleScope:
-      title: Scope
-      x-stoplight:
-        id: w8j3bc9323bxb
-      type: object
-      description: Scope of the Role
-      properties:
-        account:
-          type: string
-          description: Account identifier
-        org:
-          type: string
-          description: Organization identifier
-        project:
-          type: string
-          description: Project identifier
-      x-examples:
-        example-1:
-          account: sample_account
-          org: sample_organization
-          project: sample_project
-    RoleAssignment:
-      title: RoleAssignment
-      type: object
-      description: Role assignment request model
-      properties:
-        slug:
-          type: string
-          description: Role assignment slug
-        resource_group:
-          type: string
-          description: Resource group name
-        role:
-          type: string
-          description: Role slug
-        principal:
-          $ref: '#/components/schemas/Principal'
-        disabled:
-          type: boolean
-          description: Role assignment is disabled or not
-        managed:
-          type: boolean
-          description: Role assignment is managed or not
-      required:
-        - slug
-        - resource_group
-        - role
-        - principal
-    Principal:
-      title: Principal
-      type: object
-      description: Role assignment principal
-      properties:
-        scope_level:
-          type: string
-          description: Role assignment principal scope level
-        slug:
-          type: string
-          description: Role assignment principal slug
-        type:
-          type: string
-          enum:
-            - USER
-            - USER_GROUP
-            - SERVICE
-            - API_KEY
-            - SERVICE_ACCOUNT
-          description: Role assignment principal type
-      required:
-        - slug
-        - type
-    RoleAssignmentResponse:
-      title: RoleAssignmentResponse
-      type: object
-      description: Role assignment response model
-      properties:
-        roleassignment:
-          $ref: '#/components/schemas/RoleAssignment'
-        created:
-          type: integer
-          description: Creation timestamp for Role.
-          format: int64
-        updated:
-          type: integer
-          description: Last modification timestamp for Role.
-          format: int64
-        harness_managed:
-          type: boolean
-          description: Is harness managed
     Service:
       type: object
       x-examples:
@@ -5736,224 +5057,6 @@ components:
             Version which is set as stable for the given Template
       description: Template stable version update Response
   responses:
-    RolesListResponse:
-      description: Roles List Response body
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RolesResponse'
-          examples:
-            role-list-response:
-              value:
-                - slug: example_role
-                  name: Example_Role
-                  permissions:
-                    - core_resource_view
-                  allowed_scope_levels:
-                    - account
-                  description: This is an Example Role
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
-                  scope:
-                    account: sample_account
-                    org: sample_organization
-                    project: sample_project
-                  created: 1234567890
-                  updated: 1234567890
-                  harness_managed: true
-        application/yaml:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RolesResponse'
-          examples:
-            role-list-response:
-              value: |
-                - slug: example_role
-                  name: Example_Role
-                  permissions:
-                    - core_resource_view
-                  allowed_scope_levels:
-                    - account
-                  description: This is an Example Role
-                  tags:
-                    example-tag-1: example-tag-1-value
-                    example-tag-2: example-tag-2-value
-                  scope:
-                    account: sample_account
-                    org: sample_organization
-                    project: sample_project
-                  created: 1234567890
-                  updated: 1234567890
-                  harness_managed: true
-      headers:
-        Link:
-          schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/roles?page=2&limit=1>; rel="next",
-                </v1/roles?page=1&limit=1>; rel="self",
-                </v1/roles?page=0&limit=1>; rel="previous", 
-    RoleResponse:
-      description: Role Response body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RolesResponse'
-          examples:
-            role-response:
-              value:
-                slug: example_role
-                name: Example_Role
-                permissions:
-                  - core_resource_view
-                allowed_scope_levels:
-                  - account
-                description: This is an Example Role
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-                scope:
-                  account: sample_account
-                  org: sample_organization
-                  project: sample_project
-                created: 1234567890
-                updated: 1234567890
-                harness_managed: true
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/RolesResponse'
-          examples:
-            role-response:
-              value: |
-                slug: example_role
-                name: Example_Role
-                permissions:
-                  - core_resource_view
-                allowed_scope_levels:
-                  - account
-                description: This is an Example Role
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-                scope:
-                  account: sample_account
-                  org: sample_organization
-                  project: sample_project
-                created: 1234567890
-                updated: 1234567890
-                harness_managed: true
-    RoleAssignmentResponse:
-      description: Role assignment response body
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleAssignmentResponse'
-          examples:
-            role-assignment-response-json:
-              value:
-                roleassignment:
-                  slug: example_role_assignment
-                  resource_group: example_resource_group_slug
-                  role: example_role_slug
-                  principal:
-                    scope: ACCOUNT
-                    slug: example_principal_slug
-                    type: USER
-                  disabled: false
-                  managed: false
-                created: 1234567890
-                updated: 1234567890
-                harness_managaed: false
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/RoleAssignmentResponse'
-          examples:
-            role-assignment-response-yaml:
-              value: |
-                roleassignment:
-                  slug: example_role_assignment
-                  resource_group: example_resource_group_slug
-                  role: example_role_slug
-                  principal:
-                    scope: ACCOUNT
-                    slug: example_principal_slug
-                    type: USER
-                  disabled: false
-                  managed: false
-                created: 1234567890
-                updated: 1234567890
-                harness_managaed: false
-    RoleAssignmentListResponse:
-      description: Role Assignment List Response body
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleAssignmentResponse'
-          examples:
-            role-assignment-response-json:
-              value:
-                - roleassignment:
-                    slug: example_role_assignment
-                    resource_group: example_resource_group_slug
-                    role: example_role_slug
-                    principal:
-                      scope: ACCOUNT
-                      slug: example_principal_slug
-                      type: USER
-                    disabled: false
-                    managed: false
-                  created: 1234567890
-                  updated: 1234567890
-                  harness_managaed: false
-        application/yaml:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/RoleAssignmentResponse'
-          examples:
-            role-assignment-response-json:
-              value: |
-                - roleassignment:
-                    slug: example_role_assignment
-                    resource_group: example_resource_group_slug
-                    role: example_role_slug
-                    principal:
-                      scope: ACCOUNT
-                      slug: example_principal_slug
-                      type: USER
-                    disabled: false
-                    managed: false
-                  created: 1234567890
-                  updated: 1234567890
-                  harness_managaed: false
-      headers:
-        Link:
-          schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/roles?page=2&limit=1>; rel="next",
-                </v1/roles?page=1&limit=1>; rel="self",
-                </v1/roles?page=0&limit=1>; rel="previous", 
     ServiceListResponse:
       description: Example response
       content:
@@ -7028,6 +6131,14 @@ components:
               value: |
                 stable_version: example_version
   parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+      description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
     Limit:
       name: limit
       in: query
@@ -7035,40 +6146,7 @@ components:
       schema:
         type: integer
         default: 30
-        maximum: 100
-      description: 'Pagination: Number of items to return.'
-    Sort:
-      name: sort
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-          - slug
-          - name
-          - created
-          - updated
-      description: Parameter on the basis of which sorting is done.
-    Order:
-      name: order
-      in: query
-      required: false
-      schema:
-        type: string
-        enum:
-          - ASC
-          - DESC
-      description: Order on the basis of which sorting is done.
-    PageIndex:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 0
-      description: >-
-        Pagination page number strategy: Specify the page number within the
-        paginated collection related to the number of items on each page.
+      description: 'Pagination: Number of items to return'
     SearchTerm:
       name: search_term
       in: query
@@ -7076,29 +6154,8 @@ components:
       schema:
         type: string
       description: >-
-        This would be used to filter resources having attributes matching the
+        This would be used to filter resources having attributes matching with
         search term.
-    OrgParam:
-      name: org
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Organization identifier
-    ProjectParam:
-      name: project
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Project identifier
-    RoleParam:
-      name: role
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Role identifier
     AccountHeader:
       name: Harness-Account
       in: header
@@ -7109,31 +6166,6 @@ components:
         Slug field of the account the resource is scoped to. This is required
         for Authorization methods other than the x-api-key header. If you are
         using the x-api-key header, this can be skipped.
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 0
-      description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
-    Limit1:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 30
-      description: 'Pagination: Number of items to return'
-    SearchTerm1:
-      name: search_term
-      in: query
-      required: false
-      schema:
-        type: string
-      description: >-
-        This would be used to filter resources having attributes matching with
-        search term.
     OrgsQueryParam:
       name: org
       in: query
@@ -7190,7 +6222,7 @@ components:
         items:
           type: string
       description: List of Service Identifiers
-    Sort1:
+    Sort:
       name: sort
       in: query
       required: false
@@ -7202,23 +6234,58 @@ components:
           - created
           - updated
       description: Parameter on the basis of which sorting is done.
-    Limit2:
+    Order:
+      name: order
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+      description: Order on the basis of which sorting is done.
+    Limit1:
       name: limit
       in: query
       required: false
       schema:
         type: integer
         default: 30
-      description: 'Pagination: Number of items to return'
-    SearchTerm2:
+        maximum: 100
+      description: 'Pagination: Number of items to return.'
+    PageIndex:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+      description: >-
+        Pagination page number strategy: Specify the page number within the
+        paginated collection related to the number of items on each page.
+    SearchTerm1:
       name: search_term
       in: query
       required: false
       schema:
         type: string
       description: >-
-        This would be used to filter resources having attributes matching with
+        This would be used to filter resources having attributes matching the
         search term.
+    OrgParam:
+      name: org
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Organization identifier
+    ProjectParam:
+      name: project
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Project identifier
     Branch:
       name: branch_name
       in: query
@@ -7233,7 +6300,7 @@ components:
       schema:
         type: string
       description: Pipeline identifier
-    Sort2:
+    Sort1:
       name: sort
       in: query
       required: false
@@ -7287,15 +6354,7 @@ components:
       schema:
         type: string
       description: 'Specify comment with respect to changes  '
-    Limit3:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 30
-      description: 'Pagination: Number of items to return'
-    Sort3:
+    Sort2:
       name: sort
       in: query
       required: false
@@ -7306,15 +6365,6 @@ components:
           - name
           - updated
       description: Parameter on the basis of which sorting is done.
-    SearchTerm3:
-      name: search_term
-      in: query
-      required: false
-      schema:
-        type: string
-      description: >-
-        This would be used to filter resources having attributes matching with
-        search term.
     TemplateListType:
       name: type
       in: query
@@ -7437,72 +6487,6 @@ components:
           type: string
       description: Child types describe the type of Step or stage
   requestBodies:
-    CreateRoleRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateRoleRequest'
-          examples:
-            role-request:
-              value:
-                slug: example_role
-                name: Example_Role
-                permissions:
-                  - core_view
-                description: This is an Example Role
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/CreateRoleRequest'
-          examples:
-            role-request:
-              value: |
-                slug: example_role
-                name: Example_Role
-                permissions:
-                  - core_view
-                description: This is an Example Role
-                tags:
-                  example-tag-1: example-tag-1-value
-                  example-tag-2: example-tag-2-value
-      description: Role Request body
-      required: true
-    RoleAssignmentRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/RoleAssignment'
-          examples:
-            role-assignment-request-json:
-              value:
-                slug: example_role_assignment
-                resource_group: example_resource_group_slug
-                role: example_role_slug
-                principal:
-                  scope: ACCOUNT
-                  slug: example_principal_slug
-                  type: USER
-                disabled: false
-                managed: false
-        application/yaml:
-          schema:
-            $ref: '#/components/schemas/RoleAssignment'
-          examples:
-            role-assignment-request-yaml:
-              value: |
-                slug: example_role_assignment
-                resource_group: example_resource_group_slug
-                role: example_role_slug
-                principal:
-                  scope: ACCOUNT
-                  slug: example_principal_slug
-                  type: USER
-                disabled: false
-                managed: false
-      description: Role Request body
-      required: true
     ServiceRequest:
       content:
         application/json:
@@ -9021,9 +8005,6 @@ components:
       name: x-api-key
       type: apiKey
       in: header
-      description: >-
-        API key is a token provided while making the API calls. This is used to
-        authenticate the client at the exposed endpoint.
 x-stoplight:
   id: bfet7n314xd4i
 x-tagGroups:
@@ -9059,8 +8040,3 @@ x-tagGroups:
       - Account Roles
       - Organization Roles
       - Project Roles
-  - name: Role Assignments
-    tags:
-      - Account Role Assignments
-      - Org Role Assignments
-      - Project Role Assignments
