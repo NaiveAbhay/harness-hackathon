@@ -1536,7 +1536,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ResourceGroupsResponse'
-      x-internal: false
     put:
       summary: Update a Resource Group
       operationId: update-resource-group-acc
