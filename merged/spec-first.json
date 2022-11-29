@@ -3,7 +3,7 @@
     "info": {
         "title": "Harness NextGen Software Delivery Platform API Reference",
         "version": "1.0",
-        "description": "This is the Open Api Spec 3 for Harness. This is under active development. Beware of the breaking change with respect to the generated code stub.\n    \n# Introduction\nThis API is documented in **OpenAPI format** \n",
+        "description": "This is the Open Api Spec 3 for Harness. This is under active development. Beware of the breaking change with respect to the generated code stub.\n\n# Introduction\nThis API is documented in **OpenAPI format**\n",
         "contact": {
             "name": "API Support",
             "email": "contact@harness.io",
@@ -17,7 +17,7 @@
     },
     "servers": [
         {
-            "url": "http://app.harness.io",
+            "url": "http://api.harness.io",
             "description": "Harness host url"
         }
     ],
@@ -674,7 +674,7 @@
                     "schema": {
                         "type": "string"
                     },
-                    "name": "roleassignment",
+                    "name": "role-assignment",
                     "in": "path",
                     "required": true,
                     "description": "Role assignment slug"
@@ -781,7 +781,7 @@
                     "schema": {
                         "type": "string"
                     },
-                    "name": "roleassignment",
+                    "name": "role-assignment",
                     "in": "path",
                     "required": true,
                     "description": "Role assignment slug"
@@ -894,7 +894,7 @@
                     "schema": {
                         "type": "string"
                     },
-                    "name": "roleassignment",
+                    "name": "role-assignment",
                     "in": "path",
                     "required": true,
                     "description": "Role assignment slug"
@@ -3446,7 +3446,7 @@
                         "$ref": "#/components/parameters/SearchTerm"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort"
+                        "$ref": "#/components/parameters/Sort2"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -3661,6 +3661,22 @@
                         "in": "query",
                         "name": "repo_name",
                         "description": "Name of the repository (for Git Experience)."
+                    },
+                    {
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "in": "header",
+                        "name": "Load-From-Cache",
+                        "description": "Flag to enable loading the remote pipeline from git or git cache"
+                    },
+                    {
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "in": "query",
+                        "name": "load_from_fallback_branch",
+                        "description": "Flag to load the pipeline from the created non default branch"
                     }
                 ],
                 "tags": [
@@ -3749,6 +3765,133 @@
                 }
             }
         },
+        "/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/validate": {
+            "parameters": [
+                {
+                    "name": "org",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "Organization identifier"
+                },
+                {
+                    "name": "project",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "Project identifier"
+                },
+                {
+                    "name": "pipeline",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    },
+                    "description": "Pipeline identifier"
+                }
+            ],
+            "post": {
+                "summary": "Start a Pipeline Validation Event",
+                "operationId": "start-pipeline-validation-event",
+                "security": [
+                    {
+                        "x-api-key": []
+                    }
+                ],
+                "description": "Starts a Pipeline Validation Event and returns the UUID of the Event created",
+                "x-internal": true,
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/Branch"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "connector_ref",
+                        "description": "Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience)."
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "repo_name",
+                        "description": "Name of the repository (for Git Experience)."
+                    },
+                    {
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "in": "header",
+                        "name": "Load-From-Cache",
+                        "description": "Flag to enable loading the remote pipeline from git or git cache"
+                    },
+                    {
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "in": "query",
+                        "name": "load_from_fallback_branch",
+                        "description": "Flag to load the pipeline from the created non default branch"
+                    }
+                ],
+                "tags": [
+                    "Pipelines"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/PipelineValidationUUIDResponseBody"
+                    }
+                }
+            }
+        },
+        "/v1/orgs/{org}/projects/{project}/pipelines/validate/{uuid}": {
+            "parameters": [
+                {
+                    "$ref": "#/components/parameters/OrgParam"
+                },
+                {
+                    "$ref": "#/components/parameters/ProjectParam"
+                },
+                {
+                    "$ref": "#/components/parameters/UuidParam"
+                }
+            ],
+            "get": {
+                "summary": "Get Pipeline Validation Result",
+                "operationId": "get-pipeline-validate-result",
+                "security": [
+                    {
+                        "x-api-key": []
+                    }
+                ],
+                "description": "Get Pipeline Validation Result for given UUID",
+                "x-internal": true,
+                "tags": [
+                    "Pipelines"
+                ],
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/AccountHeader"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/PipelineValidationResponseBody"
+                    }
+                }
+            }
+        },
         "/v1/templates": {
             "post": {
                 "summary": "Create Template",
@@ -3790,7 +3933,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort2"
+                        "$ref": "#/components/parameters/Sort3"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -4041,7 +4184,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort2"
+                        "$ref": "#/components/parameters/Sort3"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -4303,7 +4446,7 @@
                         "$ref": "#/components/parameters/Limit2"
                     },
                     {
-                        "$ref": "#/components/parameters/Sort2"
+                        "$ref": "#/components/parameters/Sort3"
                     },
                     {
                         "$ref": "#/components/parameters/Order"
@@ -8431,6 +8574,11 @@
                             "fqn": "pipeline.name",
                             "hint_message": "try changing something"
                         },
+                        "cache_response_metadata": {
+                            "cache_state": "VALID_CACHE",
+                            "ttl_left": 9223372036854776000,
+                            "last_updated_at": 9223372036854776000
+                        },
                         "created": 1234567890,
                         "updated": 1234567890
                     }
@@ -8508,6 +8656,9 @@
                             "$ref": "#/components/schemas/YAMLSchemaErrorWrapper"
                         }
                     },
+                    "cache_response_metadata": {
+                        "$ref": "#/components/schemas/CacheResponseMetadataDTO"
+                    },
                     "created": {
                         "type": "integer",
                         "description": "Creation timestamp for Pipeline.",
@@ -8518,6 +8669,46 @@
                         "description": "Last modification timestamp for Pipeline.",
                         "format": "int64"
                     }
+                }
+            },
+            "PipelineValidationResponseBody": {
+                "title": "Pipeline Validation Response Body",
+                "description": "Pipeline Validation Response Body",
+                "x-examples": {
+                    "example-get": {
+                        "status": "IN_PROGRESS"
+                    }
+                },
+                "type": "object",
+                "x-stoplight": {
+                    "id": "6c15cb29289e9"
+                },
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "Status of the Pipeline Validation Event"
+                    }
+                },
+                "x-internal": true
+            },
+            "PipelineValidationUUIDResponseBody": {
+                "title": "Pipeline Validation UUID Response Body",
+                "description": "Contains the UUID of the Pipeline Validation Event that's started",
+                "x-examples": {
+                    "example-get": {
+                        "uuid": "abcdef123"
+                    }
+                },
+                "type": "object",
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "description": "UUID of the Pipeline Validation Event"
+                    }
+                },
+                "x-internal": true,
+                "x-stoplight": {
+                    "id": "d9465007d1ed7"
                 }
             },
             "PipelineListResponseBody": {
@@ -9127,6 +9318,41 @@
                     "slug",
                     "name"
                 ]
+            },
+            "CacheResponseMetadataDTO": {
+                "title": "CacheResponseMetadataDTO",
+                "x-stoplight": {
+                    "id": "8l1kpcrxe390j"
+                },
+                "type": "object",
+                "properties": {
+                    "cache_state": {
+                        "type": "string",
+                        "enum": [
+                            "VALID_CACHE",
+                            "STALE_CACHE",
+                            "UNKNOWN"
+                        ],
+                        "description": "Tells the state of cache."
+                    },
+                    "ttl_left": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Time left till cache expriry."
+                    },
+                    "last_updated_at": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Time when the cache was last updated at."
+                    }
+                },
+                "x-examples": {
+                    "example-1": {
+                        "cache_state": "VALID_CACHE",
+                        "ttl_left": 9223372036854776000,
+                        "last_updated_at": 9223372036854776000
+                    }
+                }
             },
             "TemplateResponse": {
                 "title": "templateResponse",
@@ -10939,6 +11165,36 @@
                     }
                 }
             },
+            "PipelineValidationResponseBody": {
+                "description": "Pipeline Validation response body",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/PipelineValidationResponseBody"
+                        }
+                    },
+                    "application/yaml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/PipelineValidationResponseBody"
+                        }
+                    }
+                }
+            },
+            "PipelineValidationUUIDResponseBody": {
+                "description": "Contains the UUID of the Pipeline Validation Event that's started",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/PipelineValidationUUIDResponseBody"
+                        }
+                    },
+                    "application/yaml": {
+                        "schema": {
+                            "$ref": "#/components/schemas/PipelineValidationUUIDResponseBody"
+                        }
+                    }
+                }
+            },
             "PipelineGetResponseBody": {
                 "description": "Pipeline response body",
                 "content": {
@@ -10991,6 +11247,11 @@
                                         "fqn": "pipeline.name",
                                         "hint_message": "try changing something"
                                     },
+                                    "cache_response_metadata": {
+                                        "cache_state": "VALID_CACHE",
+                                        "ttl_left": 9223372036854776000,
+                                        "last_updated_at": 9223372036854776000
+                                    },
                                     "created": 1234567890,
                                     "updated": 1234567890
                                 }
@@ -11003,7 +11264,7 @@
                         },
                         "examples": {
                             "example-response": {
-                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\norg: example_org\nproject: example_project\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  object_id: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncreated: 1234567890\nupdated: 1234567890\n"
+                                "value": "pipeline_yaml: example_yaml_text\ntemplate_applied_pipeline_yaml: example_yaml_text_with_template\nslug: example_pipeline\nname: ExamplePipeline\norg: example_org\nproject: example_project\ndescription: Pipeline Description\ntags:\n  example-tag-1: example-tag-1-value\n  example-tag-2: example-tag-2-value\nmodules:\n  - cd\ngit_details:\n  object_id: example_object\n  branch_name: branch\n  file_path: /folder/file.json\n  repo_name: example_repository\n  commit_id: abcd123\n  file_url: www.repo/folder/file.com\n  repo_url: www.repo.com\nvalid: true\nyaml_error_wrapper:\n  message: something is incorrect\n  message_fqn: something is incorrect at pipeline.name\n  stage_info:\n    slug: example_stage\n    type: stage\n    name: Example Stage\n    fqn: pipeline.stages.stage\n  step_info:\n    slug: example_step\n    type: string\n    name: string\n    fqn: pipeline.steps.step\n  fqn: pipeline.name\n  hint_message: try changing something\ncache_response_metadata:\n  cache_state: VALID_CACHE\n  ttl_left: 9223372036854776000\n  last_updated_at: 9223372036854776000\ncreated: 1234567890\nupdated: 1234567890\n"
                             }
                         }
                     }
@@ -11554,6 +11815,28 @@
                 },
                 "description": "Pipeline identifier"
             },
+            "Sort2": {
+                "name": "sort",
+                "in": "query",
+                "required": false,
+                "schema": {
+                    "type": "string",
+                    "enum": [
+                        "name",
+                        "updated"
+                    ]
+                },
+                "description": "Parameter on the basis of which sorting is done."
+            },
+            "UuidParam": {
+                "name": "uuid",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                },
+                "description": "UUID"
+            },
             "Org": {
                 "name": "org",
                 "in": "path",
@@ -11617,7 +11900,7 @@
                 },
                 "description": "Pagination: Number of items to return"
             },
-            "Sort2": {
+            "Sort3": {
                 "name": "sort",
                 "in": "query",
                 "required": false,
