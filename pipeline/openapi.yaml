@@ -8,7 +8,7 @@ info:
   contact:
     email: contact@harness.io
 servers:
-  - url: 'http://app.harness.io'
+  - url: 'http://api.harness.io'
     description: Harness host url
 tags:
   - name: Pipelines
@@ -220,6 +220,61 @@ paths:
                 example-resp:
                   value: |
                     {}
+  '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/validate':
+    parameters:
+      - name: org
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Organization identifier
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Project identifier
+      - name: pipeline
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Pipeline identifier
+    post:
+      summary: Start a Pipeline Validation Event
+      operationId: start-pipeline-validation-event
+      security:
+        - x-api-key: []
+      description: Starts a Pipeline Validation Event and returns the UUID of the Event created
+      x-internal: true
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Branch'
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+          description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
+        - schema:
+            type: string
+          in: query
+          name: repo_name
+          description: Name of the repository (for Git Experience).
+        - schema:
+            type: boolean
+          in: header
+          name: Load-From-Cache
+          description: Flag to enable loading the remote pipeline from git or git cache
+        - schema:
+            type: boolean
+          in: query
+          name: load_from_fallback_branch
+          description: Flag to load the pipeline from the created non default branch
+      tags:
+        - Pipelines
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineValidationUUIDResponseBody'
   '/v1/orgs/{org}/projects/{project}/pipelines/validate/{uuid}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -324,6 +379,10 @@ components:
               fqn: pipeline.steps.step
             fqn: pipeline.name
             hint_message: try changing something
+          cache_response_metadata:
+            cache_state: VALID_CACHE
+            ttl_left: 9223372036854776000
+            last_updated_at: 9223372036854776000
           created: 1234567890
           updated: 1234567890
       type: object
@@ -384,6 +443,8 @@ components:
           description: YAML schema errors.
           items:
             $ref: '#/components/schemas/YAMLSchemaErrorWrapper'
+        cache_response_metadata:
+          $ref: '#/components/schemas/CacheResponseMetadataDTO'
         created:
           type: integer
           description: Creation timestamp for Pipeline.
@@ -406,6 +467,20 @@ components:
           type: string
           description: Status of the Pipeline Validation Event
       x-internal: true
+    PipelineValidationUUIDResponseBody:
+      title: Pipeline Validation UUID Response Body
+      description: Contains the UUID of the Pipeline Validation Event that's started
+      x-examples:
+        example-get:
+          uuid: abcdef123
+      type: object
+      properties:
+        uuid:
+          type: string
+          description: UUID of the Pipeline Validation Event
+      x-internal: true
+      x-stoplight:
+        id: d9465007d1ed7
     PipelineListResponseBody:
       title: Pipeline List Response Body
       x-stoplight:
@@ -1052,6 +1127,32 @@ components:
         - pipeline_yaml
         - slug
         - name
+    CacheResponseMetadataDTO:
+      title: CacheResponseMetadataDTO
+      x-stoplight:
+        id: 8l1kpcrxe390j
+      type: object
+      properties:
+        cache_state:
+          type: string
+          enum:
+            - VALID_CACHE
+            - STALE_CACHE
+            - UNKNOWN
+          description: Tells the state of cache.
+        ttl_left:
+          type: integer
+          format: int64
+          description: Time left till cache expriry.
+        last_updated_at:
+          type: integer
+          format: int64
+          description: Time when the cache was last updated at.
+      x-examples:
+        example-1:
+          cache_state: VALID_CACHE
+          ttl_left: 9223372036854776000
+          last_updated_at: 9223372036854776000
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -1172,6 +1273,15 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/PipelineValidationResponseBody'
+    PipelineValidationUUIDResponseBody:
+      description: Contains the UUID of the Pipeline Validation Event that's started
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineValidationUUIDResponseBody'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/PipelineValidationUUIDResponseBody'
     PipelineGetResponseBody:
       description: Pipeline response body
       content:
@@ -1217,6 +1327,10 @@ components:
                     fqn: pipeline.steps.step
                   fqn: pipeline.name
                   hint_message: try changing something
+                cache_response_metadata:
+                  cache_state: VALID_CACHE
+                  ttl_left: 9223372036854776000
+                  last_updated_at: 9223372036854776000
                 created: 1234567890
                 updated: 1234567890
         application/yaml:
@@ -1261,6 +1375,10 @@ components:
                     fqn: pipeline.steps.step
                   fqn: pipeline.name
                   hint_message: try changing something
+                cache_response_metadata:
+                  cache_state: VALID_CACHE
+                  ttl_left: 9223372036854776000
+                  last_updated_at: 9223372036854776000
                 created: 1234567890
                 updated: 1234567890
     PipelineListResponseBody:
