@@ -25,7 +25,7 @@
     },
     {
     "name" : "Services",
-    "tags" : [ "Account Servcies", "Org Services", "Project Services" ]
+    "tags" : [ "Account Services", "Org Services", "Project Services" ]
     },
     {
       "name": "Roles",
