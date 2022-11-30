@@ -17,7 +17,7 @@
     },
     {
     "name" : "Pipelines",
-    "tags" : [ "Pipelines" ]
+    "tags" : [ "Pipelines", "Input Sets" ]
     },
     {
     "name" : "Templates",
@@ -25,11 +25,7 @@
     },
     {
     "name" : "Services",
-    "tags" : [ "Project Services" ]
-    },
-    {
-        "name" : "Environments",
-        "tags" : [ "Project Environments" ]
+    "tags" : [ "Account Servcies", "Org Services", "Project Services" ]
     },
     {
       "name": "Roles",
@@ -45,6 +41,6 @@
     },
     {
       "name" : "Error Models",
-      "tags" : [ "Governance Status", "Policy", "Policy Set", "Governance Metadata", "Test Error Metadata", "Error Metadata", "Field Error", "Error Response" ]
+      "tags" : [ "Governance Metadata", "Error Response" ]
     }
 ]

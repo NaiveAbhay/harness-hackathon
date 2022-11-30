@@ -7,6 +7,9 @@
       "inputFile": "../access-control/openapi.yaml"
     },
     {
+      "inputFile": "../connectors/openapi.yaml"
+    },
+    {
       "inputFile": "../ng-manager/openapi.yaml"
     },
     {
