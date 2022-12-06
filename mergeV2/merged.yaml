@@ -69,8 +69,6 @@ tags:
     description: >-
       This contains APIs for performing CRUD operations on Project level Role
       Assignments.
-  - name: Organization
-    description: Everything about organization
   - name: Org Project
     description: Everything about org scoped project
   - name: Account Secret
@@ -2167,7 +2165,7 @@ paths:
           name: repo_name
           description: Name of the repository (for Git Experience).
         - schema:
-            type: boolean
+            type: string
           in: header
           name: Load-From-Cache
           description: Flag to enable loading the remote pipeline from git or git cache
