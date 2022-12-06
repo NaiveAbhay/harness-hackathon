@@ -69,6 +69,8 @@ tags:
     description: >-
       This contains APIs for performing CRUD operations on Project level Role
       Assignments.
+  - name: Organization
+    description: Everything about organization
   - name: Org Project
     description: Everything about org scoped project
   - name: Account Secret
