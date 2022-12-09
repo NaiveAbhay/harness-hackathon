@@ -20,8 +20,8 @@ info:
     altText: Harness
   termsOfService: 'https://harness.io/terms-of-use/'
 servers:
-  - url: 'http://api.harness.io'
-    description: Harness host url
+  - url: 'https://api.harness.io'
+    description: Harness host URL.
 security:
   - x-api-key: []
 tags:
@@ -50,79 +50,71 @@ tags:
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/ErrorResponse" />
   - name: Account Roles
-    description: This contains APIs for performing CRUD operations on Account level Roles.
+    description: This contains APIs for Account-scoped Roles.
   - name: Organization Roles
-    description: >-
-      This contains APIs for performing CRUD operations on Organization level
-      Roles.
+    description: This contains APIs for Organization-scoped Roles.
   - name: Project Roles
-    description: This contains APIs for performing CRUD operations on Project level Roles.
+    description: This contains APIs for Project-scoped Roles.
   - name: Account Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Account level Role
-      Assignments.
+    description: This contains APIs for Account-scoped Role Assignments.
   - name: Org Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Organization level
-      Role Assignments.
+    description: This contains APIs for Organization-scoped Role Assignments.
+    x-displayName: Organization Role Assignments
   - name: Project Role Assignments
-    description: >-
-      This contains APIs for performing CRUD operations on Project level Role
-      Assignments.
+    description: This contains APIs for Project-scoped Role Assignments.
   - name: Organization
-    description: Everything about organization
+    description: This contains APIs for Organizations.
   - name: Org Project
-    description: Everything about org scoped project
+    description: This contains APIs for Projects.
+    x-displayName: Project
   - name: Account Secret
-    description: Everything about account scoped secret
+    description: This contains APIs for Account-scoped Secrets.
+    x-displayName: Account Secrets
   - name: Org Secret
-    description: Everything about org scoped secret
+    description: This contains APIs for Organization-scoped Secrets.
+    x-displayName: Organization Secrets
   - name: Project Secret
-    description: Everything about project scoped secret
-  - name: Project Services
-    description: This contains APIs for performing CRUD operations on Services.
-  - name: Org Services
-    description: This contains APIs for performing CRUD operations on org scoped Services.
+    description: This contains APIs for Project-scoped Secrets.
+    x-displayName: Project Secrets
   - name: Account Services
-    description: >-
-      This contains APIs for performing CRUD operations on account scoped
-      Services.
+    description: This contains APIs for Account-scoped Services.
+  - name: Org Services
+    description: This contains APIs for Organization-scoped Services.
+    x-displayName: Organization Services
+  - name: Project Services
+    description: This contains APIs for Project-scoped Services.
   - name: Account Connector
-    description: Everything about account scoped connector
+    description: This contains APIs for Account-scoped Connectors.
+    x-displayName: Account Connectors
   - name: Org Connector
-    description: Everything about org scoped connector
+    description: This contains APIs for Organization-scoped Connectors.
+    x-displayName: Organization Connectors
   - name: Project Connector
-    description: Everything about project scoped connector
+    description: This contains APIs for Project-scoped Connectors.
+    x-displayName: Project Connectors
   - name: Account Resource Groups
-    description: >-
-      This contains APIs for performing CRUD operations on Account level
-      Resource Groups.
+    description: This contains APIs for Account-scoped Resource Groups.
   - name: Organization Resource Groups
-    description: >-
-      This contains APIs for performing CRUD operations on Organization level
-      Resource Groups.
+    description: This contains APIs for Organization-scoped Resource Groups.
   - name: Project Resource Groups
-    description: >-
-      This contains APIs for performing CRUD operations on Project level
-      Resource Groups.
+    description: This contains APIs for Project-scoped Resource Groups.
   - name: Filter Resource Groups
     description: This contains the filter endpoint for Resource Groups.
+  - name: Streaming Destinations
+    description: This contains APIs for Streaming Destinations.
   - name: Pipelines
     description: This contains APIs for performing CRUD operations on Pipelines.
   - name: Input Sets
-    description: This contains APIs for performing CRUD operations on Input Sets.
+    description: This contains APIs for Input Sets.
   - name: Account Template
-    description: >-
-      This contains APIs for performing CRUD operations on Templates at account
-      scope.
+    description: This contains APIs for Account-scoped Templates.
+    x-displayName: Account Templates
   - name: Org Template
-    description: >-
-      This contains APIs for performing CRUD operations on Templates at org
-      scope.
+    description: This contains APIs for Organization-scoped Templates.
+    x-displayName: Organization Templates
   - name: Project Template
-    description: >-
-      This contains APIs for performing CRUD operations on Templates at project
-      scope.
+    description: This contains APIs for Project-scoped Templates.
+    x-displayName: Project Templates
 paths:
   /v1/roles:
     parameters: []
@@ -383,6 +375,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
     post:
       summary: Create a role assignment
       operationId: create-account-scoped-role-assignments
@@ -396,6 +390,8 @@ paths:
         - Account Role Assignments
       requestBody:
         $ref: '#/components/requestBodies/RoleAssignmentRequest'
+      security:
+        - x-api-key: []
   '/v1/role-assignments/{role-assignment}':
     parameters:
       - schema:
@@ -417,6 +413,8 @@ paths:
         assignment slug.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a role assignment
       operationId: delete-account-scoped-role-assignment
@@ -430,6 +428,8 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Account Role Assignments
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/role-assignments':
     get:
       summary: List role assignments
@@ -446,6 +446,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
     post:
       summary: Create a role assignment
       operationId: create-org-scoped-role-assignments
@@ -459,6 +461,8 @@ paths:
         - Org Role Assignments
       requestBody:
         $ref: '#/components/requestBodies/RoleAssignmentRequest'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgParam'
   '/v1/orgs/{org}/role-assignments/{role-assignment}':
@@ -483,6 +487,8 @@ paths:
         assignment slug.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a role assignment
       operationId: delete-org-scoped-role-assignment
@@ -496,6 +502,8 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Role Assignments
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/role-assignments':
     get:
       summary: List role assignments
@@ -512,6 +520,8 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
     post:
       summary: Create a role assignment
       operationId: create-project-scoped-role-assignments
@@ -525,6 +535,8 @@ paths:
         - Project Role Assignments
       requestBody:
         $ref: '#/components/requestBodies/RoleAssignmentRequest'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -551,6 +563,8 @@ paths:
         assignment slug.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a role assignment
       operationId: delete-project-scoped-role-assignment
@@ -564,6 +578,8 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Project Role Assignments
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
       summary: Retrieve a service
@@ -628,9 +644,8 @@ paths:
           in: query
           name: is_access_list
           description: >-
-            Specify whether list an access list or not. Access List refers to
-            list of services that current user has permission to use in the
-            pipeline.
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - schema:
             type: string
             enum:
@@ -647,14 +662,14 @@ paths:
             type: boolean
           name: git_ops_enabled
           in: query
-          description: Enables use of this service in Harness GitOps PR Pipelines
+          description: Enables you to use the service in Harness GitOps PR pipelines.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       description: >-
-        Returns all services that the current user has view permissions for
-        given project.
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Project Services
     post:
@@ -738,9 +753,8 @@ paths:
           in: query
           name: is_access_list
           description: >-
-            Specify whether list an access list or not. Access List refers to
-            list of services that current user has permission to use in the
-            pipeline.
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - schema:
             type: string
             enum:
@@ -757,14 +771,14 @@ paths:
             type: boolean
           name: git_ops_enabled
           in: query
-          description: Enables use of this service in Harness GitOps PR Pipelines
+          description: Enables you to use the service in Harness GitOps PR pipelines.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       description: >-
-        Returns all services that the current user has view permissions for
-        given project.
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Org Services
     post:
@@ -846,9 +860,8 @@ paths:
           in: query
           name: is_access_list
           description: >-
-            Specify whether list an access list or not. Access List refers to
-            list of services that current user has permission to use in the
-            pipeline.
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - schema:
             type: string
             enum:
@@ -865,14 +878,14 @@ paths:
             type: boolean
           name: git_ops_enabled
           in: query
-          description: Enables use of this service in Harness GitOps PR Pipelines
+          description: Enables you to use the service in Harness GitOps PR pipelines.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
       description: >-
-        Returns all services that the current user has view permissions for
-        given project.
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Account Services
     post:
@@ -1460,6 +1473,8 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit2'
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
   '/v1/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -1474,6 +1489,8 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     put:
       summary: Update a connector
       operationId: update-account-scoped-connector
@@ -1487,6 +1504,8 @@ paths:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
         - Account Connector
+      security:
+        - x-api-key: []
     parameters:
       - schema:
           type: string
@@ -1507,6 +1526,8 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
   '/v1/connectors/{connector}/test-connection':
     get:
       summary: Test a connector
@@ -1520,6 +1541,8 @@ paths:
         - Account Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     parameters:
       - schema:
           type: string
@@ -1565,6 +1588,8 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit2'
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -1579,6 +1604,8 @@ paths:
         - Org Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     put:
       summary: Update a connector
       operationId: update-org-scoped-connector
@@ -1592,6 +1619,8 @@ paths:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
         - Org Connector
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a connector
       operationId: delete-org-scoped-connector
@@ -1605,6 +1634,8 @@ paths:
         - Org Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -1626,6 +1657,8 @@ paths:
         - Org Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - schema:
@@ -1673,6 +1706,8 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit2'
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}':
     get:
       summary: Retrieve a connector
@@ -1687,6 +1722,8 @@ paths:
         - Project Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     put:
       summary: Update a connector
       operationId: update-project-scoped-connector
@@ -1700,6 +1737,8 @@ paths:
         $ref: '#/components/requestBodies/ConnectorRequest'
       tags:
         - Project Connector
+      security:
+        - x-api-key: []
     delete:
       summary: Delete a connector
       operationId: delete-project-scoped-connector
@@ -1713,6 +1752,8 @@ paths:
         - Project Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -1735,6 +1776,8 @@ paths:
         - Project Connector
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
       - $ref: '#/components/parameters/ProjectPathParam'
@@ -2009,6 +2052,44 @@ paths:
         - Filter Resource Groups
       requestBody:
         $ref: '#/components/requestBodies/FilterResourceGroupRequest'
+  /v1/streaming-destinations:
+    parameters: []
+    post:
+      summary: Create a Streaming Destination
+      operationId: create-streaming-destinations
+      description: Creates a custom Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      responses:
+        '201':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateStreamingDestinationRequest'
+      x-internal: true
+      tags:
+        - Streaming Destinations
+    get:
+      summary: List Streaming Destinations
+      operationId: get-streaming-destinations
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationListResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Status'
+      description: Get list of Streaming Destinations
+      security:
+        - x-api-key: []
+      tags:
+        - Streaming Destinations
+      x-internal: true
   '/v1/orgs/{org}/projects/{project}/pipelines':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2168,11 +2249,13 @@ paths:
           description: Name of the repository (for Git Experience).
         - schema:
             type: string
+            default: 'false'
           in: header
           name: Load-From-Cache
           description: Flag to enable loading the remote pipeline from git or git cache
         - schema:
             type: boolean
+            default: false
           in: query
           name: load_from_fallback_branch
           description: Flag to load the pipeline from the created non default branch
@@ -2323,18 +2406,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/PipelineInputSetParam'
-        - schema:
-            type: string
-          in: query
-          name: pipeline_branch
-          description: Git branch of the Pipeline for which the Input Set is to be created.
-        - schema:
-            type: string
-          in: query
-          name: pipeline_repo
-          description: >-
-            Git repository identifier of the Pipeline for which the Input Set is
-            to be created.
       requestBody:
         $ref: '#/components/requestBodies/InputSetCreateRequestBody'
     get:
@@ -2375,19 +2446,17 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/PipelineInputSetParam'
-        - schema:
-            type: string
-          in: query
-          name: pipeline_branch
-          description: Git branch of the Pipeline for which the Input Set is to be created.
-        - schema:
-            type: string
-          in: query
-          name: pipeline_repo
-          description: >-
-            Git repository identifier of the Pipeline for which the Input Set is
-            to be created.
         - $ref: '#/components/parameters/Branch'
+        - schema:
+            type: string
+          in: query
+          name: parent_entity_connector_ref
+          description: Connector reference for Parent Entity (Pipeline).
+        - schema:
+            type: string
+          in: query
+          name: parent_entity_repo_name
+          description: Repository name for Parent Entity (Pipeline).
     put:
       summary: Update an Input Set
       operationId: update-input-set
@@ -2400,18 +2469,6 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/PipelineInputSetParam'
-        - schema:
-            type: string
-          in: query
-          name: pipeline_branch
-          description: Git branch of the Pipeline for which the Input Set is to be created.
-        - schema:
-            type: string
-          in: query
-          name: pipeline_repo
-          description: >-
-            Git repository identifier of the Pipeline for which the Input Set is
-            to be created.
       tags:
         - Input Sets
       requestBody:
@@ -3034,7 +3091,7 @@ components:
         name:
           type: string
           description: Role Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           minLength: 1
           maxLength: 64
         permissions:
@@ -3205,7 +3262,7 @@ components:
       type: object
       description: Role assignment response model
       properties:
-        roleassignment:
+        role-assignment:
           $ref: '#/components/schemas/RoleAssignment'
         created:
           type: integer
@@ -3242,7 +3299,7 @@ components:
         account:
           type: string
           description: Account Identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
           minLength: 1
           maxLength: 64
         slug:
@@ -3266,7 +3323,7 @@ components:
         name:
           type: string
           description: Name of the Service Request.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           minLength: 1
           maxLength: 64
         description:
@@ -3346,7 +3403,7 @@ components:
         name:
           type: string
           description: Name of the Service
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           minLength: 1
           maxLength: 64
         description:
@@ -5223,7 +5280,7 @@ components:
         name:
           type: string
           description: Resource Group Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
           minLength: 1
           maxLength: 64
         color:
@@ -5370,7 +5427,7 @@ components:
         account:
           type: string
           description: Account identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
           minLength: 1
           maxLength: 64
         org:
@@ -5467,7 +5524,7 @@ components:
         account:
           type: string
           description: Filter by Account identifier.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
           minLength: 1
           maxLength: 64
         org:
@@ -5507,6 +5564,84 @@ components:
             - NO_FILTER
             - ONLY_MANAGED
             - ONLY_CUSTOM
+    StreamingDestinationDTO:
+      title: StreamingDestinationDTO
+      x-stoplight:
+        id: ooye81jxpefty
+      type: object
+      description: Streaming Destination model
+      properties:
+        slug:
+          type: string
+          description: Streaming Destination slug
+        name:
+          type: string
+          description: Streaming Destination name
+        status:
+          type: string
+          description: Streaming Destination status
+          enum:
+            - ACTIVE
+            - INACTIVE
+        connector_ref:
+          type: string
+          description: Streaming Destination scoped connector reference identifier
+        spec:
+          $ref: '#/components/schemas/StreamingDestinationSpecDTO'
+      required:
+        - slug
+        - name
+        - status
+        - connector_ref
+        - spec
+    StreamingDestinationSpecDTO:
+      title: StreamingDestinationSpecDTO
+      x-stoplight:
+        id: s4mguy0st7rtt
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          AWS_S3: '#/components/schemas/AwsS3StreamingDestinationSpecDTO'
+      properties:
+        type:
+          type: string
+          enum:
+            - AWS_S3
+          description: This specifies the type of Streaming Destination
+      required:
+        - type
+      description: ''
+    AwsS3StreamingDestinationSpecDTO:
+      allOf:
+        - $ref: '#/components/schemas/StreamingDestinationSpecDTO'
+        - type: object
+          properties:
+            bucket:
+              type: string
+              description: The bucket in AWS S3 where audit records are to be written
+          required:
+            - bucket
+      title: AwsS3StreamingDestinationSpecDTO
+      description: AwsS3 Streaming Destination model
+      x-discriminator-value: AWS_S3
+    StreamingDestinationResponse:
+      title: StreamingDestinationResponse
+      x-stoplight:
+        id: rulrehs9nk5a3
+      type: object
+      description: Streaming Destination response model
+      properties:
+        streaming_destination:
+          $ref: '#/components/schemas/StreamingDestinationDTO'
+        created:
+          type: integer
+          format: int64
+          description: Created time of the Streaming Destination
+        updated:
+          type: integer
+          format: int64
+          description: Last updated time of the Streaming Destination
     GitDetails:
       title: Git Response Details
       x-stoplight:
@@ -6705,6 +6840,8 @@ components:
             last_object_id: abcdXYZ
             base_branch: old_branch
             last_commit_id: abcdXYZ
+            parent_entity_connector_ref: git_connector
+            parent_entity_repo_name: example_repository
       properties:
         input_set_yaml:
           type: string
@@ -6750,6 +6887,8 @@ components:
           last_object_id: abcdXYZ
           base_branch: old_branch
           last_commit_id: abcdXYZ
+          parent_entity_connector_ref: git_connector
+          parent_entity_repo_name: example_repository
       properties:
         branch_name:
           type: string
@@ -6768,6 +6907,12 @@ components:
         last_commit_id:
           type: string
           description: Last commit identifier.
+        parent_entity_connector_ref:
+          type: string
+          description: Connector reference for Parent Entity (Pipeline).
+        parent_entity_repo_name:
+          type: string
+          description: Repository name for Parent Entity (Pipeline).
     TemplateResponse:
       title: templateResponse
       x-stoplight:
@@ -7572,7 +7717,7 @@ components:
           examples:
             role-assignment-response-json:
               value:
-                roleassignment:
+                role-assignment:
                   slug: example_role_assignment
                   resource_group: example_resource_group_slug
                   role: example_role_slug
@@ -7591,7 +7736,7 @@ components:
           examples:
             role-assignment-response-yaml:
               value: |
-                roleassignment:
+                role-assignment:
                   slug: example_role_assignment
                   resource_group: example_resource_group_slug
                   role: example_role_slug
@@ -7615,7 +7760,7 @@ components:
           examples:
             role-assignment-response-json:
               value:
-                - roleassignment:
+                - role-assignment:
                     slug: example_role_assignment
                     resource_group: example_resource_group_slug
                     role: example_role_slug
@@ -7636,7 +7781,7 @@ components:
           examples:
             role-assignment-response-json:
               value: |
-                - roleassignment:
+                - role-assignment:
                     slug: example_role_assignment
                     resource_group: example_resource_group_slug
                     role: example_role_slug
@@ -8353,6 +8498,55 @@ components:
                 harness_managed: true
                 created: 1234567890
                 updated: 1234567890
+    StreamingDestinationResponse:
+      description: Streaming Destination response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StreamingDestinationResponse'
+          examples:
+            example-streaming-destination-response:
+              value:
+                streaming_destination:
+                  slug: example_destination
+                  name: example desitnation name
+                  status: ACTIVE
+                  connector_ref: account.example_connector
+                  spec:
+                    type: AWS_S3
+                    bucket: example_bucket
+                created: 1670304106000
+                update: 1670304106000
+    StreamingDestinationListResponse:
+      description: Streaming Destination list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/StreamingDestinationResponse'
+          examples:
+            example-list-streaming-destination-response:
+              value:
+                - streaming_destination:
+                    slug: example_destination
+                    name: example desitnation name
+                    status: ACTIVE
+                    connector_ref: account.example_connector
+                    spec:
+                      type: AWS_S3
+                      bucket: example_bucket
+                  created: 1670304106000
+                  update: 1670304106000
+      headers:
+        Link:
+          schema:
+            type: string
+          description: >-
+            Links to related resources, in the format defined by [RFC
+            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
+            include a link with relation type `next` to the next page, if there
+            is a next page.
     PipelineCreateResponseBody:
       description: Pipeline response body
       content:
@@ -9300,6 +9494,13 @@ components:
       schema:
         type: string
       description: Resource Group identifier
+    Status:
+      name: status
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Status of the Streaming Destination
     Branch:
       name: branch_name
       in: query
@@ -10679,6 +10880,22 @@ components:
                 managed_filter: NO_FILTER
       description: Filter Resource Group request body
       required: true
+    CreateStreamingDestinationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StreamingDestinationDTO'
+          examples:
+            example-aws-s3-stream-destination-request:
+              value:
+                slug: example_destination
+                name: example destination name
+                status: ACTIVE
+                connector_ref: account.example_aws_connector
+                spec:
+                  type: AWS_S3
+                  bucket: example_bucket
+      description: Streaming Destination request body
     PipelineCreateRequestBody:
       content:
         application/json:
@@ -11177,6 +11394,8 @@ components:
                   last_object_id: abcdXYZ
                   base_branch: old_branch
                   last_commit_id: abcdXYZ
+                  parent_entity_connector_ref: git_connector
+                  parent_entity_repo_name: example_repository
         application/yaml:
           schema:
             $ref: '#/components/schemas/InputSetUpdateRequestBody'
@@ -11232,6 +11451,8 @@ components:
                   last_object_id: abcdXYZ
                   base_branch: old_branch
                   last_commit_id: abcdXYZ
+                  parent_entity_connector_ref: git_connector
+                  parent_entity_repo_name: example_repository
       description: Input Set update request body
       required: true
     TemplateUpdateBody:
@@ -11450,18 +11671,18 @@ components:
 x-stoplight:
   id: oc91t4vrfnjyi
 x-tagGroups:
-  - name: Organization
+  - name: Organizations
     tags:
       - Organization
-  - name: Project
+  - name: Projects
     tags:
       - Org Project
-  - name: Secret
+  - name: Secrets
     tags:
       - Account Secret
       - Org Secret
       - Project Secret
-  - name: Connector
+  - name: Connectors
     tags:
       - Account Connector
       - Org Connector
@@ -11491,6 +11712,9 @@ x-tagGroups:
       - Organization Resource Groups
       - Project Resource Groups
       - Filter Resource Groups
+  - name: Audit Streaming
+    tags:
+      - Streaming Destinations
   - name: Role Assignments
     tags:
       - Account Role Assignments
