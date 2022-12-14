@@ -1,7 +1,7 @@
 const yaml = require('js-yaml');
 var fs=require('fs');
 var words = yaml.safeLoad(fs.readFileSync('merged/spec-first.yaml', 'utf8'));
-var xTags = yaml.safeLoad(fs.readFileSync('merged/x-tags.json', 'utf8'));
+var xTags = yaml.safeLoad(fs.readFileSync('merged/x-tags.yaml', 'utf8'));
 func()
 function func(){
   words['x-tagGroups'] = xTags;
