@@ -3,13 +3,84 @@ info:
   title: Harness NextGen Software Delivery Platform API Reference
   version: '1.0'
   description: >
-    This is the Open Api Spec 3 for Harness. This is under active development.
-    Beware of the breaking change with respect to the generated code stub.
+    The Harness Software Delivery Platform uses OpenAPI Specification v3.0.
+    Harness constantly improves these APIs. Please be aware that some
+    improvements could cause breaking changes.
+
+    # Introduction 
+      
+      The Harness API allows you to integrate and use all the services and modules we provide on the Harness Platform. If you use client-side SDKs, Harness functionality can be integrated with your client-side automation, helping you reduce manual efforts and deploy code faster.
+      
+      For more information about how Harness works, read our [documentation](https://developer.harness.io/docs/getting-started) or visit the [Harness Developer Hub](https://developer.harness.io/).
+      
+    ## How it works
+      
+      The Harness API is a RESTful API that uses standard HTTP verbs. You can send requests in JSON, YAML, or form-data format. The format of the response matches the format of your request. You must send a single request at a time and ensure that you include your authentication key. For more information about this, go to [Authentication](#section/Introduction/Authentication).
+
+    ## Get started
+
+      Before you start integrating, get to know our API better by reading the following topics:
+      
+      * [Harness key concepts](https://developer.harness.io/docs/getting-started/learn-harness-key-concepts/)
+      * [Authentication](#section/Introduction/Authentication)
+      * [Requests and responses](#section/Introduction/Requests-and-Responses)
+      * [Errors](#tag/Error-Response)
+      * [Versioning](#section/Introduction/Versioning)
+      * [Pagination](/#section/Introduction/Pagination)
+      
+      The methods you need to integrate with depend on the functionality you want to use. Work with  your Harness Solutions Engineer to determine which methods you need.
+
+    ## Authentication
 
 
-    # Introduction
+    To authenticate with the Harness API, you need to:
+      1. Generate an API token on the Harness Platform.
+      2. Send the API token you generate in the `x-api-key field` in each request.
 
-    This API is documented in **OpenAPI format**
+    ### Generate an API token
+
+
+    To generate an API token, complete the following steps:
+      1. Go to the [Harness Platform](app.harness.io).
+      2. On the left-hand navigation, click **My Profile**.
+      3. Click **+API Key**, enter a name for your key and then click **Save**.
+      4. Within the API Key tile, click **+Token**.
+      5. Enter a name for your token and click **Generate Token**.
+    **Important**: Make sure to save your token securely. Harness does not store
+    the API token for future reference, so make sure to save your token securely
+    before you leave the page.
+
+
+    ### Send the API token in your requests
+
+
+    Send the token you created in the Harness Platform in the x-api-key
+    parameter. For example:
+      `x-api-key: YOUR_API_KEY_HERE`
+
+    ## Requests and Responses
+      
+      The structure for each request and response is outlined in the API documentation. We have examples in JSON and YAML for every request and response. You can use our online editor to test the examples.
+            
+    ## Versioning
+      
+      The current version of our API is **1.0**.
+      
+      The version number represents the core API and does not change frequently. The version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, the version number would change with a system-wide refactoring of core concepts or resources.
+      This version number is represented within the API path. For example, the v1 in `api.harness.io/v1/` is the version number.
+      
+    ## Pagination
+      
+      We use pagination to place limits on the number of responses associated with list endpoints. Pagination is achieved by the use of limit query parameters. The limit defaults to 30. Its maximum value is 100.
+      
+      Link headers are used, which are useful for moving between pages of the overall list.
+
+    For example:
+      
+      ```
+    Link: </v1/roles?page=2&limit=30>; rel="next", </v1/roles?page=1&limit=30>;
+    rel="self", </v1/roles?page=0&limit=30>; rel="previous",
+      ```
   contact:
     name: API Support
     email: contact@harness.io
@@ -2090,6 +2161,52 @@ paths:
       tags:
         - Streaming Destinations
       x-internal: true
+  '/v1/streaming-destinations/{streaming-destination}':
+    parameters:
+      - $ref: '#/components/parameters/StreamingDestinationParam'
+    put:
+      summary: Update a Streaming Destination
+      operationId: update-streaming-destination
+      description: Update a Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateStreamingDestinationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      security:
+        - x-api-key: []
+      tags:
+        - Streaming Destinations
+    delete:
+      summary: Delete a Streaming Destination
+      operationId: delete-disabled-streaming-destination
+      description: Deletes an existing and disabled Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      responses:
+        '204':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      x-internal: true
+      tags:
+        - Streaming Destinations
+    get:
+      summary: Get a Streaming Destination
+      operationId: get-streaming-destination
+      description: Get a Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      x-internal: true
+      tags:
+        - Streaming Destinations
   '/v1/orgs/{org}/projects/{project}/pipelines':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2259,6 +2376,14 @@ paths:
           in: query
           name: load_from_fallback_branch
           description: Flag to load the pipeline from the created non default branch
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: validate_async
+          description: >-
+            Flag to tell whether to start an asynchronous validation process or
+            not
       tags:
         - Pipelines
       responses:
@@ -2505,6 +2630,42 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/PipelineInputSetParam'
+  '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/inputs':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/PipelineParam'
+    get:
+      summary: Get Pipeline Inputs
+      operationId: get-pipeline-inputs
+      responses:
+        '200':
+          $ref: '#/components/responses/InputsResponseBody'
+      description: Return Inputs for a Pipeline.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: query
+          name: branch_name
+          description: Name of the branch (for Git Experience).
+        - schema:
+            type: string
+          in: query
+          name: repo_name
+          description: Name of the repository (for Git Experience).
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+          description: >-
+            Identifier of the Harness Connector used for CRUD operations on the
+            Entity (for Git Experience).
+      tags:
+        - Inputs
+      x-internal: false
   /v1/templates:
     post:
       summary: Create Template
@@ -2926,7 +3087,6 @@ components:
             type: string
         status:
           $ref: '#/components/schemas/GovernanceStatus'
-          description: Governance Status
       description: Contains Details about Policy
     PolicySet:
       title: PolicySet
@@ -2964,7 +3124,9 @@ components:
       x-stoplight:
         id: 05qhnkvljwzzm
       description: Governace Error Details
+      x-discriminator-value: GovernanceMetadata
       allOf:
+        - $ref: '#/components/schemas/ErrorMetadata'
         - type: object
           properties:
             deny:
@@ -2977,31 +3139,22 @@ components:
               description: Governance Message
             status:
               $ref: '#/components/schemas/GovernanceStatus'
-              description: Governace Status
             policy_sets:
               type: array
               items:
                 $ref: '#/components/schemas/PolicySet'
-            type:
-              type: string
-          required:
-            - type
-        - $ref: '#/components/schemas/ErrorMetadata'
     TestErrorMetadata:
       title: TestErrorMetadata
+      x-discriminator-value: TestErrorMetadata
       x-stoplight:
         id: mgogkf26yt2ka
       description: Test Error Metadata
       allOf:
+        - $ref: '#/components/schemas/ErrorMetadata'
         - type: object
           properties:
-            type:
-              type: string
             test:
               type: string
-          required:
-            - type
-        - $ref: '#/components/schemas/ErrorMetadata'
     ErrorMetadata:
       title: ErrorMetadata
       x-stoplight:
@@ -3009,14 +3162,16 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          governance: '#/components/schemas/GovernanceMetadata'
-          test: '#/components/schemas/TestErrorMetadata'
+          GovernanceMetadata: '#/components/schemas/GovernanceMetadata'
+          TestErrorMetadata: '#/components/schemas/TestErrorMetadata'
       description: Contains more details about the error
-      x-internal: false
       type: object
       properties:
         type:
           type: string
+          enum:
+            - GovernanceMetadata
+            - TestErrorMetadata
       required:
         - type
     FieldError:
@@ -3055,7 +3210,6 @@ components:
             $ref: '#/components/schemas/FieldError'
         error_metadata:
           $ref: '#/components/schemas/ErrorMetadata'
-          description: Contains more details about the error
     RolesResponse:
       title: RolesResponse
       x-stoplight:
@@ -5642,6 +5796,10 @@ components:
           type: integer
           format: int64
           description: Last updated time of the Streaming Destination
+        status_updated:
+          type: integer
+          format: int64
+          description: Last updated time of the Streaming Destination status
     GitDetails:
       title: Git Response Details
       x-stoplight:
@@ -5799,6 +5957,9 @@ components:
           type: integer
           description: Last modification timestamp for Pipeline.
           format: int64
+        validation_uuid:
+          type: string
+          description: 'UUID of the asynchronous validation event started, if any'
     PipelineValidationResponseBody:
       title: Pipeline Validation Response Body
       description: Pipeline Validation Response Body
@@ -6913,6 +7074,65 @@ components:
         parent_entity_repo_name:
           type: string
           description: Repository name for Parent Entity (Pipeline).
+    InputsResponseBody:
+      title: Inputs Response Body
+      x-stoplight:
+        id: opv8b35dycaey
+      type: object
+      properties:
+        inputs:
+          type: object
+        repository:
+          type: object
+          properties:
+            reference:
+              type: object
+              properties:
+                type:
+                  type: object
+                value:
+                  type: object
+      x-examples:
+        example-inputs-response:
+          inputs:
+            key1:
+              prompt: false
+              required: false
+              default: golang
+              type: string
+              desc: sample desc
+            key2:
+              prompt: true
+              required: true
+              type: string
+              desc: sample desc
+            key3:
+              prompt: false
+              required: false
+              type: number
+            key4:
+              prompt: false
+              required: true
+              type: secret
+              desc: sample desc
+              enums:
+                - enum1
+                - enum2
+          repository:
+            reference:
+              type:
+                prompt: false
+                required: true
+                type: string
+                enums:
+                  - enum1
+                  - enum2
+                  - enum3
+              value:
+                prompt: false
+                required: true
+                type: string
+      description: Response Body for Pipeline Inputs
     TemplateResponse:
       title: templateResponse
       x-stoplight:
@@ -8969,6 +9189,53 @@ components:
                 rel="self",
                 </v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/input-sets?page=0&limit=1>;
                 rel="previous", 
+    InputsResponseBody:
+      description: Inputs Response Body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InputsResponseBody'
+          examples:
+            inputs-response-body:
+              value:
+                inputs:
+                  key1:
+                    prompt: false
+                    required: false
+                    default: golang
+                    type: string
+                    desc: sample desc
+                  key2:
+                    prompt: true
+                    required: true
+                    type: string
+                    desc: sample desc
+                  key3:
+                    prompt: false
+                    required: false
+                    type: number
+                  key4:
+                    prompt: false
+                    required: true
+                    type: secret
+                    desc: sample desc
+                    enums:
+                      - enum1
+                      - enum2
+                repository:
+                  reference:
+                    type:
+                      prompt: false
+                      required: true
+                      type: string
+                      enums:
+                        - enum1
+                        - enum2
+                        - enum3
+                    value:
+                      prompt: false
+                      required: true
+                      type: string
     TemplateResponse:
       description: Template Response Body
       content:
@@ -9501,6 +9768,13 @@ components:
       schema:
         type: string
       description: Status of the Streaming Destination
+    StreamingDestinationParam:
+      name: streaming-destination
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Streaming Destination identifier
     Branch:
       name: branch_name
       in: query
