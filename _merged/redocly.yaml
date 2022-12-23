@@ -1,6 +1,6 @@
 apis:
   core@v1:
-    root: _merged/merged.yaml
+    root: ./_merged/merged.yaml
     decorators:
       remove-x-internal: on
   referenceDocs:
