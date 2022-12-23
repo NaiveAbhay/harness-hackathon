@@ -1,30 +1,30 @@
 apis:
   core@v1-beta:
-    root: merged.yaml
+    root: ./merged.yaml
     decorators:
       remove-x-internal: on
-referenceDocs:
-  sortOperationsAlphabetically: true
-  sortTagsAlphabetically: true
-lint:
-  extends:
-    -  minimal
-showConsole: true
-onlyRequiredInSamples: false
-hideRequestPayloadSample: false
-generateCodeSamples:
-  languages:
-    - lang: curl
-      label: curl
-theme:
-  menu:
-    textColor: '#fffffe'
-    activeTextColor: '#06182b'
-    backgroundColor: '#0a3364'
-  colors:
-    primary:
-      main: '#0063F7'
-  sidebar:
-    textColor: '#fffffe'
-    activeTextColor: '#06182b'
-    backgroundColor: '#0a3364'
+  referenceDocs:
+    sortOperationsAlphabetically: true
+    sortTagsAlphabetically: true
+  lint:
+    extends:
+      -  minimal
+  showConsole: true
+  onlyRequiredInSamples: false
+  hideRequestPayloadSample: false
+  generateCodeSamples:
+    languages:
+      - lang: curl
+        label: curl
+  theme:
+    menu:
+      textColor: '#fffffe'
+      activeTextColor: '#06182b'
+      backgroundColor: '#0a3364'
+    colors:
+      primary:
+        main: '#0063F7'
+    sidebar:
+      textColor: '#fffffe'
+      activeTextColor: '#06182b'
+      backgroundColor: '#0a3364'
