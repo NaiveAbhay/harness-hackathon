@@ -1,5 +1,5 @@
 apis:
-  core@v2-beta:
+  core@v2:
     root: merged.yaml
     decorators:
       remove-x-internal: on
