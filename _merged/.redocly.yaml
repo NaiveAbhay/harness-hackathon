@@ -1,3 +1,8 @@
+apis:
+  core@v2-beta:
+    root: ./_merged/merged.yaml
+    decorators:
+      remove-x-internal: on
 referenceDocs:
   sortOperationsAlphabetically: true
   sortTagsAlphabetically: true
