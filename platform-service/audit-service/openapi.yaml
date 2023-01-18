@@ -49,6 +49,53 @@ paths:
       tags:
         - Streaming Destinations
       x-internal: true
+  /v1/streaming-destinations/{streaming-destination}:
+    parameters:
+      - $ref: '#/components/parameters/StreamingDestinationParam'
+    put:
+      summary: Update a Streaming Destination
+      operationId: update-streaming-destination
+      description: Update a Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateStreamingDestinationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      security:
+        - x-api-key: []
+      tags:
+        - Streaming Destinations
+      x-internal: true
+    delete:
+      summary: Delete a Streaming Destination
+      operationId: delete-disabled-streaming-destination
+      description: Deletes an existing and disabled Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      responses:
+        '204':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      x-internal: true
+      tags:
+        - Streaming Destinations
+    get:
+      summary: Get a Streaming Destination
+      operationId: get-streaming-destination
+      description: Get a Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationResponse'
+      x-internal: true
+      tags:
+        - Streaming Destinations
 components:
   schemas:
     StreamingDestinationDTO:
@@ -58,9 +105,9 @@ components:
       type: object
       description: Streaming Destination model
       properties:
-        slug:
+        identifier:
           type: string
-          description: Streaming Destination slug
+          description: Streaming Destination identifier
         name:
           type: string
           description: Streaming Destination name
@@ -76,7 +123,7 @@ components:
         spec:
           $ref: '#/components/schemas/StreamingDestinationSpecDTO'
       required:
-        - slug
+        - identifier
         - name
         - status
         - connector_ref
@@ -129,6 +176,10 @@ components:
           type: integer
           format: int64
           description: Last updated time of the Streaming Destination
+        status_updated:
+          type: integer
+          format: int64
+          description: Last updated time of the Streaming Destination status
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -166,7 +217,7 @@ components:
       required: false
       schema:
         type: string
-      description: 'Slug field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
+      description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     Sort:
       name: sort
       in: query
@@ -174,7 +225,7 @@ components:
       schema:
         type: string
         enum:
-          - slug
+          - identifier
           - name
           - created
           - updated
@@ -196,6 +247,13 @@ components:
       schema:
         type: string
       description: Status of the Streaming Destination
+    StreamingDestinationParam:
+      name: streaming-destination
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Streaming Destination identifier
   responses:
     StreamingDestinationResponse:
       description: Streaming Destination response
@@ -207,7 +265,7 @@ components:
             example-streaming-destination-response:
               value:
                 streaming_destination:
-                  slug: example_destination
+                  identifier: example_destination
                   name: example desitnation name
                   status: ACTIVE
                   connector_ref: account.example_connector
@@ -228,7 +286,7 @@ components:
             example-list-streaming-destination-response:
               value:
                 - streaming_destination:
-                    slug: example_destination
+                    identifier: example_destination
                     name: example desitnation name
                     status: ACTIVE
                     connector_ref: account.example_connector
@@ -251,7 +309,7 @@ components:
           examples:
             example-aws-s3-stream-destination-request:
               value:
-                slug: example_destination
+                identifier: example_destination
                 name: example destination name
                 status: ACTIVE
                 connector_ref: account.example_aws_connector
