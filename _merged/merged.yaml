@@ -470,7 +470,7 @@ paths:
         name: role-assignment
         in: path
         required: true
-        description: Role assignment slug
+        description: Role assignment identifier
     get:
       summary: Retrieve a role assignment
       tags:
@@ -481,7 +481,7 @@ paths:
       operationId: get-account-scoped-role-assignment
       description: >-
         Retrieves the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -494,7 +494,7 @@ paths:
           $ref: '#/components/responses/RoleAssignmentResponse'
       description: >-
         Deletes the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -543,7 +543,7 @@ paths:
         name: role-assignment
         in: path
         required: true
-        description: Role assignment slug
+        description: Role assignment identifier
       - $ref: '#/components/parameters/OrgParam'
     get:
       summary: Retrieve a role assignment
@@ -555,7 +555,7 @@ paths:
       operationId: get-org-scoped-role-assignment
       description: >-
         Retrieves the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -568,7 +568,7 @@ paths:
           $ref: '#/components/responses/RoleAssignmentResponse'
       description: >-
         Deletes the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -618,7 +618,7 @@ paths:
         name: role-assignment
         in: path
         required: true
-        description: Role assignment slug
+        description: Role assignment identifier
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
     get:
@@ -631,7 +631,7 @@ paths:
       operationId: get-project-scoped-role-assignment
       description: >-
         Retrieves the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -644,7 +644,7 @@ paths:
           $ref: '#/components/responses/RoleAssignmentResponse'
       description: >-
         Deletes the information of the role assignment with the matching role
-        assignment slug.
+        assignment identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -692,6 +692,7 @@ paths:
           $ref: '#/components/responses/ServiceResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
       description: Deletes the requested service
       security:
         - x-api-key: []
@@ -801,6 +802,7 @@ paths:
           $ref: '#/components/responses/ServiceResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
       description: Deletes the requested service
       security:
         - x-api-key: []
@@ -908,6 +910,7 @@ paths:
           $ref: '#/components/responses/ServiceResponse'
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
       description: Deletes the requested service
       security:
         - x-api-key: []
@@ -1018,7 +1021,7 @@ paths:
         name: org
         in: path
         required: true
-        description: Organization slug
+        description: Organization identifier
     get:
       summary: Retrieve an organization
       responses:
@@ -1027,7 +1030,7 @@ paths:
       operationId: get-organization
       description: >-
         Retrieves the information of the organization with the matching
-        organization slug.
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -1042,7 +1045,7 @@ paths:
           $ref: '#/components/responses/OrganizationResponse'
       description: >-
         Updates the information of the organization with the matching
-        organization slug.
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -1059,7 +1062,7 @@ paths:
           $ref: '#/components/responses/OrganizationResponse'
       description: >-
         Deletes the information of the organization with the matching
-        organization slug.
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -1123,7 +1126,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-org-scoped-project
-      description: Retrieves the information of the project with the matching project slug.
+      description: >-
+        Retrieves the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       parameters:
@@ -1136,7 +1141,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-org-scoped-project
-      description: Updates the information of the project with the matching project slug.
+      description: >-
+        Updates the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       requestBody:
@@ -1151,7 +1158,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-org-scoped-project
-      description: Deletes the information of the project with the matching project slug.
+      description: >-
+        Deletes the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       parameters:
@@ -1192,7 +1201,7 @@ paths:
               type: string
           in: query
           name: secret
-          description: Slug field of secrets
+          description: Identifier field of secrets
         - schema:
             type: array
             items:
@@ -1258,7 +1267,7 @@ paths:
               type: string
           in: query
           name: secret
-          description: Slug field of secrets
+          description: Identifier field of secrets
         - schema:
             type: array
             items:
@@ -1325,7 +1334,7 @@ paths:
               type: string
           in: query
           name: secret
-          description: Slug field of secrets
+          description: Identifier field of secrets
         - schema:
             type: array
             items:
@@ -1365,7 +1374,7 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the secret
+        description: Identifier field of the secret
     get:
       summary: Retrieve a secret
       responses:
@@ -1387,7 +1396,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret slug.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1398,7 +1409,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -1415,7 +1428,7 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the secret
+        description: Identifier field of the secret
     get:
       summary: Retrieve a secret
       tags:
@@ -1437,7 +1450,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret slug.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1448,7 +1463,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1466,7 +1483,7 @@ paths:
         name: secret
         in: path
         required: true
-        description: Slug field of the secret
+        description: Identifier field of the secret
     get:
       summary: Retrieve a secret
       tags:
@@ -1488,7 +1505,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret slug.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1499,7 +1518,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1508,6 +1529,22 @@ paths:
         - Project Secret
       security:
         - x-api-key: []
+  /v1/module-versions:
+    get:
+      summary: List Module Versions
+      tags:
+        - Module Versions
+      responses:
+        '200':
+          $ref: '#/components/responses/ModuleVersionsListResponse'
+      operationId: list-module-versions
+      description: Lists Versions of different Modules.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit1'
+      x-internal: true
   /v1/connectors:
     post:
       summary: Create a Connector
@@ -1555,7 +1592,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: >
         Retrieves the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Account Connector
       parameters:
@@ -1568,7 +1605,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1583,7 +1622,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
     delete:
       summary: Delete a connector
       operationId: delete-account-scoped-connector
@@ -1592,7 +1631,7 @@ paths:
           description: OK
       description: >-
         Deletes the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Account Connector
       parameters:
@@ -1606,8 +1645,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorTestConnectionResponse'
-      description: |
-        Tests connection of the connector with the matching connector slug.
+      description: >
+        Tests connection of the connector with the matching connector
+        identifier.
       tags:
         - Account Connector
       parameters:
@@ -1620,7 +1660,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
   '/v1/orgs/{org}/connectors':
     post:
       summary: Create a Connector
@@ -1670,7 +1710,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: >
         Retrieves the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Org Connector
       parameters:
@@ -1683,7 +1723,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1700,7 +1742,7 @@ paths:
           description: OK
       description: >-
         Deletes the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Org Connector
       parameters:
@@ -1714,7 +1756,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
   '/v1/orgs/{org}/connectors/{connector}/test-connection':
     get:
       summary: Test a connector
@@ -1722,8 +1764,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorTestConnectionResponse'
-      description: |
-        Tests connection of the connector with the matching connector slug.
+      description: >
+        Tests connection of the connector with the matching connector
+        identifier.
       tags:
         - Org Connector
       parameters:
@@ -1737,7 +1780,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
   '/v1/orgs/{org}/projects/{project}/connectors':
     post:
       summary: Create a Connector
@@ -1788,7 +1831,7 @@ paths:
           $ref: '#/components/responses/ConnectorResponse'
       description: >
         Retrieves the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Project Connector
       parameters:
@@ -1801,7 +1844,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorResponse'
-      description: Updates the information of the secret with the matching secret slug.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1818,7 +1863,7 @@ paths:
           description: OK
       description: >-
         Deletes the information of the connector with the matching connector
-        slug.
+        identifier.
       tags:
         - Project Connector
       parameters:
@@ -1833,7 +1878,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
   '/v1/orgs/{org}/projects/{project}/connectors/{connector}/test-connection':
     get:
       summary: Test a connector
@@ -1841,8 +1886,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ConnectorTestConnectionResponse'
-      description: |
-        Tests connection of the connector with the matching connector slug.
+      description: >
+        Tests connection of the connector with the matching connector
+        identifier.
       tags:
         - Project Connector
       parameters:
@@ -1857,7 +1903,7 @@ paths:
         name: connector
         in: path
         required: true
-        description: Connector slug
+        description: Connector identifier
   /v1/resource-groups:
     parameters: []
     get:
@@ -2767,6 +2813,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Comments'
+        - $ref: '#/components/parameters/ForceDelete'
       tags:
         - Account Template
       description: Deletes particular version of Template at Account scope.
@@ -2893,6 +2940,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Comments'
+        - $ref: '#/components/parameters/ForceDelete'
       tags:
         - Org Template
       description: Deletes particular version of Template at Organization scope.
@@ -3023,6 +3071,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeaderParam'
         - $ref: '#/components/parameters/Comments'
+        - $ref: '#/components/parameters/ForceDelete'
       tags:
         - Project Template
       description: Deletes particular version of Template at Project scope.
@@ -3219,7 +3268,7 @@ components:
       description: Role Response Model
       x-examples:
         example-role:
-          slug: example_role
+          identifier: example_role
           name: Example_Role
           permissions:
             - core_resource_view
@@ -3237,7 +3286,7 @@ components:
           updated: 1234567890
           harness_managed: true
       properties:
-        slug:
+        identifier:
           type: string
           description: Role Identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -3291,7 +3340,7 @@ components:
             This indicates if this Role is managed by Harness or not. If true,
             Harness can manage and modify this Role.
       required:
-        - slug
+        - identifier
         - name
     CreateRoleRequest:
       title: CreateRoleRequest
@@ -3301,7 +3350,7 @@ components:
       description: Role request body
       x-examples:
         role-request:
-          slug: example_role
+          identifier: example_role
           name: Example_Role
           permissions:
             - core_view
@@ -3310,7 +3359,7 @@ components:
             example-tag-1: example-tag-1-value
             example-tag-2: example-tag-2-value
       properties:
-        slug:
+        identifier:
           type: string
           minLength: 1
           maxLength: 64
@@ -3339,7 +3388,7 @@ components:
           maxProperties: 128
           description: Role tags
       required:
-        - slug
+        - identifier
         - name
     RoleScope:
       title: Scope
@@ -3367,15 +3416,15 @@ components:
       type: object
       description: Role assignment request model
       properties:
-        slug:
+        identifier:
           type: string
-          description: Role assignment slug
+          description: Role assignment identifier
         resource_group:
           type: string
           description: Resource group name
         role:
           type: string
-          description: Role slug
+          description: Role identifier
         principal:
           $ref: '#/components/schemas/Principal'
         disabled:
@@ -3385,7 +3434,7 @@ components:
           type: boolean
           description: Role assignment is managed or not
       required:
-        - slug
+        - identifier
         - resource_group
         - role
         - principal
@@ -3397,9 +3446,9 @@ components:
         scope_level:
           type: string
           description: Role assignment principal scope level
-        slug:
+        identifier:
           type: string
-          description: Role assignment principal slug
+          description: Role assignment principal identifier
         type:
           type: string
           enum:
@@ -3410,7 +3459,7 @@ components:
             - SERVICE_ACCOUNT
           description: Role assignment principal type
       required:
-        - slug
+        - identifier
         - type
     RoleAssignmentResponse:
       title: RoleAssignmentResponse
@@ -3435,7 +3484,7 @@ components:
       x-examples:
         example-1:
           account: sample_account
-          slug: example_service
+          identifier: example_service
           org: sample_organization
           project: sample_project
           name: Example_service
@@ -3457,7 +3506,7 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
           minLength: 1
           maxLength: 64
-        slug:
+        identifier:
           type: string
           description: Identifier of the Service Request.
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -3495,7 +3544,7 @@ components:
           type: string
           description: Yaml related to service
       required:
-        - slug
+        - identifier
         - name
     ServiceResponse:
       type: object
@@ -3503,7 +3552,7 @@ components:
         example-1:
           service:
             account: sample_account
-            slug: example_service
+            identifier: example_service
             org: sample_organization
             project: sample_project
             name: Example_service
@@ -3535,7 +3584,7 @@ components:
       type: object
       x-examples:
         example-1:
-          slug: example_service
+          identifier: example_service
           name: Example_service
           description: This is a example service
           tags:
@@ -3549,7 +3598,7 @@ components:
       title: ServiceRequest
       description: 'Service Request Body '
       properties:
-        slug:
+        identifier:
           type: string
           description: Identifier of the Service
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -3575,7 +3624,7 @@ components:
           type: string
           description: YAML for the Service Request
       required:
-        - slug
+        - identifier
         - name
     CreateOrganizationRequest:
       type: object
@@ -3588,11 +3637,11 @@ components:
       description: Organization model
       type: object
       properties:
-        slug:
+        identifier:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Organization slug
+          description: Organization identifier
           maxLength: 64
         name:
           type: string
@@ -3611,7 +3660,7 @@ components:
           maxProperties: 128
           description: Organization tags
       required:
-        - slug
+        - identifier
         - name
     ModuleType:
       type: string
@@ -3641,7 +3690,7 @@ components:
       type: object
       x-examples:
         example-1:
-          slug: example_project_slug
+          identifier: example_project_identifier
           name: example-project-name
           color: '#0063F7'
           modules:
@@ -3651,11 +3700,11 @@ components:
             property1: value1
             property2: value2
       properties:
-        slug:
+        identifier:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Project slug
+          description: Project identifier
           maxLength: 64
         name:
           type: string
@@ -3665,7 +3714,7 @@ components:
           maxLength: 64
         org:
           type: string
-          description: Organization slug for the project
+          description: Organization identifier for the project
         color:
           type: string
           description: Project color
@@ -3686,7 +3735,7 @@ components:
           maxProperties: 128
           description: Project tags
       required:
-        - slug
+        - identifier
         - name
     ProjectResponse:
       description: Project response model
@@ -3709,7 +3758,7 @@ components:
       x-examples:
         example-1:
           org:
-            slug: example_organization
+            identifier: example_organization
             name: Example Organization
             description: This is an Example Organization
             tags:
@@ -3943,12 +3992,12 @@ components:
               enum:
                 - SecretFile
               description: This specifies the type of secret
-            secret_manager_slug:
+            secret_manager_identifier:
               type: string
-              description: Slug of the secret manager used to manage the secret
+              description: Identifier of the secret manager used to manage the secret
           required:
             - type
-            - secret_manager_slug
+            - secret_manager_identifier
     SecretTextSpec:
       title: SecretText
       x-discriminator-value: SecretText
@@ -3962,9 +4011,9 @@ components:
               enum:
                 - SecretText
               description: This specifies the type of secret
-            secret_manager_slug:
+            secret_manager_identifier:
               type: string
-              description: Slug of the secret manager used to manage the secret
+              description: Identifier of the secret manager used to manage the secret
             value_type:
               type: string
               enum:
@@ -3978,7 +4027,7 @@ components:
               description: Value of the Secret
           required:
             - type
-            - secret_manager_slug
+            - secret_manager_identifier
             - value_type
     WinRmTGTKeyTabFileSpec:
       title: WinRmTGTKeyTabFile
@@ -4117,19 +4166,19 @@ components:
           type: string
           description: Secret name
           pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
-        slug:
+        identifier:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Secret slug
+          description: Secret identifier
           maxLength: 64
         org:
           type: string
-          description: Organization slug for secret
+          description: Organization identifier for secret
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         project:
           type: string
-          description: Project slug for secret
+          description: Project identifier for secret
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         tags:
           type: object
@@ -4143,7 +4192,7 @@ components:
           $ref: '#/components/schemas/SecretSpec'
       required:
         - name
-        - slug
+        - identifier
         - spec
     SecretResponse:
       title: SecretResponse
@@ -4165,6 +4214,49 @@ components:
           type: object
           description: Governance metadata information
       description: Secret response model
+    ModuleVersionsResponse:
+      title: Module Versions Response Body
+      type: object
+      description: Module Versions Response Body
+      properties:
+        name:
+          type: string
+          description: Module name
+        version:
+          type: string
+          description: Module version
+        display_name:
+          type: string
+          description: Module display name
+        updated:
+          type: string
+          description: Module updated at
+        version_url:
+          type: string
+          description: Module version URL
+        release_notes_link:
+          type: string
+          description: Module Release Notes link
+        microservices_version_info:
+          type: array
+          items:
+            $ref: '#/components/schemas/MicroserviceVersionInfo'
+    MicroserviceVersionInfo:
+      title: Microservice Version Info
+      x-stoplight:
+        id: 949355wt5fcyx
+      type: object
+      properties:
+        name:
+          type: string
+          description: Microservices name
+        version:
+          type: string
+          description: Microservices version URL
+        version_url:
+          type: string
+          description: Microservices version
+      description: Microservice Version Info
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
@@ -4276,22 +4368,22 @@ components:
           type: string
           description: Connector name
           pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
-        slug:
+        identifier:
           type: string
           minLength: 1
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
-          description: Connector slug
+          description: Connector identifier
           maxLength: 64
         description:
           type: string
           description: Connector description
         org:
           type: string
-          description: Organization slug for connector
+          description: Organization identifier for connector
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         project:
           type: string
-          description: Project slug for connector
+          description: Project identifier for connector
           pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
         tags:
           type: object
@@ -4302,7 +4394,7 @@ components:
           $ref: '#/components/schemas/ConnectorSpec'
       required:
         - name
-        - slug
+        - identifier
         - spec
     ConnectorSpec:
       title: ConnectorSpec
@@ -5400,7 +5492,7 @@ components:
       description: Resource Group response body
       x-examples:
         example-resource-group:
-          slug: example_resource_group
+          identifier: example_resource_group
           name: Example_Resource Group
           color: '#0063F7'
           tags:
@@ -5426,7 +5518,7 @@ components:
           created: 1234567890
           updated: 1234567890
       properties:
-        slug:
+        identifier:
           type: string
           description: Resource Group Identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -5488,7 +5580,7 @@ components:
           description: Last modification timestamp for Resource Group.
           format: int64
       required:
-        - slug
+        - identifier
         - name
     CreateResourceGroupRequest:
       title: Create Resource Group Request
@@ -5498,7 +5590,7 @@ components:
       description: Resource Group request body
       x-examples:
         resource-group-request:
-          slug: example_resource_group
+          identifier: example_resource_group
           name: Example_Resource Group
           color: '#0063F7'
           tags:
@@ -5519,7 +5611,7 @@ components:
                 - example_resource_attribute
           include_all_resources: false
       properties:
-        slug:
+        identifier:
           type: string
           minLength: 1
           maxLength: 64
@@ -5558,7 +5650,7 @@ components:
           type: boolean
           description: Boolean value for including all resources in Resource Group.
       required:
-        - slug
+        - identifier
         - name
     ResourceGroupScope:
       title: Resource Group Scope
@@ -5644,12 +5736,12 @@ components:
       x-examples:
         example-resource-selector-filter:
           resource_type: resource
-          resource_slug: example_resource
+          resource_identifier: example_resource
       properties:
         resource_type:
           type: string
           description: Filter by Resource type
-        resource_slug:
+        resource_identifier:
           type: string
           description: Filter by Resource identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -5673,7 +5765,7 @@ components:
             - example_resource_group
           resource_selector_filter:
             - resource_type: RESOURCE
-              resource_slug: example_resource
+              resource_identifier: example_resource
           managed_filter: NO_FILTER
       properties:
         account:
@@ -5726,9 +5818,9 @@ components:
       type: object
       description: Streaming Destination model
       properties:
-        slug:
+        identifier:
           type: string
-          description: Streaming Destination slug
+          description: Streaming Destination identifier
         name:
           type: string
           description: Streaming Destination name
@@ -5744,7 +5836,7 @@ components:
         spec:
           $ref: '#/components/schemas/StreamingDestinationSpecDTO'
       required:
-        - slug
+        - identifier
         - name
         - status
         - connector_ref
@@ -5850,7 +5942,7 @@ components:
         example-get:
           pipeline_yaml: example_yaml_text
           template_applied_pipeline_yaml: example_yaml_text_with_template
-          slug: example_pipeline
+          identifier: example_pipeline
           name: ExamplePipeline
           org: example_org
           project: example_project
@@ -5873,12 +5965,12 @@ components:
             message: something is incorrect
             message_fqn: something is incorrect at pipeline.name
             stage_info:
-              slug: example_stage
+              identifier: example_stage
               type: stage
               name: Example Stage
               fqn: pipeline.stages.stage
             step_info:
-              slug: example_step
+              identifier: example_step
               type: string
               name: string
               fqn: pipeline.steps.step
@@ -5898,12 +5990,12 @@ components:
         template_applied_pipeline_yaml:
           type: string
           description: Pipeline YAML after resolving Templates (returned as a String).
-        slug:
+        identifier:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Pipeline name
@@ -5974,6 +6066,17 @@ components:
         status:
           type: string
           description: Status of the Pipeline Validation Event
+        policy_eval:
+          type: object
+          description: Result of Policy Evaluations on the Pipeline
+        start_ts:
+          type: integer
+          format: int64
+          description: Start time of the Evaluation
+        end_ts:
+          type: integer
+          format: int64
+          description: End time of the Evaluation
       x-internal: true
     PipelineValidationUUIDResponseBody:
       title: Pipeline Validation UUID Response Body
@@ -5996,7 +6099,7 @@ components:
       description: Pipeline List response body
       x-examples:
         example-summary:
-          slug: example_pipeline
+          identifier: example_pipeline
           name: Example Pipeline
           description: This is an Example Pipeline
           tags:
@@ -6010,7 +6113,7 @@ components:
                 trigger_type: NOOP
                 username: harness_user
                 email: noreply@harness.io
-              execution_id: example_execution_slug
+              execution_id: example_execution_identifier
               execution_status: Running
               started: 1234567890
               ended: 1234567890
@@ -6028,12 +6131,12 @@ components:
             repo_url: www.repo.com
       type: object
       properties:
-        slug:
+        identifier:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Pipeline name
@@ -6182,7 +6285,7 @@ components:
                             - AllErrors
                           action:
                             type: StageRollback
-          slug: example_pipeline
+          identifier: example_pipeline
           name: ExamplePipeline
           description: Pipeline Description
           tags:
@@ -6200,11 +6303,11 @@ components:
         pipeline_yaml:
           type: string
           description: Pipeline YAML (to be passed as a String).
-        slug:
+        identifier:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Pipeline identifier
         name:
           type: string
@@ -6226,7 +6329,7 @@ components:
           $ref: '#/components/schemas/GitCreateDetails'
       required:
         - pipeline_yaml
-        - slug
+        - identifier
         - name
     PipelineCreateResponseBody:
       title: Pipeline Create Response Body
@@ -6236,14 +6339,14 @@ components:
       description: Pipeline response body
       x-examples:
         example-pipeline:
-          slug: example_pipeline
+          identifier: example_pipeline
       properties:
-        slug:
+        identifier:
           type: string
           description: Pipeline identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
     YAMLSchemaErrorWrapper:
       title: YAML Schema Error Wrapper
       x-stoplight:
@@ -6274,12 +6377,12 @@ components:
           message: something is incorrect
           message_fqn: something is incorrect at pipeline.name
           stage_info:
-            slug: example_stage
+            identifier: example_stage
             type: stage
             name: Example Stage
             fqn: pipeline.stages.stage
           step_info:
-            slug: example_step
+            identifier: example_step
             type: string
             name: string
             fqn: pipeline.steps.step
@@ -6293,12 +6396,12 @@ components:
       description: Entity details
       x-examples:
         example-node-info:
-          slug: example_stage
+          identifier: example_stage
           type: stage
           name: name
           fqn: pipeline.stages.stage1.name
       properties:
-        slug:
+        identifier:
           type: string
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
@@ -6381,7 +6484,7 @@ components:
             trigger_type: NOOP
             username: harness_user
             email: noreply@harness.io
-          execution_id: example_execution_slug
+          execution_id: example_execution_identifier
           execution_status: Running
           started: 1234567890
           ended: 1234567890
@@ -6600,7 +6703,7 @@ components:
                             - AllErrors
                           action:
                             type: StageRollback
-          slug: example_pipeline
+          identifier: example_pipeline
           name: ExamplePipeline
           description: Pipeline Description
           tags:
@@ -6619,11 +6722,11 @@ components:
         pipeline_yaml:
           type: string
           description: Pipeline YAML (to be passed as a String).
-        slug:
+        identifier:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Pipeline identifier
         name:
           type: string
@@ -6645,7 +6748,7 @@ components:
           $ref: '#/components/schemas/GitUpdateDetails'
       required:
         - pipeline_yaml
-        - slug
+        - identifier
         - name
     CacheResponseMetadataDTO:
       title: CacheResponseMetadataDTO
@@ -6718,7 +6821,7 @@ components:
                                           spec:
                                               connectorRef: account.harnessciplatform
                                               namespace: sample
-          slug: example_input_set
+          identifier: example_input_set
           name: ExampleInputSet
           description: Input Set Description
           tags:
@@ -6736,7 +6839,7 @@ components:
         input_set_yaml:
           type: string
           description: Input Set YAML (to be passed as a String).
-        slug:
+        identifier:
           type: string
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
@@ -6762,7 +6865,7 @@ components:
           $ref: '#/components/schemas/GitCreateDetails'
       required:
         - input_set_yaml
-        - slug
+        - identifier
         - name
     InputSetResponseBody:
       title: Input Set Response Body
@@ -6774,7 +6877,7 @@ components:
         input_set_yaml:
           type: string
           description: Input Set YAML (returned as a String).
-        slug:
+        identifier:
           type: string
           description: Input Set identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -6823,7 +6926,7 @@ components:
       x-examples:
         example-input-set:
           input_set_yaml: example_input_set_yaml
-          slug: example_input_set
+          identifier: example_input_set
           name: Example Input Set
           org: example_org
           project: example_project
@@ -6990,7 +7093,7 @@ components:
                                           spec:
                                               connectorRef: account.harnessciplatform
                                               namespace: sample
-          slug: example_input_set
+          identifier: example_input_set
           name: ExampleInputSet
           description: Input Set Description
           tags:
@@ -7008,7 +7111,7 @@ components:
         input_set_yaml:
           type: string
           description: Input Set YAML (to be passed as a String).
-        slug:
+        identifier:
           type: string
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
@@ -7034,7 +7137,7 @@ components:
           $ref: '#/components/schemas/InputSetGitUpdateDetails'
       required:
         - input_set_yaml
-        - slug
+        - identifier
         - name
     InputSetGitUpdateDetails:
       title: InputSetGitUpdateDetails
@@ -7145,7 +7248,7 @@ components:
           account: example_account
           org: example_organization
           project: example_project
-          slug: example_template
+          identifier: example_template
           name: Example_template
           description: string
           tags:
@@ -7210,7 +7313,7 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
-        slug:
+        identifier:
           type: string
           description: Template identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -7289,7 +7392,7 @@ components:
           description: True if this version is stable version of Template
       required:
         - account
-        - slug
+        - identifier
         - name
         - yaml
     TemplateMetadataSummaryResponse:
@@ -7302,7 +7405,7 @@ components:
           account: example_account
           org: example_organization
           project: example_project
-          slug: example_template
+          identifier: example_template
           name: Example_template
           description: string
           tags:
@@ -7342,7 +7445,7 @@ components:
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
           minLength: 1
           maxLength: 64
-        slug:
+        identifier:
           type: string
           description: Template identifier
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
@@ -7427,7 +7530,7 @@ components:
             account: example_account
             org: example_organization
             project: example_project
-            slug: example_template
+            identifier: example_template
             name: Example_template
             description: string
             tags:
@@ -7496,7 +7599,7 @@ components:
           - account: example_account
             org: example_organization
             project: example_project
-            slug: example_template
+            identifier: example_template
             name: Example_template
             description: string
             tags:
@@ -7823,7 +7926,7 @@ components:
           examples:
             role-list-response:
               value:
-                - slug: example_role
+                - identifier: example_role
                   name: Example_Role
                   permissions:
                     - core_resource_view
@@ -7848,7 +7951,7 @@ components:
           examples:
             role-list-response:
               value: |
-                - slug: example_role
+                - identifier: example_role
                   name: Example_Role
                   permissions:
                     - core_resource_view
@@ -7889,7 +7992,7 @@ components:
           examples:
             role-response:
               value:
-                slug: example_role
+                identifier: example_role
                 name: Example_Role
                 permissions:
                   - core_resource_view
@@ -7912,7 +8015,7 @@ components:
           examples:
             role-response:
               value: |
-                slug: example_role
+                identifier: example_role
                 name: Example_Role
                 permissions:
                   - core_resource_view
@@ -7939,12 +8042,12 @@ components:
             role-assignment-response-json:
               value:
                 role-assignment:
-                  slug: example_role_assignment
-                  resource_group: example_resource_group_slug
-                  role: example_role_slug
+                  identifier: example_role_assignment
+                  resource_group: example_resource_group_identifier
+                  role: example_role_identifier
                   principal:
                     scope: ACCOUNT
-                    slug: example_principal_slug
+                    identifier: example_principal_identifier
                     type: USER
                   disabled: false
                   managed: false
@@ -7958,12 +8061,12 @@ components:
             role-assignment-response-yaml:
               value: |
                 role-assignment:
-                  slug: example_role_assignment
-                  resource_group: example_resource_group_slug
-                  role: example_role_slug
+                  identifier: example_role_assignment
+                  resource_group: example_resource_group_identifier
+                  role: example_role_identifier
                   principal:
                     scope: ACCOUNT
-                    slug: example_principal_slug
+                    identifier: example_principal_identifier
                     type: USER
                   disabled: false
                   managed: false
@@ -7982,12 +8085,12 @@ components:
             role-assignment-response-json:
               value:
                 - role-assignment:
-                    slug: example_role_assignment
-                    resource_group: example_resource_group_slug
-                    role: example_role_slug
+                    identifier: example_role_assignment
+                    resource_group: example_resource_group_identifier
+                    role: example_role_identifier
                     principal:
                       scope: ACCOUNT
-                      slug: example_principal_slug
+                      identifier: example_principal_identifier
                       type: USER
                     disabled: false
                     managed: false
@@ -8003,12 +8106,12 @@ components:
             role-assignment-response-json:
               value: |
                 - role-assignment:
-                    slug: example_role_assignment
-                    resource_group: example_resource_group_slug
-                    role: example_role_slug
+                    identifier: example_role_assignment
+                    resource_group: example_resource_group_identifier
+                    role: example_role_identifier
                     principal:
                       scope: ACCOUNT
-                      slug: example_principal_slug
+                      identifier: example_principal_identifier
                       type: USER
                     disabled: false
                     managed: false
@@ -8043,7 +8146,7 @@ components:
               value:
                 - service:
                     account: sample_account
-                    slug: example_service
+                    identifier: example_service
                     org: sample_organization
                     project: sample_project
                     name: Example_service
@@ -8068,7 +8171,7 @@ components:
               value: |
                 - service:
                     account: sample_account
-                    slug: example_service
+                    identifier: example_service
                     org: sample_organization
                     project: sample_project
                     name: Example_service
@@ -8103,7 +8206,7 @@ components:
               value:
                 service:
                   account: sample_account
-                  slug: example_service
+                  identifier: example_service
                   org: sample_organization
                   project: sample_project
                   name: Example_service
@@ -8126,7 +8229,7 @@ components:
               value: |
                 service:
                   account: sample_account
-                  slug: example_service
+                  identifier: example_service
                   org: sample_organization
                   project: sample_project
                   name: Example_service
@@ -8151,7 +8254,7 @@ components:
             example-organization-response-json:
               value:
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an example organization
                   tags:
@@ -8167,7 +8270,7 @@ components:
             example-organization-response-yaml:
               value: |
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an example organization
                   tags:
@@ -8186,8 +8289,8 @@ components:
             example-project-response-json:
               value:
                 project:
-                  org: example_org_slug
-                  slug: example_project_slug
+                  org: example_org_identifier
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -8205,8 +8308,8 @@ components:
             example-project-response-yaml:
               value: |
                 project:
-                  org: example_org_slug
-                  slug: example_project_slug
+                  org: example_org_identifier
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -8229,8 +8332,8 @@ components:
             example-project-list-response-json:
               value:
                 - project:
-                    org: example_org_slug
-                    slug: example_project_slug
+                    org: example_org_identifier
+                    identifier: example_project_identifier
                     name: example-project-name
                     color: '#0063F7'
                     modules:
@@ -8250,8 +8353,8 @@ components:
             example-project-list-response-yaml:
               value: |
                 - project:
-                    org: example_org_slug
-                    slug: example_project_slug
+                    org: example_org_identifier
+                    identifier: example_project_identifier
                     name: example-project-name
                     color: '#0063F7'
                     modules:
@@ -8288,7 +8391,7 @@ components:
             example-organizations-list-response-json:
               value:
                 - org:
-                    slug: example_organization
+                    identifier: example_organization
                     name: Example Organization
                     description: This is an example organization
                     tags:
@@ -8306,7 +8409,7 @@ components:
             example-organizations-list-response-yaml:
               value: |
                 - org:
-                    slug: example_organization
+                    identifier: example_organization
                     name: Example Organization
                     description: This is an example organization
                     tags:
@@ -8340,7 +8443,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -8363,7 +8466,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -8391,7 +8494,7 @@ components:
               value:
                 - secret:
                     name: example_secret
-                    slug: example_secret
+                    identifier: example_secret
                     org: default
                     project: example_project
                     tags:
@@ -8416,7 +8519,7 @@ components:
               value: |
                 - secret:
                     name: example_secret
-                    slug: example_secret
+                    identifier: example_secret
                     org: default
                     project: example_project
                     tags:
@@ -8445,6 +8548,29 @@ components:
               value: >-
                 <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
                 rel="self", <{url}?page=0&limit=1>; rel="previous", 
+    ModuleVersionsListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ModuleVersionsResponse'
+          examples: {}
+      headers:
+        Link:
+          schema:
+            type: string
+          description: >-
+            Links to related resources, in the format defined by [RFC
+            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
+            include a link with relation type `next` to the next page, if there
+            is a next page.
+          examples:
+            sample:
+              value: >-
+                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
+                rel="self", <{url}?page=0&limit=1>; rel="previous", 
     ConnectorTestConnectionResponse:
       description: This has test connection details for the Connector defined in Harness.
       content:
@@ -8465,7 +8591,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   org: default
                   project: example_project
                   tags:
@@ -8488,7 +8614,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   org: default
                   project: example_project
                   tags:
@@ -8516,7 +8642,7 @@ components:
               value:
                 - connector:
                     name: example_connector
-                    slug: example_connector
+                    identifier: example_connector
                     org: default
                     project: example_project
                     tags:
@@ -8539,7 +8665,7 @@ components:
               value: |
                 - connector:
                     name: example_connector
-                    slug: example_connector
+                    identifier: example_connector
                     org: default
                     project: example_project
                     tags:
@@ -8580,7 +8706,7 @@ components:
           examples:
             resource-group-list-response:
               value:
-                - slug: example_resource_group
+                - identifier: example_resource_group
                   name: Example Resource Group
                   color: '#0063F7'
                   tags:
@@ -8614,7 +8740,7 @@ components:
           examples:
             resource-group-list-response:
               value: |
-                - slug: example_resource_group
+                - identifier: example_resource_group
                   name: Example Resource Group
                   color: '#0063F7'
                   tags:
@@ -8663,7 +8789,7 @@ components:
           examples:
             resource-group-response:
               value:
-                slug: example_resource_group
+                identifier: example_resource_group
                 name: Example Resource Group
                 color: '#0063F7'
                 tags:
@@ -8694,7 +8820,7 @@ components:
           examples:
             resource-group-response:
               value: |
-                slug: example_resource_group
+                identifier: example_resource_group
                 name: Example Resource Group
                 color: '#0063F7'
                 tags:
@@ -8729,7 +8855,7 @@ components:
             example-streaming-destination-response:
               value:
                 streaming_destination:
-                  slug: example_destination
+                  identifier: example_destination
                   name: example desitnation name
                   status: ACTIVE
                   connector_ref: account.example_connector
@@ -8750,7 +8876,7 @@ components:
             example-list-streaming-destination-response:
               value:
                 - streaming_destination:
-                    slug: example_destination
+                    identifier: example_destination
                     name: example desitnation name
                     status: ACTIVE
                     connector_ref: account.example_connector
@@ -8777,14 +8903,14 @@ components:
           examples:
             example-pipeline:
               value:
-                slug: example_pipeline
+                identifier: example_pipeline
         application/yaml:
           schema:
             $ref: '#/components/schemas/PipelineCreateResponseBody'
           examples:
             example-pipeline:
               value: |
-                slug: example_pipeline
+                identifier: example_pipeline
     PipelineValidationResponseBody:
       description: Pipeline Validation response body
       content:
@@ -8814,7 +8940,7 @@ components:
               value:
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
-                slug: example_pipeline
+                identifier: example_pipeline
                 name: ExamplePipeline
                 org: example_org
                 project: example_project
@@ -8837,12 +8963,12 @@ components:
                   message: something is incorrect
                   message_fqn: something is incorrect at pipeline.name
                   stage_info:
-                    slug: example_stage
+                    identifier: example_stage
                     type: stage
                     name: Example Stage
                     fqn: pipeline.stages.stage
                   step_info:
-                    slug: example_step
+                    identifier: example_step
                     type: string
                     name: string
                     fqn: pipeline.steps.step
@@ -8862,7 +8988,7 @@ components:
               value: |
                 pipeline_yaml: example_yaml_text
                 template_applied_pipeline_yaml: example_yaml_text_with_template
-                slug: example_pipeline
+                identifier: example_pipeline
                 name: ExamplePipeline
                 org: example_org
                 project: example_project
@@ -8885,12 +9011,12 @@ components:
                   message: something is incorrect
                   message_fqn: something is incorrect at pipeline.name
                   stage_info:
-                    slug: example_stage
+                    identifier: example_stage
                     type: stage
                     name: Example Stage
                     fqn: pipeline.stages.stage
                   step_info:
-                    slug: example_step
+                    identifier: example_step
                     type: string
                     name: string
                     fqn: pipeline.steps.step
@@ -8914,7 +9040,7 @@ components:
           examples:
             example-list-response:
               value:
-                - slug: example_pipeline
+                - identifier: example_pipeline
                   name: Example Pipeline
                   description: This is an Example Pipeline
                   tags:
@@ -8929,7 +9055,7 @@ components:
                         trigger_type: NOOP
                         username: harness_user
                         email: noreply@harness.io
-                      execution_id: example_execution_slug
+                      execution_id: example_execution_identifier
                       execution_status: Running
                       started: 1234567890
                       ended: 1234567890
@@ -8954,7 +9080,7 @@ components:
           examples:
             example-list-response:
               value: |
-                - slug: example_pipeline
+                - identifier: example_pipeline
                   name: Example Pipeline
                   description: This is an Example Pipeline
                   tags:
@@ -8969,7 +9095,7 @@ components:
                         trigger_type: NOOP
                         username: harness_user
                         email: noreply@harness.io
-                      execution_id: example_execution_slug
+                      execution_id: example_execution_identifier
                       execution_status: Running
                       started: 1234567890
                       ended: 1234567890
@@ -9013,7 +9139,7 @@ components:
             example-input-set:
               value:
                 input_set_yaml: example_input_set_yaml
-                slug: example_input_set
+                identifier: example_input_set
                 name: Example Input Set
                 org: example_org
                 project: example_project
@@ -9053,7 +9179,7 @@ components:
             example-input-set:
               value: |
                 input_set_yaml: example_input_set_yaml
-                slug: example_input_set
+                identifier: example_input_set
                 name: Example Input Set
                 org: example_org
                 project: example_project
@@ -9097,7 +9223,7 @@ components:
             example-input-sets:
               value:
                 - input_set_yaml: example_input_set_yaml
-                  slug: example_input_set
+                  identifier: example_input_set
                   name: Example Input Set
                   org: example_org
                   project: example_project
@@ -9140,7 +9266,7 @@ components:
             example-input-sets:
               value: |
                 - input_set_yaml: example_input_set_yaml
-                  slug: example_input_set
+                  identifier: example_input_set
                   name: Example Input Set
                   org: example_org
                   project: example_project
@@ -9249,7 +9375,7 @@ components:
                 account: example_account
                 org: example_organization
                 project: example_project
-                slug: example_template
+                identifier: example_template
                 name: Example_template
                 description: string
                 tags:
@@ -9307,7 +9433,7 @@ components:
                 account: example_account
                 org: example_organization
                 project: example_project
-                slug: example_template
+                identifier: example_template
                 name: Example_template
                 description: string
                 tags:
@@ -9369,7 +9495,7 @@ components:
                   account: example_account
                   org: example_organization
                   project: example_project
-                  slug: example_template
+                  identifier: example_template
                   name: Example_template
                   description: string
                   tags:
@@ -9429,7 +9555,7 @@ components:
                   account: example_account
                   org: example_organization
                   project: example_project
-                  slug: example_template
+                  identifier: example_template
                   name: Example_template
                   description: string
                   tags:
@@ -9491,7 +9617,7 @@ components:
                 - account: example_account
                   org: example_organization
                   project: example_project
-                  slug: example_template
+                  identifier: example_template
                   name: Example_template
                   description: string
                   tags:
@@ -9523,7 +9649,7 @@ components:
                 - account: example_account
                   org: example_organization
                   project: example_project
-                  slug: example_template
+                  identifier: example_template
                   name: Example_template
                   description: string
                   tags:
@@ -9580,7 +9706,7 @@ components:
       schema:
         type: string
         enum:
-          - slug
+          - identifier
           - name
           - created
           - updated
@@ -9642,9 +9768,9 @@ components:
       schema:
         type: string
       description: >-
-        Slug field of the account the resource is scoped to. This is required
-        for Authorization methods other than the x-api-key header. If you are
-        using the x-api-key header, this can be skipped.
+        Identifier field of the account the resource is scoped to. This is
+        required for Authorization methods other than the x-api-key header. If
+        you are using the x-api-key header, this can be skipped.
     Page:
       name: page
       in: query
@@ -9670,6 +9796,13 @@ components:
       description: >-
         This would be used to filter resources having attributes matching with
         search term.
+    ForceDelete:
+      name: forceDelete
+      in: query
+      schema:
+        type: boolean
+        default: false
+      description: Enable this field to force delete a template
     OrgsQueryParam:
       name: org
       in: query
@@ -9678,7 +9811,7 @@ components:
         type: array
         items:
           type: string
-      description: Slug field of the organizations the resource is scoped to
+      description: Identifier field of the organizations the resource is scoped to
     ProjectsQueryParam:
       name: project
       in: query
@@ -9687,14 +9820,14 @@ components:
         type: array
         items:
           type: string
-      description: Slug field of the projects the resource is scoped to
+      description: Identifier field of the projects the resource is scoped to
     OrgPathParam:
       name: org
       in: path
       required: true
       schema:
         type: string
-      description: Slug field of the organization the resource is scoped to
+      description: Identifier field of the organization the resource is scoped to
     PrivateSecret:
       name: private_secret
       in: query
@@ -9708,14 +9841,14 @@ components:
       required: true
       schema:
         type: string
-      description: Slug field of the project the resource is scoped to
+      description: Identifier field of the project the resource is scoped to
     ServicePathParam:
       name: service
       in: path
       required: true
       schema:
         type: string
-      description: Slug field of the service the resource is scoped to
+      description: Identifier field of the service the resource is scoped to
     ServiceIdentifiers:
       name: service_ids
       in: query
@@ -9734,7 +9867,7 @@ components:
         type: string
         enum:
           - name
-          - slug
+          - identifier
           - created
           - updated
       description: Parameter on the basis of which sorting is done.
@@ -9855,9 +9988,9 @@ components:
       schema:
         type: string
       description: >-
-        Slug field of the account the resource is scoped to. This is required
-        for Authorization methods other than the x-api-key header. If you are
-        using the x-api-key header, this can be skipped.
+        Identifier field of the account the resource is scoped to. This is
+        required for Authorization methods other than the x-api-key header. If
+        you are using the x-api-key header, this can be skipped.
     Comments:
       name: comments
       in: query
@@ -9880,7 +10013,7 @@ components:
       schema:
         type: string
         enum:
-          - slug
+          - identifier
           - name
           - updated
       description: Parameter on the basis of which sorting is done.
@@ -10023,7 +10156,7 @@ components:
           examples:
             role-request:
               value:
-                slug: example_role
+                identifier: example_role
                 name: Example_Role
                 permissions:
                   - core_view
@@ -10037,7 +10170,7 @@ components:
           examples:
             role-request:
               value: |
-                slug: example_role
+                identifier: example_role
                 name: Example_Role
                 permissions:
                   - core_view
@@ -10055,12 +10188,12 @@ components:
           examples:
             role-assignment-request-json:
               value:
-                slug: example_role_assignment
-                resource_group: example_resource_group_slug
-                role: example_role_slug
+                identifier: example_role_assignment
+                resource_group: example_resource_group_identifier
+                role: example_role_identifier
                 principal:
                   scope: ACCOUNT
-                  slug: example_principal_slug
+                  identifier: example_principal_identifier
                   type: USER
                 disabled: false
                 managed: false
@@ -10070,12 +10203,12 @@ components:
           examples:
             role-assignment-request-yaml:
               value: |
-                slug: example_role_assignment
-                resource_group: example_resource_group_slug
-                role: example_role_slug
+                identifier: example_role_assignment
+                resource_group: example_resource_group_identifier
+                role: example_role_identifier
                 principal:
                   scope: ACCOUNT
-                  slug: example_principal_slug
+                  identifier: example_principal_identifier
                   type: USER
                 disabled: false
                 managed: false
@@ -10089,7 +10222,7 @@ components:
           examples:
             example-1:
               value:
-                slug: example_service
+                identifier: example_service
                 name: Example_service
                 description: This is a example service
                 tags:
@@ -10106,7 +10239,7 @@ components:
           examples:
             example-1:
               value: |
-                slug: example_service
+                identifier: example_service
                 name: Example_service
                 description: This is a example service
                 tags:
@@ -10128,7 +10261,7 @@ components:
             example-project-update-request-json:
               value:
                 project:
-                  slug: example_project_slug
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -10144,7 +10277,7 @@ components:
             example-project-update-request-yaml:
               value: |
                 project:
-                  slug: example_project_slug
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -10164,7 +10297,7 @@ components:
             example-create-organization-request-json:
               value:
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an Example organization
                   tags:
@@ -10177,7 +10310,7 @@ components:
             example-create-organization-request-yaml:
               value: |
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an Example organization
                   tags:
@@ -10194,7 +10327,7 @@ components:
             example-organization-update-request-json:
               value:
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an example organization
                   tags:
@@ -10207,7 +10340,7 @@ components:
             example-organization-update-request-json:
               value: |
                 org:
-                  slug: example_organization
+                  identifier: example_organization
                   name: Example Organization
                   description: This is an example organization
                   tags:
@@ -10224,7 +10357,7 @@ components:
             example-create-project-request-json:
               value:
                 project:
-                  slug: example_project_slug
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -10240,7 +10373,7 @@ components:
             example-create-project-request-yaml:
               value: |
                 project:
-                  slug: example_project_slug
+                  identifier: example_project_identifier
                   name: example-project-name
                   color: '#0063F7'
                   modules:
@@ -10261,7 +10394,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10277,7 +10410,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10293,7 +10426,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10301,12 +10434,12 @@ components:
                   description: example_secret
                   spec:
                     type: SecretFile
-                    secret_manager_slug: example_secret_manager_slug
+                    secret_manager_identifier: example_secret_manager_identifier
             example-secret-text-secret-request-json:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10314,14 +10447,14 @@ components:
                   description: example_secret
                   spec:
                     type: SecretText
-                    secret_manager_slug: example_secret_manager_slug
+                    secret_manager_identifier: example_secret_manager_identifier
                     value_type: Inline
                     value: example_secret_text_value
             example-ssh-key-path-file-secret-request-json:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10337,7 +10470,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10353,7 +10486,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10368,7 +10501,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10387,7 +10520,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10406,7 +10539,7 @@ components:
               value:
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10429,7 +10562,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10445,7 +10578,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10461,7 +10594,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10469,12 +10602,12 @@ components:
                   description: example_secret
                   spec:
                     type: SecretFile
-                    secret_manager_slug: example_secret_manager_slug
+                    secret_manager_identifier: example_secret_manager_identifier
             example-secret-text-secret-request-yaml:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10482,14 +10615,14 @@ components:
                   description: example_secret
                   spec:
                     type: SecretText
-                    secret_manager_slug: example_secret_manager_slug
+                    secret_manager_identifier: example_secret_manager_identifier
                     value_type: Inline
                     value: example_secret_text_value
             example-ssh-key-path-file-secret-request-yaml:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10505,7 +10638,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10521,7 +10654,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10536,7 +10669,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10555,7 +10688,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10574,7 +10707,7 @@ components:
               value: |
                 secret:
                   name: example_secret
-                  slug: example_secret
+                  identifier: example_secret
                   org: default
                   project: example_project
                   tags:
@@ -10611,7 +10744,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10629,7 +10762,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10648,7 +10781,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10665,7 +10798,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10682,7 +10815,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10699,7 +10832,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10716,7 +10849,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10731,7 +10864,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10748,7 +10881,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10767,7 +10900,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10786,7 +10919,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10802,7 +10935,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10820,7 +10953,7 @@ components:
               value:
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10841,7 +10974,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10859,7 +10992,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10878,7 +11011,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10895,7 +11028,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10912,7 +11045,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10929,7 +11062,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10946,7 +11079,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10961,7 +11094,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10978,7 +11111,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -10997,7 +11130,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -11016,7 +11149,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -11032,7 +11165,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -11050,7 +11183,7 @@ components:
               value: |
                 connector:
                   name: example_connector
-                  slug: example_connector
+                  identifier: example_connector
                   description: example_connector
                   org: default
                   project: example_project
@@ -11071,7 +11204,7 @@ components:
           examples:
             resource-group-request:
               value:
-                slug: example_resource_group
+                identifier: example_resource_group
                 name: Example Resource Group
                 color: '#0063F7'
                 tags:
@@ -11097,7 +11230,7 @@ components:
           examples:
             resource-group-request:
               value: |
-                slug: example_resource_group
+                identifier: example_resource_group
                 name: Example Resource Group
                 color: '#0063F7'
                 tags:
@@ -11135,7 +11268,7 @@ components:
                   - example_resource_group
                 resource_selector_filter:
                   - resource_type: RESOURCE
-                    resource_slug: example_resource
+                    resource_identifier: example_resource
                 managed_filter: NO_FILTER
         application/yaml:
           schema:
@@ -11151,7 +11284,7 @@ components:
                   - example_resource_group
                 resource_selector_filter:
                   - resource_type: RESOURCE
-                    resource_slug: example_resource
+                    resource_identifier: example_resource
                 managed_filter: NO_FILTER
       description: Filter Resource Group request body
       required: true
@@ -11163,7 +11296,7 @@ components:
           examples:
             example-aws-s3-stream-destination-request:
               value:
-                slug: example_destination
+                identifier: example_destination
                 name: example destination name
                 status: ACTIVE
                 connector_ref: account.example_aws_connector
@@ -11266,7 +11399,7 @@ components:
                                   - AllErrors
                                 action:
                                   type: StageRollback
-                slug: example_pipeline
+                identifier: example_pipeline
                 name: ExamplePipeline
                 description: Pipeline Description
                 tags:
@@ -11314,7 +11447,7 @@ components:
                 failureStrategies: - onFailure: errors: - AllErrors action:
                 type: StageRollback'
 
-                slug: example_pipeline
+                identifier: example_pipeline
 
                 name: ExamplePipeline
 
@@ -11428,7 +11561,7 @@ components:
                                   - AllErrors
                                 action:
                                   type: StageRollback
-                slug: example_pipeline
+                identifier: example_pipeline
                 name: ExamplePipeline
                 description: Pipeline Description
                 tags:
@@ -11477,7 +11610,7 @@ components:
                 failureStrategies: - onFailure: errors: - AllErrors action:
                 type: StageRollback'
 
-                slug: example_pipeline
+                identifier: example_pipeline
 
                 name: ExamplePipeline
 
@@ -11539,7 +11672,7 @@ components:
                                                 spec:
                                                     connectorRef: account.harnessciplatform
                                                     namespace: sample
-                slug: example_input_set
+                identifier: example_input_set
                 name: ExampleInputSet
                 description: Input Set Description
                 tags:
@@ -11596,7 +11729,7 @@ components:
                                                 spec:
                                                     connectorRef: account.harnessciplatform
                                                     namespace: sample
-                slug: example_input_set
+                identifier: example_input_set
                 name: ExampleInputSet
                 description: Input Set Description
                 tags:
@@ -11657,7 +11790,7 @@ components:
                                                 spec:
                                                     connectorRef: account.harnessciplatform
                                                     namespace: sample
-                slug: example_input_set
+                identifier: example_input_set
                 name: ExampleInputSet
                 description: Input Set Description
                 tags:
@@ -11714,7 +11847,7 @@ components:
                                                 spec:
                                                     connectorRef: account.harnessciplatform
                                                     namespace: sample
-                slug: example_input_set
+                identifier: example_input_set
                 name: ExampleInputSet
                 description: Input Set Description
                 tags:
@@ -11987,9 +12120,6 @@ x-tagGroups:
       - Organization Resource Groups
       - Project Resource Groups
       - Filter Resource Groups
-  - name: Audit Streaming
-    tags:
-      - Streaming Destinations
   - name: Role Assignments
     tags:
       - Account Role Assignments
