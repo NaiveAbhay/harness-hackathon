@@ -8,26 +8,26 @@ info:
     improvements could cause breaking changes.
 
     # Introduction 
-      
+
       The Harness API allows you to integrate and use all the services and modules we provide on the Harness Platform. If you use client-side SDKs, Harness functionality can be integrated with your client-side automation, helping you reduce manual efforts and deploy code faster.
-      
+
       For more information about how Harness works, read our [documentation](https://developer.harness.io/docs/getting-started) or visit the [Harness Developer Hub](https://developer.harness.io/).
-      
+
     ## How it works
-      
+
       The Harness API is a RESTful API that uses standard HTTP verbs. You can send requests in JSON, YAML, or form-data format. The format of the response matches the format of your request. You must send a single request at a time and ensure that you include your authentication key. For more information about this, go to [Authentication](#section/Introduction/Authentication).
 
     ## Get started
 
       Before you start integrating, get to know our API better by reading the following topics:
-      
+
       * [Harness key concepts](https://developer.harness.io/docs/getting-started/learn-harness-key-concepts/)
       * [Authentication](#section/Introduction/Authentication)
       * [Requests and responses](#section/Introduction/Requests-and-Responses)
       * [Errors](#tag/Error-Response)
       * [Versioning](#section/Introduction/Versioning)
       * [Pagination](/#section/Introduction/Pagination)
-      
+
       The methods you need to integrate with depend on the functionality you want to use. Work with  your Harness Solutions Engineer to determine which methods you need.
 
     ## Authentication
@@ -59,24 +59,24 @@ info:
       `x-api-key: YOUR_API_KEY_HERE`
 
     ## Requests and Responses
-      
+
       The structure for each request and response is outlined in the API documentation. We have examples in JSON and YAML for every request and response. You can use our online editor to test the examples.
-            
+
     ## Versioning
-      
+
       The current version of our API is **1.0**.
-      
+
       The version number represents the core API and does not change frequently. The version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, the version number would change with a system-wide refactoring of core concepts or resources.
       This version number is represented within the API path. For example, the v1 in `api.harness.io/v1/` is the version number.
-      
+
     ## Pagination
-      
+
       We use pagination to place limits on the number of responses associated with list endpoints. Pagination is achieved by the use of limit query parameters. The limit defaults to 30. Its maximum value is 100.
-      
+
       Link headers are used, which are useful for moving between pages of the overall list.
 
     For example:
-      
+
       ```
     Link: </v1/roles?page=2&limit=30>; rel="next", </v1/roles?page=1&limit=30>;
     rel="self", </v1/roles?page=0&limit=30>; rel="previous",
@@ -1445,6 +1445,24 @@ paths:
         - Account Secret
       security:
         - x-api-key: []
+    parameters: []
+  /v1/secrets/validate-secret-ref:
+    post:
+      summary: Validate secret reference
+      operationId: validate-account-secret-ref
+      description: Validates if the secret at the secretManager path can be referenced
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      tags:
+        - Account Secret
+      requestBody:
+        $ref: '#/components/requestBodies/SecretValidationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretValidationResponse'
+    parameters: []
   '/v1/orgs/{org}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -1511,6 +1529,29 @@ paths:
         - Org Secret
       security:
         - x-api-key: []
+  '/v1/orgs/{org}/secrets/validate-secret-ref':
+    post:
+      summary: Validate secret reference
+      operationId: validate-org-secret-ref
+      description: Validates if the secret at the secretManager path can be referenced
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/SecretValidationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretValidationResponse'
+      tags:
+        - Org Secret
+    parameters:
+      - schema:
+          type: string
+        name: org
+        in: path
+        required: true
+        description: Identifier field of the organization the resource is scoped to
   '/v1/orgs/{org}/projects/{project}/secrets':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -1578,6 +1619,35 @@ paths:
         - Project Secret
       security:
         - x-api-key: []
+  '/v1/orgs/{org}/projects/{project}/secrets/validate-secret-ref':
+    post:
+      summary: Validate secret reference
+      operationId: validate-project-secret-ref
+      description: Validates if the secret at the secretManager path can be referenced
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/SecretValidationRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/SecretValidationResponse'
+      tags:
+        - Project Secret
+    parameters:
+      - schema:
+          type: string
+        name: org
+        in: path
+        required: true
+        description: Identifier field of the organization the resource is scoped to
+      - schema:
+          type: string
+        name: project
+        in: path
+        required: true
+        description: Identifier field of the project the resource is scoped to
   '/v1/secrets/{secret}':
     parameters:
       - schema:
@@ -2418,6 +2488,27 @@ paths:
       tags:
         - Streaming Destinations
       x-internal: true
+  /v1/streaming-destinations/aggregate:
+    get:
+      summary: List Streaming Destinations
+      operationId: getStreamingDestinationsAggregate
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationAggregateListResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Status'
+      description: Get list of Streaming Destinations
+      security:
+        - x-api-key: []
+      tags:
+        - Streaming Destinations
+      x-internal: true
   '/v1/streaming-destinations/{streaming-destination}':
     parameters:
       - $ref: '#/components/parameters/StreamingDestinationParam'
@@ -2465,6 +2556,69 @@ paths:
       x-internal: true
       tags:
         - Streaming Destinations
+  '/v1/streaming-destinations/{streaming-destination}/validate-unique-identifier':
+    get:
+      summary: Validate Uniqueness of Identifier
+      tags:
+        - Streaming Destinations
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationValidateResponse'
+          headers: {}
+      operationId: validateUniqueIdentifier
+      description: Validate uniqueness of identifier for Streaming Destination
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      x-internal: true
+    parameters:
+      - name: streaming-destination
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Streaming Destination identifier
+  /v1/streaming-destinations/cards:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Streaming Destinations
+      responses:
+        '200':
+          $ref: '#/components/responses/StreamingDestinationCardsResponse'
+      operationId: get-streaming-destinations-cards
+      x-internal: true
+      description: Get the info for cards on streaming destination page
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  /v1/audits:
+    post:
+      summary: List Audits
+      operationId: post-audits
+      responses:
+        '200':
+          $ref: '#/components/responses/AuditListResponse'
+      description: Get list of Audits
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuditFilterPropertiesV1DTO'
+        description: This has the filter attributes for listing Audit Events
+      tags:
+        - Audits
+      x-internal: true
   '/v1/orgs/{org}/projects/{project}/pipelines':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2508,9 +2662,9 @@ paths:
             filtered.
         - schema:
             type: string
-            pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+            pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
             minLength: 1
-            maxLength: 64
+            maxLength: 128
           in: query
           name: name
           description: Pipeline Name on the basis of which the Pipelines are filtered.
@@ -2739,6 +2893,7 @@ paths:
           description: Name of the repository (for Git Experience).
         - schema:
             type: boolean
+            default: 'false'
           in: header
           name: Load-From-Cache
           description: Flag to enable loading the remote pipeline from git or git cache
@@ -2840,6 +2995,20 @@ paths:
           in: query
           name: parent_entity_repo_name
           description: Repository name for Parent Entity (Pipeline).
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: load_from_fallback_branch
+          description: Flag to load the pipeline from the created non default branch
+        - schema:
+            type: string
+            default: 'false'
+          in: header
+          description: >-
+            Specifies whether the remote pipeline should be loaded from Git or
+            Git cache.
+          name: Load-From-Cache
     put:
       summary: Update an Input Set
       operationId: update-input-set
@@ -2924,6 +3093,52 @@ paths:
       tags:
         - Inputs
       x-internal: false
+  '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/move-config':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/PipelineParam'
+    post:
+      summary: Move Pipeline YAML from inline to remote or remote to inline
+      operationId: moveConfig
+      description: >-
+        Creates a remote entity by fetching pipeline YAML from Harness or an
+        inline entity by fetching pipeline YAML from a remote repository.
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineMoveConfigResponseBody'
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineMoveConfigRequestBody'
+      tags:
+        - Pipelines
+      x-internal: false
+  '/v1/orgs/{org}/projects/{project}/input-sets/{input-set}/move-config':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/InputSetParam'
+    post:
+      summary: Move InputSet YAML from inline to remote or remote to inline
+      operationId: inputSetMoveConfig
+      description: >-
+        Creates a remote entity by fetching the input set YAML from Harness or
+        an inline entity by fetching input set YAML from a remote repository.
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/InputSetMoveConfigRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/InputSetMoveConfigResponseBody'
+      tags:
+        - Input Sets
+      x-internal: true
   /v1/templates:
     post:
       summary: Create Template
@@ -4687,16 +4902,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/yaml:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/html:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/plain:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
         required: true
       responses:
         '400':
@@ -4803,16 +5018,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/yaml:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/html:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
           text/plain:
             schema:
-              $ref: '#/components/schemas/Connector1'
+              $ref: '#/components/schemas/Connector2'
         required: true
       responses:
         '400':
@@ -42147,6 +42362,7 @@ components:
           enum:
             - RESOURCE_NOT_FOUND
             - INVALID_ARGUMENT
+            - ENTITY_NOT_FOUND
           description: Error code
         errors:
           type: array
@@ -42184,15 +42400,15 @@ components:
         identifier:
           type: string
           description: Role Identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Role Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         permissions:
           type: array
           description: Permissions for this Role.
@@ -42257,14 +42473,14 @@ components:
         identifier:
           type: string
           minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          maxLength: 128
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Role identifier
         name:
           type: string
           minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          maxLength: 128
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           description: Role name
         permissions:
           type: array
@@ -42398,33 +42614,33 @@ components:
         account:
           type: string
           description: Account Identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         identifier:
           type: string
           description: Identifier of the Service Request.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
           description: Organization Identifier for the Entity.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         project:
           type: string
           description: Project Identifier for the Entity.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Name of the Service Request.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           description: Description of the entity
@@ -42496,15 +42712,15 @@ components:
         identifier:
           type: string
           description: Identifier of the Service
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Name of the Service
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           description: Description of the entity
@@ -42535,15 +42751,15 @@ components:
         identifier:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Organization identifier
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           description: Organization name
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           maxLength: 1024
@@ -42598,15 +42814,15 @@ components:
         identifier:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Project identifier
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           description: Project name
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
           description: Organization identifier for the project
@@ -43060,21 +43276,21 @@ components:
         name:
           type: string
           description: Secret name
-          pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
         identifier:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Secret identifier
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
           description: Organization identifier for secret
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
         project:
           type: string
           description: Project identifier for secret
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
         tags:
           type: object
           additionalProperties:
@@ -43152,6 +43368,30 @@ components:
           type: string
           description: Microservices version
       description: Microservice Version Info
+    SecretValidationMetadata:
+      title: SecretValidationMetadata
+      type: object
+      description: Details of the secret reference
+      properties:
+        secret_manager_identifier:
+          type: string
+          description: Identifier of the secretManager
+        secret_ref_path:
+          type: string
+          description: Path to the secret present which needs to be referenced.
+      required:
+        - secretManagerIdentifer
+        - secretRefPath
+    SecretValidationResponse:
+      title: SecretValidationResponse
+      type: object
+      description: Response of the secret reference validation
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+          description: Secret reference path validation result
     ConnectorTestConnectionErrorDetail:
       title: ConnectorTestConnectionErrorDetail
       type: object
@@ -43262,24 +43502,24 @@ components:
         name:
           type: string
           description: Connector name
-          pattern: '^[0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
         identifier:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Connector identifier
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           description: Connector description
         org:
           type: string
           description: Organization identifier for connector
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
         project:
           type: string
           description: Project identifier for connector
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
         tags:
           type: object
           additionalProperties:
@@ -44416,15 +44656,15 @@ components:
         identifier:
           type: string
           description: Resource Group Identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Resource Group Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         color:
           type: string
           description: Color associated with the Resource Group.
@@ -44509,14 +44749,14 @@ components:
         identifier:
           type: string
           minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          maxLength: 128
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           description: Resource Group identifier
         name:
           type: string
           minLength: 1
-          maxLength: 64
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          maxLength: 128
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           description: Resource Group name
         color:
           type: string
@@ -44569,21 +44809,21 @@ components:
         account:
           type: string
           description: Account identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
           description: Organization identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         project:
           type: string
           description: Project identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
       required:
         - filter
     ResourceFilter:
@@ -44609,9 +44849,9 @@ components:
           description: Identifiers for the Resource Type.
           items:
             type: string
-            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
             minLength: 1
-            maxLength: 64
+            maxLength: 128
         attribute_name:
           type: string
           description: Attribute name on the basis of which filtering will be done.
@@ -44639,9 +44879,9 @@ components:
         resource_identifier:
           type: string
           description: Filter by Resource identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
       required:
         - resource_type
     ResourceGroupFilterRequestBody:
@@ -44666,21 +44906,21 @@ components:
         account:
           type: string
           description: Filter by Account identifier.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
           description: Filter by Organization identifier.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         project:
           type: string
           description: Filter by Project identifier.
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         search_term:
           type: string
           description: Filter Resource Group matching by identifier/name.
@@ -44690,9 +44930,9 @@ components:
           uniqueItems: true
           items:
             type: string
-            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+            pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
             minLength: 1
-            maxLength: 64
+            maxLength: 128
         resource_selector_filter:
           type: array
           description: Filter based on whether it has a particular Resource.
@@ -44706,6 +44946,17 @@ components:
             - NO_FILTER
             - ONLY_MANAGED
             - ONLY_CUSTOM
+    StreamingDestinationStatus:
+      title: StreamingDestinationStatus
+      x-stoplight:
+        id: 6k8zse7tcg5y0
+      type: string
+      x-extension-1: null
+      enum:
+        - ACTIVE
+        - INACTIVE
+      description: Streaming Destination Status enum
+      x-internal: false
     StreamingDestinationDTO:
       title: StreamingDestinationDTO
       x-stoplight:
@@ -44720,22 +44971,61 @@ components:
           type: string
           description: Streaming Destination name
         status:
-          type: string
-          description: Streaming Destination status
-          enum:
-            - ACTIVE
-            - INACTIVE
+          $ref: '#/components/schemas/StreamingDestinationStatus'
         connector_ref:
           type: string
           description: Streaming Destination scoped connector reference identifier
         spec:
           $ref: '#/components/schemas/StreamingDestinationSpecDTO'
+        description:
+          type: string
+          maxLength: 1024
+          description: Description for Streaming Destination
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+          description: Tags for Streaming Destination
       required:
         - identifier
         - name
         - status
         - connector_ref
         - spec
+    Connector1:
+      type: object
+      x-internal: true
+      properties:
+        name:
+          type: string
+          description: Connector name
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
+        identifier:
+          type: string
+          minLength: 1
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          description: Connector identifier
+          maxLength: 128
+        description:
+          type: string
+          description: Connector description
+        org:
+          type: string
+          description: Organization identifier for connector
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+        project:
+          type: string
+          description: Project identifier for connector
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Connector tags
+      required:
+        - name
+        - identifier
     StreamingDestinationSpecDTO:
       title: StreamingDestinationSpecDTO
       x-stoplight:
@@ -44788,6 +45078,370 @@ components:
           type: integer
           format: int64
           description: Last updated time of the Streaming Destination status
+      required:
+        - streaming_destination
+    StreamingDestinationCards:
+      title: StreamingDestinationCards
+      x-stoplight:
+        id: 1dw4ls5voxwl2
+      type: object
+      description: Streaming Destination Cards model
+      properties:
+        countByStatusCard:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusWiseCount'
+        lastStreamedCard:
+          $ref: '#/components/schemas/LastStreamedCard'
+        failureInfoCard:
+          $ref: '#/components/schemas/FailureInfoCard'
+    StatusWiseCount:
+      title: StatusWiseCount
+      x-stoplight:
+        id: 2ad155c277a03
+      type: object
+      description: Streaming Destination count by status card
+      properties:
+        status:
+          $ref: '#/components/schemas/StreamingDestinationStatus'
+        count:
+          type: integer
+          description: Number of streaming destinations at the status
+    LastStreamedCard:
+      title: LastStreamedInfo
+      x-stoplight:
+        id: a35601e416967
+      type: object
+      description: Info about last successfull streaming attempt
+      properties:
+        lastStreamedAt:
+          type: integer
+          format: int64
+          description: Timestamp of last successfull streaming attempt
+    FailureInfoCard:
+      title: FailureCard
+      x-stoplight:
+        id: a2d05f2010784
+      type: object
+      description: Info about failure in streaming attempt
+      properties:
+        count:
+          type: integer
+          description: Number of streaming destinations that have failure
+          format: int64
+    StreamingDestinationAggregateDTO:
+      title: StreamingDestinationAggregateDTO
+      x-stoplight:
+        id: chl0l737sfwea
+      type: object
+      description: Streaming Destination Aggregate DTO
+      properties:
+        streaming_destination:
+          $ref: '#/components/schemas/StreamingDestinationDTO'
+        connector_info:
+          $ref: '#/components/schemas/Connector1'
+        streaming_details:
+          $ref: '#/components/schemas/StreamingDetails'
+      required:
+        - streaming_destination
+        - connector_info
+    StreamingDetails:
+      title: StreamingDetails
+      x-stoplight:
+        id: 505pv39rdv4z1
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the batch
+          enum:
+            - READY
+            - IN_PROGRESS
+            - SUCCESS
+            - FAILED
+        last_streamed_at:
+          type: integer
+          format: int64
+        error_message:
+          type: string
+      description: Details of the last streamed batch
+      x-internal: true
+    ResourceScopeDTO:
+      title: ResourceScopeDTO
+      x-stoplight:
+        id: 4pz290lmuwtl3
+      type: object
+      description: This has scope details for the resource defined in Harness.
+      properties:
+        account_identifier:
+          type: string
+          description: Identifier of Account
+        org_identifier:
+          type: string
+          description: Identifier of Organization
+        project_identifier:
+          type: string
+          description: Identifier of Project
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+    ResourceDTO:
+      title: ResourceDTO
+      x-stoplight:
+        id: 2r7wy11v8scql
+      type: object
+      description: This contains info about Resource saved as a part of Audit Event
+      properties:
+        type:
+          type: string
+        identifier:
+          type: string
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+    AuditFilterPropertiesV1DTO:
+      title: AuditFilterPropertiesV1DTO
+      x-stoplight:
+        id: hrclq6ndh1ymg
+      type: object
+      description: Properties of the Filter entity defined in Harness.
+      properties:
+        filter_type:
+          $ref: '#/components/schemas/FilterType'
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          maxProperties: 128
+          description: tags
+        start_time:
+          type: integer
+          format: int64
+          description: >-
+            Used to specify a start time for retrieving Audit events that
+            occurred at or after the time indicated.
+        end_time:
+          type: integer
+          format: int64
+          description: >-
+            Used to specify the end time for retrieving Audit events that
+            occurred at or before the time indicated.
+        modules:
+          type: array
+          description: List of Module Types
+          items:
+            $ref: '#/components/schemas/ModuleType1'
+        actions:
+          type: array
+          description: List of Actions
+          items:
+            $ref: '#/components/schemas/Action'
+        resources:
+          type: array
+          description: List of Resources
+          items:
+            $ref: '#/components/schemas/ResourceDTO'
+        scopes:
+          type: array
+          description: List of Resource Scopes
+          items:
+            $ref: '#/components/schemas/ResourceScopeDTO'
+        principals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Principal1'
+        static_filter:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaticAuditFilter'
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Environment'
+    StaticAuditFilter:
+      title: StaticAuditFilter
+      x-stoplight:
+        id: mdul5d1wgfhez
+      type: string
+      enum:
+        - SYSTEM_EVENTS
+        - LOGIN_EVENTS
+        - ENTITY_CHANGE_EVENTS
+        - RUNTIME_EVENTS
+    ModuleType1:
+      title: ModuleType
+      x-stoplight:
+        id: xjqf65bl7w788
+      type: string
+      description: Type of Modules
+      enum:
+        - CD
+        - CI
+        - CV
+        - CF
+        - CE
+        - STO
+        - CORE
+        - PMS
+        - TEMPLATESERVICE
+        - GOVERNANCE
+        - CHAOS
+    Action:
+      title: Action
+      x-stoplight:
+        id: bzquds8sspg1q
+      type: string
+      enum:
+        - CREATE
+        - UPDATE
+        - RESTORE
+        - DELETE
+        - FORCE_DELETE
+        - UPSERT
+        - INVITE
+        - RESEND_INVITE
+        - REVOKE_INVITE
+        - ADD_COLLABORATOR
+        - REMOVE_COLLABORATOR
+        - CREATE_TOKEN
+        - REVOKE_TOKEN
+        - LOGIN
+        - LOGIN2FA
+        - UNSUCCESSFUL_LOGIN
+        - ERROR_BUDGET_RESET
+    Principal1:
+      title: Principal
+      x-stoplight:
+        id: tj7q0qb2zdnyw
+      type: object
+      properties:
+        identifier:
+          type: string
+        type:
+          $ref: '#/components/schemas/PrincipalType'
+    PrincipalType:
+      title: PrincipalType
+      x-stoplight:
+        id: fxz45g9sxt8f2
+      type: string
+      enum:
+        - USER
+        - SYSTEM
+        - API_KEY
+        - SERVICE_ACCOUNT
+    Environment:
+      title: Environment
+      x-stoplight:
+        id: jmpmivgkftb1v
+      type: object
+      properties:
+        identifier:
+          type: string
+        type:
+          $ref: '#/components/schemas/EnvironmentType'
+    EnvironmentType:
+      title: EnvironmentType
+      x-stoplight:
+        id: ihuiok9k1qcmz
+      type: string
+      enum:
+        - PreProduction
+        - Production
+    FilterType:
+      title: FilterType
+      x-stoplight:
+        id: nvm8xs2of7vf8
+      type: string
+      enum:
+        - CONNECTOR
+        - DELEGATEPROFILE
+        - DELEGATE
+        - PIPELINESETUP
+        - PIPELINEEXECUTION
+        - DEPLOYMENT
+        - AUDIT
+        - TEMPLATE
+        - ENVIRONMENTGROUP
+        - FILESTORE
+        - CCMRECOMMENDATION
+        - ANOMALY
+        - ENVIRONMENT
+        - RULEEXECUTION
+    AuditEventDTO:
+      title: AuditEventDTO
+      x-stoplight:
+        id: mxditpr8jr7lh
+      type: object
+      properties:
+        audit_id:
+          type: string
+        insert_id:
+          type: string
+        resource_scope:
+          $ref: '#/components/schemas/ResourceScopeDTO'
+        timestamp:
+          type: integer
+        module:
+          $ref: '#/components/schemas/ModuleType1'
+        http_request_info:
+          $ref: '#/components/schemas/HttpRequestInfo'
+        request_metadata:
+          $ref: '#/components/schemas/RequestMetadata'
+        authentication_info:
+          $ref: '#/components/schemas/AuthenticationInfoDTO'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        resource:
+          $ref: '#/components/schemas/ResourceDTO'
+        yaml_diff_record:
+          $ref: '#/components/schemas/YamlDiffRecordDTO'
+        action:
+          $ref: '#/components/schemas/Action'
+        internal_info:
+          type: object
+          additionalProperties:
+            type: string
+    HttpRequestInfo:
+      title: HttpRequestInfo
+      x-stoplight:
+        id: xv4gl47om7rva
+      type: object
+      properties:
+        request_method:
+          type: string
+    RequestMetadata:
+      title: RequestMetadata
+      x-stoplight:
+        id: ga39sbthmsnqw
+      type: object
+      properties:
+        client_ip:
+          type: string
+    AuthenticationInfoDTO:
+      title: AuthenticationInfoDTO
+      x-stoplight:
+        id: vbhi03cpej4ej
+      type: object
+      properties:
+        principal:
+          $ref: '#/components/schemas/Principal1'
+        labels:
+          type: string
+    YamlDiffRecordDTO:
+      title: YamlDiffRecordDTO
+      x-stoplight:
+        id: 9t10m54ew32zz
+      type: object
+      description: This has the YAML Difference of the record.
+      properties:
+        old_yaml:
+          type: string
+          description: Previous YAML version
+        new_yaml:
+          type: string
+          description: Current YAML version
     GitDetails:
       title: Git Response Details
       x-stoplight:
@@ -44807,9 +45461,9 @@ components:
         object_id:
           type: string
           description: Object identifier / blob id
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         branch_name:
           type: string
           description: Name of the branch.
@@ -44894,20 +45548,20 @@ components:
         name:
           type: string
           description: Pipeline name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Organization identifier
         project:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Project identifier
         description:
           type: string
@@ -45035,9 +45689,9 @@ components:
         name:
           type: string
           description: Pipeline name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           maxLength: 1024
@@ -45206,9 +45860,9 @@ components:
           description: Pipeline identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Pipeline name
         description:
           type: string
@@ -45298,18 +45952,18 @@ components:
       properties:
         identifier:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Entity identifier
         type:
           type: string
           description: Type of Entity
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Name of Entity
         fqn:
           type: string
@@ -45325,9 +45979,9 @@ components:
           $ref: '#/components/schemas/ExecutorInfo'
         execution_id:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Execution identifier
         execution_status:
           type: string
@@ -45373,6 +46027,8 @@ components:
           format: int32
           description: The Execution number of this Pipeline.
           example: 0
+        parent_stage_info:
+          $ref: '#/components/schemas/ParentStageInfo'
       x-examples:
         example-recent:
           executor_info:
@@ -45625,9 +46281,9 @@ components:
           description: Pipeline identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Pipeline name
         description:
           type: string
@@ -45736,15 +46392,15 @@ components:
           description: Input Set YAML (to be passed as a String).
         identifier:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Input Set identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Input Set name
         description:
           type: string
@@ -45775,26 +46431,26 @@ components:
         identifier:
           type: string
           description: Input Set identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Input Set name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         org:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Organization identifier
         project:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Project identifier
         description:
           type: string
@@ -46008,15 +46664,15 @@ components:
           description: Input Set YAML (to be passed as a String).
         identifier:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Input Set identifier
         name:
           type: string
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
           description: Input Set name
         description:
           type: string
@@ -46132,6 +46788,125 @@ components:
                 required: true
                 type: string
       description: Response Body for Pipeline Inputs
+    ParentStageInfo:
+      title: ParentStageInfo
+      x-stoplight:
+        id: t0ci6ngiieo6c
+      type: object
+      description: 'Information about parent pipeline '
+      properties:
+        has_parent_pipeline:
+          type: boolean
+          description: >-
+            boolean to describe whether or not this was executed through
+            pipeline chaining
+        execution_id:
+          type: string
+          description: planExecutionId of parent pipeline execution
+        identifier:
+          type: string
+          description: pipeline identifier of parent pipeline
+        project_id:
+          type: string
+          description: project identifier
+        org_id:
+          type: string
+          description: org identifier
+        run_sequence:
+          type: integer
+          description: run sequence of parent pipeline execution
+          format: int32
+        stage_node_id:
+          type: string
+          description: node id of parent pipeline stage
+    PipelineMoveConfigRequestBody:
+      title: PipelineMoveConfigRequestBody
+      x-stoplight:
+        id: ed578c29cb9dc
+      type: object
+      description: Request body for moving a pipeline configuration
+      properties:
+        git_details:
+          $ref: '#/components/schemas/GitMoveDetails'
+        pipeline_identifier:
+          type: string
+        move_config_operation_type:
+          $ref: '#/components/schemas/MoveConfigOperationType'
+    PipelineMoveConfigResponseBody:
+      title: PipelineMoveConfigResponseBody
+      x-stoplight:
+        id: e4ec161edc199
+      type: object
+      description: Response body for configuration to move a pipeline
+      properties:
+        pipeline_identifier:
+          type: string
+    MoveConfigOperationType:
+      type: string
+      enum:
+        - INLINE_TO_REMOTE
+        - REMOTE_TO_INLINE
+      description: Operation type to move the configuration
+    GitMoveDetails:
+      title: Move Git Details
+      x-stoplight:
+        id: 4rhd7gzvl7yoe
+      type: object
+      description: Parameters related to moving an entity for Git Experience.
+      x-examples:
+        example-create-git:
+          branch_name: branch
+          file_path: /folder/file.json
+          commit_message: Added Harness Git Experience
+          base_branch: old_branch
+          connector_ref: git_connector
+          repo_name: example_repository
+      properties:
+        branch_name:
+          type: string
+          description: >-
+            Name of the branch. When moving an inline pipeline or a remote
+            pipeline, this branch is where the remote entity is created or
+            fetched.
+        file_path:
+          type: string
+          description: File path of the entity in the repository.
+        commit_message:
+          type: string
+          description: Merge commit message.
+        base_branch:
+          type: string
+          description: Default branch name. This checks out the branch titled branch_name
+        connector_ref:
+          type: string
+          description: Harness connector id used for entity CRUD operations
+        repo_name:
+          type: string
+          description: Name of the repository.
+    InputSetMoveConfigRequestBody:
+      title: InputSetMoveConfigRequestBody
+      x-stoplight:
+        id: gf4xlhs210icv
+      type: object
+      description: Request body for moving an input set configuration.
+      properties:
+        git_details:
+          $ref: '#/components/schemas/GitMoveDetails'
+        pipeline_identifier:
+          type: string
+        input_set_identifier:
+          type: string
+        move_config_operation_type:
+          $ref: '#/components/schemas/MoveConfigOperationType'
+    InputSetMoveConfigResponseBody:
+      title: InputSetMoveConfigResponseBody
+      x-stoplight:
+        id: yk5yx84ss2dtu
+      type: object
+      properties:
+        input_set_identifier:
+          type: string
+      description: Response body for moving an input set configuration.
     TemplateResponse:
       title: templateResponse
       x-stoplight:
@@ -46199,27 +46974,27 @@ components:
         org:
           type: string
           description: Organization identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         project:
           type: string
           description: Project identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         identifier:
           type: string
           description: Template identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Template Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           description: Template description
@@ -46331,27 +47106,27 @@ components:
         org:
           type: string
           description: Organization identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         project:
           type: string
           description: Project identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         identifier:
           type: string
           description: Template identifier
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         name:
           type: string
           description: Template Name
-          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,63}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
           minLength: 1
-          maxLength: 64
+          maxLength: 128
         description:
           type: string
           description: Template description
@@ -48326,13 +49101,13 @@ components:
           type: integer
           description: Account creation time in epoch
           format: int64
-        productLed:
+        twoFactorAdminEnforced:
           type: boolean
         nextGenEnabled:
           type: boolean
-        crossGenerationAccessEnabled:
+        productLed:
           type: boolean
-        twoFactorAdminEnforced:
+        crossGenerationAccessEnabled:
           type: boolean
       description: Account details defined in Harness.
     ResponseDTOAccount:
@@ -52313,11 +53088,16 @@ components:
           type: string
         entity:
           type: string
-        status:
-          type: string
         created:
           type: integer
           format: int64
+        status:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -52325,12 +53105,10 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata1'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
-        messageBytes:
-          $ref: '#/components/schemas/ByteString'
         typeBytes:
           $ref: '#/components/schemas/ByteString'
-        deny:
-          type: boolean
+        messageBytes:
+          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
         accountId:
@@ -52345,6 +53123,8 @@ components:
           type: string
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
+        deny:
+          type: boolean
         idBytes:
           $ref: '#/components/schemas/ByteString'
         detailsList:
@@ -52368,11 +53148,6 @@ components:
           type: string
         type:
           type: string
-        timestamp:
-          type: integer
-          format: int64
-        initialized:
-          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -54901,7 +55676,7 @@ components:
           type: object
         correlationId:
           type: string
-    Connector1:
+    Connector2:
       type: object
       properties:
         connector:
@@ -55595,15 +56370,15 @@ components:
           type: object
           additionalProperties:
             type: string
-        branch:
-          type: string
-        default:
-          type: boolean
         repoIdentifier:
           type: string
         isDefault:
           type: boolean
           writeOnly: true
+        branch:
+          type: string
+        default:
+          type: boolean
         identifier:
           type: string
         accountIdentifier:
@@ -55925,18 +56700,13 @@ components:
         totalElements:
           type: integer
           format: int64
-        size:
-          type: integer
-          format: int32
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/File'
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -55944,8 +56714,13 @@ components:
           type: boolean
         pageable:
           $ref: '#/components/schemas/Pageable'
-        first:
-          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
         empty:
           type: boolean
     Pageable:
@@ -57371,9 +58146,9 @@ components:
         isGitSyncEnabledOnlyForFF:
           type: boolean
           writeOnly: true
-        gitSyncEnabled:
-          type: boolean
         gitSyncEnabledOnlyForFF:
+          type: boolean
+        gitSyncEnabled:
           type: boolean
         gitSimplificationEnabled:
           type: boolean
@@ -58078,8 +58853,6 @@ components:
           format: int32
         useRecursiveGroupMembershipSearch:
           type: boolean
-        accountId:
-          type: string
         settingType:
           type: string
           enum:
@@ -58160,6 +58933,8 @@ components:
             - GCP_SECRETS_MANAGER
             - TRIGGER
             - OCI_HELM_REPO
+        accountId:
+          type: string
       description: This is the LDAP connection setting.
     LdapGroupSettings:
       required:
@@ -58676,17 +59451,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/EntityDetailProtoDTO'
-        parserForType:
-          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifierRef:
-          $ref: '#/components/schemas/IdentifierRefProtoDTO'
         inputSetRef:
           $ref: '#/components/schemas/InputSetReferenceProtoDTO'
         infraDefRef:
@@ -58710,6 +59474,21 @@ components:
             - TEMPLATEREF
             - INFRADEFREF
             - ENTITYREF_NOT_SET
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EntityDetailProtoDTO'
+        parserForType:
+          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
+        identifierRef:
+          $ref: '#/components/schemas/IdentifierRefProtoDTO'
         name:
           type: string
         type:
@@ -58909,10 +59688,6 @@ components:
             - AWS_LAMBDA_DEPLOY
             - TERRAFORM_CLOUD_ROLLBACK
             - UNRECOGNIZED
-        initialized:
-          type: boolean
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         allFields:
           type: object
           additionalProperties:
@@ -58934,6 +59709,36 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -58947,36 +59752,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataCount:
-          type: integer
-          format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
-        identifier:
-          $ref: '#/components/schemas/StringValue'
-        initialized:
-          type: boolean
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -58996,26 +59771,26 @@ components:
           type: object
           additionalProperties:
             type: string
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scopeValue:
           type: integer
           format: int32
+        identifier:
+          $ref: '#/components/schemas/StringValue'
         scope:
           type: string
           enum:
@@ -59024,12 +59799,12 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        identifier:
+        accountIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -59049,6 +59824,24 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envName:
+          $ref: '#/components/schemas/StringValue'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -59063,24 +59856,6 @@ components:
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
         envIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envNameOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifier:
-          $ref: '#/components/schemas/StringValue'
-        initialized:
-          type: boolean
-        envName:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -59097,14 +59872,10 @@ components:
     InfraDefinitionReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envIdentifierOrBuilder:
@@ -59113,13 +59884,17 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envNameOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        envName:
+          $ref: '#/components/schemas/StringValue'
         identifier:
           $ref: '#/components/schemas/StringValue'
-        envName:
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -59140,28 +59915,13 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/InputSetReferenceProtoDTO'
-        parserForType:
-          $ref: '#/components/schemas/ParserInputSetReferenceProtoDTO'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
@@ -59169,6 +59929,21 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/InputSetReferenceProtoDTO'
+        parserForType:
+          $ref: '#/components/schemas/ParserInputSetReferenceProtoDTO'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -59184,7 +59959,17 @@ components:
     InputSetReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        pipelineIdentifier:
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
@@ -59192,17 +59977,7 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifier:
+        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -59252,6 +60027,8 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -59263,8 +60040,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         value:
           type: string
-        initialized:
-          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -59307,6 +60082,38 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -59320,38 +60127,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataCount:
-          type: integer
-          format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
-        identifier:
-          $ref: '#/components/schemas/StringValue'
-        initialized:
-          type: boolean
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         versionLabel:
           $ref: '#/components/schemas/StringValue'
         allFields:
@@ -59373,28 +60148,28 @@ components:
           type: object
           additionalProperties:
             type: string
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         scopeValue:
           type: integer
           format: int32
         versionLabelOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
         scope:
           type: string
           enum:
@@ -59403,12 +60178,12 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        identifier:
+        accountIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         versionLabel:
           $ref: '#/components/schemas/StringValue'
         allFields:
@@ -59692,7 +60467,7 @@ components:
         createdBy:
           $ref: '#/components/schemas/EmbeddedUser'
         createdByNgUser:
-          $ref: '#/components/schemas/Principal1'
+          $ref: '#/components/schemas/Principal2'
         createdAt:
           type: integer
           format: int64
@@ -59705,7 +60480,7 @@ components:
           type: string
         ownerIdentifier:
           type: string
-    Principal1:
+    Principal2:
       required:
         - name
         - type
@@ -63637,6 +64412,8 @@ components:
           type: integer
           description: Time at which this Source Code Manager was last Updated
           format: int64
+        authentication:
+          $ref: '#/components/schemas/SourceCodeManagerAuthentication'
         type:
           type: string
           description: Type of SCM
@@ -63646,8 +64423,6 @@ components:
             - GITLAB
             - AWS_CODE_COMMIT
             - AZURE_REPO
-        authentication:
-          $ref: '#/components/schemas/SourceCodeManagerAuthentication'
       description: This contains details of Source Code Manager
       discriminator:
         propertyName: type
@@ -79223,9 +79998,9 @@ components:
         resourceScope:
           $ref: '#/components/schemas/AuditResourceScope'
         httpRequestInfo:
-          $ref: '#/components/schemas/HttpRequestInfo'
+          $ref: '#/components/schemas/AuditHttpRequestInfo'
         requestMetadata:
-          $ref: '#/components/schemas/RequestMetadata'
+          $ref: '#/components/schemas/AuditRequestMetadata'
         timestamp:
           type: integer
           format: int64
@@ -79250,7 +80025,7 @@ components:
             - GOVERNANCE
             - IACM
         environment:
-          $ref: '#/components/schemas/Environment'
+          $ref: '#/components/schemas/AuditEnvironment'
         resource:
           $ref: '#/components/schemas/AuditResource'
         yamlDiffRecord:
@@ -79320,7 +80095,7 @@ components:
           properties:
             eventModule:
               type: string
-    Environment:
+    AuditEnvironment:
       required:
         - identifier
         - type
@@ -79344,7 +80119,7 @@ components:
           properties:
             environment:
               type: string
-    HttpRequestInfo:
+    AuditHttpRequestInfo:
       type: object
       properties:
         requestMethod:
@@ -79405,7 +80180,7 @@ components:
         identifier:
           type: string
       description: List of Principals
-    RequestMetadata:
+    AuditRequestMetadata:
       type: object
       properties:
         clientIP:
@@ -79599,7 +80374,7 @@ components:
           type: array
           description: List of Environments
           items:
-            $ref: '#/components/schemas/Environment'
+            $ref: '#/components/schemas/AuditEnvironment'
         principals:
           type: array
           description: List of Principals
@@ -87949,20 +88724,18 @@ components:
                   updated: 1234567890
                   harness_managed: true
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/roles?page=2&limit=1>; rel="next",
-                </v1/roles?page=1&limit=1>; rel="self",
-                </v1/roles?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     RoleResponse:
       description: Role Response body
       content:
@@ -88099,20 +88872,18 @@ components:
                   updated: 1234567890
                   harness_managaed: false
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/roles?page=2&limit=1>; rel="next",
-                </v1/roles?page=1&limit=1>; rel="self",
-                </v1/roles?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     ServiceListResponse:
       description: Example response
       content:
@@ -88167,14 +88938,18 @@ components:
                   created: 1234567890
                   updated: 1234567890
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     ServiceResponse:
       description: Example response
       content:
@@ -88346,19 +89121,18 @@ components:
                   created: 1234567890
                   updated: 1234567890
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.Link
-          examples:
-            sample:
-              value: >-
-                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
-                rel="self", <{url}?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     OrganizationListResponse:
       description: Organization list response
       content:
@@ -88399,19 +89173,18 @@ components:
                   updated: 1234567890
                   harness_managed: true
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
-                rel="self", <{url}?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     SecretResponse:
       description: Secret response
       content:
@@ -88515,19 +89288,18 @@ components:
                   updated: 1234567890
                   draft: false
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.Link
-          examples:
-            sample:
-              value: >-
-                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
-                rel="self", <{url}?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     ModuleVersionsListResponse:
       description: Example response
       content:
@@ -88538,19 +89310,29 @@ components:
               $ref: '#/components/schemas/ModuleVersionsResponse'
           examples: {}
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    SecretValidationResponse:
+      description: 'Response of the secret reference validation '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SecretValidationResponse'
           examples:
-            sample:
-              value: >-
-                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
-                rel="self", <{url}?page=0&limit=1>; rel="previous", 
+            Example 1:
+              value:
+                success: true
+                message: 'Validation is Successful, Secret can be referenced'
     ConnectorTestConnectionResponse:
       description: This has test connection details for the Connector defined in Harness.
       content:
@@ -88661,19 +89443,18 @@ components:
                   created: 1234567890
                   updated: 1234567890
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                <{url}?page=2&limit=1>; rel="next", <{url}?page=1&limit=1>;
-                rel="self", <{url}?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     ResourceGroupsListResponse:
       description: Resource Groups List response body
       content:
@@ -88746,20 +89527,18 @@ components:
                   created: 1234567890
                   updated: 1234567890
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/resource-groups?page=2&limit=1>; rel="next",
-                </v1/resource-groups?page=1&limit=1>; rel="self",
-                </v1/resource-groups?page=0&limit=1>; rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     ResourceGroupsResponse:
       description: Resource Group response body
       content:
@@ -88866,14 +89645,75 @@ components:
                   created: 1670304106000
                   update: 1670304106000
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    StreamingDestinationValidateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: boolean
+            description: >-
+              It returns true if the Identifier is unique and false if the
+              Identifier is not unique
+    StreamingDestinationCardsResponse:
+      description: Streaming Destination cards response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StreamingDestinationCards'
+    StreamingDestinationAggregateListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/StreamingDestinationAggregateDTO'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    AuditListResponse:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/AuditEventDTO'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     PipelineCreateResponseBody:
       description: Pipeline response body
       content:
@@ -89040,6 +89880,14 @@ components:
                       started: 1234567890
                       ended: 1234567890
                       run_number: 5
+                      parent_stage_info:
+                        has_parent_pipeline: true
+                        execution_id: example_parent_execution_identifier
+                        identifier: example_parent_pipeline_id
+                        project_id: example_project_id
+                        org_id: example_org_id
+                        run_sequence: 12671687
+                        stage_node_id: example_stage_node_id
                   store_type: REMOTE
                   connector_ref: example_connector
                   valid: true
@@ -89080,6 +89928,14 @@ components:
                       started: 1234567890
                       ended: 1234567890
                       run_number: 5
+                      parent_stage_info:
+                        has_parent_pipeline: true
+                        execution_id: example_parent_execution_identifier
+                        identifier: example_parent_pipeline_id
+                        project_id: example_project_id
+                        org_id: example_org_id
+                        run_sequence: 12671687
+                        stage_node_id: example_stage_node_id
                   store_type: REMOTE
                   connector_ref: example_connector
                   valid: true
@@ -89092,23 +89948,18 @@ components:
                     file_url: www.repo/folder/file.com
                     repo_url: www.repo.com
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/orgs/{org}/projects/{project}/pipelines?page=2&limit=1>;
-                rel="next",
-                </v1/orgs/{org}/projects/{project}/pipelines?page=1&limit=1>;
-                rel="self",
-                </v1/orgs/{org}/projects/{project}/pipelines?page=0&limit=1>;
-                rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     InputSetResponseBody:
       description: Input Set response body
       content:
@@ -89279,23 +90130,18 @@ components:
                     invalid_refs:
                       - example_invalid_input_set
       headers:
-        Link:
+        X-Total-Elements:
           schema:
-            type: string
-          description: >-
-            Links to related resources, in the format defined by [RFC
-            5988](https://tools.ietf.org/html/rfc5988#section-5). This will
-            include a link with relation type `next` to the next page, if there
-            is a next page.
-          examples:
-            sample:
-              value: >-
-                </v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/input-sets?page=2&limit=1>;
-                rel="next",
-                </v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/input-sets?page=1&limit=1>;
-                rel="self",
-                </v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/input-sets?page=0&limit=1>;
-                rel="previous", 
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     InputsResponseBody:
       description: Inputs Response Body
       content:
@@ -89343,6 +90189,18 @@ components:
                       prompt: false
                       required: true
                       type: string
+    PipelineMoveConfigResponseBody:
+      description: Response body for moving a pipeline configuration.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineMoveConfigResponseBody'
+    InputSetMoveConfigResponseBody:
+      description: Response body for moving an input set configuration.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InputSetMoveConfigResponseBody'
     TemplateResponse:
       description: Template Response Body
       content:
@@ -89652,6 +90510,19 @@ components:
                   store_type: INLINE
                   connector_ref: example_connector_ref
                   stable_template: true
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     TemplateUpdateStableResponse:
       description: Template stable version update Response
       content:
@@ -89973,7 +90844,8 @@ components:
       schema:
         type: integer
         default: 30
-      description: 'Pagination: Number of items to return'
+        maximum: 1000
+      description: Number of items to return per page.
     SearchTerm1:
       name: search_term
       in: query
@@ -90065,7 +90937,8 @@ components:
       schema:
         type: integer
         default: 30
-      description: 'Pagination: Number of items to return'
+        maximum: 1000
+      description: Number of items to return per page.
     SearchTerm2:
       name: search_term
       in: query
@@ -91216,6 +92089,17 @@ components:
               - file
               - spec
       required: true
+    SecretValidationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SecretValidationMetadata'
+          examples:
+            Example 1:
+              value:
+                secret_manager_identifier: prod_sm_one
+                secret_ref_path: path1/path2#key
+      description: Details of the secret reference
     ConnectorRequest:
       content:
         application/json:
@@ -92345,6 +93229,16 @@ components:
                   parent_entity_repo_name: example_repository
       description: Input Set update request body
       required: true
+    PipelineMoveConfigRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineMoveConfigRequestBody'
+    InputSetMoveConfigRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InputSetMoveConfigRequestBody'
     TemplateUpdateBody:
       content:
         application/json:
