@@ -26,7 +26,112 @@
     },
     {
       "inputFile": "../idp-service/openapi.yaml"
+    },
+    {
+      "inputURL": "https://app.harness.io/gratis/ng/api/openapi.json",
+      "pathModification": {
+        "prepend": "/ng/api"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/pipeline/api/openapi.json",
+      "pathModification": {
+        "prepend": "/pipeline/api"
+      },
+      "dispute": {
+        "prefix": "Pipeline"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/authz/api/openapi.json",
+      "pathModification": {
+        "prepend": "/authz/api"
+      },
+      "dispute": {
+        "prefix": "Authz"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/resourcegroup/api/resource-group-openapi.json",
+      "pathModification": {
+        "prepend": "/resourcegroup/api"
+      },
+      "dispute": {
+        "prefix": "Resourcegroup"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/ccm/api/openapi.json",
+      "pathModification": {
+        "prepend": "/ccm/api"
+      },
+      "dispute": {
+        "prefix": "Ccm"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/cf/openapi/public",
+      "pathModification": {
+        "prepend": "/cf"
+      },
+      "dispute": {
+        "prefix": "Cf"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/lw/api/openapi.json",
+      "pathModification": {
+        "prepend": "/lw/api"
+      },
+      "dispute": {
+        "prefix": "Lw"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/audit/api/audit-openapi.json",
+      "pathModification": {
+        "prepend": "/audit/api"
+      },
+      "dispute": {
+        "prefix": "Audit"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/template/api/openapi.json",
+      "pathModification": {
+        "prepend": "/template/api"
+      },
+      "dispute": {
+        "prefix": "Template"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/cv/api/openapi.json",
+      "pathModification": {
+        "prepend": "/cv/api"
+      },
+      "dispute": {
+        "prefix": "Cv"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/gitops/api/v1/openapi.json",
+      "pathModification": {
+        "prepend": "/gitops"
+      },
+      "dispute": {
+        "prefix": "GitOps"
+      }
+    },
+    {
+      "inputFile": "dashboard/temp-api.yaml",
+      "pathModification": {
+        "prepend": "/dashboard"
+      },
+      "dispute": {
+        "prefix": "Dashboards"
+      }
     }
   ],
-  "output": "_merged/merged.yaml"
+  "output": "merged.yaml"
 }
