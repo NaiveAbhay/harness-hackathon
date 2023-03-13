@@ -1,0 +1,32 @@
+{
+  "inputs": [
+    {
+      "inputFile": "../commons/openapi.yaml"
+    },
+    {
+      "inputFile": "../access-control/openapi.yaml"
+    },
+    {
+      "inputFile": "../ng-manager/openapi.yaml"
+    },
+    {
+      "inputFile": "../ng-manager/connectors/openapi.yaml"
+    },
+    {
+      "inputFile": "../platform-service/resource-groups/openapi.yaml"
+    },
+    {
+      "inputFile": "../platform-service/audit-service/openapi.yaml"
+    },
+    {
+      "inputFile": "../pipeline-service/openapi.yaml"
+    },
+    {
+      "inputFile": "../template-service/openapi.yaml"
+    },
+    {
+      "inputFile": "../idp-service/openapi.yaml"
+    }
+  ],
+  "output": "_merged/merged.yaml"
+}
