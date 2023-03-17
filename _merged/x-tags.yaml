@@ -1,43 +1,3 @@
-- name: Organizations
-  tags:
-    - Organization
-- name: Projects
-  tags:
-    - Project
-    - Org Project
-- name: Secrets
-  tags:
-    - Secrets
-    - Account Secret
-    - Org Secret
-    - Project Secret
-- name: Connectors
-  tags:
-    - Connectors
-    - GoogleSecretManagerConnector
-    - Account Connector
-    - Org Connector
-    - Project Connector
-- name: Pipelines
-  tags:
-    - Pipelines
-    - Input Sets
-    - Approvals
-    - Pipeline Dashboard
-    - Pipeline Input Set
-    - Pipeline
-    - Pipeline Execution Details
-    - Pipeline Execute
-    - Triggers
-    - Webhook Triggers
-    - Webhook Event Handler
-- name: Templates
-  tags:
-    - Templates
-    - Template Schemas
-    - Account Template
-    - Org Template
-    - Project Template
 - name: Platform 
   tags: 
       - Accounts
@@ -61,6 +21,45 @@
       - User
       - User Group
       - Variables
+- name: Organizations
+  tags:
+    - Organization
+- name: Projects
+  tags:
+    - Org Project
+    - Project
+- name: Secrets
+  tags:
+    - Account Secret
+    - Org Secret
+    - Project Secret
+    - Secrets
+- name: Connectors
+  tags:
+    - Account Connector
+    - Org Connector
+    - Project Connector
+    - Connectors
+    - GoogleSecretManagerConnector
+- name: Roles
+  tags:
+    - Account Roles
+    - Organization Roles
+    - Project Roles
+    - Roles
+- name: Resource Groups
+  tags:
+    - Account Resource Groups
+    - Organization Resource Groups
+    - Project Resource Groups
+    - Filter Resource Groups
+    - Harness Resource Group
+- name: Role Assignments
+  tags:
+    - Account Role Assignments
+    - Org Role Assignments
+    - Project Role Assignments
+    - Role Assignments
 - name: Delegate
   tags: 
       - Agent mTLS Endpoint Management
@@ -68,11 +67,19 @@
       - Delegate Group Tags Resource
       - Delegate Setup Resource
       - Delegate Token Resource
-- name: Deployment Freeze
+- name: Pipelines
   tags:
-      - Freeze CRUD
-      - Freeze Evaluation
-      - Freeze Schema
+    - Pipelines
+    - Input Sets
+    - Approvals
+    - Pipeline Dashboard
+    - Pipeline Input Set
+    - Pipeline
+    - Pipeline Execution Details
+    - Pipeline Execute
+    - Triggers
+    - Webhook Triggers
+    - Webhook Event Handler
 - name: Git Sync
   tags:
       - Git Branches
@@ -86,21 +93,46 @@
       - Environments
       - EnvironmentGroup
       - Infrastructures
-      - Hosts
       - Usage
       - File Store
-      - ValidateHost
       - tas
+- name: Deployment Freeze
+  tags:
+      - Freeze CRUD
+      - Freeze Evaluation
+      - Freeze Schema
 - name: Services
   tags:
-    - Services
     - Account Services
     - Org Services
     - Project Services
+    - Services
+- name: Templates
+  tags:
+    - Account Template
+    - Org Template
+    - Project Template
+    - Templates
+    - Template Schemas
 - name: GitOps
   tags: 
+      - Agents
+      - Application
+      - Applications
+      - Certificates
       - Clusters
-      - Environments
+      - Dashboard Aggregates
+      - Dashboards
+      - GnuPGP Keys
+      - GPG Keys
+      - Hosts
+      - Project mappings
+      - Projects
+      - Reconciler
+      - Repositories
+      - Repository Certificates
+      - Repository credentials
+      - ValidateHost
 - name: CCM
   tags: 
       - Cloud Cost Anomalies
@@ -134,25 +166,6 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
-- name: Roles
-  tags:
-    - Roles
-    - Account Roles
-    - Organization Roles
-    - Project Roles
-- name: Resource Groups
-  tags:
-    - Harness Resource Group
-    - Account Resource Groups
-    - Organization Resource Groups
-    - Project Resource Groups
-    - Filter Resource Groups
-- name: Role Assignments
-  tags:
-    - Role Assignments
-    - Account Role Assignments
-    - Org Role Assignments
-    - Project Role Assignments
 - name: Error Models
   tags:
     - Error Response
