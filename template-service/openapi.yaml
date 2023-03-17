@@ -13,13 +13,13 @@ servers:
 tags:
   - name: Account Template
     description: This contains APIs for Account-scoped Templates.
-    x-displayName: Account Templates
+    x-displayName: Account Templates [Beta]
   - name: Org Template
     description: This contains APIs for Organization-scoped Templates.
-    x-displayName: Organization Templates
+    x-displayName: Organization Templates [Beta]
   - name: Project Template
     description: This contains APIs for Project-scoped Templates.
-    x-displayName: Project Templates
+    x-displayName: Project Templates [Beta]
 paths:
   /v1/templates:
     post:

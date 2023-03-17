@@ -13,23 +13,25 @@ tags:
     description: This contains APIs for Organizations.
   - name: Org Project
     description: This contains APIs for Projects.
-    x-displayName: Project
+    x-displayName: Project [Beta]
   - name: Account Secret
     description: This contains APIs for Account-scoped Secrets.
-    x-displayName: Account Secrets
+    x-displayName: Account Secrets [Beta]
   - name: Org Secret
     description: This contains APIs for Organization-scoped Secrets.
-    x-displayName: Organization Secrets
+    x-displayName: Organization Secrets [Beta]
   - name: Project Secret
     description: This contains APIs for Project-scoped Secrets.
-    x-displayName: Project Secrets
+    x-displayName: Project Secrets [Beta]
   - name: Account Services
     description: This contains APIs for Account-scoped Services.
+    x-displayName: Account Services [Beta]
   - name: Org Services
     description: This contains APIs for Organization-scoped Services.
-    x-displayName: Organization Services
+    x-displayName: Organization Services [Beta]
   - name: Project Services
     description: This contains APIs for Project-scoped Services.
+    x-displayName: Project Services [Beta]
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
