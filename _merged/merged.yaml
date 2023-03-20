@@ -204,10 +204,10 @@ tags:
   - name: Project Template
     description: This contains APIs for Project-scoped Templates.
     x-displayName: 'Project Templates [Beta]'
-  - name: EnvironmentSecret
-    description: Mapping of Environment Variables to Secrets
+  - name: AppConfig
   - name: BackstagePermissions
-    description: Backstage Permissions
+  - name: EnvironmentSecret
+  - name: LayoutProxy
   - name: Accounts
     description: This contains APIs related to accounts as defined in Harness
   - name: EnvironmentGroup
@@ -3549,8 +3549,6 @@ paths:
         - $ref: '#/components/parameters/Page1'
         - $ref: '#/components/parameters/Limit4'
         - $ref: '#/components/parameters/Sort4'
-      requestBody:
-        $ref: '#/components/requestBodies/EnvironmentSecretRequest'
       security:
         - x-api-key: []
       x-internal: true
@@ -3835,30 +3833,8 @@ paths:
         name: accountIdentifier
         in: path
         required: true
-  '/v1/account/{accountIdentifier}/onboarding/access-check':
-    parameters:
-      - name: accountIdentifier
-        in: path
-        required: true
-        schema:
-          type: string
-        description: Identifier field of the account the resource is scoped to
-    get:
-      summary: Check if User is allowed to perform IDP onboarding workflow
-      responses:
-        '200':
-          $ref: '#/components/responses/OnboardingAccessCheckResponse'
-      operationId: onboarding-access-check-v1
-      description: Check if User is allowed to perform IDP onboarding workflow
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      security:
-        - x-api-key: []
-      tags:
-        - OnboardingResource
-  '/v1/account/{accountIdentifier}/onboarding/harness-entities':
-    parameters:
-      - $ref: '#/components/parameters/AccountIdentifier'
+  /v1/onboarding/harness-entities:
+    parameters: []
     get:
       summary: Get Harness Entities
       tags:
@@ -3866,7 +3842,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/HarnessEntitiesResponse'
-      operationId: get-harness-entities-v1
+      operationId: get-harness-entities
       description: Get Harness Entities
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -3877,12 +3853,11 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
       security:
         - x-api-key: []
-  '/v1/account/{accountIdentifier}/onboarding/import-harness-entities':
-    parameters:
-      - $ref: '#/components/parameters/AccountIdentifier'
+  /v1/onboarding/import-harness-entities:
+    parameters: []
     post:
       summary: Import Harness Entities to IDP
-      operationId: import-harness-entities-v1
+      operationId: import-harness-entities
       description: Import Harness Entities to IDP
       security:
         - x-api-key: []
@@ -3895,6 +3870,222 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ImportEntitiesResponse'
+  /v1/onboarding/manual-import:
+    parameters: []
+    post:
+      summary: Manually import entity to IDP
+      operationId: manual-import-entity
+      description: Manually import entity to IDP
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/ManualImportEntityRequest'
+      tags:
+        - OnboardingResource
+      responses:
+        '200':
+          $ref: '#/components/responses/ImportEntitiesResponse'
+      x-internal: true
+  /v1/layout:
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+      operationId: get-all-layouts
+      x-internal: true
+      description: Get all layouts
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - LayoutProxy
+    parameters: []
+    post:
+      summary: ''
+      operationId: create-layout
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+      description: Create layout
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - LayoutProxy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LayoutRequest'
+    delete:
+      summary: ''
+      operationId: delete-layout
+      responses:
+        '204':
+          description: No Content
+      description: Delete layout
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - LayoutProxy
+      requestBody:
+        $ref: '#/components/requestBodies/LayoutRequest'
+  '/v1/layout/{layout-identifier}':
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+      operationId: get-layout
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - LayoutProxy
+      description: Get Layout
+    parameters:
+      - $ref: '#/components/parameters/LayoutIdentifier'
+  /v1/layout/health:
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/GeneralResponse'
+      operationId: get-layout-health
+      description: Get Layout Health
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - LayoutProxy
+  /v1/plugin-toggle:
+    post:
+      summary: ''
+      operationId: toggle-plugin-for-account
+      responses:
+        '200':
+          $ref: '#/components/responses/AppConfigResponse'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+        - $ref: '#/components/parameters/PluginName'
+        - $ref: '#/components/parameters/Enabled'
+      security:
+        - x-api-key: []
+      tags:
+        - AppConfig
+    parameters: []
+  /v1/plugins-info:
+    get:
+      summary: Get all plugins available
+      tags:
+        - PluginInfo
+      responses:
+        '200':
+          $ref: '#/components/responses/PluginInfoResponseList'
+      operationId: get-plugins
+      description: Get all plugins available
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/plugins-info/{pluginId}':
+    get:
+      summary: Get plugins details
+      tags:
+        - PluginInfo
+      responses:
+        '200':
+          $ref: '#/components/responses/PluginDetailedInfoResponse'
+      operationId: get-plugins-info-plugin-id
+      description: Get plugin details for given pluginId
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PluginId'
+  /v1/app-config:
+    get:
+      summary: Your GET endpoint
+      responses:
+        '200':
+          $ref: '#/components/responses/AppConfigResponse'
+      operationId: get-plugin-app-Config
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+        - $ref: '#/components/parameters/PluginName'
+      tags:
+        - AppConfig
+    post:
+      summary: ''
+      operationId: insert-plugin-app-config
+      responses:
+        '200':
+          $ref: '#/components/responses/AppConfigResponse'
+      security:
+        - x-api-key: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+      requestBody:
+        $ref: '#/components/requestBodies/AppConfigRequest'
+      x-internal: true
+      tags:
+        - AppConfig
+    parameters: []
+    put:
+      summary: ''
+      operationId: update-plugin-configs
+      responses:
+        '200':
+          $ref: '#/components/responses/AppConfigResponse'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/AppConfigRequest'
+      x-internal: true
+      tags:
+        - AppConfig
   '/ng/api/accounts/{accountIdentifier}':
     get:
       tags:
@@ -48276,9 +48467,13 @@ components:
           $ref: '#/components/schemas/CatalogConnectorInfo'
         entities:
           type: array
-          minItems: 1
+          minItems: 0
           items:
             $ref: '#/components/schemas/EntitiesForImport'
+        allImport:
+          type: boolean
+          x-stoplight:
+            id: dsm3fnlholwsp
       required:
         - catalogConnectorInfo
         - entities
@@ -48305,20 +48500,6 @@ components:
         - branch
         - path
         - infraConnector
-    OnboardingAccessCheckResponse:
-      title: OnboardingAccessCheckResponse
-      x-stoplight:
-        id: a46k1ggo6ptxc
-      type: object
-      x-examples: {}
-      description: >-
-        Response to check whether user is allowed to perform IDP onboarding or
-        not
-      properties:
-        access:
-          type: string
-      required:
-        - access
     HarnessEntitiesResponse:
       title: HarnessEntitiesResponse
       x-stoplight:
@@ -48409,6 +48590,199 @@ components:
         - identifier
         - type
       description: Connector details containing identifier and type
+    LayoutResponse:
+      title: LayoutResponse
+      x-stoplight:
+        id: 4120n8fn8dfkx
+      type: object
+    PluginInfo:
+      title: PluginInfo
+      x-stoplight:
+        id: kpoyftiybzwns
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: 7bgn328jvn58s
+        name:
+          type: string
+          x-stoplight:
+            id: ql3oqpkls4fft
+        createdBy:
+          type: string
+          x-stoplight:
+            id: l22ptpcecyfoe
+        iconUrl:
+          type: string
+          x-stoplight:
+            id: 4arnqctb1wfyl
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: 6opetnwiiai53
+    PluginInfoResponse:
+      title: PluginInfoResponse
+      x-stoplight:
+        id: pjaj5msyanbfi
+      type: object
+      properties:
+        plugin:
+          $ref: '#/components/schemas/PluginInfo'
+          x-stoplight:
+            id: ogk72ix9uoil2
+    PluginDetailedInfoResponse:
+      title: PluginDetailedInfoResponse
+      x-stoplight:
+        id: rp4p3xfki8wrk
+      type: object
+      properties:
+        plugin:
+          $ref: '#/components/schemas/PluginDetailedInfo'
+          x-stoplight:
+            id: ogk72ix9uoil3
+    PluginDetailedInfo:
+      title: PluginDetailedInfo
+      x-stoplight:
+        id: ggn3lgk0pl7jx
+      type: object
+      properties:
+        pluginDetails:
+          $ref: '#/components/schemas/PluginInfo'
+          x-stoplight:
+            id: zfeuzsbo3e90v
+        description:
+          type: string
+          x-stoplight:
+            id: ql3oqpkls4fft
+        category:
+          type: string
+          x-stoplight:
+            id: ql3oqpkls4fft
+          enum:
+            - Monitoring
+            - CI/CD
+        source:
+          type: string
+          x-stoplight:
+            id: 4arnqctb1wfyl
+        config:
+          type: string
+          x-stoplight:
+            id: 4arnqctb1wfyl
+    ManualImportEntityRequest:
+      title: ManualImportEntityRequest
+      x-stoplight:
+        id: ssbm06g65ld8t
+      type: object
+      description: Details of entity to import manually to IDP
+      properties:
+        yaml:
+          type: string
+          x-stoplight:
+            id: g8wygfate3kph
+          description: yaml in form on json
+        entityName:
+          type: string
+          x-stoplight:
+            id: 2axpvz6rwf0ds
+      required:
+        - yaml
+        - entityName
+    LayoutRequest:
+      title: LayoutRequest
+      x-stoplight:
+        id: jfyco0hsivo6b
+      type: object
+      description: LayoutRequest
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: zvjshp9bal6kq
+        id:
+          type: string
+          x-stoplight:
+            id: vy53h9a7l4ij3
+        yaml:
+          type: string
+          x-stoplight:
+            id: vrsrw3pv5ga85
+        displayName:
+          type: string
+          x-stoplight:
+            id: iubyqrukqnryx
+        defaultYaml:
+          type: string
+          x-stoplight:
+            id: 9juzgzieo6qnl
+        type:
+          type: string
+          x-stoplight:
+            id: jb3f4rk78x16r
+    GeneralResponse:
+      $ref: '#/components/schemas/LayoutResponse'
+    AppConfig:
+      title: AppConfig
+      x-stoplight:
+        id: lxr5mwvtpsibp
+      type: object
+      x-examples:
+        Example 1:
+          pluginName: string
+          configs: string
+          isEnabled: true
+          createat: -9223372036854776000
+          updated: -9223372036854776000
+          accountIdentifier: string
+      properties:
+        pluginId:
+          type: string
+          x-stoplight:
+            id: 4c46nx9p25z4g
+        configs:
+          type: string
+          x-stoplight:
+            id: c376cmcok0i1w
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: 5k0msvhe7qhhd
+        enabledDisabledAt:
+          type: integer
+          x-stoplight:
+            id: 2kot35661my5o
+          format: int64
+        createdAt:
+          type: integer
+          x-stoplight:
+            id: 55sswchn2dgls
+          format: int64
+        lastModifiedAt:
+          type: integer
+          x-stoplight:
+            id: gjoqaxs5xj4g5
+          format: int64
+    AppConfigRequest:
+      title: AppConfigRequest
+      x-stoplight:
+        id: xohgavxbwlfjc
+      type: object
+      properties:
+        appConfig:
+          $ref: '#/components/schemas/AppConfig'
+          x-stoplight:
+            id: mvm9nhd3eenq6
+    AppConfigResponse:
+      title: AppConfigResponse
+      x-stoplight:
+        id: bu5i92md2mome
+      type: object
+      properties:
+        appConfig:
+          $ref: '#/components/schemas/AppConfig'
+          x-stoplight:
+            id: 7rhhzvrxp6grz
     Failure:
       type: object
       properties:
@@ -49663,13 +50037,13 @@ components:
           type: integer
           description: Account creation time in epoch
           format: int64
+        nextGenEnabled:
+          type: boolean
         productLed:
           type: boolean
         crossGenerationAccessEnabled:
           type: boolean
         twoFactorAdminEnforced:
-          type: boolean
-        nextGenEnabled:
           type: boolean
       description: Account details defined in Harness.
     ResponseDTOAccount:
@@ -53699,18 +54073,18 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        timestamp:
-          type: integer
-          format: int64
         action:
+          type: string
+        entity:
           type: string
         created:
           type: integer
           format: int64
-        entity:
-          type: string
         status:
           type: string
+        timestamp:
+          type: integer
+          format: int64
         initialized:
           type: boolean
         serializedSize:
@@ -53720,10 +54094,6 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata1'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
-        typeBytes:
-          $ref: '#/components/schemas/ByteString'
-        messageBytes:
-          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
         accountId:
@@ -53738,10 +54108,6 @@ components:
           type: string
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
-        deny:
-          type: boolean
-        idBytes:
-          $ref: '#/components/schemas/ByteString'
         detailsList:
           type: array
           items:
@@ -53749,13 +54115,21 @@ components:
         detailsCount:
           type: integer
           format: int32
+        entityBytes:
+          $ref: '#/components/schemas/ByteString'
+        actionBytes:
+          $ref: '#/components/schemas/ByteString'
+        idBytes:
+          $ref: '#/components/schemas/ByteString'
+        deny:
+          type: boolean
         detailsOrBuilderList:
           type: array
           items:
             $ref: '#/components/schemas/PolicySetMetadataOrBuilder'
-        entityBytes:
+        messageBytes:
           $ref: '#/components/schemas/ByteString'
-        actionBytes:
+        typeBytes:
           $ref: '#/components/schemas/ByteString'
         message:
           type: string
@@ -57342,12 +57716,12 @@ components:
     PageFile:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         first:
           type: boolean
         sort:
@@ -59536,8 +59910,6 @@ components:
           format: int32
         useRecursiveGroupMembershipSearch:
           type: boolean
-        accountId:
-          type: string
         settingType:
           type: string
           enum:
@@ -59618,6 +59990,8 @@ components:
             - GCP_SECRETS_MANAGER
             - TRIGGER
             - OCI_HELM_REPO
+        accountId:
+          type: string
       description: This is the LDAP connection setting.
     LdapGroupSettings:
       required:
@@ -60138,21 +60512,6 @@ components:
           $ref: '#/components/schemas/InputSetReferenceProtoDTO'
         infraDefRef:
           $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
-        initialized:
-          type: boolean
-        identifierRef:
-          $ref: '#/components/schemas/IdentifierRefProtoDTO'
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/EntityDetailProtoDTO'
-        parserForType:
-          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         typeValue:
           type: integer
           format: int32
@@ -60172,6 +60531,21 @@ components:
             - TEMPLATEREF
             - INFRADEFREF
             - ENTITYREF_NOT_SET
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EntityDetailProtoDTO'
+        parserForType:
+          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierRef:
+          $ref: '#/components/schemas/IdentifierRefProtoDTO'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         name:
           type: string
         type:
@@ -60398,6 +60772,9 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataCount:
+          type: integer
+          format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
@@ -60405,9 +60782,10 @@ components:
         scopeValue:
           type: integer
           format: int32
-        metadataCount:
-          type: integer
-          format: int32
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60420,12 +60798,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -60433,10 +60805,12 @@ components:
           $ref: '#/components/schemas/IdentifierRefProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserIdentifierRefProtoDTO'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
@@ -60460,6 +60834,9 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataCount:
+          type: integer
+          format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
@@ -60467,9 +60844,10 @@ components:
         scopeValue:
           type: integer
           format: int32
-        metadataCount:
-          type: integer
-          format: int32
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60486,10 +60864,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         metadataMap:
           type: object
           additionalProperties:
@@ -60517,27 +60891,6 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        identifier:
-          $ref: '#/components/schemas/StringValue'
-        initialized:
-          type: boolean
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
-        parserForType:
-          $ref: '#/components/schemas/ParserInfraDefinitionReferenceProtoDTO'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envIdentifierOrBuilder:
@@ -60546,6 +60899,27 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envNameOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
+        parserForType:
+          $ref: '#/components/schemas/ParserInfraDefinitionReferenceProtoDTO'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -60565,18 +60939,6 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        identifier:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envIdentifierOrBuilder:
@@ -60585,6 +60947,18 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envNameOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -60608,16 +60982,16 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -60627,12 +61001,12 @@ components:
           $ref: '#/components/schemas/ParserInputSetReferenceProtoDTO'
         pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -60652,7 +61026,15 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
+          $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
@@ -60660,14 +61042,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         allFields:
           type: object
           additionalProperties:
@@ -60771,6 +61145,9 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataCount:
+          type: integer
+          format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
@@ -60778,9 +61155,12 @@ components:
         scopeValue:
           type: integer
           format: int32
-        metadataCount:
-          type: integer
-          format: int32
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60793,12 +61173,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -60806,14 +61180,14 @@ components:
           $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserTemplateReferenceProtoDTO'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         versionLabel:
           $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         metadataMap:
           type: object
           additionalProperties:
@@ -60837,6 +61211,9 @@ components:
           type: object
           additionalProperties:
             type: string
+        metadataCount:
+          type: integer
+          format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
@@ -60844,9 +61221,12 @@ components:
         scopeValue:
           type: integer
           format: int32
-        metadataCount:
-          type: integer
-          format: int32
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60865,12 +61245,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         versionLabel:
           $ref: '#/components/schemas/StringValue'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         metadataMap:
           type: object
           additionalProperties:
@@ -82029,9 +82403,9 @@ components:
             - NEED_ATTENTION
             - OBSERVE
             - HEALTHY
-        calculatingSLI:
-          type: boolean
         recalculatingSLI:
+          type: boolean
+        calculatingSLI:
           type: boolean
     TimeRangeFilter:
       type: object
@@ -89699,6 +90073,15 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/StatusInfoResponse'
+    LayoutResponse:
+      description: Layout response
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/LayoutResponse'
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LayoutResponse'
     NamespaceResponse:
       description: Example response
       content:
@@ -89708,12 +90091,6 @@ components:
         application/xml:
           schema:
             $ref: '#/components/schemas/NamepsaceResponse'
-    OnboardingAccessCheckResponse:
-      description: IDP Onboarding AccessCheck response for given user account
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/OnboardingAccessCheckResponse'
     HarnessEntitiesResponse:
       description: Response for harness entities mapping with backstage entities
       content:
@@ -89740,6 +90117,55 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ImportEntitiesResponse'
+    PluginInfoResponseList:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PluginInfoResponse'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/PluginInfoResponse'
+    PluginInfoResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PluginInfoResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/PluginInfoResponse'
+    PluginDetailedInfoResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PluginDetailedInfoResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/PluginDetailedInfoResponse'
+    AppConfigResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AppConfigResponse'
+        application/xml:
+          schema:
+            type: object
+            properties: {}
+        multipart/form-data:
+          schema:
+            type: object
+            properties: {}
+        text/html:
+          schema:
+            type: object
+            properties: {}
     APIKeyResponse:
       content:
         application/json:
@@ -90367,6 +90793,33 @@ components:
       schema:
         type: string
       description: Order on the basis of which sorting is done.
+    LayoutIdentifier:
+      name: layout-identifier
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Layout Identifier
+    PluginId:
+      name: pluginId
+      in: path
+      required: true
+      schema:
+        type: string
+    PluginName:
+      name: PluginId
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Plugin name for filtering '
+    Enabled:
+      name: Enabled
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: flag for checking enablement/disablement
     accountQueryParam:
       description: Account Identifier
       examples:
@@ -92587,12 +93040,30 @@ components:
           schema:
             $ref: '#/components/schemas/StatusInfoRequest'
     ImportHarnessEntitiesRequest:
+      required: true
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ImportHarnessEntitiesRequest'
           examples: {}
       description: Details of Harness Entities and Catalog Location info
+    ManualImportEntityRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ManualImportEntityRequest'
+      description: Details of entity to import manually to IDP
+    LayoutRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LayoutRequest'
+    AppConfigRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AppConfigRequest'
     APIKeyRequest:
       content:
         application/json:
