@@ -9,6 +9,7 @@
       - Invite
       - ApiKey
       - SCM
+      - Source Code Manager
       - Nextgen Ldap
       - Harness Resource Type
       - Authentication Settings
