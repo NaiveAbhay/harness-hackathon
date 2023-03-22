@@ -167,6 +167,12 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
+- name: IDP
+  tags: 
+      - AppConfig
+      - BackstagePermissions
+      - EnvironmentSecret
+      - LayoutProxy
 - name: Error Models
   tags:
     - Error Response
