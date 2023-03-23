@@ -24,6 +24,8 @@ info:
       * [Harness key concepts](https://developer.harness.io/docs/getting-started/learn-harness-key-concepts/)
       * [Authentication](#section/Introduction/Authentication)
       * [Requests and responses](#section/Introduction/Requests-and-Responses)
+      * [Common Parameters](#section/Introduction/Common-Parameters)
+      * [Status Codes](#section/Introduction/Status-Codes)
       * [Errors](#tag/Error-Response)
       * [Versioning](#section/Introduction/Versioning)
       * [Pagination](/#section/Introduction/Pagination)
@@ -35,7 +37,7 @@ info:
 
     To authenticate with the Harness API, you need to:
       1. Generate an API token on the Harness Platform.
-      2. Send the API token you generate in the `x-api-key field` in each request.
+      2. Send the API token you generate in the `x-api-key` header in each request.
 
     ### Generate an API token
 
@@ -54,32 +56,124 @@ info:
     ### Send the API token in your requests
 
 
-    Send the token you created in the Harness Platform in the x-api-key
-    parameter. For example:
+    Send the token you created in the Harness Platform in the x-api-key header.
+    For example:
       `x-api-key: YOUR_API_KEY_HERE`
 
     ## Requests and Responses
 
       The structure for each request and response is outlined in the API documentation. We have examples in JSON and YAML for every request and response. You can use our online editor to test the examples.
 
+    ## Common Parameters
+
+
+    | Field Name | Type    | Default | Description    |
+
+    |------------|---------|---------|----------------|
+
+    | identifier | string  | none    | Limit to the provided resource
+    identifiers                                                                                                           
+    |
+
+    | name       | string  | none    | Human-friendly name for the
+    resource                                                                                      
+    |
+
+    | org        | string  | none    | Limit to provided org
+    identifiers                                                                                                                    
+    |
+
+    | project    | string  | none    | Limit to provided project
+    identifiers                                                                                                                
+    |
+
+    | description| string  | none    | Further detail on the specific
+    resource                                                                                   
+    |
+
+    | tags       | map[string]string  | none    | List of labels applied to the
+    resource                                                                                                                        
+    |
+
+    | order      | string  | desc    | Order to sort on. Type:
+    enum(asc,desc)                                                                                                                                    
+    |
+
+    | sort       | string  | none    | The field to sort against. Note: Specify
+    the fields which are to be used for sorting. Thought should be given to
+    operational overhead of sort fields. |
+
+    | limit      | int     | 30      | Pagination: Number of items to
+    return                                                                                                                
+    |
+
+    | page       | int     | 1       | Pagination page number strategy: Specify
+    the page number within the paginated collection related to the number of
+    items in each page                  |
+
+    | created    | int64   | none    | Unix timestamp when the resource was
+    created in
+    milliseconds                                                               |
+
+    | updated    | int64   | none    | Unix timestamp when the resource was last
+    edited in
+    milliseconds                                                           |
+
+
+
+    ## Status Codes
+
+      Harness follows conventional HTTP status codes to indicate status of the API request. 
+      Generally, 2xx responses are reserved for a success, while 4xx status codes are reserved for failures. 5xx response implies a server error on Harness' side.
+
+      | Error Code  | Description |
+      |-------------|-------------|
+      | 200         |     OK      |
+      | 201         |   Created   |
+      | 202         |   Accepted  |
+      | 204         |  No Content |
+      | 400         | Bad Request |
+      | 401         | Unauthorized |
+      | 403         | Forbidden |
+      | 412         | Precondition Failed |
+      | 415         | Unsupported Media Type |
+      | 500         | Server Error |
+      
+      To view our Error Responses structures, please click [here](#tag/Error-Response).
+
     ## Versioning
 
-      The current version of our API is **1.0**.
 
-      The version number represents the core API and does not change frequently. The version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, the version number would change with a system-wide refactoring of core concepts or resources.
-      This version number is represented within the API path. For example, the v1 in `api.harness.io/v1/` is the version number.
+    ### Client Version Number
+      The current version of our Beta APIs is **to be announced**. This will be a Date Header format, and will be valid only for our Beta APIs.
+      
+    ### Product Version Number
+      All our Beta APIs have a product version number that is represented within API path. For example, the v1 in `app.harness.io/v1/` is the product version number.
+
+      This number represents the core API and will not change frequently. The product version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, the version number would change with a system-wide refactoring of core concepts or resources.
 
     ## Pagination
 
-      We use pagination to place limits on the number of responses associated with list endpoints. Pagination is achieved by the use of limit query parameters. The limit defaults to 30. Its maximum value is 100.
 
-      Link headers are used, which are useful for moving between pages of the overall list.
+    We use pagination to place limits on the number of responses associated with
+    list endpoints. Pagination is achieved by the use of limit query parameters.
+    The limit defaults to 30. Its maximum value is 100.
+
+
+    There are 3 Pagination headers supported in the Response bodies of Paginated
+    APIs.
+      1. X-Total-Elements : Indicates the total number of entries in the Paginated response.
+      2. X-Page-Number : Indicates the page number currently returned for a Paginated response.
+      3. X-Page-Size : Indicates the number of entries per page for a Paginated response.
 
     For example:
 
       ```
-    Link: </v1/roles?page=2&limit=30>; rel="next", </v1/roles?page=1&limit=30>;
-    rel="self", </v1/roles?page=0&limit=30>; rel="previous",
+    X-Total-Elements : 30
+
+    X-Page-Number : 0
+
+    X-Page-Size : 10
       ```
   contact:
     name: API Support
@@ -91,7 +185,7 @@ info:
     altText: Harness
   termsOfService: 'https://harness.io/terms-of-use/'
 servers:
-  - url: 'https://api.harness.io'
+  - url: 'https://app.harness.io'
     description: Harness host URL.
 externalDocs:
   description: Find out more about Swagger
@@ -29521,6 +29615,7 @@ paths:
               - SscaOrchestration
               - AwsLambdaRollback
               - GitOpsSync
+              - BambooBuild
       requestBody:
         content:
           application/json:
@@ -50037,13 +50132,13 @@ components:
           type: integer
           description: Account creation time in epoch
           format: int64
+        twoFactorAdminEnforced:
+          type: boolean
         nextGenEnabled:
           type: boolean
         productLed:
           type: boolean
         crossGenerationAccessEnabled:
-          type: boolean
-        twoFactorAdminEnforced:
           type: boolean
       description: Account details defined in Harness.
     ResponseDTOAccount:
@@ -54073,18 +54168,18 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        timestamp:
+          type: integer
+          format: int64
         action:
-          type: string
-        entity:
           type: string
         created:
           type: integer
           format: int64
+        entity:
+          type: string
         status:
           type: string
-        timestamp:
-          type: integer
-          format: int64
         initialized:
           type: boolean
         serializedSize:
@@ -54094,6 +54189,10 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata1'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
+        typeBytes:
+          $ref: '#/components/schemas/ByteString'
+        messageBytes:
+          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
         accountId:
@@ -54108,6 +54207,10 @@ components:
           type: string
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
+        deny:
+          type: boolean
+        idBytes:
+          $ref: '#/components/schemas/ByteString'
         detailsList:
           type: array
           items:
@@ -54115,21 +54218,13 @@ components:
         detailsCount:
           type: integer
           format: int32
-        entityBytes:
-          $ref: '#/components/schemas/ByteString'
-        actionBytes:
-          $ref: '#/components/schemas/ByteString'
-        idBytes:
-          $ref: '#/components/schemas/ByteString'
-        deny:
-          type: boolean
         detailsOrBuilderList:
           type: array
           items:
             $ref: '#/components/schemas/PolicySetMetadataOrBuilder'
-        messageBytes:
+        entityBytes:
           $ref: '#/components/schemas/ByteString'
-        typeBytes:
+        actionBytes:
           $ref: '#/components/schemas/ByteString'
         message:
           type: string
@@ -57716,16 +57811,16 @@ components:
     PageFile:
       type: object
       properties:
-        totalElements:
-          type: integer
-          format: int64
         totalPages:
           type: integer
           format: int32
-        first:
-          type: boolean
+        totalElements:
+          type: integer
+          format: int64
         sort:
           $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
         number:
           type: integer
           format: int32
@@ -60508,6 +60603,10 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
+        initialized:
+          type: boolean
         inputSetRef:
           $ref: '#/components/schemas/InputSetReferenceProtoDTO'
         infraDefRef:
@@ -60531,8 +60630,6 @@ components:
             - TEMPLATEREF
             - INFRADEFREF
             - ENTITYREF_NOT_SET
-        initialized:
-          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -60544,8 +60641,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         identifierRef:
           $ref: '#/components/schemas/IdentifierRefProtoDTO'
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         name:
           type: string
         type:
@@ -60772,20 +60867,20 @@ components:
           type: object
           additionalProperties:
             type: string
-        metadataCount:
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        scopeValue:
           type: integer
           format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
+        metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60798,6 +60893,10 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         serializedSize:
           type: integer
           format: int32
@@ -60811,10 +60910,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -60834,20 +60929,20 @@ components:
           type: object
           additionalProperties:
             type: string
-        metadataCount:
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        scopeValue:
           type: integer
           format: int32
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
+        metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -60858,16 +60953,16 @@ components:
             - UNRECOGNIZED
         identifier:
           $ref: '#/components/schemas/StringValue'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -60887,22 +60982,26 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        envIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envNameOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envName:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -60915,10 +61014,6 @@ components:
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -60935,29 +61030,29 @@ components:
     InfraDefinitionReferenceProtoDTOOrBuilder:
       type: object
       properties:
+        envIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
         accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        envNameOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifier:
+        envName:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -60982,16 +61077,16 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         serializedSize:
           type: integer
           format: int32
@@ -61026,14 +61121,14 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
+          $ref: '#/components/schemas/StringValue'
         accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        identifier:
-          $ref: '#/components/schemas/StringValue'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -61145,22 +61240,22 @@ components:
           type: object
           additionalProperties:
             type: string
-        metadataCount:
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        scopeValue:
           type: integer
           format: int32
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
+        metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -61171,8 +61266,14 @@ components:
             - UNRECOGNIZED
         identifier:
           $ref: '#/components/schemas/StringValue'
+        versionLabel:
+          $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         serializedSize:
           type: integer
           format: int32
@@ -61186,12 +61287,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        versionLabel:
-          $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -61211,22 +61306,22 @@ components:
           type: object
           additionalProperties:
             type: string
-        metadataCount:
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        scopeValue:
           type: integer
           format: int32
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         orgIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
+        metadataCount:
           type: integer
           format: int32
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -61237,18 +61332,18 @@ components:
             - UNRECOGNIZED
         identifier:
           $ref: '#/components/schemas/StringValue'
+        versionLabel:
+          $ref: '#/components/schemas/StringValue'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        versionLabel:
-          $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -77497,6 +77592,11 @@ components:
             environment:
               description: The environment identifier
               type: string
+            jiraEnabled:
+              description: >-
+                Indicates whether jira functionality is enabled for the given
+                account, project, org, and environment
+              type: boolean
             jiraIssues:
               description: >-
                 An array of Jira Issues linked to this Feature. Returns empty if
@@ -93656,6 +93756,12 @@ x-tagGroups:
       - SLOs dashboard
       - NG SLOs
       - SLOs
+  - name: IDP
+    tags:
+      - AppConfig
+      - BackstagePermissions
+      - EnvironmentSecret
+      - LayoutProxy
   - name: Error Models
     tags:
       - Error Response
