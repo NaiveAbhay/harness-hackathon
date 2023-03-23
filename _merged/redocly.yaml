@@ -1,8 +1,12 @@
 apis:
-  core@v1:
+  harness@v1:
     root: merged.yaml
     decorators:
       remove-x-internal: on
+  core@internal:
+    root: merged.yaml
+    decorators:
+      remove-x-internal: off
   referenceDocs:
     sortOperationsAlphabetically: true
     sortTagsAlphabetically: true
