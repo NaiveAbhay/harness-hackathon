@@ -60,24 +60,24 @@ info:
 
     | Field Name | Type    | Default | Description    |
     |------------|---------|---------|----------------|
-    | identifier | string  | none    | Limit to the provided resource identifiers                                                                                                            |
-    | name       | string  | none    | Human-friendly name for the resource                                                                                       |
-    | org        | string  | none    | Limit to provided org identifiers                                                                                                                     |
-    | project    | string  | none    | Limit to provided project identifiers                                                                                                                 |
-    | description| string  | none    | Further detail on the specific resource                                                                                    |
-    | tags       | map[string]string  | none    | List of labels applied to the resource                                                                                                                         |
-    | order      | string  | desc    | Order to sort on. Type: enum(asc,desc)                                                                                                                                     |
-    | sort       | string  | none    | The field to sort against. Note: Specify the fields which are to be used for sorting. Thought should be given to operational overhead of sort fields. |
-    | limit      | int     | 30      | Pagination: Number of items to return                                                                                                                 |
-    | page       | int     | 1       | Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page                  |
-    | created    | int64   | none    | Unix timestamp when the resource was created in milliseconds                                                               |
-    | updated    | int64   | none    | Unix timestamp when the resource was last edited in milliseconds                                                           |
+    | identifier | string  | none    | URL-friendly version of the name, used to identify a resource within it's scope and so needs to be unique within the scope.                                                                                                            |
+    | name       | string  | none    | Human-friendly name for the resource.                                                                                       |
+    | org        | string  | none    | Limit to provided org identifiers.                                                                                                                     |
+    | project    | string  | none    | Limit to provided project identifiers.                                                                                                                 |
+    | description| string  | none    | More information about the specific resource.                                                                                    |
+    | tags       | map[string]string  | none    | List of labels applied to the resource.                                                                                                                         |
+    | order      | string  | desc    | Order to use when sorting the specified fields. Type: enum(asc,desc).                                                                                                                                     |
+    | sort       | string  | none    | Fields on which to sort. Note: Specify the fields that you want to use for sorting. When doing so, consider the operational overhead of sorting fields. |
+    | limit      | int     | 30      | Pagination: Number of items to return.                                                                                                                 |
+    | page       | int     | 1       | Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page.                  |
+    | created    | int64   | none    | Unix timestamp that shows when the resource was created (in milliseconds).                                                               |
+    | updated    | int64   | none    | Unix timestamp that shows when the resource was last edited (in milliseconds).                                                           |
     
-
+    
     ## Status Codes
 
-      Harness follows conventional HTTP status codes to indicate status of the API request. 
-      Generally, 2xx responses are reserved for a success, while 4xx status codes are reserved for failures. 5xx response implies a server error on Harness' side.
+      Harness uses conventional HTTP status codes to indicate the status of an API request. 
+      Generally, 2xx responses are reserved for success and 4xx status codes are reserved for failures. A 5xx response code indicates an error on the Harness server.
 
       | Error Code  | Description |
       |-------------|-------------|
@@ -91,27 +91,27 @@ info:
       | 412         | Precondition Failed |
       | 415         | Unsupported Media Type |
       | 500         | Server Error |
-      
-      To view our Error Responses structures, please click [here](#tag/Error-Response).
+    
+      To view our error response structures, go [here](#tag/Error-Response).
 
     ## Versioning
 
-    ### Client Version Number
-      The current version of our Beta APIs is **to be announced**. This will be a Date Header format, and will be valid only for our Beta APIs.
-      
-    ### Product Version Number
-      All our Beta APIs have a product version number that is represented within API path. For example, the v1 in `app.harness.io/v1/` is the product version number.
+    ### Harness Version
+      The current version of our Beta APIs is yet to be announced. The version number will use the date-header format and will be valid only for our Beta APIs.
+    
+    ### Generation
+      All our beta APIs are versioned as a Generation, and this version is included in the path to every API resource. For example, v1 beta APIs begin with `app.harness.io/v1/`, where v1 is the API Generation.
 
-      This number represents the core API and will not change frequently. The product version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, the version number would change with a system-wide refactoring of core concepts or resources.
+      The version number represents the core API and does not change frequently. The version number changes only if there is a significant departure from the basic underpinnings of the existing API. For example, when Harness performs a system-wide refactoring of core concepts or resources.
 
     ## Pagination
 
     We use pagination to place limits on the number of responses associated with list endpoints. Pagination is achieved by the use of limit query parameters. The limit defaults to 30. Its maximum value is 100.
 
-    There are 3 Pagination headers supported in the Response bodies of Paginated APIs.
-      1. X-Total-Elements : Indicates the total number of entries in the Paginated response.
-      2. X-Page-Number : Indicates the page number currently returned for a Paginated response.
-      3. X-Page-Size : Indicates the number of entries per page for a Paginated response.
+    Following are the pagination headers supported in the response bodies of paginated APIs:
+      1. X-Total-Elements : Indicates the total number of entries in a paginated response.
+      2. X-Page-Number : Indicates the page number currently returned for a paginated response.
+      3. X-Page-Size : Indicates the number of entries per page for a paginated response.
 
     For example:
 
