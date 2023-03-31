@@ -1,27 +1,3 @@
-- name: Platform 
-  tags: 
-      - Accounts
-      - AccountSetting
-      - Access Control List
-      - AuditFilters
-      - Audit
-      - Filter
-      - Invite
-      - ApiKey
-      - SCM
-      - Source Code Manager
-      - Nextgen Ldap
-      - Harness Resource Type
-      - Authentication Settings
-      - Permissions
-      - Secret Managers
-      - Setting
-      - Service Account
-      - SMTP
-      - Token
-      - User
-      - User Group
-      - Variables
 - name: Organizations
   tags:
     - Organization
@@ -61,6 +37,30 @@
     - Org Role Assignments
     - Project Role Assignments
     - Role Assignments
+- name: Platform 
+  tags: 
+      - Accounts
+      - AccountSetting
+      - Access Control List
+      - AuditFilters
+      - Audit
+      - Filter
+      - Invite
+      - ApiKey
+      - SCM
+      - Source Code Manager
+      - Nextgen Ldap
+      - Harness Resource Type
+      - Authentication Settings
+      - Permissions
+      - Secret Managers
+      - Setting
+      - Service Account
+      - SMTP
+      - Token
+      - User
+      - User Group
+      - Variables
 - name: Delegate
   tags: 
       - Agent mTLS Endpoint Management
@@ -81,13 +81,6 @@
     - Triggers
     - Webhook Triggers
     - Webhook Event Handler
-- name: Git Sync
-  tags:
-      - Git Branches
-      - Git Full Sync
-      - Git Sync Settings
-      - Git Sync
-      - Git Sync Errors
 - name: CD
   tags: 
       - CustomDeployment
@@ -169,10 +162,26 @@
       - SLOs
 - name: IDP
   tags: 
+      - AccountInfo
       - AppConfig
+      - BackstageEnvVariable
       - BackstagePermissions
+      - ConnectorInfo
       - EnvironmentSecret
       - LayoutProxy
+      - Namespace
+      - OnboardingResource
+      - PluginInfo
+      - Provision
+      - StatusInfo
+      - MergedPluginsConfig
+- name: Git Sync
+  tags:
+      - Git Branches
+      - Git Full Sync
+      - Git Sync Settings
+      - Git Sync
+      - Git Sync Errors
 - name: Error Models
   tags:
     - Error Response
