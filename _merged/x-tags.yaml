@@ -47,7 +47,6 @@
       - Filter
       - Invite
       - ApiKey
-      - SCM
       - Source Code Manager
       - Nextgen Ldap
       - Harness Resource Type
@@ -175,13 +174,14 @@
       - Provision
       - StatusInfo
       - MergedPluginsConfig
-- name: Git Sync
+- name: Git Sync (deprecated)
   tags:
       - Git Branches
       - Git Full Sync
       - Git Sync Settings
       - Git Sync
       - Git Sync Errors
+      - SCM
 - name: Error Models
   tags:
     - Error Response
