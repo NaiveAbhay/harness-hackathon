@@ -26311,10 +26311,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '500':
           description: Internal server error
           content:
@@ -26371,10 +26371,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '500':
           description: Internal server error
           content:
@@ -26431,10 +26431,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '500':
           description: Internal server error
           content:
@@ -26499,10 +26499,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26574,10 +26574,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26662,10 +26662,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26734,10 +26734,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26801,10 +26801,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26867,10 +26867,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -26965,10 +26965,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27042,10 +27042,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27142,10 +27142,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27217,10 +27217,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27312,10 +27312,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27382,10 +27382,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27449,10 +27449,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27525,10 +27525,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -27591,10 +27591,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/AuthzFailure'
+                $ref: '#/components/schemas/Failure'
         '403':
           description: Unauthorized
           content:
@@ -28520,7 +28520,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28566,7 +28566,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28607,7 +28607,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28653,7 +28653,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28699,7 +28699,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28732,7 +28732,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28771,7 +28771,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28816,7 +28816,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28860,7 +28860,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28900,7 +28900,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28948,7 +28948,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -28981,7 +28981,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29022,7 +29022,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29061,7 +29061,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29101,7 +29101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29164,7 +29164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29222,7 +29222,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29288,7 +29288,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29354,7 +29354,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29395,10 +29395,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29444,10 +29444,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29490,10 +29490,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29536,10 +29536,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29582,10 +29582,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29627,10 +29627,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29672,10 +29672,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29717,10 +29717,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -29964,6 +29964,8 @@ paths:
               - CdSscaOrchestration
               - TasRouteMapping
               - AWSSecurityHub
+              - CustomIngest
+              - BackstageEnvironmentVariable
       requestBody:
         content:
           application/json:
@@ -29980,10 +29982,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30031,10 +30033,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30077,10 +30079,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30123,7 +30125,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30162,7 +30164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30200,7 +30202,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30239,7 +30241,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30280,7 +30282,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30320,7 +30322,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30363,7 +30365,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30402,7 +30404,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30441,7 +30443,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30485,7 +30487,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30524,7 +30526,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30567,7 +30569,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30614,7 +30616,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30652,7 +30654,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30685,7 +30687,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30745,7 +30747,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30826,7 +30828,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30869,7 +30871,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30932,7 +30934,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -30971,7 +30973,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31028,7 +31030,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31070,7 +31072,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31110,7 +31112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31152,7 +31154,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31190,7 +31192,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31232,7 +31234,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31272,7 +31274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31312,7 +31314,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31345,7 +31347,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31385,7 +31387,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31467,10 +31469,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31529,10 +31531,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31589,10 +31591,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31671,10 +31673,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31752,10 +31754,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31801,10 +31803,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31839,10 +31841,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31881,10 +31883,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -31933,10 +31935,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Failure'
+                $ref: '#/components/schemas/CcmFailure'
         '500':
           description: Internal server error
           content:
@@ -50895,11 +50897,11 @@ components:
         ringName:
           type: string
           description: Specifies delegate ring version for account
-        productLed:
-          type: boolean
         nextGenEnabled:
           type: boolean
         crossGenerationAccessEnabled:
+          type: boolean
+        productLed:
           type: boolean
         twoFactorAdminEnforced:
           type: boolean
@@ -52675,6 +52677,18 @@ components:
         fieldCount:
           type: integer
           format: int32
+        oneofDeclCount:
+          type: integer
+          format: int32
+        nestedTypeCount:
+          type: integer
+          format: int32
+        extensionRangeCount:
+          type: integer
+          format: int32
+        enumTypeCount:
+          type: integer
+          format: int32
         serializedSize:
           type: integer
           format: int32
@@ -52697,19 +52711,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExtensionRange'
-        oneofDeclCount:
-          type: integer
-          format: int32
-        nestedTypeCount:
-          type: integer
-          format: int32
-        enumTypeCount:
-          type: integer
-          format: int32
         extensionCount:
-          type: integer
-          format: int32
-        extensionRangeCount:
           type: integer
           format: int32
         nameBytes:
@@ -52792,6 +52794,18 @@ components:
         fieldCount:
           type: integer
           format: int32
+        oneofDeclCount:
+          type: integer
+          format: int32
+        nestedTypeCount:
+          type: integer
+          format: int32
+        extensionRangeCount:
+          type: integer
+          format: int32
+        enumTypeCount:
+          type: integer
+          format: int32
         reservedRangeList:
           type: array
           items:
@@ -52804,19 +52818,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ExtensionRange'
-        oneofDeclCount:
-          type: integer
-          format: int32
-        nestedTypeCount:
-          type: integer
-          format: int32
-        enumTypeCount:
-          type: integer
-          format: int32
         extensionCount:
-          type: integer
-          format: int32
-        extensionRangeCount:
           type: integer
           format: int32
         nameBytes:
@@ -53045,10 +53047,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/EnumOptionsOrBuilder'
-        valueList:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnumValueDescriptorProto'
         reservedRangeCount:
           type: integer
           format: int32
@@ -53059,6 +53057,10 @@ components:
         reservedNameCount:
           type: integer
           format: int32
+        valueList:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumValueDescriptorProto'
         valueCount:
           type: integer
           format: int32
@@ -53097,10 +53099,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/EnumOptionsOrBuilder'
-        valueList:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnumValueDescriptorProto'
         reservedRangeCount:
           type: integer
           format: int32
@@ -53111,6 +53109,10 @@ components:
         reservedNameCount:
           type: integer
           format: int32
+        valueList:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumValueDescriptorProto'
         valueCount:
           type: integer
           format: int32
@@ -53664,8 +53666,6 @@ components:
           type: boolean
         realContainingOneof:
           $ref: '#/components/schemas/OneofDescriptor'
-        packed:
-          type: boolean
         liteType:
           type: string
           enum:
@@ -53699,6 +53699,8 @@ components:
             - BYTE_STRING
             - ENUM
             - MESSAGE
+        packed:
+          type: boolean
         name:
           type: string
     FieldDescriptorProto:
@@ -53728,10 +53730,6 @@ components:
           $ref: '#/components/schemas/ParserFieldDescriptorProto'
         jsonName:
           type: string
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        optionsOrBuilder:
-          $ref: '#/components/schemas/FieldOptionsOrBuilder'
         proto3Optional:
           type: boolean
         oneofIndex:
@@ -53739,6 +53737,10 @@ components:
           format: int32
         extendee:
           type: string
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        optionsOrBuilder:
+          $ref: '#/components/schemas/FieldOptionsOrBuilder'
         typeNameBytes:
           $ref: '#/components/schemas/ByteString'
         extendeeBytes:
@@ -53802,10 +53804,6 @@ components:
           $ref: '#/components/schemas/FieldOptions'
         jsonName:
           type: string
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        optionsOrBuilder:
-          $ref: '#/components/schemas/FieldOptionsOrBuilder'
         proto3Optional:
           type: boolean
         oneofIndex:
@@ -53813,6 +53811,10 @@ components:
           format: int32
         extendee:
           type: string
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        optionsOrBuilder:
+          $ref: '#/components/schemas/FieldOptionsOrBuilder'
         typeNameBytes:
           $ref: '#/components/schemas/ByteString'
         extendeeBytes:
@@ -54040,6 +54042,9 @@ components:
         messageTypeCount:
           type: integer
           format: int32
+        enumTypeCount:
+          type: integer
+          format: int32
         serializedSize:
           type: integer
           format: int32
@@ -54047,9 +54052,6 @@ components:
           $ref: '#/components/schemas/FileDescriptorProto'
         parserForType:
           $ref: '#/components/schemas/ParserFileDescriptorProto'
-        enumTypeCount:
-          type: integer
-          format: int32
         serviceCount:
           type: integer
           format: int32
@@ -54941,20 +54943,14 @@ components:
           type: string
         entity:
           type: string
+        status:
+          type: string
         created:
           type: integer
           format: int64
-        status:
-          type: string
         timestamp:
           type: integer
           format: int64
-        message:
-          type: string
-        id:
-          type: string
-        type:
-          type: string
         initialized:
           type: boolean
         serializedSize:
@@ -54964,26 +54960,10 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata1'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
-        typeBytes:
-          $ref: '#/components/schemas/ByteString'
         messageBytes:
           $ref: '#/components/schemas/ByteString'
-        statusBytes:
+        typeBytes:
           $ref: '#/components/schemas/ByteString'
-        accountId:
-          type: string
-        accountIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        orgId:
-          type: string
-        orgIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        projectId:
-          type: string
-        projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        deny:
-          type: boolean
         idBytes:
           $ref: '#/components/schemas/ByteString'
         detailsList:
@@ -55001,6 +54981,28 @@ components:
           $ref: '#/components/schemas/ByteString'
         actionBytes:
           $ref: '#/components/schemas/ByteString'
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountId:
+          type: string
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectId:
+          type: string
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        deny:
+          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
         allFields:
           type: object
           additionalProperties:
@@ -55355,12 +55357,7 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        leadingCommentsBytes:
-          $ref: '#/components/schemas/ByteString'
-        pathCount:
-          type: integer
-          format: int32
-        spanList:
+        pathList:
           type: array
           items:
             type: integer
@@ -55370,6 +55367,8 @@ components:
           format: int32
         leadingComments:
           type: string
+        leadingCommentsBytes:
+          $ref: '#/components/schemas/ByteString'
         trailingComments:
           type: string
         trailingCommentsBytes:
@@ -55384,7 +55383,10 @@ components:
         leadingDetachedCommentsCount:
           type: integer
           format: int32
-        pathList:
+        pathCount:
+          type: integer
+          format: int32
+        spanList:
           type: array
           items:
             type: integer
@@ -55413,12 +55415,7 @@ components:
     LocationOrBuilder:
       type: object
       properties:
-        leadingCommentsBytes:
-          $ref: '#/components/schemas/ByteString'
-        pathCount:
-          type: integer
-          format: int32
-        spanList:
+        pathList:
           type: array
           items:
             type: integer
@@ -55428,6 +55425,8 @@ components:
           format: int32
         leadingComments:
           type: string
+        leadingCommentsBytes:
+          $ref: '#/components/schemas/ByteString'
         trailingComments:
           type: string
         trailingCommentsBytes:
@@ -55439,7 +55438,10 @@ components:
         leadingDetachedCommentsCount:
           type: integer
           format: int32
-        pathList:
+        pathCount:
+          type: integer
+          format: int32
+        spanList:
           type: array
           items:
             type: integer
@@ -55618,11 +55620,11 @@ components:
           $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
+        inputType:
+          type: string
         options:
           $ref: '#/components/schemas/MethodOptions'
         outputType:
-          type: string
-        inputType:
           type: string
         serializedSize:
           type: integer
@@ -55660,11 +55662,11 @@ components:
           $ref: '#/components/schemas/ByteString'
         outputTypeBytes:
           $ref: '#/components/schemas/ByteString'
+        inputType:
+          type: string
         options:
           $ref: '#/components/schemas/MethodOptions'
         outputType:
-          type: string
-        inputType:
           type: string
         nameBytes:
           $ref: '#/components/schemas/ByteString'
@@ -57146,14 +57148,14 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        doubleValue:
+          type: number
+          format: double
         stringValue:
           $ref: '#/components/schemas/ByteString'
         nameCount:
           type: integer
           format: int32
-        doubleValue:
-          type: number
-          format: double
         initialized:
           type: boolean
         serializedSize:
@@ -57200,14 +57202,14 @@ components:
     UninterpretedOptionOrBuilder:
       type: object
       properties:
+        doubleValue:
+          type: number
+          format: double
         stringValue:
           $ref: '#/components/schemas/ByteString'
         nameCount:
           type: integer
           format: int32
-        doubleValue:
-          type: number
-          format: double
         nameList:
           type: array
           items:
@@ -58251,15 +58253,15 @@ components:
           type: object
           additionalProperties:
             type: string
-        default:
-          type: boolean
-        branch:
-          type: string
         repoIdentifier:
           type: string
         isDefault:
           type: boolean
           writeOnly: true
+        branch:
+          type: string
+        default:
+          type: boolean
         identifier:
           type: string
         accountIdentifier:
@@ -58594,6 +58596,11 @@ components:
           format: int64
         first:
           type: boolean
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -58601,8 +58608,6 @@ components:
           type: boolean
         pageable:
           $ref: '#/components/schemas/Pageable'
-        sort:
-          $ref: '#/components/schemas/Sort'
         size:
           type: integer
           format: int32
@@ -58610,9 +58615,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/File'
-        number:
-          type: integer
-          format: int32
         empty:
           type: boolean
     Pageable:
@@ -58620,14 +58622,14 @@ components:
       properties:
         sort:
           $ref: '#/components/schemas/Sort'
+        pageSize:
+          type: integer
+          format: int32
         paged:
           type: boolean
         unpaged:
           type: boolean
         pageNumber:
-          type: integer
-          format: int32
-        pageSize:
           type: integer
           format: int32
         offset:
@@ -58651,9 +58653,9 @@ components:
     Sort:
       type: object
       properties:
-        unsorted:
-          type: boolean
         sorted:
+          type: boolean
+        unsorted:
           type: boolean
         empty:
           type: boolean
@@ -60072,11 +60074,11 @@ components:
         isGitSyncEnabledOnlyForFF:
           type: boolean
           writeOnly: true
-        gitSimplificationEnabled:
-          type: boolean
         gitSyncEnabledOnlyForFF:
           type: boolean
         gitSyncEnabled:
+          type: boolean
+        gitSimplificationEnabled:
           type: boolean
       description: >-
         This contains details of connectivity mode and whether Git Sync is
@@ -61413,6 +61415,21 @@ components:
             - TEMPLATEREF
             - INFRADEFREF
             - ENTITYREF_NOT_SET
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EntityDetailProtoDTO'
+        parserForType:
+          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierRef:
+          $ref: '#/components/schemas/IdentifierRefProtoDTO'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         name:
           type: string
         type:
@@ -61621,21 +61638,6 @@ components:
             - TAS_ROUTE_MAPPING
             - AWS_SECURITY_HUB
             - UNRECOGNIZED
-        initialized:
-          type: boolean
-        identifierRef:
-          $ref: '#/components/schemas/IdentifierRefProtoDTO'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/EntityDetailProtoDTO'
-        parserForType:
-          $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         allFields:
           type: object
           additionalProperties:
@@ -61653,14 +61655,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
         metadata:
           type: object
           additionalProperties:
@@ -61679,16 +61673,22 @@ components:
         scopeValue:
           type: integer
           format: int32
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -61696,10 +61696,12 @@ components:
           $ref: '#/components/schemas/IdentifierRefProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserIdentifierRefProtoDTO'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -61715,14 +61717,6 @@ components:
     IdentifierRefProtoDTOOrBuilder:
       type: object
       properties:
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
         metadata:
           type: object
           additionalProperties:
@@ -61741,6 +61735,18 @@ components:
         scopeValue:
           type: integer
           format: int32
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -61749,10 +61755,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -61788,11 +61790,7 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
+        envName:
           $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
@@ -61801,9 +61799,13 @@ components:
           $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserInfraDefinitionReferenceProtoDTO'
-        envIdentifier:
+        accountIdentifier:
           $ref: '#/components/schemas/StringValue'
-        envName:
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -61834,6 +61836,8 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
@@ -61841,8 +61845,6 @@ components:
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
         envIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envName:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -61877,12 +61879,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -61891,6 +61887,12 @@ components:
         parserForType:
           $ref: '#/components/schemas/ParserInputSetReferenceProtoDTO'
         pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -61919,13 +61921,13 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
@@ -61975,8 +61977,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        value:
-          type: string
         initialized:
           type: boolean
         serializedSize:
@@ -61988,6 +61988,8 @@ components:
           $ref: '#/components/schemas/ParserStringValue'
         valueBytes:
           $ref: '#/components/schemas/ByteString'
+        value:
+          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62003,10 +62005,10 @@ components:
     StringValueOrBuilder:
       type: object
       properties:
-        value:
-          type: string
         valueBytes:
           $ref: '#/components/schemas/ByteString'
+        value:
+          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62026,14 +62028,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
         metadata:
           type: object
           additionalProperties:
@@ -62054,16 +62048,22 @@ components:
           format: int32
         versionLabelOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        accountIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -62071,12 +62071,14 @@ components:
           $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserTemplateReferenceProtoDTO'
+        accountIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         versionLabel:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -62092,14 +62094,6 @@ components:
     TemplateReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        scope:
-          type: string
-          enum:
-            - ACCOUNT
-            - ORG
-            - PROJECT
-            - UNKNOWN
-            - UNRECOGNIZED
         metadata:
           type: object
           additionalProperties:
@@ -62120,6 +62114,18 @@ components:
           format: int32
         versionLabelOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORG
+            - PROJECT
+            - UNKNOWN
+            - UNRECOGNIZED
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -62130,10 +62136,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         versionLabel:
           $ref: '#/components/schemas/StringValue'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
         allFields:
           type: object
           additionalProperties:
@@ -66479,6 +66481,8 @@ components:
           type: integer
           description: Time at which this Source Code Manager was last Updated
           format: int64
+        authentication:
+          $ref: '#/components/schemas/SourceCodeManagerAuthentication'
         type:
           type: string
           description: Type of SCM
@@ -66488,8 +66492,6 @@ components:
             - GITLAB
             - AWS_CODE_COMMIT
             - AZURE_REPO
-        authentication:
-          $ref: '#/components/schemas/SourceCodeManagerAuthentication'
       description: This contains details of Source Code Manager
       discriminator:
         propertyName: type
@@ -68324,12 +68326,12 @@ components:
     PageNGTriggerEventHistoryDTO:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -69192,9 +69194,9 @@ components:
           $ref: '#/components/schemas/PipelineGovernanceMetadata'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
-        typeBytes:
-          $ref: '#/components/schemas/ByteString'
         messageBytes:
+          $ref: '#/components/schemas/ByteString'
+        typeBytes:
           $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
@@ -69385,12 +69387,12 @@ components:
     PagePMSPipelineSummaryResponse:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -69986,14 +69988,14 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        previousChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
         nextChildId:
           type: string
         nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
+        previousChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -70024,14 +70026,14 @@ components:
     ChildChainExecutableResponseOrBuilder:
       type: object
       properties:
-        previousChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
         nextChildId:
           type: string
         nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
+        previousChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
         passThroughData:
           $ref: '#/components/schemas/ByteString'
         lastLink:
@@ -70057,8 +70059,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         logKeysList:
           type: array
           properties:
@@ -70079,6 +70079,8 @@ components:
         unitsCount:
           type: integer
           format: int32
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -70105,8 +70107,6 @@ components:
     ChildExecutableResponseOrBuilder:
       type: object
       properties:
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         logKeysList:
           type: array
           items:
@@ -70121,6 +70121,8 @@ components:
         unitsCount:
           type: integer
           format: int32
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         childNodeId:
           type: string
         allFields:
@@ -70205,11 +70207,11 @@ components:
           $ref: '#/components/schemas/ChildrenExecutableResponse'
         parserForType:
           $ref: '#/components/schemas/ParserChildrenExecutableResponse'
-        shouldProceedIfFailed:
-          type: boolean
         maxConcurrency:
           type: integer
           format: int64
+        shouldProceedIfFailed:
+          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -70243,11 +70245,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChildOrBuilder'
-        shouldProceedIfFailed:
-          type: boolean
         maxConcurrency:
           type: integer
           format: int64
+        shouldProceedIfFailed:
+          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -70290,10 +70292,10 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        task:
-          $ref: '#/components/schemas/TaskExecutableResponse'
         child:
           $ref: '#/components/schemas/ChildExecutableResponse'
+        task:
+          $ref: '#/components/schemas/TaskExecutableResponse'
         children:
           $ref: '#/components/schemas/ChildrenExecutableResponse'
         async:
@@ -70307,8 +70309,6 @@ components:
           $ref: '#/components/schemas/ExecutableResponse'
         parserForType:
           $ref: '#/components/schemas/ParserExecutableResponse'
-        asyncOrBuilder:
-          $ref: '#/components/schemas/AsyncExecutableResponseOrBuilder'
         childOrBuilder:
           $ref: '#/components/schemas/ChildExecutableResponseOrBuilder'
         childrenOrBuilder:
@@ -70343,6 +70343,8 @@ components:
             - SYNC
             - SKIPTASK
             - RESPONSE_NOT_SET
+        asyncOrBuilder:
+          $ref: '#/components/schemas/AsyncExecutableResponseOrBuilder'
         allFields:
           type: object
           additionalProperties:
@@ -71252,11 +71254,11 @@ components:
           type: boolean
         executionId:
           type: string
+        stageNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         executionIdBytes:
           $ref: '#/components/schemas/ByteString'
         triggerJsonPayloadBytes:
-          $ref: '#/components/schemas/ByteString'
-        stageNodeIdBytes:
           $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
@@ -71279,16 +71281,11 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        prevExecutionId:
-          type: string
-        rootTriggerTypeValue:
-          type: integer
-          format: int32
-        prevExecutionIdBytes:
-          $ref: '#/components/schemas/ByteString'
         prevTriggerTypeValue:
           type: integer
           format: int32
+        prevExecutionId:
+          type: string
         prevTriggerType:
           type: string
           enum:
@@ -71300,6 +71297,11 @@ components:
             - ARTIFACT
             - MANIFEST
             - UNRECOGNIZED
+        rootTriggerTypeValue:
+          type: integer
+          format: int32
+        prevExecutionIdBytes:
+          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -71339,16 +71341,11 @@ components:
     RerunInfoOrBuilder:
       type: object
       properties:
-        prevExecutionId:
-          type: string
-        rootTriggerTypeValue:
-          type: integer
-          format: int32
-        prevExecutionIdBytes:
-          $ref: '#/components/schemas/ByteString'
         prevTriggerTypeValue:
           type: integer
           format: int32
+        prevExecutionId:
+          type: string
         prevTriggerType:
           type: string
           enum:
@@ -71360,6 +71357,11 @@ components:
             - ARTIFACT
             - MANIFEST
             - UNRECOGNIZED
+        rootTriggerTypeValue:
+          type: integer
+          format: int32
+        prevExecutionIdBytes:
+          $ref: '#/components/schemas/ByteString'
         rootExecutionId:
           type: string
         rootTriggerType:
@@ -72039,12 +72041,12 @@ components:
     PagePipelineExecutionSummary:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -72140,18 +72142,6 @@ components:
           $ref: '#/components/schemas/ParserAmbiance'
         planExecutionId:
           type: string
-        setupAbstractions:
-          type: object
-          additionalProperties:
-            type: string
-        setupAbstractionsMap:
-          type: object
-          additionalProperties:
-            type: string
-        planId:
-          type: string
-        stageExecutionId:
-          type: string
         levelsList:
           type: array
           items:
@@ -72159,13 +72149,25 @@ components:
         startTs:
           type: integer
           format: int64
-        planExecutionIdBytes:
-          $ref: '#/components/schemas/ByteString'
+        setupAbstractions:
+          type: object
+          additionalProperties:
+            type: string
+        planId:
+          type: string
+        setupAbstractionsMap:
+          type: object
+          additionalProperties:
+            type: string
+        stageExecutionId:
+          type: string
         metadataOrBuilder:
           $ref: '#/components/schemas/ExecutionMetadataOrBuilder'
         expressionFunctorToken:
           type: integer
           format: int64
+        planExecutionIdBytes:
+          $ref: '#/components/schemas/ByteString'
         setupAbstractionsCount:
           type: integer
           format: int32
@@ -72496,17 +72498,11 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         group:
           type: string
-        stepTypeOrBuilder:
-          $ref: '#/components/schemas/StepTypeOrBuilder'
-        groupBytes:
-          $ref: '#/components/schemas/ByteString'
         nodeType:
           type: string
         identifier:
           type: string
         initialized:
-          type: boolean
-        skipExpressionChain:
           type: boolean
         serializedSize:
           type: integer
@@ -72517,28 +72513,34 @@ components:
           $ref: '#/components/schemas/ParserLevel'
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
+        startTs:
+          type: integer
+          format: int64
         strategyMetadata:
           $ref: '#/components/schemas/StrategyMetadata'
         stepType:
           $ref: '#/components/schemas/StepType'
-        startTs:
-          type: integer
-          format: int64
         runtimeId:
           type: string
+        skipExpressionChain:
+          type: boolean
         runtimeIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        stepTypeOrBuilder:
+          $ref: '#/components/schemas/StepTypeOrBuilder'
+        groupBytes:
           $ref: '#/components/schemas/ByteString'
         retryIndex:
           type: integer
           format: int32
         setupId:
           type: string
-        setupIdBytes:
-          $ref: '#/components/schemas/ByteString'
         nodeTypeBytes:
           $ref: '#/components/schemas/ByteString'
         strategyMetadataOrBuilder:
           $ref: '#/components/schemas/StrategyMetadataOrBuilder'
+        setupIdBytes:
+          $ref: '#/components/schemas/ByteString'
         originalIdentifier:
           type: string
         originalIdentifierBytes:
@@ -72560,40 +72562,40 @@ components:
       properties:
         group:
           type: string
-        stepTypeOrBuilder:
-          $ref: '#/components/schemas/StepTypeOrBuilder'
-        groupBytes:
-          $ref: '#/components/schemas/ByteString'
         nodeType:
           type: string
         identifier:
           type: string
-        skipExpressionChain:
-          type: boolean
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
+        startTs:
+          type: integer
+          format: int64
         strategyMetadata:
           $ref: '#/components/schemas/StrategyMetadata'
         stepType:
           $ref: '#/components/schemas/StepType'
-        startTs:
-          type: integer
-          format: int64
         runtimeId:
           type: string
+        skipExpressionChain:
+          type: boolean
         runtimeIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        stepTypeOrBuilder:
+          $ref: '#/components/schemas/StepTypeOrBuilder'
+        groupBytes:
           $ref: '#/components/schemas/ByteString'
         retryIndex:
           type: integer
           format: int32
         setupId:
           type: string
-        setupIdBytes:
-          $ref: '#/components/schemas/ByteString'
         nodeTypeBytes:
           $ref: '#/components/schemas/ByteString'
         strategyMetadataOrBuilder:
           $ref: '#/components/schemas/StrategyMetadataOrBuilder'
+        setupIdBytes:
+          $ref: '#/components/schemas/ByteString'
         originalIdentifier:
           type: string
         originalIdentifierBytes:
@@ -72650,11 +72652,11 @@ components:
           type: boolean
         executionId:
           type: string
+        stageNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         executionIdBytes:
           $ref: '#/components/schemas/ByteString'
         triggerJsonPayloadBytes:
-          $ref: '#/components/schemas/ByteString'
-        stageNodeIdBytes:
           $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
@@ -72943,383 +72945,6 @@ components:
             Runtime Input Yaml needed to be merged into the result of the merged
             Yaml of the inputSetReferences
       description: Contains list of Input Set references and Stage Ids
-    AuthzFailure:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-            - ERROR
-        code:
-          type: string
-          enum:
-            - DEFAULT_ERROR_CODE
-            - INVALID_ARGUMENT
-            - INVALID_EMAIL
-            - DOMAIN_NOT_ALLOWED_TO_REGISTER
-            - COMMNITY_EDITION_NOT_FOUND
-            - DEPLOY_MODE_IS_NOT_ON_PREM
-            - USER_ALREADY_REGISTERED
-            - USER_INVITATION_DOES_NOT_EXIST
-            - USER_DOES_NOT_EXIST
-            - USER_INVITE_OPERATION_FAILED
-            - USER_DISABLED
-            - ACCOUNT_DOES_NOT_EXIST
-            - INACTIVE_ACCOUNT
-            - ACCOUNT_MIGRATED
-            - USER_DOMAIN_NOT_ALLOWED
-            - MAX_FAILED_ATTEMPT_COUNT_EXCEEDED
-            - RESOURCE_NOT_FOUND
-            - INVALID_FORMAT
-            - ROLE_DOES_NOT_EXIST
-            - EMAIL_NOT_VERIFIED
-            - EMAIL_VERIFICATION_TOKEN_NOT_FOUND
-            - INVALID_TOKEN
-            - REVOKED_TOKEN
-            - INVALID_CAPTCHA_TOKEN
-            - NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS
-            - EXPIRED_TOKEN
-            - INVALID_AGENT_MTLS_AUTHORITY
-            - TOKEN_ALREADY_REFRESHED_ONCE
-            - ACCESS_DENIED
-            - NG_ACCESS_DENIED
-            - INVALID_CREDENTIAL
-            - INVALID_CREDENTIALS_THIRD_PARTY
-            - INVALID_KEY
-            - INVALID_CONNECTOR_TYPE
-            - INVALID_KEYPATH
-            - INVALID_VARIABLE
-            - UNKNOWN_HOST
-            - UNREACHABLE_HOST
-            - INVALID_PORT
-            - SSH_SESSION_TIMEOUT
-            - SOCKET_CONNECTION_ERROR
-            - CONNECTION_ERROR
-            - SOCKET_CONNECTION_TIMEOUT
-            - WINRM_COMMAND_EXECUTION_TIMEOUT
-            - CONNECTION_TIMEOUT
-            - SSH_CONNECTION_ERROR
-            - USER_GROUP_ERROR
-            - INVALID_EXECUTION_ID
-            - ERROR_IN_GETTING_CHANNEL_STREAMS
-            - UNEXPECTED
-            - UNKNOWN_ERROR
-            - UNKNOWN_EXECUTOR_TYPE_ERROR
-            - DUPLICATE_STATE_NAMES
-            - TRANSITION_NOT_LINKED
-            - TRANSITION_TO_INCORRECT_STATE
-            - TRANSITION_TYPE_NULL
-            - STATES_WITH_DUP_TRANSITIONS
-            - BARRIERS_NOT_RUNNING_CONCURRENTLY
-            - NON_FORK_STATES
-            - NON_REPEAT_STATES
-            - INITIAL_STATE_NOT_DEFINED
-            - FILE_INTEGRITY_CHECK_FAILED
-            - INVALID_URL
-            - FILE_DOWNLOAD_FAILED
-            - PLATFORM_SOFTWARE_DELETE_ERROR
-            - INVALID_CSV_FILE
-            - INVALID_REQUEST
-            - SCHEMA_VALIDATION_FAILED
-            - FILTER_CREATION_ERROR
-            - INVALID_YAML_ERROR
-            - PLAN_CREATION_ERROR
-            - INVALID_INFRA_STATE
-            - PIPELINE_ALREADY_TRIGGERED
-            - NON_EXISTING_PIPELINE
-            - DUPLICATE_COMMAND_NAMES
-            - INVALID_PIPELINE
-            - COMMAND_DOES_NOT_EXIST
-            - DUPLICATE_ARTIFACTSTREAM_NAMES
-            - DUPLICATE_HOST_NAMES
-            - STATE_NOT_FOR_TYPE
-            - STATE_MACHINE_ISSUE
-            - STATE_DISCONTINUE_FAILED
-            - STATE_PAUSE_FAILED
-            - PAUSE_ALL_ALREADY
-            - RESUME_ALL_ALREADY
-            - ROLLBACK_ALREADY
-            - ABORT_ALL_ALREADY
-            - EXPIRE_ALL_ALREADY
-            - RETRY_FAILED
-            - UNKNOWN_ARTIFACT_TYPE
-            - UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE
-            - INIT_TIMEOUT
-            - LICENSE_EXPIRED
-            - NOT_LICENSED
-            - REQUEST_TIMEOUT
-            - WORKFLOW_ALREADY_TRIGGERED
-            - JENKINS_ERROR
-            - INVALID_ARTIFACT_SOURCE
-            - INVALID_ARTIFACT_SERVER
-            - INVALID_CLOUD_PROVIDER
-            - UPDATE_NOT_ALLOWED
-            - DELETE_NOT_ALLOWED
-            - APPDYNAMICS_CONFIGURATION_ERROR
-            - APM_CONFIGURATION_ERROR
-            - SPLUNK_CONFIGURATION_ERROR
-            - ELK_CONFIGURATION_ERROR
-            - LOGZ_CONFIGURATION_ERROR
-            - SUMO_CONFIGURATION_ERROR
-            - INSTANA_CONFIGURATION_ERROR
-            - APPDYNAMICS_ERROR
-            - STACKDRIVER_ERROR
-            - STACKDRIVER_CONFIGURATION_ERROR
-            - NEWRELIC_CONFIGURATION_ERROR
-            - NEWRELIC_ERROR
-            - DYNA_TRACE_CONFIGURATION_ERROR
-            - DYNA_TRACE_ERROR
-            - CLOUDWATCH_ERROR
-            - CLOUDWATCH_CONFIGURATION_ERROR
-            - PROMETHEUS_CONFIGURATION_ERROR
-            - DATA_DOG_CONFIGURATION_ERROR
-            - SERVICE_GUARD_CONFIGURATION_ERROR
-            - ENCRYPTION_NOT_CONFIGURED
-            - UNAVAILABLE_DELEGATES
-            - WORKFLOW_EXECUTION_IN_PROGRESS
-            - PIPELINE_EXECUTION_IN_PROGRESS
-            - AWS_ACCESS_DENIED
-            - AWS_CLUSTER_NOT_FOUND
-            - AWS_SERVICE_NOT_FOUND
-            - IMAGE_NOT_FOUND
-            - ILLEGAL_ARGUMENT
-            - IMAGE_TAG_NOT_FOUND
-            - DELEGATE_NOT_AVAILABLE
-            - INVALID_YAML_PAYLOAD
-            - AUTHENTICATION_ERROR
-            - AUTHORIZATION_ERROR
-            - UNRECOGNIZED_YAML_FIELDS
-            - COULD_NOT_MAP_BEFORE_YAML
-            - MISSING_BEFORE_YAML
-            - MISSING_YAML
-            - NON_EMPTY_DELETIONS
-            - GENERAL_YAML_ERROR
-            - GENERAL_YAML_INFO
-            - YAML_GIT_SYNC_ERROR
-            - GIT_CONNECTION_ERROR
-            - GIT_ERROR
-            - ARTIFACT_SERVER_ERROR
-            - ENCRYPT_DECRYPT_ERROR
-            - SECRET_MANAGEMENT_ERROR
-            - SECRET_NOT_FOUND
-            - KMS_OPERATION_ERROR
-            - GCP_KMS_OPERATION_ERROR
-            - VAULT_OPERATION_ERROR
-            - AWS_SECRETS_MANAGER_OPERATION_ERROR
-            - AZURE_KEY_VAULT_OPERATION_ERROR
-            - UNSUPPORTED_OPERATION_EXCEPTION
-            - FEATURE_UNAVAILABLE
-            - GENERAL_ERROR
-            - BASELINE_CONFIGURATION_ERROR
-            - SAML_IDP_CONFIGURATION_NOT_AVAILABLE
-            - INVALID_AUTHENTICATION_MECHANISM
-            - INVALID_SAML_CONFIGURATION
-            - INVALID_OAUTH_CONFIGURATION
-            - INVALID_LDAP_CONFIGURATION
-            - USER_GROUP_SYNC_FAILURE
-            - USER_GROUP_ALREADY_EXIST
-            - INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION
-            - EXPLANATION
-            - HINT
-            - NOT_WHITELISTED_IP
-            - INVALID_TOTP_TOKEN
-            - EMAIL_FAILED
-            - SSL_HANDSHAKE_FAILED
-            - NO_APPS_ASSIGNED
-            - INVALID_INFRA_CONFIGURATION
-            - TEMPLATES_LINKED
-            - USER_HAS_NO_PERMISSIONS
-            - USER_NOT_AUTHORIZED
-            - USER_ALREADY_PRESENT
-            - EMAIL_ERROR
-            - INVALID_USAGE_RESTRICTION
-            - USAGE_RESTRICTION_ERROR
-            - STATE_EXECUTION_INSTANCE_NOT_FOUND
-            - DELEGATE_TASK_RETRY
-            - KUBERNETES_API_TASK_EXCEPTION
-            - KUBERNETES_TASK_EXCEPTION
-            - KUBERNETES_YAML_ERROR
-            - SAVE_FILE_INTO_GCP_STORAGE_FAILED
-            - READ_FILE_FROM_GCP_STORAGE_FAILED
-            - FILE_NOT_FOUND_ERROR
-            - USAGE_LIMITS_EXCEEDED
-            - EVENT_PUBLISH_FAILED
-            - CUSTOM_APPROVAL_ERROR
-            - JIRA_ERROR
-            - EXPRESSION_EVALUATION_FAILED
-            - KUBERNETES_VALUES_ERROR
-            - KUBERNETES_CLUSTER_ERROR
-            - INCORRECT_SIGN_IN_MECHANISM
-            - OAUTH_LOGIN_FAILED
-            - INVALID_TERRAFORM_TARGETS_REQUEST
-            - TERRAFORM_EXECUTION_ERROR
-            - FILE_READ_FAILED
-            - FILE_SIZE_EXCEEDS_LIMIT
-            - CLUSTER_NOT_FOUND
-            - MARKETPLACE_TOKEN_NOT_FOUND
-            - INVALID_MARKETPLACE_TOKEN
-            - INVALID_TICKETING_SERVER
-            - SERVICENOW_ERROR
-            - PASSWORD_EXPIRED
-            - USER_LOCKED
-            - PASSWORD_STRENGTH_CHECK_FAILED
-            - ACCOUNT_DISABLED
-            - INVALID_ACCOUNT_PERMISSION
-            - PAGERDUTY_ERROR
-            - HEALTH_ERROR
-            - SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED
-            - DOMAIN_WHITELIST_FILTER_CHECK_FAILED
-            - INVALID_DASHBOARD_UPDATE_REQUEST
-            - DUPLICATE_FIELD
-            - INVALID_AZURE_VAULT_CONFIGURATION
-            - USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS
-            - INVALID_ROLLBACK
-            - DATA_COLLECTION_ERROR
-            - SUMO_DATA_COLLECTION_ERROR
-            - DEPLOYMENT_GOVERNANCE_ERROR
-            - BATCH_PROCESSING_ERROR
-            - GRAPHQL_ERROR
-            - FILE_CREATE_ERROR
-            - ILLEGAL_STATE
-            - GIT_DIFF_COMMIT_NOT_IN_ORDER
-            - FAILED_TO_ACQUIRE_PERSISTENT_LOCK
-            - FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK
-            - POD_NOT_FOUND_ERROR
-            - COMMAND_EXECUTION_ERROR
-            - REGISTRY_EXCEPTION
-            - ENGINE_INTERRUPT_PROCESSING_EXCEPTION
-            - ENGINE_IO_EXCEPTION
-            - ENGINE_OUTCOME_EXCEPTION
-            - ENGINE_SWEEPING_OUTPUT_EXCEPTION
-            - CACHE_NOT_FOUND_EXCEPTION
-            - ENGINE_ENTITY_UPDATE_EXCEPTION
-            - SHELL_EXECUTION_EXCEPTION
-            - TEMPLATE_NOT_FOUND
-            - AZURE_SERVICE_EXCEPTION
-            - AZURE_CLIENT_EXCEPTION
-            - GIT_UNSEEN_REMOTE_HEAD_COMMIT
-            - TIMEOUT_ENGINE_EXCEPTION
-            - NO_AVAILABLE_DELEGATES
-            - NO_GLOBAL_DELEGATE_ACCOUNT
-            - NO_INSTALLED_DELEGATES
-            - DUPLICATE_DELEGATE_EXCEPTION
-            - GCP_MARKETPLACE_EXCEPTION
-            - MISSING_DEFAULT_GOOGLE_CREDENTIALS
-            - INCORRECT_DEFAULT_GOOGLE_CREDENTIALS
-            - OPTIMISTIC_LOCKING_EXCEPTION
-            - NG_PIPELINE_EXECUTION_EXCEPTION
-            - NG_PIPELINE_CREATE_EXCEPTION
-            - RESOURCE_NOT_FOUND_EXCEPTION
-            - PMS_INITIALIZE_SDK_EXCEPTION
-            - UNEXPECTED_SNIPPET_EXCEPTION
-            - UNEXPECTED_SCHEMA_EXCEPTION
-            - CONNECTOR_VALIDATION_EXCEPTION
-            - TIMESCALE_NOT_AVAILABLE
-            - MIGRATION_EXCEPTION
-            - REQUEST_PROCESSING_INTERRUPTED
-            - SECRET_MANAGER_ID_NOT_FOUND
-            - GCP_SECRET_MANAGER_OPERATION_ERROR
-            - GCP_SECRET_OPERATION_ERROR
-            - GIT_OPERATION_ERROR
-            - TASK_FAILURE_ERROR
-            - INSTANCE_STATS_PROCESS_ERROR
-            - INSTANCE_STATS_MIGRATION_ERROR
-            - DEPLOYMENT_MIGRATION_ERROR
-            - CG_LICENSE_USAGE_ERROR
-            - INSTANCE_STATS_AGGREGATION_ERROR
-            - UNRESOLVED_EXPRESSIONS_ERROR
-            - KRYO_HANDLER_NOT_FOUND_ERROR
-            - DELEGATE_ERROR_HANDLER_EXCEPTION
-            - DELEGATE_INSTALLATION_COMMAND_NOT_SUPPORTED_EXCEPTION
-            - UNEXPECTED_TYPE_ERROR
-            - EXCEPTION_HANDLER_NOT_FOUND
-            - CONNECTOR_NOT_FOUND_EXCEPTION
-            - GCP_SERVER_ERROR
-            - HTTP_RESPONSE_EXCEPTION
-            - SCM_NOT_FOUND_ERROR
-            - SCM_CONFLICT_ERROR
-            - SCM_CONFLICT_ERROR_V2
-            - SCM_UNPROCESSABLE_ENTITY
-            - PROCESS_EXECUTION_EXCEPTION
-            - SCM_UNAUTHORIZED
-            - SCM_BAD_REQUEST
-            - SCM_INTERNAL_SERVER_ERROR
-            - DATA
-            - CONTEXT
-            - PR_CREATION_ERROR
-            - URL_NOT_REACHABLE
-            - URL_NOT_PROVIDED
-            - ENGINE_EXPRESSION_EVALUATION_ERROR
-            - ENGINE_FUNCTOR_ERROR
-            - JIRA_CLIENT_ERROR
-            - SCM_NOT_MODIFIED
-            - APPROVAL_STEP_NG_ERROR
-            - BUCKET_SERVER_ERROR
-            - GIT_SYNC_ERROR
-            - TEMPLATE_EXCEPTION
-            - ENTITY_REFERENCE_EXCEPTION
-            - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
-            - INVALID_INPUT_SET
-            - INVALID_OVERLAY_INPUT_SET
-            - RESOURCE_ALREADY_EXISTS
-            - INVALID_JSON_PAYLOAD
-            - POLICY_EVALUATION_FAILURE
-            - POLICY_SET_ERROR
-            - INVALID_ARTIFACTORY_REGISTRY_REQUEST
-            - INVALID_NEXUS_REGISTRY_REQUEST
-            - ENTITY_NOT_FOUND
-            - INVALID_AZURE_CONTAINER_REGISTRY_REQUEST
-            - AZURE_AUTHENTICATION_ERROR
-            - AZURE_CONFIG_ERROR
-            - DATA_PROCESSING_ERROR
-            - INVALID_AZURE_AKS_REQUEST
-            - AWS_IAM_ERROR
-            - AWS_CF_ERROR
-            - AWS_INSTANCE_ERROR
-            - AWS_VPC_ERROR
-            - AWS_TAG_ERROR
-            - AWS_ASG_ERROR
-            - AWS_LOAD_BALANCER_ERROR
-            - SCM_INTERNAL_SERVER_ERROR_V2
-            - SCM_UNAUTHORIZED_ERROR_V2
-            - TOO_MANY_REQUESTS
-            - INVALID_IDENTIFIER_REF
-            - SPOTINST_NULL_ERROR
-            - SCM_UNEXPECTED_ERROR
-            - DUPLICATE_FILE_IMPORT
-            - AZURE_APP_SERVICES_TASK_EXCEPTION
-            - AZURE_ARM_TASK_EXCEPTION
-            - AZURE_BP_TASK_EXCEPTION
-            - MEDIA_NOT_SUPPORTED
-            - AWS_ECS_ERROR
-            - AWS_APPLICATION_AUTO_SCALING
-            - AWS_ECS_SERVICE_NOT_ACTIVE
-            - AWS_ECS_CLIENT_ERROR
-            - AWS_STS_ERROR
-            - FREEZE_EXCEPTION
-            - DELEGATE_TASK_EXPIRED
-            - DELEGATE_TASK_VALIDATION_FAILED
-            - MONGO_EXECUTION_TIMEOUT_EXCEPTION
-            - DELEGATE_NOT_REGISTERED
-            - TERRAFORM_VAULT_SECRET_CLEANUP_FAILURE
-            - APPROVAL_REJECTION
-            - TERRAGRUNT_EXECUTION_ERROR
-            - ADFS_ERROR
-            - TERRAFORM_CLOUD_ERROR
-            - CLUSTER_CREDENTIALS_NOT_FOUND
-            - SCM_API_ERROR
-            - INTERNAL_SERVER_ERROR
-        message:
-          type: string
-        correlationId:
-          type: string
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationError'
-      description: This is Failure entity as defied in Harness
     AuthzError:
       type: object
       properties:
@@ -73636,6 +73261,7 @@ components:
             - BUCKET_SERVER_ERROR
             - GIT_SYNC_ERROR
             - TEMPLATE_EXCEPTION
+            - TEMPLATE_ALREADY_EXISTS_EXCEPTION
             - ENTITY_REFERENCE_EXCEPTION
             - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
             - INVALID_INPUT_SET
@@ -73688,6 +73314,7 @@ components:
             - CLUSTER_CREDENTIALS_NOT_FOUND
             - SCM_API_ERROR
             - INTERNAL_SERVER_ERROR
+            - SCM_FORBIDDEN
         message:
           type: string
         correlationId:
@@ -73697,7 +73324,7 @@ components:
         responseMessages:
           type: array
           items:
-            $ref: '#/components/schemas/AuthzResponseMessage'
+            $ref: '#/components/schemas/ResponseMessage'
         metadata:
           $ref: '#/components/schemas/AuthzErrorMetadata'
       description: This is Error entity as defined in Harness
@@ -73709,452 +73336,6 @@ components:
       description: This implements different error meta data objects
       discriminator:
         propertyName: type
-    AuthzResponseMessage:
-      type: object
-      properties:
-        code:
-          type: string
-          enum:
-            - DEFAULT_ERROR_CODE
-            - INVALID_ARGUMENT
-            - INVALID_EMAIL
-            - DOMAIN_NOT_ALLOWED_TO_REGISTER
-            - COMMNITY_EDITION_NOT_FOUND
-            - DEPLOY_MODE_IS_NOT_ON_PREM
-            - USER_ALREADY_REGISTERED
-            - USER_INVITATION_DOES_NOT_EXIST
-            - USER_DOES_NOT_EXIST
-            - USER_INVITE_OPERATION_FAILED
-            - USER_DISABLED
-            - ACCOUNT_DOES_NOT_EXIST
-            - INACTIVE_ACCOUNT
-            - ACCOUNT_MIGRATED
-            - USER_DOMAIN_NOT_ALLOWED
-            - MAX_FAILED_ATTEMPT_COUNT_EXCEEDED
-            - RESOURCE_NOT_FOUND
-            - INVALID_FORMAT
-            - ROLE_DOES_NOT_EXIST
-            - EMAIL_NOT_VERIFIED
-            - EMAIL_VERIFICATION_TOKEN_NOT_FOUND
-            - INVALID_TOKEN
-            - REVOKED_TOKEN
-            - INVALID_CAPTCHA_TOKEN
-            - NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS
-            - EXPIRED_TOKEN
-            - INVALID_AGENT_MTLS_AUTHORITY
-            - TOKEN_ALREADY_REFRESHED_ONCE
-            - ACCESS_DENIED
-            - NG_ACCESS_DENIED
-            - INVALID_CREDENTIAL
-            - INVALID_CREDENTIALS_THIRD_PARTY
-            - INVALID_KEY
-            - INVALID_CONNECTOR_TYPE
-            - INVALID_KEYPATH
-            - INVALID_VARIABLE
-            - UNKNOWN_HOST
-            - UNREACHABLE_HOST
-            - INVALID_PORT
-            - SSH_SESSION_TIMEOUT
-            - SOCKET_CONNECTION_ERROR
-            - CONNECTION_ERROR
-            - SOCKET_CONNECTION_TIMEOUT
-            - WINRM_COMMAND_EXECUTION_TIMEOUT
-            - CONNECTION_TIMEOUT
-            - SSH_CONNECTION_ERROR
-            - USER_GROUP_ERROR
-            - INVALID_EXECUTION_ID
-            - ERROR_IN_GETTING_CHANNEL_STREAMS
-            - UNEXPECTED
-            - UNKNOWN_ERROR
-            - UNKNOWN_EXECUTOR_TYPE_ERROR
-            - DUPLICATE_STATE_NAMES
-            - TRANSITION_NOT_LINKED
-            - TRANSITION_TO_INCORRECT_STATE
-            - TRANSITION_TYPE_NULL
-            - STATES_WITH_DUP_TRANSITIONS
-            - BARRIERS_NOT_RUNNING_CONCURRENTLY
-            - NON_FORK_STATES
-            - NON_REPEAT_STATES
-            - INITIAL_STATE_NOT_DEFINED
-            - FILE_INTEGRITY_CHECK_FAILED
-            - INVALID_URL
-            - FILE_DOWNLOAD_FAILED
-            - PLATFORM_SOFTWARE_DELETE_ERROR
-            - INVALID_CSV_FILE
-            - INVALID_REQUEST
-            - SCHEMA_VALIDATION_FAILED
-            - FILTER_CREATION_ERROR
-            - INVALID_YAML_ERROR
-            - PLAN_CREATION_ERROR
-            - INVALID_INFRA_STATE
-            - PIPELINE_ALREADY_TRIGGERED
-            - NON_EXISTING_PIPELINE
-            - DUPLICATE_COMMAND_NAMES
-            - INVALID_PIPELINE
-            - COMMAND_DOES_NOT_EXIST
-            - DUPLICATE_ARTIFACTSTREAM_NAMES
-            - DUPLICATE_HOST_NAMES
-            - STATE_NOT_FOR_TYPE
-            - STATE_MACHINE_ISSUE
-            - STATE_DISCONTINUE_FAILED
-            - STATE_PAUSE_FAILED
-            - PAUSE_ALL_ALREADY
-            - RESUME_ALL_ALREADY
-            - ROLLBACK_ALREADY
-            - ABORT_ALL_ALREADY
-            - EXPIRE_ALL_ALREADY
-            - RETRY_FAILED
-            - UNKNOWN_ARTIFACT_TYPE
-            - UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE
-            - INIT_TIMEOUT
-            - LICENSE_EXPIRED
-            - NOT_LICENSED
-            - REQUEST_TIMEOUT
-            - WORKFLOW_ALREADY_TRIGGERED
-            - JENKINS_ERROR
-            - INVALID_ARTIFACT_SOURCE
-            - INVALID_ARTIFACT_SERVER
-            - INVALID_CLOUD_PROVIDER
-            - UPDATE_NOT_ALLOWED
-            - DELETE_NOT_ALLOWED
-            - APPDYNAMICS_CONFIGURATION_ERROR
-            - APM_CONFIGURATION_ERROR
-            - SPLUNK_CONFIGURATION_ERROR
-            - ELK_CONFIGURATION_ERROR
-            - LOGZ_CONFIGURATION_ERROR
-            - SUMO_CONFIGURATION_ERROR
-            - INSTANA_CONFIGURATION_ERROR
-            - APPDYNAMICS_ERROR
-            - STACKDRIVER_ERROR
-            - STACKDRIVER_CONFIGURATION_ERROR
-            - NEWRELIC_CONFIGURATION_ERROR
-            - NEWRELIC_ERROR
-            - DYNA_TRACE_CONFIGURATION_ERROR
-            - DYNA_TRACE_ERROR
-            - CLOUDWATCH_ERROR
-            - CLOUDWATCH_CONFIGURATION_ERROR
-            - PROMETHEUS_CONFIGURATION_ERROR
-            - DATA_DOG_CONFIGURATION_ERROR
-            - SERVICE_GUARD_CONFIGURATION_ERROR
-            - ENCRYPTION_NOT_CONFIGURED
-            - UNAVAILABLE_DELEGATES
-            - WORKFLOW_EXECUTION_IN_PROGRESS
-            - PIPELINE_EXECUTION_IN_PROGRESS
-            - AWS_ACCESS_DENIED
-            - AWS_CLUSTER_NOT_FOUND
-            - AWS_SERVICE_NOT_FOUND
-            - IMAGE_NOT_FOUND
-            - ILLEGAL_ARGUMENT
-            - IMAGE_TAG_NOT_FOUND
-            - DELEGATE_NOT_AVAILABLE
-            - INVALID_YAML_PAYLOAD
-            - AUTHENTICATION_ERROR
-            - AUTHORIZATION_ERROR
-            - UNRECOGNIZED_YAML_FIELDS
-            - COULD_NOT_MAP_BEFORE_YAML
-            - MISSING_BEFORE_YAML
-            - MISSING_YAML
-            - NON_EMPTY_DELETIONS
-            - GENERAL_YAML_ERROR
-            - GENERAL_YAML_INFO
-            - YAML_GIT_SYNC_ERROR
-            - GIT_CONNECTION_ERROR
-            - GIT_ERROR
-            - ARTIFACT_SERVER_ERROR
-            - ENCRYPT_DECRYPT_ERROR
-            - SECRET_MANAGEMENT_ERROR
-            - SECRET_NOT_FOUND
-            - KMS_OPERATION_ERROR
-            - GCP_KMS_OPERATION_ERROR
-            - VAULT_OPERATION_ERROR
-            - AWS_SECRETS_MANAGER_OPERATION_ERROR
-            - AZURE_KEY_VAULT_OPERATION_ERROR
-            - UNSUPPORTED_OPERATION_EXCEPTION
-            - FEATURE_UNAVAILABLE
-            - GENERAL_ERROR
-            - BASELINE_CONFIGURATION_ERROR
-            - SAML_IDP_CONFIGURATION_NOT_AVAILABLE
-            - INVALID_AUTHENTICATION_MECHANISM
-            - INVALID_SAML_CONFIGURATION
-            - INVALID_OAUTH_CONFIGURATION
-            - INVALID_LDAP_CONFIGURATION
-            - USER_GROUP_SYNC_FAILURE
-            - USER_GROUP_ALREADY_EXIST
-            - INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION
-            - EXPLANATION
-            - HINT
-            - NOT_WHITELISTED_IP
-            - INVALID_TOTP_TOKEN
-            - EMAIL_FAILED
-            - SSL_HANDSHAKE_FAILED
-            - NO_APPS_ASSIGNED
-            - INVALID_INFRA_CONFIGURATION
-            - TEMPLATES_LINKED
-            - USER_HAS_NO_PERMISSIONS
-            - USER_NOT_AUTHORIZED
-            - USER_ALREADY_PRESENT
-            - EMAIL_ERROR
-            - INVALID_USAGE_RESTRICTION
-            - USAGE_RESTRICTION_ERROR
-            - STATE_EXECUTION_INSTANCE_NOT_FOUND
-            - DELEGATE_TASK_RETRY
-            - KUBERNETES_API_TASK_EXCEPTION
-            - KUBERNETES_TASK_EXCEPTION
-            - KUBERNETES_YAML_ERROR
-            - SAVE_FILE_INTO_GCP_STORAGE_FAILED
-            - READ_FILE_FROM_GCP_STORAGE_FAILED
-            - FILE_NOT_FOUND_ERROR
-            - USAGE_LIMITS_EXCEEDED
-            - EVENT_PUBLISH_FAILED
-            - CUSTOM_APPROVAL_ERROR
-            - JIRA_ERROR
-            - EXPRESSION_EVALUATION_FAILED
-            - KUBERNETES_VALUES_ERROR
-            - KUBERNETES_CLUSTER_ERROR
-            - INCORRECT_SIGN_IN_MECHANISM
-            - OAUTH_LOGIN_FAILED
-            - INVALID_TERRAFORM_TARGETS_REQUEST
-            - TERRAFORM_EXECUTION_ERROR
-            - FILE_READ_FAILED
-            - FILE_SIZE_EXCEEDS_LIMIT
-            - CLUSTER_NOT_FOUND
-            - MARKETPLACE_TOKEN_NOT_FOUND
-            - INVALID_MARKETPLACE_TOKEN
-            - INVALID_TICKETING_SERVER
-            - SERVICENOW_ERROR
-            - PASSWORD_EXPIRED
-            - USER_LOCKED
-            - PASSWORD_STRENGTH_CHECK_FAILED
-            - ACCOUNT_DISABLED
-            - INVALID_ACCOUNT_PERMISSION
-            - PAGERDUTY_ERROR
-            - HEALTH_ERROR
-            - SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED
-            - DOMAIN_WHITELIST_FILTER_CHECK_FAILED
-            - INVALID_DASHBOARD_UPDATE_REQUEST
-            - DUPLICATE_FIELD
-            - INVALID_AZURE_VAULT_CONFIGURATION
-            - USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS
-            - INVALID_ROLLBACK
-            - DATA_COLLECTION_ERROR
-            - SUMO_DATA_COLLECTION_ERROR
-            - DEPLOYMENT_GOVERNANCE_ERROR
-            - BATCH_PROCESSING_ERROR
-            - GRAPHQL_ERROR
-            - FILE_CREATE_ERROR
-            - ILLEGAL_STATE
-            - GIT_DIFF_COMMIT_NOT_IN_ORDER
-            - FAILED_TO_ACQUIRE_PERSISTENT_LOCK
-            - FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK
-            - POD_NOT_FOUND_ERROR
-            - COMMAND_EXECUTION_ERROR
-            - REGISTRY_EXCEPTION
-            - ENGINE_INTERRUPT_PROCESSING_EXCEPTION
-            - ENGINE_IO_EXCEPTION
-            - ENGINE_OUTCOME_EXCEPTION
-            - ENGINE_SWEEPING_OUTPUT_EXCEPTION
-            - CACHE_NOT_FOUND_EXCEPTION
-            - ENGINE_ENTITY_UPDATE_EXCEPTION
-            - SHELL_EXECUTION_EXCEPTION
-            - TEMPLATE_NOT_FOUND
-            - AZURE_SERVICE_EXCEPTION
-            - AZURE_CLIENT_EXCEPTION
-            - GIT_UNSEEN_REMOTE_HEAD_COMMIT
-            - TIMEOUT_ENGINE_EXCEPTION
-            - NO_AVAILABLE_DELEGATES
-            - NO_GLOBAL_DELEGATE_ACCOUNT
-            - NO_INSTALLED_DELEGATES
-            - DUPLICATE_DELEGATE_EXCEPTION
-            - GCP_MARKETPLACE_EXCEPTION
-            - MISSING_DEFAULT_GOOGLE_CREDENTIALS
-            - INCORRECT_DEFAULT_GOOGLE_CREDENTIALS
-            - OPTIMISTIC_LOCKING_EXCEPTION
-            - NG_PIPELINE_EXECUTION_EXCEPTION
-            - NG_PIPELINE_CREATE_EXCEPTION
-            - RESOURCE_NOT_FOUND_EXCEPTION
-            - PMS_INITIALIZE_SDK_EXCEPTION
-            - UNEXPECTED_SNIPPET_EXCEPTION
-            - UNEXPECTED_SCHEMA_EXCEPTION
-            - CONNECTOR_VALIDATION_EXCEPTION
-            - TIMESCALE_NOT_AVAILABLE
-            - MIGRATION_EXCEPTION
-            - REQUEST_PROCESSING_INTERRUPTED
-            - SECRET_MANAGER_ID_NOT_FOUND
-            - GCP_SECRET_MANAGER_OPERATION_ERROR
-            - GCP_SECRET_OPERATION_ERROR
-            - GIT_OPERATION_ERROR
-            - TASK_FAILURE_ERROR
-            - INSTANCE_STATS_PROCESS_ERROR
-            - INSTANCE_STATS_MIGRATION_ERROR
-            - DEPLOYMENT_MIGRATION_ERROR
-            - CG_LICENSE_USAGE_ERROR
-            - INSTANCE_STATS_AGGREGATION_ERROR
-            - UNRESOLVED_EXPRESSIONS_ERROR
-            - KRYO_HANDLER_NOT_FOUND_ERROR
-            - DELEGATE_ERROR_HANDLER_EXCEPTION
-            - DELEGATE_INSTALLATION_COMMAND_NOT_SUPPORTED_EXCEPTION
-            - UNEXPECTED_TYPE_ERROR
-            - EXCEPTION_HANDLER_NOT_FOUND
-            - CONNECTOR_NOT_FOUND_EXCEPTION
-            - GCP_SERVER_ERROR
-            - HTTP_RESPONSE_EXCEPTION
-            - SCM_NOT_FOUND_ERROR
-            - SCM_CONFLICT_ERROR
-            - SCM_CONFLICT_ERROR_V2
-            - SCM_UNPROCESSABLE_ENTITY
-            - PROCESS_EXECUTION_EXCEPTION
-            - SCM_UNAUTHORIZED
-            - SCM_BAD_REQUEST
-            - SCM_INTERNAL_SERVER_ERROR
-            - DATA
-            - CONTEXT
-            - PR_CREATION_ERROR
-            - URL_NOT_REACHABLE
-            - URL_NOT_PROVIDED
-            - ENGINE_EXPRESSION_EVALUATION_ERROR
-            - ENGINE_FUNCTOR_ERROR
-            - JIRA_CLIENT_ERROR
-            - SCM_NOT_MODIFIED
-            - APPROVAL_STEP_NG_ERROR
-            - BUCKET_SERVER_ERROR
-            - GIT_SYNC_ERROR
-            - TEMPLATE_EXCEPTION
-            - ENTITY_REFERENCE_EXCEPTION
-            - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
-            - INVALID_INPUT_SET
-            - INVALID_OVERLAY_INPUT_SET
-            - RESOURCE_ALREADY_EXISTS
-            - INVALID_JSON_PAYLOAD
-            - POLICY_EVALUATION_FAILURE
-            - POLICY_SET_ERROR
-            - INVALID_ARTIFACTORY_REGISTRY_REQUEST
-            - INVALID_NEXUS_REGISTRY_REQUEST
-            - ENTITY_NOT_FOUND
-            - INVALID_AZURE_CONTAINER_REGISTRY_REQUEST
-            - AZURE_AUTHENTICATION_ERROR
-            - AZURE_CONFIG_ERROR
-            - DATA_PROCESSING_ERROR
-            - INVALID_AZURE_AKS_REQUEST
-            - AWS_IAM_ERROR
-            - AWS_CF_ERROR
-            - AWS_INSTANCE_ERROR
-            - AWS_VPC_ERROR
-            - AWS_TAG_ERROR
-            - AWS_ASG_ERROR
-            - AWS_LOAD_BALANCER_ERROR
-            - SCM_INTERNAL_SERVER_ERROR_V2
-            - SCM_UNAUTHORIZED_ERROR_V2
-            - TOO_MANY_REQUESTS
-            - INVALID_IDENTIFIER_REF
-            - SPOTINST_NULL_ERROR
-            - SCM_UNEXPECTED_ERROR
-            - DUPLICATE_FILE_IMPORT
-            - AZURE_APP_SERVICES_TASK_EXCEPTION
-            - AZURE_ARM_TASK_EXCEPTION
-            - AZURE_BP_TASK_EXCEPTION
-            - MEDIA_NOT_SUPPORTED
-            - AWS_ECS_ERROR
-            - AWS_APPLICATION_AUTO_SCALING
-            - AWS_ECS_SERVICE_NOT_ACTIVE
-            - AWS_ECS_CLIENT_ERROR
-            - AWS_STS_ERROR
-            - FREEZE_EXCEPTION
-            - DELEGATE_TASK_EXPIRED
-            - DELEGATE_TASK_VALIDATION_FAILED
-            - MONGO_EXECUTION_TIMEOUT_EXCEPTION
-            - DELEGATE_NOT_REGISTERED
-            - TERRAFORM_VAULT_SECRET_CLEANUP_FAILURE
-            - APPROVAL_REJECTION
-            - TERRAGRUNT_EXECUTION_ERROR
-            - ADFS_ERROR
-            - TERRAFORM_CLOUD_ERROR
-            - CLUSTER_CREDENTIALS_NOT_FOUND
-            - SCM_API_ERROR
-            - INTERNAL_SERVER_ERROR
-        level:
-          type: string
-          enum:
-            - INFO
-            - ERROR
-        message:
-          type: string
-        exception:
-          type: object
-          properties:
-            stackTrace:
-              type: array
-              items:
-                type: object
-                properties:
-                  classLoaderName:
-                    type: string
-                  moduleName:
-                    type: string
-                  moduleVersion:
-                    type: string
-                  methodName:
-                    type: string
-                  fileName:
-                    type: string
-                  lineNumber:
-                    type: integer
-                    format: int32
-                  className:
-                    type: string
-                  nativeMethod:
-                    type: boolean
-            message:
-              type: string
-            suppressed:
-              type: array
-              items:
-                type: object
-                properties:
-                  stackTrace:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        classLoaderName:
-                          type: string
-                        moduleName:
-                          type: string
-                        moduleVersion:
-                          type: string
-                        methodName:
-                          type: string
-                        fileName:
-                          type: string
-                        lineNumber:
-                          type: integer
-                          format: int32
-                        className:
-                          type: string
-                        nativeMethod:
-                          type: boolean
-                  message:
-                    type: string
-                  localizedMessage:
-                    type: string
-            localizedMessage:
-              type: string
-        failureTypes:
-          type: array
-          items:
-            type: string
-            enum:
-              - EXPIRED
-              - DELEGATE_PROVISIONING
-              - CONNECTIVITY
-              - AUTHENTICATION
-              - VERIFICATION_FAILURE
-              - APPLICATION_ERROR
-              - AUTHORIZATION_ERROR
-              - TIMEOUT_ERROR
-              - POLICY_EVALUATION_FAILURE
-              - INPUT_TIMEOUT_FAILURE
-              - APPROVAL_REJECTION
-              - DELEGATE_RESTART
     AccessCheckResponse:
       type: object
       properties:
@@ -74642,6 +73823,7 @@ components:
             - BUCKET_SERVER_ERROR
             - GIT_SYNC_ERROR
             - TEMPLATE_EXCEPTION
+            - TEMPLATE_ALREADY_EXISTS_EXCEPTION
             - ENTITY_REFERENCE_EXCEPTION
             - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
             - INVALID_INPUT_SET
@@ -74694,6 +73876,7 @@ components:
             - CLUSTER_CREDENTIALS_NOT_FOUND
             - SCM_API_ERROR
             - INTERNAL_SERVER_ERROR
+            - SCM_FORBIDDEN
         message:
           type: string
         correlationId:
@@ -74703,7 +73886,7 @@ components:
         responseMessages:
           type: array
           items:
-            $ref: '#/components/schemas/AuthzResponseMessage'
+            $ref: '#/components/schemas/ResponseMessage'
         metadata:
           $ref: '#/components/schemas/AuthzErrorMetadata'
         failedPermissionChecks:
@@ -76168,6 +75351,387 @@ components:
           type: object
         correlationId:
           type: string
+    CcmFailure:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        code:
+          type: string
+          enum:
+            - DEFAULT_ERROR_CODE
+            - INVALID_ARGUMENT
+            - INVALID_EMAIL
+            - DOMAIN_NOT_ALLOWED_TO_REGISTER
+            - COMMNITY_EDITION_NOT_FOUND
+            - DEPLOY_MODE_IS_NOT_ON_PREM
+            - USER_ALREADY_REGISTERED
+            - USER_INVITATION_DOES_NOT_EXIST
+            - USER_DOES_NOT_EXIST
+            - USER_INVITE_OPERATION_FAILED
+            - USER_DISABLED
+            - ACCOUNT_DOES_NOT_EXIST
+            - INACTIVE_ACCOUNT
+            - ACCOUNT_MIGRATED
+            - USER_DOMAIN_NOT_ALLOWED
+            - MAX_FAILED_ATTEMPT_COUNT_EXCEEDED
+            - RESOURCE_NOT_FOUND
+            - INVALID_FORMAT
+            - ROLE_DOES_NOT_EXIST
+            - EMAIL_NOT_VERIFIED
+            - EMAIL_VERIFICATION_TOKEN_NOT_FOUND
+            - INVALID_TOKEN
+            - REVOKED_TOKEN
+            - INVALID_CAPTCHA_TOKEN
+            - NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS
+            - EXPIRED_TOKEN
+            - INVALID_AGENT_MTLS_AUTHORITY
+            - TOKEN_ALREADY_REFRESHED_ONCE
+            - ACCESS_DENIED
+            - NG_ACCESS_DENIED
+            - INVALID_CREDENTIAL
+            - INVALID_CREDENTIALS_THIRD_PARTY
+            - INVALID_KEY
+            - INVALID_CONNECTOR_TYPE
+            - INVALID_KEYPATH
+            - INVALID_VARIABLE
+            - UNKNOWN_HOST
+            - UNREACHABLE_HOST
+            - INVALID_PORT
+            - SSH_SESSION_TIMEOUT
+            - SOCKET_CONNECTION_ERROR
+            - CONNECTION_ERROR
+            - SOCKET_CONNECTION_TIMEOUT
+            - WINRM_COMMAND_EXECUTION_TIMEOUT
+            - CONNECTION_TIMEOUT
+            - SSH_CONNECTION_ERROR
+            - USER_GROUP_ERROR
+            - INVALID_EXECUTION_ID
+            - ERROR_IN_GETTING_CHANNEL_STREAMS
+            - UNEXPECTED
+            - UNKNOWN_ERROR
+            - UNKNOWN_EXECUTOR_TYPE_ERROR
+            - DUPLICATE_STATE_NAMES
+            - TRANSITION_NOT_LINKED
+            - TRANSITION_TO_INCORRECT_STATE
+            - TRANSITION_TYPE_NULL
+            - STATES_WITH_DUP_TRANSITIONS
+            - BARRIERS_NOT_RUNNING_CONCURRENTLY
+            - NON_FORK_STATES
+            - NON_REPEAT_STATES
+            - INITIAL_STATE_NOT_DEFINED
+            - FILE_INTEGRITY_CHECK_FAILED
+            - INVALID_URL
+            - FILE_DOWNLOAD_FAILED
+            - PLATFORM_SOFTWARE_DELETE_ERROR
+            - INVALID_CSV_FILE
+            - INVALID_REQUEST
+            - SCHEMA_VALIDATION_FAILED
+            - FILTER_CREATION_ERROR
+            - INVALID_YAML_ERROR
+            - PLAN_CREATION_ERROR
+            - INVALID_INFRA_STATE
+            - PIPELINE_ALREADY_TRIGGERED
+            - NON_EXISTING_PIPELINE
+            - DUPLICATE_COMMAND_NAMES
+            - INVALID_PIPELINE
+            - COMMAND_DOES_NOT_EXIST
+            - DUPLICATE_ARTIFACTSTREAM_NAMES
+            - DUPLICATE_HOST_NAMES
+            - STATE_NOT_FOR_TYPE
+            - STATE_MACHINE_ISSUE
+            - STATE_DISCONTINUE_FAILED
+            - STATE_PAUSE_FAILED
+            - PAUSE_ALL_ALREADY
+            - RESUME_ALL_ALREADY
+            - ROLLBACK_ALREADY
+            - ABORT_ALL_ALREADY
+            - EXPIRE_ALL_ALREADY
+            - RETRY_FAILED
+            - UNKNOWN_ARTIFACT_TYPE
+            - UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE
+            - INIT_TIMEOUT
+            - LICENSE_EXPIRED
+            - NOT_LICENSED
+            - REQUEST_TIMEOUT
+            - WORKFLOW_ALREADY_TRIGGERED
+            - JENKINS_ERROR
+            - INVALID_ARTIFACT_SOURCE
+            - INVALID_ARTIFACT_SERVER
+            - INVALID_CLOUD_PROVIDER
+            - UPDATE_NOT_ALLOWED
+            - DELETE_NOT_ALLOWED
+            - APPDYNAMICS_CONFIGURATION_ERROR
+            - APM_CONFIGURATION_ERROR
+            - SPLUNK_CONFIGURATION_ERROR
+            - ELK_CONFIGURATION_ERROR
+            - LOGZ_CONFIGURATION_ERROR
+            - SUMO_CONFIGURATION_ERROR
+            - INSTANA_CONFIGURATION_ERROR
+            - APPDYNAMICS_ERROR
+            - STACKDRIVER_ERROR
+            - STACKDRIVER_CONFIGURATION_ERROR
+            - NEWRELIC_CONFIGURATION_ERROR
+            - NEWRELIC_ERROR
+            - DYNA_TRACE_CONFIGURATION_ERROR
+            - DYNA_TRACE_ERROR
+            - CLOUDWATCH_ERROR
+            - CLOUDWATCH_CONFIGURATION_ERROR
+            - PROMETHEUS_CONFIGURATION_ERROR
+            - DATA_DOG_CONFIGURATION_ERROR
+            - SERVICE_GUARD_CONFIGURATION_ERROR
+            - ENCRYPTION_NOT_CONFIGURED
+            - UNAVAILABLE_DELEGATES
+            - WORKFLOW_EXECUTION_IN_PROGRESS
+            - PIPELINE_EXECUTION_IN_PROGRESS
+            - AWS_ACCESS_DENIED
+            - AWS_CLUSTER_NOT_FOUND
+            - AWS_SERVICE_NOT_FOUND
+            - IMAGE_NOT_FOUND
+            - ILLEGAL_ARGUMENT
+            - IMAGE_TAG_NOT_FOUND
+            - DELEGATE_NOT_AVAILABLE
+            - INVALID_YAML_PAYLOAD
+            - AUTHENTICATION_ERROR
+            - AUTHORIZATION_ERROR
+            - UNRECOGNIZED_YAML_FIELDS
+            - COULD_NOT_MAP_BEFORE_YAML
+            - MISSING_BEFORE_YAML
+            - MISSING_YAML
+            - NON_EMPTY_DELETIONS
+            - GENERAL_YAML_ERROR
+            - GENERAL_YAML_INFO
+            - YAML_GIT_SYNC_ERROR
+            - GIT_CONNECTION_ERROR
+            - GIT_ERROR
+            - ARTIFACT_SERVER_ERROR
+            - ENCRYPT_DECRYPT_ERROR
+            - SECRET_MANAGEMENT_ERROR
+            - SECRET_NOT_FOUND
+            - KMS_OPERATION_ERROR
+            - GCP_KMS_OPERATION_ERROR
+            - VAULT_OPERATION_ERROR
+            - AWS_SECRETS_MANAGER_OPERATION_ERROR
+            - AZURE_KEY_VAULT_OPERATION_ERROR
+            - UNSUPPORTED_OPERATION_EXCEPTION
+            - FEATURE_UNAVAILABLE
+            - GENERAL_ERROR
+            - BASELINE_CONFIGURATION_ERROR
+            - SAML_IDP_CONFIGURATION_NOT_AVAILABLE
+            - INVALID_AUTHENTICATION_MECHANISM
+            - INVALID_SAML_CONFIGURATION
+            - INVALID_OAUTH_CONFIGURATION
+            - INVALID_LDAP_CONFIGURATION
+            - USER_GROUP_SYNC_FAILURE
+            - USER_GROUP_ALREADY_EXIST
+            - INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION
+            - EXPLANATION
+            - HINT
+            - NOT_WHITELISTED_IP
+            - INVALID_TOTP_TOKEN
+            - EMAIL_FAILED
+            - SSL_HANDSHAKE_FAILED
+            - NO_APPS_ASSIGNED
+            - INVALID_INFRA_CONFIGURATION
+            - TEMPLATES_LINKED
+            - USER_HAS_NO_PERMISSIONS
+            - USER_NOT_AUTHORIZED
+            - USER_ALREADY_PRESENT
+            - EMAIL_ERROR
+            - INVALID_USAGE_RESTRICTION
+            - USAGE_RESTRICTION_ERROR
+            - STATE_EXECUTION_INSTANCE_NOT_FOUND
+            - DELEGATE_TASK_RETRY
+            - KUBERNETES_API_TASK_EXCEPTION
+            - KUBERNETES_TASK_EXCEPTION
+            - KUBERNETES_YAML_ERROR
+            - SAVE_FILE_INTO_GCP_STORAGE_FAILED
+            - READ_FILE_FROM_GCP_STORAGE_FAILED
+            - FILE_NOT_FOUND_ERROR
+            - USAGE_LIMITS_EXCEEDED
+            - EVENT_PUBLISH_FAILED
+            - CUSTOM_APPROVAL_ERROR
+            - JIRA_ERROR
+            - EXPRESSION_EVALUATION_FAILED
+            - KUBERNETES_VALUES_ERROR
+            - KUBERNETES_CLUSTER_ERROR
+            - INCORRECT_SIGN_IN_MECHANISM
+            - OAUTH_LOGIN_FAILED
+            - INVALID_TERRAFORM_TARGETS_REQUEST
+            - TERRAFORM_EXECUTION_ERROR
+            - FILE_READ_FAILED
+            - FILE_SIZE_EXCEEDS_LIMIT
+            - CLUSTER_NOT_FOUND
+            - MARKETPLACE_TOKEN_NOT_FOUND
+            - INVALID_MARKETPLACE_TOKEN
+            - INVALID_TICKETING_SERVER
+            - SERVICENOW_ERROR
+            - PASSWORD_EXPIRED
+            - USER_LOCKED
+            - PASSWORD_STRENGTH_CHECK_FAILED
+            - ACCOUNT_DISABLED
+            - INVALID_ACCOUNT_PERMISSION
+            - PAGERDUTY_ERROR
+            - HEALTH_ERROR
+            - SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED
+            - DOMAIN_WHITELIST_FILTER_CHECK_FAILED
+            - INVALID_DASHBOARD_UPDATE_REQUEST
+            - DUPLICATE_FIELD
+            - INVALID_AZURE_VAULT_CONFIGURATION
+            - USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS
+            - INVALID_ROLLBACK
+            - DATA_COLLECTION_ERROR
+            - SUMO_DATA_COLLECTION_ERROR
+            - DEPLOYMENT_GOVERNANCE_ERROR
+            - BATCH_PROCESSING_ERROR
+            - GRAPHQL_ERROR
+            - FILE_CREATE_ERROR
+            - ILLEGAL_STATE
+            - GIT_DIFF_COMMIT_NOT_IN_ORDER
+            - FAILED_TO_ACQUIRE_PERSISTENT_LOCK
+            - FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK
+            - POD_NOT_FOUND_ERROR
+            - COMMAND_EXECUTION_ERROR
+            - REGISTRY_EXCEPTION
+            - ENGINE_INTERRUPT_PROCESSING_EXCEPTION
+            - ENGINE_IO_EXCEPTION
+            - ENGINE_OUTCOME_EXCEPTION
+            - ENGINE_SWEEPING_OUTPUT_EXCEPTION
+            - CACHE_NOT_FOUND_EXCEPTION
+            - ENGINE_ENTITY_UPDATE_EXCEPTION
+            - SHELL_EXECUTION_EXCEPTION
+            - TEMPLATE_NOT_FOUND
+            - AZURE_SERVICE_EXCEPTION
+            - AZURE_CLIENT_EXCEPTION
+            - GIT_UNSEEN_REMOTE_HEAD_COMMIT
+            - TIMEOUT_ENGINE_EXCEPTION
+            - NO_AVAILABLE_DELEGATES
+            - NO_GLOBAL_DELEGATE_ACCOUNT
+            - NO_INSTALLED_DELEGATES
+            - DUPLICATE_DELEGATE_EXCEPTION
+            - GCP_MARKETPLACE_EXCEPTION
+            - MISSING_DEFAULT_GOOGLE_CREDENTIALS
+            - INCORRECT_DEFAULT_GOOGLE_CREDENTIALS
+            - OPTIMISTIC_LOCKING_EXCEPTION
+            - NG_PIPELINE_EXECUTION_EXCEPTION
+            - NG_PIPELINE_CREATE_EXCEPTION
+            - RESOURCE_NOT_FOUND_EXCEPTION
+            - PMS_INITIALIZE_SDK_EXCEPTION
+            - UNEXPECTED_SNIPPET_EXCEPTION
+            - UNEXPECTED_SCHEMA_EXCEPTION
+            - CONNECTOR_VALIDATION_EXCEPTION
+            - TIMESCALE_NOT_AVAILABLE
+            - MIGRATION_EXCEPTION
+            - REQUEST_PROCESSING_INTERRUPTED
+            - SECRET_MANAGER_ID_NOT_FOUND
+            - GCP_SECRET_MANAGER_OPERATION_ERROR
+            - GCP_SECRET_OPERATION_ERROR
+            - GIT_OPERATION_ERROR
+            - TASK_FAILURE_ERROR
+            - INSTANCE_STATS_PROCESS_ERROR
+            - INSTANCE_STATS_MIGRATION_ERROR
+            - DEPLOYMENT_MIGRATION_ERROR
+            - CG_LICENSE_USAGE_ERROR
+            - INSTANCE_STATS_AGGREGATION_ERROR
+            - UNRESOLVED_EXPRESSIONS_ERROR
+            - KRYO_HANDLER_NOT_FOUND_ERROR
+            - DELEGATE_ERROR_HANDLER_EXCEPTION
+            - DELEGATE_INSTALLATION_COMMAND_NOT_SUPPORTED_EXCEPTION
+            - UNEXPECTED_TYPE_ERROR
+            - EXCEPTION_HANDLER_NOT_FOUND
+            - CONNECTOR_NOT_FOUND_EXCEPTION
+            - GCP_SERVER_ERROR
+            - HTTP_RESPONSE_EXCEPTION
+            - SCM_NOT_FOUND_ERROR
+            - SCM_CONFLICT_ERROR
+            - SCM_CONFLICT_ERROR_V2
+            - SCM_UNPROCESSABLE_ENTITY
+            - PROCESS_EXECUTION_EXCEPTION
+            - SCM_UNAUTHORIZED
+            - SCM_BAD_REQUEST
+            - SCM_INTERNAL_SERVER_ERROR
+            - DATA
+            - CONTEXT
+            - PR_CREATION_ERROR
+            - URL_NOT_REACHABLE
+            - URL_NOT_PROVIDED
+            - ENGINE_EXPRESSION_EVALUATION_ERROR
+            - ENGINE_FUNCTOR_ERROR
+            - JIRA_CLIENT_ERROR
+            - SCM_NOT_MODIFIED
+            - APPROVAL_STEP_NG_ERROR
+            - BUCKET_SERVER_ERROR
+            - GIT_SYNC_ERROR
+            - TEMPLATE_EXCEPTION
+            - TEMPLATE_ALREADY_EXISTS_EXCEPTION
+            - ENTITY_REFERENCE_EXCEPTION
+            - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
+            - INVALID_INPUT_SET
+            - INVALID_OVERLAY_INPUT_SET
+            - RESOURCE_ALREADY_EXISTS
+            - INVALID_JSON_PAYLOAD
+            - POLICY_EVALUATION_FAILURE
+            - POLICY_SET_ERROR
+            - INVALID_ARTIFACTORY_REGISTRY_REQUEST
+            - INVALID_NEXUS_REGISTRY_REQUEST
+            - ENTITY_NOT_FOUND
+            - INVALID_AZURE_CONTAINER_REGISTRY_REQUEST
+            - AZURE_AUTHENTICATION_ERROR
+            - AZURE_CONFIG_ERROR
+            - DATA_PROCESSING_ERROR
+            - INVALID_AZURE_AKS_REQUEST
+            - AWS_IAM_ERROR
+            - AWS_CF_ERROR
+            - AWS_INSTANCE_ERROR
+            - AWS_VPC_ERROR
+            - AWS_TAG_ERROR
+            - AWS_ASG_ERROR
+            - AWS_LOAD_BALANCER_ERROR
+            - SCM_INTERNAL_SERVER_ERROR_V2
+            - SCM_UNAUTHORIZED_ERROR_V2
+            - TOO_MANY_REQUESTS
+            - INVALID_IDENTIFIER_REF
+            - SPOTINST_NULL_ERROR
+            - SCM_UNEXPECTED_ERROR
+            - DUPLICATE_FILE_IMPORT
+            - AZURE_APP_SERVICES_TASK_EXCEPTION
+            - AZURE_ARM_TASK_EXCEPTION
+            - AZURE_BP_TASK_EXCEPTION
+            - MEDIA_NOT_SUPPORTED
+            - AWS_ECS_ERROR
+            - AWS_APPLICATION_AUTO_SCALING
+            - AWS_ECS_SERVICE_NOT_ACTIVE
+            - AWS_ECS_CLIENT_ERROR
+            - AWS_STS_ERROR
+            - FREEZE_EXCEPTION
+            - DELEGATE_TASK_EXPIRED
+            - DELEGATE_TASK_VALIDATION_FAILED
+            - MONGO_EXECUTION_TIMEOUT_EXCEPTION
+            - DELEGATE_NOT_REGISTERED
+            - TERRAFORM_VAULT_SECRET_CLEANUP_FAILURE
+            - APPROVAL_REJECTION
+            - TERRAGRUNT_EXECUTION_ERROR
+            - ADFS_ERROR
+            - TERRAFORM_CLOUD_ERROR
+            - CLUSTER_CREDENTIALS_NOT_FOUND
+            - SCM_API_ERROR
+            - INTERNAL_SERVER_ERROR
+            - SCM_FORBIDDEN
+            - AWS_EKS_ERROR
+            - OPA_POLICY_EVALUATION_ERROR
+        message:
+          type: string
+        correlationId:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+      description: This is Failure entity as defied in Harness
     CcmError:
       type: object
       properties:
@@ -76538,6 +76102,8 @@ components:
             - SCM_API_ERROR
             - INTERNAL_SERVER_ERROR
             - SCM_FORBIDDEN
+            - AWS_EKS_ERROR
+            - OPA_POLICY_EVALUATION_ERROR
         message:
           type: string
         correlationId:
@@ -76547,7 +76113,7 @@ components:
         responseMessages:
           type: array
           items:
-            $ref: '#/components/schemas/ResponseMessage'
+            $ref: '#/components/schemas/CcmResponseMessage'
         metadata:
           $ref: '#/components/schemas/CcmErrorMetadata'
       description: This is Error entity as defined in Harness
@@ -76559,6 +76125,456 @@ components:
       description: This implements different error meta data objects
       discriminator:
         propertyName: type
+    CcmResponseMessage:
+      type: object
+      properties:
+        code:
+          type: string
+          enum:
+            - DEFAULT_ERROR_CODE
+            - INVALID_ARGUMENT
+            - INVALID_EMAIL
+            - DOMAIN_NOT_ALLOWED_TO_REGISTER
+            - COMMNITY_EDITION_NOT_FOUND
+            - DEPLOY_MODE_IS_NOT_ON_PREM
+            - USER_ALREADY_REGISTERED
+            - USER_INVITATION_DOES_NOT_EXIST
+            - USER_DOES_NOT_EXIST
+            - USER_INVITE_OPERATION_FAILED
+            - USER_DISABLED
+            - ACCOUNT_DOES_NOT_EXIST
+            - INACTIVE_ACCOUNT
+            - ACCOUNT_MIGRATED
+            - USER_DOMAIN_NOT_ALLOWED
+            - MAX_FAILED_ATTEMPT_COUNT_EXCEEDED
+            - RESOURCE_NOT_FOUND
+            - INVALID_FORMAT
+            - ROLE_DOES_NOT_EXIST
+            - EMAIL_NOT_VERIFIED
+            - EMAIL_VERIFICATION_TOKEN_NOT_FOUND
+            - INVALID_TOKEN
+            - REVOKED_TOKEN
+            - INVALID_CAPTCHA_TOKEN
+            - NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS
+            - EXPIRED_TOKEN
+            - INVALID_AGENT_MTLS_AUTHORITY
+            - TOKEN_ALREADY_REFRESHED_ONCE
+            - ACCESS_DENIED
+            - NG_ACCESS_DENIED
+            - INVALID_CREDENTIAL
+            - INVALID_CREDENTIALS_THIRD_PARTY
+            - INVALID_KEY
+            - INVALID_CONNECTOR_TYPE
+            - INVALID_KEYPATH
+            - INVALID_VARIABLE
+            - UNKNOWN_HOST
+            - UNREACHABLE_HOST
+            - INVALID_PORT
+            - SSH_SESSION_TIMEOUT
+            - SOCKET_CONNECTION_ERROR
+            - CONNECTION_ERROR
+            - SOCKET_CONNECTION_TIMEOUT
+            - WINRM_COMMAND_EXECUTION_TIMEOUT
+            - CONNECTION_TIMEOUT
+            - SSH_CONNECTION_ERROR
+            - USER_GROUP_ERROR
+            - INVALID_EXECUTION_ID
+            - ERROR_IN_GETTING_CHANNEL_STREAMS
+            - UNEXPECTED
+            - UNKNOWN_ERROR
+            - UNKNOWN_EXECUTOR_TYPE_ERROR
+            - DUPLICATE_STATE_NAMES
+            - TRANSITION_NOT_LINKED
+            - TRANSITION_TO_INCORRECT_STATE
+            - TRANSITION_TYPE_NULL
+            - STATES_WITH_DUP_TRANSITIONS
+            - BARRIERS_NOT_RUNNING_CONCURRENTLY
+            - NON_FORK_STATES
+            - NON_REPEAT_STATES
+            - INITIAL_STATE_NOT_DEFINED
+            - FILE_INTEGRITY_CHECK_FAILED
+            - INVALID_URL
+            - FILE_DOWNLOAD_FAILED
+            - PLATFORM_SOFTWARE_DELETE_ERROR
+            - INVALID_CSV_FILE
+            - INVALID_REQUEST
+            - SCHEMA_VALIDATION_FAILED
+            - FILTER_CREATION_ERROR
+            - INVALID_YAML_ERROR
+            - PLAN_CREATION_ERROR
+            - INVALID_INFRA_STATE
+            - PIPELINE_ALREADY_TRIGGERED
+            - NON_EXISTING_PIPELINE
+            - DUPLICATE_COMMAND_NAMES
+            - INVALID_PIPELINE
+            - COMMAND_DOES_NOT_EXIST
+            - DUPLICATE_ARTIFACTSTREAM_NAMES
+            - DUPLICATE_HOST_NAMES
+            - STATE_NOT_FOR_TYPE
+            - STATE_MACHINE_ISSUE
+            - STATE_DISCONTINUE_FAILED
+            - STATE_PAUSE_FAILED
+            - PAUSE_ALL_ALREADY
+            - RESUME_ALL_ALREADY
+            - ROLLBACK_ALREADY
+            - ABORT_ALL_ALREADY
+            - EXPIRE_ALL_ALREADY
+            - RETRY_FAILED
+            - UNKNOWN_ARTIFACT_TYPE
+            - UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE
+            - INIT_TIMEOUT
+            - LICENSE_EXPIRED
+            - NOT_LICENSED
+            - REQUEST_TIMEOUT
+            - WORKFLOW_ALREADY_TRIGGERED
+            - JENKINS_ERROR
+            - INVALID_ARTIFACT_SOURCE
+            - INVALID_ARTIFACT_SERVER
+            - INVALID_CLOUD_PROVIDER
+            - UPDATE_NOT_ALLOWED
+            - DELETE_NOT_ALLOWED
+            - APPDYNAMICS_CONFIGURATION_ERROR
+            - APM_CONFIGURATION_ERROR
+            - SPLUNK_CONFIGURATION_ERROR
+            - ELK_CONFIGURATION_ERROR
+            - LOGZ_CONFIGURATION_ERROR
+            - SUMO_CONFIGURATION_ERROR
+            - INSTANA_CONFIGURATION_ERROR
+            - APPDYNAMICS_ERROR
+            - STACKDRIVER_ERROR
+            - STACKDRIVER_CONFIGURATION_ERROR
+            - NEWRELIC_CONFIGURATION_ERROR
+            - NEWRELIC_ERROR
+            - DYNA_TRACE_CONFIGURATION_ERROR
+            - DYNA_TRACE_ERROR
+            - CLOUDWATCH_ERROR
+            - CLOUDWATCH_CONFIGURATION_ERROR
+            - PROMETHEUS_CONFIGURATION_ERROR
+            - DATA_DOG_CONFIGURATION_ERROR
+            - SERVICE_GUARD_CONFIGURATION_ERROR
+            - ENCRYPTION_NOT_CONFIGURED
+            - UNAVAILABLE_DELEGATES
+            - WORKFLOW_EXECUTION_IN_PROGRESS
+            - PIPELINE_EXECUTION_IN_PROGRESS
+            - AWS_ACCESS_DENIED
+            - AWS_CLUSTER_NOT_FOUND
+            - AWS_SERVICE_NOT_FOUND
+            - IMAGE_NOT_FOUND
+            - ILLEGAL_ARGUMENT
+            - IMAGE_TAG_NOT_FOUND
+            - DELEGATE_NOT_AVAILABLE
+            - INVALID_YAML_PAYLOAD
+            - AUTHENTICATION_ERROR
+            - AUTHORIZATION_ERROR
+            - UNRECOGNIZED_YAML_FIELDS
+            - COULD_NOT_MAP_BEFORE_YAML
+            - MISSING_BEFORE_YAML
+            - MISSING_YAML
+            - NON_EMPTY_DELETIONS
+            - GENERAL_YAML_ERROR
+            - GENERAL_YAML_INFO
+            - YAML_GIT_SYNC_ERROR
+            - GIT_CONNECTION_ERROR
+            - GIT_ERROR
+            - ARTIFACT_SERVER_ERROR
+            - ENCRYPT_DECRYPT_ERROR
+            - SECRET_MANAGEMENT_ERROR
+            - SECRET_NOT_FOUND
+            - KMS_OPERATION_ERROR
+            - GCP_KMS_OPERATION_ERROR
+            - VAULT_OPERATION_ERROR
+            - AWS_SECRETS_MANAGER_OPERATION_ERROR
+            - AZURE_KEY_VAULT_OPERATION_ERROR
+            - UNSUPPORTED_OPERATION_EXCEPTION
+            - FEATURE_UNAVAILABLE
+            - GENERAL_ERROR
+            - BASELINE_CONFIGURATION_ERROR
+            - SAML_IDP_CONFIGURATION_NOT_AVAILABLE
+            - INVALID_AUTHENTICATION_MECHANISM
+            - INVALID_SAML_CONFIGURATION
+            - INVALID_OAUTH_CONFIGURATION
+            - INVALID_LDAP_CONFIGURATION
+            - USER_GROUP_SYNC_FAILURE
+            - USER_GROUP_ALREADY_EXIST
+            - INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION
+            - EXPLANATION
+            - HINT
+            - NOT_WHITELISTED_IP
+            - INVALID_TOTP_TOKEN
+            - EMAIL_FAILED
+            - SSL_HANDSHAKE_FAILED
+            - NO_APPS_ASSIGNED
+            - INVALID_INFRA_CONFIGURATION
+            - TEMPLATES_LINKED
+            - USER_HAS_NO_PERMISSIONS
+            - USER_NOT_AUTHORIZED
+            - USER_ALREADY_PRESENT
+            - EMAIL_ERROR
+            - INVALID_USAGE_RESTRICTION
+            - USAGE_RESTRICTION_ERROR
+            - STATE_EXECUTION_INSTANCE_NOT_FOUND
+            - DELEGATE_TASK_RETRY
+            - KUBERNETES_API_TASK_EXCEPTION
+            - KUBERNETES_TASK_EXCEPTION
+            - KUBERNETES_YAML_ERROR
+            - SAVE_FILE_INTO_GCP_STORAGE_FAILED
+            - READ_FILE_FROM_GCP_STORAGE_FAILED
+            - FILE_NOT_FOUND_ERROR
+            - USAGE_LIMITS_EXCEEDED
+            - EVENT_PUBLISH_FAILED
+            - CUSTOM_APPROVAL_ERROR
+            - JIRA_ERROR
+            - EXPRESSION_EVALUATION_FAILED
+            - KUBERNETES_VALUES_ERROR
+            - KUBERNETES_CLUSTER_ERROR
+            - INCORRECT_SIGN_IN_MECHANISM
+            - OAUTH_LOGIN_FAILED
+            - INVALID_TERRAFORM_TARGETS_REQUEST
+            - TERRAFORM_EXECUTION_ERROR
+            - FILE_READ_FAILED
+            - FILE_SIZE_EXCEEDS_LIMIT
+            - CLUSTER_NOT_FOUND
+            - MARKETPLACE_TOKEN_NOT_FOUND
+            - INVALID_MARKETPLACE_TOKEN
+            - INVALID_TICKETING_SERVER
+            - SERVICENOW_ERROR
+            - PASSWORD_EXPIRED
+            - USER_LOCKED
+            - PASSWORD_STRENGTH_CHECK_FAILED
+            - ACCOUNT_DISABLED
+            - INVALID_ACCOUNT_PERMISSION
+            - PAGERDUTY_ERROR
+            - HEALTH_ERROR
+            - SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED
+            - DOMAIN_WHITELIST_FILTER_CHECK_FAILED
+            - INVALID_DASHBOARD_UPDATE_REQUEST
+            - DUPLICATE_FIELD
+            - INVALID_AZURE_VAULT_CONFIGURATION
+            - USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS
+            - INVALID_ROLLBACK
+            - DATA_COLLECTION_ERROR
+            - SUMO_DATA_COLLECTION_ERROR
+            - DEPLOYMENT_GOVERNANCE_ERROR
+            - BATCH_PROCESSING_ERROR
+            - GRAPHQL_ERROR
+            - FILE_CREATE_ERROR
+            - ILLEGAL_STATE
+            - GIT_DIFF_COMMIT_NOT_IN_ORDER
+            - FAILED_TO_ACQUIRE_PERSISTENT_LOCK
+            - FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK
+            - POD_NOT_FOUND_ERROR
+            - COMMAND_EXECUTION_ERROR
+            - REGISTRY_EXCEPTION
+            - ENGINE_INTERRUPT_PROCESSING_EXCEPTION
+            - ENGINE_IO_EXCEPTION
+            - ENGINE_OUTCOME_EXCEPTION
+            - ENGINE_SWEEPING_OUTPUT_EXCEPTION
+            - CACHE_NOT_FOUND_EXCEPTION
+            - ENGINE_ENTITY_UPDATE_EXCEPTION
+            - SHELL_EXECUTION_EXCEPTION
+            - TEMPLATE_NOT_FOUND
+            - AZURE_SERVICE_EXCEPTION
+            - AZURE_CLIENT_EXCEPTION
+            - GIT_UNSEEN_REMOTE_HEAD_COMMIT
+            - TIMEOUT_ENGINE_EXCEPTION
+            - NO_AVAILABLE_DELEGATES
+            - NO_GLOBAL_DELEGATE_ACCOUNT
+            - NO_INSTALLED_DELEGATES
+            - DUPLICATE_DELEGATE_EXCEPTION
+            - GCP_MARKETPLACE_EXCEPTION
+            - MISSING_DEFAULT_GOOGLE_CREDENTIALS
+            - INCORRECT_DEFAULT_GOOGLE_CREDENTIALS
+            - OPTIMISTIC_LOCKING_EXCEPTION
+            - NG_PIPELINE_EXECUTION_EXCEPTION
+            - NG_PIPELINE_CREATE_EXCEPTION
+            - RESOURCE_NOT_FOUND_EXCEPTION
+            - PMS_INITIALIZE_SDK_EXCEPTION
+            - UNEXPECTED_SNIPPET_EXCEPTION
+            - UNEXPECTED_SCHEMA_EXCEPTION
+            - CONNECTOR_VALIDATION_EXCEPTION
+            - TIMESCALE_NOT_AVAILABLE
+            - MIGRATION_EXCEPTION
+            - REQUEST_PROCESSING_INTERRUPTED
+            - SECRET_MANAGER_ID_NOT_FOUND
+            - GCP_SECRET_MANAGER_OPERATION_ERROR
+            - GCP_SECRET_OPERATION_ERROR
+            - GIT_OPERATION_ERROR
+            - TASK_FAILURE_ERROR
+            - INSTANCE_STATS_PROCESS_ERROR
+            - INSTANCE_STATS_MIGRATION_ERROR
+            - DEPLOYMENT_MIGRATION_ERROR
+            - CG_LICENSE_USAGE_ERROR
+            - INSTANCE_STATS_AGGREGATION_ERROR
+            - UNRESOLVED_EXPRESSIONS_ERROR
+            - KRYO_HANDLER_NOT_FOUND_ERROR
+            - DELEGATE_ERROR_HANDLER_EXCEPTION
+            - DELEGATE_INSTALLATION_COMMAND_NOT_SUPPORTED_EXCEPTION
+            - UNEXPECTED_TYPE_ERROR
+            - EXCEPTION_HANDLER_NOT_FOUND
+            - CONNECTOR_NOT_FOUND_EXCEPTION
+            - GCP_SERVER_ERROR
+            - HTTP_RESPONSE_EXCEPTION
+            - SCM_NOT_FOUND_ERROR
+            - SCM_CONFLICT_ERROR
+            - SCM_CONFLICT_ERROR_V2
+            - SCM_UNPROCESSABLE_ENTITY
+            - PROCESS_EXECUTION_EXCEPTION
+            - SCM_UNAUTHORIZED
+            - SCM_BAD_REQUEST
+            - SCM_INTERNAL_SERVER_ERROR
+            - DATA
+            - CONTEXT
+            - PR_CREATION_ERROR
+            - URL_NOT_REACHABLE
+            - URL_NOT_PROVIDED
+            - ENGINE_EXPRESSION_EVALUATION_ERROR
+            - ENGINE_FUNCTOR_ERROR
+            - JIRA_CLIENT_ERROR
+            - SCM_NOT_MODIFIED
+            - APPROVAL_STEP_NG_ERROR
+            - BUCKET_SERVER_ERROR
+            - GIT_SYNC_ERROR
+            - TEMPLATE_EXCEPTION
+            - TEMPLATE_ALREADY_EXISTS_EXCEPTION
+            - ENTITY_REFERENCE_EXCEPTION
+            - ACTIVE_SERVICE_INSTANCES_PRESENT_EXCEPTION
+            - INVALID_INPUT_SET
+            - INVALID_OVERLAY_INPUT_SET
+            - RESOURCE_ALREADY_EXISTS
+            - INVALID_JSON_PAYLOAD
+            - POLICY_EVALUATION_FAILURE
+            - POLICY_SET_ERROR
+            - INVALID_ARTIFACTORY_REGISTRY_REQUEST
+            - INVALID_NEXUS_REGISTRY_REQUEST
+            - ENTITY_NOT_FOUND
+            - INVALID_AZURE_CONTAINER_REGISTRY_REQUEST
+            - AZURE_AUTHENTICATION_ERROR
+            - AZURE_CONFIG_ERROR
+            - DATA_PROCESSING_ERROR
+            - INVALID_AZURE_AKS_REQUEST
+            - AWS_IAM_ERROR
+            - AWS_CF_ERROR
+            - AWS_INSTANCE_ERROR
+            - AWS_VPC_ERROR
+            - AWS_TAG_ERROR
+            - AWS_ASG_ERROR
+            - AWS_LOAD_BALANCER_ERROR
+            - SCM_INTERNAL_SERVER_ERROR_V2
+            - SCM_UNAUTHORIZED_ERROR_V2
+            - TOO_MANY_REQUESTS
+            - INVALID_IDENTIFIER_REF
+            - SPOTINST_NULL_ERROR
+            - SCM_UNEXPECTED_ERROR
+            - DUPLICATE_FILE_IMPORT
+            - AZURE_APP_SERVICES_TASK_EXCEPTION
+            - AZURE_ARM_TASK_EXCEPTION
+            - AZURE_BP_TASK_EXCEPTION
+            - MEDIA_NOT_SUPPORTED
+            - AWS_ECS_ERROR
+            - AWS_APPLICATION_AUTO_SCALING
+            - AWS_ECS_SERVICE_NOT_ACTIVE
+            - AWS_ECS_CLIENT_ERROR
+            - AWS_STS_ERROR
+            - FREEZE_EXCEPTION
+            - DELEGATE_TASK_EXPIRED
+            - DELEGATE_TASK_VALIDATION_FAILED
+            - MONGO_EXECUTION_TIMEOUT_EXCEPTION
+            - DELEGATE_NOT_REGISTERED
+            - TERRAFORM_VAULT_SECRET_CLEANUP_FAILURE
+            - APPROVAL_REJECTION
+            - TERRAGRUNT_EXECUTION_ERROR
+            - ADFS_ERROR
+            - TERRAFORM_CLOUD_ERROR
+            - CLUSTER_CREDENTIALS_NOT_FOUND
+            - SCM_API_ERROR
+            - INTERNAL_SERVER_ERROR
+            - SCM_FORBIDDEN
+            - AWS_EKS_ERROR
+            - OPA_POLICY_EVALUATION_ERROR
+        level:
+          type: string
+          enum:
+            - INFO
+            - ERROR
+        message:
+          type: string
+        exception:
+          type: object
+          properties:
+            stackTrace:
+              type: array
+              items:
+                type: object
+                properties:
+                  classLoaderName:
+                    type: string
+                  moduleName:
+                    type: string
+                  moduleVersion:
+                    type: string
+                  methodName:
+                    type: string
+                  fileName:
+                    type: string
+                  lineNumber:
+                    type: integer
+                    format: int32
+                  className:
+                    type: string
+                  nativeMethod:
+                    type: boolean
+            message:
+              type: string
+            suppressed:
+              type: array
+              items:
+                type: object
+                properties:
+                  stackTrace:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        classLoaderName:
+                          type: string
+                        moduleName:
+                          type: string
+                        moduleVersion:
+                          type: string
+                        methodName:
+                          type: string
+                        fileName:
+                          type: string
+                        lineNumber:
+                          type: integer
+                          format: int32
+                        className:
+                          type: string
+                        nativeMethod:
+                          type: boolean
+                  message:
+                    type: string
+                  localizedMessage:
+                    type: string
+            localizedMessage:
+              type: string
+        failureTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - EXPIRED
+              - DELEGATE_PROVISIONING
+              - CONNECTIVITY
+              - AUTHENTICATION
+              - VERIFICATION_FAILURE
+              - APPLICATION_ERROR
+              - AUTHORIZATION_ERROR
+              - TIMEOUT_ERROR
+              - POLICY_EVALUATION_FAILURE
+              - INPUT_TIMEOUT_FAILURE
+              - APPROVAL_REJECTION
+              - DELEGATE_RESTART
     AnomalySummary:
       type: object
       properties:
@@ -96652,6 +96668,9 @@ x-tagGroups:
       - SLOs dashboard
       - NG SLOs
       - SLOs
+  - name: Chaos Engineering
+    tags:
+      - Chaos Engineering
   - name: IDP
     tags:
       - AccountInfo

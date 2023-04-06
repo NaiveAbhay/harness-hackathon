@@ -159,6 +159,9 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
+- name: Chaos Engineering
+  tags: 
+      - Chaos Engineering
 - name: IDP
   tags: 
       - AccountInfo

@@ -3,13 +3,15 @@ apis:
     root: merged.yaml
     decorators:
       remove-x-internal: on
-  core@internal:
-    root: merged.yaml
-    decorators:
-      remove-x-internal: off
-  referenceDocs:
-    sortOperationsAlphabetically: true
-    sortTagsAlphabetically: true
+features.openapi:
+  htmlTemplate: ./index.html
+  sidebarLinks:
+    beforeInfo:
+      - label: Chaos Engineering
+        link: ./chaos.html
+        target: _blank
+  sortOperationsAlphabetically: true
+  sortTagsAlphabetically: true
   lint:
     extends:
       -  minimal
