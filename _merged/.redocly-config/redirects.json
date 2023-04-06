@@ -7,7 +7,7 @@
     "to": "https://www.google.com/",
     "type": 301
   },
-  "https://apidocs.harness.io/tag/Accounts#operation/updateAccountNameNG": {
+  "https://light-rabbit-34.redoc.ly/tag/Accounts#operation/updateAccountNameNG": {
     "to": "#section/Introduction/Authentication",
     "type": 301
   }
