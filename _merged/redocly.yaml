@@ -6,12 +6,11 @@ apis:
 features.openapi:
   htmlTemplate: ./index.html
   sidebarLinks:
-    beforeInfo:
+    end:
       - label: Chaos Engineering
         link: ./chaos.html
         target: _blank
   sortOperationsAlphabetically: true
-  sortTagsAlphabetically: true
   lint:
     extends:
       -  minimal
