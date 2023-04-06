@@ -4,7 +4,7 @@ apis:
     decorators:
       remove-x-internal: on
 features.openapi:
-  htmlTemplate: ./index.html
+  htmlTemplate: ./.redocly-config/index.html
   sidebarLinks:
     end:
       - label: Chaos Engineering
