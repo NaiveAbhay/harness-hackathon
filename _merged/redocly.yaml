@@ -8,7 +8,7 @@ features.openapi:
   sidebarLinks:
     end:
       - label: Chaos Engineering
-        link: ./chaos.html
+        link: https://light-rabbit-34.redoc.ly/chaos.html
         target: _blank
   sortOperationsAlphabetically: true
   lint:
