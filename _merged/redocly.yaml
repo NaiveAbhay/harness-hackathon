@@ -3,13 +3,14 @@ apis:
     root: merged.yaml
     decorators:
       remove-x-internal: on
-theme.openapi:
+features.openapi:
   htmlTemplate: ./index.html
   sidebarLinks:
     end:
       - label: Chaos Engineering
         link: https://light-rabbit-34.redoc.ly/chaos.html
         target: _blank
+theme.openapi:
   sortOperationsAlphabetically: true
   lint:
     extends:
