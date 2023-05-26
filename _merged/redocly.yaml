@@ -14,5 +14,5 @@ theme.openapi:
   lint:
     extends:
       -  minimal
-  rules:
+rules:
   no-identical-paths: error
