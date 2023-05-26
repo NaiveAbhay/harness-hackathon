@@ -24,11 +24,11 @@ info:
       * [Harness key concepts](https://developer.harness.io/docs/getting-started/learn-harness-key-concepts/)
       * [Authentication](#section/Introduction/Authentication)
       * [Requests and responses](#section/Introduction/Requests-and-Responses)
-      * [Common Parameters](#section/Introduction/Common-Parameters)
+      * [Common Parameters](#section/Introduction/Common-Parameters-Beta)
       * [Status Codes](#section/Introduction/Status-Codes)
       * [Errors](#tag/Error-Response)
-      * [Versioning](#section/Introduction/Versioning)
-      * [Pagination](/#section/Introduction/Pagination)
+      * [Versioning](#section/Introduction/Versioning-Beta)
+      * [Pagination](/#section/Introduction/Pagination-Beta)
 
       The methods you need to integrate with depend on the functionality you want to use. Work with  your Harness Solutions Engineer to determine which methods you need.
 
