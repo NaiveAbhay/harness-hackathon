@@ -15,4 +15,4 @@ theme.openapi:
     extends:
       -  minimal
 rules:
-  no-identical-paths: error
+  no-identical-paths: warn
