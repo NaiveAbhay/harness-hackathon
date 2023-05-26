@@ -31,6 +31,7 @@
     - Project Resource Groups
     - Filter Resource Groups
     - Harness Resource Group
+    - Zendesk
 - name: Role Assignments
   tags:
     - Account Role Assignments
@@ -78,6 +79,7 @@
     - Pipeline Execution Details
     - Pipeline Execute
     - Triggers
+    - User Source Code Manager
     - Webhook Triggers
     - Webhook Event Handler
 - name: CD
@@ -159,6 +161,15 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
+- name: Policy Management
+  tags: 
+      - dashboard
+      - examples
+      - policies
+      - evaluate
+      - evaluations
+      - policysets
+      - system      
 - name: Git Sync (deprecated)
   tags:
       - Git Branches

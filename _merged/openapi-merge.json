@@ -25,9 +25,6 @@
       "inputFile": "../template-service/openapi.yaml"
     },
     {
-      "inputFile": "../idp-service/openapi.yaml"
-    },
-    {
       "inputURL": "https://app.harness.io/gratis/ng/api/openapi.json",
       "pathModification": {
         "prepend": "/ng/api"
@@ -121,6 +118,15 @@
       },
       "dispute": {
         "prefix": "GitOps"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/pm/openapi3.json",
+      "pathModification": {
+        "prepend": "/pm"
+      },
+      "dispute": {
+        "prefix": "PolicyManagement"
       }
     },
     {
