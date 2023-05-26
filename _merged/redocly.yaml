@@ -11,3 +11,8 @@ theme.openapi:
         link: https://light-rabbit-34.redoc.ly/chaos.html
         target: _blank
   sortOperationsAlphabetically: true
+  lint:
+    extends:
+      -  minimal
+  rules:
+  no-identical-paths: error
