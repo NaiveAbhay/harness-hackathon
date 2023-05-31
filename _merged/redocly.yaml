@@ -8,7 +8,7 @@ features.openapi:
   sidebarLinks:
     end:
       - label: Chaos Engineering
-        link: https://light-rabbit-34.redoc.ly/chaos.html
+        link: https://apidocs.harness.io/chaos.html
         target: _blank
 theme.openapi:
   sortOperationsAlphabetically: true
