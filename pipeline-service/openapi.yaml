@@ -476,9 +476,9 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
       - $ref: '#/components/parameters/PipelineParam'
     post:
-      summary: Move Pipeline YAML from inline to remote or remote to inline
+      summary: Move Pipeline YAML from inline to remote
       operationId: moveConfig
-      description: Creates a remote entity by fetching pipeline YAML from Harness or an inline entity by fetching pipeline YAML from a remote repository.
+      description: Creates a remote entity by fetching pipeline YAML from Harness.
       responses:
         '200':
           $ref: '#/components/responses/PipelineMoveConfigResponseBody'
@@ -497,9 +497,9 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
       - $ref: '#/components/parameters/InputSetParam'
     post:
-      summary: Move InputSet YAML from inline to remote or remote to inline
+      summary: Move InputSet YAML from inline to remote
       operationId: inputSetsMoveConfig
-      description: Creates a remote entity by fetching the input set YAML from Harness or an inline entity by fetching input set YAML from a remote repository.
+      description: Creates a remote entity by fetching the input set YAML from Harness.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
