@@ -108340,6 +108340,9 @@ x-tagGroups:
       - SLOs dashboard
       - NG SLOs
       - SLOs
+  - name: Custom Dashboards
+    tags: 
+        - Custom Dashboards
   - name: Policy Management
     tags:
       - dashboard
