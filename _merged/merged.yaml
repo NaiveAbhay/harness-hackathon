@@ -406,6 +406,8 @@ tags:
     description: This contains APIs related to construct schema for Freeze
   - name: Clusters
     description: This contains APIs related to Gitops Clusters
+  - name: Service Dashboard
+    description: This contains APIs related to Service Dashboard
   - name: Service Account
     description: This has all the APIs specific to the Service Accounts in Harness.
   - name: Source Code Manager
@@ -452,6 +454,10 @@ tags:
     description: >-
       Manage Budgets and receive alerts when your costs exceed (or are
       forecasted to exceed) your budget.
+  - name: Cloud Cost Cost Categories
+    description: >-
+      Allows you to categorize based on business requirements and get a
+      contextual view of your expenses.
   - name: Cloud Cost K8S Connectors Metadata
     description: Health related metadata for your k8S clusters having cost access enabled.
   - name: Cloud Cost Overview
@@ -462,6 +468,8 @@ tags:
     description: >-
       Select destination currency to view different cloud provider currencies in
       destination currency
+  - name: AiEngine
+    description: 'This contains APIs related to Generative AI Support for Governance '
   - name: RuleEnforcement
     description: 'This contains APIs related to Rule Enforcement '
   - name: Rule
@@ -5214,6 +5222,7 @@ paths:
               - TerraformCloud
               - SignalFX
               - Harness
+              - Rancher
         - name: category
           in: query
           description: Filter Connectors by category
@@ -5771,6 +5780,7 @@ paths:
               - TerraformCloud
               - SignalFX
               - Harness
+              - Rancher
       responses:
         '400':
           description: Bad Request
@@ -6043,6 +6053,10 @@ paths:
             entity can belong to any branch
           schema:
             type: boolean
+        - name: version
+          in: query
+          schema:
+            type: string
         - name: pageIndex
           in: query
           description: 'Page Index of the results to fetch.Default Value: 0'
@@ -7237,7 +7251,7 @@ paths:
               - IACMStep
               - IACM
               - Container
-              - IACMTerraformPlan
+              - IACMTerraformPlugin
               - IACMTemplate
               - ElastigroupBGStageSetup
               - ElastigroupSwapRoute
@@ -19366,12 +19380,10 @@ paths:
             type: string
         - name: orgIdentifier
           in: query
-          required: true
           schema:
             type: string
         - name: projectIdentifier
           in: query
-          required: true
           schema:
             type: string
         - name: organization
@@ -21663,6 +21675,97 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ResponseDTOClusterBatchResponse'
+  /ng/api/dashboard/getPipelineExecutionCount:
+    get:
+      tags:
+        - Service Dashboard
+      summary: >-
+        Get pipeline execution count for a service with grouping support on
+        artifact and deployment status
+      operationId: pipelineExecutionCount
+      parameters:
+        - name: accountIdentifier
+          in: query
+          description: Account Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: orgIdentifier
+          in: query
+          description: Organization Identifier for the Entity.
+          schema:
+            type: string
+        - name: projectIdentifier
+          in: query
+          description: Project Identifier for the Entity.
+          schema:
+            type: string
+        - name: serviceId
+          in: query
+          description: Service Identifier for the Entity.
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          description: Start Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          description: End Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+        - name: artifactPath
+          in: query
+          description: Image/ArtifactPath of the Artifact
+          schema:
+            type: string
+        - name: artifactVersion
+          in: query
+          description: Version of the Artifact
+          schema:
+            type: string
+        - name: artifact
+          in: query
+          description: >-
+            Fully Qualified Name of the Artifact (artifactPath:artifactVersion).
+            For eg. in case of docker it would be imagePath:tag
+          schema:
+            type: string
+        - name: status
+          in: query
+          description: Deployment status
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Error'
+        default:
+          description: >-
+            Returns pipeline execution count for a service with grouping support
+            on artifact and deployment status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOPipelineExecutionCountInfo'
   /ng/api/serviceaccount:
     get:
       tags:
@@ -27103,23 +27206,12 @@ paths:
           in: query
           description: >-
             The Interrupt type needed to be applied to the execution. Choose a
-            value from the enum list: [AbortAll, Abort, Resume, Pause].
+            value from the enum list.
           required: true
           schema:
             type: string
             enum:
               - AbortAll
-              - Abort
-              - Pause
-              - Resume
-              - Ignore
-              - StageRollback
-              - StepGroupRollback
-              - MarkAsSuccess
-              - ExpireAll
-              - Retry
-              - MarkAsFailure
-              - UserMarkedFailure
         - name: planExecutionId
           in: path
           description: >-
@@ -27151,6 +27243,88 @@ paths:
           description: >-
             Takes a possible Interrupt value and applies it onto the execution
             referred by the planExecutionId
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOInterruptResponse'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOInterruptResponse'
+  '/pipeline/api/pipeline/execute/interrupt/{planExecutionId}/{nodeExecutionId}':
+    put:
+      tags:
+        - Pipeline Execute
+      summary: Handles the interrupt for a given stage in a pipeline
+      operationId: handleStageInterrupt
+      parameters:
+        - name: accountIdentifier
+          in: query
+          description: Account Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: orgIdentifier
+          in: query
+          description: Organization Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: projectIdentifier
+          in: query
+          description: Project Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: interruptType
+          in: query
+          description: >-
+            The Interrupt type needed to be applied to the execution. Choose a
+            value from the enum list.
+          required: true
+          schema:
+            type: string
+            enum:
+              - AbortAll
+              - UserMarkedFailure
+        - name: planExecutionId
+          in: path
+          description: >-
+            The Pipeline Execution Id on which the Interrupt needs to be
+            applied.
+          required: true
+          schema:
+            type: string
+        - name: nodeExecutionId
+          in: path
+          description: >-
+            The runtime Id of the step/stage on which the Interrupt needs to be
+            applied.
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/PipelineError'
+        default:
+          description: >-
+            Takes a possible Interrupt value and applies it onto the given stage
+            in the execution
           content:
             application/json:
               schema:
@@ -30433,6 +30607,219 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseDTOListBudget'
+  '/ccm/api/business-mapping/{id}':
+    get:
+      tags:
+        - Cloud Cost Cost Categories
+      summary: Fetch details of a Cost category
+      description: Fetch details of a Cost category for the given Cost category ID.
+      operationId: getBusinessMapping
+      parameters:
+        - name: accountIdentifier
+          in: query
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CcmError'
+        default:
+          description: >-
+            Returns a Cost category object with all the cost and shared buckets,
+            returns null if no Cost category exists for that particular
+            identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseBusinessMapping'
+    delete:
+      tags:
+        - Cloud Cost Cost Categories
+      summary: Delete a Cost category
+      description: Delete a Cost category for the given Cost category ID.
+      operationId: deleteBusinessMapping
+      parameters:
+        - name: accountIdentifier
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CcmError'
+        default:
+          description: >-
+            A string text message whether the delete was successful or not. If
+            the cost category is used in the perspective, the deletion will fail
+            and it will send you the IDs of all the linked perspectives
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseCostCategoryDeleteDTO'
+  /ccm/api/business-mapping:
+    get:
+      tags:
+        - Cloud Cost Cost Categories
+      summary: Return details of all the Cost categories
+      description: Return details of all the Cost categories for the given account ID.
+      operationId: getBusinessMappingList
+      parameters:
+        - name: accountIdentifier
+          in: query
+          schema:
+            type: string
+        - name: searchKey
+          in: query
+          schema:
+            type: string
+        - name: sortType
+          in: query
+          schema:
+            type: string
+            enum:
+              - NAME
+              - LAST_EDIT
+        - name: sortOrder
+          in: query
+          schema:
+            type: string
+            enum:
+              - ASCENDING
+              - DESCENDING
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CcmError'
+        default:
+          description: Returns a List of Cost Categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseBusinessMappingListDTO'
+    put:
+      tags:
+        - Cloud Cost Cost Categories
+      summary: Update a Cost category
+      description: >-
+        Update a Cost category. It accepts a BusinessMapping object and upserts
+        it using the uuid mentioned in the definition.
+      operationId: updateBusinessMapping
+      parameters:
+        - name: accountIdentifier
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessMapping'
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CcmError'
+        default:
+          description: Successfully updated the Business Mapping
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseString'
+    post:
+      tags:
+        - Cloud Cost Cost Categories
+      summary: Create Cost category
+      description: >-
+        Create Cost category that allows you to categorize based on business
+        requirements and get a contextual view of your expenses
+      operationId: createBusinessMapping
+      parameters:
+        - name: accountIdentifier
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BusinessMapping'
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CcmError'
+        default:
+          description: >-
+            Returns a created Cost category object with all the cost and shared
+            buckets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestResponseBusinessMapping'
   /ccm/api/ccmK8sMeta:
     post:
       tags:
@@ -31397,6 +31784,8 @@ paths:
               - AwsSamBuild
               - Semgrep
               - SscaEnforcement
+              - IdpConnector
+              - CdSscaEnforcement
       requestBody:
         content:
           application/json:
@@ -34580,6 +34969,92 @@ paths:
         '400':
           description: Invalid status value
           content: {}
+  '/lw/api/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown':
+    post:
+      tags:
+        - Cloud Cost AutoStopping Rules
+      summary: Cool down an AutoStopping Rule
+      description: Cool down resources under an Autostopping rule
+      operationId: CoolDownAutostoppingRule
+      parameters:
+        - name: account_id
+          description: Account Identifier for the Entity
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rule_id
+          description: >-
+            ID of the AutoStopping rule for which you need to fetch the
+            diagnostics details
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: accountIdentifier
+          description: Account Identifier for the Entity
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Cool Down Options
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/CoolDownOption'
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal error
+          content: {}
+  '/lw/api/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown_meta':
+    get:
+      tags:
+        - Cloud Cost AutoStopping Rules
+      summary: Return metadata of cool down of an AutoStopping Rule
+      description: Return metadata of cool down of an AutoStopping Rule
+      operationId: GetAutoStoppingCoolDownMeta
+      parameters:
+        - name: account_id
+          description: Account Identifier for the Entity
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: rule_id
+          description: >-
+            ID of the AutoStopping rule for which you need to fetch the
+            diagnostics details
+          in: path
+          required: true
+          schema:
+            type: number
+        - name: accountIdentifier
+          description: Account Identifier for the Entity
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoolDownMetaSuccessResponse'
+        '500':
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoolDownMetaFailureResponse'
   '/lw/api/accounts/{account_id}/autostopping/rules/savings/cumulative':
     get:
       tags:
@@ -59686,13 +60161,13 @@ components:
         ringName:
           type: string
           description: Specifies delegate ring version for account
-        twoFactorAdminEnforced:
+        nextGenEnabled:
           type: boolean
         crossGenerationAccessEnabled:
           type: boolean
         productLed:
           type: boolean
-        nextGenEnabled:
+        twoFactorAdminEnforced:
           type: boolean
       description: Account details defined in Harness.
     ResponseDTOAccount:
@@ -61142,9 +61617,9 @@ components:
     ByteString:
       type: object
       properties:
-        validUtf8:
-          type: boolean
         empty:
+          type: boolean
+        validUtf8:
           type: boolean
     CEAwsConnector:
       required:
@@ -61362,6 +61837,7 @@ components:
             - TerraformCloud
             - SignalFX
             - Harness
+            - Rancher
         spec:
           $ref: '#/components/schemas/ConnectorConfig'
       description: This has the Connector details defined in Harness
@@ -61540,6 +62016,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OneofDescriptor'
+        name:
+          type: string
         options:
           $ref: '#/components/schemas/MessageOptions'
         realOneofs:
@@ -61548,19 +62026,13 @@ components:
             $ref: '#/components/schemas/OneofDescriptor'
         extendable:
           type: boolean
-        name:
-          type: string
     DescriptorProto:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        enumTypeCount:
-          type: integer
-          format: int32
-        extensionCount:
-          type: integer
-          format: int32
+        name:
+          type: string
         initialized:
           type: boolean
         options:
@@ -61568,13 +62040,12 @@ components:
         fieldCount:
           type: integer
           format: int32
-        parserForType:
-          $ref: '#/components/schemas/ParserDescriptorProto'
-        serializedSize:
+        enumTypeCount:
           type: integer
           format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/DescriptorProto'
+        extensionCount:
+          type: integer
+          format: int32
         reservedRangeList:
           type: array
           items:
@@ -61599,6 +62070,13 @@ components:
         extensionRangeCount:
           type: integer
           format: int32
+        parserForType:
+          $ref: '#/components/schemas/ParserDescriptorProto'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/DescriptorProto'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         enumTypeList:
@@ -61619,16 +62097,6 @@ components:
             $ref: '#/components/schemas/FieldDescriptorProtoOrBuilder'
         optionsOrBuilder:
           $ref: '#/components/schemas/MessageOptionsOrBuilder'
-        reservedRangeOrBuilderList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReservedRangeOrBuilder'
-        reservedRangeCount:
-          type: integer
-          format: int32
-        reservedNameCount:
-          type: integer
-          format: int32
         fieldList:
           type: array
           items:
@@ -61657,8 +62125,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OneofDescriptorProtoOrBuilder'
-        name:
-          type: string
+        reservedRangeOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReservedRangeOrBuilder'
+        reservedRangeCount:
+          type: integer
+          format: int32
+        reservedNameCount:
+          type: integer
+          format: int32
         allFields:
           type: object
           additionalProperties:
@@ -61674,15 +62150,17 @@ components:
     DescriptorProtoOrBuilder:
       type: object
       properties:
+        name:
+          type: string
+        options:
+          $ref: '#/components/schemas/MessageOptions'
+        fieldCount:
+          type: integer
+          format: int32
         enumTypeCount:
           type: integer
           format: int32
         extensionCount:
-          type: integer
-          format: int32
-        options:
-          $ref: '#/components/schemas/MessageOptions'
-        fieldCount:
           type: integer
           format: int32
         reservedRangeList:
@@ -61726,16 +62204,6 @@ components:
             $ref: '#/components/schemas/FieldDescriptorProtoOrBuilder'
         optionsOrBuilder:
           $ref: '#/components/schemas/MessageOptionsOrBuilder'
-        reservedRangeOrBuilderList:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReservedRangeOrBuilder'
-        reservedRangeCount:
-          type: integer
-          format: int32
-        reservedNameCount:
-          type: integer
-          format: int32
         fieldList:
           type: array
           items:
@@ -61756,8 +62224,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OneofDescriptorProtoOrBuilder'
-        name:
-          type: string
+        reservedRangeOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReservedRangeOrBuilder'
+        reservedRangeCount:
+          type: integer
+          format: int32
+        reservedNameCount:
+          type: integer
+          format: int32
         allFields:
           type: object
           additionalProperties:
@@ -61897,26 +62373,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EnumValueDescriptor'
-        options:
-          $ref: '#/components/schemas/EnumOptions'
         name:
           type: string
+        options:
+          $ref: '#/components/schemas/EnumOptions'
     EnumDescriptorProto:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        name:
+          type: string
         initialized:
           type: boolean
         options:
           $ref: '#/components/schemas/EnumOptions'
-        parserForType:
-          $ref: '#/components/schemas/ParserEnumDescriptorProto'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/EnumDescriptorProto'
         reservedRangeList:
           type: array
           items:
@@ -61928,6 +62399,13 @@ components:
               type: boolean
           items:
             type: string
+        parserForType:
+          $ref: '#/components/schemas/ParserEnumDescriptorProto'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EnumDescriptorProto'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
@@ -61953,8 +62431,6 @@ components:
         valueCount:
           type: integer
           format: int32
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -61970,6 +62446,8 @@ components:
     EnumDescriptorProtoOrBuilder:
       type: object
       properties:
+        name:
+          type: string
         options:
           $ref: '#/components/schemas/EnumOptions'
         reservedRangeList:
@@ -62005,8 +62483,6 @@ components:
         valueCount:
           type: integer
           format: int32
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62165,20 +62641,22 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/EnumDescriptor'
+        name:
+          type: string
+        file:
+          $ref: '#/components/schemas/FileDescriptor'
         number:
           type: integer
           format: int32
         options:
           $ref: '#/components/schemas/EnumValueOptions'
-        name:
-          type: string
-        file:
-          $ref: '#/components/schemas/FileDescriptor'
     EnumValueDescriptorProto:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        name:
+          type: string
         number:
           type: integer
           format: int32
@@ -62197,8 +62675,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/EnumValueOptionsOrBuilder'
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62214,6 +62690,8 @@ components:
     EnumValueDescriptorProtoOrBuilder:
       type: object
       properties:
+        name:
+          type: string
         number:
           type: integer
           format: int32
@@ -62223,8 +62701,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/EnumValueOptionsOrBuilder'
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62520,8 +62996,6 @@ components:
           $ref: '#/components/schemas/EnumDescriptor'
         defaultValue:
           type: object
-        optional:
-          type: boolean
         javaType:
           type: string
           enum:
@@ -62534,18 +63008,22 @@ components:
             - BYTE_STRING
             - ENUM
             - MESSAGE
+        optional:
+          type: boolean
+        name:
+          type: string
         number:
           type: integer
           format: int32
-        extension:
+        options:
+          $ref: '#/components/schemas/FieldOptions'
+        required:
           type: boolean
         repeated:
           type: boolean
         mapField:
           type: boolean
-        options:
-          $ref: '#/components/schemas/FieldOptions'
-        required:
+        extension:
           type: boolean
         liteType:
           type: string
@@ -62586,8 +63064,6 @@ components:
           type: boolean
         realContainingOneof:
           $ref: '#/components/schemas/OneofDescriptor'
-        name:
-          type: string
     FieldDescriptorProto:
       type: object
       properties:
@@ -62599,6 +63075,33 @@ components:
             - LABEL_OPTIONAL
             - LABEL_REQUIRED
             - LABEL_REPEATED
+        name:
+          type: string
+        typeName:
+          type: string
+        type:
+          type: string
+          enum:
+            - TYPE_DOUBLE
+            - TYPE_FLOAT
+            - TYPE_INT64
+            - TYPE_UINT64
+            - TYPE_INT32
+            - TYPE_FIXED64
+            - TYPE_FIXED32
+            - TYPE_BOOL
+            - TYPE_STRING
+            - TYPE_GROUP
+            - TYPE_MESSAGE
+            - TYPE_BYTES
+            - TYPE_UINT32
+            - TYPE_ENUM
+            - TYPE_SFIXED32
+            - TYPE_SFIXED64
+            - TYPE_SINT32
+            - TYPE_SINT64
+        defaultValue:
+          type: string
         number:
           type: integer
           format: int32
@@ -62634,6 +63137,27 @@ components:
           $ref: '#/components/schemas/ByteString'
         defaultValueBytes:
           $ref: '#/components/schemas/ByteString'
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initializationErrorString:
+          type: string
+        memoizedSerializedSize:
+          type: integer
+          format: int32
+          writeOnly: true
+    FieldDescriptorProtoOrBuilder:
+      type: object
+      properties:
+        label:
+          type: string
+          enum:
+            - LABEL_OPTIONAL
+            - LABEL_REQUIRED
+            - LABEL_REPEATED
         name:
           type: string
         typeName:
@@ -62661,27 +63185,6 @@ components:
             - TYPE_SINT64
         defaultValue:
           type: string
-        allFields:
-          type: object
-          additionalProperties:
-            type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
-        initializationErrorString:
-          type: string
-        memoizedSerializedSize:
-          type: integer
-          format: int32
-          writeOnly: true
-    FieldDescriptorProtoOrBuilder:
-      type: object
-      properties:
-        label:
-          type: string
-          enum:
-            - LABEL_OPTIONAL
-            - LABEL_REQUIRED
-            - LABEL_REPEATED
         number:
           type: integer
           format: int32
@@ -62708,33 +63211,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         defaultValueBytes:
           $ref: '#/components/schemas/ByteString'
-        name:
-          type: string
-        typeName:
-          type: string
-        type:
-          type: string
-          enum:
-            - TYPE_DOUBLE
-            - TYPE_FLOAT
-            - TYPE_INT64
-            - TYPE_UINT64
-            - TYPE_INT32
-            - TYPE_FIXED64
-            - TYPE_FIXED32
-            - TYPE_BOOL
-            - TYPE_STRING
-            - TYPE_GROUP
-            - TYPE_MESSAGE
-            - TYPE_BYTES
-            - TYPE_UINT32
-            - TYPE_ENUM
-            - TYPE_SFIXED32
-            - TYPE_SFIXED64
-            - TYPE_SINT32
-            - TYPE_SINT64
-        defaultValue:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -62893,25 +63369,35 @@ components:
             $ref: '#/components/schemas/FileDescriptor'
         fullName:
           type: string
-        syntax:
-          type: string
-          enum:
-            - UNKNOWN
-            - PROTO2
-            - PROTO3
-        options:
-          $ref: '#/components/schemas/FileOptions'
         name:
           type: string
         package:
           type: string
         file:
           $ref: '#/components/schemas/FileDescriptor'
+        options:
+          $ref: '#/components/schemas/FileOptions'
+        syntax:
+          type: string
+          enum:
+            - UNKNOWN
+            - PROTO2
+            - PROTO3
     FileDescriptorProto:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        name:
+          type: string
+        package:
+          type: string
+        initialized:
+          type: boolean
+        options:
+          $ref: '#/components/schemas/FileOptions'
+        syntax:
+          type: string
         publicDependencyCount:
           type: integer
           format: int32
@@ -62930,12 +63416,6 @@ components:
         extensionCount:
           type: integer
           format: int32
-        syntax:
-          type: string
-        initialized:
-          type: boolean
-        options:
-          $ref: '#/components/schemas/FileOptions'
         parserForType:
           $ref: '#/components/schemas/ParserFileDescriptorProto'
         serializedSize:
@@ -63007,10 +63487,6 @@ components:
           $ref: '#/components/schemas/SourceCodeInfoOrBuilder'
         syntaxBytes:
           $ref: '#/components/schemas/ByteString'
-        name:
-          type: string
-        package:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -63045,24 +63521,6 @@ components:
           type: string
         javaOuterClassnameBytes:
           $ref: '#/components/schemas/ByteString'
-        javaMultipleFiles:
-          type: boolean
-        javaGenerateEqualsAndHash:
-          type: boolean
-        javaStringCheckUtf8:
-          type: boolean
-        optimizeFor:
-          type: string
-          enum:
-            - SPEED
-            - CODE_SIZE
-            - LITE_RUNTIME
-        goPackage:
-          type: string
-        goPackageBytes:
-          $ref: '#/components/schemas/ByteString'
-        ccGenericServices:
-          type: boolean
         javaGenericServices:
           type: boolean
         pyGenericServices:
@@ -63087,6 +63545,24 @@ components:
           $ref: '#/components/schemas/ByteString'
         phpClassPrefix:
           type: string
+        javaMultipleFiles:
+          type: boolean
+        javaGenerateEqualsAndHash:
+          type: boolean
+        javaStringCheckUtf8:
+          type: boolean
+        optimizeFor:
+          type: string
+          enum:
+            - SPEED
+            - CODE_SIZE
+            - LITE_RUNTIME
+        goPackage:
+          type: string
+        goPackageBytes:
+          $ref: '#/components/schemas/ByteString'
+        ccGenericServices:
+          type: boolean
         phpClassPrefixBytes:
           $ref: '#/components/schemas/ByteString'
         phpNamespace:
@@ -63139,24 +63615,6 @@ components:
           type: string
         javaOuterClassnameBytes:
           $ref: '#/components/schemas/ByteString'
-        javaMultipleFiles:
-          type: boolean
-        javaGenerateEqualsAndHash:
-          type: boolean
-        javaStringCheckUtf8:
-          type: boolean
-        optimizeFor:
-          type: string
-          enum:
-            - SPEED
-            - CODE_SIZE
-            - LITE_RUNTIME
-        goPackage:
-          type: string
-        goPackageBytes:
-          $ref: '#/components/schemas/ByteString'
-        ccGenericServices:
-          type: boolean
         javaGenericServices:
           type: boolean
         pyGenericServices:
@@ -63181,6 +63639,24 @@ components:
           $ref: '#/components/schemas/ByteString'
         phpClassPrefix:
           type: string
+        javaMultipleFiles:
+          type: boolean
+        javaGenerateEqualsAndHash:
+          type: boolean
+        javaStringCheckUtf8:
+          type: boolean
+        optimizeFor:
+          type: string
+          enum:
+            - SPEED
+            - CODE_SIZE
+            - LITE_RUNTIME
+        goPackage:
+          type: string
+        goPackageBytes:
+          $ref: '#/components/schemas/ByteString'
+        ccGenericServices:
+          type: boolean
         phpClassPrefixBytes:
           $ref: '#/components/schemas/ByteString'
         phpNamespace:
@@ -63829,9 +64305,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        timestamp:
-          type: integer
-          format: int64
         action:
           type: string
         entity:
@@ -63841,22 +64314,29 @@ components:
         created:
           type: integer
           format: int64
-        accountId:
-          type: string
+        timestamp:
+          type: integer
+          format: int64
+        initialized:
+          type: boolean
+        typeBytes:
+          $ref: '#/components/schemas/ByteString'
+        messageBytes:
+          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
+        accountId:
+          type: string
         accountIdBytes:
           $ref: '#/components/schemas/ByteString'
         orgId:
           type: string
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
-        messageBytes:
+        projectId:
+          type: string
+        projectIdBytes:
           $ref: '#/components/schemas/ByteString'
-        initialized:
-          type: boolean
-        deny:
-          type: boolean
         idBytes:
           $ref: '#/components/schemas/ByteString'
         detailsList:
@@ -63874,12 +64354,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         actionBytes:
           $ref: '#/components/schemas/ByteString'
-        projectId:
-          type: string
-        projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        typeBytes:
-          $ref: '#/components/schemas/ByteString'
         serializedSize:
           type: integer
           format: int32
@@ -63887,6 +64361,8 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata2'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
+        deny:
+          type: boolean
         message:
           type: string
         id:
@@ -63897,10 +64373,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -64366,8 +64842,11 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        leadingCommentsBytes:
-          $ref: '#/components/schemas/ByteString'
+        pathList:
+          type: array
+          items:
+            type: integer
+            format: int32
         pathCount:
           type: integer
           format: int32
@@ -64381,6 +64860,8 @@ components:
           format: int32
         leadingComments:
           type: string
+        leadingCommentsBytes:
+          $ref: '#/components/schemas/ByteString'
         trailingComments:
           type: string
         trailingCommentsBytes:
@@ -64395,11 +64876,6 @@ components:
         leadingDetachedCommentsCount:
           type: integer
           format: int32
-        pathList:
-          type: array
-          items:
-            type: integer
-            format: int32
         initialized:
           type: boolean
         parserForType:
@@ -64424,8 +64900,11 @@ components:
     LocationOrBuilder:
       type: object
       properties:
-        leadingCommentsBytes:
-          $ref: '#/components/schemas/ByteString'
+        pathList:
+          type: array
+          items:
+            type: integer
+            format: int32
         pathCount:
           type: integer
           format: int32
@@ -64439,6 +64918,8 @@ components:
           format: int32
         leadingComments:
           type: string
+        leadingCommentsBytes:
+          $ref: '#/components/schemas/ByteString'
         trailingComments:
           type: string
         trailingCommentsBytes:
@@ -64450,11 +64931,6 @@ components:
         leadingDetachedCommentsCount:
           type: integer
           format: int32
-        pathList:
-          type: array
-          items:
-            type: integer
-            format: int32
         allFields:
           type: object
           additionalProperties:
@@ -64508,9 +64984,9 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        messageSetWireFormat:
-          type: boolean
         initialized:
+          type: boolean
+        messageSetWireFormat:
           type: boolean
         parserForType:
           $ref: '#/components/schemas/ParserMessageOptions'
@@ -64540,14 +65016,14 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
-        initializationErrorString:
-          type: string
         allFieldsRaw:
           type: object
           additionalProperties:
             type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initializationErrorString:
+          type: string
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -64606,14 +65082,14 @@ components:
           $ref: '#/components/schemas/Descriptor'
         outputType:
           $ref: '#/components/schemas/Descriptor'
-        options:
-          $ref: '#/components/schemas/MethodOptions'
         clientStreaming:
           type: boolean
         serverStreaming:
           type: boolean
         name:
           type: string
+        options:
+          $ref: '#/components/schemas/MethodOptions'
     MethodDescriptorProto:
       type: object
       properties:
@@ -64623,6 +65099,12 @@ components:
           $ref: '#/components/schemas/ByteString'
         outputTypeBytes:
           $ref: '#/components/schemas/ByteString'
+        clientStreaming:
+          type: boolean
+        serverStreaming:
+          type: boolean
+        name:
+          type: string
         initialized:
           type: boolean
         options:
@@ -64642,12 +65124,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/MethodOptionsOrBuilder'
-        serverStreaming:
-          type: boolean
-        clientStreaming:
-          type: boolean
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -64667,6 +65143,12 @@ components:
           $ref: '#/components/schemas/ByteString'
         outputTypeBytes:
           $ref: '#/components/schemas/ByteString'
+        clientStreaming:
+          type: boolean
+        serverStreaming:
+          type: boolean
+        name:
+          type: string
         options:
           $ref: '#/components/schemas/MethodOptions'
         outputType:
@@ -64677,12 +65159,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/MethodOptionsOrBuilder'
-        serverStreaming:
-          type: boolean
-        clientStreaming:
-          type: boolean
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -64996,17 +65472,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldDescriptor'
-        options:
-          $ref: '#/components/schemas/OneofOptions'
         name:
           type: string
         synthetic:
           type: boolean
+        options:
+          $ref: '#/components/schemas/OneofOptions'
     OneofDescriptorProto:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        name:
+          type: string
         initialized:
           type: boolean
         options:
@@ -65022,8 +65500,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/OneofOptionsOrBuilder'
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -65039,14 +65515,14 @@ components:
     OneofDescriptorProtoOrBuilder:
       type: object
       properties:
+        name:
+          type: string
         options:
           $ref: '#/components/schemas/OneofOptions'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
           $ref: '#/components/schemas/OneofOptionsOrBuilder'
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -65264,8 +65740,16 @@ components:
           format: int64
         policyId:
           type: string
-        accountId:
+        identifier:
           type: string
+        severity:
+          type: string
+        policyName:
+          type: string
+        initialized:
+          type: boolean
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         policyIdBytes:
           $ref: '#/components/schemas/ByteString'
         policyNameBytes:
@@ -65284,22 +65768,14 @@ components:
           format: int32
         statusBytes:
           $ref: '#/components/schemas/ByteString'
+        accountId:
+          type: string
         accountIdBytes:
           $ref: '#/components/schemas/ByteString'
         orgId:
           type: string
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
-        identifier:
-          type: string
-        severity:
-          type: string
-        identifierBytes:
-          $ref: '#/components/schemas/ByteString'
-        policyName:
-          type: string
-        initialized:
-          type: boolean
         projectId:
           type: string
         projectIdBytes:
@@ -65317,10 +65793,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -65355,13 +65831,13 @@ components:
           type: string
         policyId:
           type: string
-        severity:
+        accountId:
           type: string
         identifier:
           type: string
-        policyName:
+        severity:
           type: string
-        accountId:
+        policyName:
           type: string
         projectId:
           type: string
@@ -65401,42 +65877,25 @@ components:
         created:
           type: integer
           format: int64
-        accountId:
+        identifier:
           type: string
+        initialized:
+          type: boolean
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
+        accountId:
+          type: string
         accountIdBytes:
           $ref: '#/components/schemas/ByteString'
         orgId:
           type: string
         orgIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifier:
-          type: string
-        identifierBytes:
-          $ref: '#/components/schemas/ByteString'
-        initialized:
-          type: boolean
-        policySetId:
-          type: string
-        policySetIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        deny:
-          type: boolean
-        policyMetadataList:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyMetadata1'
-        policyMetadataCount:
-          type: integer
-          format: int32
-        policyMetadataOrBuilderList:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicyMetadataOrBuilder'
-        policySetName:
-          type: string
-        policySetNameBytes:
           $ref: '#/components/schemas/ByteString'
         projectId:
           type: string
@@ -65449,14 +65908,31 @@ components:
           $ref: '#/components/schemas/PolicySetMetadata1'
         parserForType:
           $ref: '#/components/schemas/ParserPolicySetMetadata'
+        policySetId:
+          type: string
+        policySetIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        deny:
+          type: boolean
+        policyMetadataList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyMetadata1'
+        policyMetadataCount:
+          type: integer
+          format: int32
+        policyMetadataOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyMetadataOrBuilder'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -65469,19 +65945,27 @@ components:
         created:
           type: integer
           format: int64
-        accountId:
+        identifier:
           type: string
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
+        accountId:
+          type: string
         accountIdBytes:
           $ref: '#/components/schemas/ByteString'
         orgId:
           type: string
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
-        identifier:
+        projectId:
           type: string
-        identifierBytes:
+        projectIdBytes:
           $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
@@ -65500,26 +65984,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PolicyMetadataOrBuilder'
-        policySetName:
-          type: string
-        policySetNameBytes:
-          $ref: '#/components/schemas/ByteString'
-        projectId:
-          type: string
-        projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     PrometheusConnectorDTO:
@@ -65552,6 +66028,69 @@ components:
           type: boolean
       items:
         type: string
+    RancherAuthentication:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - BearerToken
+        spec:
+          $ref: '#/components/schemas/RancherConnectorConfigAuthentication'
+      description: This contains rancher authentication details
+    RancherConnector:
+      type: object
+      description: This contains Rancher connector details
+      allOf:
+        - $ref: '#/components/schemas/ConnectorConfig'
+        - type: object
+          properties:
+            delegateSelectors:
+              uniqueItems: true
+              type: array
+              items:
+                type: string
+            credential:
+              $ref: '#/components/schemas/RancherConnectorConfig'
+    RancherConnectorBearerTokenAuthentication:
+      required:
+        - passwordRef
+      type: object
+      description: This contains rancher bearer token auth details
+      allOf:
+        - $ref: '#/components/schemas/RancherConnectorConfigAuthentication'
+        - type: object
+          properties:
+            passwordRef:
+              type: string
+    RancherConnectorConfig:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - ManualConfig
+        spec:
+          $ref: '#/components/schemas/RancherConnectorConfigAuth'
+      description: This contains rancher connector config details
+    RancherConnectorConfigAuth:
+      required:
+        - auth
+        - rancherUrl
+      type: object
+      properties:
+        rancherUrl:
+          type: string
+        auth:
+          $ref: '#/components/schemas/RancherAuthentication'
+      description: This contains rancher connector authentication details
+    RancherConnectorConfigAuthentication:
+      type: object
+      description: This contains rancher auth credentials
     ReservedRange:
       type: object
       properties:
@@ -65638,10 +66177,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MethodDescriptor'
-        options:
-          $ref: '#/components/schemas/ServiceOptions'
         name:
           type: string
+        options:
+          $ref: '#/components/schemas/ServiceOptions'
     ServiceDescriptorProto:
       type: object
       properties:
@@ -65651,6 +66190,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MethodDescriptorProto'
+        name:
+          type: string
         initialized:
           type: boolean
         options:
@@ -65673,8 +66214,6 @@ components:
         methodCount:
           type: integer
           format: int32
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -65694,6 +66233,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MethodDescriptorProto'
+        name:
+          type: string
         options:
           $ref: '#/components/schemas/ServiceOptions'
         nameBytes:
@@ -65707,8 +66248,6 @@ components:
         methodCount:
           type: integer
           format: int32
-        name:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -66177,12 +66716,12 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         stringValue:
           $ref: '#/components/schemas/ByteString'
-        nameCount:
-          type: integer
-          format: int32
         doubleValue:
           type: number
           format: double
+        nameCount:
+          type: integer
+          format: int32
         initialized:
           type: boolean
         parserForType:
@@ -66231,12 +66770,12 @@ components:
       properties:
         stringValue:
           $ref: '#/components/schemas/ByteString'
-        nameCount:
-          type: integer
-          format: int32
         doubleValue:
           type: number
           format: double
+        nameCount:
+          type: integer
+          format: int32
         nameList:
           type: array
           items:
@@ -66502,6 +67041,7 @@ components:
               - TerraformCloud
               - SignalFX
               - Harness
+              - Rancher
         categories:
           type: array
           description: >-
@@ -66701,6 +67241,7 @@ components:
               - TerraformCloud
               - SignalFX
               - Harness
+              - Rancher
       description: This has details of the Connector Catalogue in Harness.
     ConnectorCatalogueResponse:
       type: object
@@ -66811,6 +67352,7 @@ components:
             - TerraformCloud
             - SignalFX
             - Harness
+            - Rancher
         count:
           type: integer
           format: int32
@@ -67246,7 +67788,7 @@ components:
             - IACMStep
             - IACM
             - Container
-            - IACMTerraformPlan
+            - IACMTerraformPlugin
             - IACMTemplate
             - ElastigroupBGStageSetup
             - ElastigroupSwapRoute
@@ -67300,9 +67842,47 @@ components:
           $ref: '#/components/schemas/EntityReference'
         name:
           type: string
+        entityGitMetadata:
+          $ref: '#/components/schemas/EntityGitMetadata'
+    EntityGitMetadata:
+      type: object
+      properties:
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        repo:
+          type: string
+        branchBytes:
+          $ref: '#/components/schemas/ByteString'
+        repoBytes:
+          $ref: '#/components/schemas/ByteString'
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EntityGitMetadata'
+        parserForType:
+          $ref: '#/components/schemas/ParserEntityGitMetadata'
+        branch:
+          type: string
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        initializationErrorString:
+          type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        memoizedSerializedSize:
+          type: integer
+          format: int32
+          writeOnly: true
     EntityReference:
       type: object
       properties:
+        branch:
+          type: string
         repoIdentifier:
           type: string
         isDefault:
@@ -67312,8 +67892,6 @@ components:
           type: object
           additionalProperties:
             type: string
-        branch:
-          type: string
         default:
           type: boolean
         identifier:
@@ -67596,7 +68174,7 @@ components:
               - IACMStep
               - IACM
               - Container
-              - IACMTerraformPlan
+              - IACMTerraformPlugin
               - IACMTemplate
               - ElastigroupBGStageSetup
               - ElastigroupSwapRoute
@@ -67659,20 +68237,20 @@ components:
         totalElements:
           type: integer
           format: int64
+        first:
+          type: boolean
         sort:
           $ref: '#/components/schemas/Sort'
         number:
           type: integer
           format: int32
-        first:
-          type: boolean
+        pageable:
+          $ref: '#/components/schemas/Pageable'
         numberOfElements:
           type: integer
           format: int32
         last:
           type: boolean
-        pageable:
-          $ref: '#/components/schemas/Pageable'
         size:
           type: integer
           format: int32
@@ -67687,6 +68265,12 @@ components:
       properties:
         sort:
           $ref: '#/components/schemas/Sort'
+        offset:
+          type: integer
+          format: int64
+        pageSize:
+          type: integer
+          format: int32
         paged:
           type: boolean
         unpaged:
@@ -67694,12 +68278,6 @@ components:
         pageNumber:
           type: integer
           format: int32
-        pageSize:
-          type: integer
-          format: int32
-        offset:
-          type: integer
-          format: int64
     ResponseDTOPageFile:
       type: object
       properties:
@@ -67718,11 +68296,11 @@ components:
     Sort:
       type: object
       properties:
-        unsorted:
+        empty:
           type: boolean
         sorted:
           type: boolean
-        empty:
+        unsorted:
           type: boolean
     FilesFilterPropertiesDTO:
       required:
@@ -67934,7 +68512,7 @@ components:
             - IACMStep
             - IACM
             - Container
-            - IACMTerraformPlan
+            - IACMTerraformPlugin
             - IACMTemplate
             - ElastigroupBGStageSetup
             - ElastigroupSwapRoute
@@ -68539,7 +69117,7 @@ components:
             - IACMStep
             - IACM
             - Container
-            - IACMTerraformPlan
+            - IACMTerraformPlugin
             - IACMTemplate
             - ElastigroupBGStageSetup
             - ElastigroupSwapRoute
@@ -68837,7 +69415,7 @@ components:
               - IACMStep
               - IACM
               - Container
-              - IACMTerraformPlan
+              - IACMTerraformPlugin
               - IACMTemplate
               - ElastigroupBGStageSetup
               - ElastigroupSwapRoute
@@ -69046,6 +69624,7 @@ components:
             - TerraformCloud
             - SignalFX
             - Harness
+            - Rancher
         gitSyncFolderConfigDTOs:
           type: array
           description: List of all Root Folder Details
@@ -69082,11 +69661,11 @@ components:
         isGitSyncEnabledOnlyForFF:
           type: boolean
           writeOnly: true
+        gitSyncEnabled:
+          type: boolean
         gitSyncEnabledOnlyForFF:
           type: boolean
         gitSimplificationEnabled:
-          type: boolean
-        gitSyncEnabled:
           type: boolean
       description: >-
         This contains details of connectivity mode and whether Git Sync is
@@ -69319,7 +69898,7 @@ components:
             - IACMStep
             - IACM
             - Container
-            - IACMTerraformPlan
+            - IACMTerraformPlugin
             - IACMTemplate
             - ElastigroupBGStageSetup
             - ElastigroupSwapRoute
@@ -70438,6 +71017,10 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
+        entityGitMetadata:
+          $ref: '#/components/schemas/EntityGitMetadata'
         inputSetRef:
           $ref: '#/components/schemas/InputSetReferenceProtoDTO'
         infraDefRef:
@@ -70457,6 +71040,8 @@ components:
           $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTOOrBuilder'
         triggerRefOrBuilder:
           $ref: '#/components/schemas/TriggerReferenceProtoDTOOrBuilder'
+        entityGitMetadataOrBuilder:
+          $ref: '#/components/schemas/EntityGitMetadataOrBuilder'
         entityRefCase:
           type: string
           enum:
@@ -70466,12 +71051,8 @@ components:
             - INFRADEFREF
             - TRIGGERREF
             - ENTITYREF_NOT_SET
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         initialized:
           type: boolean
-        identifierRef:
-          $ref: '#/components/schemas/IdentifierRefProtoDTO'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         serializedSize:
@@ -70481,6 +71062,8 @@ components:
           $ref: '#/components/schemas/EntityDetailProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
+        identifierRef:
+          $ref: '#/components/schemas/IdentifierRefProtoDTO'
         name:
           type: string
         type:
@@ -70657,7 +71240,7 @@ components:
             - TAS_BG_APP_SETUP_STEP
             - TAS_BASIC_APP_SETUP_STEP
             - TANZU_COMMAND_STEP
-            - IACM_TERRAFORM_PLAN
+            - IACM_TERRAFORM_PLUGIN
             - TAS_APP_RESIZE_STEP
             - TAS_ROLLBACK_STEP
             - TAS_SWAP_ROUTES_STEP
@@ -70704,33 +71287,44 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
           writeOnly: true
+    EntityGitMetadataOrBuilder:
+      type: object
+      properties:
+        repo:
+          type: string
+        branchBytes:
+          $ref: '#/components/schemas/ByteString'
+        repoBytes:
+          $ref: '#/components/schemas/ByteString'
+        branch:
+          type: string
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
+        initializationErrorString:
+          type: string
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initialized:
+          type: boolean
     IdentifierRefProtoDTO:
       type: object
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        metadataCount:
-          type: integer
-          format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
         scope:
           type: string
           enum:
@@ -70739,6 +71333,20 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
+        metadataCount:
+          type: integer
+          format: int32
+        scopeValue:
+          type: integer
+          format: int32
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
           additionalProperties:
@@ -70751,12 +71359,12 @@ components:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -70768,10 +71376,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -70779,20 +71387,6 @@ components:
     IdentifierRefProtoDTOOrBuilder:
       type: object
       properties:
-        metadataCount:
-          type: integer
-          format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
         scope:
           type: string
           enum:
@@ -70801,6 +71395,20 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
+        metadataCount:
+          type: integer
+          format: int32
+        scopeValue:
+          type: integer
+          format: int32
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
           additionalProperties:
@@ -70811,24 +71419,24 @@ components:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     InfraDefinitionReferenceProtoDTO:
@@ -70836,13 +71444,13 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
         metadataCount:
           type: integer
           format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
@@ -70851,6 +71459,10 @@ components:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envNameOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
           additionalProperties:
@@ -70863,16 +71475,12 @@ components:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -70884,10 +71492,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -70895,13 +71503,13 @@ components:
     InfraDefinitionReferenceProtoDTOOrBuilder:
       type: object
       properties:
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
         metadataCount:
           type: integer
           format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
@@ -70909,6 +71517,10 @@ components:
         envIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
@@ -70920,28 +71532,24 @@ components:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     InputSetReferenceProtoDTO:
@@ -70949,19 +71557,17 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
-          $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
@@ -70970,6 +71576,8 @@ components:
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
@@ -70982,10 +71590,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -70993,19 +71601,17 @@ components:
     InputSetReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
-          $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
@@ -71013,21 +71619,25 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     ParserEntityDetailProtoDTO:
+      type: object
+    ParserEntityGitMetadata:
       type: object
     ParserIdentifierRefProtoDTO:
       type: object
@@ -71065,8 +71675,6 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         initialized:
           type: boolean
-        valueBytes:
-          $ref: '#/components/schemas/ByteString'
         serializedSize:
           type: integer
           format: int32
@@ -71074,16 +71682,18 @@ components:
           $ref: '#/components/schemas/StringValue'
         parserForType:
           $ref: '#/components/schemas/ParserStringValue'
+        valueBytes:
+          $ref: '#/components/schemas/ByteString'
         value:
           type: string
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -71099,14 +71709,14 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     TemplateReferenceProtoDTO:
@@ -71114,22 +71724,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        metadataCount:
-          type: integer
-          format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -71138,12 +71732,28 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
+        versionLabel:
+          $ref: '#/components/schemas/StringValue'
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataCount:
+          type: integer
+          format: int32
+        scopeValue:
+          type: integer
+          format: int32
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
           additionalProperties:
             type: string
-        versionLabel:
-          $ref: '#/components/schemas/StringValue'
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
@@ -71152,12 +71762,12 @@ components:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -71169,10 +71779,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -71180,22 +71790,6 @@ components:
     TemplateReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        metadataCount:
-          type: integer
-          format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -71204,36 +71798,52 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
+        versionLabel:
+          $ref: '#/components/schemas/StringValue'
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataCount:
+          type: integer
+          format: int32
+        scopeValue:
+          type: integer
+          format: int32
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
           additionalProperties:
             type: string
-        versionLabel:
-          $ref: '#/components/schemas/StringValue'
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     TriggerReferenceProtoDTO:
@@ -71244,15 +71854,15 @@ components:
         metadataCount:
           type: integer
           format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
@@ -71260,20 +71870,20 @@ components:
             type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
-          $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -71285,10 +71895,10 @@ components:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
         initializationErrorString:
           type: string
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         memoizedSerializedSize:
           type: integer
           format: int32
@@ -71299,15 +71909,15 @@ components:
         metadataCount:
           type: integer
           format: int32
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         metadata:
           type: object
@@ -71315,30 +71925,30 @@ components:
             type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        projectIdentifier:
           $ref: '#/components/schemas/StringValue'
         metadataMap:
           type: object
           additionalProperties:
             type: string
+        projectIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
             type: object
-        descriptorForType:
-          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
         initialized:
           type: boolean
     CustomDeploymentYamlRequestDTO:
@@ -74681,6 +75291,17 @@ components:
           items:
             type: string
             description: Password credential to authenticate with SMTP server.
+        delegateSelectors:
+          uniqueItems: true
+          type: array
+          description: >-
+            List of delegate selectors of delegates used by SMTP server as
+            connectivity mode.
+          items:
+            type: string
+            description: >-
+              List of delegate selectors of delegates used by SMTP server as
+              connectivity mode.
       description: This has the SMTP configuration details defined in Harness.
     ResponseDTOValidationResult:
       type: object
@@ -75696,6 +76317,70 @@ components:
           type: object
         correlationId:
           type: string
+    CountGroupedOnArtifact:
+      type: object
+      properties:
+        artifactPath:
+          type: string
+        artifactVersion:
+          type: string
+        artifact:
+          type: string
+        count:
+          type: integer
+          format: int64
+        executionCountGroupedOnStatusList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountGroupedOnStatus'
+    CountGroupedOnService:
+      type: object
+      properties:
+        serviceReference:
+          type: string
+        serviceName:
+          type: string
+        count:
+          type: integer
+          format: int64
+        executionCountGroupedOnStatusList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountGroupedOnStatus'
+        executionCountGroupedOnArtifactList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountGroupedOnArtifact'
+    CountGroupedOnStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        count:
+          type: integer
+          format: int64
+    PipelineExecutionCountInfo:
+      type: object
+      properties:
+        executionCountGroupedOnServiceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CountGroupedOnService'
+    ResponseDTOPipelineExecutionCountInfo:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        data:
+          $ref: '#/components/schemas/PipelineExecutionCountInfo'
+        metaData:
+          type: object
+        correlationId:
+          type: string
     ResponseDTOServiceAccount:
       type: object
       properties:
@@ -76607,7 +77292,7 @@ components:
             - Artifact
             - Manifest
             - Scheduled
-            - MultiArtifact
+            - MultiRegionArtifact
     PageNGTriggerEventHistoryDTO:
       type: object
       properties:
@@ -76617,13 +77302,13 @@ components:
         totalElements:
           type: integer
           format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
         first:
           type: boolean
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -76747,13 +77432,13 @@ components:
         totalElements:
           type: integer
           format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
         first:
           type: boolean
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -76801,7 +77486,7 @@ components:
             - Artifact
             - Manifest
             - Scheduled
-            - MultiArtifact
+            - MultiRegionArtifact
         accountIdentifier:
           type: string
         orgIdentifier:
@@ -76877,7 +77562,7 @@ components:
             - Artifact
             - Manifest
             - Scheduled
-            - MultiArtifact
+            - MultiRegionArtifact
         triggerStatus:
           $ref: '#/components/schemas/TriggerStatus'
         lastTriggerExecutionDetails:
@@ -77054,7 +77739,7 @@ components:
             - Artifact
             - Manifest
             - Scheduled
-            - MultiArtifact
+            - MultiRegionArtifact
         triggerCatalogType:
           type: array
           description: List of Trigger types corresponding to a specific category.
@@ -77543,6 +78228,8 @@ components:
         comments:
           type: string
           description: Approval activity with the comment
+        autoApprove:
+          type: boolean
       description: Details of approval activity requested
     DashboardPipelineExecution:
       type: object
@@ -77930,11 +78617,11 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         action:
           type: string
+        entity:
+          type: string
         created:
           type: integer
           format: int64
-        entity:
-          type: string
         status:
           type: string
         timestamp:
@@ -78357,13 +79044,13 @@ components:
         totalElements:
           type: integer
           format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
         first:
           type: boolean
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -78793,6 +79480,9 @@ components:
               type: boolean
           items:
             type: string
+        callbackIdsCount:
+          type: integer
+          format: int32
         logKeysCount:
           type: integer
           format: int32
@@ -78804,12 +79494,6 @@ components:
           items:
             type: string
         unitsCount:
-          type: integer
-          format: int32
-        callbackIdsCount:
-          type: integer
-          format: int32
-        timeout:
           type: integer
           format: int32
         status:
@@ -78842,6 +79526,9 @@ components:
             - QUEUED_LICENSE_LIMIT_REACHED
             - QUEUED_EXECUTION_CONCURRENCY_REACHED
             - UNRECOGNIZED
+        timeout:
+          type: integer
+          format: int32
         initialized:
           type: boolean
         serializedSize:
@@ -78880,6 +79567,9 @@ components:
           type: array
           items:
             type: string
+        callbackIdsCount:
+          type: integer
+          format: int32
         logKeysCount:
           type: integer
           format: int32
@@ -78888,12 +79578,6 @@ components:
           items:
             type: string
         unitsCount:
-          type: integer
-          format: int32
-        callbackIdsCount:
-          type: integer
-          format: int32
-        timeout:
           type: integer
           format: int32
         status:
@@ -78926,6 +79610,9 @@ components:
             - QUEUED_LICENSE_LIMIT_REACHED
             - QUEUED_EXECUTION_CONCURRENCY_REACHED
             - UNRECOGNIZED
+        timeout:
+          type: integer
+          format: int32
         statusValue:
           type: integer
           format: int32
@@ -78988,11 +79675,11 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         nextChildId:
           type: string
-        nextChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
         previousChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
@@ -79026,11 +79713,11 @@ components:
       properties:
         nextChildId:
           type: string
-        nextChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
         previousChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         passThroughData:
           $ref: '#/components/schemas/ByteString'
@@ -79074,11 +79761,11 @@ components:
               type: boolean
           items:
             type: string
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         unitsCount:
           type: integer
           format: int32
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -79116,11 +79803,11 @@ components:
           type: array
           items:
             type: string
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         unitsCount:
           type: integer
           format: int32
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         childNodeId:
           type: string
         allFields:
@@ -79175,6 +79862,16 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        logKeysList:
+          type: array
+          properties:
+            empty:
+              type: boolean
+          items:
+            type: string
+        logKeysCount:
+          type: integer
+          format: int32
         childrenList:
           type: array
           items:
@@ -79186,16 +79883,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChildOrBuilder'
-        logKeysList:
-          type: array
-          properties:
-            empty:
-              type: boolean
-          items:
-            type: string
-        logKeysCount:
-          type: integer
-          format: int32
         initialized:
           type: boolean
         serializedSize:
@@ -79225,6 +79912,13 @@ components:
     ChildrenExecutableResponseOrBuilder:
       type: object
       properties:
+        logKeysList:
+          type: array
+          items:
+            type: string
+        logKeysCount:
+          type: integer
+          format: int32
         childrenList:
           type: array
           items:
@@ -79236,13 +79930,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChildOrBuilder'
-        logKeysList:
-          type: array
-          items:
-            type: string
-        logKeysCount:
-          type: integer
-          format: int32
         maxConcurrency:
           type: integer
           format: int64
@@ -79566,10 +80253,10 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        expression:
-          type: string
         expressionValueBytes:
           $ref: '#/components/schemas/ByteString'
+        expression:
+          type: string
         count:
           type: integer
           format: int32
@@ -79601,10 +80288,10 @@ components:
     ExpressionBlockOrBuilder:
       type: object
       properties:
-        expression:
-          type: string
         expressionValueBytes:
           $ref: '#/components/schemas/ByteString'
+        expression:
+          type: string
         count:
           type: integer
           format: int32
@@ -79916,8 +80603,6 @@ components:
           type: object
           additionalProperties:
             type: string
-        subTypeBytes:
-          $ref: '#/components/schemas/ByteString'
         matrixCombinationList:
           type: array
           items:
@@ -79926,6 +80611,8 @@ components:
         matrixCombinationCount:
           type: integer
           format: int32
+        subTypeBytes:
+          $ref: '#/components/schemas/ByteString'
         matrixKeysToSkipInNameList:
           type: array
           properties:
@@ -79964,8 +80651,6 @@ components:
           type: object
           additionalProperties:
             type: string
-        subTypeBytes:
-          $ref: '#/components/schemas/ByteString'
         matrixCombinationList:
           type: array
           items:
@@ -79974,6 +80659,8 @@ components:
         matrixCombinationCount:
           type: integer
           format: int32
+        subTypeBytes:
+          $ref: '#/components/schemas/ByteString'
         matrixKeysToSkipInNameList:
           type: array
           items:
@@ -80271,10 +80958,10 @@ components:
           type: string
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
-        stageNodeId:
-          type: string
         hasParentPipeline:
           type: boolean
+        stageNodeId:
+          type: string
         executionId:
           type: string
         stageNodeIdBytes:
@@ -81101,13 +81788,13 @@ components:
         totalElements:
           type: integer
           format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
         first:
           type: boolean
         number:
           type: integer
           format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -81326,11 +82013,11 @@ components:
           format: int64
         stageExecutionId:
           type: string
-        metadataOrBuilder:
-          $ref: '#/components/schemas/ExecutionMetadataOrBuilder'
         expressionFunctorToken:
           type: integer
           format: int64
+        metadataOrBuilder:
+          $ref: '#/components/schemas/ExecutionMetadataOrBuilder'
         planExecutionIdBytes:
           $ref: '#/components/schemas/ByteString'
         setupAbstractionsCount:
@@ -81443,8 +82130,6 @@ components:
             - POST_EXECUTION_ROLLBACK
             - PIPELINE_ROLLBACK
             - UNRECOGNIZED
-        useMatrixFieldName:
-          type: boolean
         postExecutionRollbackInfoList:
           type: array
           items:
@@ -81552,8 +82237,6 @@ components:
             - POST_EXECUTION_ROLLBACK
             - PIPELINE_ROLLBACK
             - UNRECOGNIZED
-        useMatrixFieldName:
-          type: boolean
         postExecutionRollbackInfoList:
           type: array
           items:
@@ -81871,10 +82554,10 @@ components:
           type: string
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
-        stageNodeId:
-          type: string
         hasParentPipeline:
           type: boolean
+        stageNodeId:
+          type: string
         executionId:
           type: string
         stageNodeIdBytes:
@@ -86216,6 +86899,233 @@ components:
           type: object
         correlationId:
           type: string
+    CostCategoryDeleteDTO:
+      type: object
+      properties:
+        linkedPerspectives:
+          type: object
+          additionalProperties:
+            type: string
+        message:
+          type: string
+        deleted:
+          type: boolean
+    RestResponseCostCategoryDeleteDTO:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties:
+            type: object
+        resource:
+          $ref: '#/components/schemas/CostCategoryDeleteDTO'
+        responseMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseMessage'
+    BusinessMapping:
+      required:
+        - name
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          maxLength: 32
+          minLength: 1
+          type: string
+        accountId:
+          type: string
+        costTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/CostTarget'
+        sharedCosts:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedCost'
+        unallocatedCost:
+          $ref: '#/components/schemas/UnallocatedCost'
+        dataSources:
+          type: array
+          items:
+            type: string
+            description: 'Perspective filter Category, CLUSTER means Kubernetes'
+            enum:
+              - CLUSTER
+              - AWS
+              - GCP
+              - AZURE
+              - COMMON
+              - CUSTOM
+              - BUSINESS_MAPPING
+              - LABEL
+        createdAt:
+          type: integer
+          format: int64
+        lastUpdatedAt:
+          type: integer
+          format: int64
+        createdBy:
+          $ref: '#/components/schemas/EmbeddedUser'
+        lastUpdatedBy:
+          $ref: '#/components/schemas/EmbeddedUser'
+    CostTarget:
+      type: object
+      properties:
+        name:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewRule'
+    RestResponseBusinessMapping:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties:
+            type: object
+        resource:
+          $ref: '#/components/schemas/BusinessMapping'
+        responseMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseMessage'
+    SharedCost:
+      type: object
+      properties:
+        name:
+          type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewRule'
+        strategy:
+          type: string
+          enum:
+            - EQUAL
+            - PROPORTIONAL
+            - FIXED
+        splits:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedCostSplit'
+    SharedCostSplit:
+      type: object
+      properties:
+        costTargetName:
+          type: string
+        percentageContribution:
+          type: number
+          format: double
+    UnallocatedCost:
+      type: object
+      properties:
+        strategy:
+          type: string
+          enum:
+            - DISPLAY_NAME
+            - HIDE
+            - SHARE
+        label:
+          type: string
+        sharingStrategy:
+          type: string
+          enum:
+            - EQUAL
+            - PROPORTIONAL
+            - FIXED
+        splits:
+          type: array
+          items:
+            $ref: '#/components/schemas/SharedCostSplit'
+    ViewCondition:
+      type: object
+      properties:
+        type:
+          type: string
+      description: >-
+        This object defines a filter Condition, an array of filter Conditions
+        are combined using AND operator
+      discriminator:
+        propertyName: type
+    ViewField:
+      type: object
+      properties:
+        fieldId:
+          type: string
+        fieldName:
+          type: string
+        identifier:
+          type: string
+          description: 'Perspective filter Category, CLUSTER means Kubernetes'
+          enum:
+            - CLUSTER
+            - AWS
+            - GCP
+            - AZURE
+            - COMMON
+            - CUSTOM
+            - BUSINESS_MAPPING
+            - LABEL
+        identifierName:
+          type: string
+      description: An individual Perspective field
+    ViewIdCondition:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/ViewCondition'
+        - type: object
+          properties:
+            viewField:
+              $ref: '#/components/schemas/ViewField'
+            viewOperator:
+              type: string
+              enum:
+                - NOT_IN
+                - IN
+                - EQUALS
+                - NOT_NULL
+                - 'NULL'
+                - LIKE
+            values:
+              type: array
+              items:
+                type: string
+    ViewRule:
+      type: object
+      properties:
+        viewConditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewCondition'
+      description: >-
+        This object will contain a Perspective Rule, an array of Perspective
+        Rules are combined using OR operator
+    BusinessMappingListDTO:
+      type: object
+      properties:
+        businessMappings:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessMapping'
+        totalCount:
+          type: integer
+          format: int64
+    RestResponseBusinessMappingListDTO:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties:
+            type: object
+        resource:
+          $ref: '#/components/schemas/BusinessMappingListDTO'
+        responseMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseMessage'
     CcmK8sMetaInfo:
       type: object
       properties:
@@ -87427,97 +88337,11 @@ components:
             connected.
           format: int64
       description: Details of the connectivity status of the Connector.
-    CcmConnectorInfo:
-      required:
-        - identifier
-        - name
-        - spec
-        - type
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the Connector.
-        identifier:
-          type: string
-          description: Identifier of the Connector.
-        description:
-          type: string
-          description: Description of the entity
-        orgIdentifier:
-          type: string
-          description: Organization Identifier for the Entity.
-        projectIdentifier:
-          type: string
-          description: Project Identifier for the Entity.
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-            description: Tags
-          description: Tags
-        type:
-          type: string
-          description: Type of the Connector.
-          enum:
-            - K8sCluster
-            - Git
-            - Splunk
-            - AppDynamics
-            - Prometheus
-            - Dynatrace
-            - Vault
-            - AzureKeyVault
-            - DockerRegistry
-            - Local
-            - AwsKms
-            - GcpKms
-            - AwsSecretManager
-            - Gcp
-            - Aws
-            - Azure
-            - Artifactory
-            - Jira
-            - Nexus
-            - Github
-            - Gitlab
-            - Bitbucket
-            - Codecommit
-            - CEAws
-            - CEAzure
-            - GcpCloudCost
-            - CEK8sCluster
-            - HttpHelmRepo
-            - NewRelic
-            - Datadog
-            - SumoLogic
-            - PagerDuty
-            - CustomHealth
-            - ServiceNow
-            - ErrorTracking
-            - Pdc
-            - AzureRepo
-            - Jenkins
-            - OciHelmRepo
-            - CustomSecretManager
-            - ElasticSearch
-            - GcpSecretManager
-            - AzureArtifacts
-            - Tas
-            - Spot
-            - Bamboo
-            - TerraformCloud
-            - SignalFX
-            - Harness
-            - Rancher
-        spec:
-          $ref: '#/components/schemas/ConnectorConfig'
-      description: This has the Connector details defined in Harness
     CcmConnectorResponse:
       type: object
       properties:
         connector:
-          $ref: '#/components/schemas/CcmConnectorInfo'
+          $ref: '#/components/schemas/ConnectorInfo'
         createdAt:
           type: integer
           description: This is the time at which the Connector was created.
@@ -87570,20 +88394,26 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         action:
           type: string
+        entity:
+          type: string
         created:
           type: integer
           format: int64
-        entity:
-          type: string
         status:
           type: string
         timestamp:
           type: integer
           format: int64
-        initialized:
-          type: boolean
+        message:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
         accountId:
           type: string
+        initialized:
+          type: boolean
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
         serializedSize:
@@ -87626,12 +88456,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         actionBytes:
           $ref: '#/components/schemas/ByteString'
-        message:
-          type: string
-        id:
-          type: string
-        type:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -87649,6 +88473,8 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        errorBytes:
+          $ref: '#/components/schemas/ByteString'
         policyIdBytes:
           $ref: '#/components/schemas/ByteString'
         policyNameBytes:
@@ -87665,8 +88491,6 @@ components:
         denyMessagesCount:
           type: integer
           format: int32
-        errorBytes:
-          $ref: '#/components/schemas/ByteString'
         error:
           type: string
         created:
@@ -87679,16 +88503,16 @@ components:
           type: string
         policyId:
           type: string
-        severity:
+        accountId:
           type: string
         identifier:
+          type: string
+        severity:
           type: string
         policyName:
           type: string
         initialized:
           type: boolean
-        accountId:
-          type: string
         parserForType:
           $ref: '#/components/schemas/ParserPolicyMetadata'
         serializedSize:
@@ -87732,12 +88556,12 @@ components:
           format: int64
         status:
           type: string
+        accountId:
+          type: string
         identifier:
           type: string
         initialized:
           type: boolean
-        accountId:
-          type: string
         parserForType:
           $ref: '#/components/schemas/ParserPolicySetMetadata'
         serializedSize:
@@ -87759,6 +88583,12 @@ components:
           $ref: '#/components/schemas/ByteString'
         projectIdBytes:
           $ref: '#/components/schemas/ByteString'
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
         policySetIdBytes:
@@ -87774,12 +88604,6 @@ components:
         policyMetadataCount:
           type: integer
           format: int32
-        policySetName:
-          type: string
-        policySetNameBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifierBytes:
-          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -87800,9 +88624,9 @@ components:
           format: int64
         status:
           type: string
-        identifier:
-          type: string
         accountId:
+          type: string
+        identifier:
           type: string
         projectId:
           type: string
@@ -87817,6 +88641,12 @@ components:
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
         projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
           $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
@@ -87833,12 +88663,6 @@ components:
         policyMetadataCount:
           type: integer
           format: int32
-        policySetName:
-          type: string
-        policySetNameBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifierBytes:
-          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -87853,69 +88677,6 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         initialized:
           type: boolean
-    RancherAuthentication:
-      required:
-        - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - BearerToken
-        spec:
-          $ref: '#/components/schemas/RancherConnectorConfigAuthentication'
-      description: This contains rancher authentication details
-    RancherConnector:
-      type: object
-      description: This contains Rancher connector details
-      allOf:
-        - $ref: '#/components/schemas/ConnectorConfig'
-        - type: object
-          properties:
-            delegateSelectors:
-              uniqueItems: true
-              type: array
-              items:
-                type: string
-            credential:
-              $ref: '#/components/schemas/RancherConnectorConfig'
-    RancherConnectorBearerTokenAuthentication:
-      required:
-        - passwordRef
-      type: object
-      description: This contains rancher bearer token auth details
-      allOf:
-        - $ref: '#/components/schemas/RancherConnectorConfigAuthentication'
-        - type: object
-          properties:
-            passwordRef:
-              type: string
-    RancherConnectorConfig:
-      required:
-        - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - ManualConfig
-        spec:
-          $ref: '#/components/schemas/RancherConnectorConfigAuth'
-      description: This contains rancher connector config details
-    RancherConnectorConfigAuth:
-      required:
-        - auth
-        - rancherUrl
-      type: object
-      properties:
-        rancherUrl:
-          type: string
-        auth:
-          $ref: '#/components/schemas/RancherAuthentication'
-      description: This contains rancher connector authentication details
-    RancherConnectorConfigAuthentication:
-      type: object
-      description: This contains rancher auth credentials
     CreateRuleDTO:
       type: object
       properties:
@@ -88132,59 +88893,6 @@ components:
           type: object
         correlationId:
           type: string
-    ViewCondition:
-      type: object
-      properties:
-        type:
-          type: string
-      description: >-
-        This object defines a filter Condition, an array of filter Conditions
-        are combined using AND operator
-      discriminator:
-        propertyName: type
-    ViewField:
-      type: object
-      properties:
-        fieldId:
-          type: string
-        fieldName:
-          type: string
-        identifier:
-          type: string
-          description: 'Perspective filter Category, CLUSTER means Kubernetes'
-          enum:
-            - CLUSTER
-            - AWS
-            - GCP
-            - AZURE
-            - COMMON
-            - CUSTOM
-            - BUSINESS_MAPPING
-            - LABEL
-        identifierName:
-          type: string
-      description: An individual Perspective field
-    ViewIdCondition:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ViewCondition'
-        - type: object
-          properties:
-            viewField:
-              $ref: '#/components/schemas/ViewField'
-            viewOperator:
-              type: string
-              enum:
-                - NOT_IN
-                - IN
-                - EQUALS
-                - NOT_NULL
-                - 'NULL'
-                - LIKE
-            values:
-              type: array
-              items:
-                type: string
     ViewPreferences:
       type: object
       properties:
@@ -88192,16 +88900,6 @@ components:
           type: boolean
         includeUnallocatedCost:
           type: boolean
-    ViewRule:
-      type: object
-      properties:
-        viewConditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ViewCondition'
-      description: >-
-        This object will contain a Perspective Rule, an array of Perspective
-        Rules are combined using OR operator
     ViewTimeRange:
       type: object
       properties:
@@ -90990,6 +91688,40 @@ components:
           description: Flag which specifies if a diagnostic check is successful
         type:
           type: string
+    CoolDownOption:
+      type: object
+      properties:
+        propagate:
+          type: boolean
+          description: Specifies if we need to propagate cool down to dependant rules
+        force:
+          type: boolean
+          description: Specifies if the cool down is by force
+    CoolDownMetaSuccessResponse:
+      type: object
+      properties:
+        ts:
+          type: integer
+          description: Response timestamp
+        success:
+          type: boolean
+          description: Specifies if the operation is successful
+        response:
+          type: array
+          items:
+            type: string
+          description: Name of dependant autostopping rules which will be shut down
+    CoolDownMetaFailureResponse:
+      type: object
+      properties:
+        ts:
+          type: integer
+          description: Response timestamp
+        errors:
+          type: array
+          items:
+            type: string
+          description: Errors
     AuditError:
       type: object
       properties:
@@ -92336,6 +93068,296 @@ components:
           type: string
           description: This has the Git File content if the entity is invalid
       description: This contains Validity Details of the Entity
+    TemplateGovernanceMetadata:
+      type: object
+      properties:
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        action:
+          type: string
+        entity:
+          type: string
+        created:
+          type: integer
+          format: int64
+        status:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        message:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
+        accountId:
+          type: string
+        initialized:
+          type: boolean
+        parserForType:
+          $ref: '#/components/schemas/ParserGovernanceMetadata'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/TemplateGovernanceMetadata'
+        projectId:
+          type: string
+        deny:
+          type: boolean
+        entityBytes:
+          $ref: '#/components/schemas/ByteString'
+        typeBytes:
+          $ref: '#/components/schemas/ByteString'
+        actionBytes:
+          $ref: '#/components/schemas/ByteString'
+        idBytes:
+          $ref: '#/components/schemas/ByteString'
+        detailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatePolicySetMetadata'
+        detailsOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatePolicySetMetadataOrBuilder'
+        detailsCount:
+          type: integer
+          format: int32
+        messageBytes:
+          $ref: '#/components/schemas/ByteString'
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initializationErrorString:
+          type: string
+        memoizedSerializedSize:
+          type: integer
+          format: int32
+          writeOnly: true
+    TemplatePolicyMetadata:
+      type: object
+      properties:
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        policyIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policyNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        severityBytes:
+          $ref: '#/components/schemas/ByteString'
+        denyMessagesList:
+          type: array
+          properties:
+            empty:
+              type: boolean
+          items:
+            type: string
+        denyMessagesCount:
+          type: integer
+          format: int32
+        errorBytes:
+          $ref: '#/components/schemas/ByteString'
+        error:
+          type: string
+        created:
+          type: integer
+          format: int64
+        updated:
+          type: integer
+          format: int64
+        status:
+          type: string
+        policyId:
+          type: string
+        accountId:
+          type: string
+        identifier:
+          type: string
+        severity:
+          type: string
+        policyName:
+          type: string
+        initialized:
+          type: boolean
+        parserForType:
+          $ref: '#/components/schemas/ParserPolicyMetadata'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/TemplatePolicyMetadata'
+        projectId:
+          type: string
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initializationErrorString:
+          type: string
+        memoizedSerializedSize:
+          type: integer
+          format: int32
+          writeOnly: true
+    TemplatePolicySetMetadata:
+      type: object
+      properties:
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        created:
+          type: integer
+          format: int64
+        status:
+          type: string
+        accountId:
+          type: string
+        identifier:
+          type: string
+        initialized:
+          type: boolean
+        parserForType:
+          $ref: '#/components/schemas/ParserPolicySetMetadata'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/TemplatePolicySetMetadata'
+        projectId:
+          type: string
+        deny:
+          type: boolean
+        policySetId:
+          type: string
+        policySetIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policyMetadataList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatePolicyMetadata'
+        policyMetadataOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyMetadataOrBuilder'
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policyMetadataCount:
+          type: integer
+          format: int32
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        initializationErrorString:
+          type: string
+        memoizedSerializedSize:
+          type: integer
+          format: int32
+          writeOnly: true
+    TemplatePolicySetMetadataOrBuilder:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int64
+        status:
+          type: string
+        accountId:
+          type: string
+        identifier:
+          type: string
+        projectId:
+          type: string
+        deny:
+          type: boolean
+        policySetId:
+          type: string
+        policySetIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policyMetadataList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplatePolicyMetadata'
+        policyMetadataOrBuilderList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicyMetadataOrBuilder'
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        policyMetadataCount:
+          type: integer
+          format: int32
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
+        allFields:
+          type: object
+          additionalProperties:
+            type: object
+        descriptorForType:
+          $ref: '#/components/schemas/Descriptor'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
+        initializationErrorString:
+          type: string
+        unknownFields:
+          $ref: '#/components/schemas/UnknownFieldSet'
+        initialized:
+          type: boolean
     ResponseDTOTemplateWrapperResponse:
       type: object
       properties:
@@ -92436,6 +93458,8 @@ components:
           writeOnly: true
         templateResponseDTO:
           $ref: '#/components/schemas/TemplateTemplateResponse'
+        governanceMetadata:
+          $ref: '#/components/schemas/TemplateGovernanceMetadata'
         valid:
           type: boolean
       description: This contains details of the Template Wrapper Response
@@ -92465,18 +93489,8 @@ components:
           format: int64
         first:
           type: boolean
-        last:
-          type: boolean
         sort:
           $ref: '#/components/schemas/Sort'
-        numberOfElements:
-          type: integer
-          format: int32
-        pageable:
-          $ref: '#/components/schemas/Pageable'
-        number:
-          type: integer
-          format: int32
         size:
           type: integer
           format: int32
@@ -92484,6 +93498,16 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TemplateTemplateMetadataSummaryResponse'
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/Pageable'
         empty:
           type: boolean
     ResponseDTOPageTemplateMetadataSummaryResponse:
@@ -94836,6 +95860,8 @@ components:
           writeOnly: true
         sloError:
           $ref: '#/components/schemas/SLOError'
+        recalculatingSLI:
+          type: boolean
         errorBudgetRisk:
           type: string
           enum:
@@ -94847,8 +95873,6 @@ components:
         calculatingSLI:
           type: boolean
         totalErrorBudgetApplicable:
-          type: boolean
-        recalculatingSLI:
           type: boolean
     TimeRangeFilter:
       type: object
@@ -108944,6 +109968,7 @@ x-tagGroups:
       - Infrastructures
       - Usage
       - File Store
+      - Service Dashboard
       - tas
   - name: Deployment Freeze
     tags:
@@ -108991,6 +110016,7 @@ x-tagGroups:
       - Cloud Cost Details
       - Cloud Cost Currency Preferences
       - Cloud Cost Overview
+      - Cloud Cost Cost Categories
       - RuleEnforcement
       - Rule
       - Cloud Cost Perspectives Folders

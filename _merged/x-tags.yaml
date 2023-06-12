@@ -91,6 +91,7 @@
       - Infrastructures
       - Usage
       - File Store
+      - Service Dashboard
       - tas
 - name: Deployment Freeze
   tags:
@@ -138,6 +139,7 @@
       - Cloud Cost Details
       - Cloud Cost Currency Preferences
       - Cloud Cost Overview
+      - Cloud Cost Cost Categories
       - RuleEnforcement
       - Rule
       - Cloud Cost Perspectives Folders
