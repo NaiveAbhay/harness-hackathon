@@ -132,7 +132,7 @@
     {
       "inputFile": "dashboard/temp-api.yaml",
       "pathModification": {
-        "prepend": "gateway/dashboard"
+        "prepend": "/gateway/dashboard"
       },
       "dispute": {
         "prefix": "Dashboards"

@@ -52886,7 +52886,7 @@ paths:
             application/vnd.goa.error:
               schema:
                 $ref: '#/components/schemas/PolicyManagementError'
-  'gateway/dashboard/api/dashboards/{dashboard_id}/download':
+  '/gateway/dashboard/api/dashboards/{dashboard_id}/download':
     get:
       description: Download the data of all tiles within a Dashboard.
       operationId: get_dashboard_data
