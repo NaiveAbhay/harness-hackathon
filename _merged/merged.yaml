@@ -52886,7 +52886,7 @@ paths:
             application/vnd.goa.error:
               schema:
                 $ref: '#/components/schemas/PolicyManagementError'
-  '/dashboard/api/dashboards/{dashboard_id}/download':
+  'gateway/dashboard/api/dashboards/{dashboard_id}/download':
     get:
       description: Download the data of all tiles within a Dashboard.
       operationId: get_dashboard_data
@@ -62046,6 +62046,13 @@ components:
         extensionCount:
           type: integer
           format: int32
+        parserForType:
+          $ref: '#/components/schemas/ParserDescriptorProto'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/DescriptorProto'
         reservedRangeList:
           type: array
           items:
@@ -62070,13 +62077,6 @@ components:
         extensionRangeCount:
           type: integer
           format: int32
-        parserForType:
-          $ref: '#/components/schemas/ParserDescriptorProto'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/DescriptorProto'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         enumTypeList:
@@ -62388,6 +62388,13 @@ components:
           type: boolean
         options:
           $ref: '#/components/schemas/EnumOptions'
+        parserForType:
+          $ref: '#/components/schemas/ParserEnumDescriptorProto'
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/EnumDescriptorProto'
         reservedRangeList:
           type: array
           items:
@@ -62399,13 +62406,6 @@ components:
               type: boolean
           items:
             type: string
-        parserForType:
-          $ref: '#/components/schemas/ParserEnumDescriptorProto'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/EnumDescriptorProto'
         nameBytes:
           $ref: '#/components/schemas/ByteString'
         optionsOrBuilder:
@@ -62996,6 +62996,8 @@ components:
           $ref: '#/components/schemas/EnumDescriptor'
         defaultValue:
           type: object
+        optional:
+          type: boolean
         javaType:
           type: string
           enum:
@@ -63008,8 +63010,6 @@ components:
             - BYTE_STRING
             - ENUM
             - MESSAGE
-        optional:
-          type: boolean
         name:
           type: string
         number:
@@ -63133,9 +63133,9 @@ components:
           $ref: '#/components/schemas/ByteString'
         extendeeBytes:
           $ref: '#/components/schemas/ByteString'
-        jsonNameBytes:
-          $ref: '#/components/schemas/ByteString'
         defaultValueBytes:
+          $ref: '#/components/schemas/ByteString'
+        jsonNameBytes:
           $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
@@ -63207,9 +63207,9 @@ components:
           $ref: '#/components/schemas/ByteString'
         extendeeBytes:
           $ref: '#/components/schemas/ByteString'
-        jsonNameBytes:
-          $ref: '#/components/schemas/ByteString'
         defaultValueBytes:
+          $ref: '#/components/schemas/ByteString'
+        jsonNameBytes:
           $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
@@ -63521,6 +63521,24 @@ components:
           type: string
         javaOuterClassnameBytes:
           $ref: '#/components/schemas/ByteString'
+        javaMultipleFiles:
+          type: boolean
+        javaGenerateEqualsAndHash:
+          type: boolean
+        javaStringCheckUtf8:
+          type: boolean
+        optimizeFor:
+          type: string
+          enum:
+            - SPEED
+            - CODE_SIZE
+            - LITE_RUNTIME
+        goPackage:
+          type: string
+        goPackageBytes:
+          $ref: '#/components/schemas/ByteString'
+        ccGenericServices:
+          type: boolean
         javaGenericServices:
           type: boolean
         pyGenericServices:
@@ -63545,24 +63563,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         phpClassPrefix:
           type: string
-        javaMultipleFiles:
-          type: boolean
-        javaGenerateEqualsAndHash:
-          type: boolean
-        javaStringCheckUtf8:
-          type: boolean
-        optimizeFor:
-          type: string
-          enum:
-            - SPEED
-            - CODE_SIZE
-            - LITE_RUNTIME
-        goPackage:
-          type: string
-        goPackageBytes:
-          $ref: '#/components/schemas/ByteString'
-        ccGenericServices:
-          type: boolean
         phpClassPrefixBytes:
           $ref: '#/components/schemas/ByteString'
         phpNamespace:
@@ -63615,6 +63615,24 @@ components:
           type: string
         javaOuterClassnameBytes:
           $ref: '#/components/schemas/ByteString'
+        javaMultipleFiles:
+          type: boolean
+        javaGenerateEqualsAndHash:
+          type: boolean
+        javaStringCheckUtf8:
+          type: boolean
+        optimizeFor:
+          type: string
+          enum:
+            - SPEED
+            - CODE_SIZE
+            - LITE_RUNTIME
+        goPackage:
+          type: string
+        goPackageBytes:
+          $ref: '#/components/schemas/ByteString'
+        ccGenericServices:
+          type: boolean
         javaGenericServices:
           type: boolean
         pyGenericServices:
@@ -63639,24 +63657,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         phpClassPrefix:
           type: string
-        javaMultipleFiles:
-          type: boolean
-        javaGenerateEqualsAndHash:
-          type: boolean
-        javaStringCheckUtf8:
-          type: boolean
-        optimizeFor:
-          type: string
-          enum:
-            - SPEED
-            - CODE_SIZE
-            - LITE_RUNTIME
-        goPackage:
-          type: string
-        goPackageBytes:
-          $ref: '#/components/schemas/ByteString'
-        ccGenericServices:
-          type: boolean
         phpClassPrefixBytes:
           $ref: '#/components/schemas/ByteString'
         phpNamespace:
@@ -65082,9 +65082,9 @@ components:
           $ref: '#/components/schemas/Descriptor'
         outputType:
           $ref: '#/components/schemas/Descriptor'
-        clientStreaming:
-          type: boolean
         serverStreaming:
+          type: boolean
+        clientStreaming:
           type: boolean
         name:
           type: string
@@ -68263,11 +68263,11 @@ components:
     Pageable:
       type: object
       properties:
-        sort:
-          $ref: '#/components/schemas/Sort'
         offset:
           type: integer
           format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
         pageSize:
           type: integer
           format: int32
@@ -77296,12 +77296,12 @@ components:
     PageNGTriggerEventHistoryDTO:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -77426,12 +77426,12 @@ components:
     PageNGTriggerEventHistoryBaseDTO:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -79038,12 +79038,12 @@ components:
     PagePMSPipelineSummaryResponse:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -79675,11 +79675,11 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         nextChildId:
           type: string
+        nextChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
         previousChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
@@ -79713,11 +79713,11 @@ components:
       properties:
         nextChildId:
           type: string
+        nextChildIdBytes:
+          $ref: '#/components/schemas/ByteString'
         previousChildId:
           type: string
         previousChildIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        nextChildIdBytes:
           $ref: '#/components/schemas/ByteString'
         passThroughData:
           $ref: '#/components/schemas/ByteString'
@@ -79744,6 +79744,8 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         logKeysList:
           type: array
           properties:
@@ -79764,8 +79766,6 @@ components:
         unitsCount:
           type: integer
           format: int32
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -79792,6 +79792,8 @@ components:
     ChildExecutableResponseOrBuilder:
       type: object
       properties:
+        childNodeIdBytes:
+          $ref: '#/components/schemas/ByteString'
         logKeysList:
           type: array
           items:
@@ -79806,8 +79808,6 @@ components:
         unitsCount:
           type: integer
           format: int32
-        childNodeIdBytes:
-          $ref: '#/components/schemas/ByteString'
         childNodeId:
           type: string
         allFields:
@@ -80253,13 +80253,13 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        expressionValueBytes:
-          $ref: '#/components/schemas/ByteString'
         expression:
           type: string
         count:
           type: integer
           format: int32
+        expressionValueBytes:
+          $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         serializedSize:
@@ -80288,13 +80288,13 @@ components:
     ExpressionBlockOrBuilder:
       type: object
       properties:
-        expressionValueBytes:
-          $ref: '#/components/schemas/ByteString'
         expression:
           type: string
         count:
           type: integer
           format: int32
+        expressionValueBytes:
+          $ref: '#/components/schemas/ByteString'
         expressionValue:
           type: string
         expressionBytes:
@@ -81021,8 +81021,6 @@ components:
           $ref: '#/components/schemas/ParserRerunInfo'
         rootExecutionId:
           type: string
-        rootExecutionIdBytes:
-          $ref: '#/components/schemas/ByteString'
         rootTriggerType:
           type: string
           enum:
@@ -81034,6 +81032,8 @@ components:
             - ARTIFACT
             - MANIFEST
             - UNRECOGNIZED
+        rootExecutionIdBytes:
+          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -81072,8 +81072,6 @@ components:
             - UNRECOGNIZED
         rootExecutionId:
           type: string
-        rootExecutionIdBytes:
-          $ref: '#/components/schemas/ByteString'
         rootTriggerType:
           type: string
           enum:
@@ -81085,6 +81083,8 @@ components:
             - ARTIFACT
             - MANIFEST
             - UNRECOGNIZED
+        rootExecutionIdBytes:
+          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -81782,12 +81782,12 @@ components:
     PagePipelineExecutionSummary:
       type: object
       properties:
-        totalPages:
-          type: integer
-          format: int32
         totalElements:
           type: integer
           format: int64
+        totalPages:
+          type: integer
+          format: int32
         sort:
           $ref: '#/components/schemas/Sort'
         first:
@@ -82020,9 +82020,6 @@ components:
           $ref: '#/components/schemas/ExecutionMetadataOrBuilder'
         planExecutionIdBytes:
           $ref: '#/components/schemas/ByteString'
-        setupAbstractionsCount:
-          type: integer
-          format: int32
         levelsCount:
           type: integer
           format: int32
@@ -82038,6 +82035,9 @@ components:
           type: string
         originalStageExecutionIdForRollbackModeBytes:
           $ref: '#/components/schemas/ByteString'
+        setupAbstractionsCount:
+          type: integer
+          format: int32
         allFields:
           type: object
           additionalProperties:
@@ -82412,6 +82412,8 @@ components:
           type: string
         initialized:
           type: boolean
+        skipExpressionChain:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -82430,8 +82432,6 @@ components:
           format: int64
         runtimeId:
           type: string
-        skipExpressionChain:
-          type: boolean
         runtimeIdBytes:
           $ref: '#/components/schemas/ByteString'
         stepTypeOrBuilder:
@@ -82474,6 +82474,8 @@ components:
           type: string
         identifier:
           type: string
+        skipExpressionChain:
+          type: boolean
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
         strategyMetadata:
@@ -82485,8 +82487,6 @@ components:
           format: int64
         runtimeId:
           type: string
-        skipExpressionChain:
-          type: boolean
         runtimeIdBytes:
           $ref: '#/components/schemas/ByteString'
         stepTypeOrBuilder:
@@ -88404,14 +88404,6 @@ components:
         timestamp:
           type: integer
           format: int64
-        message:
-          type: string
-        id:
-          type: string
-        type:
-          type: string
-        accountId:
-          type: string
         initialized:
           type: boolean
         parserForType:
@@ -88421,6 +88413,8 @@ components:
           format: int32
         defaultInstanceForType:
           $ref: '#/components/schemas/CcmGovernanceMetadata'
+        accountId:
+          type: string
         projectId:
           type: string
         idBytes:
@@ -88456,6 +88450,12 @@ components:
           $ref: '#/components/schemas/ByteString'
         actionBytes:
           $ref: '#/components/schemas/ByteString'
+        message:
+          type: string
+        id:
+          type: string
+        type:
+          type: string
         allFields:
           type: object
           additionalProperties:
@@ -88473,8 +88473,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        errorBytes:
-          $ref: '#/components/schemas/ByteString'
         policyIdBytes:
           $ref: '#/components/schemas/ByteString'
         policyNameBytes:
@@ -88491,6 +88489,8 @@ components:
         denyMessagesCount:
           type: integer
           format: int32
+        errorBytes:
+          $ref: '#/components/schemas/ByteString'
         error:
           type: string
         created:
@@ -88502,8 +88502,6 @@ components:
         status:
           type: string
         policyId:
-          type: string
-        accountId:
           type: string
         identifier:
           type: string
@@ -88520,6 +88518,8 @@ components:
           format: int32
         defaultInstanceForType:
           $ref: '#/components/schemas/CcmPolicyMetadata'
+        accountId:
+          type: string
         projectId:
           type: string
         statusBytes:
@@ -88556,8 +88556,6 @@ components:
           format: int64
         status:
           type: string
-        accountId:
-          type: string
         identifier:
           type: string
         initialized:
@@ -88569,6 +88567,8 @@ components:
           format: int32
         defaultInstanceForType:
           $ref: '#/components/schemas/CcmPolicySetMetadata'
+        accountId:
+          type: string
         projectId:
           type: string
         deny:
@@ -88582,12 +88582,6 @@ components:
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
         projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        policySetName:
-          type: string
-        policySetNameBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifierBytes:
           $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
@@ -88604,6 +88598,12 @@ components:
         policyMetadataCount:
           type: integer
           format: int32
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -88624,9 +88624,9 @@ components:
           format: int64
         status:
           type: string
-        accountId:
-          type: string
         identifier:
+          type: string
+        accountId:
           type: string
         projectId:
           type: string
@@ -88641,12 +88641,6 @@ components:
         orgIdBytes:
           $ref: '#/components/schemas/ByteString'
         projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        policySetName:
-          type: string
-        policySetNameBytes:
-          $ref: '#/components/schemas/ByteString'
-        identifierBytes:
           $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
@@ -88663,6 +88657,12 @@ components:
         policyMetadataCount:
           type: integer
           format: int32
+        policySetName:
+          type: string
+        policySetNameBytes:
+          $ref: '#/components/schemas/ByteString'
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
         allFields:
           type: object
           additionalProperties:
@@ -93254,6 +93254,16 @@ components:
           type: string
         deny:
           type: boolean
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
         policySetIdBytes:
@@ -93266,16 +93276,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PolicyMetadataOrBuilder'
-        statusBytes:
-          $ref: '#/components/schemas/ByteString'
-        accountIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        orgId:
-          type: string
-        orgIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
         policyMetadataCount:
           type: integer
           format: int32
@@ -93313,6 +93313,16 @@ components:
           type: string
         deny:
           type: boolean
+        statusBytes:
+          $ref: '#/components/schemas/ByteString'
+        accountIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        orgId:
+          type: string
+        orgIdBytes:
+          $ref: '#/components/schemas/ByteString'
+        projectIdBytes:
+          $ref: '#/components/schemas/ByteString'
         policySetId:
           type: string
         policySetIdBytes:
@@ -93325,16 +93335,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PolicyMetadataOrBuilder'
-        statusBytes:
-          $ref: '#/components/schemas/ByteString'
-        accountIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        orgId:
-          type: string
-        orgIdBytes:
-          $ref: '#/components/schemas/ByteString'
-        projectIdBytes:
-          $ref: '#/components/schemas/ByteString'
         policyMetadataCount:
           type: integer
           format: int32
@@ -93489,8 +93489,6 @@ components:
           format: int64
         first:
           type: boolean
-        sort:
-          $ref: '#/components/schemas/Sort'
         size:
           type: integer
           format: int32
@@ -93501,6 +93499,8 @@ components:
         number:
           type: integer
           format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -95862,6 +95862,10 @@ components:
           $ref: '#/components/schemas/SLOError'
         recalculatingSLI:
           type: boolean
+        calculatingSLI:
+          type: boolean
+        totalErrorBudgetApplicable:
+          type: boolean
         errorBudgetRisk:
           type: string
           enum:
@@ -95870,10 +95874,6 @@ components:
             - NEED_ATTENTION
             - OBSERVE
             - HEALTHY
-        calculatingSLI:
-          type: boolean
-        totalErrorBudgetApplicable:
-          type: boolean
     TimeRangeFilter:
       type: object
       properties:
@@ -98406,7 +98406,7 @@ components:
             RoleARN contains optional role ARN. If set then AWS IAM
             Authenticator assume a role to perform cluster operations instead of
             the default AWS credential provider chain.
-      title: AWSAuthConfig is an AWS IAM authentication configuration
+      title: 'AWSAuthConfig is an AWS IAM authentication configuration [ Deprecated ]'
     clustersCluster:
       type: object
       properties:
@@ -98499,6 +98499,17 @@ components:
           $ref: '#/components/schemas/clustersTLSClientConfig'
         awsAuthConfig:
           $ref: '#/components/schemas/clustersAWSAuthConfig'
+        roleARN:
+          type: string
+          description: >-
+            RoleARN contains optional role ARN. If set then AWS IAM
+            Authenticator assume a role to perform cluster operations instead of
+            the default AWS credential provider chain.
+        awsClusterName:
+          type: string
+          description: >-
+            AWS Cluster name. If set then AWS CLI EKS token command will be used
+            to access cluster.
         execProviderConfig:
           $ref: '#/components/schemas/clustersExecProviderConfig'
         clusterConnectionType:
