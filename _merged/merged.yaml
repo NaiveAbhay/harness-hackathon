@@ -113220,11 +113220,6 @@ x-tagGroups:
       - Org Role Assignments
       - Project Role Assignments
       - Role Assignments
-  - name: Rancher Infrastructures
-    tags:
-      - Account Rancher Infrastructure
-      - Org Rancher Infrastructure
-      - Project Rancher Infrastructure
   - name: Platform
     tags:
       - Accounts
@@ -113290,6 +113285,11 @@ x-tagGroups:
       - Org Services
       - Project Services
       - Services
+  - name: Rancher Infrastructures
+    tags:
+      - Account Rancher Infrastructure
+      - Org Rancher Infrastructure
+      - Project Rancher Infrastructure
   - name: Templates
     tags:
       - Account Template
@@ -113322,7 +113322,6 @@ x-tagGroups:
       - Cloud Cost Budgets
       - Cloud Cost K8S Connectors Metadata
       - Cloud Cost Details
-      - Cloud Cost Currency Preferences
       - Cloud Cost Overview
       - Cloud Cost Cost Categories
       - RuleEnforcement
