@@ -38,6 +38,11 @@
     - Org Role Assignments
     - Project Role Assignments
     - Role Assignments
+- name: Rancher Infrastructures
+  tags:
+    - Account Rancher Infrastructure
+    - Org Rancher Infrastructure
+    - Project Rancher Infrastructure
 - name: Platform 
   tags: 
       - Accounts
