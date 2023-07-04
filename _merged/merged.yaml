@@ -113267,7 +113267,6 @@ x-tagGroups:
       - Pipeline Execute
       - Triggers
       - TriggersEvents
-      - User Source Code Manager
       - Webhook Triggers
       - Webhook Event Handler
   - name: CD
@@ -113297,7 +113296,6 @@ x-tagGroups:
       - Org Template
       - Project Template
       - Templates
-      - Template Schemas
   - name: GitOps
     tags:
       - Agents
@@ -113371,7 +113369,6 @@ x-tagGroups:
       - Git Sync Settings
       - Git Sync
       - Git Sync Errors
-      - SCM
   - name: Error Models
     tags:
       - Error Response

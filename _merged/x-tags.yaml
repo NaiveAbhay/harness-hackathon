@@ -85,7 +85,6 @@
     - Pipeline Execute
     - Triggers
     - TriggersEvents
-    - User Source Code Manager
     - Webhook Triggers
     - Webhook Event Handler
 - name: CD
@@ -115,7 +114,6 @@
     - Org Template
     - Project Template
     - Templates
-    - Template Schemas
 - name: GitOps
   tags: 
       - Agents
@@ -189,7 +187,6 @@
       - Git Sync Settings
       - Git Sync
       - Git Sync Errors
-      - SCM
 - name: Error Models
   tags:
     - Error Response
