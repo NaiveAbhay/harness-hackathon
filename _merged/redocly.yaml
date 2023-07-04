@@ -3,6 +3,8 @@ apis:
     root: merged.yaml
     decorators:
       remove-x-internal: on
+  harness@internal:
+    root: merged.yaml
 features.openapi:
   htmlTemplate: ./index.html
   sidebarLinks:
@@ -17,3 +19,4 @@ theme.openapi:
       -  minimal
 rules:
   no-identical-paths: warn
+  spec: warn
