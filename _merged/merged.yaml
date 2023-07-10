@@ -189,7 +189,12 @@ info:
   termsOfService: 'https://harness.io/terms-of-use/'
 servers:
   - url: 'https://app.harness.io'
-    description: Harness host URL.
+    description: Harness host URL
+  - url: https://{vanity}.harness.io
+    description: Vanity URL
+    variables:
+      vanity:
+        default: app
 externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
