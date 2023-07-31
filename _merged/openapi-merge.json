@@ -78,7 +78,7 @@
     {
       "inputURL": "https://app.harness.io/prod1/lw/api/openapi.json",
       "pathModification": {
-        "prepend": "/lw/api"
+        "prepend": "/gateway/lw/api"
       },
       "dispute": {
         "prefix": "Lw"
