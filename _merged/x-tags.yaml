@@ -138,6 +138,7 @@
   tags: 
       - Cloud Cost Anomalies
       - Cloud Cost BI Dashboards
+      - Cloud Cost Budget Groups
       - Cloud Cost Budgets
       - Cloud Cost K8S Connectors Metadata
       - Cloud Cost Details
@@ -151,6 +152,7 @@
       - Cloud Cost Recommendations Details
       - Cloud Cost Recommendations
       - Cloud Cost Recommendation Jira
+      - Cloud Cost Recommendation Servicenow
       - Cloud Cost Recommendation Ignore List
       - Cloud Cost AutoStopping Rules
       - Cloud Cost AutoStopping Rules V2
