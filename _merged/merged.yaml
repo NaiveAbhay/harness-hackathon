@@ -458,12 +458,12 @@ tags:
     description: This contains APIs for CRUD on role assignments
   - name: Roles
     description: This contains APIs for CRUD on roles
-  - name: Harness Resource Group
-    description: This contains APIs specific to the Harness Resource Group
   - name: Harness Resource Type
     description: This contains APIs related to Harness Resource Type
   - name: Zendesk
     description: This contains APIs specific to the creation of zendesk ticket
+  - name: Harness Resource Group
+    description: This contains APIs specific to the Harness Resource Group
   - name: Cloud Cost Anomalies
     description: Get details about any anomalous spike in your cloud costs
   - name: Cloud Cost BI Dashboards
@@ -17662,11 +17662,11 @@ paths:
           in: query
           schema:
             type: string
-            default: EXCLUDE_INHERITED_GROUPS
             enum:
               - INCLUDE_INHERITED_GROUPS
               - EXCLUDE_INHERITED_GROUPS
               - INCLUDE_CHILD_SCOPE_GROUPS
+            default: EXCLUDE_INHERITED_GROUPS
         - name: pageIndex
           in: query
           description: 'Page Index of the results to fetch.Default Value: 0'
@@ -29918,10 +29918,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResponseDTOPageResponseRoleResponse'
+                $ref: >-
+                  #/components/schemas/ResponseDTOPageResponseRoleWithPrincipalCountResponse
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ResponseDTOPageResponseRoleResponse'
+                $ref: >-
+                  #/components/schemas/ResponseDTOPageResponseRoleWithPrincipalCountResponse
     post:
       tags:
         - Roles
@@ -30201,416 +30203,6 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ResponseDTORoleResponse'
-  /resourcegroup/api/resourcegroup:
-    get:
-      tags:
-        - Harness Resource Group
-      summary: Get list of resource groups
-      operationId: getResourceGroupList
-      parameters:
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: orgIdentifier
-          in: query
-          description: Organization Identifier for the Entity.
-          schema:
-            type: string
-        - name: projectIdentifier
-          in: query
-          description: Project Identifier for the Entity.
-          schema:
-            type: string
-        - name: searchTerm
-          in: query
-          description: >-
-            Details of all the resource groups having this string in their name
-            or identifier will be returned.
-          schema:
-            type: string
-        - name: pageIndex
-          in: query
-          description: 'Page Index of the results to fetch.Default Value: 0'
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: pageSize
-          in: query
-          description: 'Results per page(max 100)Default Value: 50'
-          schema:
-            maximum: 100
-            type: integer
-            format: int32
-            default: 50
-        - name: sortOrders
-          in: query
-          description: Sort criteria for the elements.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/SortOrder'
-        - name: pageToken
-          in: query
-          description: 'Page Token of the next results to fetch.Default Value: '''''
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: This contains a list of Resource Groups
-          content:
-            application/json:
-              schema:
-                $ref: >-
-                  #/components/schemas/ResponseDTOPageResponseResourceGroupResponse
-            application/yaml:
-              schema:
-                $ref: >-
-                  #/components/schemas/ResponseDTOPageResponseResourceGroupResponse
-      deprecated: true
-    post:
-      tags:
-        - Harness Resource Group
-      summary: Create a resource group
-      operationId: createResourceGroup
-      parameters:
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: orgIdentifier
-          in: query
-          description: Organization Identifier for the Entity.
-          schema:
-            type: string
-        - name: projectIdentifier
-          in: query
-          description: Project Identifier for the Entity.
-          schema:
-            type: string
-      requestBody:
-        description: This contains the details required to create a Resource Group
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupRequest'
-          application/yaml:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupRequest'
-        required: true
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: Successfully created a Resource Group
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-      deprecated: true
-  '/resourcegroup/api/resourcegroup/{identifier}':
-    get:
-      tags:
-        - Harness Resource Group
-      summary: Get a resource group by identifier
-      operationId: getResourceGroup
-      parameters:
-        - name: identifier
-          in: path
-          description: This is the Identifier of the Entity
-          required: true
-          schema:
-            type: string
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: orgIdentifier
-          in: query
-          description: Organization Identifier for the Entity.
-          schema:
-            type: string
-        - name: projectIdentifier
-          in: query
-          description: Project Identifier for the Entity.
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: This returns a Resource Group specific to the Identifier
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-      deprecated: true
-    put:
-      tags:
-        - Harness Resource Group
-      summary: Update a resource group
-      operationId: updateResourceGroup
-      parameters:
-        - name: identifier
-          in: path
-          description: Identifier for the entity
-          required: true
-          schema:
-            type: string
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: orgIdentifier
-          in: query
-          description: Organization Identifier for the Entity.
-          schema:
-            type: string
-        - name: projectIdentifier
-          in: query
-          description: Project Identifier for the Entity.
-          schema:
-            type: string
-      requestBody:
-        description: This contains the details required to create a Resource Group
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupRequest'
-          application/yaml:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupRequest'
-        required: true
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: Successfully updated a Resource Group
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOResourceGroupResponse'
-      deprecated: true
-    delete:
-      tags:
-        - Harness Resource Group
-      summary: Delete a resource group
-      operationId: deleteResourceGroup
-      parameters:
-        - name: identifier
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: orgIdentifier
-          in: query
-          description: Organization Identifier for the Entity.
-          schema:
-            type: string
-        - name: projectIdentifier
-          in: query
-          description: Project Identifier for the Entity.
-          schema:
-            type: string
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: Successfully deleted a Resource Group
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResponseDTOBoolean'
-      deprecated: true
-  /resourcegroup/api/resourcegroup/filter:
-    post:
-      tags:
-        - Harness Resource Group
-      summary: This fetches a filtered list of Resource Groups
-      operationId: getFilterResourceGroupList
-      parameters:
-        - name: accountIdentifier
-          in: query
-          description: Account Identifier for the Entity.
-          required: true
-          schema:
-            type: string
-        - name: pageIndex
-          in: query
-          description: 'Page Index of the results to fetch.Default Value: 0'
-          schema:
-            type: integer
-            format: int32
-            default: 0
-        - name: pageSize
-          in: query
-          description: 'Results per page(max 100)Default Value: 50'
-          schema:
-            maximum: 100
-            type: integer
-            format: int32
-            default: 50
-        - name: sortOrders
-          in: query
-          description: Sort criteria for the elements.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/SortOrder'
-        - name: pageToken
-          in: query
-          description: 'Page Token of the next results to fetch.Default Value: '''''
-          schema:
-            type: string
-      requestBody:
-        description: Filter Resource Groups based on multiple parameters
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupFilter'
-          application/yaml:
-            schema:
-              $ref: '#/components/schemas/ResourceGroupFilter'
-        required: true
-      responses:
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Failure'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/Failure'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ResourcegroupError'
-        default:
-          description: >-
-            This fetches the list of Resource Groups filtered by multiple
-            fields.
-          content:
-            application/json:
-              schema:
-                $ref: >-
-                  #/components/schemas/ResponseDTOPageResponseResourceGroupResponse
-            application/yaml:
-              schema:
-                $ref: >-
-                  #/components/schemas/ResponseDTOPageResponseResourceGroupResponse
-      deprecated: true
   /resourcegroup/api/resourcetype:
     get:
       tags:
@@ -37195,16 +36787,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/yaml:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/html:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/plain:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
         required: true
       responses:
         '400':
@@ -37254,16 +36846,16 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/yaml:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/html:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
           text/plain:
             schema:
-              $ref: '#/components/schemas/Filter'
+              $ref: '#/components/schemas/AuditFilter'
         required: true
       responses:
         '400':
@@ -37462,10 +37054,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuditFilterProperties'
+              $ref: '#/components/schemas/AuditAuditFilterProperties'
           application/yaml:
             schema:
-              $ref: '#/components/schemas/AuditFilterProperties'
+              $ref: '#/components/schemas/AuditAuditFilterProperties'
       responses:
         '400':
           description: Bad Request
@@ -39669,6 +39261,115 @@ paths:
           in: query
           schema:
             type: boolean
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CvError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CvError'
+  '/cv/api/monitored-service/{identifier}/secondary-events':
+    get:
+      tags:
+        - Monitored Services
+      operationId: getMSSecondaryEvents
+      parameters:
+        - name: accountId
+          in: query
+          description: Account Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: orgIdentifier
+          in: query
+          description: Organization Identifier for the Entity.
+          schema:
+            type: string
+        - name: projectIdentifier
+          in: query
+          description: Project Identifier for the Entity.
+          schema:
+            type: string
+        - name: identifier
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Failure'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Failure'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CvError'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/CvError'
+  /cv/api/monitored-service/secondary-events-details:
+    get:
+      tags:
+        - Monitored Services
+      operationId: getMSSecondaryEventsDetails
+      parameters:
+        - name: accountId
+          in: query
+          description: Account Identifier for the Entity.
+          required: true
+          schema:
+            type: string
+        - name: secondaryEventType
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - Downtime
+              - DataCollectionFailure
+              - Annotation
+              - ErrorBudgetReset
+              - SrmAnalysisImpact
+        - name: identifiers
+          in: query
+          required: true
+          schema:
+            maxItems: 2147483647
+            minItems: 1
+            type: array
+            items:
+              type: string
       responses:
         '400':
           description: Bad Request
@@ -42020,6 +41721,149 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RestResponseSLOErrorBudgetReset'
+  /cv/api/usage/SRM/active-monitored-services/csv/download:
+    get:
+      tags:
+        - Usage
+      summary: Download CSV Active Monitored Services report
+      operationId: downloadActiveMonitoredServiceCSVReport
+      parameters:
+        - name: accountIdentifier
+          in: query
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          schema:
+            type: integer
+            format: int64
+            default: 0
+      responses:
+        default:
+          description: Download CSV Active Monitored Services report
+  /cv/api/usage/SRM/active-services-monitored/csv/download:
+    get:
+      tags:
+        - Usage
+      summary: Download CSV Active Services Monitored report
+      operationId: downloadActiveServiceMonitoredCSVReport
+      parameters:
+        - name: accountIdentifier
+          in: query
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          schema:
+            type: integer
+            format: int64
+            default: 0
+      responses:
+        default:
+          description: Download CSV Active Services Monitored report
+  /cv/api/usage/CV:
+    get:
+      tags:
+        - Usage
+      operationId: CvgetLicenseUsage
+      parameters:
+        - name: accountIdentifier
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOSRMLicenseUsageDTO'
+  /cv/api/usage/SRM:
+    get:
+      tags:
+        - Usage
+      operationId: getSRMLicenseUsage
+      parameters:
+        - name: accountIdentifier
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          schema:
+            type: integer
+            format: int64
+      responses:
+        default:
+          description: default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOSRMLicenseUsageDTO'
+  /cv/api/usage/SRM/active-monitored-services:
+    post:
+      tags:
+        - Usage
+      summary: >-
+        Returns a List of active monitored services along with identifier,Active
+        Monitored Services Count and other details
+      operationId: listSRMActiveMonitoredServices
+      parameters:
+        - name: accountIdentifier
+          in: query
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: 'Page Index of the results to fetch.Default Value: 0'
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: size
+          in: query
+          description: Results per page
+          schema:
+            maximum: 50
+            type: integer
+            format: int32
+            default: 20
+        - name: sort
+          in: query
+          description: Sort criteria for the elements.
+          schema:
+            type: array
+            items:
+              type: string
+        - name: timestamp
+          in: query
+          schema:
+            type: integer
+            format: int64
+            default: 0
+      requestBody:
+        description: Details of the Active Services Monitored Filter
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/ActiveServiceMonitoredFilterParams'
+      responses:
+        default:
+          description: Returns a list of active monitored services
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseDTOPageActiveMonitoredService'
   /gitops/api/v1/agents:
     get:
       description: List agents.
@@ -62369,13 +62213,13 @@ components:
         publicAccessEnabled:
           type: boolean
           description: Specifies if Account has public access enabled.
-        twoFactorAdminEnforced:
+        nextGenEnabled:
           type: boolean
         crossGenerationAccessEnabled:
           type: boolean
-        productLed:
+        twoFactorAdminEnforced:
           type: boolean
-        nextGenEnabled:
+        productLed:
           type: boolean
       description: Account details defined in Harness.
     ResponseDTOAccount:
@@ -66560,12 +66404,12 @@ components:
           format: int64
         accountId:
           type: string
-        initialized:
-          type: boolean
         typeBytes:
           $ref: '#/components/schemas/ByteString'
         messageBytes:
           $ref: '#/components/schemas/ByteString'
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -66573,15 +66417,6 @@ components:
           $ref: '#/components/schemas/GovernanceMetadata2'
         parserForType:
           $ref: '#/components/schemas/ParserGovernanceMetadata'
-        actionBytes:
-          $ref: '#/components/schemas/ByteString'
-        detailsCount:
-          type: integer
-          format: int32
-        detailsList:
-          type: array
-          items:
-            $ref: '#/components/schemas/PolicySetMetadata1'
         statusBytes:
           $ref: '#/components/schemas/ByteString'
         accountIdBytes:
@@ -66598,11 +66433,20 @@ components:
           type: boolean
         idBytes:
           $ref: '#/components/schemas/ByteString'
+        detailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PolicySetMetadata1'
+        detailsCount:
+          type: integer
+          format: int32
         detailsOrBuilderList:
           type: array
           items:
             $ref: '#/components/schemas/PolicySetMetadataOrBuilder'
         entityBytes:
+          $ref: '#/components/schemas/ByteString'
+        actionBytes:
           $ref: '#/components/schemas/ByteString'
         message:
           type: string
@@ -67987,23 +67831,8 @@ components:
           type: string
         accountId:
           type: string
-        identifier:
-          type: string
-        severity:
-          type: string
-        initialized:
-          type: boolean
-        policyName:
-          type: string
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
-        serializedSize:
-          type: integer
-          format: int32
-        defaultInstanceForType:
-          $ref: '#/components/schemas/PolicyMetadata1'
-        parserForType:
-          $ref: '#/components/schemas/ParserPolicyMetadata'
         policyIdBytes:
           $ref: '#/components/schemas/ByteString'
         policyNameBytes:
@@ -68017,6 +67846,21 @@ components:
               type: boolean
           items:
             type: string
+        identifier:
+          type: string
+        severity:
+          type: string
+        policyName:
+          type: string
+        initialized:
+          type: boolean
+        serializedSize:
+          type: integer
+          format: int32
+        defaultInstanceForType:
+          $ref: '#/components/schemas/PolicyMetadata1'
+        parserForType:
+          $ref: '#/components/schemas/ParserPolicyMetadata'
         denyMessagesCount:
           type: integer
           format: int32
@@ -68117,8 +67961,6 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        description:
-          type: string
         status:
           type: string
         created:
@@ -68126,12 +67968,14 @@ components:
           format: int64
         accountId:
           type: string
+        identifierBytes:
+          $ref: '#/components/schemas/ByteString'
+        description:
+          type: string
         identifier:
           type: string
         initialized:
           type: boolean
-        identifierBytes:
-          $ref: '#/components/schemas/ByteString'
         serializedSize:
           type: integer
           format: int32
@@ -68189,8 +68033,6 @@ components:
     PolicySetMetadataOrBuilder:
       type: object
       properties:
-        description:
-          type: string
         status:
           type: string
         created:
@@ -68198,10 +68040,12 @@ components:
           format: int64
         accountId:
           type: string
-        identifier:
-          type: string
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
+        description:
+          type: string
+        identifier:
+          type: string
         statusBytes:
           $ref: '#/components/schemas/ByteString'
         accountIdBytes:
@@ -68243,12 +68087,12 @@ components:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     PrometheusConnectorDTO:
@@ -70151,15 +69995,15 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        repoBytes:
-          $ref: '#/components/schemas/ByteString'
+        branch:
+          type: string
         branchBytes:
+          $ref: '#/components/schemas/ByteString'
+        repoBytes:
           $ref: '#/components/schemas/ByteString'
         initialized:
           type: boolean
         repo:
-          type: string
-        branch:
           type: string
         serializedSize:
           type: integer
@@ -70557,13 +70401,6 @@ components:
         totalPages:
           type: integer
           format: int32
-        first:
-          type: boolean
-        number:
-          type: integer
-          format: int32
-        sort:
-          $ref: '#/components/schemas/Sort'
         numberOfElements:
           type: integer
           format: int32
@@ -70571,6 +70408,13 @@ components:
           type: boolean
         pageable:
           $ref: '#/components/schemas/Pageable'
+        first:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: '#/components/schemas/Sort'
         size:
           type: integer
           format: int32
@@ -71089,7 +70933,7 @@ components:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/TemplateFilter'
+            $ref: '#/components/schemas/AuditFilter'
         pageIndex:
           type: integer
           format: int64
@@ -71107,7 +70951,7 @@ components:
             - FAILURE
             - ERROR
         data:
-          $ref: '#/components/schemas/PageResponseFilter'
+          $ref: '#/components/schemas/TemplatePageResponseFilter'
         metaData:
           type: object
         correlationId:
@@ -72035,9 +71879,9 @@ components:
         isGitSyncEnabledOnlyForFF:
           type: boolean
           writeOnly: true
-        gitSyncEnabledOnlyForFF:
-          type: boolean
         gitSimplificationEnabled:
+          type: boolean
+        gitSyncEnabledOnlyForFF:
           type: boolean
         gitSyncEnabled:
           type: boolean
@@ -72789,6 +72633,8 @@ components:
           type: array
           items:
             type: string
+        accountId:
+          type: string
         settingType:
           type: string
           enum:
@@ -72869,8 +72715,6 @@ components:
             - GCP_SECRETS_MANAGER
             - TRIGGER
             - OCI_HELM_REPO
-        accountId:
-          type: string
       description: This is the LDAP connection setting.
     LdapGroupSettings:
       required:
@@ -73420,6 +73264,14 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        entityGitMetadata:
+          $ref: '#/components/schemas/EntityGitMetadata'
+        inputSetRef:
+          $ref: '#/components/schemas/InputSetReferenceProtoDTO'
+        infraDefRef:
+          $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
+        triggerRef:
+          $ref: '#/components/schemas/TriggerReferenceProtoDTO'
         typeValue:
           type: integer
           format: int32
@@ -73427,10 +73279,6 @@ components:
           $ref: '#/components/schemas/IdentifierRefProtoDTOOrBuilder'
         inputSetRefOrBuilder:
           $ref: '#/components/schemas/InputSetReferenceProtoDTOOrBuilder'
-        initialized:
-          type: boolean
-        identifierRef:
-          $ref: '#/components/schemas/IdentifierRefProtoDTO'
         templateRefOrBuilder:
           $ref: '#/components/schemas/TemplateReferenceProtoDTOOrBuilder'
         infraDefRefOrBuilder:
@@ -73448,6 +73296,14 @@ components:
             - INFRADEFREF
             - TRIGGERREF
             - ENTITYREF_NOT_SET
+        initialized:
+          type: boolean
+        identifierRef:
+          $ref: '#/components/schemas/IdentifierRefProtoDTO'
+        nameBytes:
+          $ref: '#/components/schemas/ByteString'
+        templateRef:
+          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         serializedSize:
           type: integer
           format: int32
@@ -73455,18 +73311,6 @@ components:
           $ref: '#/components/schemas/EntityDetailProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserEntityDetailProtoDTO'
-        entityGitMetadata:
-          $ref: '#/components/schemas/EntityGitMetadata'
-        inputSetRef:
-          $ref: '#/components/schemas/InputSetReferenceProtoDTO'
-        infraDefRef:
-          $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
-        triggerRef:
-          $ref: '#/components/schemas/TriggerReferenceProtoDTO'
-        nameBytes:
-          $ref: '#/components/schemas/ByteString'
-        templateRef:
-          $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         name:
           type: string
         type:
@@ -73719,13 +73563,13 @@ components:
     EntityGitMetadataOrBuilder:
       type: object
       properties:
-        repoBytes:
-          $ref: '#/components/schemas/ByteString'
+        branch:
+          type: string
         branchBytes:
           $ref: '#/components/schemas/ByteString'
+        repoBytes:
+          $ref: '#/components/schemas/ByteString'
         repo:
-          type: string
-        branch:
           type: string
         allFields:
           type: object
@@ -73733,12 +73577,12 @@ components:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     IdentifierRefProtoDTO:
@@ -73746,6 +73590,24 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
         scope:
           type: string
           enum:
@@ -73754,26 +73616,6 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
@@ -73784,8 +73626,10 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         serializedSize:
           type: integer
           format: int32
@@ -73808,6 +73652,24 @@ components:
     IdentifierRefProtoDTOOrBuilder:
       type: object
       properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
         scope:
           type: string
           enum:
@@ -73816,26 +73678,6 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -73844,20 +73686,22 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         allFields:
           type: object
           additionalProperties:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     InfraDefinitionReferenceProtoDTO:
@@ -73865,39 +73709,43 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
         metadata:
           type: object
           additionalProperties:
             type: string
+        envIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
           type: boolean
-        envIdentifier:
-          $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
         orgIdentifier:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         serializedSize:
           type: integer
           format: int32
@@ -73905,10 +73753,6 @@ components:
           $ref: '#/components/schemas/InfraDefinitionReferenceProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserInfraDefinitionReferenceProtoDTO'
-        envIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envNameOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         allFields:
           type: object
           additionalProperties:
@@ -73924,26 +73768,30 @@ components:
     InfraDefinitionReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
         metadata:
           type: object
           additionalProperties:
             type: string
-        identifier:
-          $ref: '#/components/schemas/StringValue'
         envIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        envName:
+          $ref: '#/components/schemas/StringValue'
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        envNameOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
           $ref: '#/components/schemas/StringValue'
@@ -73951,26 +73799,22 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        envName:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        envNameOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         allFields:
           type: object
           additionalProperties:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     InputSetReferenceProtoDTO:
@@ -73978,13 +73822,17 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
@@ -73996,10 +73844,6 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         serializedSize:
           type: integer
           format: int32
@@ -74022,13 +73866,17 @@ components:
     InputSetReferenceProtoDTOOrBuilder:
       type: object
       properties:
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         identifier:
           $ref: '#/components/schemas/StringValue'
@@ -74038,22 +73886,18 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
         allFields:
           type: object
           additionalProperties:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     ParserEntityDetailProtoDTO:
@@ -74132,12 +73976,12 @@ components:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     TemplateReferenceProtoDTO:
@@ -74145,6 +73989,26 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -74153,26 +74017,6 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
@@ -74183,8 +74027,12 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
+        versionLabel:
+          $ref: '#/components/schemas/StringValue'
         serializedSize:
           type: integer
           format: int32
@@ -74192,10 +74040,6 @@ components:
           $ref: '#/components/schemas/TemplateReferenceProtoDTO'
         parserForType:
           $ref: '#/components/schemas/ParserTemplateReferenceProtoDTO'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabel:
-          $ref: '#/components/schemas/StringValue'
         allFields:
           type: object
           additionalProperties:
@@ -74211,6 +74055,26 @@ components:
     TemplateReferenceProtoDTOOrBuilder:
       type: object
       properties:
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        identifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        accountIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        scopeValue:
+          type: integer
+          format: int32
+        versionLabelOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         scope:
           type: string
           enum:
@@ -74219,26 +74083,6 @@ components:
             - PROJECT
             - UNKNOWN
             - UNRECOGNIZED
-        metadataMap:
-          type: object
-          additionalProperties:
-            type: string
-        identifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        accountIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        scopeValue:
-          type: integer
-          format: int32
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -74247,10 +74091,10 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        versionLabelOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         versionLabel:
           $ref: '#/components/schemas/StringValue'
         allFields:
@@ -74259,12 +74103,12 @@ components:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     TriggerReferenceProtoDTO:
@@ -74272,25 +74116,25 @@ components:
       properties:
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
-        metadataMap:
+        metadata:
           type: object
           additionalProperties:
             type: string
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         initialized:
@@ -74301,10 +74145,10 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         serializedSize:
           type: integer
           format: int32
@@ -74327,25 +74171,25 @@ components:
     TriggerReferenceProtoDTOOrBuilder:
       type: object
       properties:
-        metadataMap:
+        metadata:
           type: object
           additionalProperties:
             type: string
+        pipelineIdentifier:
+          $ref: '#/components/schemas/StringValue'
+        metadataCount:
+          type: integer
+          format: int32
+        orgIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
+        projectIdentifierOrBuilder:
+          $ref: '#/components/schemas/StringValueOrBuilder'
         identifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         accountIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
         pipelineIdentifierOrBuilder:
           $ref: '#/components/schemas/StringValueOrBuilder'
-        projectIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
-        metadataCount:
-          type: integer
-          format: int32
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
         identifier:
           $ref: '#/components/schemas/StringValue'
         accountIdentifier:
@@ -74354,22 +74198,22 @@ components:
           $ref: '#/components/schemas/StringValue'
         projectIdentifier:
           $ref: '#/components/schemas/StringValue'
-        pipelineIdentifier:
-          $ref: '#/components/schemas/StringValue'
-        orgIdentifierOrBuilder:
-          $ref: '#/components/schemas/StringValueOrBuilder'
+        metadataMap:
+          type: object
+          additionalProperties:
+            type: string
         allFields:
           type: object
           additionalProperties:
             type: object
         descriptorForType:
           $ref: '#/components/schemas/Descriptor'
-        defaultInstanceForType:
-          $ref: '#/components/schemas/Message'
         initializationErrorString:
           type: string
         unknownFields:
           $ref: '#/components/schemas/UnknownFieldSet'
+        defaultInstanceForType:
+          $ref: '#/components/schemas/Message'
         initialized:
           type: boolean
     CustomDeploymentYamlRequestDTO:
@@ -87809,7 +87653,7 @@ components:
           type: object
         correlationId:
           type: string
-    PageResponseRoleResponse:
+    PageResponseRoleWithPrincipalCountResponse:
       type: object
       properties:
         totalPages:
@@ -87827,7 +87671,7 @@ components:
         content:
           type: array
           items:
-            $ref: '#/components/schemas/RoleResponse'
+            $ref: '#/components/schemas/RoleWithPrincipalCountResponse'
         pageIndex:
           type: integer
           format: int64
@@ -87835,7 +87679,7 @@ components:
           type: boolean
         pageToken:
           type: string
-    ResponseDTOPageResponseRoleResponse:
+    ResponseDTOPageResponseRoleWithPrincipalCountResponse:
       type: object
       properties:
         status:
@@ -87845,11 +87689,37 @@ components:
             - FAILURE
             - ERROR
         data:
-          $ref: '#/components/schemas/PageResponseRoleResponse'
+          $ref: '#/components/schemas/PageResponseRoleWithPrincipalCountResponse'
         metaData:
           type: object
         correlationId:
           type: string
+    RoleWithPrincipalCountResponse:
+      required:
+        - role
+      type: object
+      properties:
+        role:
+          $ref: '#/components/schemas/Role'
+        scope:
+          $ref: '#/components/schemas/Scope'
+        harnessManaged:
+          type: boolean
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+        roleAssignedToUserCount:
+          type: integer
+          format: int32
+        roleAssignedToUserGroupCount:
+          type: integer
+          format: int32
+        roleAssignedToServiceAccountCount:
+          type: integer
+          format: int32
     ResourcegroupError:
       type: object
       properties:
@@ -88255,236 +88125,6 @@ components:
       description: This implements different error meta data objects
       discriminator:
         propertyName: type
-    DynamicResourceSelector:
-      required:
-        - resourceType
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ResourceSelector'
-        - type: object
-          properties:
-            resourceType:
-              type: string
-            includeChildScopes:
-              type: boolean
-    ResourcegroupResourceGroup:
-      required:
-        - accountIdentifier
-        - identifier
-        - name
-      type: object
-      properties:
-        accountIdentifier:
-          type: string
-        orgIdentifier:
-          type: string
-        projectIdentifier:
-          type: string
-        identifier:
-          maxLength: 128
-          minLength: 0
-          type: string
-        name:
-          maxLength: 128
-          minLength: 0
-          type: string
-        resourceSelectors:
-          maxItems: 256
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceSelector'
-        fullScopeSelected:
-          type: boolean
-        tags:
-          type: object
-          additionalProperties:
-            type: string
-        description:
-          maxLength: 1024
-          minLength: 0
-          type: string
-        allowedScopeLevels:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        color:
-          type: string
-        scope:
-          $ref: '#/components/schemas/ResourcegroupScope'
-      description: Contains information of Resource Group
-    ResourceGroupResponse:
-      required:
-        - resourceGroup
-      type: object
-      properties:
-        resourceGroup:
-          $ref: '#/components/schemas/ResourcegroupResourceGroup'
-        createdAt:
-          type: integer
-          format: int64
-        lastModifiedAt:
-          type: integer
-          format: int64
-        harnessManaged:
-          type: boolean
-    ResourceSelector:
-      required:
-        - type
-      type: object
-      properties:
-        type:
-          type: string
-      discriminator:
-        propertyName: type
-    ResourceSelectorByScope:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ResourceSelector'
-        - type: object
-          properties:
-            includeChildScopes:
-              type: boolean
-            scope:
-              $ref: '#/components/schemas/ResourcegroupScope'
-    ResponseDTOResourceGroupResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-            - ERROR
-        data:
-          $ref: '#/components/schemas/ResourceGroupResponse'
-        metaData:
-          type: object
-        correlationId:
-          type: string
-    ResourcegroupScope:
-      required:
-        - accountIdentifier
-      type: object
-      properties:
-        accountIdentifier:
-          type: string
-        orgIdentifier:
-          type: string
-        projectIdentifier:
-          type: string
-    StaticResourceSelector:
-      required:
-        - identifiers
-        - resourceType
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/ResourceSelector'
-        - type: object
-          properties:
-            resourceType:
-              type: string
-            identifiers:
-              type: array
-              items:
-                type: string
-    ResourceGroupRequest:
-      required:
-        - resourcegroup
-      type: object
-      properties:
-        resourcegroup:
-          $ref: '#/components/schemas/ResourcegroupResourceGroup'
-    PageResponseResourceGroupResponse:
-      type: object
-      properties:
-        totalPages:
-          type: integer
-          format: int64
-        totalItems:
-          type: integer
-          format: int64
-        pageItemCount:
-          type: integer
-          format: int64
-        pageSize:
-          type: integer
-          format: int64
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceGroupResponse'
-        pageIndex:
-          type: integer
-          format: int64
-        empty:
-          type: boolean
-        pageToken:
-          type: string
-    ResponseDTOPageResponseResourceGroupResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-            - ERROR
-        data:
-          $ref: '#/components/schemas/PageResponseResourceGroupResponse'
-        metaData:
-          type: object
-        correlationId:
-          type: string
-    ResourceGroupFilter:
-      required:
-        - accountIdentifier
-      type: object
-      properties:
-        accountIdentifier:
-          type: string
-          description: Filter by account identifier
-        orgIdentifier:
-          type: string
-          description: Filter by organization identifier
-        projectIdentifier:
-          type: string
-          description: Filter by project identifier
-        searchTerm:
-          type: string
-          description: Filter resource group matching by identifier/name
-        identifierFilter:
-          uniqueItems: true
-          type: array
-          description: Filter by resource group identifiers
-          items:
-            type: string
-            description: Filter by resource group identifiers
-        resourceSelectorFilterList:
-          uniqueItems: true
-          type: array
-          description: Filter based on whether it has a particular resource
-          items:
-            $ref: '#/components/schemas/ResourcegroupResourceSelectorFilter'
-        managedFilter:
-          type: string
-          description: Filter based on whether the resource group is Harness managed
-          enum:
-            - NO_FILTER
-            - ONLY_MANAGED
-            - ONLY_CUSTOM
-      description: Contains information of filters for Resource Group
-    ResourcegroupResourceSelectorFilter:
-      required:
-        - resourceType
-      type: object
-      properties:
-        resourceType:
-          type: string
-        resourceIdentifier:
-          type: string
-      description: Filter based on whether it has a particular resource
     ResourceType:
       required:
         - resourceTypes
@@ -88691,6 +88331,54 @@ components:
           type: object
         correlationId:
           type: string
+    ResourceGroupFilter:
+      required:
+        - accountIdentifier
+      type: object
+      properties:
+        accountIdentifier:
+          type: string
+          description: Filter by account identifier
+        orgIdentifier:
+          type: string
+          description: Filter by organization identifier
+        projectIdentifier:
+          type: string
+          description: Filter by project identifier
+        searchTerm:
+          type: string
+          description: Filter resource group matching by identifier/name
+        identifierFilter:
+          uniqueItems: true
+          type: array
+          description: Filter by resource group identifiers
+          items:
+            type: string
+            description: Filter by resource group identifiers
+        resourceSelectorFilterList:
+          uniqueItems: true
+          type: array
+          description: Filter based on whether it has a particular resource
+          items:
+            $ref: '#/components/schemas/ResourcegroupResourceSelectorFilter'
+        managedFilter:
+          type: string
+          description: Filter based on whether the resource group is Harness managed
+          enum:
+            - NO_FILTER
+            - ONLY_MANAGED
+            - ONLY_CUSTOM
+      description: Contains information of filters for Resource Group
+    ResourcegroupResourceSelectorFilter:
+      required:
+        - resourceType
+      type: object
+      properties:
+        resourceType:
+          type: string
+        resourceIdentifier:
+          type: string
+      description: Filter based on whether it has a particular resource
     CcmError:
       type: object
       properties:
@@ -89159,6 +88847,12 @@ components:
             description: >-
               This is the list of Workload Names on which filter will be
               applied.
+        k8sServiceNames:
+          type: array
+          description: This is the list of Service Names on which filter will be applied.
+          items:
+            type: string
+            description: This is the list of Service Names on which filter will be applied.
         gcpProjects:
           type: array
           description: This is the list of GCP Projects on which filter will be applied.
@@ -89327,6 +89021,8 @@ components:
             - CLUSTER_ECS_LAUNCH_TYPE
             - CLUSTER_ECS_LAUNCH_TYPE_ID
             - NAMESPACE
+            - SERVICE
+            - SERVICE_NAME
             - GCP_PRODUCT
             - GCP_PROJECT
             - GCP_SKU_ID
@@ -89403,6 +89099,8 @@ components:
             - CLUSTER_ECS_LAUNCH_TYPE
             - CLUSTER_ECS_LAUNCH_TYPE_ID
             - NAMESPACE
+            - SERVICE
+            - SERVICE_NAME
             - GCP_PRODUCT
             - GCP_PROJECT
             - GCP_SKU_ID
@@ -89479,6 +89177,8 @@ components:
             - CLUSTER_ECS_LAUNCH_TYPE
             - CLUSTER_ECS_LAUNCH_TYPE_ID
             - NAMESPACE
+            - SERVICE
+            - SERVICE_NAME
             - GCP_PRODUCT
             - GCP_PROJECT
             - GCP_SKU_ID
@@ -89645,6 +89345,10 @@ components:
         workloadName:
           type: string
         workloadType:
+          type: string
+        service:
+          type: string
+        serviceName:
           type: string
         gcpProjectId:
           type: string
@@ -90825,6 +90529,8 @@ components:
               - CLUSTER_ECS_LAUNCH_TYPE
               - CLUSTER_ECS_LAUNCH_TYPE_ID
               - NAMESPACE
+              - SERVICE
+              - SERVICE_NAME
               - GCP_PRODUCT
               - GCP_PROJECT
               - GCP_SKU_ID
@@ -90928,6 +90634,8 @@ components:
             - CLUSTER_ECS_LAUNCH_TYPE
             - CLUSTER_ECS_LAUNCH_TYPE_ID
             - NAMESPACE
+            - SERVICE
+            - SERVICE_NAME
             - GCP_PRODUCT
             - GCP_PROJECT
             - GCP_SKU_ID
@@ -91108,6 +90816,8 @@ components:
               - CLUSTER_ECS_LAUNCH_TYPE
               - CLUSTER_ECS_LAUNCH_TYPE_ID
               - NAMESPACE
+              - SERVICE
+              - SERVICE_NAME
               - GCP_PRODUCT
               - GCP_PROJECT
               - GCP_SKU_ID
@@ -91853,6 +91563,9 @@ components:
           description: The order by condition for Rule query
           items:
             $ref: '#/components/schemas/CCMSort'
+        resourceType:
+          type: string
+          description: resourceType
       description: This has the query to list the policies
     CcmConnectorConnectivityDetails:
       type: object
@@ -91964,6 +91677,8 @@ components:
           type: string
         accountId:
           type: string
+        initialized:
+          type: boolean
         serializedSize:
           type: integer
           format: int32
@@ -92006,8 +91721,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         actionBytes:
           $ref: '#/components/schemas/ByteString'
-        initialized:
-          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -92027,6 +91740,20 @@ components:
           $ref: '#/components/schemas/UnknownFieldSet'
         severity:
           type: string
+        error:
+          type: string
+        updated:
+          type: integer
+          format: int64
+        created:
+          type: integer
+          format: int64
+        status:
+          type: string
+        policyId:
+          type: string
+        accountId:
+          type: string
         policyIdBytes:
           $ref: '#/components/schemas/ByteString'
         policyNameBytes:
@@ -92045,20 +91772,8 @@ components:
           format: int32
         errorBytes:
           $ref: '#/components/schemas/ByteString'
-        error:
-          type: string
-        updated:
-          type: integer
-          format: int64
-        created:
-          type: integer
-          format: int64
-        status:
-          type: string
-        policyId:
-          type: string
-        accountId:
-          type: string
+        initialized:
+          type: boolean
         identifier:
           type: string
         policyName:
@@ -92084,8 +91799,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         identifierBytes:
           $ref: '#/components/schemas/ByteString'
-        initialized:
-          type: boolean
         allFields:
           type: object
           additionalProperties:
@@ -92109,6 +91822,10 @@ components:
         status:
           type: string
         accountId:
+          type: string
+        initialized:
+          type: boolean
+        description:
           type: string
         identifier:
           type: string
@@ -92156,10 +91873,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         descriptionBytes:
           $ref: '#/components/schemas/ByteString'
-        initialized:
-          type: boolean
-        description:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -92181,6 +91894,8 @@ components:
         status:
           type: string
         accountId:
+          type: string
+        description:
           type: string
         identifier:
           type: string
@@ -92221,8 +91936,6 @@ components:
           $ref: '#/components/schemas/ByteString'
         descriptionBytes:
           $ref: '#/components/schemas/ByteString'
-        description:
-          type: string
         allFields:
           type: object
           additionalProperties:
@@ -95913,6 +95626,67 @@ components:
       description: This implements different error meta data objects
       discriminator:
         propertyName: type
+    AuditFilter:
+      required:
+        - filterProperties
+        - identifier
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the Filter.
+        identifier:
+          type: string
+          description: Identifier of the Filter.
+        orgIdentifier:
+          type: string
+          description: Organization Identifier for the Entity.
+        projectIdentifier:
+          type: string
+          description: Project Identifier for the Entity.
+        filterProperties:
+          $ref: '#/components/schemas/AuditFilterProperties'
+        filterVisibility:
+          type: string
+          description: 'This indicates visibility of Filter, by default it is Everyone.'
+          enum:
+            - EveryOne
+            - OnlyCreator
+      description: This has details of the Filter entity defined in Harness
+    AuditFilterProperties:
+      required:
+        - filterType
+      type: object
+      properties:
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+            description: Filter tags as a key-value pair.
+          description: Filter tags as a key-value pair.
+        filterType:
+          type: string
+          description: This specifies the corresponding Entity of the filter.
+          enum:
+            - Connector
+            - DelegateProfile
+            - Delegate
+            - PipelineSetup
+            - PipelineExecution
+            - Deployment
+            - Audit
+            - Template
+            - Trigger
+            - EnvironmentGroup
+            - FileStore
+            - CCMRecommendation
+            - Anomaly
+            - Environment
+            - RuleExecution
+      description: Properties of the Filter entity defined in Harness.
+      discriminator:
+        propertyName: filterType
     AuditResponseDTOFilter:
       type: object
       properties:
@@ -95923,7 +95697,7 @@ components:
             - FAILURE
             - ERROR
         data:
-          $ref: '#/components/schemas/Filter'
+          $ref: '#/components/schemas/AuditFilter'
         metaData:
           type: object
         correlationId:
@@ -96025,6 +95799,9 @@ components:
             - ABORT
             - TIMEOUT
             - SIGNED_EULA
+            - ROLE_ASSIGNMENT_CREATED
+            - ROLE_ASSIGNMENT_UPDATED
+            - ROLE_ASSIGNMENT_DELETED
         auditEventData:
           $ref: '#/components/schemas/AuditEventData'
         internalInfo:
@@ -96329,7 +96106,7 @@ components:
           type: string
           description: Current YAML version
       description: This has the YAML Difference of the record.
-    AuditFilterProperties:
+    AuditAuditFilterProperties:
       type: object
       properties:
         scopes:
@@ -96400,6 +96177,9 @@ components:
               - ABORT
               - TIMEOUT
               - SIGNED_EULA
+              - ROLE_ASSIGNMENT_CREATED
+              - ROLE_ASSIGNMENT_UPDATED
+              - ROLE_ASSIGNMENT_DELETED
         environments:
           type: array
           description: List of Environments
@@ -96922,6 +96702,32 @@ components:
         metaData:
           type: object
         correlationId:
+          type: string
+    TemplatePageResponseFilter:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int64
+        totalItems:
+          type: integer
+          format: int64
+        pageItemCount:
+          type: integer
+          format: int64
+        pageSize:
+          type: integer
+          format: int64
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateFilter'
+        pageIndex:
+          type: integer
+          format: int64
+        empty:
+          type: boolean
+        pageToken:
           type: string
     TemplateEntityGitDetails:
       type: object
@@ -98001,6 +97807,94 @@ components:
       description: This implements different error meta data objects
       discriminator:
         propertyName: type
+    AnalysisDTO:
+      type: object
+      properties:
+        liveMonitoring:
+          $ref: '#/components/schemas/LiveMonitoringDTO'
+        deploymentVerification:
+          $ref: '#/components/schemas/DeploymentVerificationDTO'
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+    AppDMetricDefinitions:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        groupName:
+          type: string
+        baseFolder:
+          type: string
+        metricPath:
+          type: string
+        completeMetricPath:
+          type: string
+        completeServiceInstanceMetricPath:
+          type: string
+    AppDynamicsHealthSource:
+      required:
+        - applicationName
+        - connectorRef
+        - feature
+        - tierName
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        feature:
+          type: string
+        applicationName:
+          type: string
+        tierName:
+          type: string
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppDMetricDefinitions'
+      description: >-
+        This is the AppDynamics Metric Health Source spec entity defined in
+        Harness
+    AwsPrometheusHealthSource:
+      required:
+        - connectorRef
+        - region
+        - workspaceId
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusMetricDefinition'
+        region:
+          type: string
+        workspaceId:
+          type: string
+      description: >-
+        This is the AwsPrometheusHealthSource Metric Health Source spec entity
+        defined in Harness
     ChangeSourceDTO:
       required:
         - identifier
@@ -98025,7 +97919,6 @@ components:
             - CustomIncident
             - CustomInfrastructure
             - CustomFF
-            - DeploymentImpactAnalysis
         enabled:
           type: boolean
         spec:
@@ -98040,11 +97933,370 @@ components:
             - ChaosExperiment
     ChangeSourceSpec:
       type: object
-    HealthSource:
+    CloudWatchMetricDefinition:
+      required:
+        - expression
+        - groupName
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        groupName:
+          type: string
+        expression:
+          type: string
+        responseMapping:
+          $ref: '#/components/schemas/MetricResponseMapping'
+    CloudWatchMetricsHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - metricDefinitions
+        - region
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        region:
+          type: string
+        feature:
+          type: string
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CloudWatchMetricDefinition'
+      description: >-
+        This is the Cloud Watch Metric Health Source spec entity defined in
+        Harness
+    CustomHealthLogDefinition:
+      type: object
+      properties:
+        requestDefinition:
+          $ref: '#/components/schemas/CustomHealthRequestDefinition'
+        logMessageJsonPath:
+          type: string
+        timestampJsonPath:
+          type: string
+        serviceInstanceJsonPath:
+          type: string
+        queryName:
+          type: string
+    CustomHealthMetricDefinition:
       required:
         - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        requestDefinition:
+          $ref: '#/components/schemas/CustomHealthRequestDefinition'
+        queryType:
+          type: string
+          enum:
+            - SERVICE_BASED
+            - HOST_BASED
+        metricResponseMapping:
+          $ref: '#/components/schemas/MetricResponseMapping'
+        groupName:
+          type: string
+    CustomHealthRequestDefinition:
+      type: object
+      properties:
+        urlPath:
+          type: string
+        requestBody:
+          type: string
+        method:
+          type: string
+          enum:
+            - GET
+            - POST
+        startTimeInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+        endTimeInfo:
+          $ref: '#/components/schemas/TimestampInfo'
+    CustomHealthSourceLog:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        logDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomHealthLogDefinition'
+      description: This is the Custom Log Health Source spec entity defined in Harness
+    CustomHealthSourceMetric:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomHealthMetricDefinition'
+      description: This is the Custom Metric Health Source spec entity defined in Harness
+    DatadogLogHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - queries
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        feature:
+          type: string
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatadogLogHealthSourceQueryDTO'
+      description: This is the Datadog Log Health Source spec entity defined in Harness
+    DatadogLogHealthSourceQueryDTO:
+      required:
+        - indexes
         - name
-        - spec
+        - query
+        - serviceInstanceIdentifier
+      type: object
+      properties:
+        name:
+          type: string
+        query:
+          type: string
+        indexes:
+          type: array
+          items:
+            type: string
+        serviceInstanceIdentifier:
+          type: string
+    DatadogMetricHealthDefinition:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        dashboardId:
+          type: string
+        dashboardName:
+          type: string
+        metricPath:
+          type: string
+        query:
+          type: string
+        groupingQuery:
+          type: string
+        metric:
+          type: string
+        aggregation:
+          type: string
+        serviceInstanceIdentifierTag:
+          type: string
+        metricTags:
+          type: array
+          items:
+            type: string
+        isManualQuery:
+          type: boolean
+        isCustomCreatedMetric:
+          type: boolean
+    DatadogMetricHealthSource:
+      required:
+        - connectorRef
+        - feature
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        feature:
+          type: string
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatadogMetricHealthDefinition'
+      description: This is the Datadog Metric Health Source spec entity defined in Harness
+    DeploymentVerificationDTO:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        serviceInstanceFieldName:
+          type: string
+        serviceInstanceMetricPath:
+          type: string
+    DynatraceHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - serviceId
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        feature:
+          type: string
+        serviceId:
+          type: string
+        serviceName:
+          type: string
+        serviceMethodIds:
+          type: array
+          items:
+            type: string
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DynatraceMetricDefinition'
+      description: >-
+        This is the Dynatrace Metric Health Source spec entity defined in
+        Harness
+    DynatraceMetricDefinition:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        groupName:
+          type: string
+        metricSelector:
+          type: string
+        isManualQuery:
+          type: boolean
+    ELKHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - queries
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        feature:
+          type: string
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/ELKHealthSourceQueryDTO'
+      description: This is the ELK Log Health Source spec entity defined in Harness
+    ELKHealthSourceQueryDTO:
+      required:
+        - index
+        - messageIdentifier
+        - name
+        - query
+        - serviceInstanceIdentifier
+        - timeStampFormat
+        - timeStampIdentifier
+      type: object
+      properties:
+        name:
+          type: string
+        query:
+          type: string
+        index:
+          type: string
+        serviceInstanceIdentifier:
+          type: string
+        timeStampIdentifier:
+          type: string
+        timeStampFormat:
+          type: string
+        messageIdentifier:
+          type: string
+    ErrorTrackingHealthSource:
+      required:
+        - connectorRef
+        - feature
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        feature:
+          type: string
+      description: This is the ErrorTracking Health Source spec entity defined in Harness
+    FailMetricCustomThresholdSpec:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+    FailMetricThresholdSpec:
+      required:
+        - action
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/MetricThresholdSpec'
+        - type: object
+          properties:
+            spec:
+              $ref: '#/components/schemas/FailMetricCustomThresholdSpec'
+    HealthSource:
+      required:
+        - Health Source
+        - identifier
+        - name
       type: object
       properties:
         name:
@@ -98081,8 +98333,13 @@ components:
           enum:
             - v1
             - v2
-        spec:
+        Health Source:
           $ref: '#/components/schemas/HealthSourceSpec'
+    HealthSourceParamsDTO:
+      type: object
+      properties:
+        region:
+          type: string
     HealthSourceSpec:
       required:
         - connectorRef
@@ -98090,6 +98347,115 @@ components:
       properties:
         connectorRef:
           type: string
+      description: This is the Health Source entity defined in Harness
+      anyOf:
+        - $ref: '#/components/schemas/AppDynamicsHealthSource'
+        - $ref: '#/components/schemas/NewRelicHealthSource'
+        - $ref: '#/components/schemas/StackdriverLogHealthSource'
+        - $ref: '#/components/schemas/SplunkHealthSource'
+        - $ref: '#/components/schemas/PrometheusHealthSource'
+        - $ref: '#/components/schemas/StackdriverMetricHealthSource'
+        - $ref: '#/components/schemas/DatadogMetricHealthSource'
+        - $ref: '#/components/schemas/DatadogLogHealthSource'
+        - $ref: '#/components/schemas/DynatraceHealthSource'
+        - $ref: '#/components/schemas/ErrorTrackingHealthSource'
+        - $ref: '#/components/schemas/CustomHealthSourceMetric'
+        - $ref: '#/components/schemas/CustomHealthSourceLog'
+        - $ref: '#/components/schemas/SplunkMetricHealthSource'
+        - $ref: '#/components/schemas/ELKHealthSource'
+        - $ref: '#/components/schemas/CloudWatchMetricsHealthSource'
+        - $ref: '#/components/schemas/AwsPrometheusHealthSource'
+        - $ref: '#/components/schemas/NextGenHealthSource'
+    IgnoreMetricThresholdSpec:
+      required:
+        - action
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/MetricThresholdSpec'
+    LiveMonitoringDTO:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+    MetricResponseMapping:
+      type: object
+      properties:
+        metricValueJsonPath:
+          type: string
+        timestampJsonPath:
+          type: string
+        serviceInstanceJsonPath:
+          type: string
+        serviceInstanceListJsonPath:
+          type: string
+        relativeMetricListJsonPath:
+          type: string
+        relativeTimestampJsonPath:
+          type: string
+        relativeMetricValueJsonPath:
+          type: string
+        relativeServiceInstanceValueJsonPath:
+          type: string
+        timestampFormat:
+          type: string
+    MetricThreshold:
+      required:
+        - spec
+      type: object
+      properties:
+        groupName:
+          type: string
+        metricName:
+          type: string
+        metricIdentifier:
+          type: string
+        metricType:
+          type: string
+        spec:
+          $ref: '#/components/schemas/MetricThresholdSpec'
+        criteria:
+          $ref: '#/components/schemas/MetricThresholdCriteria'
+        type:
+          type: string
+          enum:
+            - IgnoreThreshold
+            - FailImmediately
+    MetricThresholdCriteria:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Absolute
+            - Percentage
+        spec:
+          $ref: '#/components/schemas/MetricThresholdCriteriaSpec'
+    MetricThresholdCriteriaSpec:
+      type: object
+      properties:
+        lessThan:
+          type: number
+          format: double
+        greaterThan:
+          type: number
+          format: double
+    MetricThresholdSpec:
+      required:
+        - action
+        - type
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+            - Ignore
+            - FailImmediately
+            - FailAfterOccurrence
+            - FailAfterConsecutiveOccurrence
+        type:
+          type: string
+      discriminator:
+        propertyName: type
     MonitoredService:
       required:
         - identifier
@@ -98156,6 +98522,72 @@ components:
           format: int64
         monitoredService:
           $ref: '#/components/schemas/MonitoredService'
+    NewRelicHealthSource:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        applicationName:
+          type: string
+        applicationId:
+          type: string
+        feature:
+          type: string
+        newRelicMetricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewRelicMetricDefinition'
+      description: This is the NewRelic Metric Health Source spec entity defined in Harness
+    NewRelicMetricDefinition:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        groupName:
+          type: string
+        nrql:
+          type: string
+        responseMapping:
+          $ref: '#/components/schemas/MetricResponseMapping'
+    NextGenHealthSource:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        queryDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryDefinition'
+        healthSourceParams:
+          $ref: '#/components/schemas/HealthSourceParamsDTO'
+      description: >-
+        This is the NextGenHealthSource Health Source spec entity defined in
+        Harness
     NotificationRuleRefDTO:
       required:
         - enabled
@@ -98166,6 +98598,124 @@ components:
           type: string
         enabled:
           type: boolean
+    PrometheusFilter:
+      type: object
+      properties:
+        labelName:
+          type: string
+        labelValue:
+          type: string
+    PrometheusHealthSource:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusMetricDefinition'
+      description: >-
+        This is the Prometheus Metric Health Source spec entity defined in
+        Harness
+    PrometheusMetricDefinition:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        query:
+          type: string
+        groupName:
+          type: string
+        serviceInstanceFieldName:
+          type: string
+        prometheusMetric:
+          type: string
+        serviceFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusFilter'
+        envFilter:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusFilter'
+        additionalFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrometheusFilter'
+        aggregation:
+          type: string
+        isManualQuery:
+          type: boolean
+    QueryDefinition:
+      required:
+        - identifier
+      type: object
+      properties:
+        identifier:
+          type: string
+        name:
+          type: string
+        groupName:
+          type: string
+        queryParams:
+          $ref: '#/components/schemas/QueryParamsDTO'
+        liveMonitoringEnabled:
+          type: boolean
+        continuousVerificationEnabled:
+          type: boolean
+        sliEnabled:
+          type: boolean
+        query:
+          type: string
+        metricThresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricThreshold'
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+    QueryParamsDTO:
+      type: object
+      properties:
+        serviceInstanceField:
+          type: string
+        index:
+          type: string
+        timeStampIdentifier:
+          type: string
+        timeStampFormat:
+          type: string
+        messageIdentifier:
+          type: string
+        healthSourceMetricName:
+          type: string
+        healthSourceMetricNamespace:
+          type: string
+        aggregationType:
+          type: string
+          enum:
+            - average
+            - maximum
+            - minimum
+            - total
+            - count
     RestResponseMonitoredServiceResponse:
       type: object
       properties:
@@ -98179,6 +98729,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResponseMessage'
+    RiskProfile:
+      type: object
+      properties:
+        category:
+          type: string
+          enum:
+            - Performance
+            - Errors
+            - Infrastructure
+        metricType:
+          type: string
+          enum:
+            - INFRA
+            - RESP_TIME
+            - THROUGHPUT
+            - ERROR
+            - APDEX
+            - OTHER
+        riskCategory:
+          type: string
+          enum:
+            - Errors
+            - Infrastructure
+            - Performance_Throughput
+            - Performance_Other
+            - Performance_ResponseTime
+        thresholdTypes:
+          type: array
+          items:
+            type: string
+            enum:
+              - ACT_WHEN_LOWER
+              - ACT_WHEN_HIGHER
+    SLIDTO:
+      type: object
+      properties:
+        enabled:
+          type: boolean
     ServiceDependencyDTO:
       type: object
       properties:
@@ -98209,7 +98797,6 @@ components:
               - CustomIncident
               - CustomInfrastructure
               - CustomFF
-              - DeploymentImpactAnalysis
       discriminator:
         propertyName: type
     Sources:
@@ -98225,6 +98812,160 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ChangeSourceDTO'
+    SplunkHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - queries
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        feature:
+          type: string
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplunkHealthSourceQueryDTO'
+      description: This is the Splunk Log Health Source spec entity defined in Harness
+    SplunkHealthSourceQueryDTO:
+      required:
+        - name
+        - query
+        - serviceInstanceIdentifier
+      type: object
+      properties:
+        name:
+          type: string
+        query:
+          type: string
+        serviceInstanceIdentifier:
+          type: string
+    SplunkMetricDefinition:
+      required:
+        - groupName
+        - identifier
+        - metricName
+        - query
+      type: object
+      properties:
+        groupName:
+          type: string
+        query:
+          type: string
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+    SplunkMetricHealthSource:
+      required:
+        - connectorRef
+        - feature
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        feature:
+          type: string
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SplunkMetricDefinition'
+      description: This is the Splunk Metric Health Source spec entity defined in Harness
+    StackdriverDefinition:
+      required:
+        - identifier
+        - metricName
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricName:
+          type: string
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        analysis:
+          $ref: '#/components/schemas/AnalysisDTO'
+        sli:
+          $ref: '#/components/schemas/SLIDTO'
+        dashboardName:
+          type: string
+        dashboardPath:
+          type: string
+        jsonMetricDefinition:
+          type: object
+        jsonMetricDefinitionString:
+          type: string
+        metricTags:
+          type: array
+          items:
+            type: string
+        serviceInstanceField:
+          type: string
+        isManualQuery:
+          type: boolean
+    StackdriverLogHealthSource:
+      required:
+        - connectorRef
+        - feature
+        - queries
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        feature:
+          type: string
+        queries:
+          type: array
+          items:
+            $ref: '#/components/schemas/StackdriverLogHealthSourceQueryDTO'
+      description: This is the StackDriver Log Health Source spec entity defined in Harness
+    StackdriverLogHealthSourceQueryDTO:
+      required:
+        - messageIdentifier
+        - name
+        - query
+        - serviceInstanceIdentifier
+      type: object
+      properties:
+        name:
+          type: string
+        query:
+          type: string
+        messageIdentifier:
+          type: string
+        serviceInstanceIdentifier:
+          type: string
+    StackdriverMetricHealthSource:
+      required:
+        - connectorRef
+      type: object
+      properties:
+        connectorRef:
+          type: string
+        metricPacks:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeSeriesMetricPackDTO'
+        metricDefinitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/StackdriverDefinition'
+      description: >-
+        This is the Stackdriver Metric Health Source spec entity defined in
+        Harness
     TemplateDTO:
       required:
         - templateRef
@@ -98234,6 +98975,30 @@ components:
         templateRef:
           type: string
         versionLabel:
+          type: string
+    TimeSeriesMetricPackDTO:
+      required:
+        - identifier
+      type: object
+      properties:
+        identifier:
+          type: string
+        metricThresholds:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricThreshold'
+    TimestampInfo:
+      type: object
+      properties:
+        placeholder:
+          type: string
+        timestampFormat:
+          type: string
+          enum:
+            - SECONDS
+            - MILLISECONDS
+            - CUSTOM
+        customTimestampFormat:
           type: string
     ProjectParams:
       required:
@@ -98496,6 +99261,181 @@ components:
           type: object
         correlationId:
           type: string
+    ResponseDTOListSecondaryEventsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecondaryEventsResponse'
+        metaData:
+          type: object
+        correlationId:
+          type: string
+    SecondaryEventsResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Downtime
+            - DataCollectionFailure
+            - Annotation
+            - ErrorBudgetReset
+            - SrmAnalysisImpact
+        identifiers:
+          type: array
+          items:
+            type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+    AnnotationInstance:
+      required:
+        - message
+        - uuid
+      type: object
+      properties:
+        uuid:
+          type: string
+        message:
+          type: string
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        createdBy:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+    AnnotationInstanceDetails:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SecondaryEventDetails'
+        - type: object
+          properties:
+            annotations:
+              type: array
+              items:
+                $ref: '#/components/schemas/AnnotationInstance'
+    DataCollectionFailureInstanceDetails:
+      required:
+        - message
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SecondaryEventDetails'
+        - type: object
+          properties:
+            message:
+              type: string
+    DowntimeInstanceDetails:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SecondaryEventDetails'
+    ResponseDTOSecondaryEventDetailsResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        data:
+          $ref: '#/components/schemas/SecondaryEventDetailsResponse'
+        metaData:
+          type: object
+        correlationId:
+          type: string
+    SLOErrorBudgetResetInstanceDetails:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SecondaryEventDetails'
+        - type: object
+          properties:
+            errorBudgetIncrementMinutes:
+              type: integer
+              format: int32
+    SRMAnalysisStepInstanceDetails:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/SecondaryEventDetails'
+        - type: object
+          properties:
+            analysisDuration:
+              type: object
+              properties:
+                seconds:
+                  type: integer
+                  format: int64
+                units:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      dateBased:
+                        type: boolean
+                      timeBased:
+                        type: boolean
+                      durationEstimated:
+                        type: boolean
+                zero:
+                  type: boolean
+                negative:
+                  type: boolean
+                nano:
+                  type: integer
+                  format: int32
+            analysisStatus:
+              type: string
+              enum:
+                - RUNNING
+                - COMPLETED
+                - ABORTED
+    SecondaryEventDetails:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+      discriminator:
+        propertyName: type
+    SecondaryEventDetailsResponse:
+      required:
+        - details
+        - startTime
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - Downtime
+            - DataCollectionFailure
+            - Annotation
+            - ErrorBudgetReset
+            - SrmAnalysisImpact
+        startTime:
+          type: integer
+          format: int64
+        endTime:
+          type: integer
+          format: int64
+        details:
+          $ref: '#/components/schemas/SecondaryEventDetails'
     MonitoredServiceChangeDetailSLO:
       type: object
       properties:
@@ -98712,6 +99652,7 @@ components:
           enum:
             - ONBOARDING
             - VERIFICATION_TASK
+            - VERIFICATION_JOB_INSTANCE
         type:
           type: string
           enum:
@@ -99269,181 +100210,6 @@ components:
           type: object
         correlationId:
           type: string
-    AnnotationInstance:
-      required:
-        - message
-        - uuid
-      type: object
-      properties:
-        uuid:
-          type: string
-        message:
-          type: string
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
-        createdBy:
-          type: string
-        createdAt:
-          type: integer
-          format: int64
-    AnnotationInstanceDetails:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SecondaryEventDetails'
-        - type: object
-          properties:
-            annotations:
-              type: array
-              items:
-                $ref: '#/components/schemas/AnnotationInstance'
-    DataCollectionFailureInstanceDetails:
-      required:
-        - message
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SecondaryEventDetails'
-        - type: object
-          properties:
-            message:
-              type: string
-    DowntimeInstanceDetails:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SecondaryEventDetails'
-    ResponseDTOSecondaryEventDetailsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-            - ERROR
-        data:
-          $ref: '#/components/schemas/SecondaryEventDetailsResponse'
-        metaData:
-          type: object
-        correlationId:
-          type: string
-    SLOErrorBudgetResetInstanceDetails:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SecondaryEventDetails'
-        - type: object
-          properties:
-            errorBudgetIncrementMinutes:
-              type: integer
-              format: int32
-    SRMAnalysisStepInstanceDetails:
-      type: object
-      allOf:
-        - $ref: '#/components/schemas/SecondaryEventDetails'
-        - type: object
-          properties:
-            analysisDuration:
-              type: object
-              properties:
-                seconds:
-                  type: integer
-                  format: int64
-                units:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      dateBased:
-                        type: boolean
-                      timeBased:
-                        type: boolean
-                      durationEstimated:
-                        type: boolean
-                zero:
-                  type: boolean
-                negative:
-                  type: boolean
-                nano:
-                  type: integer
-                  format: int32
-            analysisStatus:
-              type: string
-              enum:
-                - RUNNING
-                - COMPLETED
-                - ABORTED
-    SecondaryEventDetails:
-      required:
-        - type
-      type: object
-      properties:
-        type:
-          type: string
-      discriminator:
-        propertyName: type
-    SecondaryEventDetailsResponse:
-      required:
-        - details
-        - startTime
-        - type
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - Downtime
-            - DataCollectionFailure
-            - Annotation
-            - ErrorBudgetReset
-            - SrmAnalysisImpact
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
-        details:
-          $ref: '#/components/schemas/SecondaryEventDetails'
-    ResponseDTOListSecondaryEventsResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - SUCCESS
-            - FAILURE
-            - ERROR
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/SecondaryEventsResponse'
-        metaData:
-          type: object
-        correlationId:
-          type: string
-    SecondaryEventsResponse:
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-            - Downtime
-            - DataCollectionFailure
-            - Annotation
-            - ErrorBudgetReset
-            - SrmAnalysisImpact
-        identifiers:
-          type: array
-          items:
-            type: string
-        startTime:
-          type: integer
-          format: int64
-        endTime:
-          type: integer
-          format: int64
     ResponseDTOSLORiskCountResponse:
       type: object
       properties:
@@ -99861,6 +100627,8 @@ components:
           writeOnly: true
         sloError:
           $ref: '#/components/schemas/SLOError'
+        recalculatingSLI:
+          type: boolean
         errorBudgetRisk:
           type: string
           enum:
@@ -99869,8 +100637,6 @@ components:
             - NEED_ATTENTION
             - OBSERVE
             - HEALTHY
-        recalculatingSLI:
-          type: boolean
         calculatingSLI:
           type: boolean
         totalErrorBudgetApplicable:
@@ -100545,6 +101311,130 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ResponseMessage'
+    ResponseDTOSRMLicenseUsageDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        data:
+          $ref: '#/components/schemas/SRMLicenseUsageDTO'
+        metaData:
+          type: object
+        correlationId:
+          type: string
+    SRMLicenseUsageDTO:
+      type: object
+      properties:
+        accountIdentifier:
+          type: string
+        module:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+        activeServices:
+          $ref: '#/components/schemas/UsageDataDTO'
+    ActiveMonitoredService:
+      required:
+        - identifier
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Active Service identifier.
+        monitoredServiceCount:
+          type: integer
+          description: Monitored Service Count.
+          format: int64
+        name:
+          type: string
+          description: Active Service name.
+        orgName:
+          type: string
+          description: Organization name.
+        envNames:
+          type: array
+          description: Environment name.
+          items:
+            type: string
+            description: Environment name.
+        projectName:
+          type: string
+          description: Project name.
+        accountIdentifier:
+          type: string
+        module:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+      description: >-
+        This is details of the Active Service Monitored entity defined in
+        Harness.
+    PageActiveMonitoredService:
+      type: object
+      properties:
+        totalPages:
+          type: integer
+          format: int32
+        totalElements:
+          type: integer
+          format: int64
+        sort:
+          $ref: '#/components/schemas/Sort'
+        first:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        last:
+          type: boolean
+        pageable:
+          $ref: '#/components/schemas/Pageable'
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ActiveMonitoredService'
+        empty:
+          type: boolean
+    ResponseDTOPageActiveMonitoredService:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILURE
+            - ERROR
+        data:
+          $ref: '#/components/schemas/PageActiveMonitoredService'
+        metaData:
+          type: object
+        correlationId:
+          type: string
+    ActiveServiceMonitoredFilterParams:
+      type: object
+      properties:
+        orgIdentifier:
+          type: string
+          description: Organization identifier of the Entity.
+        projectIdentifier:
+          type: string
+          description: Project identifier of the Entity.
+        serviceIdentifier:
+          type: string
+          description: Service identifier of the Entity.
+      description: Active Services Monitored Filter Params
     apicorev1Event:
       type: object
       properties:
