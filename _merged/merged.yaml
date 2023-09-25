@@ -116830,3 +116830,206 @@ components:
         authenticate the client at the exposed endpoint.
 x-stoplight:
   id: oc91t4vrfnjyi
+x-tagGroups:
+  - name: Organizations
+    tags:
+      - Organization
+  - name: Projects
+    tags:
+      - Org Project
+      - Project
+  - name: Secrets
+    tags:
+      - Account Secret
+      - Org Secret
+      - Project Secret
+      - Secrets
+  - name: Connectors
+    tags:
+      - Account Connector
+      - Org Connector
+      - Project Connector
+      - Connectors
+      - GoogleSecretManagerConnector
+  - name: Roles
+    tags:
+      - Account Roles
+      - Organization Roles
+      - Project Roles
+      - Roles
+  - name: Resource Groups
+    tags:
+      - Account Resource Groups
+      - Organization Resource Groups
+      - Project Resource Groups
+      - Filter Resource Groups
+      - Harness Resource Group
+      - Zendesk
+  - name: Role Assignments
+    tags:
+      - Account Role Assignments
+      - Org Role Assignments
+      - Project Role Assignments
+      - Role Assignments
+  - name: Platform
+    tags:
+      - Accounts
+      - AccountSetting
+      - Access Control List
+      - AuditFilters
+      - Audit
+      - EULA
+      - Filter
+      - Invite
+      - ApiKey
+      - Source Code Manager
+      - Nextgen Ldap
+      - Harness Resource Type
+      - Authentication Settings
+      - Permissions
+      - Secret Managers
+      - Setting
+      - Service Account
+      - SMTP
+      - Token
+      - User
+      - User Group
+      - Variables
+  - name: Delegate
+    tags:
+      - Agent mTLS Endpoint Management
+      - Delegate Download Resource
+      - Delegate Group Tags Resource
+      - Delegate Setup Resource
+      - Delegate Token Resource
+  - name: Pipelines
+    tags:
+      - Pipelines
+      - Input Sets
+      - Approvals
+      - Schemas
+      - Pipeline Execution
+      - Pipeline Dashboard
+      - Pipeline Input Set
+      - Pipeline
+      - Pipeline Execution Details
+      - Pipeline Execute
+      - Pipeline Refresh
+      - Triggers
+      - TriggersEvents
+      - Webhook Triggers
+      - Webhook Event Handler
+  - name: CD
+    tags:
+      - CustomDeployment
+      - Environments
+      - EnvironmentGroup
+      - Infrastructures
+      - Usage
+      - File Store
+      - Service Dashboard
+      - ServiceOverrides
+      - tas
+  - name: Deployment Freeze
+    tags:
+      - Freeze CRUD
+      - Freeze Evaluation
+      - Freeze Schema
+  - name: Services
+    tags:
+      - Account Services
+      - Org Services
+      - Project Services
+      - Services
+  - name: Rancher Infrastructures
+    tags:
+      - Account Rancher Infrastructure
+      - Org Rancher Infrastructure
+      - Project Rancher Infrastructure
+  - name: Templates
+    tags:
+      - Account Template
+      - Org Template
+      - Project Template
+      - Templates
+  - name: GitOps
+    tags:
+      - Agents
+      - Application
+      - Applications
+      - Certificates
+      - Clusters
+      - Dashboard Aggregates
+      - Dashboards
+      - GnuPGP Keys
+      - GPG Keys
+      - Hosts
+      - Project mappings
+      - Projects
+      - Reconciler
+      - Repositories
+      - Repository Certificates
+      - Repository credentials
+      - ValidateHost
+  - name: CCM
+    tags:
+      - Cloud Cost Anomalies
+      - Cloud Cost BI Dashboards
+      - Cloud Cost Budget Groups
+      - Cloud Cost Budgets
+      - Cloud Cost K8S Connectors Metadata
+      - Cloud Cost Details
+      - Cloud Cost Overview
+      - Cloud Cost Cost Categories
+      - RuleEnforcement
+      - Rule
+      - Cloud Cost Perspectives Folders
+      - Cloud Cost Perspective Reports
+      - Cloud Cost Perspectives
+      - Cloud Cost Recommendations Details
+      - Cloud Cost Recommendations
+      - Cloud Cost Recommendation Jira
+      - Cloud Cost Recommendation Servicenow
+      - Cloud Cost Recommendation Ignore List
+      - Cloud Cost AutoStopping Rules
+      - Cloud Cost AutoStopping Rules V2
+      - Cloud Cost AutoStopping Load Balancers
+      - Cloud Cost AutoStopping Fixed Schedules
+  - name: Feature Flags
+    tags:
+      - API Keys
+      - Feature Flags
+      - Targets
+      - Target Groups
+  - name: SRM
+    tags:
+      - Monitored Services
+      - SLOs dashboard
+      - NG SLOs
+      - SLOs
+  - name: Custom Dashboards
+    tags:
+      - Custom Dashboards
+  - name: Policy Management
+    tags:
+      - dashboard
+      - examples
+      - policies
+      - evaluate
+      - evaluations
+      - policysets
+      - system
+  - name: Git Sync (deprecated)
+    tags:
+      - Git Branches
+      - Git Full Sync
+      - Git Sync Settings
+      - Git Sync
+      - Git Sync Errors
+  - name: Error Models
+    tags:
+      - Error Response
+      - Governance Metadata
+  - name: Chaos Engineering
+    tags:
+      - Chaos Engineering
