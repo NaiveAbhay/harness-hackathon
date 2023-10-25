@@ -292,6 +292,9 @@ tags:
   - name: EULA
     description: This contains APIs for EULA.
     x-displayName: 'EULA [Beta]'
+  - name: IP Allowlist
+    description: This contains APIs for IP Allowlist.
+    x-displayName: 'IP Allowlist [Beta]'
   - name: Account Connector
     description: This contains APIs for Account-scoped Connectors.
     x-displayName: 'Account Connectors [Beta]'
@@ -116881,6 +116884,7 @@ x-tagGroups:
       - EULA
       - Filter
       - Invite
+      - IP Allowlist
       - ApiKey
       - Source Code Manager
       - Nextgen Ldap
