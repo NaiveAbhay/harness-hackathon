@@ -53,6 +53,9 @@ tags:
   - name: EULA
     description: This contains APIs for EULA.
     x-displayName: 'EULA [Beta]'
+  - name: IP Allowlist
+    description: This contains APIs for IP Allowlist.
+    x-displayName: 'IP Allowlist [Beta]'
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:

@@ -49,6 +49,10 @@
       - Filter
       - Invite
       - IP Allowlist
+      - Oidc-Access-Token
+      - Oidc-ID-Token
+      - OIDC
+      - Canny
       - ApiKey
       - Source Code Manager
       - Nextgen Ldap
@@ -119,6 +123,7 @@
     - Org Template
     - Project Template
     - Templates
+    - Global Templates
 - name: GitOps
   tags: 
       - Agents
@@ -162,6 +167,7 @@
       - Cloud Cost AutoStopping Rules V2
       - Cloud Cost AutoStopping Load Balancers
       - Cloud Cost AutoStopping Fixed Schedules
+      - Commitment Orchestrator Events APIs
 - name: Feature Flags
   tags: 
       - API Keys
@@ -174,6 +180,7 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
+      - Srm Notification
 - name: Custom Dashboards
   tags: 
       - Custom Dashboards
