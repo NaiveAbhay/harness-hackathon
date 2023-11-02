@@ -85,6 +85,15 @@
       }
     },
     {
+      "inputURL": "https://app.harness.io/prod1/lw/api/openapi-autocud.json",
+      "pathModification": {
+        "prepend": "/gateway/lw/api"
+      },
+      "dispute": {
+        "prefix": "LwCO"
+      }
+    },
+    {
       "inputURL": "https://app.harness.io/prod1/audit/api/audit-openapi.json",
       "pathModification": {
         "prepend": "/audit/api"
