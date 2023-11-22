@@ -93,6 +93,7 @@
 - name: CD
   tags: 
       - CustomDeployment
+      - CDStageSummary
       - Environments
       - EnvironmentGroup
       - Infrastructures
@@ -180,6 +181,7 @@
       - SLOs dashboard
       - NG SLOs
       - SLOs
+      - Downtime
       - Srm Notification
 - name: Custom Dashboards
   tags: 
