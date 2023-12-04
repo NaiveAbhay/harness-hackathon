@@ -93,7 +93,6 @@
 - name: CD
   tags: 
       - CustomDeployment
-      - CDStageSummary
       - Environments
       - EnvironmentGroup
       - Infrastructures
