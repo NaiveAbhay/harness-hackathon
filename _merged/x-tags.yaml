@@ -92,6 +92,7 @@
     - Webhook Event Handler
 - name: CD
   tags: 
+      - K8s Release Service Mapping
       - CustomDeployment
       - Environments
       - EnvironmentGroup
