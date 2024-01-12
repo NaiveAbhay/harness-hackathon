@@ -175,6 +175,7 @@
       - Feature Flags
       - Targets
       - Target Groups
+      - Environment Perspectives
 - name: SRM
   tags: 
       - Monitored Services
