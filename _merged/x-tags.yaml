@@ -184,6 +184,29 @@
       - SLOs
       - Downtime
       - Srm Notification
+- name: IDP
+  tags: 
+      - AccountInfo
+      - AllowList
+      - AppConfig
+      - AuthInfo
+      - BackstageEnvVariable
+      - BackstagePermissions
+      - ConnectorInfo
+      - DataSource
+      - HarnessDataPoints
+      - KubernetesDataPoints
+      - LayoutProxy
+      - LicenseUsageResource
+      - MergedPluginsConfig
+      - Namespace
+      - OnboardingResource
+      - PluginInfo
+      - Provision
+      - Scores
+      - ScoresV2
+      - StatusInfo
+      - BackstageHarness
 - name: Custom Dashboards
   tags: 
       - Custom Dashboards
