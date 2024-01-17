@@ -25,6 +25,9 @@
       "inputFile": "../template-service/openapi.yaml"
     },
     {
+      "inputFile": "../idp-service/openapi.yaml"
+    },
+    {
       "inputURL": "https://app.harness.io/prod1/ng/api/openapi.json",
       "pathModification": {
         "prepend": "/ng/api"
