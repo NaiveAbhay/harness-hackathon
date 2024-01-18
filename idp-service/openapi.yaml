@@ -4788,7 +4788,7 @@ tags:
     x-displayName: Connector Information
   - name: DataSource
     description: DataSource Information
-    x-displayName: Backstage Allow List
+    x-displayName: DataSource Information
   - name: HarnessDataPoints
     description: Harness DataPoints Information
     x-displayName: Harness DataPoints Information
