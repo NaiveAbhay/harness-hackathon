@@ -192,6 +192,7 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
       tags:
         - BackstageEnvVariable
     parameters:
@@ -547,6 +548,7 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
       requestBody:
         $ref: '#/components/requestBodies/CustomPluginCreateRequest'
       tags:
@@ -583,6 +585,7 @@ paths:
         - PluginInfo
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
     parameters:
       - $ref: '#/components/parameters/PluginId'
     delete:
@@ -829,6 +832,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/AuthId'
+      x-internal: true
       requestBody:
         content:
           application/json:
@@ -847,7 +851,7 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      x-internal: false
+      x-internal: true
       description: Get backend url allow list
     post:
       summary: Save backend url allow list
@@ -862,6 +866,7 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
       requestBody:
         content:
           application/json:
@@ -1025,6 +1030,7 @@ paths:
         $ref: '#/components/requestBodies/ScorecardRecalibrateRequest'
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
       tags:
         - Scores
   /v1/checks:
@@ -4772,11 +4778,11 @@ tags:
     description: Backstage Allow List
     x-displayName: Backstage Allow List
   - name: AppConfig
-    description: Backstage App Configurations
-    x-displayName: Backstage App Configurations
+    description: IDP App Configurations
+    x-displayName: IDP App Configurations
   - name: AuthInfo
-    description: Backstage Auth Information
-    x-displayName: Backstage Auth Information
+    description: IDP app Auth Information
+    x-displayName: IDP app Auth Information
   - name: BackstageEnvVariable
     description: Backstage Environment Variable
     x-displayName: Backstage Environment Variable
