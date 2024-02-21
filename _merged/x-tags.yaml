@@ -86,6 +86,7 @@
     - Pipeline Execution Details
     - Pipeline Execute
     - Pipeline Refresh
+    - Pipeline data retention
     - Triggers
     - TriggersEvents
     - Webhook Triggers
@@ -176,6 +177,7 @@
       - Targets
       - Target Groups
       - Environment Perspectives
+      - Anomalies
 - name: SRM
   tags: 
       - Monitored Services
@@ -186,10 +188,7 @@
       - Srm Notification
 - name: IDP
   tags: 
-      - AllowList
       - AppConfig
-      - AuthInfo
-      - BackstageEnvVariable
       - ConnectorInfo
       - DataSource
       - KubernetesDataPoints
