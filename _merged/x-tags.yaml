@@ -180,6 +180,8 @@
       - Target Groups
       - Environment Perspectives
       - Anomalies
+      - Proxy
+      - Tags
 - name: SRM
   tags: 
       - Monitored Services
