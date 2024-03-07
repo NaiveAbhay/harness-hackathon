@@ -211,6 +211,14 @@
       - evaluations
       - policysets
       - system      
+- name: Code
+  tags:
+      - repository
+      - status_checks
+      - pullreq
+      - upload
+      - webhook
+      - resource
 - name: Git Sync (deprecated)
   tags:
       - Git Branches

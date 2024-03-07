@@ -149,7 +149,16 @@
       "dispute": {
         "prefix": "Dashboards"
       }
-    }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/code/openapi.yaml",
+      "pathModification": {
+        "prepend": "/code"
+      },
+      "dispute": {
+        "prefix": "Code"
+      }
+    },
   ],
   "output": "merged.yaml"
 }
