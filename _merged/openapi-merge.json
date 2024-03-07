@@ -153,7 +153,7 @@
     {
       "inputURL": "https://app.harness.io/prod1/code/openapi.yaml",
       "pathModification": {
-        "prepend": "/code"
+        "prepend": "/code/api/v1"
       },
       "dispute": {
         "prefix": "Code"
