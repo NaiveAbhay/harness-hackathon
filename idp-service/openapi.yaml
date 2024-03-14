@@ -3960,7 +3960,7 @@ components:
       required: false
       schema:
         type: string
-      description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header.'
+      description: 'Identifier field of the account the resource is scoped to.'
     Limit:
       name: limit
       in: query
