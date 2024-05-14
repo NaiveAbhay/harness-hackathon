@@ -159,6 +159,15 @@
         "prefix": "Code"
       }
     },
+    {
+      "inputURL": "https://app.harness.io/iacm/openapi3.yaml",
+      "pathModification": {
+        "prepend": "/iacm/api/v1"
+      },
+      "dispute": {
+        "prefix": "IaCM"
+      }
+    },
   ],
   "output": "merged.yaml"
 }
