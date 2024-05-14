@@ -102,6 +102,7 @@
       - File Store
       - Service Dashboard
       - ServiceOverrides
+      - Rollback
       - tas
 - name: Deployment Freeze
   tags:
@@ -220,6 +221,16 @@
       - upload
       - webhook
       - resource
+- name: IaCM
+  tags:
+      - usage
+      - system
+      - approvals
+      - costs
+      - executions
+      - workspaces
+      - tf-standard-backend
+      - variables
 - name: Git Sync (deprecated)
   tags:
       - Git Branches
