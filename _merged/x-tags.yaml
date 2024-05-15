@@ -224,7 +224,6 @@
 - name: IaCM
   tags:
       - usage
-      - system
       - approvals
       - costs
       - executions
