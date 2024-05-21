@@ -38,8 +38,8 @@
     - Org Role Assignments
     - Project Role Assignments
     - Role Assignments
-- name: Platform 
-  tags: 
+- name: Platform
+  tags:
       - Accounts
       - AccountSetting
       - Access Control List
@@ -68,7 +68,7 @@
       - User Group
       - Variables
 - name: Delegate
-  tags: 
+  tags:
       - Agent mTLS Endpoint Management
       - Delegate Download Resource
       - Delegate Group Tags Resource
@@ -92,7 +92,7 @@
     - Webhook Triggers
     - Webhook Event Handler
 - name: CD
-  tags: 
+  tags:
       - K8s Release Service Mapping
       - CustomDeployment
       - Environments
@@ -128,7 +128,7 @@
     - Templates
     - Global Templates
 - name: GitOps
-  tags: 
+  tags:
       - Agents
       - Application
       - Applications
@@ -147,7 +147,7 @@
       - Repository credentials
       - ValidateHost
 - name: CCM
-  tags: 
+  tags:
       - Cloud Cost Anomalies
       - Cloud Cost BI Dashboards
       - Cloud Cost Budget Groups
@@ -175,7 +175,7 @@
       - Cloud Cost AutoStopping Fixed Schedules
       - Commitment Orchestrator Events APIs
 - name: Feature Flags
-  tags: 
+  tags:
       - API Keys
       - Feature Flags
       - Targets
@@ -185,7 +185,7 @@
       - Proxy
       - Tags
 - name: SRM
-  tags: 
+  tags:
       - Monitored Services
       - SLOs dashboard
       - NG SLOs
@@ -193,7 +193,7 @@
       - Downtime
       - Srm Notification
 - name: IDP
-  tags: 
+  tags:
       - AppConfig
       - ConnectorInfo
       - DataSource
@@ -202,17 +202,17 @@
       - PluginInfo
       - Scores
 - name: Custom Dashboards
-  tags: 
+  tags:
       - Custom Dashboards
 - name: Policy Management
-  tags: 
+  tags:
       - dashboard
       - examples
       - policies
       - evaluate
       - evaluations
       - policysets
-      - system      
+      - system
 - name: Code
   tags:
       - repository
@@ -242,5 +242,10 @@
     - Error Response
     - Governance Metadata
 - name: Chaos Engineering
-  tags: 
+  tags:
     - Chaos Engineering
+- name: STO
+  tags:
+    - Exemptions
+    - Products
+    - Target Variants

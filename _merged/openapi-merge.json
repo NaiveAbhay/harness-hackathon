@@ -168,6 +168,15 @@
         "prefix": "IaCM"
       }
     },
+    {
+      "inputURL": "https://app.harness.io/prod1/sto/openapi3.yaml",
+      "pathModification": {
+        "prepend": "/sto"
+      },
+      "dispute": {
+        "prefix": "Sto"
+      }
+    }
   ],
   "output": "merged.yaml"
 }
