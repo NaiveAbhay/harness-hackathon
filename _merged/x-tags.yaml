@@ -233,7 +233,10 @@
 - name: STO
   tags:
       - Exemptions
+      - Issues
+      - Scans
       - Products
+      - Targets
       - Target Variants
 - name: Git Sync (deprecated)
   tags:
