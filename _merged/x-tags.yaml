@@ -230,6 +230,11 @@
       - workspaces
       - tf-standard-backend
       - variables
+- name: STO
+  tags:
+      - Exemptions
+      - Products
+      - Target Variants
 - name: Git Sync (deprecated)
   tags:
       - Git Branches
@@ -244,8 +249,3 @@
 - name: Chaos Engineering
   tags:
     - Chaos Engineering
-- name: STO
-  tags:
-    - Exemptions
-    - Products
-    - Target Variants
