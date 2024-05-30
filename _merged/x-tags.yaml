@@ -236,7 +236,7 @@
       - Issues
       - Scans
       - Products
-      - Targets
+      - Test Targets
       - Target Variants
 - name: Git Sync (deprecated)
   tags:
