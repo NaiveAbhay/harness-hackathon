@@ -227,6 +227,7 @@
       - approvals
       - costs
       - executions
+      - module-registry
       - workspaces
       - tf-standard-backend
       - variables
@@ -236,7 +237,7 @@
       - Issues
       - Scans
       - Products
-      - Targets
+      - Test Targets
       - Target Variants
 - name: Git Sync (deprecated)
   tags:
