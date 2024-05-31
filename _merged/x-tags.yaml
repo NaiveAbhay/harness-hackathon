@@ -227,6 +227,7 @@
       - approvals
       - costs
       - executions
+      - module-registry
       - workspaces
       - tf-standard-backend
       - variables
