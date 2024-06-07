@@ -142,7 +142,7 @@
       }
     },
     {
-      "inputFile": "dashboard/temp-api.yaml",
+      "inputURL": "https://app.harness.io/prod1/dashboard/static/openapi.yaml",
       "pathModification": {
         "prepend": "/dashboard"
       },
