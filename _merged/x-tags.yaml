@@ -203,7 +203,7 @@
       - Scores
 - name: Custom Dashboards
   tags:
-      - Custom Dashboards
+      - dashboards
 - name: Policy Management
   tags:
       - dashboard
