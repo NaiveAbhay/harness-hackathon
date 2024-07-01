@@ -229,6 +229,7 @@
       - executions
       - module-registry
       - workspaces
+      - settings
       - tf-standard-backend
       - variables
 - name: STO
@@ -237,6 +238,7 @@
       - Issues
       - Scans
       - Products
+      - Pull Requests
       - Test Targets
       - Target Variants
 - name: Git Sync (deprecated)
