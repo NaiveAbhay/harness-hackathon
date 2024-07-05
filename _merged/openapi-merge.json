@@ -176,6 +176,9 @@
       "dispute": {
         "prefix": "Sto"
       }
+    },
+    {
+      "inputFile": "../sei/openapi.yaml"
     }
   ],
   "output": "merged.yaml"
