@@ -241,6 +241,12 @@
       - Pull Requests
       - Test Targets
       - Target Variants
+- name: SEI
+  tags:
+      - Collection categories
+      - Collections
+      - Contributors
+      - DORA
 - name: Git Sync (deprecated)
   tags:
       - Git Branches
