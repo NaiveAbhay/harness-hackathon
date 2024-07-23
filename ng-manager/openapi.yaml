@@ -32,6 +32,9 @@ tags:
   - name: Project Services
     description: This contains APIs for project-scoped services.
     x-displayName: 'Project Services [Beta]'
+  - name: Project Environments
+    description: This contains APIs for project-scoped environments.
+    x-displayName: 'Project Environments [Beta]'
   - name: Account Favorites
     description: This contains APIs for account-scoped Favorites.
     x-displayName: 'Account Favorites [Beta]'
@@ -56,9 +59,36 @@ tags:
   - name: EULA
     description: This contains APIs for EULA.
     x-displayName: 'EULA [Beta]'
+  - name: Account Certificate
+    description: This contains APIs for account-scoped Certificates
+    x-displayName: 'Account Certificates [Beta]'
+  - name: Org Certificate
+    description: This contains APIs for organization-scoped Certificates
+    x-displayName: 'Org Certificates [Beta]'
+  - name: Project Certificate
+    description: This contains APIs for project-scoped Certificates
+    x-displayName: 'Project Certificates [Beta]'
   - name: IP Allowlist
     description: This contains APIs for IP Allowlist.
     x-displayName: 'IP Allowlist [Beta]'
+  - name: GitX Webhooks
+    description: This contains APIs for Account GitX Webhooks.
+    x-displayName: 'Account GitX Webhooks [Beta]'
+  - name: Org GitX Webhooks
+    description: This contains APIs for Org GitX Webhooks.
+    x-displayName: 'Org GitX Webhooks [Beta]'
+  - name: Project GitX Webhooks
+    description: This contains APIs for Project GitX Webhooks.
+    x-displayName: 'Project GitX Webhooks [Beta]'
+  - name: Gitx Webhooks Events
+    description: This contains APIs for Account Gitx Webhooks Events.
+    x-displayName: 'Account Gitx Webhooks Events [Beta]'
+  - name: Org Gitx Webhooks Events
+    description: This contains APIs for Org Gitx Webhooks Events.
+    x-displayName: 'Org Gitx Webhooks Events [Beta]'
+  - name: Project Gitx Webhooks Events
+    description: This contains APIs for Project Gitx Webhooks Events.
+    x-displayName: 'Project Gitx Webhooks Events [Beta]'
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
@@ -87,7 +117,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceUpdateRequest'
       description: Updates the specified service
       security:
         - x-api-key: []
@@ -125,18 +155,7 @@ paths:
           in: query
           name: is_access_list
           description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
-        - schema:
-            type: string
-            enum:
-              - Kubernetes
-              - NativeHelm
-              - Ssh
-              - WinRm
-              - ServerlessAwsLambda
-              - AzureWebApp
-          name: type
-          in: query
-          description: Service Definition type
+        - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
           name: git_ops_enabled
@@ -158,7 +177,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceCreateRequest'
       description: Creates a service
       security:
         - x-api-key: []
@@ -193,7 +212,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceUpdateRequest'
       description: Updates the specified service
       security:
         - x-api-key: []
@@ -231,18 +250,7 @@ paths:
           in: query
           name: is_access_list
           description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
-        - schema:
-            type: string
-            enum:
-              - Kubernetes
-              - NativeHelm
-              - Ssh
-              - WinRm
-              - ServerlessAwsLambda
-              - AzureWebApp
-          name: type
-          in: query
-          description: Service Definition type
+        - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
           name: git_ops_enabled
@@ -264,7 +272,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceCreateRequest'
       description: Creates a service
       security:
         - x-api-key: []
@@ -297,7 +305,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceUpdateRequest'
       description: Updates the specified service
       security:
         - x-api-key: []
@@ -335,18 +343,7 @@ paths:
           in: query
           name: is_access_list
           description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
-        - schema:
-            type: string
-            enum:
-              - Kubernetes
-              - NativeHelm
-              - Ssh
-              - WinRm
-              - ServerlessAwsLambda
-              - AzureWebApp
-          name: type
-          in: query
-          description: Service Definition type
+        - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
           name: git_ops_enabled
@@ -368,13 +365,40 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
-        $ref: '#/components/requestBodies/ServiceRequest'
+        $ref: '#/components/requestBodies/ServiceCreateRequest'
       description: Creates a service
       security:
         - x-api-key: []
       tags:
         - Account Services
     parameters: []
+  /v1/creditOverUsage/{accountIdentifier}:
+    get:
+      summary: 'Get over usage count of Credits for a given account'
+      tags:
+        - Credits OverUsage Data By Account
+      responses:
+        '200':
+          $ref: '#/components/schemas/CreditOverUsage'
+        '400':
+          headers: { }
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+      operationId: credits-overusage
+      x-internal: false
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
   /v1/orgs:
     post:
       summary: 'Create an organization [Beta]'
@@ -689,13 +713,19 @@ paths:
           in: query
           name: custom_ip_address_block
           description: This is the IP address or block of IP address against which we need to verify if a given IP address is allowed or not. If not passed we do the validation against the IP configs within Harness.
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: include_disabled_configs
+          description: This setting controls the visibility of IP allowlist configurations. When set to 'true', it displays both enabled and disabled configurations. When set to 'false' or left unset, it displays only the enabled configurations.
+          allowReserved: false
       security:
         - x-api-key: []
       tags:
         - IP Allowlist
       x-internal: false
     parameters: []
-
   /v1/ip-allowlist/allowed/ip-address:
     get:
       summary: Check if IP address is allowed or not
@@ -712,15 +742,12 @@ paths:
           name: ip_address
           description: This is the IP address that needs to be checked if allowed or not
           required: true
-        - schema:
-            type: string
       security:
         - x-api-key: []
       tags:
         - IP Allowlist
       x-internal: true
     parameters: []
-
   /v1/secrets:
     post:
       summary: Create a secret
@@ -1521,7 +1548,7 @@ paths:
       tags:
         - EULA
       x-internal: false
-  v1/eula/validate-sign:
+  /v1/eula/validate-sign:
     get:
       summary: Validate specified agreement is signed or not
       operationId: validate-eula-sign
@@ -1553,7 +1580,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateGitXWebhookRequest'
-      x-internal: true
+      x-internal: false
     get:
       summary: Lists all the GitX Webhooks at Account level
       operationId: list-gitx-webhooks
@@ -1573,7 +1600,7 @@ paths:
             type: string
           in: query
           name: webhook_identifier
-      x-internal: true
+      x-internal: false
   '/v1/gitx-webhooks/{gitx-webhook}':
     parameters:
       - $ref: '#/components/parameters/GitXWebhookIdentifier'
@@ -1584,7 +1611,7 @@ paths:
           $ref: '#/components/responses/GetGitXWebhookResponse'
       operationId: get-gitx-webhook
       description: Fetch a gitx webhook
-      x-internal: true
+      x-internal: false
       security:
         - x-api-key: []
       tags:
@@ -1604,7 +1631,7 @@ paths:
       description: Update a Gitx webhook
       requestBody:
         $ref: '#/components/requestBodies/UpdateGitXWebhookRequest'
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
     delete:
@@ -1612,7 +1639,7 @@ paths:
       operationId: delete-gitx-webhook
       responses:
         '204':
-          description: OK
+          description: No Content
       description: Deletes a gitx webhooks
       security:
         - x-api-key: []
@@ -1620,7 +1647,7 @@ paths:
         - GitX Webhooks
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      x-internal: true
+      x-internal: false
   /v1/gitx-webhook-events:
     get:
       summary: Lists all the GitX Webhooks events at Account level
@@ -1673,9 +1700,22 @@ paths:
                 - PROCESSING
                 - SUCCESSFUL
                 - QUEUED
+                - WARNING
                 - UNKNOWN
           in: query
           name: event_status
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+        - schema:
+            type: boolean
+          in: query
+          name: include_parent_scope
+        - schema:
+            type: string
+          in: query
+          name: commit_id
       x-internal: true
   /v1/kubernetes/releases/service-mapping:
     get:
@@ -1716,7 +1756,7 @@ paths:
             type: string
           in: query
           name: webhook_identifier
-      x-internal: true
+      x-internal: false
     post:
       summary: Create Org Level GitX webhook
       operationId: create-org-gitx-webhook
@@ -1726,7 +1766,7 @@ paths:
       description: Create GitXWebhook at org level
       tags:
         - Org Gitx Webhooks
-      x-internal: true
+      x-internal: false
       security:
         - x-api-key: []
       parameters:
@@ -1750,7 +1790,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
-      x-internal: true
+      x-internal: false
     put:
       summary: Updates a GitX Webhook at org level
       operationId: update-org-gitx-webhook
@@ -1766,7 +1806,7 @@ paths:
         $ref: '#/components/requestBodies/UpdateGitXWebhookRequest'
       tags:
         - Org Gitx Webhooks
-      x-internal: true
+      x-internal: false
     delete:
       summary: Deletes a GitX Webhook at org level
       operationId: delete-org-gitx-webhook
@@ -1780,7 +1820,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Org Gitx Webhooks
-      x-internal: true
+      x-internal: false
   '/v1/orgs/{org}/gitx-webhook-events':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -1835,6 +1875,18 @@ paths:
                 - UNKNOWN
           in: query
           name: event_status
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+        - schema:
+            type: boolean
+          in: query
+          name: include_parent_scope
+        - schema:
+            type: string
+          in: query
+          name: commit_id
       tags:
         - Org Gitx Webhooks Events
       x-internal: true
@@ -1862,7 +1914,7 @@ paths:
           in: query
           name: webhook_identifier
       description: List project level GitX webhooks
-      x-internal: true
+      x-internal: false
     post:
       summary: Create Project level GitX webhook
       operationId: create-project-gitx-webhook
@@ -1891,7 +1943,7 @@ paths:
         '200':
           $ref: '#/components/responses/GetGitXWebhookResponse'
       operationId: get-project-gitx-webhook
-      x-internal: true
+      x-internal: false
       description: Fetch a project level gitx webhook
       security:
         - x-api-key: []
@@ -1912,7 +1964,7 @@ paths:
         $ref: '#/components/requestBodies/UpdateGitXWebhookRequest'
       tags:
         - Project Gitx Webhooks
-      x-internal: true
+      x-internal: false
     delete:
       summary: Deletes a GitX Webhook at project level
       operationId: delete-project-gitx-webhook
@@ -1922,7 +1974,7 @@ paths:
       description: Deletes a project level gitx webhooks
       tags:
         - Project Gitx Webhooks
-      x-internal: true
+      x-internal: false
       security:
         - x-api-key: []
       parameters:
@@ -1984,6 +2036,18 @@ paths:
                 - UNKNOWN
           in: query
           name: event_status
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+        - schema:
+            type: boolean
+          in: query
+          name: include_parent_scope
+        - schema:
+            type: string
+          in: query
+          name: commit_id
       x-internal: true
       description: List GitX webhook Events at project level
   '/v1/gitx-webhook-events/{gitx-webhook-event}':
@@ -2010,8 +2074,1653 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/UpdateGitXWebhookEventRequest'
+  '/v1/certificates/{certificate}':
+    get:
+      summary: Retrieves the specified Certificate in account scope
+      tags:
+        - Account Certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      operationId: get-account-scoped-certificate
+      description: Retrieves the specified certificate in account scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    parameters:
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+    put:
+      summary: Updates the specified Certificate in account scope
+      operationId: update-account-scoped-certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      description: Updates the specified Certificate in account scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Account Certificate
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateCertificateRequest'
+    delete:
+      summary: Deletes the specified Certificate from account scope
+      operationId: delete-account-scoped-certificate
+      responses:
+        '204':
+          description: No Content
+        '400':
+          headers: {}
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Deletes the specified Certificate from account scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      x-internal: true
+      tags:
+        - Account Certificate
+  '/v1/orgs/{org}/certificates/{certificate}':
+    get:
+      summary: Retrieves the specified Certificate in organization scope
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      operationId: get-org-scoped-certificate
+      description: Retrieves the specified certificate in org scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Org Certificate
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+    put:
+      summary: Updates the specified Certificate in org scope
+      operationId: update-org-scoped-certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      x-internal: true
+      description: Updates the specified Certificate in org scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateCertificateRequest'
+      tags:
+        - Org Certificate
+    delete:
+      summary: Deletes the specified Certificate from org scope
+      operationId: delete-org-scoped-certificate
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Deletes the specified Certificate from org scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      x-internal: true
+      tags:
+        - Org Certificate
+  '/v1/orgs/{org}/projects/{project}/certificates/{certificate}':
+    get:
+      summary: Retrieves the specified Certificate in project scope
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      operationId: get-project-scoped-certificate
+      description: Retrieves the specified certificate in project scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Project Certificate
+    parameters:
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    put:
+      summary: Updates the specified Certificate in project scope
+      operationId: update-project-scoped-certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateResponse'
+      description: Updates the specified Certificate in project scope
+      tags:
+        - Project Certificate
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateCertificateRequest'
+      x-internal: true
+    delete:
+      summary: Deletes the specified Certificate from project scope
+      operationId: delete-project-scoped-certificate
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Deletes the specified Certificate from project scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      x-internal: true
+      tags:
+        - Project Certificate
+  '/v1/certificates/validate-unique-identifier/{certificate}':
+    get:
+      summary: Validate if the specified Certificate identifier is available for use in account scope
+      tags:
+        - Account Certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
+      operationId: validate-account-scoped-certificate-identifier
+      description: Validate if the specified certificate identifier is available for use in account scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    parameters:
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+  '/v1/orgs/{org}/certificates/validate-unique-identifier/{certificate}':
+    get:
+      summary: Validate if the specified Certificate identifier is available for use in organization scope
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
+      operationId: validate-org-scoped-certificate-identifier
+      description: Validate if the specified certificate identifier is available for use in organization scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Org Certificate
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+  '/v1/orgs/{org}/projects/{project}/certificates/validate-unique-identifier/{certificate}':
+    get:
+      summary: Validate if the specified Certificate identifier is available for use in project scope
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
+      operationId: validate-project-scoped-certificate-identifier
+      description: Validate if the specified certificate identifier is available for use in project scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Project Certificate
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - schema:
+          type: string
+        name: certificate
+        in: path
+        required: true
+        description: Identifier field of the certificate
+  /v1/certificates:
+    get:
+      summary: Retrieves the list of Certificates in account scope
+      tags:
+        - Account Certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateListResponse'
+      operationId: get-account-scoped-certificates
+      description: Retrieves the list of certificates in account scope
+      x-internal: true
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: include_all_available_at_scope
+          description: Include all entities accessible at current scope
+    post:
+      summary: Creates a new Certificate in account scope
+      operationId: create-account-scoped-certificates
+      responses:
+        '201':
+          $ref: '#/components/responses/CertificateResponse'
+      description: Creates a new certificate in account scope
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Account Certificate
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCertificateRequest'
+      x-internal: true
+  '/v1/orgs/{org}/certificates':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+    get:
+      summary: Retrieves the list of Certificates in organization scope
+      tags:
+        - Org Certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateListResponse'
+      operationId: get-org-scoped-certificates
+      x-internal: true
+      description: Retrieves the list of certificates in organization scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          name: include_all_available_at_scope
+          description: Include all entities accessible at current scope
+    post:
+      summary: Creates a new Certificate in organization scope
+      operationId: create-org-scoped-certificates
+      responses:
+        '201':
+          $ref: '#/components/responses/CertificateResponse'
+      description: Creates a new certificate in organization scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCertificateRequest'
+      x-internal: true
+      tags:
+        - Org Certificate
+  '/v1/orgs/{org}/projects/{project}/certificates':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    get:
+      summary: Retrieves the list of Certificates in project scope
+      tags:
+        - Project Certificate
+      responses:
+        '200':
+          $ref: '#/components/responses/CertificateListResponse'
+      operationId: get-project-scoped-certificates
+      description: Retrieves the list of certificates in project scope
+      x-internal: true
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - schema:
+            type: boolean
+            default: 'false'
+          in: query
+          description: Include all entities accessible at current scope
+          name: include_all_available_at_scope
+      security:
+        - x-api-key: []
+    post:
+      summary: Creates a new Certificate in project scope
+      operationId: create-project-scoped-certificates
+      responses:
+        '201':
+          $ref: '#/components/responses/CertificateResponse'
+      description: Creates a new certificate in project scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateCertificateRequest'
+      x-internal: true
+      tags:
+        - Project Certificate
+  /v1/ldap-settings:
+    post:
+      summary: Create Account LDAP Settings
+      operationId: create-ng-ldap-settings
+      responses:
+        '201':
+          $ref: '#/components/responses/LdapSettingsResponse'
+      x-stoplight:
+        id: n04275yl5c0g3
+      description: Create NG Ldap setttings
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LdapSettingsRequest'
+      tags:
+        - Ldap Settings
+    parameters: []
+    get:
+      summary: Get ldap settings for the account
+      tags:
+        - ldap-settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapSettingsResponse'
+      operationId: get-account-ldap-settings
+      x-stoplight:
+        id: x58m09htlk67j
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/ldap-settings/{ldap-settings-id}':
+    parameters:
+      - schema:
+          type: string
+        name: ldap-settings-id
+        in: path
+        required: true
+    get:
+      summary: Get Account Ldap Settings by identifier
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapSettingsResponse'
+      operationId: get-ldap-settings
+      x-stoplight:
+        id: 9655d1754op9c
+      description: Get Account NG Ldap settings
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    put:
+      summary: Update Account Ldap Settings
+      operationId: update-ldap-settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapSettingsResponse'
+      x-stoplight:
+        id: 63u2f75vg76gz
+      description: Update NG Ldap settings for the account
+      requestBody:
+        $ref: '#/components/requestBodies/LdapSettingsRequest'
+      tags:
+        - Ldap Settings
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    delete:
+      summary: Delete Account Ldap Settings
+      operationId: delete-ldap-settings
+      responses:
+        '204':
+          description: No Content
+      x-stoplight:
+        id: hw0azqcr4ehs9
+      description: 'Delete Account Ldap settings '
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Ldap Settings
+  /v1/ldap-settings/validate/connection-settings:
+    post:
+      summary: Validate Ldap Connection Settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapValidateResponse'
+      operationId: validate-connection-settings
+      x-stoplight:
+        id: 24rd6s9hp2b0a
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LdapSettingsRequest'
+  /v1/ldap-settings/validate/user-settings:
+    post:
+      summary: Validate Ldap User Settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapValidateResponse'
+      operationId: validate-user-settings
+      x-stoplight:
+        id: 5fw3lcfs79wpo
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LdapSettingsRequest'
+  /v1/ldap-settings/validate/group-settings:
+    post:
+      summary: Validate Ldap Group Settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapValidateResponse'
+      operationId: validate-group-settings
+      x-stoplight:
+        id: uvedvfpk6ldue
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LdapSettingsRequest'
+  /v1/ldap-settings/sync-groups:
+    put:
+      summary: Ldap Settings Sync User Groups
+      operationId: ldap-settings-sync-groups
+      responses:
+        '200':
+          description: OK
+      x-stoplight:
+        id: 7xnw3fstsnqe7
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Ldap Settings
+  '/v1/ldap-settings/sync-group/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    get:
+      summary: Ldap Sync Group with user group id
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          description: OK
+      operationId: ldap-settings-sync-group-with-id
+      x-stoplight:
+        id: el2bfbrc5mubt
+      description: Ldap Sync Group with user group id
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/ldap-settings/search-group/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    get:
+      summary: Search Ldap groups with matching name
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapGroupResponse'
+      operationId: ldap-settings-search-group
+      x-stoplight:
+        id: xkgeu3g9n1ul2
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/ldap-settings/link/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    post:
+      summary: Link ldap settings to userGroup
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkGroupToLdapSettings'
+      operationId: link-ldap-settings
+      x-stoplight:
+        id: 02mvlbq51owqg
+      tags:
+        - Ldap Settings
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/LinkSSOGroupRequest'
+  '/v1/ldap-settings/unlink/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    post:
+      summary: Unlink group from ldap settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/UnlinkGroupToLdapSettings'
+      operationId: unlink-ldap-settings
+      x-stoplight:
+        id: jsug66jtmolab
+      x-internal: true
+      x-extension-1: null
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UnlinkSSOGroupRequest'
+  '/v1/ldap-settings/unlink/orgs/{org}/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    post:
+      summary: Unlink SSO Group from ldap-settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/UnlinkGroupToLdapSettings'
+      operationId: unlink-ldap-settings-org
+      x-stoplight:
+        id: 2aznpzh987hr7
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/UnlinkSSOGroupRequest'
+  '/v1/ldap-settings/link/orgs/{org}/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    get - copy:
+      summary: Link ldap settings
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkGroupToLdapSettings'
+      operationId: link-ldap-settings-proj
+      x-internal: true
+      x-extension-1: null
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    post:
+      summary: Link dap settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkGroupToLdapSettings'
+      operationId: link-ldap-settings-org
+      x-stoplight:
+        id: 86uren6k078bj
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/LinkSSOGroupRequest'
+  '/v1/ldap-settings/unlink/orgs/{org}/projects/{project}/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    post:
+      summary: Unlink SSO Group from ldap-settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/UnlinkGroupToLdapSettings'
+      operationId: unlink-ldap-settings-proj
+      x-stoplight:
+        id: us9tp7838hrh2
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/UnlinkSSOGroupRequest'
+  '/v1/ldap-settings/link/orgs/{org}/projects/{project}/{group-id}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/UserGroupIdentifierPathParam'
+    post:
+      summary: Link ldap-settings
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LinkGroupToLdapSettings'
+      operationId: link-ldap-settings-proj
+      x-stoplight:
+        id: dqjjk8ekm6qwl
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true
+      requestBody:
+        $ref: '#/components/requestBodies/LinkSSOGroupRequest'
+  '/v1/orgs/{org}/projects/{project}/environments':
+    post:
+      summary: Creates an Environment
+      operationId: create-environment
+      responses:
+        '201':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentCreateRequest'
+      description: Creates an Environment
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
+      x-internal: false
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    get:
+      summary: List Environments
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentListResponse'
+      operationId: get-environments
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/EnvironmentIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list of environments that you are permitted to use in a pipeline.
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the enviornments for which you have view permissions in the given project.
+      tags:
+        - Project Environments
+  '/v1/orgs/{org}/projects/{project}/environments/{environment}':
+    get:
+      summary: Retrieve a environment
+      operationId: get-environment
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified environment
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      tags:
+        - Project Environments
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    put:
+      summary: Update Environment
+      operationId: update-environment
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentUpdateRequest'
+      description: Updates the specified environment
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
+    delete:
+      summary: Delete a Environment
+      operationId: delete-environment
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested environment
+      security:
+        - x-api-key: []
+      tags:
+        - Project Environments
+  '/v1/orgs/{org}/environments':
+    post:
+      summary: Creates an org scoped Environment
+      operationId: create-org-scoped-environment
+      responses:
+        '201':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentCreateRequest'
+      description: Creates an org scoped Environment
+      security:
+        - x-api-key: []
+      tags:
+        - Org Environments
+      x-internal: false
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+    get:
+      summary: List org scoped Environments
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentListResponse'
+      operationId: get-org-scoped-environments
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/EnvironmentIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list org scoped of environments that you are permitted to use in a pipeline.
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the org scoped environments for which you have view permissions in the given org.
+      tags:
+        - Org Environments
+  '/v1/orgs/{org}/environments/{environment}':
+    get:
+      summary: Retrieve an org scoped environment
+      operationId: get-org-scoped-environment
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified org scoped environment
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      tags:
+        - Org Environments
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    put:
+      summary: Update org scoped Environment
+      operationId: update-org-scoped-environment
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentUpdateRequest'
+      description: Updates the specified org scoped environment
+      security:
+        - x-api-key: []
+      tags:
+        - Org Environments
+    delete:
+      summary: Delete an org scoped Environment
+      operationId: delete-org-scoped-environment
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested org scoped environment
+      security:
+        - x-api-key: []
+      tags:
+        - Org Environments
+  /v1/environments:
+    post:
+      summary: Creates an account scoped Environment
+      operationId: create-account-scoped-environment
+      responses:
+        '201':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentCreateRequest'
+      description: Creates an account scoped Environment
+      security:
+        - x-api-key: []
+      tags:
+        - Account Environments
+      x-internal: false
+    get:
+      summary: List account scoped Environments
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentListResponse'
+      operationId: get-account-scoped-environments
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/EnvironmentIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list account scoped of environments that you are permitted to use in a pipeline.
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the account scoped environments for which you have view permissions in the given account.
+      tags:
+        - Account Environments
+  '/v1/environments/{environment}':
+    get:
+      summary: Retrieve an account scoped environment
+      operationId: get-account-scoped-environment
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified account scoped environment
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      tags:
+        - Account Environments
+    parameters:
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    put:
+      summary: Update account scoped Environment
+      operationId: update-account-scoped-environment
+      responses:
+        '200':
+          $ref: '#/components/responses/EnvironmentResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EnvironmentUpdateRequest'
+      description: Updates the specified account scoped environment
+      security:
+        - x-api-key: []
+      tags:
+        - Account Environments
+    delete:
+      summary: Delete an account scoped Environment
+      operationId: delete-account-scoped-environment
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested account scoped environment
+      security:
+        - x-api-key: []
+      tags:
+        - Account Environments
+  '/v1/orgs/{org}/projects/{project}/environments/{environment}/infrastructures':
+    post:
+      summary: Creates an Infrastructure
+      operationId: create-infrastructure
+      responses:
+        '201':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureCreateRequest'
+      description: Creates an Infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Project Infrastructures
+      x-internal: false
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    get:
+      summary: List Infrastructures
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureListResponse'
+      operationId: get-infrastructures
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/InfraIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list of infrastructure that you are permitted to use in a pipeline.
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: service_refs
+          description: Specifies services to which scoped infra are to be fetched.
+        - schema:
+            type: string
+          in: query
+          name: template_identifier
+          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+        - schema:
+            type: string
+          in: query
+          name: template_version
+          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+        - $ref: '#/components/parameters/DeploymentType'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the infrastructure for which you have view permissions in the given project.
+      tags:
+        - Project Infrastructures
+  '/v1/orgs/{org}/projects/{project}/environments/{environment}/infrastructures/{infrastructure-definition}':
+    get:
+      summary: Retrieve a infrastructure
+      operationId: get-infrastructure
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified infrastructure
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      tags:
+        - Project Infrastructures
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+      - $ref: '#/components/parameters/InfrastructureDefinitionPathParam'
+    put:
+      summary: Update Infrastructure
+      operationId: update-infrastructure
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureUpdateRequest'
+      description: Updates the specified infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Project Infrastructures
+    delete:
+      summary: Delete a Infrastructure
+      operationId: delete-infrastructure
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested environment
+      security:
+        - x-api-key: []
+      tags:
+        - Project Infrastructures
+  '/v1/orgs/{org}/environments/{environment}/infrastructures':
+    post:
+      summary: Creates an org scoped Infrastructure
+      operationId: create-org-scoped-infrastructure
+      responses:
+        '201':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureCreateRequest'
+      description: Creates an org scoped Infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Org Infrastructures
+      x-internal: false
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    get:
+      summary: List org scoped Infrastructures
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureListResponse'
+      operationId: get-org-scoped-infrastructures
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/InfraIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list org scoped of infrastructure that you are permitted to use in a pipeline.
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: service_refs
+          description: Specifies services to which scoped infra are to be fetched.
+        - schema:
+            type: string
+          in: query
+          name: template_identifier
+          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+        - schema:
+            type: string
+          in: query
+          name: template_version
+          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+        - $ref: '#/components/parameters/DeploymentType'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the org scoped infrastructures for which you have view permissions in the given org.
+      tags:
+        - Org Infrastructures
+  '/v1/orgs/{org}/environments/{environment}/infrastructures/{infrastructure-definition}':
+    get:
+      summary: Retrieve an org scoped Infrastructure
+      operationId: get-org-scoped-infrastructure
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified org scoped infrastructure
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      tags:
+        - Org Infrastructures
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+      - $ref: '#/components/parameters/InfrastructureDefinitionPathParam'
+    put:
+      summary: Update org scoped Infrastructure
+      operationId: update-org-scoped-infrastructure
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureUpdateRequest'
+      description: Updates the specified org scoped infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Org Infrastructures
+    delete:
+      summary: Delete an org scoped Infrastructure
+      operationId: delete-org-scoped-infrastructure
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested org scoped infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Org Infrastructures
+  '/v1/environments/{environment}/infrastructures':
+    post:
+      summary: Creates an account scoped Infrastructure
+      operationId: create-account-scoped-infrastructure
+      responses:
+        '201':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureCreateRequest'
+      description: Creates an account scoped Infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Account Infrastructures
+      x-internal: false
+    parameters:
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+    get:
+      summary: List account scoped Infrastructures
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureListResponse'
+      operationId: get-account-scoped-infrastructures
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/InfraIdentifiers'
+        - $ref: '#/components/parameters/Sort'
+        - schema:
+            type: boolean
+          in: query
+          name: is_access_list
+          description: Specifies whether the list is an access list. An access list is a list account scoped of infrastructures that you are permitted to use in a pipeline.
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: service_refs
+          description: Specifies services to which scoped infra are to be fetched.
+        - schema:
+            type: string
+          in: query
+          name: template_identifier
+          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+        - schema:
+            type: string
+          in: query
+          name: template_version
+          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+        - $ref: '#/components/parameters/DeploymentType'
+        - $ref: '#/components/parameters/Order'
+      security:
+        - x-api-key: []
+      description: Returns a list of the account scoped infrastructures for which you have view permissions in the given account.
+      tags:
+        - Account Infrastructures
+  '/v1/environments/{environment}/infrastructures/{infrastructure-definition}':
+    get:
+      summary: Retrieve an account scoped Infrastructure
+      operationId: get-account-scoped-infrastructure
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Retrieves the specified account scoped infrastructure
+      security:
+        - x-api-key: []
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      tags:
+        - Account Infrastructures
+    parameters:
+      - $ref: '#/components/parameters/EnvironmentPathParam'
+      - $ref: '#/components/parameters/InfrastructureDefinitionPathParam'
+    put:
+      summary: Update account scoped Infrastructure
+      operationId: update-account-scoped-infrastructure
+      responses:
+        '200':
+          $ref: '#/components/responses/InfrastructureResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/InfrastructureUpdateRequest'
+      description: Updates the specified account scoped infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Account Infrastructures
+    delete:
+      summary: Delete an account scoped Infrastructure
+      operationId: delete-account-scoped-infrastructure
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: {}
+            application/yaml:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                example-resp:
+                  value: |
+                    {}
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/ForceDelete'
+      description: Deletes the requested account scoped infrastructure
+      security:
+        - x-api-key: []
+      tags:
+        - Account Infrastructures
+  /v1/licenseUsageActivity/export/{accountIdentifier}:
+    post:
+      summary: Get exported License Usage Data for an account based on the filters
+      tags:
+        - Export License Usage Data By Account
+      responses:
+        '200':
+          description: No Content
+        '400':
+          headers: { }
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+      operationId: export-license-usage-activity
+      x-internal: false
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          required: true
+          description: Start Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          required: true
+          description: End Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        description: Details of the filters applied
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseUsageActivityFilterPropertiesDTO'
+  /v1/ldap-settings/iterations:
+    post:
+      summary: Ldap Settings iterations
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapSettingsIterationsResponse'
+      operationId: ldap-settings-iterations
+      x-stoplight:
+        id: o0f3p82mazw6a
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CronExpressionRequest'
+  /v1/ldap-settings/ldap-login-test:
+    post:
+      summary: Ldap login test
+      tags:
+        - Ldap Settings
+      responses:
+        '200':
+          $ref: '#/components/responses/LdapTestLoginResponse'
+      operationId: ldap-settings-ldap-login-test
+      x-stoplight:
+        id: xy60v4zxek7xz
+      security:
+        - x-api-key: []
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LdapTestLoginRequest'
+  /v1/gitx-webhook-events/{gitx-webhook-event}/validation-info:
+    get:
+      summary: Get file validations for a given event identifier
+      tags:
+        - GitX Webhooks Event File Validation
+      responses:
+        '200':
+          $ref: '#/components/responses/GetGitXWebhookEventFileValidationResponse'
+      operationId: gitx-webhook-event-file-validation
+      x-internal: true
+      description: Get file validations for a given event identifier
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: path
+          name: gitx-webhook-event
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+  /v1/credits/allocation/export/{accountIdentifier}:
+    get:
+      summary: Get credits allocation Data for an account for a given moduleType
+      tags:
+        - Credits allocation by account and moduleType
+      responses:
+        '200':
+          description: Successful response with CSV file
+          content:
+            text/csv: {}
+        '400':
+          headers: { }
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { }
+      operationId: credits-allocation-export-data
+      x-internal: false
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: moduleType
+          in: query
+          required: true
+          description: Module type for the account
+          schema:
+            type: string
+  /v1/licenseUsageActivity/{accountIdentifier}:
+    post:
+      summary: Get License Usage Data for an account for a given time range
+      tags:
+        - License Usage Data By Account
+      responses:
+        '200':
+          $ref: '#/components/responses/LicenseUsageActivity'
+        '400':
+          headers: {}
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: license-usage-activity
+      x-internal: false
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+        - name: startTime
+          in: query
+          required: true
+          description: Start Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+        - name: endTime
+          in: query
+          required: true
+          description: End Time of the Interval for the Entity.
+          schema:
+            type: integer
+            format: int64
+        - name: rollup
+          in: query
+          required: true
+          description: Rollup all credit usages in the specified timestamp to a single value.
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        description: Details of the filters applied
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseUsageActivityFilterPropertiesDTO'
 components:
   schemas:
+    LicenseUsageActivityFilterPropertiesDTO:
+      type: object
+      properties:
+        organizationIdentifiers:
+          type: array
+          items:
+            type: string
+          description: This is the list of organization Identifiers on which the filter will be applied.
+        projectIdentifiers:
+          type: array
+          items:
+            type: string
+          description: This is the list of project Identifiers on which the filter will be applied.
+        pipelineIdentifiers:
+          type: array
+          items:
+            type: string
+          description: This is the list of pipeline Identifiers on which the filter will be applied.
+        resourceClasses:
+          type: array
+          items:
+            type: string
+          description: This is the list of resource classes on which the filter will be applied.
+        moduleType:
+          $ref: '#/components/schemas/ModuleType'
+    LicenseUsageActivity:
+      type: object
+      properties:
+        timestamp:
+          type: integer
+          format: int64
+          description: Timestamp for the activity response
+        credits:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditUsage'
+      required:
+        - timestamp
+        - credits
+    CreditUsage:
+      type: object
+      properties:
+        totalCredits:
+          type: integer
+          description: Total number of credits used
+        ciOsType:
+          type: string
+          description: Type of CI/OS
+      required:
+        - totalCredits
+        - ciOsType
+    CreditOverUsage:
+      type: object
+      properties:
+        overUsageCount:
+          type: integer
+          description: Total number of overuse credits
+        moduleType:
+          type: string
+          description: Module Type for which the credits' overusage is being captured
+      required:
+        - overUsageCount
+        - moduleType
     Service:
       type: object
       x-examples:
@@ -2075,9 +3784,161 @@ components:
         yaml:
           type: string
           description: Yaml related to service
+        harness_version:
+          type: string
+          description: version of harness yaml
       required:
         - identifier
         - name
+    Environment:
+      type: object
+      x-examples:
+        example-1:
+          account: sample_account
+          identifier: example_environment
+          org: sample_organization
+          project: sample_project
+          name: Example_environment
+          description: This is a example environment
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            environment:
+              name: "Example_environment"
+              identifier: "example_environment"
+              tags: {}
+      description: This is the Environment entity defined in Harness
+      title: Environment
+      properties:
+        account:
+          type: string
+          description: Account Identifier
+          minLength: 1
+          maxLength: 128
+        identifier:
+          type: string
+          description: Identifier of the Environment Request.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        org:
+          type: string
+          description: Organization Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        project:
+          type: string
+          description: Project Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Environment Request.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the entity
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment tags
+          maxProperties: 128
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: Yaml related to environment
+      required:
+        - identifier
+        - name
+      x-stoplight:
+        id: t0gj2z2q9pwsn
+    Infrastructure:
+      type: object
+      x-examples:
+        example-1:
+          account: sample_infrastructure
+          identifier: example_infrastructure
+          org: sample_organization
+          project: sample_project
+          name: Example_environment
+          description: This is a example infrastructure
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            environment:
+              name: "Example_infrastructure"
+              identifier: "example_infrastructure"
+              tags: {}
+      description: This is the Infrastructure entity defined in Harness
+      title: Infrastructure
+      properties:
+        account:
+          type: string
+          description: Account Identifier
+          minLength: 1
+          maxLength: 128
+        identifier:
+          type: string
+          description: Identifier of the Environment Request.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        org:
+          type: string
+          description: Organization Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        project:
+          type: string
+          description: Project Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Infrastructure.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        environment:
+          type: string
+          description: Name of the parent Environment.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        type:
+          $ref: '#/components/schemas/InfrastructureType'
+        description:
+          type: string
+          description: Description of the entity
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Infrastructure tags
+          maxProperties: 128
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: Yaml related to infrastructure
+      required:
+        - identifier
+        - name
+        - type
     FavoriteDTO:
       type: object
       x-examples:
@@ -2121,7 +3982,7 @@ components:
           description: Resource Identifier of the Entity.
           pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
           minLength: 1
-          maxLength: 128
+          maxLength: 256
     FavoriteResponse:
       type: object
       x-examples:
@@ -2175,7 +4036,7 @@ components:
           type: integer
           format: int64
           description: Last modification timestamp for Service.
-    ServiceRequest:
+    ServiceCreateRequest:
       type: object
       x-examples:
         example-1:
@@ -2190,7 +4051,7 @@ components:
               name: "Example_service"
               identifier: "example_service"
               tags: {}
-      title: ServiceRequest
+      title: ServiceCreateRequest
       description: 'Service Request Body '
       properties:
         identifier:
@@ -2218,9 +4079,351 @@ components:
         yaml:
           type: string
           description: YAML for the Service Request
+        harness_version:
+          type: string
+          description: version of harness yaml
       required:
         - identifier
         - name
+    ServiceUpdateRequest:
+      type: object
+      x-examples:
+        example-1:
+          identifier: example_service
+          name: Example_service
+          description: This is a example service
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            service:
+              name: "Example_service"
+              identifier: "example_service"
+              tags: {}
+      title: ServiceUpdateRequest
+      description: 'Service Update Request Body '
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the Service
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Service
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the entity
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Service tags
+          maxProperties: 128
+        yaml:
+          type: string
+          description: YAML for the Service Request
+        harness_version:
+          type: string
+          description: version of harness yaml
+      required:
+        - identifier
+        - name
+    EnvironmentResponse:
+      type: object
+      x-examples:
+        example-1:
+          service:
+            account: sample_account
+            identifier: example_environment
+            org: sample_organization
+            project: sample_project
+            name: Example_environment
+            description: This is a example environment
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
+            yaml: |
+              service:
+                name: "Example_environment"
+                identifier: "example_environment"
+                tags: {}
+          created: 1234567890
+          updated: 1234567890
+      description: Default response when a environment is returned
+      title: EnvironmentResponse
+      properties:
+        environment:
+          $ref: '#/components/schemas/Environment'
+        created:
+          type: integer
+          format: int64
+          description: Creation timestamp for environment.
+        updated:
+          type: integer
+          format: int64
+          description: Last modification timestamp for environment.
+      x-stoplight:
+        id: 8wkghgenuyufw
+    EnvironmentCreateRequest:
+      type: object
+      x-examples:
+        example-1:
+          identifier: example_environment
+          name: Example_environment
+          description: This is a example environment
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            service:
+              name: "Example_environment"
+              identifier: "example_environment"
+              tags: {}
+      title: EnvironmentCreateRequest
+      description: 'Environment Request Body '
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the Environment
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Environment
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the Environment
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment tags
+          maxProperties: 128
+        type:
+          $ref: '#/components/schemas/EnvironmentType'
+        color:
+          type: string
+          description: Environment color
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: YAML for the Environment Request
+      required:
+        - identifier
+        - name
+        - type
+      x-stoplight:
+        id: v1x9is61l27ki
+    EnvironmentUpdateRequest:
+      type: object
+      x-examples:
+        example-1:
+          identifier: example_environment
+          name: Example_environment
+          description: This is a example environment
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            service:
+              name: "Example_environment"
+              identifier: "example_environment"
+              tags: {}
+      title: EnvironmentUpdateRequest
+      description: 'Environment Update Request Body '
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the Environment
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Environment
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the Environment
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Environment tags
+          maxProperties: 128
+        type:
+          $ref: '#/components/schemas/EnvironmentType'
+        color:
+          type: string
+          description: Environment color
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: YAML for the Environment Request
+      required:
+        - identifier
+        - name
+        - type
+      x-stoplight:
+        id: stztl057sv571
+    InfrastructureResponse:
+      type: object
+      x-examples:
+        example-1:
+          infrastructure:
+            account: sample_account
+            identifier: example_infrastructure
+            org: sample_organization
+            project: sample_project
+            name: Example_infrastructure
+            description: This is a example infrastructure
+            tags:
+              example-tag-1: example-tag-1-value
+              example-tag-2: example-tag-2-value
+            yaml: |
+              service:
+                name: "Example_infrastructure"
+                identifier: "example_infrastructure"
+                tags: {}
+          created: 1234567890
+          updated: 1234567890
+      description: Default response when a infrastructure is returned
+      title: InfrastructureResponse
+      properties:
+        infrastructure:
+          $ref: '#/components/schemas/Infrastructure'
+        created:
+          type: integer
+          format: int64
+          description: Creation timestamp for infrastructure.
+        updated:
+          type: integer
+          format: int64
+          description: Last modification timestamp for infrastructure.
+    InfrastructureCreateRequest:
+      type: object
+      x-examples:
+        example-1:
+          identifier: example_infrastructure
+          name: Example_infrastructure
+          description: This is a example infrastructure
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            infrastructure:
+              name: "Example_infrastructure"
+              identifier: "example_infrastructure"
+              tags: {}
+      title: InfrastructureCreateRequest
+      description: 'Infrastructure Request Body '
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the Infrastructure
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Infrastructure
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the Infrastructure
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Infrastructure tags
+          maxProperties: 128
+        type:
+          $ref: '#/components/schemas/InfrastructureType'
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: YAML for the Infrastructure Request
+      required:
+        - identifier
+        - name
+        - type
+        - yaml
+    InfrastructureUpdateRequest:
+      type: object
+      x-examples:
+        example-1:
+          identifier: example_infrastructure
+          name: Example_infrastructure
+          description: This is a example infrastructure
+          tags:
+            example-tag-1: example-tag-1-value
+            example-tag-2: example-tag-2-value
+          yaml: |
+            infrastructure:
+              name: "Example_infrastructure"
+              identifier: "example_infrastructure"
+              tags: {}
+      title: InfrastructureUpdateRequest
+      description: 'Infrastructure Update Request Body '
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the Infrastructure
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        name:
+          type: string
+          description: Name of the Infrastructure
+          pattern: '^[a-zA-Z_][0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        description:
+          type: string
+          description: Description of the Infrastructure
+          maxLength: 1024
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          description: Infrastructure tags
+          maxProperties: 128
+        type:
+          $ref: '#/components/schemas/InfrastructureType'
+        harness_version:
+          type: string
+          description: version of harness yaml
+        yaml:
+          type: string
+          description: YAML for the Infrastructure Request
+      required:
+        - identifier
+        - name
+        - type
+        - yaml
     CreateOrganizationRequest:
       type: object
       properties:
@@ -2274,6 +4477,7 @@ components:
         - CHAOS
         - CET
         - IDP
+        - SSCA
     FavoritesResourceType:
       type: string
       enum:
@@ -2282,6 +4486,34 @@ components:
         - PIPELINE
         - SECRET
         - PROJECT
+        - IDPENTITY
+        - IDPFLOWS
+    EnvironmentType:
+      type: string
+      enum:
+        - PreProduction
+        - Production
+    InfrastructureType:
+      type: string
+      enum:
+        - KUBERNETES_DIRECT
+        - KUBERNETES_GCP
+        - KUBERNETES_AZURE
+        - PDC
+        - SSH_WINRM_AZURE
+        - SERVERLESS_AWS_LAMBDA
+        - AZURE_WEB_APP
+        - SSH_WINRM_AWS
+        - CUSTOM_DEPLOYMENT
+        - ECS
+        - ELASTIGROUP
+        - TAS
+        - ASG
+        - GOOGLE_CLOUD_FUNCTIONS
+        - AWS_SAM
+        - AWS_LAMBDA
+        - KUBERNETES_AWS
+        - KUBERNETES_RANCHER
     CreateProjectRequest:
       description: Create project request
       type: object
@@ -2900,7 +5132,7 @@ components:
     MicroserviceVersionInfo:
       title: Microservice Version Info
       x-stoplight:
-        id: zzavijwypang2
+        id: bmqfflnoo0jid
       type: object
       properties:
         name:
@@ -2965,7 +5197,7 @@ components:
     IPAllowlistConfig:
       title: IPAllowlistConfig
       x-stoplight:
-        id: 4kc6qh4fzdo3u
+        id: z54w7edwpccca
       type: object
       description: This contains data for a config set in Harness to allow selected IPs
       properties:
@@ -3008,7 +5240,7 @@ components:
     AllowedSourceType:
       title: AllowedSourceType
       x-stoplight:
-        id: 1h1gbcbijw2e7
+        id: j4g1a19tpiovc
       type: string
       enum:
         - UI
@@ -3017,7 +5249,7 @@ components:
     IPAllowlistConfigRequest:
       title: IPAllowlistConfigRequest
       x-stoplight:
-        id: rwmuk1v0vibf3
+        id: gmdedmqicwsx4
       type: object
       description: This is the request spec to create IP Allowlist config in Harness
       properties:
@@ -3026,7 +5258,7 @@ components:
     IPAllowlistConfigResponse:
       title: IPAllowlistConfigResponse
       x-stoplight:
-        id: 0kw8buhu20h4v
+        id: 9rirmo68rh6st
       type: object
       properties:
         ip_allowlist_config:
@@ -3046,7 +5278,7 @@ components:
     IPAllowlistConfigValidateResponse:
       title: IPAllowlistConfigValidateResponse
       x-stoplight:
-        id: 4f3ukj8lje3yc
+        id: smtu2jgnoz1up
       type: object
       properties:
         allowed_for_custom_block:
@@ -3064,6 +5296,12 @@ components:
         allowed_for_api:
           type: boolean
           description: This indicates if a given IP is allowlisted in Harness for API requests
+        disabled_allowlisted_configs:
+          type: array
+          description: |
+            This is the list of IP configs configured in Harness from which IP address is allowed but the config is disabled. This is empty in case of custom IP address block.
+          items:
+            $ref: '#/components/schemas/IPAllowlistConfigResponse'
     ManifestsResponseDTO:
       title: ManifestsResponseDTO
       type: object
@@ -3083,7 +5321,7 @@ components:
     CreateGitXWebhookRequest:
       title: CreateGitXWebhookRequest
       x-stoplight:
-        id: 3dp38zgivxdux
+        id: dfl2rgteqjv9l
       type: object
       description: Contains information about the GitX webhook creation request
       properties:
@@ -3102,7 +5340,7 @@ components:
     CreateGitXWebhookResponse:
       title: CreateGitXWebhookResponse
       x-stoplight:
-        id: 8js3eog9wvwz8
+        id: x9148732e2m4l
       type: object
       description: 'Contains information about the GitX webhook creation '
       properties:
@@ -3111,7 +5349,7 @@ components:
     UpdateGitXWebhookRequest:
       title: UpdateGitXWebhookRequest
       x-stoplight:
-        id: wyjatlg41n5nx
+        id: 4muh4be0aj4te
       type: object
       description: 'Contains information about the GitX webhook updation '
       properties:
@@ -3130,7 +5368,7 @@ components:
     UpdateGitXWebhookResponse:
       title: UpdateGitXWebhookResponse
       x-stoplight:
-        id: tbcq1lr1fsgvj
+        id: ne0fmq08o05bg
       type: object
       description: 'Contains information about the GitX webhook updation '
       properties:
@@ -3139,7 +5377,7 @@ components:
     GitXWebhookResponse:
       title: GitXWebhookResponse
       x-stoplight:
-        id: 10girpwp12rfn
+        id: vkv1a5drhxln9
       type: object
       description: 'Contains information about the GitX webhooks '
       properties:
@@ -3163,7 +5401,7 @@ components:
     GitXWebhookEventResponse:
       title: GitXWebhookEventResponse
       x-stoplight:
-        id: tkepo90rb5hca
+        id: kcprstctf6ja6
       type: object
       description: Contains information about the GitX webhook Events
       properties:
@@ -3188,11 +5426,41 @@ components:
             - QUEUED
             - SUCCESSFUL
             - PROCESSING
+            - WARNING
             - UNKNOWN
+        event_status_message:
+          $ref: '#/components/schemas/EventStatusMessageBody'
+        commit_message:
+          type: string
+          x-stoplight:
+            id: 12a2uyvbqq1wj
+        commit_id:
+          type: string
+          x-stoplight:
+            id: slrl29uhxanaz
+        commit_url:
+          type: string
+        file_count:
+          type: integer
+          x-stoplight:
+            id: t6r1ww64hy73r
+        failure_file_count:
+          type: integer
+          x-stoplight:
+            id: gp3tw3rci44n0
+    DeleteGitXWebhookResponse:
+      title: DeleteGitXWebhookResponse
+      x-stoplight:
+        id: bnhbfd0j7x6ag
+      type: object
+      description: Contains information about the GitX webhooks that was deleted.
+      properties:
+        webhook_identifier:
+          type: string
     ReleaseDetailsResponse:
       title: ReleaseDetailsResponse
       x-stoplight:
-        id: l0xibpnt74nma
+        id: dwib2397lfhgo
       type: object
       x-examples:
         Example 1:
@@ -3234,7 +5502,7 @@ components:
     BatchReleaseDetailsResponse:
       title: BatchReleaseDetailsResponse
       x-stoplight:
-        id: 5lg9lbaez18py
+        id: kg0byl39j3q3k
       type: array
       items:
         $ref: '#/components/schemas/ReleaseDetailsResponse'
@@ -3263,7 +5531,7 @@ components:
     ReleaseServiceDetails:
       title: ReleaseServiceDetails
       x-stoplight:
-        id: fkklabspi8rzc
+        id: bm6tau937r4gy
       type: object
       x-examples:
         Example 1:
@@ -3284,7 +5552,7 @@ components:
     ReleaseEnvDetails:
       title: ReleaseEnvDetails
       x-stoplight:
-        id: hcgyr8vqtaa64
+        id: j2ei3sszd3fma
       type: object
       description: Response model of environment release details
       x-examples:
@@ -3317,7 +5585,7 @@ components:
     ReleaseDetailsRequest:
       title: ReleaseDetailsRequest
       x-stoplight:
-        id: ccc4r2xq55lw0
+        id: dbiy8u97r6ik0
       type: object
       description: Contains information regarding a single release details required
       x-examples:
@@ -3332,20 +5600,751 @@ components:
     UpdateGitXWebhookEventRequest:
       title: UpdateGitXWebhookEventRequest
       x-stoplight:
-        id: vm2loic428thf
+        id: obt3lz7g85gic
       type: object
       description: Update GitX Webhook Event Request
       properties:
         event_status:
           type: string
           x-stoplight:
-            id: nrriy895o9ami
+            id: mdqi6s78z7g1i
+    EventStatusMessageBody:
+      title: EventStatusMessageBody
+      x-stoplight:
+        id: 9rwghea2of8m2
+      type: object
+      description: Contains the gitx webhook event status message
+      x-internal: true
+      properties:
+        message:
+          type: string
+          x-stoplight:
+            id: la8fj2wtlye08
+        hint:
+          type: string
+          x-stoplight:
+            id: mhi6zemt7yl03
+        explanation:
+          type: string
+          x-stoplight:
+            id: 1ptlj7jmeljqe
+    CertificateDTO:
+      title: CertificateDTO
+      x-stoplight:
+        id: l9q8ph7p1mi4o
+      description: This is the request dto to create a Certificate in Harness
+      allOf:
+        - $ref: '#/components/schemas/CertificateInfoDTO'
+        - type: object
+          properties:
+            input_spec:
+              $ref: '#/components/schemas/CertificateInputSpecDTO'
+          required:
+            - input_spec
+    CertificateInfoDTO:
+      title: CertificateInfoDTO
+      x-stoplight:
+        id: o43wu1pwo0n40
+      type: object
+      description: This is the Certificate Entity in Harness
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: 5s4lvxucs4340
+          description: Name for the Entity.
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        identifier:
+          type: string
+          x-stoplight:
+            id: hr2a03wdanpjs
+          description: Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        org:
+          type: string
+          x-stoplight:
+            id: mo4zkt909dmyx
+          description: Organization Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        project:
+          type: string
+          x-stoplight:
+            id: ykyl1jrjm5yae
+          description: Project Identifier for the Entity.
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          minLength: 1
+          maxLength: 128
+        certificate_value:
+          type: string
+          x-stoplight:
+            id: xmkfxyqoijdcd
+          description: Certificate Content (Read only field whose value is populated only in response)
+          readOnly: true
+        tags:
+          type: object
+          additionalProperties:
+            type: string
+          x-stoplight:
+            id: bignws4547i7g
+          description: Certificate tags
+        description:
+          type: string
+          x-stoplight:
+            id: enyo3ngtqsypb
+      required:
+        - name
+        - identifier
+    CertificateInputSpecDTO:
+      title: CertificateInputSpecDTO
+      x-stoplight:
+        id: 0d1izu97xpl66
+      type: object
+      discriminator:
+        propertyName: type
+        mapping:
+          TEXT: '#/components/schemas/TextCertificateInputSpecDTO'
+          FILE: '#/components/schemas/FileCertificateInputSpecDTO'
+      properties:
+        type:
+          $ref: '#/components/schemas/CertificateInputSpecType'
+      required:
+        - type
+      description: ''
+    TextCertificateInputSpecDTO:
+      title: TextCertificateInputSpecDTO
+      x-stoplight:
+        id: d701noymmmnvu
+      allOf:
+        - $ref: '#/components/schemas/CertificateInputSpecDTO'
+        - type: object
+          x-stoplight:
+            id: eywbr9ncc8jor
+          properties:
+            value:
+              type: string
+              x-stoplight:
+                id: 67cnzqv4oarfk
+          required:
+            - value
+      description: This DTO defines the fields required when creating a certificate by passing it as text.
+      x-discriminator-value: TEXT
+    FileCertificateInputSpecDTO:
+      title: FileCertificateInputSpecDTO
+      x-stoplight:
+        id: lzs8geqg3peyv
+      allOf:
+        - $ref: '#/components/schemas/CertificateInputSpecDTO'
+      description: This DTO defines the fields required when creating a certificate by passing it as text.
+      x-discriminator-value: FILE
+    CertificateResponseDTO:
+      title: CertificateResponseDTO
+      x-stoplight:
+        id: 08arjpkqc1kl4
+      type: object
+      properties:
+        certificate:
+          $ref: '#/components/schemas/CertificateDTO'
+        certificate_details:
+          $ref: '#/components/schemas/CertificateDetailsDTO'
+        created:
+          type: integer
+          x-stoplight:
+            id: 1la1qxtgvwuuj
+          format: int64
+        updated:
+          type: integer
+          x-stoplight:
+            id: dzphxs7u5apmm
+          format: int64
+      required:
+        - certificate
+        - certificate_details
+    CertificateDetailsDTO:
+      title: CertificateDetailsDTO
+      x-stoplight:
+        id: mlof3rn4vqe64
+      type: object
+      properties:
+        issued_to:
+          $ref: '#/components/schemas/CertificateIssuanceInfo'
+        issued_by:
+          $ref: '#/components/schemas/CertificateIssuanceInfo'
+        valid_from:
+          type: integer
+          x-stoplight:
+            id: j5a9tcl5i3a2o
+          format: int64
+        valid_to:
+          type: integer
+          x-stoplight:
+            id: 1339ez6fx8l2g
+          format: int64
+        signature_algo:
+          type: string
+          x-stoplight:
+            id: rx7w596wytqr3
+    CertificateInputSpecType:
+      title: CertificateInputSpecType
+      x-stoplight:
+        id: nhxqu9kwgv634
+      type: string
+      enum:
+        - TEXT
+        - FILE
+      description: This defines different ways a certificate can be created
+    CertificateIssuanceInfo:
+      title: CertificateIssuanceInfo
+      x-stoplight:
+        id: ag74zjmlc3qyp
+      type: object
+      properties:
+        common_name:
+          type: string
+          x-stoplight:
+            id: ei027bhkq7cam
+        organization:
+          type: string
+          x-stoplight:
+            id: anat62b0vdzp7
+        organizational_unit:
+          type: string
+          x-stoplight:
+            id: 1ll9qrdntms7o
+    LdapSettingsDTO:
+      title: LdapSettingsDTO
+      x-stoplight:
+        id: f8znhldy5ze5v
+      type: object
+      description: Ldap Settings DTO
+      required:
+        - account_identifier
+        - identifier
+        - name
+      properties:
+        account_identifier:
+          type: string
+          x-stoplight:
+            id: 8qppu3sep0fvz
+        identifier:
+          type: string
+          x-stoplight:
+            id: 62ki9cggzt1jm
+        url:
+          type: string
+          x-stoplight:
+            id: ce8y7fyupcwie
+        disabled:
+          type: boolean
+          x-stoplight:
+            id: vlqp8sh98y08b
+        name:
+          type: string
+          x-stoplight:
+            id: 3dwefjtun1rn1
+        cron_expression:
+          type: string
+          x-stoplight:
+            id: 9v59g4w3hg5wo
+        ldap_connection_settings:
+          $ref: '#/components/schemas/LdapConnectionSettingsDTO'
+        ldap_user_settings:
+          type: array
+          x-stoplight:
+            id: q2qnvvvats82o
+          items:
+            $ref: '#/components/schemas/LdapUserSettingsDTO'
+        ldap_group_settings:
+          type: array
+          x-stoplight:
+            id: e38bwrq8oy07r
+          items:
+            $ref: '#/components/schemas/LdapGroupSettingsDTO'
+        sso_type:
+          type: string
+          x-stoplight:
+            id: xdgeaawghtmno
+    LdapUserSettingsDTO:
+      title: LdapUserSettingsDTO
+      x-stoplight:
+        id: z57exi0ztqq9a
+      type: object
+      description: Ldap User Settings DTO
+      properties:
+        base_d_n:
+          type: string
+          x-stoplight:
+            id: wfuahenplizat
+        search_filter:
+          type: string
+          x-stoplight:
+            id: y3wrrf6vz37z2
+        uid_attr:
+          type: string
+          x-stoplight:
+            id: nuqp9fo5w05iy
+        sam_account_name_attr:
+          type: string
+          x-stoplight:
+            id: yb9qmhbz1mffp
+        email_attr:
+          type: string
+          x-stoplight:
+            id: drfzqz8mpu1ou
+        display_name_attr:
+          type: string
+          x-stoplight:
+            id: zs09zxyk5phg6
+        group_membership_attr:
+          type: string
+          x-stoplight:
+            id: 5qa5pc978l4o4
+    LdapConnectionSettingsDTO:
+      title: LdapConnectionSettingsDTO
+      x-stoplight:
+        id: sk8ot06b5sety
+      type: object
+      description: Ldap Connection Settings DTO
+      properties:
+        host:
+          type: string
+          x-stoplight:
+            id: i5rmxd4zc7128
+        port:
+          type: integer
+          x-stoplight:
+            id: ealsta50aysfs
+        ssl_enabled:
+          type: boolean
+          x-stoplight:
+            id: l9ucsqzqz65de
+        referrals_enabled:
+          type: boolean
+          x-stoplight:
+            id: g8e480fibh1p2
+        secret_ref_path:
+          type: string
+          x-stoplight:
+            id: 3lrfk14jzy69x
+        max_referral_hops:
+          type: integer
+          x-stoplight:
+            id: twu8lt66e08tz
+        connection_timeout:
+          type: integer
+          x-stoplight:
+            id: p8kjsb8doifih
+        response_timeout:
+          type: integer
+          x-stoplight:
+            id: 2ersoqf1fspni
+        use_recursive_group_membership_search:
+          type: boolean
+          x-stoplight:
+            id: wvps1gevlwqa0
+        bind_d_n:
+          type: string
+          x-stoplight:
+            id: m41ae2qg2kusj
+        delegate_selectors:
+          type: array
+          x-stoplight:
+            id: yagarnzxe76av
+          items:
+            x-stoplight:
+              id: wh3l7x013ckkn
+            type: string
+    LdapGroupSettingsDTO:
+      title: LdapGroupSettingsDTO
+      x-stoplight:
+        id: s1809t4lth330
+      type: object
+      description: Ldap Group Settings DTO
+      properties:
+        base_d_n:
+          type: string
+          x-stoplight:
+            id: 2vl2n5ez5kkcf
+        search_filter:
+          type: string
+          x-stoplight:
+            id: 3qft0ce07rero
+        name_attr:
+          type: string
+          x-stoplight:
+            id: hae6bbgmjtxst
+        description_attr:
+          type: string
+          x-stoplight:
+            id: xpf6h6kvblidv
+        user_membership_attr:
+          type: string
+          x-stoplight:
+            id: h7mf9q80034ei
+        referenced_user_attr:
+          type: string
+          x-stoplight:
+            id: lszd5uip1q5gs
+    LdapSettingsRequest:
+      title: LdapSettingsRequest
+      x-stoplight:
+        id: gjqwk2pmix9vu
+      type: object
+      properties:
+        ldap_settings:
+          $ref: '#/components/schemas/LdapSettingsDTO'
+    LdapSettingsResponse:
+      title: LdapSettingsResponse
+      x-stoplight:
+        id: ra1gzj4t8u9w3
+      type: object
+      properties:
+        ldap_settings:
+          $ref: '#/components/schemas/LdapSettingsDTO'
+        created:
+          type: integer
+          x-stoplight:
+            id: tbd3xz9v3adk5
+          format: int64
+        last_modified:
+          type: integer
+          x-stoplight:
+            id: mxo2ysfo8d5k2
+          format: int64
+    LdapValidateResponseDTO:
+      title: LdapValidateResponseDTO
+      x-stoplight:
+        id: lkcy3ohrgij3e
+      type: object
+      description: Ldap Validate Response DTO
+      properties:
+        message:
+          type: string
+          x-stoplight:
+            id: x7s66994hwdmg
+        status:
+          type: string
+          x-stoplight:
+            id: spkzkdo8p00u8
+          enum:
+            - SUCCESS
+            - FAILURE
+    LdapGroupResponseDTO:
+      title: LdapGroupResponseDTO
+      x-stoplight:
+        id: ag80fl4djk8u7
+      type: object
+      properties:
+        dn:
+          type: string
+          x-stoplight:
+            id: fb8ur4bakp95d
+        name:
+          type: string
+          x-stoplight:
+            id: ezgerm7dbzalu
+        description:
+          type: string
+          x-stoplight:
+            id: 3cynjss7jge6c
+        total_members:
+          type: integer
+          x-stoplight:
+            id: 607akg5zkmwd5
+        message:
+          type: string
+          x-stoplight:
+            id: 4fyyiyx1tigej
+      description: LdapGroupResponse
+    UserGroupDTO:
+      title: UserGroupDTO
+      x-stoplight:
+        id: 809ed71ctxw4g
+      type: object
+      description: User Group DTO
+      properties:
+        account_identifier:
+          type: string
+          x-stoplight:
+            id: izybl5ndyou6l
+        org:
+          type: string
+          x-stoplight:
+            id: 8zscs32ljrqlh
+        project:
+          type: string
+          x-stoplight:
+            id: zckgqa40bii85
+        identifier:
+          type: string
+          x-stoplight:
+            id: 71xnxf5lmbo19
+        is_sso_linked:
+          type: boolean
+          x-stoplight:
+            id: jrzpdhkukejp6
+        linked_sso_type:
+          type: boolean
+          x-stoplight:
+            id: x2ss9gzmisdxe
+        linked_sso_id:
+          type: boolean
+          x-stoplight:
+            id: cyvwp3kmu2qfs
+        linked_sso_display_name:
+          type: string
+          x-stoplight:
+            id: dja5o8cdrz0ul
+        sso_group_id:
+          type: string
+          x-stoplight:
+            id: ni3iyd67b31i5
+        sso_group_name:
+          type: string
+          x-stoplight:
+            id: 3rr7v12c2xapx
+        name:
+          type: string
+          x-stoplight:
+            id: d4d4zjg9l2d2p
+        users:
+          type: array
+          x-stoplight:
+            id: ol1or1092op6l
+          items:
+            x-stoplight:
+              id: 3s9neyuurscsv
+            type: string
+        notification_configs:
+          type: array
+          x-stoplight:
+            id: 8a4qp4lj2nmkc
+          items:
+            $ref: '#/components/schemas/NotificationSettingConfigDTO'
+        externally_managed:
+          type: boolean
+          x-stoplight:
+            id: oqy81utjz3qmf
+        description:
+          type: string
+          x-stoplight:
+            id: hc4inmpqjcfsi
+        tags:
+          type: array
+          x-stoplight:
+            id: 4dtahmt1tenew
+          items:
+            x-stoplight:
+              id: llx1wlnfosa3x
+            type: string
+        harness_managed:
+          type: boolean
+          x-stoplight:
+            id: sm26t4i5t4kcf
+    NotificationSettingConfigDTO:
+      title: NotificationSettingConfigDTO
+      x-stoplight:
+        id: rhy104v0cjttt
+      type: object
+      properties:
+        type:
+          type: string
+          x-stoplight:
+            id: ets95lazoqt1o
+    LinkSSOGroupRequestDTO:
+      title: LinkSSOGroupRequestDTO
+      x-stoplight:
+        id: 9nq8edmxoq01f
+      type: object
+      properties:
+        sso_id:
+          type: string
+          x-stoplight:
+            id: ytazjgz12l17u
+        sso_group_id:
+          type: string
+          x-stoplight:
+            id: gqw1001ki7ni6
+        sso_group_name:
+          type: string
+          x-stoplight:
+            id: fkrxfo9iz681u
+      description: ''
+    UnlinkSSOGroupRequestDTO:
+      title: UnlinkSSOGroupRequestDTO
+      x-stoplight:
+        id: 99zgtjmcs8t67
+      type: object
+      properties:
+        retain_members:
+          type: boolean
+          x-stoplight:
+            id: yyqh40xyuksld
+    LdapSettingsIterations:
+      title: LdapSettingsIterations
+      x-stoplight:
+        id: fm7tb4yt6xber
+      type: object
+      properties:
+        iterations:
+          type: array
+          x-stoplight:
+            id: 1p2rv44mibkb5
+          items:
+            x-stoplight:
+              id: bl9mqhxdepfe5
+            type: integer
+            format: int64
+    CronExpressionRequestDTO:
+      title: CronExpressionRequestDTO
+      x-stoplight:
+        id: w60gppl5cy5uu
+      type: object
+      properties:
+        cron:
+          type: string
+          x-stoplight:
+            id: gje1x6922v6fd
+    LdapTestLoginResponseDTO:
+      title: LdapTestLoginResponseDTO
+      x-stoplight:
+        id: qyovi99w6fhk5
+      type: object
+      properties:
+        message:
+          type: string
+          x-stoplight:
+            id: ffhbs5s2f4g5u
+        status:
+          type: string
+          x-stoplight:
+            id: j8e7dfj2vqvic
+          enum:
+            - SUCCESS
+            - FAILURE
+    LdapTestLoginRequestDTO:
+      title: LdapTestLoginRequestDTO
+      x-stoplight:
+        id: o4dbv260dkvc3
+      type: object
+      properties:
+        email:
+          type: string
+          x-stoplight:
+            id: ov0ic5u510oql
+        password:
+          type: string
+          x-stoplight:
+            id: r1c8uwaviczpl
+    GetGitXWebhookEventFileValidationResponse:
+      title: GetGitXWebhookEventFileValidationResponse
+      x-stoplight:
+        id: bq4d9by7xkllw
+      type: object
+      description: Get GitX Webhook Event File Validation Response
+      properties:
+        file_path:
+          type: string
+        file_url:
+          type: string
+        file_action_type:
+          type: string
+          enum:
+            - ADDED
+            - MODIFIED
+            - DELETED
+        entity_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityDetails'
+    ErrorMetadata:
+      title: ErrorMetadata
+      x-stoplight:
+        id: k44xlbscpqhti
+      type: object
+      description: Error meta data
+      properties:
+        error_message:
+          type: string
+          x-stoplight:
+            id: kkpconlup6wwr
+        hint:
+          type: string
+          x-stoplight:
+            id: k6z0qdp0rmuw4
+        explanation:
+          type: string
+          x-stoplight:
+            id: f3q0sm25vvdyp
+    EntityMetadata:
+      title: EntityMetadata
+      type: object
+      description: Entity metadata
+      properties:
+        pipeline_identifier:
+          type: string
+        template_version_label:
+          type: string
+        environment_identifier:
+          type: string
+        override_type:
+          type: string
+    EntityDetails:
+      title: EntityDetails
+      x-stoplight:
+        id: off09hxwghp46
+      type: object
+      description: 'Entity Details with its yaml validation result '
+      properties:
+        is_valid:
+          type: boolean
+        error_metadata:
+          $ref: '#/components/schemas/ErrorMetadata'
+        entity_metadata:
+          $ref: '#/components/schemas/EntityMetadata'
+        identifier:
+          type: string
+        org:
+          type: string
+        project:
+          type: string
+        entity_type:
+          type: string
+          enum:
+            - Pipelines
+            - Template
+            - InputSets
+            - Service
+            - Environment
+            - Infrastructure
+            - Overrides
+            - Unknown
+        entity_url:
+          type: string
+        branch:
+          type: string
   securitySchemes:
     x-api-key:
       name: x-api-key
       type: apiKey
       in: header
+    bearerAuth:
+      scheme: bearer
+      type: http
   responses:
+    LicenseUsageActivity:
+      description: Response for License Usage Activity
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/LicenseUsageActivity'
     ServiceListResponse:
       description: Example response
       content:
@@ -3461,6 +6460,236 @@ components:
                       tags: {}
                 created: 1234567890
                 updated: 1234567890
+    EnvironmentListResponse:
+      description: Example environment list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EnvironmentResponse'
+          examples:
+            example-1:
+              value:
+                - service:
+                    account: sample_account
+                    identifier: example_environment
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_service
+                    description: This is a example environment
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      environment:
+                        name: "Example_environment"
+                        identifier: "example_environment"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EnvironmentResponse'
+          examples:
+            example-1:
+              value: |
+                - environment:
+                    account: sample_account
+                    identifier: example_environment
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_environment
+                    description: This is a example environment
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      environment:
+                        name: "Example_environment"
+                        identifier: "example_environment"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    EnvironmentResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnvironmentResponse'
+          examples:
+            example-1:
+              value:
+                environment:
+                  account: sample_account
+                  identifier: example_
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_environment
+                  description: This is a example environment
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    environment:
+                      name: "Example_environment"
+                      identifier: "example_environment"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EnvironmentResponse'
+          examples:
+            example-1:
+              value: |
+                environment:
+                  account: sample_account
+                  identifier: example_environment
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_environment
+                  description: This is a example environment
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    environment:
+                      name: "Example_environment"
+                      identifier: "example_environment"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
+    InfrastructureResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InfrastructureResponse'
+          examples:
+            example-1:
+              value:
+                infrastructure:
+                  account: sample_account
+                  identifier: example_
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_infrastructure
+                  description: This is a example infrastructure
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    environment:
+                      name: "Example_infrastructure"
+                      identifier: "example_infrastructure"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/InfrastructureResponse'
+          examples:
+            example-1:
+              value: |
+                infrastructure:
+                  account: sample_account
+                  identifier: example_infrastructure
+                  org: sample_organization
+                  project: sample_project
+                  name: Example_environment
+                  description: This is a example infrastructure
+                  tags:
+                    example-tag-1: example-tag-1-value
+                    example-tag-2: example-tag-2-value
+                  yaml: |
+                    environment:
+                      name: "Example_infrastructure"
+                      identifier: "example_infrastructure"
+                      tags: {}
+                created: 1234567890
+                updated: 1234567890
+    InfrastructureListResponse:
+      description: Example infrastructure list response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/InfrastructureResponse'
+          examples:
+            example-1:
+              value:
+                - infrastructure:
+                    account: sample_account
+                    identifier: example_infrastructure
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_service
+                    description: This is a example infrastructure
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      infrastructure:
+                        name: "Example_infrastructure"
+                        identifier: "example_infrastructure"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/InfrastructureResponse'
+          examples:
+            example-1:
+              value: |
+                - infrastructure:
+                    account: sample_account
+                    identifier: example_infrastructure
+                    org: sample_organization
+                    project: sample_project
+                    name: Example_infrastructure
+                    description: This is a example infrastructure
+                    tags:
+                      example-tag-1: example-tag-1-value
+                      example-tag-2: example-tag-2-value
+                    yaml: |
+                      infrastructure:
+                        name: "Example_infrastructure"
+                        identifier: "example_infrastructure"
+                        tags: {}
+                  created: 1234567890
+                  updated: 1234567890
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
     OrganizationResponse:
       description: Organization response
       content:
@@ -3973,18 +7202,37 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateGitXWebhookResponse'
+          examples:
+            Example 1:
+              value:
+                webhook_identifier: <IDENTIFIER>
     UpdateGitXWebhookResponse:
       description: Example response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateGitXWebhookResponse'
+          examples:
+            Example 1:
+              value:
+                webhook_identifier: <IDENTIFIER>
     GetGitXWebhookResponse:
       description: Example response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GitXWebhookResponse'
+          examples:
+            Example 1:
+              value:
+                webhook_identifier: <IDENTIFIER>
+                webhook_name: <NAME>
+                connector_ref: <CONNECTOR_REF>
+                repo_name: <REPO_NAME>
+                folder_paths:
+                  - <FOLDER_PATH>
+                is_enabled: true
+                event_trigger_time: 0
     ListGitXWebhookResponse:
       description: Example response
       content:
@@ -3993,6 +7241,17 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/GitXWebhookResponse'
+          examples:
+            Example 1:
+              value:
+                - webhook_identifier: <IDENTIFIER>
+                  webhook_name: <NAME>
+                  connector_ref: <CONNECTOR_REF>
+                  repo_name: <REPO_NAME>
+                  folder_paths:
+                    - <FOLDER_PATH>
+                  is_enabled: true
+                  event_trigger_time: 0
       headers:
         X-Total-Elements:
           schema:
@@ -4041,12 +7300,114 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/GitXWebhookEventResponse'
-  requestBodies:
-    ServiceRequest:
+    DeleteGitXWebhookResponse:
+      description: Example response
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ServiceRequest'
+            $ref: '#/components/schemas/DeleteGitXWebhookResponse'
+          examples:
+            Example 1:
+              value:
+                webhook_identifier: <IDENTIFIER>
+    CertificateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CertificateResponseDTO'
+    CertificateListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CertificateResponseDTO'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    CertificateValidateUniqueIdentifierResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: boolean
+    LdapSettingsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapSettingsResponse'
+    LdapValidateResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapValidateResponseDTO'
+    LdapGroupResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapGroupResponseDTO'
+    LinkGroupToLdapSettings:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserGroupDTO'
+      headers: {}
+    UnlinkGroupToLdapSettings:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserGroupDTO'
+    LinkGroupResponse:
+      description: ''
+    LdapSettingsIterationsResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapSettingsIterations'
+    LdapTestLoginResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapTestLoginResponseDTO'
+    LdapTestLoginRequest:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapTestLoginRequestDTO'
+    GetGitXWebhookEventFileValidationResponse:
+      description: Get GitX Webhook Event File Validation Response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetGitXWebhookEventFileValidationResponse'
+  requestBodies:
+    ServiceCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceCreateRequest'
           examples:
             example-1:
               value:
@@ -4063,7 +7424,7 @@ components:
                     tags: {}
         application/yaml:
           schema:
-            $ref: '#/components/schemas/ServiceRequest'
+            $ref: '#/components/schemas/ServiceCreateRequest'
           examples:
             example-1:
               value: |
@@ -4079,6 +7440,44 @@ components:
                     identifier: "example_service"
                     tags: {}
       description: Create Service request body
+      required: true
+    ServiceUpdateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServiceUpdateRequest'
+          examples:
+            example-1:
+              value:
+                identifier: example_service
+                name: Example_service
+                description: This is a example service
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_service"
+                    identifier: "example_service"
+                    tags: {}
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/ServiceUpdateRequest'
+          examples:
+            example-1:
+              value: |
+                identifier: example_service
+                name: Example_service
+                description: This is a example service
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_service"
+                    identifier: "example_service"
+                    tags: {}
+      description: Update Service request body
       required: true
     UpdateProjectRequest:
       content:
@@ -4561,6 +7960,9 @@ components:
             required:
               - file
               - spec
+          encoding:
+            spec:
+              contentType: application/json
       required: true
     SecretValidationRequest:
       content:
@@ -4602,12 +8004,30 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreateGitXWebhookRequest'
+          examples:
+            Example 1:
+              value:
+                webhook_identifier: <IDENTIFIER>
+                repo_name: <REPO_NAME>
+                connector_ref: <CONNECTOR_REF>
+                folder_paths:
+                  - <FOLDER_PATH>
+                webhook_name: <NAME>
       description: Create GitX webhook request
     UpdateGitXWebhookRequest:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/UpdateGitXWebhookRequest'
+          examples:
+            Example 1:
+              value:
+                repo_name: <REPO_NAME>
+                connector_ref: <CONNECTOR_REF>
+                webhook_name: <NAME>
+                folder_paths:
+                  - <FOLDER_PATH>
+                is_enabled: true
       description: Update GitX webhook request
     BatchReleaseDetailsRequest:
       content:
@@ -4628,6 +8048,283 @@ components:
           schema:
             $ref: '#/components/schemas/UpdateGitXWebhookEventRequest'
       description: Update GitX Webhook Event Request
+    CreateCertificateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CertificateDTO'
+          examples:
+            example-certificate-input-text:
+              value:
+                name: example_name
+                identifier: example_identifier
+                org: example_org
+                project: example_project
+                certificateValue: actual_certificate_content
+                tags:
+                  property1: tag1
+                  property2: tag2
+                description: example_description
+                inputSpec:
+                  type: TEXT
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              spec:
+                $ref: '#/components/schemas/CertificateDTO'
+              file:
+                type: string
+                x-stoplight:
+                  id: o0m5hvts15hyp
+                format: binary
+            required:
+              - spec
+              - file
+          examples: {}
+    UpdateCertificateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CertificateDTO'
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              spec:
+                $ref: '#/components/schemas/CertificateDTO'
+              file:
+                type: string
+                x-stoplight:
+                  id: 11s7g7fmuu0xw
+                format: binary
+            required:
+              - spec
+    LdapSettingsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapSettingsRequest'
+    LinkSSOGroupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LinkSSOGroupRequestDTO'
+    UnlinkSSOGroupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnlinkSSOGroupRequestDTO'
+    EnvironmentCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnvironmentCreateRequest'
+          examples:
+            example-1:
+              value:
+                identifier: example_environment_v0
+                name: Example_Env_V0
+                description: This is a example environment v0
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    name: "Example_Env_V0"
+                    identifier: "example_environment_v0"
+                    tags: {}
+            example-2:
+              value:
+                identifier: example_environment_v1
+                name: Example_Env_V1
+                description: This is a example environment v1
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    version: 1
+                    kind: Environment
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EnvironmentCreateRequest'
+          examples:
+            example-1:
+              value: |
+                identifier: example_environment_v0
+                name: Example_Env_V0
+                description: This is a example environment
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_Env_V0"
+                    identifier: "example_environment_v0"
+                    tags: {}
+      description: Update Environment request body
+      required: true
+    EnvironmentUpdateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnvironmentUpdateRequest'
+          examples:
+            example-1:
+              value:
+                identifier: example_environment_v0
+                name: Example_Env_V0
+                description: This is a example environment v0
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    name: "Example_Env_V0"
+                    identifier: "example_environment_v0"
+                    tags: {}
+            example-2:
+              value:
+                identifier: example_environment_v1
+                name: Example_Env_V1
+                description: This is a example environment v1
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    version: 1
+                    kind: Environment
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EnvironmentUpdateRequest'
+          examples:
+            example-1:
+              value: |
+                identifier: example_environment_v0
+                name: Example_Env_V0
+                description: This is a example environment
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_Env_V0"
+                    identifier: "example_environment_v0"
+                    tags: {}
+      description: Update Environment request body
+      required: true
+    InfrastructureCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InfrastructureCreateRequest'
+          examples:
+            example-1:
+              value:
+                identifier: example_infrastructure_v0
+                name: Example_Infra_V0
+                description: This is a example infrastructure v0
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    name: "Example_Infra_V0"
+                    identifier: "example_infrastructure_v0"
+                    tags: {}
+            example-2:
+              value:
+                identifier: example_infrastructure_v1
+                name: Example_Env_V1
+                description: This is a example infrastructure v1
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  infrastructure:
+                    version: 1
+                    kind: Infrastructure
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/InfrastructureCreateRequest'
+          examples:
+            example-1:
+              value: |
+                identifier: example_infrastructure_v0
+                name: Example_Infra_V0
+                description: This is a example infrastructure
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_Infra_V0"
+                    identifier: "example_infrastructure_v0"
+                    tags: {}
+      description: Create Infrastructure request body
+      required: true
+    InfrastructureUpdateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InfrastructureUpdateRequest'
+          examples:
+            example-1:
+              value:
+                identifier: example_infrastructure_v0
+                name: Example_Infra_V0
+                description: This is a example infrastructure v0
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  environment:
+                    name: "Example_Infra_V0"
+                    identifier: "example_infrastructure_v0"
+                    tags: {}
+            example-2:
+              value:
+                identifier: example_infrastructure_v1
+                name: Example_Env_V1
+                description: This is a example infrastructure v1
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  infrastructure:
+                    version: 1
+                    kind: Infrastructure
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/InfrastructureUpdateRequest'
+          examples:
+            example-1:
+              value: |
+                identifier: example_infrastructure_v0
+                name: Example_Infra_V0
+                description: This is a example infrastructure
+                tags:
+                  example-tag-1: example-tag-1-value
+                  example-tag-2: example-tag-2-value
+                yaml: |
+                  service:
+                    name: "Example_Infra_V0"
+                    identifier: "example_infrastructure_v0"
+                    tags: {}
+      description: Update Infrastructure request body
+      required: true
+    CronExpressionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CronExpressionRequestDTO'
+    LdapTestLoginRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LdapTestLoginRequestDTO'
   parameters:
     Page:
       name: page
@@ -4673,14 +8370,14 @@ components:
       required: false
       schema:
         type: string
-      description: 'Identifier field of the account the resource is scoped to.'
+      description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
     ForceDelete:
       name: forceDelete
       in: query
       schema:
         type: boolean
         default: false
-      description: Enable this field to force delete a template
+      description: Enable this field to force delete the entity
     OrgsQueryParam:
       name: org
       in: query
@@ -4744,6 +8441,49 @@ components:
         items:
           type: string
       description: List of Service Identifiers
+    EnvironmentIdentifiers:
+      name: environment_ids
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: List of Environment Identifiers
+    InfraIdentifiers:
+      name: infra_ids
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+      description: List of Infrastructure Identifiers
+    DeploymentType:
+      name: deployment_type
+      in: query
+      required: false
+      description: Service Definition Type
+      schema:
+        type: string
+        enum:
+          - Kubernetes
+          - NativeHelm
+          - Ssh
+          - WinRm
+          - ServerlessAwsLambda
+          - AzureWebApp
+          - GitOps
+          - ECS
+          - TAS
+          - CustomDeployment
+          - Elastigroup
+          - Asg
+          - GoogleCloudFunctions
+          - AwsLambda
+          - AWS_SAM
     Sort:
       name: sort
       in: query
@@ -4816,3 +8556,10 @@ components:
       schema:
         type: string
       description: GitX webhook identifier
+    UserGroupIdentifierPathParam:
+      name: group-id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: UserGroup Identifier
