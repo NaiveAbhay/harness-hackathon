@@ -146,6 +146,11 @@
       - Repository Certificates
       - Repository credentials
       - ValidateHost
+- name: GitX
+  tags:
+      - GitX Webhooks
+      - Org Gitx Webhooks
+      - Project Gitx Webhooks
 - name: CCM
   tags:
       - Cloud Cost Anomalies
