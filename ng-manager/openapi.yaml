@@ -73,22 +73,22 @@ tags:
     x-displayName: 'IP Allowlist [Beta]'
   - name: GitX Webhooks
     description: This contains APIs for Account GitX Webhooks.
-    x-displayName: 'Account GitX Webhooks [Beta]'
+    x-displayName: 'Account GitX Webhooks'
   - name: Org GitX Webhooks
     description: This contains APIs for Org GitX Webhooks.
-    x-displayName: 'Org GitX Webhooks [Beta]'
+    x-displayName: 'Org GitX Webhooks'
   - name: Project GitX Webhooks
     description: This contains APIs for Project GitX Webhooks.
-    x-displayName: 'Project GitX Webhooks [Beta]'
+    x-displayName: 'Project GitX Webhooks'
   - name: Gitx Webhooks Events
     description: This contains APIs for Account Gitx Webhooks Events.
-    x-displayName: 'Account Gitx Webhooks Events [Beta]'
+    x-displayName: 'Account Gitx Webhooks Events'
   - name: Org Gitx Webhooks Events
     description: This contains APIs for Org Gitx Webhooks Events.
-    x-displayName: 'Org Gitx Webhooks Events [Beta]'
+    x-displayName: 'Org Gitx Webhooks Events'
   - name: Project Gitx Webhooks Events
     description: This contains APIs for Project Gitx Webhooks Events.
-    x-displayName: 'Project Gitx Webhooks Events [Beta]'
+    x-displayName: 'Project Gitx Webhooks Events'
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
