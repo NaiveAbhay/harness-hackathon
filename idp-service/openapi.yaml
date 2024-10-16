@@ -1473,6 +1473,194 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+  /v1/catalog/custom-properties:
+    post:
+      summary: Ingest catalog custom properties
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyByFieldResponse'
+      operationId: ingest-catalog-custom-properties
+      x-stoplight:
+        id: 3eczjage6lz9a
+      x-internal: false
+      description: Ingest catalog custom properties
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyFilterRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyFilterRequest'
+    parameters: []
+    delete:
+      summary: Delete catalog custom properties
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyDeleteByFieldResponse'
+      operationId: delete-catalog-custom-properties
+      x-stoplight:
+        id: vb71p39cmv358
+      description: Delete catalog custom properties
+      x-internal: false
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyFilterDeleteRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyFilterDeleteRequest'
+  /v1/catalog/custom-properties/entity:
+    get:
+      summary: Get catalog custom properties for given entity
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyByEntityGetResponse'
+      operationId: get-catalog-custom-properties-by-entity
+      x-stoplight:
+        id: 3edqlaqe8lz9b
+      x-internal: false
+      description: Get catalog custom properties for given entity
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/EntityRef'
+    post:
+      summary: Ingest catalog custom properties for given entity
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyResponse'
+      operationId: ingest-catalog-custom-properties-by-entity
+      x-stoplight:
+        id: 3eczoaje6lz0g
+      x-internal: false
+      description: Ingest catalog custom properties for given entity
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByEntityRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByEntityRequest'
+    delete:
+      summary: Delete catalog custom properties for given entity
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyResponse'
+      operationId: delete-catalog-custom-properties-by-entity
+      x-stoplight:
+        id: vb71p39dmz358
+      description: Delete catalog custom properties for given entity
+      x-internal: false
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByEntityDeleteRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByEntityDeleteRequest'
+  /v1/catalog/custom-properties/property:
+    get:
+      summary: Get entities for given custom property
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyByFieldGetResponse'
+      operationId: get-entities-by-catalog-custom-property
+      x-stoplight:
+        id: 3edljble6lz9a
+      x-internal: false
+      description: Get entities for given custom property
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Property'
+    post:
+      summary: Ingest entities for given custom property
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyResponse'
+      operationId: ingest-entities-by-catalog-custom-property
+      x-stoplight:
+        id: 3eczoaje6lz0g
+      x-internal: false
+      description: Ingest entities for given custom property
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByFieldRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByFieldRequest'
+    delete:
+      summary: Delete entities for given custom property
+      tags:
+        - CatalogCustomProperties
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPropertyResponse'
+      operationId: delete-entities-by-catalog-custom-property
+      x-stoplight:
+        id: vb71p39dmz358
+      description: Delete entities for given custom property
+      x-internal: false
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/DryRunCatalogCustomProperties'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByFieldDeleteRequest'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/CustomPropertyByFieldDeleteRequest'
 components:
   schemas:
     BackstageEnvVariable:
@@ -2925,7 +3113,6 @@ components:
             type: string
       required:
         - kind
-        - type
     ScorecardResponse:
       title: ScorecardResponse
       x-stoplight:
@@ -3953,6 +4140,298 @@ components:
           type: string
       required:
         - status
+    CustomPropertyByFieldDeleteResponse:
+      title: CustomPropertyByFieldDeleteResponse
+      x-stoplight:
+        id: 6mjc0h4a2gtq6
+      type: object
+      required:
+        - property
+        - entities_with_deletion
+      properties:
+        property:
+          type: string
+          x-stoplight:
+            id: oo229sv9sf7by
+        entities_with_deletion:
+          $ref: '#/components/schemas/CustomPropertyEntitiesCount'
+    CustomPropertyEntitiesCount:
+      title: CustomPropertyEntitiesCount
+      x-stoplight:
+        id: gipskdfrfr4se
+      type: object
+      required:
+        - count
+      properties:
+        count:
+          type: integer
+          x-stoplight:
+            id: 88y9vxs5v3tqc
+        entity_refs:
+          type: array
+          x-stoplight:
+            id: 8lpmsukk6dl4l
+          items:
+            x-stoplight:
+              id: ilcf2ihl97863
+            type: string
+    CustomPropertyFilterRequest:
+      title: CustomPropertyFilterRequest
+      x-stoplight:
+        id: r7b8oidy5wmw3
+      description: Custom Property filter request for ingestion
+      allOf:
+        - $ref: '#/components/schemas/PropertyValue'
+        - type: object
+          required:
+            - filter
+          properties:
+            filter:
+              $ref: '#/components/schemas/ScorecardFilter'
+            skip_entity_refs:
+              type: array
+              x-stoplight:
+                id: 9rtf97h3uu9z3
+              items:
+                x-stoplight:
+                  id: etzt6sp88w5iz
+                type: string
+    CustomPropertyFilterDeleteRequest:
+      title: CustomPropertyFilterDeleteRequest
+      x-stoplight:
+        id: r7b8oidy5ppw3
+      description: Custom Property filter delete request
+      type: object
+      required:
+        - property
+        - filter
+      properties:
+        property:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        filter:
+          $ref: '#/components/schemas/ScorecardFilter'
+        skip_entity_refs:
+          type: array
+          x-stoplight:
+            id: 9rtf97h3uu9z3
+          items:
+            x-stoplight:
+              id: etzt6sp88w5iz
+            type: string
+    CustomPropertiesBase:
+      title: CustomPropertiesBase
+      x-stoplight:
+        id: blleozqeppo3p
+      type: object
+      description: Custom properties base
+      properties:
+        entity_ref:
+          type: string
+          x-stoplight:
+            id: f60m7omezo34z
+        property:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        value:
+          type: object
+          x-stoplight:
+            id: 00wv958ee37z0
+        mode:
+          type: string
+          x-stoplight:
+            id: ngeqasui9chk4
+          enum:
+            - append
+            - replace
+    PropertyValue:
+      title: PropertyValue
+      x-stoplight:
+        id: awleozpepzo2p
+      type: object
+      description: Value overrides for custom property
+      required:
+        - property
+        - value
+      properties:
+        property:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        value:
+          type: object
+          x-stoplight:
+            id: 00wv958ee37z0
+        mode:
+          type: string
+          x-stoplight:
+            id: ngeqasui9chk4
+          enum:
+            - append
+            - replace
+    EntityValue:
+      title: EntityValue
+      x-stoplight:
+        id: bpqeozlezzo2s
+      type: object
+      description: Value overrides for custom property
+      required:
+        - entity_ref
+      properties:
+        entity_ref:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        value:
+          type: object
+          x-stoplight:
+            id: 00wv958ee37z0
+    CustomPropertyByFieldResponse:
+      title: CustomPropertyByFieldResponse
+      x-stoplight:
+        id: wc4i06fegoodx
+      type: object
+      required:
+        - property
+        - entities_with_additions
+        - entities_with_updates
+      properties:
+        property:
+          type: string
+          x-stoplight:
+            id: ix5gx2623nliy
+        entities_with_additions:
+          $ref: '#/components/schemas/CustomPropertyEntitiesCount'
+        entities_with_updates:
+          $ref: '#/components/schemas/CustomPropertyEntitiesCount'
+    CustomPropertyResponse:
+      title: CustomPropertyResponse
+      x-stoplight:
+        id: ud6i06fagpppl
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - ERROR
+          x-stoplight:
+            id: ix5gx2623nliy
+        message:
+          type: string
+          x-stoplight:
+            id: ix5gx2623nliy
+    CustomPropertyByEntityGetResponse:
+      title: CustomPropertyByEntityGetResponse
+      x-stoplight:
+        id: nn908nicqnzps
+      type: object
+      properties:
+        properties:
+          type: array
+          x-stoplight:
+            id: 8t9gstypcz6rq
+          items:
+            $ref: '#/components/schemas/PropertyValue'
+    CustomPropertyByFieldGetResponse:
+      title: CustomPropertyByFieldGetResponse
+      x-stoplight:
+        id: pq996nicsnzus
+      type: object
+      properties:
+        entity_refs:
+          type: array
+          x-stoplight:
+            id: 8t9gstypcz6rq
+          items:
+            $ref: '#/components/schemas/EntityValue'
+        mode:
+          type: string
+          x-stoplight:
+            id: xhepwtso50sls
+    CustomPropertyByEntityRequest:
+      title: CustomPropertyByEntityRequest
+      x-stoplight:
+        id: 5tvio8q8l1dpd
+      allOf:
+        - $ref: '#/components/schemas/CustomPropertiesBase'
+        - type: object
+          properties:
+            properties:
+              type: array
+              x-stoplight:
+                id: 8t9gstypcz6rq
+              items:
+                $ref: '#/components/schemas/PropertyValue'
+    CustomPropertyByEntityDeleteRequest:
+      title: CustomPropertyByEntityDeleteRequest
+      x-stoplight:
+        id: 8tpio8p8l2bpe
+      required:
+        - entity_ref
+      properties:
+        entity_ref:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        property:
+          type: string
+          x-stoplight:
+            id: 8t9gstypcz6rq
+        properties:
+          type: array
+          x-stoplight:
+            id: 9rtf97h3uu9z3
+          items:
+            x-stoplight:
+              id: etzt6sp88w5iz
+            type: string
+    CustomPropertyByFieldRequest:
+      title: CustomPropertyByFieldRequest
+      x-stoplight:
+        id: 5tvio9q9l2dpd
+      allOf:
+        - $ref: '#/components/schemas/CustomPropertiesBase'
+        - type: object
+          properties:
+            entity_refs:
+              type: array
+              x-stoplight:
+                id: 8t9gstypcz6rq
+              items:
+                $ref: '#/components/schemas/EntityValue'
+            value:
+              type: object
+              x-stoplight:
+                id: botemn13q8oum
+    CustomPropertyByFieldDeleteRequest:
+      title: CustomPropertyByFieldDeleteRequest
+      x-stoplight:
+        id: 9tpio9p9l2bpe
+      required:
+        - property
+      properties:
+        property:
+          type: string
+          x-stoplight:
+            id: e60m6bmezo34y
+        entity_ref:
+          type: string
+          x-stoplight:
+            id: botemn13q8oum
+        entity_refs:
+          type: array
+          x-stoplight:
+            id: 9rtf97h3uu9z3
+          items:
+            x-stoplight:
+              id: etzt6sp88w5iz
+            type: string
   parameters:
     AccountHeader:
       name: Harness-Account
@@ -4129,6 +4608,27 @@ components:
       schema:
         type: boolean
       description: Custom plugin metadata
+    DryRunCatalogCustomProperties:
+      name: dry_run
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: Dry run catalog custom properties
+    EntityRef:
+      name: entity_ref
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Identifier for catalog entity
+    Property:
+      name: property
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Identifier for catalog property
   requestBodies:
     BackstageEnvVariableRequest:
       content:
@@ -4318,6 +4818,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BackstageHarnessSyncRequest'
+
   responses:
     BackstageEnvVariableResponse:
       description: Example response
@@ -4765,6 +5266,51 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BackstageHarnessSyncEntitiesResponse'
+    CustomPropertyByFieldResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldResponse'
+    CustomPropertyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyResponse'
+    CustomPropertyByEntityGetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByEntityGetResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByEntityGetResponse'
+    CustomPropertyByFieldGetResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldGetResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldGetResponse'
+    CustomPropertyDeleteByFieldResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldDeleteResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPropertyByFieldDeleteResponse'
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -4792,6 +5338,9 @@ tags:
   - name: ConnectorInfo
     description: Connector Information
     x-displayName: Connector Information
+  - name: CatalogCustomProperties
+    description: Catalog Custom Properties
+    x-displayName: Catalog Custom Properties
   - name: DataSource
     description: DataSource Information
     x-displayName: DataSource Information
