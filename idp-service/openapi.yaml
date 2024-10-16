@@ -3113,7 +3113,6 @@ components:
             type: string
       required:
         - kind
-        - type
     ScorecardResponse:
       title: ScorecardResponse
       x-stoplight:
