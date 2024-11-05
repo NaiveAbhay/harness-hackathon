@@ -160,6 +160,24 @@
       }
     },
     {
+      "inputURL": "http://app.harness.io/prod1/har/swagger/openapi.yaml",
+      "pathModification": {
+        "prepend": "/har/api/v1"
+      },
+      "dispute": {
+        "prefix": "Registry"
+      }
+    },
+    {
+      "inputURL": "https://app.harness.io/prod1/code/registry/swagger.json",
+      "pathModification": {
+        "prepend": "/iacm"
+      },
+      "dispute": {
+        "prefix": "IaCM"
+      }
+    },
+    {
       "inputURL": "https://app.harness.io/prod1/iacm/openapi3.yaml",
       "pathModification": {
         "prepend": "/iacm"
