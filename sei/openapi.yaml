@@ -1388,7 +1388,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/dora/deployment_frequency' \
               -H 'Content-type: application/json' \
-              -H 'Authorization: <See API Usage>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               --data-raw '{
                 "filter": {
                   "time_range": {
@@ -1524,7 +1524,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/dora/change_failure_rate' \
               -H 'Content-type: application/json' \
-              -H 'Authorization: <See API Usage>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               --data-raw '{
                 "filter": {
                   "time_range": {
