@@ -47,7 +47,7 @@ paths:
           source: |
             curl -X POST 'https://app.harness.io/gratis/sei/api/v1/org/workspaces/units/list' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '{
               "page": 0,
               "pageSize": 20,
@@ -144,7 +144,7 @@ paths:
           source: |
             curl -X POST 'https://app.harness.io/gratis/sei/api/v1/org/categories' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '{
               "rootOuName": "Example Root OU",
               "workspaceId": 15367,
@@ -186,7 +186,7 @@ paths:
           source: |
             curl -X PUT 'https://app.harness.io/gratis/sei/api/v1/org/categories' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '{
               [
                 "9a1dc856-6e2d-4dbe-98cf-5416c5981bbc", "eafb1e30-4af8-480e-b7b5-487293659df3"
@@ -260,7 +260,7 @@ paths:
           source: |
             curl -X PUT 'https://app.harness.io/gratis/sei/api/v1/org/categories/{id}' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '{
               "name": "TEST CATEGORY",
               "description": "this is an updated description for the collection category",
@@ -300,7 +300,7 @@ paths:
           source: |
             curl -X DELETE 'https://app.harness.io/gratis/sei/api/v1/org/categories/{id}' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>'
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>'
       responses:
         '200':
           description: OK response.
@@ -360,7 +360,7 @@ paths:
           source: |
             curl -X POST 'https://app.harness.io/gratis/sei/api/v1/org/units/list' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '{
               "page": 0,
               "page_size": 100,
@@ -528,7 +528,7 @@ paths:
           source: |
             curl -X POST 'https://app.harness.io/gratis/sei/api/v1/org/units' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '[
                 {
                     "name": "My Collection",
@@ -645,7 +645,7 @@ paths:
           source: |
             curl -X PUT 'https://app.harness.io/gratis/sei/api/v1/org/units' \
             -H 'Content-Type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '[
                 {
                     "id": "74",
@@ -707,7 +707,7 @@ paths:
           source: |
             curl -X DELETE 'https://app.harness.io/gratis/sei/api/v1/org/units' \
             -H 'Content-type: application/json' \
-            -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+            -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
             -d '["<ou_ref_id>"]'
       responses:
         '200':
@@ -749,7 +749,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/org/users/versions?page_size=999' \
               -H 'accept: application/json, text/plain, */*' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>'
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>'
       responses:
         '200':
           description: OK response.
@@ -805,7 +805,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/org/users/schema' \
               -H 'accept: application/json, text/plain, */*' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
       responses:
         '200':
           description: OK response.
@@ -904,7 +904,7 @@ paths:
             curl 'https://app.harness.io/gratis/sei/api/v1/org/users/list?page=0&page_size=50' \
               -X POST \
               -H 'accept: application/json, text/plain, */*' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               -H 'Content-type: application/json' \
               -d '{
                 "page": 0,
@@ -1098,7 +1098,7 @@ paths:
             curl 'https://app.harness.io/gratis/sei/api/v1/org/users' \
               -X 'PUT' \
               -H 'accept: application/json, text/plain, */*' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               -H 'Content-type: application/json' \
               --data-raw '[
                 {
@@ -1136,7 +1136,7 @@ paths:
           source: |
             curl --location 'https://app.harness.io/gratis/sei/api/v1/sei_contributor/list' \
               -H 'Content-type: application/json' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               --data '{}'
       responses:
         '200':
@@ -1282,7 +1282,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/dora/lead-time' \
               -H 'Content-type: application/json' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               --data-raw '{
                 "filter": {
                   "work_items_type": "jira",
@@ -1678,7 +1678,7 @@ paths:
           source: |
             curl 'https://app.harness.io/gratis/sei/api/v1/dora/mean-time' \
               -H 'Content-type: application/json' \
-              -H 'Authorization: API KEY <HARNESS_SEI_API_KEY>' \
+              -H 'Authorization: APIKEY <HARNESS_SEI_API_KEY>' \
               --data-raw '{
                 "filter": {
                   "ratings": ["good", "slow", "needs_attention"],
