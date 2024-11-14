@@ -1672,7 +1672,7 @@ paths:
         id: nby8lq3g0vg27
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      x-internal: true
+      x-internal: false
       tags:
         - Groups
     parameters:
@@ -1691,7 +1691,7 @@ paths:
         id: up9xj9134iolf
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      x-internal: true
+      x-internal: false
       tags:
         - Groups
   /v1/groups:
@@ -1703,7 +1703,7 @@ paths:
       operationId: get-all-groups-for-account
       x-stoplight:
         id: qi2aylcdl7t09
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -1720,7 +1720,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/GroupRequest'
-      x-internal: true
+      x-internal: false
       tags:
         - Groups
     put:
@@ -1731,7 +1731,7 @@ paths:
       operationId: update-groups
       x-stoplight:
         id: eaxiri07lz2kj
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1748,7 +1748,7 @@ paths:
       operationId: get-groups-yaml
       x-stoplight:
         id: wbu7fk4liwa52
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -1765,7 +1765,7 @@ paths:
       operationId: get-workflows-for-account
       x-stoplight:
         id: czv3pmqlvtng4
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Page'
@@ -1782,7 +1782,7 @@ paths:
       operationId: get-home-page-layout-info
       x-stoplight:
         id: 5qz0to5vb79zr
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
     post:
@@ -1793,7 +1793,7 @@ paths:
       operationId: save-home-page-layout-info
       x-stoplight:
         id: n3iaiocyjv0kh
-      x-internal: true
+      x-internal: false
       requestBody:
         $ref: '#/components/requestBodies/HomePageLayoutRequest'
       tags:
@@ -1811,7 +1811,7 @@ paths:
       operationId: get-yaml-for-home-page-layout
       x-stoplight:
         id: 1zne0xmh0mj6o
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/home-page-layout/custom-card/{card-identifier}/quick-links/{quick-link-identifier}/icon':
@@ -1836,7 +1836,7 @@ paths:
       operationId: delete-custom-link-card-quick-links
       x-stoplight:
         id: hovwmpqwogep9
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/home-page-layout/header/quick-links/{quick-link-identifier}/icon':
@@ -1856,7 +1856,7 @@ paths:
       operationId: delete-headers-quick-links-icon
       x-stoplight:
         id: 12si1vwf5qnvv
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/home-page-layout/card/{card-identifier}/icon':
@@ -1876,7 +1876,7 @@ paths:
       operationId: delete-home-page-layout-cards-icon
       x-stoplight:
         id: wgvh8oyencivj
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   /v1/home-page-layout/icon:
@@ -1890,7 +1890,7 @@ paths:
       operationId: delete-home-page-layout-icon
       x-stoplight:
         id: f7kbixtn6dju0
-      x-internal: true
+      x-internal: false
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
