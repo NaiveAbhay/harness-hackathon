@@ -1661,6 +1661,240 @@ paths:
           application/yaml:
             schema:
               $ref: '#/components/schemas/CustomPropertyByFieldDeleteRequest'
+  '/v1/groups/{group-identifier}':
+    get:
+      summary: Get Group Details
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponse'
+      operationId: get-group-details
+      x-stoplight:
+        id: nby8lq3g0vg27
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: false
+      tags:
+        - Groups
+    parameters:
+      - schema:
+          type: string
+        name: group-identifier
+        in: path
+        required: true
+    delete:
+      summary: Delete a group
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-group
+      x-stoplight:
+        id: up9xj9134iolf
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: false
+      tags:
+        - Groups
+  /v1/groups:
+    get:
+      summary: Get all groups for account
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponseList'
+      operationId: get-all-groups-for-account
+      x-stoplight:
+        id: qi2aylcdl7t09
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Groups
+    post:
+      summary: Save a group
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponse'
+      operationId: save-group
+      x-stoplight:
+        id: c6hf0g9o84pnc
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/GroupRequest'
+      x-internal: false
+      tags:
+        - Groups
+    put:
+      summary: Update Groups
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponseList'
+      operationId: update-groups
+      x-stoplight:
+        id: eaxiri07lz2kj
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/GroupRequestList'
+      tags:
+        - Groups
+    parameters: []
+  /v1/groups/yaml:
+    get:
+      summary: Get Groups Yaml
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupsYamlResponse'
+      operationId: get-groups-yaml
+      x-stoplight:
+        id: wbu7fk4liwa52
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Groups
+    parameters: []
+  /v1/groups/workflows:
+    get:
+      summary: Get workflows for account
+      tags:
+        - Groups
+      responses:
+        '200':
+          $ref: '#/components/responses/WorkflowsInfoResponse'
+      operationId: get-workflows-for-account
+      x-stoplight:
+        id: czv3pmqlvtng4
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+    parameters: []
+  /v1/home-page-layout:
+    get:
+      summary: Get Home Page Layout Details
+      tags:
+        - HomePageLayout
+      responses:
+        '200':
+          $ref: '#/components/responses/HomePageLayoutResponse'
+      operationId: get-home-page-layout-info
+      x-stoplight:
+        id: 5qz0to5vb79zr
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    post:
+      summary: Save Home Page Layout Details
+      responses:
+        '200':
+          $ref: '#/components/responses/HomePageLayoutResponse'
+      operationId: save-home-page-layout-info
+      x-stoplight:
+        id: n3iaiocyjv0kh
+      x-internal: false
+      requestBody:
+        $ref: '#/components/requestBodies/HomePageLayoutRequest'
+      tags:
+        - HomePageLayout
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  /v1/home-page-layout/yaml:
+    get:
+      summary: Get yaml for home page layout
+      tags:
+        - HomePageLayout
+      responses:
+        '200':
+          $ref: '#/components/responses/HomePageLayoutYamlResponse'
+      operationId: get-yaml-for-home-page-layout
+      x-stoplight:
+        id: 1zne0xmh0mj6o
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/home-page-layout/custom-card/{card-identifier}/quick-links/{quick-link-identifier}/icon':
+    parameters:
+      - schema:
+          type: string
+        name: card-identifier
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: quick-link-identifier
+        in: path
+        required: true
+    delete:
+      summary: Delete custom link card quick links icon
+      tags:
+        - HomePageLayout
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-custom-link-card-quick-links
+      x-stoplight:
+        id: hovwmpqwogep9
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/home-page-layout/header/quick-links/{quick-link-identifier}/icon':
+    parameters:
+      - schema:
+          type: string
+        name: quick-link-identifier
+        in: path
+        required: true
+    delete:
+      summary: Delete header quick links icon
+      tags:
+        - HomePageLayout
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-headers-quick-links-icon
+      x-stoplight:
+        id: 12si1vwf5qnvv
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/home-page-layout/card/{card-identifier}/icon':
+    parameters:
+      - schema:
+          type: string
+        name: card-identifier
+        in: path
+        required: true
+    delete:
+      summary: Delete card icon
+      tags:
+        - HomePageLayout
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-home-page-layout-cards-icon
+      x-stoplight:
+        id: wgvh8oyencivj
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  /v1/home-page-layout/icon:
+    delete:
+      summary: Delete homepage layout icon
+      tags:
+        - HomePageLayout
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-home-page-layout-icon
+      x-stoplight:
+        id: f7kbixtn6dju0
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/DeleteHomePageLayoutIconRequest'
 components:
   schemas:
     BackstageEnvVariable:
@@ -4432,6 +4666,620 @@ components:
             x-stoplight:
               id: etzt6sp88w5iz
             type: string
+    WorkflowsInfo:
+      title: WorkflowsInfo
+      x-stoplight:
+        id: 866tz63x57k0x
+      type: object
+      description: Model for storing the workflows info
+      required:
+        - name
+        - kind
+        - owner
+        - uid
+        - type
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: vnbg0l0j8mgza
+        description:
+          type: string
+          x-stoplight:
+            id: hknsgi5o004yz
+        kind:
+          type: string
+          x-stoplight:
+            id: 5zns4zkrymy84
+        owner:
+          type: string
+          x-stoplight:
+            id: fiu5eamaodjbe
+        uid:
+          type: string
+          x-stoplight:
+            id: zh1vswqa2gpfu
+        title:
+          type: string
+          x-stoplight:
+            id: gf19zc78mgkhc
+        type:
+          type: string
+          x-stoplight:
+            id: v9nvaq6hcgwc5
+        icon:
+          type: string
+          x-stoplight:
+            id: wf2635s4o4q3e
+    Group:
+      title: Group
+      x-stoplight:
+        id: jraoj2djmfey2
+      type: object
+      required:
+        - name
+        - identifier
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: ecm59972w2ose
+        description:
+          type: string
+          x-stoplight:
+            id: oztyyv8qf5t61
+        icon:
+          type: string
+          x-stoplight:
+            id: w18j21yz63srs
+        workflows:
+          type: array
+          x-stoplight:
+            id: lybolo6pxkrni
+          items:
+            $ref: '#/components/schemas/WorkflowsInfo'
+        order:
+          type: integer
+          x-stoplight:
+            id: 9y93xwkkr90ir
+        identifier:
+          type: string
+          x-stoplight:
+            id: qvx6zkkojf3z1
+    GroupRequest:
+      title: GroupRequest
+      x-stoplight:
+        id: uueeep23y7awo
+      type: object
+      properties:
+        group:
+          $ref: '#/components/schemas/Group'
+    GroupResponse:
+      title: GroupResponse
+      x-stoplight:
+        id: ogke44btl75gm
+      type: object
+      properties:
+        group:
+          $ref: '#/components/schemas/Group'
+    GroupsYamlResponse:
+      title: GroupYaml
+      x-stoplight:
+        id: d862zg9wbkg0t
+      type: object
+      properties:
+        yaml:
+          type: string
+          x-stoplight:
+            id: l0fjq91pgtgl5
+    WorkflowsInfoResponse:
+      title: WorkflowsInfoResponse
+      x-stoplight:
+        id: glueaqvly22p3
+      type: object
+      properties:
+        workflows:
+          type: array
+          x-stoplight:
+            id: dhf5s9geavdi2
+          items:
+            $ref: '#/components/schemas/WorkflowsInfo'
+    Card:
+      title: Card
+      x-stoplight:
+        id: khimyne453c42
+      type: object
+      x-internal: true
+      description: Home Page Layout Cards
+      discriminator:
+        propertyName: type
+        mapping:
+          LEARN_MORE: '#/components/schemas/LearnMoreCard'
+          TOP_VISITED: '#/components/schemas/TopVisitedCard'
+          RECENTLY_VISITED: '#/components/schemas/RecentlyVisitedCard'
+          STARRED_ENTITIES: '#/components/schemas/StarredVisitedCard'
+          MARKDOWN: '#/components/schemas/MarkdownCard'
+          VIDEO: '#/components/schemas/VideoCard'
+          CUSTOM_LINK: '#/components/schemas/CustomLinkCard'
+          SELF_SERVICE: '#/components/schemas/SelfServiceCard'
+          GITHUB: '#/components/schemas/GithubCard'
+      required:
+        - default_card
+        - type
+        - title
+        - draft
+        - identifier
+      properties:
+        default_card:
+          type: boolean
+          x-stoplight:
+            id: s4rlxamcgghw2
+        type:
+          x-stoplight:
+            id: 1swjrc8l5pbcp
+          type: string
+          enum:
+            - LEARN_MORE
+            - TOP_VISITED
+            - RECENTLY_VISITED
+            - STARRED_ENTITIES
+            - MARKDOWN
+            - VIDEO
+            - CUSTOM_LINK
+            - SELF_SERVICE
+            - GITHUB
+        title:
+          type: string
+          x-stoplight:
+            id: 3c15n5f5znxzy
+        draft:
+          type: boolean
+          x-stoplight:
+            id: z7iwwsvonakjg
+        identifier:
+          type: string
+          x-stoplight:
+            id: 08fsslff0gc7p
+        icon_url:
+          type: string
+          x-stoplight:
+            id: c5jwirnush8mw
+    LearnMoreCard:
+      title: LearnMoreCard
+      x-stoplight:
+        id: 4lzdtd7dff8zu
+      x-discriminator-value: LEARN_MORE
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: h3tz4vxrbxtjs
+          required:
+            - size
+            - type
+          properties:
+            description:
+              type: string
+              x-stoplight:
+                id: hob2cl82ifz06
+            size:
+              type: string
+              x-stoplight:
+                id: tvh3heq8okn67
+            type:
+              x-stoplight:
+                id: hkoivd4wiu1iu
+              type: string
+              enum:
+                - LEARN_MORE
+      x-internal: true
+    TopVisitedCard:
+      title: TopVisitedCard
+      x-stoplight:
+        id: m7hoy1gn0v1k5
+      x-discriminator-value: TOP_VISITED
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: 5j0xgqlt3yd4k
+          required:
+            - size
+            - type
+          properties:
+            description:
+              type: string
+              x-stoplight:
+                id: qw6x6xkdrkm29
+            size:
+              type: string
+              x-stoplight:
+                id: vh56q1lupdsvh
+            type:
+              x-stoplight:
+                id: ex97ilz87facq
+              type: string
+              enum:
+                - TOP_VISITED
+    RecentlyVisitedCard:
+      title: RecentlyVisitedCard
+      x-stoplight:
+        id: 1i5ksikl60hj2
+      x-discriminator-value: RECENTLY_VISITED
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: 9dcvqmqu0vmyr
+          required:
+            - type
+            - size
+          properties:
+            type:
+              x-stoplight:
+                id: hysmuwztrco9m
+              type: string
+              enum:
+                - RECENTLY_VISITED
+            description:
+              type: string
+              x-stoplight:
+                id: 2zk1b2i27ndxh
+            size:
+              type: string
+              x-stoplight:
+                id: d86po14co3y2u
+    StarredEntitiesCard:
+      title: StarredEntitiesCard
+      x-stoplight:
+        id: 6go56r5l9pw5i
+      x-discriminator-value: STARRED_ENTITIES
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: eoi55yj342n8t
+          required:
+            - type
+            - size
+          properties:
+            description:
+              type: string
+              x-stoplight:
+                id: z7ok1yz4wpvkp
+            type:
+              x-stoplight:
+                id: bo6ytc8ye71mr
+              type: string
+              enum:
+                - STARRED_ENTITIES
+            size:
+              type: string
+              x-stoplight:
+                id: 2b7sm5d32gi0m
+    MarkdownCard:
+      title: MarkdownCard
+      x-stoplight:
+        id: pf6hmrip039m3
+      x-discriminator-value: MARKDOWN
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: s2iscjtgbag4u
+          required:
+            - size
+            - markdown
+            - type
+          properties:
+            size:
+              type: string
+              x-stoplight:
+                id: 4jdoz1l4z35vg
+            markdown:
+              type: string
+              x-stoplight:
+                id: cuhajyaa2etej
+            type:
+              x-stoplight:
+                id: z2ou3om9iztbr
+              type: string
+              enum:
+                - MARKDOWN
+            description:
+              type: string
+              x-stoplight:
+                id: jyz2x09vfz1oe
+    VideoCard:
+      title: VideoCard
+      x-stoplight:
+        id: 49pkntslbrtt9
+      x-discriminator-value: VIDEO
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: ax1vjqn85e6nt
+          required:
+            - size
+            - url
+            - type
+          properties:
+            size:
+              type: string
+              x-stoplight:
+                id: j654ol7h61322
+            url:
+              type: string
+              x-stoplight:
+                id: 5vdojnxp9r99q
+            type:
+              x-stoplight:
+                id: 09ia6lef8t2dv
+              type: string
+              enum:
+                - VIDEO
+            description:
+              type: string
+              x-stoplight:
+                id: 4bu579fusn3oa
+    CustomLinkCard:
+      title: CustomLinkCard
+      x-stoplight:
+        id: 783vgfgsud01c
+      x-discriminator-value: CUSTOM_LINK
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: r8sbdlsrva2l8
+          required:
+            - size
+            - links
+            - type
+          properties:
+            size:
+              type: string
+              x-stoplight:
+                id: o2ea6f32fr0lf
+            links:
+              type: array
+              x-stoplight:
+                id: qera0maj9pypa
+              items:
+                $ref: '#/components/schemas/LinksInfo'
+            type:
+              x-stoplight:
+                id: jrvenxvsxhtvd
+              type: string
+              enum:
+                - CUSTOM_LINK
+            description:
+              type: string
+              x-stoplight:
+                id: f0zdkkr5p9lvu
+    LinksInfo:
+      title: LinksInfo
+      x-stoplight:
+        id: hs6wffpa1vsmr
+      type: object
+      required:
+        - icon
+        - title
+        - url
+        - identifier
+      properties:
+        icon:
+          type: string
+          x-stoplight:
+            id: 8tq6yxtmtp8jt
+        title:
+          type: string
+          x-stoplight:
+            id: l7xnxrlom0i2n
+        url:
+          type: string
+          x-stoplight:
+            id: 739ho9wpegobn
+        identifier:
+          type: string
+          x-stoplight:
+            id: qzinj0rideh67
+    SelfServiceCard:
+      title: SelfServiceCard
+      x-stoplight:
+        id: 3aa0r0uzbggg0
+      x-discriminator-value: SELF_SERVICE
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: cdi4u1wg394gb
+          required:
+            - size
+            - type
+          properties:
+            size:
+              type: string
+              x-stoplight:
+                id: 18gz6gz1curjl
+            type:
+              x-stoplight:
+                id: s3mcc22q06wpr
+              type: string
+              enum:
+                - SELF_SERVICE
+    GithubCard:
+      title: GithubCard
+      x-stoplight:
+        id: 0yx2ck021z2fa
+      x-discriminator-value: GITHUB
+      allOf:
+        - $ref: '#/components/schemas/Card'
+        - type: object
+          x-stoplight:
+            id: xbbuk5a5b828j
+          required:
+            - size
+            - type
+          properties:
+            size:
+              type: string
+              x-stoplight:
+                id: xbbuk5a5b828k
+            type:
+              x-stoplight:
+                id: g9wz1jrs1t4xj
+              type: string
+              enum:
+                - GITHUB
+    HeaderInfo:
+      title: HeaderInfo
+      x-stoplight:
+        id: 40s7em3fy3i26
+      type: object
+      required:
+        - header_text
+        - quick_links
+      properties:
+        header_text:
+          type: string
+          x-stoplight:
+            id: ejy8owdfu3a7w
+        quick_links:
+          type: array
+          x-stoplight:
+            id: c37mcmjbsb0ew
+          items:
+            $ref: '#/components/schemas/LinksInfo'
+    BannerInfo:
+      title: BannerInfo
+      x-stoplight:
+        id: sh7q54y2x3w6n
+      type: object
+      required:
+        - banner_enabled
+      properties:
+        image:
+          $ref: '#/components/schemas/UploadInfo'
+        video:
+          $ref: '#/components/schemas/UploadInfo'
+        type:
+          type: string
+          x-stoplight:
+            id: 6qi1pn6df9w3y
+        banner_enabled:
+          type: boolean
+          x-stoplight:
+            id: acof9j24ugx2m
+    HomePageLayoutInfo:
+      title: HomePageLaout
+      x-stoplight:
+        id: 46lg0j8o4jyx3
+      type: object
+      required:
+        - header
+        - banner
+        - cards
+      properties:
+        header:
+          $ref: '#/components/schemas/HeaderInfo'
+        banner:
+          $ref: '#/components/schemas/BannerInfo'
+        cards:
+          type: array
+          x-stoplight:
+            id: l98ox7834hcmr
+          items:
+            $ref: '#/components/schemas/Card'
+    CardResponse:
+      title: CardResponse
+      x-stoplight:
+        id: pwxdpumn5p2nf
+      type: object
+      required:
+        - card
+      properties:
+        card:
+          $ref: '#/components/schemas/Card'
+    HomePageLayoutResponse:
+      title: HomePageLayoutResponse
+      x-stoplight:
+        id: frc0lddsqe2py
+      type: object
+      required:
+        - home_page_layout
+      properties:
+        home_page_layout:
+          $ref: '#/components/schemas/HomePageLayoutInfo'
+    HomePageLayoutRequest:
+      title: HomePageLayoutRequest
+      x-stoplight:
+        id: 3zfmlb9fjyabb
+      type: object
+      required:
+        - home_page_layout
+      properties:
+        home_page_layout:
+          $ref: '#/components/schemas/HomePageLayoutInfo'
+    HomePageLayoutYamlResponse:
+      title: HomePageLayoutYamlResponse
+      x-stoplight:
+        id: tjtix0kc16tuq
+      type: object
+      required:
+        - yaml
+      properties:
+        yaml:
+          type: string
+          x-stoplight:
+            id: p80gq93dymf9w
+    UploadInfo:
+      title: UploadInfo
+      x-stoplight:
+        id: i16ow38yt6ko6
+      type: object
+      properties:
+        url:
+          type: string
+          x-stoplight:
+            id: vuah9tjeklkgo
+        uploads:
+          type: array
+          x-stoplight:
+            id: h8egu2hf2jyn3
+          items:
+            x-stoplight:
+              id: ngwwqfsxkzrsl
+            type: string
+        selected:
+          type: string
+          x-stoplight:
+            id: 3f7t4n7o9ftip
+    CardIconResponse:
+      title: CardIconInfo
+      x-stoplight:
+        id: 3n6zz2mg3vjie
+      type: object
+      required:
+        - icon_url
+      properties:
+        icon_url:
+          type: string
+          x-stoplight:
+            id: 28g2dkx7xtnpl
+    DeleteHomePageLayoutIconRequest:
+      title: DeleteHomePageLayoutIcom
+      x-stoplight:
+        id: eambi0iwmbtf4
+      type: object
+      required:
+        - icon_url
+      properties:
+        icon_url:
+          type: string
+          x-stoplight:
+            id: 3orajqsokg0my
   parameters:
     AccountHeader:
       name: Harness-Account
@@ -4629,6 +5477,13 @@ components:
       schema:
         type: string
       description: Identifier for catalog property
+    GroupIdentifier:
+      name: group_idenitfier
+      in: query
+      required: true
+      schema:
+        type: string
+      description: This is the identifier for the group
   requestBodies:
     BackstageEnvVariableRequest:
       content:
@@ -4818,7 +5673,32 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/BackstageHarnessSyncRequest'
-
+    GroupRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupRequest'
+    GroupRequestList:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupRequest'
+    HomePageLayoutRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutRequest'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutRequest'
+    DeleteHomePageLayoutIconRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/DeleteHomePageLayoutIconRequest'
   responses:
     BackstageEnvVariableResponse:
       description: Example response
@@ -5311,6 +6191,94 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/CustomPropertyByFieldDeleteResponse'
+    GroupResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupResponse'
+    GroupResponseList:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupResponse'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupResponse'
+    GroupResponseLayout:
+      description: ''
+    GroupsYamlResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GroupsYamlResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/GroupsYamlResponse'
+    WorkflowsInfoResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/WorkflowsInfoResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/WorkflowsInfoResponse'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: string
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: string
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: string
+          description: Maximum page size in Paginated response.
+    HomePageLayoutResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutResponse'
+    CardResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CardResponse'
+    HomePageLayoutYamlResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutYamlResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/HomePageLayoutYamlResponse'
+    CardIconResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CardIconResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CardIconResponse'
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -5383,3 +6351,9 @@ tags:
   - name: BackstageHarness
     description: Backstage Harness
     x-displayName: Backstage Harness
+  - name: Groups
+    description: Groups
+    x-displayName: Groups
+  - name: HomePageLayout
+    description: Home Page Layout
+    x-displayName: Home Page Layout
