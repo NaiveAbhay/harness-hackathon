@@ -160,7 +160,7 @@
       }
     },
     {
-      "inputURL": "https://app.harness.io/prod1/har/swagger/openapi.yaml",
+      "inputURL": "https://app.harness.io/prod1/har/swagger.json",
       "pathModification": {
         "prepend": "/har/api/v1"
       },
