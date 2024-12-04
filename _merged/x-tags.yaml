@@ -91,6 +91,13 @@
     - TriggersEvents
     - Webhook Triggers
     - Webhook Event Handler
+- name: Artifact Registry [Beta]
+  tags:
+    - Registries
+    - Artifacts
+    - Docker Artifacts
+    - Helm Artifacts
+    - Spaces
 - name: CD
   tags:
       - K8s Release Service Mapping
