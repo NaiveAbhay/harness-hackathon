@@ -233,6 +233,8 @@
       - upload
       - webhook
       - resource
+      - rules
+      - labels
 - name: IaCM
   tags:
       - usage
