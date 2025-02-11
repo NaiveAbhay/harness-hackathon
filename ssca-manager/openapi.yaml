@@ -2180,6 +2180,7 @@ paths:
           in: query
           name: sort
           description: sort order
+      x-internal: true    
     post:
       summary: Create Integration
       tags:
@@ -2507,6 +2508,7 @@ paths:
         - x-api-key: []
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      x-internal: true  
     post:
       summary: Configure repos in your integration
       tags:
@@ -3431,6 +3433,7 @@ paths:
       description: Get Harness Pipeline Integration
       security:
         - x-api-key: []
+      x-internal: true  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects/{project}/ci-cd/{workflow}/plugins':
