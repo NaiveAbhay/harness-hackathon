@@ -277,3 +277,4 @@
 - name: Supply Chain Security
   tags: 
     - integration
+    - PipelineInfraConfig
