@@ -188,6 +188,9 @@
     },
     {
       "inputFile": "../sei/openapi.yaml"
+    },
+    {
+      "inputFile": "../ssca-manager/openapi.yaml"
     }
   ],
   "output": "merged.yaml"
