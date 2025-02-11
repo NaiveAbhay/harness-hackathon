@@ -2202,6 +2202,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/CreateIntegrationRequestBody'
+      x-internal: false  
   '/v1/orgs/{org}/projects/{project}/compliance-standards':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2520,6 +2521,7 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/ConfigureReposRequest'
+      x-internal: false  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects/{project}/artifact-sources':
@@ -2770,6 +2772,7 @@ paths:
         id: spufhrt5hdms2
       security:
         - x-api-key: []
+      x-internal: false  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v1/orgs/{org}/projects/{project}/artifact-sources/{source}/artifacts/{artifact}/overview':
@@ -3668,7 +3671,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/PipelineInfraConfigRequestBody'
-      x-internal: true
+      x-internal: false
 components:
   schemas:
     Artifact:
