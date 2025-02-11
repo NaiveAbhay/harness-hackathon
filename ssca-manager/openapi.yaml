@@ -2484,6 +2484,7 @@ paths:
         - $ref: '#/components/parameters/Limit'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/SearchTerm'
+      x-internal: true  
   '/v1/orgs/{org}/projects/{project}/integration/{integration}/repos':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
