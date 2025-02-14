@@ -143,11 +143,11 @@ paths:
       description: Download SBOM for an artifact
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
-      x-internal: true
+      x-internal: false
       security:
         - x-api-key: []
       tags:
-        - orchestration
+        - SBOM
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -173,7 +173,7 @@ paths:
       security:
         - x-api-key: []
       tags:
-        - SBOM
+        - orchestrationV2
       requestBody:
         $ref: '#/components/requestBodies/DownloadSbomRequestBody'
     parameters:
