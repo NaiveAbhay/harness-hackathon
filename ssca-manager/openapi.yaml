@@ -1124,6 +1124,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/OrchestrationStepDriftRequestBody'
+      x-internal: true  
   '/v1/orgs/{org}/projects/{project}/remediations/{remediation}/close':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2030,6 +2031,7 @@ paths:
                     id: x2y8o4pdp79wh
       security:
         - x-api-key: []
+      x-internal: true  
   '/v2/orgs/{org}/projects/{project}/orchestration/{orchestration}/sbom-upload':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2100,6 +2102,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
+      x-internal: true  
   '/v2/orgs/{org}/projects/{project}/orchestration/{orchestration}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
