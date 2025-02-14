@@ -147,7 +147,7 @@ paths:
       security:
         - x-api-key: []
       tags:
-        - SBOM
+        - OrchestrationV2
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -173,7 +173,7 @@ paths:
       security:
         - x-api-key: []
       tags:
-        - orchestrationV2
+        - SBOM
       requestBody:
         $ref: '#/components/requestBodies/DownloadSbomRequestBody'
     parameters:
