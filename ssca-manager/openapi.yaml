@@ -2503,7 +2503,7 @@ paths:
         name: integration
         in: path
         required: true
-        description: Integration ID
+        description: A unique identifier for the integration created using the Create Integration API. This ID is returned in the response of the Create Integration API and must be provided as a path parameter when fetching integration details or repositories.
     get:
       summary: Get configured repos in the integration
       tags:
