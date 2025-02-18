@@ -4997,10 +4997,12 @@ components:
           type: string
         spec:
           type: string
+          description: Define the configuration of your Kubernetes infrastructure in JSON format.
           x-stoplight:
             id: wj3kwuape6zan
         allow_override:
           type: boolean
+          description: When set to true, this setting enables configurations to be overridden at the project or organization level, regardless of whether they were previously defined at the account level.
           x-stoplight:
             id: 47ni9vvackpg0
       description: Infra Config Details of Pipeline
