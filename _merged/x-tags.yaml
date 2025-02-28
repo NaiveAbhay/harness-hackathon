@@ -91,7 +91,7 @@
     - TriggersEvents
     - Webhook Triggers
     - Webhook Event Handler
-- name: Artifact Registry [Beta]
+- name: Artifact Registry
   tags:
     - Registries
     - Artifacts
