@@ -158,7 +158,7 @@ paths:
         required: true
         description: Orchestration Identifier
   '/v1/orgs/{org}/projects/{project}/sbom-download':
-    get:
+    post:
       summary: Download SBOM for an artifact
       responses:
         '200':
