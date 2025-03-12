@@ -2141,7 +2141,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/ArtifactComponentsRequestBody'
-  '/v1/orgs/{org}/projects/{project}/integration':
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/integration':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -2494,7 +2494,7 @@ paths:
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/SearchTerm'
       x-internal: true  
-  '/v1/orgs/{org}/projects/{project}/integration/{integration}/repos':
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/integration/{integration}/repos':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -2764,7 +2764,7 @@ paths:
         $ref: '#/components/requestBodies/FetchComplianceResultByArtifactRequestBody'
       security:
         - x-api-key: []
-  '/v1/orgs/{org}/projects/{project}/integration/{integration}':
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/integration/{integration}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
