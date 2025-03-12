@@ -3673,7 +3673,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ArtifactModelPipeline'
-  '/v1/ssca-config/pipeline-infra':
+  '/gateway/ssca-manager/v1/ssca-config/pipeline-infra':
     post:
       summary: Save SPM Pipeline Infra Configs
       operationId: savePipelineInfraConfig
