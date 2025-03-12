@@ -157,7 +157,7 @@ paths:
         in: path
         required: true
         description: Orchestration Identifier
-  '/v1/orgs/{org}/projects/{project}/sbom-download':
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/sbom-download':
     post:
       summary: Download SBOM for an artifact
       responses:
