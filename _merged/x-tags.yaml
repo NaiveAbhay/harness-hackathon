@@ -279,3 +279,6 @@
     - integration
     - PipelineInfraConfig
     - SBOM
+    - IntegrationStepConfig
+    - Config
+    - ConfigForProject
