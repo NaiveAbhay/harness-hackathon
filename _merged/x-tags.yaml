@@ -280,5 +280,4 @@
     - PipelineInfraConfig
     - SBOM
     - IntegrationStepConfig
-    - Config
-    - ConfigForProject
+    - Delete Step Config
