@@ -279,3 +279,5 @@
     - integration
     - PipelineInfraConfig
     - SBOM
+    - Integration Step Config
+    - Delete Step Config
