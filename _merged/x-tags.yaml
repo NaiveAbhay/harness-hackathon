@@ -271,9 +271,6 @@
   tags:
     - Error Response
     - Governance Metadata
-- name: Chaos Engineering
-  tags:
-    - Chaos Engineering
 - name: Supply Chain Security
   tags: 
     - integration
@@ -281,3 +278,7 @@
     - SBOM
     - Integration Step Config
     - Delete Step Config
+# Please make sure to add new tags above Chaos Engineering section.
+- name: Chaos Engineering
+  tags:
+    - Chaos Engineering
