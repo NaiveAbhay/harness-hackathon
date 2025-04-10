@@ -2,7 +2,10 @@ openapi: 3.0.3
 info:
   title: Harness NextGen Software Delivery Platform API Reference
   version: '1.0'
-  description: This is the Open Api Spec 3 for NextGen Manager. This is under active development. Beware of the breaking change with respect to the generated code stub
+  description: >-
+    This is the Open Api Spec 3 for NextGen Manager. This is under active
+    development. Beware of the breaking change with respect to the generated
+    code stub
   contact:
     email: contact@harness.io
 servers:
@@ -10,7 +13,10 @@ servers:
     description: Harness host URL.
 tags:
   - name: Organization
-    description: 'Create and manage organizations in your account. You use organizations to group together related projects. For example, you can use an organization to group together projects within a business unit or division.'
+    description: >-
+      Create and manage organizations in your account. You use organizations to
+      group together related projects. For example, you can use an organization
+      to group together projects within a business unit or division.
   - name: Org Project
     description: This contains APIs for projects.
     x-displayName: 'Project [Beta]'
@@ -73,22 +79,37 @@ tags:
     x-displayName: 'IP Allowlist [Beta]'
   - name: GitX Webhooks
     description: This contains APIs for Account GitX Webhooks.
-    x-displayName: 'Account GitX Webhooks'
+    x-displayName: Account GitX Webhooks
   - name: Org GitX Webhooks
     description: This contains APIs for Org GitX Webhooks.
-    x-displayName: 'Org GitX Webhooks'
+    x-displayName: Org GitX Webhooks
   - name: Project GitX Webhooks
     description: This contains APIs for Project GitX Webhooks.
-    x-displayName: 'Project GitX Webhooks'
+    x-displayName: Project GitX Webhooks
   - name: Gitx Webhooks Events
     description: This contains APIs for Account Gitx Webhooks Events.
-    x-displayName: 'Account Gitx Webhooks Events'
+    x-displayName: Account Gitx Webhooks Events
   - name: Org Gitx Webhooks Events
     description: This contains APIs for Org Gitx Webhooks Events.
-    x-displayName: 'Org Gitx Webhooks Events'
+    x-displayName: Org Gitx Webhooks Events
   - name: Project Gitx Webhooks Events
     description: This contains APIs for Project Gitx Webhooks Events.
-    x-displayName: 'Project Gitx Webhooks Events'
+    x-displayName: Project Gitx Webhooks Events
+  - name: Account Webhooks
+    description: This contains APIs for Account Webhooks.
+    x-displayName: Account Webhooks
+  - name: Org Webhooks
+    description: This contains APIs for Org Webhooks.
+    x-displayName: Org Webhooks
+  - name: Project Webhooks
+    description: This contains APIs for Project Webhooks.
+    x-displayName: Project Webhooks
+  - name: Account Banner
+    description: This contains APIs for Account Banners.
+    x-displayName: Account Banner
+  - name: Account Licensed Modules
+    description: This contains APIs for Account Licensed Modules.
+    x-displayName: Account Licensed Modules
 paths:
   '/v1/orgs/{org}/projects/{project}/services/{service}':
     get:
@@ -154,7 +175,9 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
@@ -165,7 +188,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the services for which you have view permissions in the given project.
+      description: >-
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Project Services
     post:
@@ -249,7 +274,9 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
@@ -260,7 +287,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the services for which you have view permissions in the given project.
+      description: >-
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Org Services
     post:
@@ -342,7 +371,9 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list of services that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list of services that you are permitted to use in a pipeline.
         - $ref: '#/components/parameters/DeploymentType'
         - schema:
             type: boolean
@@ -353,7 +384,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the services for which you have view permissions in the given project.
+      description: >-
+        Returns a list of the services for which you have view permissions in
+        the given project.
       tags:
         - Account Services
     post:
@@ -372,24 +405,80 @@ paths:
       tags:
         - Account Services
     parameters: []
-  /v1/creditOverUsage/{accountIdentifier}:
+  '/v1/creditOverUsage/{accountIdentifier}':
     get:
-      summary: 'Get over usage count of Credits for a given account'
+      summary: Get over usage count of Credits for a given account
       tags:
         - Credits OverUsage Data By Account
       responses:
         '200':
           $ref: '#/components/schemas/CreditOverUsage'
         '400':
-          headers: { }
+          headers: {}
           description: ''
           content:
             application/json:
               schema:
                 type: object
-                properties: { }
+                properties: {}
       operationId: credits-overusage
       x-internal: false
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+  '/v1/subscription/{accountIdentifier}':
+    get:
+      summary: Retrieve type of licenses for an account
+      tags:
+        - Account License Type
+      operationId: get-license-type
+      responses:
+        '200':
+          $ref: '#/components/schemas/LicenseTypeResponse'
+        '400':
+          headers: {}
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      x-internal: false
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountIdentifier
+          in: path
+          required: true
+          description: Account Identifier for the Entity.
+          schema:
+            type: string
+  '/v1/subscription/devops/{accountIdentifier}':
+    get:
+      summary: >-
+        Get subscriptions information for the Devops Essentials package for an
+        accountIdentifier.
+      tags:
+        - Devops Essentials License Data By Account
+      responses:
+        '200':
+          $ref: '#/components/schemas/DevopsEssentialsResponse'
+        '400':
+          headers: {}
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        x-internal: false
+      operationId: get-devops-essentials-license
       security:
         - bearerAuth: []
       parameters:
@@ -449,7 +538,9 @@ paths:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
       operationId: get-organization
-      description: Retrieves the information of the organization with the matching organization identifier.
+      description: >-
+        Retrieves the information of the organization with the matching
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -462,7 +553,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Updates the information of the organization with the matching organization identifier.
+      description: >-
+        Updates the information of the organization with the matching
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -477,7 +570,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/OrganizationResponse'
-      description: Deletes the information of the organization with the matching organization identifier.
+      description: >-
+        Deletes the information of the organization with the matching
+        organization identifier.
       security:
         - x-api-key: []
       tags:
@@ -516,7 +611,9 @@ paths:
             default: true
           in: query
           name: has_module
-          description: This boolean specifies whether to filter projects which has the module of type passed in the moduleType parameter or not
+          description: >-
+            This boolean specifies whether to filter projects which has the
+            module of type passed in the moduleType parameter or not
         - schema:
             type: string
           in: query
@@ -540,7 +637,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: get-org-scoped-project
-      description: Retrieves the information of the project with the matching project identifier.
+      description: >-
+        Retrieves the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       parameters:
@@ -553,7 +652,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: update-org-scoped-project
-      description: Updates the information of the project with the matching project identifier.
+      description: >-
+        Updates the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       requestBody:
@@ -568,7 +669,9 @@ paths:
         '200':
           $ref: '#/components/responses/ProjectResponse'
       operationId: delete-org-scoped-project
-      description: Deletes the information of the project with the matching project identifier.
+      description: >-
+        Deletes the information of the project with the matching project
+        identifier.
       security:
         - x-api-key: []
       parameters:
@@ -699,7 +802,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/IPAllowlistConfigValidateResponse'
-      description: Checks whether the IP address is allowed or not. It also supports checking against a specific IP block range.
+      description: >-
+        Checks whether the IP address is allowed or not. It also supports
+        checking against a specific IP block range.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - schema:
@@ -712,13 +817,20 @@ paths:
             type: string
           in: query
           name: custom_ip_address_block
-          description: This is the IP address or block of IP address against which we need to verify if a given IP address is allowed or not. If not passed we do the validation against the IP configs within Harness.
+          description: >-
+            This is the IP address or block of IP address against which we need
+            to verify if a given IP address is allowed or not. If not passed we
+            do the validation against the IP configs within Harness.
         - schema:
             type: boolean
             default: false
           in: query
           name: include_disabled_configs
-          description: This setting controls the visibility of IP allowlist configurations. When set to 'true', it displays both enabled and disabled configurations. When set to 'false' or left unset, it displays only the enabled configurations.
+          description: >-
+            This setting controls the visibility of IP allowlist configurations.
+            When set to 'true', it displays both enabled and disabled
+            configurations. When set to 'false' or left unset, it displays only
+            the enabled configurations.
           allowReserved: false
       security:
         - x-api-key: []
@@ -1050,7 +1162,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1061,7 +1175,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -1100,7 +1216,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1111,7 +1229,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1151,7 +1271,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Deletes the information of the secret with the matching secret identifier.
+      description: >-
+        Deletes the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1162,7 +1284,9 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/SecretResponse'
-      description: Updates the information of the secret with the matching secret identifier.
+      description: >-
+        Updates the information of the secret with the matching secret
+        identifier.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -1431,7 +1555,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: List rancher clusters using the given account level environment and infrastructure definition.
+      description: >-
+        List rancher clusters using the given account level environment and
+        infrastructure definition.
   '/v1/orgs/{org}/rancher/environments/{environment}/infrastructure-definitions/{infrastructure-definition}/clusters':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -1453,7 +1579,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: List rancher clusters using the given org level environment and infrastructure definition.
+      description: >-
+        List rancher clusters using the given org level environment and
+        infrastructure definition.
   '/v1/orgs/{org}/projects/{project}/rancher/environments/{environment}/infrastructure-definitions/{infrastructure-definition}/clusters':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -1476,7 +1604,9 @@ paths:
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: List rancher clusters using the given project level environment and infrastructure definition.
+      description: >-
+        List rancher clusters using the given project level environment and
+        infrastructure definition.
   '/v1/orgs/{org}/projects/{project}/services/{service}/primary-manifests':
     parameters:
       - $ref: '#/components/parameters/ServicePathParam'
@@ -1488,9 +1618,29 @@ paths:
         '200':
           $ref: '#/components/responses/ManifestsResponseDTO'
       operationId: get-primary-manifests
-      description: Returns a list of eligible primary manifests from all configured manifest in a project-scoped service.
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in a project-scoped service.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      tags:
+        - Project Services
+      x-internal: true
+    post:
+      summary: List primary manifests of a project scoped service
+      responses:
+        '200':
+          $ref: '#/components/responses/ManifestsResponseDTO'
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in a project-scoped service.
+      operationId: post-primary-manifests
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/GitEntityFindInfoRequestBody'
       security:
         - x-api-key: []
       tags:
@@ -1506,9 +1656,29 @@ paths:
         '200':
           $ref: '#/components/responses/ManifestsResponseDTO'
       operationId: get-org-scoped-primary-manifests
-      description: Returns a list of eligible primary manifests from all configured manifest in an org-scoped service.
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in an org-scoped service.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      tags:
+        - Org Services
+      x-internal: true
+    post:
+      summary: List primary manifests of a org scoped service
+      responses:
+        '200':
+          $ref: '#/components/responses/ManifestsResponseDTO'
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in an org-scoped service.
+      operationId: post-org-scoped-primary-manifests
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/GitEntityFindInfoRequestBody'
       security:
         - x-api-key: []
       tags:
@@ -1523,9 +1693,29 @@ paths:
         '200':
           $ref: '#/components/responses/ManifestsResponseDTO'
       operationId: get-account-scoped-primary-manifests
-      description: Returns a list of eligible primary manifests from all configured manifest in an account-scoped service.
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in an account-scoped service.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      tags:
+        - Account Services
+      x-internal: true
+    post:
+      summary: List primary manifests of a account scoped service
+      responses:
+        '200':
+          $ref: '#/components/responses/ManifestsResponseDTO'
+      description: >-
+        Returns a list of eligible primary manifests from all configured
+        manifest in an account-scoped service.
+      operationId: post-account-scoped-primary-manifests
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/GitEntityFindInfoRequestBody'
       security:
         - x-api-key: []
       tags:
@@ -1555,7 +1745,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/AgreementType'
-      description: Check whether End User License Agreement has been signed for specified agreement type.
+      description: >-
+        Check whether End User License Agreement has been signed for specified
+        agreement type.
       security:
         - x-api-key: []
       responses:
@@ -1716,6 +1908,10 @@ paths:
             type: string
           in: query
           name: commit_id
+        - schema:
+            type: string
+          in: query
+          name: branch
       x-internal: true
   /v1/kubernetes/releases/service-mapping:
     get:
@@ -1726,7 +1922,9 @@ paths:
         '200':
           $ref: '#/components/responses/ReleaseDetailsResponse'
       operationId: get-v1-releaseDetails
-      description: Return details of service and environment mapped to pods namespace and release-name for a given account.
+      description: >-
+        Return details of service and environment mapped to pods namespace and
+        release-name for a given account.
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       security:
@@ -1887,6 +2085,10 @@ paths:
             type: string
           in: query
           name: commit_id
+        - schema:
+            type: string
+          in: query
+          name: branch
       tags:
         - Org Gitx Webhooks Events
       x-internal: true
@@ -2048,6 +2250,10 @@ paths:
             type: string
           in: query
           name: commit_id
+        - schema:
+            type: string
+          in: query
+          name: branch
       x-internal: true
       description: List GitX webhook Events at project level
   '/v1/gitx-webhook-events/{gitx-webhook-event}':
@@ -2260,14 +2466,18 @@ paths:
         - Project Certificate
   '/v1/certificates/validate-unique-identifier/{certificate}':
     get:
-      summary: Validate if the specified Certificate identifier is available for use in account scope
+      summary: >-
+        Validate if the specified Certificate identifier is available for use in
+        account scope
       tags:
         - Account Certificate
       responses:
         '200':
           $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
       operationId: validate-account-scoped-certificate-identifier
-      description: Validate if the specified certificate identifier is available for use in account scope
+      description: >-
+        Validate if the specified certificate identifier is available for use in
+        account scope
       x-internal: true
       security:
         - x-api-key: []
@@ -2282,12 +2492,16 @@ paths:
         description: Identifier field of the certificate
   '/v1/orgs/{org}/certificates/validate-unique-identifier/{certificate}':
     get:
-      summary: Validate if the specified Certificate identifier is available for use in organization scope
+      summary: >-
+        Validate if the specified Certificate identifier is available for use in
+        organization scope
       responses:
         '200':
           $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
       operationId: validate-org-scoped-certificate-identifier
-      description: Validate if the specified certificate identifier is available for use in organization scope
+      description: >-
+        Validate if the specified certificate identifier is available for use in
+        organization scope
       x-internal: true
       security:
         - x-api-key: []
@@ -2305,12 +2519,16 @@ paths:
         description: Identifier field of the certificate
   '/v1/orgs/{org}/projects/{project}/certificates/validate-unique-identifier/{certificate}':
     get:
-      summary: Validate if the specified Certificate identifier is available for use in project scope
+      summary: >-
+        Validate if the specified Certificate identifier is available for use in
+        project scope
       responses:
         '200':
           $ref: '#/components/responses/CertificateValidateUniqueIdentifierResponse'
       operationId: validate-project-scoped-certificate-identifier
-      description: Validate if the specified certificate identifier is available for use in project scope
+      description: >-
+        Validate if the specified certificate identifier is available for use in
+        project scope
       x-internal: true
       security:
         - x-api-key: []
@@ -2458,6 +2676,92 @@ paths:
       x-internal: true
       tags:
         - Project Certificate
+  /v1/banners:
+    get:
+      summary: Retrieves the list of Banners in account scope
+      tags:
+        - Account Banner
+      responses:
+        '200':
+          $ref: '#/components/responses/BannerListResponse'
+      operationId: get-account-scoped-banners
+      x-stoplight:
+        id: ld5yy1r4xvhtt
+      description: Retrieves the list of Banners in account scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+        - schema:
+            type: string
+            enum:
+              - 'true'
+              - 'false'
+          in: query
+          name: enabled
+          description: Show banners with enabled field filtering
+          allowEmptyValue: true
+    post:
+      summary: Creates a new Banner in account scope
+      operationId: create-account-scoped-banners
+      x-stoplight:
+        id: 7qljrrvy7z0ha
+      responses:
+        '201':
+          $ref: '#/components/responses/BannerResponse'
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/CreateBannerRequest'
+      description: Creates a new Banner in Account Scope.
+      tags:
+        - Account Banner
+  '/v1/banners/validate-unique-identifier/{bannerId}':
+    parameters:
+      - schema:
+          type: string
+        name: bannerId
+        in: path
+        required: true
+        description: Identifier field of the BannerDTO
+    get:
+      summary: >-
+        Validate if the specified Banner identifier is available for use in
+        account scope
+      tags:
+        - Account Banner
+      responses:
+        '200':
+          $ref: '#/components/responses/BannerBooleanResponse'
+      operationId: validate-account-scoped-banner-identifier
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: >-
+        Validate if the specified BannerDTO identifier is available for use in
+        account scope
+      security:
+        - x-api-key: []
+  /v1/banners/allowed:
+    get:
+      summary: Check for a current account max 5 banners are enabled or not
+      tags:
+        - Account Banner
+      responses:
+        '200':
+          $ref: '#/components/responses/BannerBooleanResponse'
+      operationId: banners-allowed
+      description: Check for a current account max 5 banners are enabled or not.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
   /v1/ldap-settings:
     post:
       summary: Create Account LDAP Settings
@@ -2798,12 +3102,16 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list of environments that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list of environments that you are permitted to use in a pipeline.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the enviornments for which you have view permissions in the given project.
+      description: >-
+        Returns a list of the enviornments for which you have view permissions
+        in the given project.
       tags:
         - Project Environments
   '/v1/orgs/{org}/projects/{project}/environments/{environment}':
@@ -2906,12 +3214,17 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list org scoped of environments that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list org scoped of environments that you are permitted to use in a
+            pipeline.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the org scoped environments for which you have view permissions in the given org.
+      description: >-
+        Returns a list of the org scoped environments for which you have view
+        permissions in the given org.
       tags:
         - Org Environments
   '/v1/orgs/{org}/environments/{environment}':
@@ -3011,12 +3324,17 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list account scoped of environments that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list account scoped of environments that you are permitted to use in
+            a pipeline.
         - $ref: '#/components/parameters/AccountHeader'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the account scoped environments for which you have view permissions in the given account.
+      description: >-
+        Returns a list of the account scoped environments for which you have
+        view permissions in the given account.
       tags:
         - Account Environments
   '/v1/environments/{environment}':
@@ -3120,7 +3438,9 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list of infrastructure that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list of infrastructure that you are permitted to use in a pipeline.
         - schema:
             type: array
             items:
@@ -3132,17 +3452,23 @@ paths:
             type: string
           in: query
           name: template_identifier
-          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+          description: >-
+            The Identifier of deployment template if infrastructure is of type
+            custom deployment.
         - schema:
             type: string
           in: query
           name: template_version
-          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+          description: >-
+            The version label of deployment template if infrastructure is of
+            type custom deployment(deployment template).
         - $ref: '#/components/parameters/DeploymentType'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the infrastructure for which you have view permissions in the given project.
+      description: >-
+        Returns a list of the infrastructure for which you have view permissions
+        in the given project.
       tags:
         - Project Infrastructures
   '/v1/orgs/{org}/projects/{project}/environments/{environment}/infrastructures/{infrastructure-definition}':
@@ -3248,7 +3574,10 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list org scoped of infrastructure that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list org scoped of infrastructure that you are permitted to use in a
+            pipeline.
         - schema:
             type: array
             items:
@@ -3260,17 +3589,23 @@ paths:
             type: string
           in: query
           name: template_identifier
-          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+          description: >-
+            The Identifier of deployment template if infrastructure is of type
+            custom deployment.
         - schema:
             type: string
           in: query
           name: template_version
-          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+          description: >-
+            The version label of deployment template if infrastructure is of
+            type custom deployment(deployment template).
         - $ref: '#/components/parameters/DeploymentType'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the org scoped infrastructures for which you have view permissions in the given org.
+      description: >-
+        Returns a list of the org scoped infrastructures for which you have view
+        permissions in the given org.
       tags:
         - Org Infrastructures
   '/v1/orgs/{org}/environments/{environment}/infrastructures/{infrastructure-definition}':
@@ -3374,7 +3709,10 @@ paths:
             type: boolean
           in: query
           name: is_access_list
-          description: Specifies whether the list is an access list. An access list is a list account scoped of infrastructures that you are permitted to use in a pipeline.
+          description: >-
+            Specifies whether the list is an access list. An access list is a
+            list account scoped of infrastructures that you are permitted to use
+            in a pipeline.
         - schema:
             type: array
             items:
@@ -3386,17 +3724,23 @@ paths:
             type: string
           in: query
           name: template_identifier
-          description: The Identifier of deployment template if infrastructure is of type custom deployment.
+          description: >-
+            The Identifier of deployment template if infrastructure is of type
+            custom deployment.
         - schema:
             type: string
           in: query
           name: template_version
-          description: The version label of deployment template if infrastructure is of type custom deployment(deployment template).
+          description: >-
+            The version label of deployment template if infrastructure is of
+            type custom deployment(deployment template).
         - $ref: '#/components/parameters/DeploymentType'
         - $ref: '#/components/parameters/Order'
       security:
         - x-api-key: []
-      description: Returns a list of the account scoped infrastructures for which you have view permissions in the given account.
+      description: >-
+        Returns a list of the account scoped infrastructures for which you have
+        view permissions in the given account.
       tags:
         - Account Infrastructures
   '/v1/environments/{environment}/infrastructures/{infrastructure-definition}':
@@ -3463,7 +3807,7 @@ paths:
         - x-api-key: []
       tags:
         - Account Infrastructures
-  /v1/licenseUsageActivity/export/{accountIdentifier}:
+  '/v1/licenseUsageActivity/export/{accountIdentifier}':
     post:
       summary: Get exported License Usage Data for an account based on the filters
       tags:
@@ -3472,17 +3816,17 @@ paths:
         '200':
           description: No Content
         '400':
-          headers: { }
+          headers: {}
           description: ''
           content:
             application/json:
               schema:
                 type: object
-                properties: { }
+                properties: {}
       operationId: export-license-usage-activity
       x-internal: false
       security:
-        - bearerAuth: [ ]
+        - bearerAuth: []
       parameters:
         - name: accountIdentifier
           in: path
@@ -3546,7 +3890,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/LdapTestLoginRequest'
-  /v1/gitx-webhook-events/{gitx-webhook-event}/validation-info:
+  '/v1/gitx-webhook-events/{gitx-webhook-event}/validation-info':
     get:
       summary: Get file validations for a given event identifier
       tags:
@@ -3567,7 +3911,7 @@ paths:
           name: gitx-webhook-event
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/Limit'
-  /v1/credits/allocation/export/{accountIdentifier}:
+  '/v1/credits/allocation/export/{accountIdentifier}':
     get:
       summary: Get credits allocation Data for an account for a given moduleType
       tags:
@@ -3578,17 +3922,17 @@ paths:
           content:
             text/csv: {}
         '400':
-          headers: { }
+          headers: {}
           description: ''
           content:
             application/json:
               schema:
                 type: object
-                properties: { }
+                properties: {}
       operationId: credits-allocation-export-data
       x-internal: false
       security:
-        - bearerAuth: [ ]
+        - bearerAuth: []
       parameters:
         - name: accountIdentifier
           in: path
@@ -3602,7 +3946,7 @@ paths:
           description: Module type for the account
           schema:
             type: string
-  /v1/licenseUsageActivity/{accountIdentifier}:
+  '/v1/licenseUsageActivity/{accountIdentifier}':
     post:
       summary: Get License Usage Data for an account for a given time range
       tags:
@@ -3646,7 +3990,9 @@ paths:
         - name: rollup
           in: query
           required: true
-          description: Rollup all credit usages in the specified timestamp to a single value.
+          description: >-
+            Rollup all credit usages in the specified timestamp to a single
+            value.
           schema:
             type: boolean
       requestBody:
@@ -3656,8 +4002,1096 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/LicenseUsageActivityFilterPropertiesDTO'
+  /v1/iro/get-sync-data-collection-result:
+    post:
+      summary: Retrieve data from Prometheus APM to fetch data.
+      tags:
+        - Prometheus Data Retrieval
+      responses:
+        '200':
+          $ref: '#/components/responses/PrometheusMetricsResponse'
+        '400':
+          headers: {}
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      operationId: get-sync-data-collection-result
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: accountIdentifier
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: projectIdentifier
+          in: query
+          schema:
+            type: string
+        - name: orgIdentifier
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrometheusQueryRequest'
+  /v1/gitx-webhook-events/list-branches:
+    get:
+      summary: List all Branches for GitX Webhook Events.
+      responses:
+        '200':
+          $ref: '#/components/responses/ListGitXWebhookBranchesResponse'
+      operationId: list-webhook-event-branches
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - in: query
+          name: org
+          schema:
+            type: string
+        - in: query
+          name: project
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: webhook_identifier
+        - schema:
+            type: string
+          in: query
+          name: repo_name
+        - schema:
+            type: string
+          in: query
+          name: connector_ref
+        - schema:
+            type: boolean
+          in: query
+          name: include_parent_scope
+      description: List branches for webhook events.
+      security:
+        - x-api-key: []
+      x-internal: true
+      tags:
+        - GitX Events Resource
+    parameters: []
+  /v1/webhooks/list:
+    post:
+      summary: Lists all the Webhooks at Account level
+      tags:
+        - Account Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/ListWebhookResponse'
+      operationId: list-account-webhooks
+      x-stoplight:
+        id: q959f3zrosr8j
+      description: Lists webhooks
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      requestBody:
+        $ref: '#/components/requestBodies/ListWebhookRequest'
+  '/v1/orgs/{org}/webhooks/list':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+    post:
+      summary: Lists all the Webhooks at Org level
+      tags:
+        - Org Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/ListWebhookResponse'
+      operationId: list-org-webhooks
+      x-stoplight:
+        id: xtibpkmzi48xi
+      description: List org level webhooks
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      requestBody:
+        $ref: '#/components/requestBodies/ListWebhookRequest'
+  '/v1/orgs/{org}/projects/{project}/webhooks/list':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    post:
+      summary: List all the Webhooks at Project level
+      tags:
+        - Project Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/ListWebhookResponse'
+      operationId: list-project-webhooks
+      x-stoplight:
+        id: d0984c6o07vmf
+      description: List project level webhooks
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      requestBody:
+        $ref: '#/components/requestBodies/ListWebhookRequest'
+  /v1/webhooks:
+    post:
+      summary: Create a webhook at Account level
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateWebhookResponse'
+      operationId: create-account-webhooks
+      x-stoplight:
+        id: 8eiwo6om8vhyx
+      description: Create webhooks at account level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateWebhookRequest'
+      tags:
+        - Account Webhooks
+  '/v1/orgs/{org}/webhooks':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+    post:
+      summary: Create a webhook at Org level
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateWebhookResponse'
+      operationId: create-org-webhooks
+      x-stoplight:
+        id: 218lrnqztn5db
+      description: Create webhooks at org level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateWebhookRequest'
+      tags:
+        - Org Webhooks
+  '/v1/orgs/{org}/projects/{project}/webhooks':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+    post:
+      summary: Create a webhook at Project level
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateWebhookResponse'
+      operationId: create-project-webhooks
+      x-stoplight:
+        id: 3hemfo8zsii5j
+      description: Create webhooks at project level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CreateWebhookRequest'
+      tags:
+        - Project Webhooks
+  '/v1/webhooks/{webhook}':
+    parameters:
+      - $ref: '#/components/parameters/WebhookIdentifier'
+    get:
+      summary: Fetch Webhook at Account level
+      responses:
+        '200':
+          $ref: '#/components/responses/GetWebhookResponse'
+      operationId: get-account-webhook
+      x-stoplight:
+        id: htrbf7iw1pgbm
+      description: Fetch Webhook at Account level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Account Webhooks
+    put:
+      summary: Updates a Webhook at Account level
+      tags:
+        - Account Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateWebhookResponse'
+      operationId: update-account-webhook
+      x-stoplight:
+        id: stg0ym0cf83ms
+      description: Updates a Webhook at Account level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateWebhookRequest'
+    delete:
+      summary: Deletes a Webhook at account level
+      tags:
+        - Account Webhooks
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-account-webhook
+      x-stoplight:
+        id: hy1e8ggf1za4k
+      description: Deletes a Webhook at account level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/orgs/{org}/webhooks/{webhook}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/WebhookIdentifier'
+    get:
+      summary: Fetch Webhook at org level
+      tags:
+        - Org Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/GetWebhookResponse'
+      operationId: get-org-webhook
+      x-stoplight:
+        id: phxcvl7c27s2b
+      description: Fetch Webhook at org level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    put:
+      summary: Updates a Webhook at Org level
+      tags:
+        - Org Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateWebhookResponse'
+      operationId: update-org-webhook
+      x-stoplight:
+        id: qnxs9xauehxf1
+      description: Updates a Webhook at Org level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateWebhookRequest'
+    delete:
+      summary: Deletes a Webhook at org level
+      tags:
+        - Org Webhooks
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-org-webhook
+      x-stoplight:
+        id: hp71yii6vje5j
+      description: Deletes a Webhook at org level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/orgs/{org}/projects/{project}/webhooks/{webhook}':
+    parameters:
+      - $ref: '#/components/parameters/OrgPathParam'
+      - $ref: '#/components/parameters/ProjectPathParam'
+      - $ref: '#/components/parameters/WebhookIdentifier'
+    get:
+      summary: Fetch Webhook at project level
+      tags:
+        - Project Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/GetWebhookResponse'
+      operationId: get-project-webhook
+      x-stoplight:
+        id: 91vr2lhknz7e2
+      description: Fetch Webhook at project level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    put:
+      summary: Updates a Webhook at Project level
+      tags:
+        - Project Webhooks
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateWebhookResponse'
+      operationId: update-project-webhook
+      x-stoplight:
+        id: qkzw38ihe33sm
+      description: Updates a Webhook at Project level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateWebhookRequest'
+    delete:
+      summary: Deletes a Webhook at project level
+      tags:
+        - Project Webhooks
+      responses:
+        '204':
+          description: No Content
+      operationId: delete-project-webhook
+      x-stoplight:
+        id: zrxeghi06sstt
+      description: Deletes a Webhook at project level
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  /v1/licensedModules:
+    get:
+      summary: Get Licensed Modules for an account
+      tags:
+        - Account Licensed Modules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicensedModules'
+        '400':
+          description: Bad Request
+      operationId: get-account-licensed-modules
+      x-stoplight:
+        id: 48ywtaz7t7c2m
+      description: Get Licensed Modules for an account
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  '/v1/banners/{banner}':
+    parameters:
+      - schema:
+          type: string
+        name: banner
+        in: path
+        required: true
+        description: Identifier field of the Banner
+    put:
+      summary: Updates the specified Banner in account scope
+      operationId: update-account-scoped-banner
+      responses:
+        '200':
+          $ref: '#/components/responses/BannerResponse'
+      description: Updates the specified Banner in account scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateBannerRequest'
+      tags:
+        - Account Banner
+    delete:
+      summary: Deletes the specified Banner in account scope
+      operationId: delete-account-scoped-banner
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+      description: Deletes the specified Banner in account scope
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      tags:
+        - Account Banner
+  /v1/devSubscriptions:
+    get:
+      summary: Get total users count by month for the provided year
+      tags:
+        - Total users count
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionUsageDTO'
+        '400':
+          description: Bad Request
+      operationId: get-v1-devSubscriptions
+      x-stoplight:
+        id: t2sfdg3924zq1
+      description: Get subscriptions data for account
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+    parameters:
+      - schema:
+          type: string
+        in: query
+        name: year
+        description: Year to get the subscriptions data for
+  /v1/moduleLicenseUtilization:
+    get:
+      summary: utilization
+      tags:
+        - Module License Utilization
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleUtilizationDTO'
+        '400':
+          description: Bad Request
+      operationId: get-v1-moduleLicenseUtilization
+      x-stoplight:
+        id: ou43i1cdk84oz
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+  /v1/updateModuleAccess:
+    put:
+      summary: update
+      tags:
+        - Update Module Access
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      operationId: put-v1-updateModuleAccess
+      x-stoplight:
+        id: xqx83k6nobtol
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entities:
+                  $ref: '#/components/schemas/UpdateAccessRequest'
+  /v1/listPrincipalsWithAccess:
+    get:
+      summary: list
+      tags:
+        - Principals With Access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  principalsWithAccess:
+                    $ref: '#/components/schemas/PrincipalWithAccessResponse'
+        '400':
+          description: Bad Request
+      operationId: get-v1-listPrincipalsWithAccess
+      x-stoplight:
+        id: sa5b0bfaplklt
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: query
+          name: moduleType
+          description: Module to fetch the users for
+          required: true
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+    post:
+      summary: Your POST endpoint
+      tags:
+        - Principals With Access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  principalsWithAccess:
+                    $ref: '#/components/schemas/PrincipalWithAccessResponse'
+        '400':
+          description: Bad Request
+      operationId: post-v1-listPrincipalsWithAccess
+      x-stoplight:
+        id: qdy1p2ocwewgn
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: query
+          name: moduleType
+          description: Module to fetch the users for
+          required: true
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  $ref: '#/components/schemas/PrincipalWithAccessFilter'
+  /v1/banners/active:
+    get:
+      summary: Return Active Banners
+      tags:
+        - Account Banner
+      responses:
+        '200':
+          $ref: '#/components/responses/BannerListResponse'
+      operationId: get-account-scoped-active-banners
+      description: >-
+        This API endpoint will return max 5 banners as that is the enabled
+        banners count.
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+  /v1/dailyModuleAccountAccess:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Daily Module Account Access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyModuleAccountAccessDTO'
+      operationId: get-v1-dailyModuleAccountAccess
+      x-stoplight:
+        id: ottg9ts46qi5m
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              nullable: true
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: integer
+          in: query
+          name: year
+          description: Year for which the data is requested
+          required: true
+        - schema:
+            type: integer
+          in: query
+          name: month
+          description: Month for which the data is requested
+          required: true
+        - schema:
+            type: string
+          in: query
+          name: moduleType
+          description: Module for which the data is requested
+          required: true
+  /v1/moduleAccess:
+    get:
+      summary: Get module access
+      tags:
+        - Get Module Access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasAccess:
+                    type: boolean
+      operationId: get-v1-moduleAccess
+      x-stoplight:
+        id: t1jwlv6z8sa1x
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: query
+          name: moduleType
+          description: Module to check user access for
+        - schema:
+            type: string
+          in: query
+          name: userId
+          description: User id
+  /v1/oidc-provider:
+    post:
+      summary: Create OIDC provider
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProviderResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: create-oidc-provider
+      x-stoplight:
+        id: 8j9gyvedhvef1
+      requestBody:
+        $ref: '#/components/requestBodies/OidcProviderRequest'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+    get:
+      summary: Get OIDC providers
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProvidersResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: list-oidc-provider
+      x-stoplight:
+        id: z6j7sbsuajq8k
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+  '/v1/oidc-provider/{providerIdentifier}':
+    get:
+      summary: GET OIDC provider
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProvidersResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-oidc-provider
+      x-stoplight:
+        id: cubdvrj4itv8p
+      parameters:
+        - $ref: '#/components/parameters/OidcProviderId'
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+      description: ''
+    put:
+      summary: Update OIDC provider
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProviderResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: update-oidc-provider
+      x-stoplight:
+        id: wq62jc99nwlly
+      requestBody:
+        $ref: '#/components/requestBodies/OidcProviderRequest'
+      parameters:
+        - $ref: '#/components/parameters/OidcProviderId'
+        - schema:
+            type: string
+          in: header
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+          name: Harness-Account
+    delete:
+      summary: Delete OIDC provider
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProviderResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: delete-oidc-provider
+      x-stoplight:
+        id: 9omza80n0xdqu
+      parameters:
+        - $ref: '#/components/parameters/OidcProviderId'
+        - schema:
+            type: string
+          in: header
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+          name: Harness-Account
+  '/v1/oidc-provider/{providerIdentifier}/decrypt':
+    get:
+      summary: GET OIDC provider with secret
+      tags:
+        - Oidc Provider
+      responses:
+        '200':
+          $ref: '#/components/responses/OidcProvidersResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: get-oidc-provider-internal
+      x-internal: true
+      x-stoplight:
+        id: cubdvrj4itv8p
+      parameters:
+        - $ref: '#/components/parameters/OidcProviderId'
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+      description: ''
+  /v1/notification-trigger/ir/slo-notification:
+    post:
+      summary: SLO Notification Trigger
+      tags:
+        - Incident Response
+      responses:
+        '200':
+          description: OK
+          content: {}
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: sloNotificationTrigger
+      x-internal: true
+      x-stoplight:
+        id: f4xe8dn1qa6x3
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: Harness-Account
+          description: >-
+            Identifier field of the account the resource is scoped to. This is
+            required for Authorization methods other than the x-api-key header.
+            If you are using the x-api-key header, this can be skipped.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SLONotificationDTO'
+  /v1/oauth/zoom:
+    get:
+      summary: Internal API to generate OAuth Token for Zoom
+      tags:
+        - Zoom Utils
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    x-stoplight:
+                      id: 0pbtp82fglrgg
+                  token_type:
+                    type: string
+                    x-stoplight:
+                      id: y4rwrgipoqww3
+                  refresh_token:
+                    type: string
+                    x-stoplight:
+                      id: 6sgylqvlyinws
+                  expires_in:
+                    type: integer
+                    x-stoplight:
+                      id: mfsqxsdtfwg22
+                  scope:
+                    type: string
+                    x-stoplight:
+                      id: heagx4kr7djob
+                  api_url:
+                    type: string
+                    x-stoplight:
+                      id: s3v6t9nbleurb
+      operationId: zoomOauthTokenGenerate
+      x-internal: true
+      x-stoplight:
+        id: 3xl1gdk59jd1l
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: authorization_code
+  /v1/oauth/msteams:
+    get:
+      summary: Internal API to generate OAuth Token for MS Teams
+      tags:
+        - MS Teams Utils
+      responses:
+        '200':
+          $ref: '#/components/responses/MsTeamsTokenResponse'
+      operationId: msTeamsOauthTokenGenerate
+      x-internal: true
+      x-stoplight:
+        id: avbtzt1bif7x7
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: authorization_code
+  /v1/oauth/confluence:
+    get:
+      summary: Internal API to generate OAuth Token for Confluence
+      tags:
+        - Confluence Utils
+      responses:
+        '200':
+          $ref: '#/components/responses/ConfluenceTokenResponse'
+      operationId: confluenceOauthTokenGenerate
+      x-internal: true
+      x-stoplight:
+        id: avbtzt1bif8x7
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: authorization_code
+  /v1/oauth/slack:
+    get:
+      summary: Internal API to generate OAuth Token for Slack
+      tags:
+        - Slack Utils
+      responses:
+        '200':
+          $ref: '#/components/responses/SlackTokenResponse'
+      operationId: slackOauthTokenGenerate
+      x-internal: true
+      x-stoplight:
+        id: avbtzt1bif2x8
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: authorization_code
 components:
   schemas:
+    UserWithAccessEntity:
+      x-stoplight:
+        id: 18na0szgoztrr
+      type: object
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: xauaeb4nf75kj
+        email:
+          type: string
+          x-stoplight:
+            id: ux96f5g61dxyw
+        isServiceAccount:
+          type: boolean
+          x-stoplight:
+            id: jlf10s4usvuco
+        lastLogin:
+          type: integer
+          x-stoplight:
+            id: hrgto6a4d1ywo
+          format: int64
+        orgs:
+          type: array
+          x-stoplight:
+            id: f3nwrt8ii1jp2
+          items:
+            x-stoplight:
+              id: mareqvqg10k1n
+            type: string
+        projects:
+          type: array
+          x-stoplight:
+            id: 0364et044xhlz
+          items:
+            x-stoplight:
+              id: ejmjxhbs0o3pw
+            type: string
+        userGroups:
+          type: array
+          x-stoplight:
+            id: 0mqgc5uipwf3m
+          items:
+            x-stoplight:
+              id: 3w6mw72cv8l2f
+            type: string
+      title: ''
+    UpdateAccessRequest:
+      x-stoplight:
+        id: 034njhrzl7d3s
+      type: object
+      properties:
+        moduleType:
+          $ref: '#/components/schemas/ModuleType'
+          x-stoplight:
+            id: qf4xwys87p96r
+        userGroupsToGrant:
+          type: array
+          x-stoplight:
+            id: hkvp36485q8z9
+          items:
+            $ref: '#/components/schemas/UpdateRequestEntity'
+            x-stoplight:
+              id: 644cajjlgngr6
+        userGroupsToRevoke:
+          type: array
+          x-stoplight:
+            id: 8yuqucw64ynbu
+          items:
+            $ref: '#/components/schemas/UpdateRequestEntity'
+            x-stoplight:
+              id: gnk0hv0vee9ya
+        serviceAccountsToGrant:
+          type: array
+          x-stoplight:
+            id: juxwg5jsb617v
+          items:
+            $ref: '#/components/schemas/UpdateRequestEntity'
+            x-stoplight:
+              id: 89122qtdieg8d
+        serviceAccountsToRevoke:
+          type: array
+          x-stoplight:
+            id: 7f58v0g2pocu4
+          items:
+            $ref: '#/components/schemas/UpdateRequestEntity'
+            x-stoplight:
+              id: z6im6hqs9gvhh
+    UpdateRequestEntity:
+      x-stoplight:
+        id: 9atlba00qrn2i
+      type: object
+      required:
+        - identifier
+        - accountIdentifier
+      properties:
+        identifier:
+          type: string
+          x-stoplight:
+            id: san8yczoiztq8
+        accountIdentifier:
+          type: string
+          x-stoplight:
+            id: j0209h31uepks
+        org:
+          type: string
+          x-stoplight:
+            id: w38v242vrxl0k
+        project:
+          type: string
+          x-stoplight:
+            id: a7jm4l0ps81n0
+      title: ''
+    PrometheusQueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: >-
+            Prometheus query to fetch metrics, with specific parameters and time
+            range modifiers
+        startTime:
+          type: integer
+          format: int64
+          description: Start time for the data query in epoch seconds
+        endTime:
+          type: integer
+          format: int64
+          description: End time for the data query in epoch seconds
+        accountId:
+          type: string
+          description: Unique identifier for the user's account
+        connectorRef:
+          type: string
+          description: connector reference
+        step:
+          type: string
+          default: 60s
+          description: Step parameter for prometheus query
+        type:
+          type: string
+          description: Type of the data query or the data being fetched
+      required:
+        - query
+        - startTime
+        - endTime
+        - connectorInfoDTO
+        - type
     LicenseUsageActivityFilterPropertiesDTO:
       type: object
       properties:
@@ -3665,22 +5099,30 @@ components:
           type: array
           items:
             type: string
-          description: This is the list of organization Identifiers on which the filter will be applied.
+          description: >-
+            This is the list of organization Identifiers on which the filter
+            will be applied.
         projectIdentifiers:
           type: array
           items:
             type: string
-          description: This is the list of project Identifiers on which the filter will be applied.
+          description: >-
+            This is the list of project Identifiers on which the filter will be
+            applied.
         pipelineIdentifiers:
           type: array
           items:
             type: string
-          description: This is the list of pipeline Identifiers on which the filter will be applied.
+          description: >-
+            This is the list of pipeline Identifiers on which the filter will be
+            applied.
         resourceClasses:
           type: array
           items:
             type: string
-          description: This is the list of resource classes on which the filter will be applied.
+          description: >-
+            This is the list of resource classes on which the filter will be
+            applied.
         moduleType:
           $ref: '#/components/schemas/ModuleType'
     LicenseUsageActivity:
@@ -3697,6 +5139,10 @@ components:
       required:
         - timestamp
         - credits
+    PrometheusMetricsResponse:
+      type: object
+      additionalProperties:
+        type: object
     CreditUsage:
       type: object
       properties:
@@ -3721,6 +5167,101 @@ components:
       required:
         - overUsageCount
         - moduleType
+    LicenseTypeResponse:
+      description: Type of Licenses that can be provisioned for an account
+      type: object
+      x-stoplight:
+        id: 59b1960a8fa10
+      properties:
+        licenseType:
+          type: string
+          enum:
+            - Dev360
+            - DevopsEssentials
+            - Default
+    DevopsEssentialsResponse:
+      description: Devops Essentials response model
+      type: object
+      properties:
+        devops_license:
+          $ref: '#/components/schemas/DevopsEssentialsDTO'
+        devops_essentials_metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/DevopsEssentialsMetricsDTO'
+    DevopsEssentialsDTO:
+      description: Devops Essentials response model
+      type: object
+      properties:
+        namedUser:
+          type: integer
+          description: Number of named users provisioned for a given account
+          format: int64
+        totalAvailable:
+          type: integer
+          description: Maximum named users that can be provisioned on an account
+        licenseExpiry:
+          type: integer
+          description: Expiry timestamp of the license
+          format: int64
+    DevopsEssentialsMetricsDTO:
+      title: DevopsEssentialsMetricsDTO
+      type: object
+      properties:
+        moduleType:
+          type: string
+        totalAvailable:
+          type: integer
+          format: int64
+          description: Maximum named users that can be provisioned on an account
+        usage:
+          $ref: '#/components/schemas/DevopsEssentialsConsumption'
+        applied:
+          $ref: '#/components/schemas/DevopsEssentialsConsumption'
+        remaining:
+          $ref: '#/components/schemas/DevopsEssentialsRemaining'
+    DevopsEssentialsConsumption:
+      title: DevopsEssentialsConsumption
+      type: object
+      description: Devops Essentials consumption Model
+      properties:
+        prepayUnitsConsumed:
+          type: integer
+          description: Number of Prepay units consumed
+        prepayUnitsCost:
+          type: number
+          format: double
+          description: Cost of the prepay units
+        postpayUnitsConsumed:
+          type: integer
+          description: Number of Postpay units consumed
+        postpayUnitsCost:
+          type: number
+          format: double
+          description: Cost of the postpay units
+        totalCharges:
+          type: number
+          format: double
+          description: Total charges of all units
+    DevopsEssentialsRemaining:
+      title: DevopsEssentialsRemaining
+      type: object
+      description: Devops Essentials Remaining metrics Model
+      properties:
+        prepayUnitsRemaining:
+          type: integer
+          description: Number of Prepay units consumed
+        prepayUnitsCost:
+          type: number
+          format: double
+          description: Cost of the prepay units
+        postpayUnitsRemaining:
+          type: integer
+          description: Number of Postpay units consumed
+        postpayUnitsCost:
+          type: number
+          format: double
+          description: Cost of the postpay units
     Service:
       type: object
       x-examples:
@@ -4478,6 +6019,9 @@ components:
         - CET
         - IDP
         - SSCA
+        - SEI
+        - CODE
+        - HAR
     FavoritesResourceType:
       type: string
       enum:
@@ -4670,7 +6214,9 @@ components:
           description: Updated timestamp for organization
         harness_managed:
           type: boolean
-          description: 'This indicates if this organization is managed by Harness or not. If true, Harness can manage and modify this organization.'
+          description: >-
+            This indicates if this organization is managed by Harness or not. If
+            true, Harness can manage and modify this organization.
     UpdateOrganizationRequest:
       description: Update oganization request
       type: object
@@ -4679,6 +6225,37 @@ components:
           $ref: '#/components/schemas/Organization'
       required:
         - org
+    GitEntityFindInfoDTO:
+      type: object
+      description: Details to find Git Entity including Git Sync Config Id and Branch Name.
+      properties:
+        branch:
+          type: string
+          description: The branch name.
+        yamlGitConfigId:
+          type: string
+          description: Git Sync Config ID.
+        defaultFromOtherRepo:
+          type: boolean
+          description: 'If true, return all default entities.'
+        parentEntityConnectorRef:
+          type: string
+          description: Connector ref of parent entity if remote.
+        parentEntityRepoName:
+          type: string
+          description: Repo name of parent entity if remote.
+        parentEntityAccountIdentifier:
+          type: string
+          description: Account identifier of parent entity.
+        parentEntityOrgIdentifier:
+          type: string
+          description: Organization identifier of parent entity.
+        parentEntityProjectIdentifier:
+          type: string
+          description: Project identifier of parent entity.
+        repoName:
+          type: string
+          description: Repository name.
     UpdateProjectRequest:
       description: Update project request
       type: object
@@ -4746,7 +6323,9 @@ components:
               description: Path of the key file
             encrypted_passphrase:
               type: string
-              description: This is the passphrase provided while creating the SSH key for local encryption
+              description: >-
+                This is the passphrase provided while creating the SSH key for
+                local encryption
           required:
             - type
             - username
@@ -4776,7 +6355,9 @@ components:
               description: SSH key
             encrypted_passphrase:
               type: string
-              description: This is the passphrase provided while creating the SSH key for local encryption
+              description: >-
+                This is the passphrase provided while creating the SSH key for
+                local encryption
           required:
             - type
             - username
@@ -4903,7 +6484,9 @@ components:
               enum:
                 - Inline
                 - Reference
-              description: This has details to specify if the secret value is inline or referenced
+              description: >-
+                This has details to specify if the secret value is inline or
+                referenced
             value:
               type: string
               description: Value of the Secret
@@ -5057,7 +6640,7 @@ components:
         identifier:
           type: string
           minLength: 1
-          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$-]{0,127}$'
           description: Secret identifier
           maxLength: 128
         org:
@@ -5219,7 +6802,9 @@ components:
         enabled:
           type: boolean
           default: false
-          description: 'If true, it will allow all the IPs that are part of the config and block others.'
+          description: >-
+            If true, it will allow all the IPs that are part of the config and
+            block others.
         tags:
           type: object
           additionalProperties:
@@ -5283,23 +6868,33 @@ components:
       properties:
         allowed_for_custom_block:
           type: boolean
-          description: This indicates if given IP Address lies in range of custom IP block or not.
+          description: >-
+            This indicates if given IP Address lies in range of custom IP block
+            or not.
         allowlisted_configs:
           type: array
-          description: |
-            This is the list of IP configs configured in Harness from which IP address is allowed. This is empty in case of custom IP address block.
+          description: >
+            This is the list of IP configs configured in Harness from which IP
+            address is allowed. This is empty in case of custom IP address
+            block.
           items:
             $ref: '#/components/schemas/IPAllowlistConfigResponse'
         allowed_for_ui:
           type: boolean
-          description: This indicates if a given IP is allowlisted in Harness for UI requests
+          description: >-
+            This indicates if a given IP is allowlisted in Harness for UI
+            requests
         allowed_for_api:
           type: boolean
-          description: This indicates if a given IP is allowlisted in Harness for API requests
+          description: >-
+            This indicates if a given IP is allowlisted in Harness for API
+            requests
         disabled_allowlisted_configs:
           type: array
-          description: |
-            This is the list of IP configs configured in Harness from which IP address is allowed but the config is disabled. This is empty in case of custom IP address block.
+          description: >
+            This is the list of IP configs configured in Harness from which IP
+            address is allowed but the config is disabled. This is empty in case
+            of custom IP address block.
           items:
             $ref: '#/components/schemas/IPAllowlistConfigResponse'
     ManifestsResponseDTO:
@@ -5311,7 +6906,9 @@ components:
           description: List of Manifest Identifiers
           items:
             type: string
-      description: ManifestsResponseDTO returns a list of manifest identifiers from a service's eligible primary manifests.
+      description: >-
+        ManifestsResponseDTO returns a list of manifest identifiers from a
+        service's eligible primary manifests.
       x-internal: false
       x-examples:
         Example 1:
@@ -5327,6 +6924,7 @@ components:
       properties:
         webhook_identifier:
           type: string
+          pattern: '^[a-zA-Z_][0-9a-zA-Z_$]{0,127}$'
         repo_name:
           type: string
         connector_ref:
@@ -5337,6 +6935,7 @@ components:
             type: string
         webhook_name:
           type: string
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
     CreateGitXWebhookResponse:
       title: CreateGitXWebhookResponse
       x-stoplight:
@@ -5448,6 +7047,10 @@ components:
           type: integer
           x-stoplight:
             id: gp3tw3rci44n0
+        branch:
+          type: string
+          x-stoplight:
+            id: yaxr6jkdztqyq
     DeleteGitXWebhookResponse:
       title: DeleteGitXWebhookResponse
       x-stoplight:
@@ -5684,7 +7287,9 @@ components:
           type: string
           x-stoplight:
             id: xmkfxyqoijdcd
-          description: Certificate Content (Read only field whose value is populated only in response)
+          description: >-
+            Certificate Content (Read only field whose value is populated only
+            in response)
           readOnly: true
         tags:
           type: object
@@ -5732,7 +7337,9 @@ components:
                 id: 67cnzqv4oarfk
           required:
             - value
-      description: This DTO defines the fields required when creating a certificate by passing it as text.
+      description: >-
+        This DTO defines the fields required when creating a certificate by
+        passing it as text.
       x-discriminator-value: TEXT
     FileCertificateInputSpecDTO:
       title: FileCertificateInputSpecDTO
@@ -5740,7 +7347,9 @@ components:
         id: lzs8geqg3peyv
       allOf:
         - $ref: '#/components/schemas/CertificateInputSpecDTO'
-      description: This DTO defines the fields required when creating a certificate by passing it as text.
+      description: >-
+        This DTO defines the fields required when creating a certificate by
+        passing it as text.
       x-discriminator-value: FILE
     CertificateResponseDTO:
       title: CertificateResponseDTO
@@ -5816,6 +7425,81 @@ components:
           type: string
           x-stoplight:
             id: 1ll9qrdntms7o
+    BannerDTO:
+      title: BannerDTO
+      x-stoplight:
+        id: bjkd0178m4ic6
+      type: object
+      description: This is the request dto to create a Banner in Harness
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: izz4aokqklu02
+        identifier:
+          type: string
+          x-stoplight:
+            id: ext4ub1eyfa2d
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: o1bqftrzgja8o
+          default: false
+        intent:
+          $ref: '#/components/schemas/BannerIntent'
+        title:
+          type: string
+          x-stoplight:
+            id: f13e2ake7hr2e
+          maxLength: 80
+          description: Banner Title with max length 80
+        message:
+          type: string
+          x-stoplight:
+            id: 8kabcedzxhhao
+          maxLength: 250
+          description: Banner Message with max length 250
+        callToActions:
+          type: object
+          x-stoplight:
+            id: gjergkzmibzw3
+      required:
+        - name
+        - identifier
+        - intent
+        - title
+        - message
+    BannerIntent:
+      title: BannerIntent
+      x-stoplight:
+        id: 0lz494izh75cr
+      type: string
+      enum:
+        - INFORMATIONAL
+        - HIGH
+        - MEDIUM
+        - LOW
+      description: enum for "intent" field in BannerDTO
+    BannerResponseDTO:
+      title: BannerResponseDTO
+      x-stoplight:
+        id: 8farxrnz2d6o3
+      type: object
+      properties:
+        banner:
+          $ref: '#/components/schemas/BannerDTO'
+        created:
+          type: integer
+          x-stoplight:
+            id: w5vpxgir9xee8
+          format: int64
+        updated:
+          type: integer
+          x-stoplight:
+            id: 6wuncr0735opi
+          format: int64
+      required:
+        - banner
     LdapSettingsDTO:
       title: LdapSettingsDTO
       x-stoplight:
@@ -6328,6 +8012,949 @@ components:
           type: string
         branch:
           type: string
+    PrometheusRequestBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Prometheus query to be executed
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+        connectorInfoDTO:
+          $ref: '#/components/schemas/ConnectorInfoDTO'
+    ConnectorInfoDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        identifier:
+          type: string
+        description:
+          type: string
+        accountIdentifier:
+          type: string
+        orgIdentifier:
+          type: string
+        projectIdentifier:
+          type: string
+        type:
+          type: string
+        spec:
+          type: object
+          properties:
+            url:
+              type: string
+            username:
+              type: string
+            passwordRef:
+              type: string
+            headers:
+              type: array
+              items:
+                type: object
+            delegateSelectors:
+              type: array
+              items:
+                type: string
+        uniqueId:
+          type: string
+        parentUniqueId:
+          type: string
+    ListGitXWebhookBranchesDTO:
+      title: ListGitXWebhookBranchesDTO
+      x-stoplight:
+        id: uz8rg7ns5igqa
+      type: object
+      x-examples: {}
+      properties:
+        branches:
+          type: array
+          x-stoplight:
+            id: zvzsd37einxjd
+          items:
+            x-stoplight:
+              id: tlfvydcm6psya
+            type: string
+    WebhookResponse:
+      title: WebhookResponse
+      x-stoplight:
+        id: qp85gbelru04a
+      type: object
+      description: 'Contains information about the webhooks '
+      properties:
+        webhook_identifier:
+          type: string
+          x-stoplight:
+            id: ca15qky0ubhp0
+        webhook_name:
+          type: string
+          x-stoplight:
+            id: akdk55si8n2t5
+        is_enabled:
+          type: boolean
+          x-stoplight:
+            id: yxa6x7c817cpi
+        event_trigger_time:
+          type: integer
+          x-stoplight:
+            id: s5gogy1jeqrxg
+          format: int64
+        spec:
+          $ref: '#/components/schemas/WebhookResponseSpec'
+    ListWebhookRequest:
+      title: ListWebhookRequest
+      x-stoplight:
+        id: jx8oxje21olue
+      type: object
+      description: Contains information about the webhook list request
+      properties:
+        webhook_type:
+          type: string
+          x-stoplight:
+            id: upkw62u05iw1k
+          enum:
+            - GIT
+            - GENERIC
+            - SLACK
+            - EVENT_BRIDGE_TRIGGER
+    CreateWebhookRequest:
+      title: CreateWebhookRequest
+      x-stoplight:
+        id: wyugz3znopto1
+      type: object
+      description: Contains information about the webhook creation request
+      required:
+        - webhook_identifier
+        - webhook_name
+        - spec
+      properties:
+        webhook_identifier:
+          type: string
+          pattern: '^[0-9a-zA-Z-_ ]{0,127}$'
+        webhook_name:
+          type: string
+        spec:
+          $ref: '#/components/schemas/WebhookSpec'
+    CreateWebhookResponse:
+      title: CreateWebhookResponse
+      x-stoplight:
+        id: yak0fnugfnazi
+      type: object
+      description: 'Contains information about the webhook creation '
+      properties:
+        webhook_identifier:
+          type: string
+          x-stoplight:
+            id: 48gdql1ypcu24
+    UpdateWebhookRequest:
+      title: UpdateWebhookRequest
+      x-stoplight:
+        id: bcygq1n9977fe
+      type: object
+      description: 'Contains information about the webhook updation '
+      required:
+        - webhook_name
+        - is_enabled
+        - spec
+      properties:
+        webhook_name:
+          type: string
+          x-stoplight:
+            id: neynteoeg0mp2
+        is_enabled:
+          type: boolean
+          x-stoplight:
+            id: 0s3sv7cnssgfa
+        spec:
+          $ref: '#/components/schemas/WebhookSpec'
+    UpdateWebhookResponse:
+      title: UpdateWebhookResponse
+      x-stoplight:
+        id: 53ifddpwomu03
+      type: object
+      properties:
+        webhook_identifier:
+          type: string
+          x-stoplight:
+            id: ilve5xc00itqc
+      description: 'Contains information about the webhook updation '
+    WebhookSpec:
+      title: WebhookSpec
+      type: object
+      description: Details of the Webhook defined in Harness
+      x-stoplight:
+        id: flbjcalbbs9ui
+      discriminator:
+        propertyName: webhook_type
+        mapping:
+          GIT: '#/components/schemas/GitWebhookSpec'
+          GENERIC: '#/components/schemas/GenericWebhookSpec'
+          SLACK: '#/components/schemas/SlackWebhookSpec'
+      properties:
+        webhook_type:
+          type: string
+          x-stoplight:
+            id: zbdq4istt2a2f
+          enum:
+            - GIT
+            - GENERIC
+            - SLACK
+    GitWebhookSpec:
+      title: GitWebhookSpec
+      x-discriminator-value: GIT
+      x-stoplight:
+        id: trz0qbwvx7k1i
+      allOf:
+        - $ref: '#/components/schemas/WebhookSpec'
+        - x-stoplight:
+            id: 6gu0t0qgjboz5
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: wxi9pj91fywzj
+              enum:
+                - GIT
+            connector_ref:
+              type: string
+              x-stoplight:
+                id: 2vissvp1jw3an
+            repo_name:
+              type: string
+              x-stoplight:
+                id: k9u93n1c4y0l6
+            folder_paths:
+              type: array
+              x-stoplight:
+                id: 4b4jeap1ifget
+              items:
+                x-stoplight:
+                  id: 1gu5k09urni8k
+                type: string
+      description: Details of the Git Webhook defined in Harness
+    GenericWebhookSpec:
+      title: GenericWebhookSpec
+      x-discriminator-value: GENERIC
+      x-stoplight:
+        id: bjiw082j0w14h
+      description: Details of the Git Webhook Response defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/WebhookSpec'
+        - x-stoplight:
+            id: biqu7kl6qreuy
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: 6hsv7lbktirfd
+              enum:
+                - GENERIC
+            auth_spec:
+              type: object
+              $ref: '#/components/schemas/GenericWebhookAuthSpec'
+    GenericWebhookAuthSpec:
+      title: GenericWebhookAuthSpec
+      x-stoplight:
+        id: pztsx6mhts2mu
+      type: object
+      description: Details of Authentication for Generic Webhook defined in Harness
+      discriminator:
+        propertyName: auth_type
+        mapping:
+          Hmac: '#/components/schemas/HmacAuthSpec'
+          NoAuth: '#/components/schemas/NoAuthSpec'
+      properties:
+        auth_type:
+          x-stoplight:
+            id: wwgviivc5ne1g
+          type: string
+          enum:
+            - NoAuth
+            - Hmac
+    HmacAuthSpec:
+      title: HmacAuthSpec
+      x-discriminator-value: Hmac
+      x-stoplight:
+        id: 68e0228wlnywm
+      description: Details of HMAC Authentication for Generic Webhook defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/GenericWebhookAuthSpec'
+        - x-stoplight:
+            id: a33mm0webcei4
+        - type: object
+          properties:
+            auth_type:
+              type: string
+              x-stoplight:
+                id: k4oztsz98ooav
+              enum:
+                - Hmac
+            header:
+              type: string
+              x-stoplight:
+                id: 12s5qh848c633
+            secret_key:
+              type: string
+              x-stoplight:
+                id: vwz1xib1kcy2c
+            hash_algorithm:
+              type: string
+              x-stoplight:
+                id: 3d1cnhx2uicyx
+    NoAuthSpec:
+      title: NoAuthSpec
+      x-discriminator-value: NoAuth
+      x-stoplight:
+        id: 68e0228wlnywm
+      allOf:
+        - $ref: '#/components/schemas/GenericWebhookAuthSpec'
+        - x-stoplight:
+            id: a33mm0webcei4
+        - type: object
+          properties:
+            auth_type:
+              type: string
+              x-stoplight:
+                id: k4oztsz98ooav
+              enum:
+                - NoAuth
+    GenericWebhookResponse:
+      title: GenericWebhookResponse
+      x-discriminator-value: GENERIC
+      x-stoplight:
+        id: 1p9ofc5cq7yb6
+      description: Details of the Generic Webhook Response defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/WebhookResponseSpec'
+        - x-stoplight:
+            id: i1gksyzeugz8u
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: 22s2vlv3t9fj5
+              enum:
+                - GENERIC
+            webhook_url:
+              type: string
+              x-stoplight:
+                id: ojhz9wdjeqwbz
+            auth_spec:
+              $ref: '#/components/schemas/GenericWebhookAuthSpec'
+    WebhookResponseSpec:
+      title: WebhookResponseSpec
+      x-stoplight:
+        id: hf8a59m9zplq5
+      type: object
+      description: Details of the Webhook Response defined in Harness
+      discriminator:
+        propertyName: webhook_type
+        mapping:
+          GIT: '#/components/schemas/GitWebhookSpec'
+          GENERIC: '#/components/schemas/GenericWebhookSpec'
+          SLACK: '#/components/schemas/SlackWebhookSpec'
+      properties:
+        webhook_type:
+          type: string
+          x-stoplight:
+            id: ea5q8oze71hsh
+          enum:
+            - GIT
+            - GENERIC
+            - SLACK
+    GitWebhookResponse:
+      title: GitWebhookResponse
+      x-discriminator-value: GIT
+      x-stoplight:
+        id: 6c6sx5s78gbvd
+      description: Details of the Git Webhook Response defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/WebhookResponseSpec'
+        - x-stoplight:
+            id: 7u67s12no6eqs
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: i3u6hd4kywhvr
+              enum:
+                - GIT
+            connector_ref:
+              type: string
+              x-stoplight:
+                id: c5h3wyv7hqczh
+            repo_name:
+              type: string
+              x-stoplight:
+                id: wbd3foe4j6h5c
+            folder_paths:
+              type: array
+              x-stoplight:
+                id: wn4diemka6nzi
+              items:
+                x-stoplight:
+                  id: fh5uhrykr1t11
+                type: string
+    SlackWebhookSpec:
+      title: SlackWebhookSpec
+      x-stoplight:
+        id: jadhjui3txho7
+      description: Details of the Slack Webhook defined in Harness
+      x-discriminator-value: SLACK
+      allOf:
+        - $ref: '#/components/schemas/WebhookSpec'
+        - x-stoplight:
+            id: biqu7kl6qreuy
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: 6hsv7lbktirfd
+              enum:
+                - SLACK
+            auth_spec:
+              type: object
+              $ref: '#/components/schemas/SlackWebhookAuthSpec'
+    SlackWebhookResponse:
+      title: SlackWebhookResponse
+      x-discriminator-value: SLACK
+      x-stoplight:
+        id: 8kwhi2hjdrmbg
+      description: Details of the Slack Webhook Response defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/WebhookResponseSpec'
+        - x-stoplight:
+            id: i1gksyzeugz8u
+        - type: object
+          properties:
+            webhook_type:
+              type: string
+              x-stoplight:
+                id: 22s2vlv3t9fj5
+              enum:
+                - SLACK
+            webhook_url:
+              type: string
+              x-stoplight:
+                id: ojhz9wdjeqwbz
+            auth_spec:
+              $ref: '#/components/schemas/SlackWebhookAuthSpec'
+    SlackWebhookAuthSpec:
+      title: SlackWebhookAuthSpec
+      x-stoplight:
+        id: 7cdpn5p579ldc
+      type: object
+      description: Details of Authentication for Slack Webhook defined in Harness
+      discriminator:
+        propertyName: auth_type
+        mapping:
+          Hmac: '#/components/schemas/SlackHmacAuthSpec'
+          NoAuth: '#/components/schemas/SlackNoAuthSpec'
+      properties:
+        auth_type:
+          x-stoplight:
+            id: wwgviivc5ne1g
+          type: string
+          enum:
+            - NoAuth
+            - Hmac
+    SlackHmacAuthSpec:
+      title: SlackHmacAuthSpec
+      x-discriminator-value: Hmac
+      x-stoplight:
+        id: l57gr481c0yev
+      description: Details of HMAC Authentication for Slack Webhook defined in Harness
+      allOf:
+        - $ref: '#/components/schemas/SlackWebhookAuthSpec'
+        - x-stoplight:
+            id: a33mm0webcei4
+        - type: object
+          properties:
+            auth_type:
+              type: string
+              x-stoplight:
+                id: k4oztsz98ooav
+              enum:
+                - Hmac
+            secret_key:
+              type: string
+              x-stoplight:
+                id: vwz1xib1kcy2c
+    SlackNoAuthSpec:
+      title: SlackNoAuthSpec
+      x-discriminator-value: NoAuth
+      x-stoplight:
+        id: 68e0228wlnywm
+      allOf:
+        - $ref: '#/components/schemas/SlackWebhookAuthSpec'
+        - x-stoplight:
+            id: a33mm0webcei4
+        - type: object
+          properties:
+            auth_type:
+              type: string
+              x-stoplight:
+                id: k4oztsz98ooav
+              enum:
+                - NoAuth
+    LicensedModules:
+      title: LicensedModules
+      x-stoplight:
+        id: 8imv8mxpfibki
+      type: object
+      description: Licensed Modules
+      properties:
+        licensedModules:
+          type: array
+          x-stoplight:
+            id: w7l9vzqme8c8b
+          items:
+            type: object
+            $ref: '#/components/schemas/ModuleType'
+    SubscriptionUsageDTO:
+      title: SubscriptionUsageDTO
+      x-stoplight:
+        id: asbfb0izkw46s
+      type: object
+      description: Total Users Count for the account
+      properties:
+        year:
+          type: integer
+          x-stoplight:
+            id: b17mljsrq4yt3
+        month:
+          type: integer
+          x-stoplight:
+            id: 3btxrzr9lmhvf
+          minimum: 1
+          maximum: 12
+        usage:
+          type: integer
+          x-stoplight:
+            id: ge7d7w7kw47i7
+    ModuleUtilizationDTO:
+      title: ModuleUtilizationDTO
+      x-stoplight:
+        id: 9biptclblynf6
+      type: object
+      properties:
+        moduleType:
+          type: string
+        licenses:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: ytjlqy2qne6lp
+        entitlements:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: h3royjzc0y07x
+        utilization:
+          type: integer
+          format: int64
+          x-stoplight:
+            id: 9jrf8gh467ywv
+        licenseUnit:
+          type: string
+          x-stoplight:
+            id: f7kad5hq31ojb
+        entitlementUnit:
+          type: string
+          x-stoplight:
+            id: qhuu3tdijaw9u
+    PrincipalWithAccessResponse:
+      title: PrincipalWithAccessResponse
+      x-stoplight:
+        id: 0iqrzwy2eac9w
+      type: object
+      properties:
+        totalPrincipals:
+          type: integer
+          x-stoplight:
+            id: 6ab0i1j3hpkme
+        userGroups:
+          type: array
+          x-stoplight:
+            id: fgty89brdsnff
+          items:
+            $ref: '#/components/schemas/UserGroupEntity'
+        serviceAccounts:
+          type: array
+          x-stoplight:
+            id: zh42c3dota9wp
+          items:
+            $ref: '#/components/schemas/PrincipalEntity'
+        orgs:
+          type: array
+          x-stoplight:
+            id: inu3d41xzect0
+          items:
+            x-stoplight:
+              id: 6pyj9v5wp146q
+            type: string
+        projects:
+          type: array
+          x-stoplight:
+            id: c88wnjk59ledb
+          items:
+            x-stoplight:
+              id: mmujpoa5sln83
+            type: array
+            items:
+              x-stoplight:
+                id: ggnmtd6ivokrj
+              type: string
+        usersWithAccess:
+          type: array
+          x-stoplight:
+            id: 9nidfhubhcf7i
+          items:
+            $ref: '#/components/schemas/UserWithAccessEntity'
+        totalPages:
+          type: integer
+          x-stoplight:
+            id: her4f6qotj9h0
+    PrincipalEntity:
+      title: PrincipalEntity
+      x-stoplight:
+        id: asm05p372hcq4
+      type: object
+      properties:
+        identifier:
+          type: string
+          x-stoplight:
+            id: pzzrkgehhya5r
+        accountIdentifier:
+          type: string
+          x-stoplight:
+            id: 0p4tznxz5qjng
+        org:
+          type: string
+          x-stoplight:
+            id: 2p7cnue3epiz3
+        project:
+          type: string
+          x-stoplight:
+            id: 8vf2lmgn5xo4l
+    PrincipalWithAccessFilter:
+      title: PrincipalWithAccessFilter
+      x-stoplight:
+        id: dupdo3pmtijg6
+      type: object
+      properties:
+        principalType:
+          type: string
+          x-stoplight:
+            id: 3unmqy95qmlzt
+        userGroups:
+          type: array
+          x-stoplight:
+            id: 9n26db88ry5nc
+          items:
+            $ref: '#/components/schemas/PrincipalEntity'
+        orgs:
+          type: array
+          x-stoplight:
+            id: 7r6jrob5jmbc8
+          items:
+            x-stoplight:
+              id: kp39q44vlmrxm
+            type: string
+        projects:
+          type: array
+          x-stoplight:
+            id: 1g91pml71htb9
+          items:
+            x-stoplight:
+              id: jhj18lqilh4rs
+            type: array
+            items:
+              x-stoplight:
+                id: z9464nu0fsja6
+              type: string
+    UserGroupEntity:
+      title: UserGroupEntity
+      x-stoplight:
+        id: b8w2br3njf3cn
+      type: object
+      properties:
+        identifier:
+          type: string
+          x-stoplight:
+            id: xx6q3dtm4c5hz
+        accountIdentifier:
+          type: string
+          x-stoplight:
+            id: 305th55frjrg9
+        org:
+          type: string
+          x-stoplight:
+            id: 7y6bvcurxzf81
+        project:
+          type: string
+          x-stoplight:
+            id: xi4hb24q1vdmx
+        userCount:
+          type: integer
+          x-stoplight:
+            id: jfu0h1fgjls12
+    DailyModuleAccountAccessDTO:
+      title: DailyModuleAccountAccessDTO
+      x-stoplight:
+        id: 0fm4v5k2zryjx
+      type: object
+      description: Information about accounts which have access to a module (Developer 360)
+      x-tags:
+        - DailyModuleAccountAccessDTO
+      properties:
+        day:
+          type: integer
+          x-stoplight:
+            id: bjaedycec1m4e
+          format: int32
+        month:
+          type: integer
+          x-stoplight:
+            id: 97ro4vatizg98
+          format: int32
+        year:
+          type: integer
+          x-stoplight:
+            id: iac0h8hhs590q
+          format: int32
+        userAccountCount:
+          type: integer
+          x-stoplight:
+            id: d2ilgqnafs236
+          format: int64
+        serviceAccountCount:
+          type: integer
+          x-stoplight:
+            id: ufyo6wcsrl7ya
+          format: int64
+    OidcProviderDTO:
+      title: OidcProviderDTO
+      x-stoplight:
+        id: a5xmcfu1j1fju
+      type: object
+      description: Details about the OIDC provider
+      properties:
+        identifier:
+          type: string
+          x-stoplight:
+            id: gsym6jqr1i73y
+        name:
+          type: string
+          x-stoplight:
+            id: f7z4d33clyz4k
+        scope:
+          type: array
+          x-stoplight:
+            id: mei65fkn9qrhh
+          items:
+            x-stoplight:
+              id: dcxrlqmfym2a2
+            type: string
+        response_type:
+          type: string
+          x-stoplight:
+            id: kxv7d8amk3txa
+          enum:
+            - code
+        issuer:
+          type: string
+          x-stoplight:
+            id: u95v85rmzlwq1
+        discovery:
+          type: boolean
+          x-stoplight:
+            id: 9ktoaz5mxqa2s
+        uid_field:
+          type: string
+          x-stoplight:
+            id: 9u85v2mrk9y1h
+        send_scope_to_token_endpoint:
+          type: boolean
+          x-stoplight:
+            id: 8v8u9e7dvyngp
+        pkce:
+          type: boolean
+          x-stoplight:
+            id: 1widmung9ibyp
+        clientConfig:
+          $ref: '#/components/schemas/OidcClientConfigDTO'
+        jitConfig:
+          $ref: '#/components/schemas/OidcJitConfigDTO'
+        authorizationConfig:
+          $ref: '#/components/schemas/OidcAuthorizationConfigDTO'
+    OidcClientConfigDTO:
+      title: OidcClientConfigDTO
+      x-stoplight:
+        id: 2kdbp946t6kg9
+      type: object
+      properties:
+        identifier:
+          type: string
+          x-stoplight:
+            id: 0in5oe66k7nvn
+        secretRef:
+          x-stoplight:
+            id: eyxi8k6edrkfm
+          type: string
+        redirect_uri:
+          type: string
+          x-stoplight:
+            id: 3bq833hvcnz1v
+        authorization_endpoint:
+          type: string
+          x-stoplight:
+            id: 5iklodf33c02u
+        token_endpoint:
+          type: string
+          x-stoplight:
+            id: 5xgvlfqxyp4le
+        jwks_uri:
+          type: string
+          x-stoplight:
+            id: p1xko0sc5hw9s
+        userinfo_endpoint:
+          type: string
+          x-stoplight:
+            id: q410k8i8p3vgq
+    OidcJitConfigDTO:
+      title: OidcJITConfigDTO
+      x-stoplight:
+        id: hqnlr9yhe6gv0
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          x-stoplight:
+            id: ouiufzrdoe9ep
+        claim_key:
+          type: string
+          x-stoplight:
+            id: op7r7p3feip94
+        claim_value:
+          type: string
+          x-stoplight:
+            id: ojfdm29mn1p1o
+    SLONotificationDTO:
+      title: SLONotificationDTO
+      x-stoplight:
+        id: qyuapp5pfrkjw
+      type: object
+      properties:
+        rule_org_id:
+          type: string
+          x-stoplight:
+            id: rcw4qilpfyuvl
+        rule_project_id:
+          type: string
+          x-stoplight:
+            id: urybiyxpmulev
+        slo_org_id:
+          type: string
+          x-stoplight:
+            id: nhkb8dwys5frx
+        slo_project_id:
+          type: string
+          x-stoplight:
+            id: lmbq839felmiw
+        slo_name:
+          type: string
+          x-stoplight:
+            id: rq7nmyt0leopv
+        entity_identifier:
+          type: string
+          x-stoplight:
+            id: zyzk78pxq3h0o
+        event_template_identifier:
+          type: string
+          x-stoplight:
+            id: 5xtcpb4a02yaz
+        correlation_id:
+          type: string
+          x-stoplight:
+            id: nipy6xp3su79o
+    OidcAuthorizationConfigDTO:
+      title: OidcAuthorizationConfigDTO
+      x-stoplight:
+        id: s28hwq548wp3e
+      type: object
+      properties:
+        groupClaim:
+          type: string
+          x-stoplight:
+            id: sskwxc1e7xlsd
+        authorizationEnabled:
+          type: boolean
+          x-stoplight:
+            id: xcm08wzh01dfz
+    Team:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The team ID.
+        name:
+          type: string
+          description: The team name.
+    Enterprise:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+          description: The enterprise ID.
+        name:
+          type: string
+          description: The enterprise name.
+        domain:
+          type: string
+          description: The enterprise domain.
+    AuthedUser:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the authenticated user.
+        username:
+          type: string
+          description: The username of the authenticated user.
+        email:
+          type: string
+          description: The email address of the authenticated user.
+    RancherClusterItem:
+      title: RancherClusterItem
+      description: Represents a Rancher-managed cluster with details like ID and name.
+      type: object
+      properties:
+        clusters:
+          type: array
+          items:
+            type: string
+        clusterItems:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -7126,14 +9753,7 @@ components:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              type: string
-          examples:
-            Example 1:
-              value:
-                - cluster1
-                - cluster2
+            $ref: '#/components/schemas/RancherClusterItem'
       headers:
         X-Total-Elements:
           schema:
@@ -7181,7 +9801,9 @@ components:
           schema:
             $ref: '#/components/schemas/BatchReleaseDetailsResponse'
     ManifestsResponseDTO:
-      description: Response containing a list of eligible manifest identifiers that can be applied as primary manifest.
+      description: >-
+        Response containing a list of eligible manifest identifiers that can be
+        applied as primary manifest.
       content:
         application/json:
           schema:
@@ -7310,6 +9932,41 @@ components:
             Example 1:
               value:
                 webhook_identifier: <IDENTIFIER>
+    BannerResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BannerResponseDTO'
+    BannerListResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/BannerResponseDTO'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: string
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: string
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: string
+          description: Maximum page size in Paginated response.
+    BannerBooleanResponse:
+      description: >-
+        This Response body is used in validate banner identifier endpoint &
+        /v1/banners/allowed
+      content:
+        application/json:
+          schema:
+            type: boolean
     CertificateResponse:
       description: Example response
       content:
@@ -7402,6 +10059,150 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/GetGitXWebhookEventFileValidationResponse'
+    PrometheusMetricsResponse:
+      type: object
+      additionalProperties:
+        type: object
+    ListGitXWebhookBranchesResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListGitXWebhookBranchesDTO'
+    ListWebhookResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/WebhookResponse'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    CreateWebhookResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateWebhookResponse'
+      headers: {}
+    GetWebhookResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/WebhookResponse'
+    UpdateWebhookResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateWebhookResponse'
+    OidcProviderResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OidcProviderDTO'
+    OidcProvidersResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/OidcProviderDTO'
+    MsTeamsTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            properties:
+              token_type:
+                type: string
+                enum:
+                  - Bearer
+              scope:
+                type: string
+              expires_in:
+                type: integer
+              ext_expires_in:
+                type: integer
+              access_token:
+                type: string
+              refresh_token:
+                type: string
+    ConfluenceTokenResponse:
+      description: Confluence Token Response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+              scope:
+                type: string
+              expires_in:
+                type: integer
+              token_type:
+                type: string
+              refresh_token:
+                type: string
+    SlackTokenResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            properties:
+              ok:
+                type: boolean
+                description: Indicates whether the request was successful.
+              app_id:
+                type: string
+                description: The ID of the Slack application.
+              authed_user:
+                type: object
+                description: The authenticated user details.
+                $ref: '#/components/schemas/AuthedUser'
+              scope:
+                type: string
+                description: The scopes granted to the application.
+              token_type:
+                type: string
+                description: The type of token issued.
+              access_token:
+                type: string
+                description: The access token for the application.
+              bot_user_id:
+                type: string
+                description: The bot user ID associated with the token.
+              refresh_token:
+                type: string
+                description: The refresh token for the application.
+              expires_in:
+                type: integer
+                description: The number of seconds until the token expires.
+              team:
+                description: The team information.
+                $ref: '#/components/schemas/Team'
+              enterprise:
+                $ref: '#/components/schemas/Enterprise'
+                description: Enterprise details if available.
+              is_enterprise_install:
+                type: boolean
+                description: Indicates if the installation is for an enterprise.
   requestBodies:
     ServiceCreateRequest:
       content:
@@ -7973,7 +10774,7 @@ components:
             Example 1:
               value:
                 secret_manager_identifier: prod_sm_one
-                secret_ref_path: path1/path2#key
+                secret_ref_path: 'path1/path2#key'
       description: Details of the secret reference
     IPAllowlistConfigRequest:
       content:
@@ -8048,6 +10849,11 @@ components:
           schema:
             $ref: '#/components/schemas/UpdateGitXWebhookEventRequest'
       description: Update GitX Webhook Event Request
+    CreateBannerRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BannerDTO'
     CreateCertificateRequest:
       content:
         application/json:
@@ -8325,6 +11131,43 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/LdapTestLoginRequestDTO'
+    ListWebhookRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListWebhookRequest'
+      description: List webhooks request
+    CreateWebhookRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateWebhookRequest'
+      description: Create webhook request
+    UpdateWebhookRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            $ref: '#/components/schemas/UpdateWebhookRequest'
+      description: Update webhook request
+    UpdateBannerRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BannerDTO'
+      description: Request body when updating respective Banner.
+    OidcProviderRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OidcProviderDTO'
+    GitEntityFindInfoRequestBody:
+      description: Optional Git synchronization details for filtering primary manifests.
+      required: false
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GitEntityFindInfoDTO'
   parameters:
     Page:
       name: page
@@ -8349,14 +11192,18 @@ components:
       required: false
       schema:
         type: boolean
-      description: Enable this field to fetch only the entities that are marked as favorites.
+      description: >-
+        Enable this field to fetch only the entities that are marked as
+        favorites.
     SearchTerm:
       name: search_term
       in: query
       required: false
       schema:
         type: string
-      description: This would be used to filter resources having attributes matching with search term.
+      description: >-
+        This would be used to filter resources having attributes matching with
+        search term.
     ResourceId:
       name: resource_id
       in: query
@@ -8370,7 +11217,10 @@ components:
       required: false
       schema:
         type: string
-      description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
+      description: >-
+        Identifier field of the account the resource is scoped to. This is
+        required for Authorization methods other than the x-api-key header. If
+        you are using the x-api-key header, this can be skipped.
     ForceDelete:
       name: forceDelete
       in: query
@@ -8378,6 +11228,13 @@ components:
         type: boolean
         default: false
       description: Enable this field to force delete the entity
+    OidcProviderId:
+      name: providerIdentifier
+      in: path
+      schema:
+        type: string
+      required: true
+      description: ProviderId of the OIDC provider
     OrgsQueryParam:
       name: org
       in: query
@@ -8534,21 +11391,27 @@ components:
       required: true
       schema:
         type: string
-      description: Identifier field of the scoped connector entity to be used for this operation.
+      description: >-
+        Identifier field of the scoped connector entity to be used for this
+        operation.
     EnvironmentPathParam:
       name: environment
       in: path
       required: true
       schema:
         type: string
-      description: Identifier field of the scoped environment entity to be used for the selected operation.
+      description: >-
+        Identifier field of the scoped environment entity to be used for the
+        selected operation.
     InfrastructureDefinitionPathParam:
       name: infrastructure-definition
       in: path
       required: true
       schema:
         type: string
-      description: Identifier field of the scoped infrastructure definition entity to be used in the selected operation.
+      description: >-
+        Identifier field of the scoped infrastructure definition entity to be
+        used in the selected operation.
     GitXWebhookIdentifier:
       name: gitx-webhook
       in: path
@@ -8563,3 +11426,69 @@ components:
       schema:
         type: string
       description: UserGroup Identifier
+    BadRequestResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    PrometheusRequestBody:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Prometheus query to be executed
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        accountId:
+          type: string
+        connectorInfoDTO:
+          $ref: '#/components/schemas/ConnectorInfoDTO'
+    ConnectorInfoDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        identifier:
+          type: string
+        description:
+          type: string
+        accountIdentifier:
+          type: string
+        orgIdentifier:
+          type: string
+        projectIdentifier:
+          type: string
+        type:
+          type: string
+        spec:
+          type: object
+          properties:
+            url:
+              type: string
+            username:
+              type: string
+            passwordRef:
+              type: string
+            headers:
+              type: array
+              items:
+                type: object
+            delegateSelectors:
+              type: array
+              items:
+                type: string
+        uniqueId:
+          type: string
+        parentUniqueId:
+          type: string
+    WebhookIdentifier:
+      name: webhook
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Webhook identifier
