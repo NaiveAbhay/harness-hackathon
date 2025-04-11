@@ -98,6 +98,10 @@
     - Docker Artifacts
     - Helm Artifacts
     - Spaces
+- name: Database DevOps
+  tags:
+    - DBschema
+    - DBinstance
 - name: CD
   tags:
       - K8s Release Service Mapping
