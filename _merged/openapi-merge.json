@@ -187,6 +187,12 @@
       }
     },
     {
+      "inputURL": "https://app.harness.io/prod1/dbops/swagger.json",
+      "dispute": {
+        "prefix": "DbOps"
+      }
+    },
+    {
       "inputFile": "../sei/openapi.yaml"
     },
     {
