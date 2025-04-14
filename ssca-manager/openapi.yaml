@@ -10073,12 +10073,12 @@ components:
             x-stoplight:
               id: tg81kj7kvnpml
             type: string
-            auto_infra:
-              type: array
-              x-stoplight:
-                id: fb4ax8u61g502
-              items:
-                $ref: '#/components/schemas/InfraLayout'
+        auto_infra:
+          type: array
+          x-stoplight:
+            id: fb4ax8u61g502
+          items:
+            $ref: '#/components/schemas/InfraLayout'
     IntegrationStepConfigRequestBody:
       title: IntegrationStepConfigRequestBody
       x-stoplight:
