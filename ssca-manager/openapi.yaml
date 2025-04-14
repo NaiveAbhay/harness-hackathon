@@ -7900,6 +7900,10 @@ components:
           type: string
           x-stoplight:
             id: 0rxqrs8wzvqk7
+        size:
+          type: string
+          x-stoplight:
+            id: 0rxqrs8wfvqk7   
     IntegrationType:
       title: IntegrationType
       x-stoplight:
