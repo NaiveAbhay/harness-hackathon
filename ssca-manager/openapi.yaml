@@ -7900,6 +7900,10 @@ components:
           type: string
           x-stoplight:
             id: 0rxqrs8wzvqk7
+        size:
+          type: string
+          x-stoplight:
+            id: 0rxqrs8wfvqk7   
     IntegrationType:
       title: IntegrationType
       x-stoplight:
@@ -10069,6 +10073,12 @@ components:
             x-stoplight:
               id: tg81kj7kvnpml
             type: string
+        auto_infra:
+          type: array
+          x-stoplight:
+            id: fb4ax8u61g502
+          items:
+            $ref: '#/components/schemas/InfraLayout'
     IntegrationStepConfigRequestBody:
       title: IntegrationStepConfigRequestBody
       x-stoplight:
@@ -10086,7 +10096,29 @@ components:
           x-stoplight:
             id: 660988p2kqc1a
           items:
-            $ref: '#/components/schemas/IntegrationStepConfig'                       
+            $ref: '#/components/schemas/IntegrationStepConfig'
+    InfraLayout:
+      title: InfraLayout
+      x-stoplight:
+        id: 0bf1jtp5gxi7w
+      type: object
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: 59o9qqs6a07yt
+        cpu:
+          type: string
+          x-stoplight:
+            id: 50gznrzb2jy9z
+        memory:
+          type: string
+          x-stoplight:
+            id: 1oifzqpxfsiny
+        repo_size:
+          type: string
+          x-stoplight:
+            id: 9pfwbmeham6y1                               
     ComplianceStandardsFilterEntity:
       title: ComplianceStandardsFilterEntity
       x-stoplight:
