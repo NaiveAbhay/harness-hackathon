@@ -11791,4 +11791,3 @@ components:
       schema:
         type: integer
       description: Maximum page size in Paginated response.
-
