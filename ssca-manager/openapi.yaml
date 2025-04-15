@@ -3878,7 +3878,7 @@ paths:
     post:
       summary: Save Integration Config
       tags:
-        - IntegrationsConfig
+        - PipelineInfraConfig
       responses:
         '200':
           description: OK
@@ -3887,6 +3887,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: saveIntegrationConfig
+      x-internal: false
       x-stoplight:
         id: ayp05ppewni05
       parameters:
