@@ -3876,7 +3876,7 @@ paths:
       x-internal: false
   /v1/ssca-config/integrations:
     post:
-      summary: Save Integration Config
+      summary: Configure your scan frequency
       tags:
         - PipelineInfraConfig
       responses:
