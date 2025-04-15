@@ -100,8 +100,11 @@
     - Spaces
 - name: Database DevOps
   tags:
-    - DBschema
-    - DBinstance
+    - Database Schema
+    - Database Instance
+    - Deployed State
+    - Execution Config
+    - Migration State
 - name: CD
   tags:
       - K8s Release Service Mapping
