@@ -2556,6 +2556,31 @@ paths:
         - ComplianceResultsV2
       x-stoplight:
         id: sjyebgk7vdobd
+  /v1/ssca-config/integrations:
+    post:
+      summary: Save Integration Config
+      tags:
+        - IntegrationsConfig
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: saveIntegrationConfig
+      x-stoplight:
+        id: ayp05ppewni05
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        description: Save Integration Config Request Body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationConfigRequestBody'      
   '/v1/orgs/{org}/projects/{project}/compliance-standards/list':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -9263,6 +9288,30 @@ components:
           x-stoplight:
             id: 55r1eicwd51tm
           format: int64
+    IntegrationConfigRequestBody:
+      title: IntegrationConfigRequestBody
+      x-stoplight:
+        id: uta1hy2bk34s3
+      type: object
+      required:
+        - cron_expression
+      properties:
+        org:
+          type: string
+          x-stoplight:
+            id: ugaig2wwl9kfo
+        project:
+          type: string
+          x-stoplight:
+            id: 4mopq9ilj38pb
+        cron_expression:
+          type: string
+          x-stoplight:
+            id: 5e1dl69h39k6j
+        allow_override:
+          type: boolean
+          x-stoplight:
+            id: wmfezfo2dzz2g      
     CodeRepoRulesEvaluation:
       title: CodeRepoRulesEvaluation
       x-stoplight:
