@@ -5198,8 +5198,10 @@ components:
       properties:
         org:
           type: string
+          description: If the org name is not provided, it uses account-level infra 
         project:
           type: string
+          description: If the project name is not provided, it uses org-level infra
         spec:
           type: string
           description: Define the configuration of your Kubernetes infrastructure in JSON format.
@@ -9299,10 +9301,12 @@ components:
       properties:
         org:
           type: string
+          description: If the org name is not provided, it uses account-level scan 
           x-stoplight:
             id: ugaig2wwl9kfo
         project:
           type: string
+          description: If the project name is not provided, it uses org-level scan
           x-stoplight:
             id: 4mopq9ilj38pb
         cron_expression:
