@@ -9297,8 +9297,7 @@ components:
         id: uta1hy2bk34s3
       type: object
       required:
-        - cron_expression
-      description:  Quartz expression supported only.  
+        - cron_expression  
       properties:
         org:
           type: string
@@ -9312,6 +9311,7 @@ components:
             id: 4mopq9ilj38pb
         cron_expression:
           type: string
+          description: Quartz expression supported only.
           x-stoplight:
             id: 5e1dl69h39k6j
         allow_override:
