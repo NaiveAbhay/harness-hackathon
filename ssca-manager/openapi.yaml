@@ -5198,13 +5198,13 @@ components:
       properties:
         org:
           type: string
-          description: If the account id is not provided, infra is set at account-level. 
+          description: If the org id is not provided, infra is set at account-level. 
         project:
           type: string
           description: If the project id is not provided, infra is set at org-level.
         spec:
           type: string
-          description: Define the configuration of your Kubernetes infrastructure in JSON format.
+          description: Define the configuration of your infrastructure in JSON format. We now support both Kubernetes and Virtual Machines.
           x-stoplight:
             id: wj3kwuape6zan
         allow_override:
