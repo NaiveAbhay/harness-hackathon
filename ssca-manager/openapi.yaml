@@ -5198,11 +5198,13 @@ components:
       properties:
         org:
           type: string
+          description: If the org id is not provided, infra is set at account-level. 
         project:
           type: string
+          description: If the project id is not provided, infra is set at org-level.
         spec:
           type: string
-          description: Define the configuration of your Kubernetes infrastructure in JSON format.
+          description: Define the configuration of your infrastructure in JSON format. We now support both Kubernetes and Virtual Machines.
           x-stoplight:
             id: wj3kwuape6zan
         allow_override:
@@ -9295,18 +9297,21 @@ components:
         id: uta1hy2bk34s3
       type: object
       required:
-        - cron_expression
+        - cron_expression  
       properties:
         org:
           type: string
+          description: If the org id is not provided, scan is set at account-level.
           x-stoplight:
             id: ugaig2wwl9kfo
         project:
           type: string
+          description: If the project id is not provided, scan is set at org-level.
           x-stoplight:
             id: 4mopq9ilj38pb
         cron_expression:
           type: string
+          description: Quartz expression supported only.
           x-stoplight:
             id: 5e1dl69h39k6j
         allow_override:
