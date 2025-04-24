@@ -41,8 +41,16 @@
 - name: Platform
   tags:
       - Accounts
+      - Account Banner
       - AccountSetting
       - Access Control List
+      - Account Webhooks
+      - Org Webhooks
+      - Project Webhooks
+      - Account Banner
+      - Account Licensed Modules
+      - Account License Type
+      - Devops Essentials License Data By Account
       - AuditFilters
       - Audit
       - EULA
