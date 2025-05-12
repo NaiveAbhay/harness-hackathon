@@ -228,6 +228,7 @@
       - LayoutProxy
       - PluginInfo
       - Scores
+      - Entities
 - name: Custom Dashboards
   tags:
       - dashboards

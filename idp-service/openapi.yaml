@@ -1895,6 +1895,284 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/DeleteHomePageLayoutIconRequest'
+  '/v1/entities':
+    post:
+      operationId: create-entity
+      summary: Create a Entity
+      description: Create an Entity.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+        - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
+        - $ref: '#/components/parameters/AccountHeader'
+        - name: convert
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: 'Converts Backstage style YAML to Harness entity YAML'
+        - name: dry_run
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: 'Dry run validation of entity creation'
+      requestBody:
+        $ref: '#/components/requestBodies/EntityRequestBody'
+      responses:
+        '201':
+          $ref: '#/components/responses/EntityResponseBody'
+    get:
+      operationId: get-entities
+      summary: Get Entities
+      description: Get Entities.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/LimitWithRestriction'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/SearchTerm'
+        - name: scopes
+          description: Filter entities on the scopes
+          in: query
+          schema:
+            type: string
+        - name: entity_refs
+          description: 'Entity refs on which the Entities are filtered.'
+          in: query
+          schema:
+            type: string
+        - name: owned_by_me
+          description: 'Filter entities owned by the user and the groups that the user is part of.'
+          in: query
+          schema:
+            type: boolean
+        - name: favorites
+          description: Filter entities that are marked as favorites for the user.
+          in: query
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/KindQueryParam'
+        - name: type
+          description: 'Types on which the Entities are filtered.'
+          in: query
+          schema:
+            type: string
+        - name: owner
+          description: 'Owners on which the Entities are filtered.'
+          in: query
+          schema:
+            type: string
+        - name: lifecycle
+          description: 'Lifecycles on which the Entities are filtered.'
+          in: query
+          schema:
+            type: string
+        - name: tags
+          description: 'Tags on which the Entities are filtered.'
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityResponseBodyList'
+  '/v1/entities/groups':
+    get:
+      operationId: get-entities-groups
+      x-internal: true
+      summary: Get Entities Groups
+      description: Get Entities Groups.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - name: search_on_entities
+          in: query
+          required: false
+          schema:
+            type: string
+          description: This would be used to filter resources having attributes matching the search term on entities
+        - name: search_on_groups
+          in: query
+          required: false
+          schema:
+            type: string
+          description: This would be used to filter resources having attributes matching the search term on groups
+        - name: scopes
+          description: Filter entities on the scopes
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/KindQueryParam'
+        - name: owned_by_me
+          description: Filter entities owned by the user and the groups that the user is part of.
+          in: query
+          schema:
+            type: boolean
+        - name: favorites
+          description: Filter entities that are marked as favorites for the user.
+          in: query
+          schema:
+            type: boolean
+        - name: type
+          description: Types on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: owner
+          description: Owners on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: lifecycle
+          description: Lifecycles on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: tags
+          description: Tags on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/EntitiesGroupsResponseBody'
+  '/v1/entities/convert/{option}':
+    post:
+      operationId: convert-entity
+      summary: Convert a Entity
+      description: Convert an Entity.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - name: option
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - backstage-to-harness
+              - harness-to-backstage
+          description: 'Convert option'
+      requestBody:
+        $ref: '#/components/requestBodies/EntityRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityConvertResponseBody'
+  '/v1/entities/{scope}/{kind}/{identifier}':
+    parameters:
+      - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+      - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
+      - $ref: '#/components/parameters/ScopeParam'
+      - $ref: '#/components/parameters/KindParam'
+      - $ref: '#/components/parameters/IdentifierParam'
+    put:
+      operationId: update-entity
+      summary: Update a Entity
+      description: Update an Entity.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EntityRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityResponseBody'
+    delete:
+      operationId: delete-entity
+      summary: Delete a Entity
+      description: Delete an Entity.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '204':
+          description: No Content
+    get:
+      operationId: get-entity
+      summary: Get Entity
+      description: Get Entity.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityResponseBody'
+  '/v1/entities/kinds':
+    parameters:
+      - $ref: '#/components/parameters/AccountIdentifierQueryParam'
+      - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+      - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
+    get:
+      operationId: get-entities-kinds
+      summary: Get Entities Kinds
+      description: Get Entities Kinds.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityKindsResponseBody'
+  '/v1/entities/filters':
+    parameters:
+      - $ref: '#/components/parameters/AccountIdentifierQueryParam'
+      - $ref: '#/components/parameters/KindQueryParam'
+      - name: scopes
+        description: Filter entities on the scopes
+        in: query
+        schema:
+          type: string
+    get:
+      operationId: get-entities-filters
+      summary: Get Entities Filters
+      description: Get Entities Filters.
+      tags:
+        - Entities
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityFiltersResponseBodyList'
+  /v1/entities/json-schema:
+    parameters:
+      - $ref: '#/components/parameters/KindQueryParam'
+    get:
+      operationId: get-json-schema
+      summary: Get Entities Json Schema
+      description: Get Entities Json Schema.
+      tags:
+        - Entities
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityJsonSchemaResponseBody'
 components:
   schemas:
     BackstageEnvVariable:
@@ -4746,6 +5024,39 @@ components:
           type: string
           x-stoplight:
             id: qvx6zkkojf3z1
+    EntitiesGroups:
+      title: Entities Groups
+      description: Entities Groups
+      type: object
+      properties:
+        org_identifier:
+          type: string
+        org_name:
+          type: string
+        project_identifier:
+          type: string
+        project_name:
+          type: string
+        group_identifier:
+          type: string
+        group_name:
+          type: string
+        group_description:
+          type: string
+        group_icon:
+          type: string
+        order:
+          type: integer
+        workflows:
+          type: array
+          items:
+            type: string
+        total:
+          type: integer
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityResponse'
     GroupRequest:
       title: GroupRequest
       x-stoplight:
@@ -5280,7 +5591,302 @@ components:
           type: string
           x-stoplight:
             id: 3orajqsokg0my
+    EntityRequest:
+      title: Entity Request Body
+      description: Entity Request Body
+      type: object
+      properties:
+        yaml:
+          type: string
+          description: Entity YAML (to be passed as a String).
+      required:
+        - yaml
+    EntityResponse:
+      title: Entity Response Body
+      description: Entity Response Body
+      type: object
+      properties:
+        identifier:
+          type: string
+        entity_ref:
+          type: string
+        orgIdentifier:
+          type: string
+        org_name:
+          type: string
+        projectIdentifier:
+          type: string
+        project_name:
+          type: string
+        scope:
+          type: string
+          enum:
+            - ACCOUNT
+            - ORGANIZATION
+            - PROJECT
+        referenceType:
+          type: string
+          enum:
+            - INLINE
+            - GIT
+        kind:
+          type: string
+          enum:
+            - api
+            - component
+            - group
+            - resource
+            - user
+            - workflow
+        type:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        owner:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        lifecycle:
+          type: string
+        metadata:
+          type: object
+        scorecards:
+          type: object
+          properties:
+            average:
+              type: number
+            scores:
+              type: array
+              items:
+                type: object
+                properties:
+                  scorecard:
+                    type: string
+                  score:
+                    type: number
+                  total_checks:
+                    type: number
+                  passed_checks:
+                    type: number
+        yaml:
+          type: string
+        starred:
+          type: boolean
+        status:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              level:
+                type: string
+              message:
+                type: string
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              org_identifier:
+                type: string
+              org_name:
+                type: string
+              project_identifier:
+                type: string
+              project_name:
+                type: string
+              scope:
+                type: string
+                enum:
+                  - ACCOUNT
+                  - ORGANIZATION
+                  - PROJECT
+              group_identifier:
+                type: string
+              group_name:
+                type: string
+              group_description:
+                type: string
+              group_icon:
+                type: string
+      required:
+        - identifier
+        - entity_ref
+        - scope
+        - referenceType
+        - kind
+        - yaml
+    EntityConvertResponse:
+      title: Entity Convert Body
+      description: Entity Convert Body
+      type: object
+      properties:
+        yaml:
+          type: string
+      required:
+        - yaml
+    EntityKindsResponse:
+      title: Entity Kinds Response Body
+      description: Entity Kinds Response Body
+      type: object
+      properties:
+        kind:
+          type: string
+        display_name:
+          type: string
+        description:
+          type: string
+        total:
+          type: integer
+    EntityFiltersResponse:
+      title: Entity Filters Response Body
+      description: Entity Filters Response Body
+      type: object
+      properties:
+        filter:
+          type: string
+        values:
+          type: object
+    EntityJsonSchemaResponse:
+      title: Entity Json Schema response body
+      description: Entity Json Schema response body
+      type: object
+    EntitiesGroupsResponse:
+      title: Entities Groups Response Body
+      description: Entity Groups Response Body
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            account:
+              type: object
+              properties:
+                with_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntitiesGroups'
+                without_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntityResponse'
+            org:
+              type: object
+              properties:
+                with_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntitiesGroups'
+                without_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntityResponse'
+            project:
+              type: object
+              properties:
+                with_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntitiesGroups'
+                without_group:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/EntityResponse'
+        count:
+          type: object
+          properties:
+            total:
+              type: integer
+            total_owned:
+              type: integer
+            total_starred:
+              type: integer
+            account:
+              type: array
+              items:
+                $ref: '#/components/schemas/EntitiesGroups'
+            org:
+              type: array
+              items:
+                type: object
+                properties:
+                  org_identifier:
+                    type: string
+                  org_name:
+                    type: string
+                  groups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EntitiesGroups'
+            project:
+              type: array
+              items:
+                type: object
+                properties:
+                  org_identifier:
+                    type: string
+                  org_name:
+                    type: string
+                  project_identifier:
+                    type: string
+                  project_name:
+                    type: string
+                  groups:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/EntitiesGroups'
   parameters:
+    AccountIdentifierQueryParam:
+      name: accountIdentifier
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Account identifier
+    OrgIdentifierQueryParam:
+      name: orgIdentifier
+      in: query
+      schema:
+        type: string
+      description: Organization identifier
+    ProjectIdentifierQueryParam:
+      name: projectIdentifier
+      in: query
+      schema:
+        type: string
+      description: Project identifier
+    KindQueryParam:
+      name: kind
+      description: 'Kinds on which the Entities are filtered.'
+      in: query
+      schema:
+        type: string
+    IdentifierParam:
+      name: identifier
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Identifier
+    KindParam:
+      name: kind
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Kind
+    ScopeParam:
+      name: scope
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Scope
     AccountHeader:
       name: Harness-Account
       in: header
@@ -5294,6 +5900,15 @@ components:
       required: false
       schema:
         type: integer
+      description: 'Pagination: Number of items to return'
+    LimitWithRestriction:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
       description: 'Pagination: Number of items to return'
     Page:
       name: page
@@ -5699,6 +6314,37 @@ components:
           schema:
             type: object
             $ref: '#/components/schemas/DeleteHomePageLayoutIconRequest'
+    EntityRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityRequest'
+          examples:
+            example-entity:
+              value:
+                yaml: |
+                  apiVersion: harness.io/v1
+                  kind: component
+                  type: Service
+                  identifier: my-sample-service
+                  name: my-sample-service
+                  owner: sample-owner
+                  spec:
+                    lifecycle: experimental
+                    ownedBy:
+                      - group/sample-group
+                  metadata:
+                    description: My Sample service.
+                    annotations:
+                      backstage.io/source-location: url:https://github.com/sample/sample/tree/main/harness/sample/
+                      backstage.io/techdocs-ref: dir:.
+                    links:
+                      - title: Website
+                        url: http://my-sample-website.com
+                    tags:
+                      - my-sample
+      description: Entity Request Body
   responses:
     BackstageEnvVariableResponse:
       description: Example response
@@ -6279,6 +6925,111 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/CardIconResponse'
+    EntityResponseBody:
+      description: Entity response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EntityResponse'
+    EntityConvertResponseBody:
+      description: Entity convert response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityConvertResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EntityConvertResponse'
+    EntityResponseBodyList:
+      description: List of Entity response body
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityResponse'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityResponse'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+        Total-Owned:
+          schema:
+            type: integer
+          description: Total number of owned entities.
+        Total-Starred:
+          schema:
+            type: integer
+          description: Total number of starred entities.
+    EntityKindsResponseBody:
+      description: Entity Kinds response body
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityKindsResponse'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityKindsResponse'
+    EntityFiltersResponseBodyList:
+      description: List of Entity Filters response body
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityFiltersResponse'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EntityFiltersResponse'
+    EntityJsonSchemaResponseBody:
+      description: Entity Json Schema response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityJsonSchemaResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EntityJsonSchemaResponse'
+    EntitiesGroupsResponseBody:
+      description: Entities Groups response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntitiesGroupsResponse'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/EntitiesGroupsResponse'
+      headers:
+        Total-Owned:
+          schema:
+            type: integer
+          description: Total number of owned entities.
+        Total-Starred:
+          schema:
+            type: integer
+          description: Total number of starred entities.
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -6357,3 +7108,6 @@ tags:
   - name: HomePageLayout
     description: Home Page Layout
     x-displayName: Home Page Layout
+  - name: Entities
+    description: This contains APIs for Entities.
+    x-displayName: 'Entities'
