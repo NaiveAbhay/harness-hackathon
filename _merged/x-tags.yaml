@@ -64,6 +64,9 @@
       - ApiKey
       - Source Code Manager
       - Nextgen Ldap
+      - Notification Channels
+      - Notification Rules
+      - Notification Attachments
       - Harness Resource Type
       - Authentication Settings
       - Permissions
