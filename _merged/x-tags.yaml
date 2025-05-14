@@ -229,6 +229,7 @@
       - PluginInfo
       - Scores
       - Entities
+      - CatalogCustomProperties
 - name: Custom Dashboards
   tags:
       - dashboards
