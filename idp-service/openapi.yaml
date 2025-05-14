@@ -1951,7 +1951,7 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/SearchTerm'
         - name: scopes
-          description: Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)
+          description: 'Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)'
           in: query
           schema:
             type: string
@@ -2024,7 +2024,7 @@ paths:
             type: string
           description: Filter groups by a search term across group attributes
         - name: scopes
-          description: Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)
+          description: 'Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)'
           in: query
           schema:
             type: string
@@ -2180,7 +2180,7 @@ paths:
       - $ref: '#/components/parameters/AccountIdentifierQueryParam'
       - $ref: '#/components/parameters/KindQueryParam'
       - name: scopes
-        description: Filter entities on specific scopes
+        description: 'Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)'
         in: query
         schema:
           type: string
