@@ -231,8 +231,12 @@
       - Entities
       - CatalogCustomProperties
 - name: Custom Dashboards
-  tags:
+  tags: 
+      - aida
       - dashboards
+      - downloads
+      - embed
+      - folders
 - name: Policy Management
   tags:
       - dashboard
