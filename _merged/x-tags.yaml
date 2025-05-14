@@ -228,6 +228,8 @@
       - LayoutProxy
       - PluginInfo
       - Scores
+      - Entities
+      - CatalogCustomProperties
 - name: Custom Dashboards
   tags: 
       - aida
