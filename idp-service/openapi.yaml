@@ -1951,12 +1951,12 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/SearchTerm'
         - name: scopes
-          description: Filter entities by specific scopes (ACCOUNT, ORGANIZATION, PROJECT)
+          description: Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)
           in: query
           schema:
             type: string
         - name: entity_refs
-          description: 'Filter entities by their entity references (comma-separated list)'
+          description: 'Filter entities by their entity references (comma-separated list in the format of kind:scope/identifier)'
           in: query
           schema:
             type: string
@@ -2024,7 +2024,7 @@ paths:
             type: string
           description: Filter groups by a search term across group attributes
         - name: scopes
-          description: Filter entities by specific scopes (ACCOUNT, ORGANIZATION, PROJECT)
+          description: Filter entities by specific scopes (account.*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.*)
           in: query
           schema:
             type: string
@@ -6031,7 +6031,7 @@ components:
       required: true
       schema:
         type: string
-      description: 'Scope of the entity (ACCOUNT, ORGANIZATION, PROJECT)'
+      description: 'Scope of the entity (account, account.orgId, account.orgId.projectId)'
     AccountHeader:
       name: Harness-Account
       in: header
