@@ -1898,8 +1898,12 @@ paths:
   '/v1/entities':
     post:
       operationId: create-entity
-      summary: Create a Entity
-      description: Create an Entity.
+      summary: Create an Entity
+      description: >-
+        Creates a new Entity in the specified scope (Account, Organization, or Project). 
+        Entities are the core components of the catalog system and can represent various 
+        resources such as services, APIs, user groups, and more. Each entity has a specific 
+        kind and type that defines its purpose in the system.
       tags:
         - Entities
       security:
@@ -1914,23 +1918,28 @@ paths:
           schema:
             type: boolean
             default: false
-          description: 'Converts Backstage style YAML to Harness entity YAML'
+          description: 'When set to true, converts Backstage style YAML to Harness entity YAML format'
         - name: dry_run
           in: query
           required: false
           schema:
             type: boolean
             default: false
-          description: 'Dry run validation of entity creation'
+          description: 'When set to true, validates the entity creation without actually creating it'
       requestBody:
         $ref: '#/components/requestBodies/EntityRequestBody'
       responses:
         '201':
           $ref: '#/components/responses/EntityResponseBody'
+          description: Entity successfully created
     get:
       operationId: get-entities
       summary: Get Entities
-      description: Get Entities.
+      description: >-
+        Retrieves a paginated list of Entities based on the provided filters. 
+        This endpoint supports comprehensive filtering options to help you find 
+        specific entities across different scopes, kinds, and other properties.
+        The response includes pagination metadata and counts for owned and favorite entities.
       tags:
         - Entities
       security:
@@ -1942,55 +1951,60 @@ paths:
         - $ref: '#/components/parameters/Sort'
         - $ref: '#/components/parameters/SearchTerm'
         - name: scopes
-          description: Filter entities on the scopes
+          description: Filter entities by specific scopes (ACCOUNT, ORGANIZATION, PROJECT)
           in: query
           schema:
             type: string
         - name: entity_refs
-          description: 'Entity refs on which the Entities are filtered.'
+          description: 'Filter entities by their entity references (comma-separated list)'
           in: query
           schema:
             type: string
         - name: owned_by_me
-          description: 'Filter entities owned by the user and the groups that the user is part of.'
+          description: 'When true, returns only entities owned by the current user or their groups'
           in: query
           schema:
             type: boolean
         - name: favorites
-          description: Filter entities that are marked as favorites for the user.
+          description: When true, returns only entities marked as favorites by the current user
           in: query
           schema:
             type: boolean
         - $ref: '#/components/parameters/KindQueryParam'
         - name: type
-          description: 'Types on which the Entities are filtered.'
+          description: 'Filter entities by their type (e.g., Service, Website)'
           in: query
           schema:
             type: string
         - name: owner
-          description: 'Owners on which the Entities are filtered.'
+          description: 'Filter entities by their owner references'
           in: query
           schema:
             type: string
         - name: lifecycle
-          description: 'Lifecycles on which the Entities are filtered.'
+          description: 'Filter entities by their lifecycle stage (e.g., experimental, production)'
           in: query
           schema:
             type: string
         - name: tags
-          description: 'Tags on which the Entities are filtered.'
+          description: 'Filter entities by their associated tags (comma-separated list)'
           in: query
           schema:
             type: string
       responses:
         '200':
           $ref: '#/components/responses/EntityResponseBodyList'
+          description: List of entities matching the filter criteria
   '/v1/entities/groups':
     get:
       operationId: get-entities-groups
       x-internal: true
       summary: Get Entities Groups
-      description: Get Entities Groups.
+      description: >-
+        Retrieves entities organized in hierarchical groups based on account, organization, 
+        and project. This endpoint is useful for displaying entities in a structured UI view
+        where entities need to be presented in their organizational context. The response contains
+        both grouped and ungrouped entities at each level.
       tags:
         - Entities
       security:
@@ -2002,57 +2016,62 @@ paths:
           required: false
           schema:
             type: string
-          description: This would be used to filter resources having attributes matching the search term on entities
+          description: Filter entities by a search term across entity attributes
         - name: search_on_groups
           in: query
           required: false
           schema:
             type: string
-          description: This would be used to filter resources having attributes matching the search term on groups
+          description: Filter groups by a search term across group attributes
         - name: scopes
-          description: Filter entities on the scopes
+          description: Filter entities by specific scopes (ACCOUNT, ORGANIZATION, PROJECT)
           in: query
           schema:
             type: string
         - $ref: '#/components/parameters/KindQueryParam'
         - name: owned_by_me
-          description: Filter entities owned by the user and the groups that the user is part of.
+          description: When true, returns only entities owned by the current user and their groups
           in: query
           schema:
             type: boolean
         - name: favorites
-          description: Filter entities that are marked as favorites for the user.
+          description: When true, returns only entities marked as favorites by the current user
           in: query
           schema:
             type: boolean
         - name: type
-          description: Types on which the Entities are filtered.
+          description: Filter entities by their type
           in: query
           schema:
             type: string
         - name: owner
-          description: Owners on which the Entities are filtered.
+          description: Filter entities by their owner references
           in: query
           schema:
             type: string
         - name: lifecycle
-          description: Lifecycles on which the Entities are filtered.
+          description: Filter entities by their lifecycle stage
           in: query
           schema:
             type: string
         - name: tags
-          description: Tags on which the Entities are filtered.
+          description: Filter entities by their associated tags
           in: query
           schema:
             type: string
       responses:
         '200':
           $ref: '#/components/responses/EntitiesGroupsResponseBody'
+          description: Entities grouped by organization and project
   '/v1/entities/convert/{option}':
     post:
       operationId: convert-entity
-      summary: Convert a Entity
-      description: Convert an Entity.
+      summary: Convert Entity Format
+      description: >-
+        Converts entity YAML between Backstage and Harness formats. This is useful when 
+        migrating entities between systems or when standardizing entity definitions
+        across different platforms. The conversion preserves all semantic information
+        while adapting to the target format conventions.
       tags:
         - Entities
       security:
@@ -2067,12 +2086,13 @@ paths:
             enum:
               - backstage-to-harness
               - harness-to-backstage
-          description: 'Convert option'
+          description: 'Conversion direction - either convert from Backstage to Harness format or vice versa'
       requestBody:
         $ref: '#/components/requestBodies/EntityRequestBody'
       responses:
         '200':
           $ref: '#/components/responses/EntityConvertResponseBody'
+          description: Entity YAML successfully converted to the target format
   '/v1/entities/{scope}/{kind}/{identifier}':
     parameters:
       - $ref: '#/components/parameters/OrgIdentifierQueryParam'
@@ -2082,8 +2102,12 @@ paths:
       - $ref: '#/components/parameters/IdentifierParam'
     put:
       operationId: update-entity
-      summary: Update a Entity
-      description: Update an Entity.
+      summary: Update an Entity
+      description: >-
+        Updates an existing Entity identified by its scope, kind, and identifier.
+        All fields in the entity definition will be replaced with the new values provided
+        in the request. This operation is idempotent and will create the entity if it
+        doesn't already exist.
       tags:
         - Entities
       security:
@@ -2095,10 +2119,14 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EntityResponseBody'
+          description: Entity successfully updated
     delete:
       operationId: delete-entity
-      summary: Delete a Entity
-      description: Delete an Entity.
+      summary: Delete an Entity
+      description: >-
+        Permanently removes an Entity identified by its scope, kind, and identifier
+        from the system. This operation cannot be undone, so use it with caution.
+        Any references to the deleted entity from other entities will become invalid.
       tags:
         - Entities
       security:
@@ -2107,11 +2135,14 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       responses:
         '204':
-          description: No Content
+          description: Entity successfully deleted with no content returned
     get:
       operationId: get-entity
-      summary: Get Entity
-      description: Get Entity.
+      summary: Get Entity Details
+      description: >-
+        Retrieves the complete details of an Entity identified by its scope, kind, and identifier,
+        including its YAML definition, metadata, and relationships with other entities.
+        This endpoint provides the most comprehensive view of a specific entity.
       tags:
         - Entities
       security:
@@ -2121,6 +2152,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EntityResponseBody'
+          description: Complete entity details successfully retrieved
   '/v1/entities/kinds':
     parameters:
       - $ref: '#/components/parameters/AccountIdentifierQueryParam'
@@ -2128,8 +2160,11 @@ paths:
       - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
     get:
       operationId: get-entities-kinds
-      summary: Get Entities Kinds
-      description: Get Entities Kinds.
+      summary: Get Entity Kinds
+      description: >-
+        Returns a list of all supported Entity Kinds along with their display names, 
+        descriptions, and counts. This is useful for populating filter dropdowns in UIs
+        and for understanding what kinds of entities are available in the system.
       tags:
         - Entities
       security:
@@ -2139,19 +2174,24 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EntityKindsResponseBody'
+          description: List of available entity kinds with their metadata and counts
   '/v1/entities/filters':
     parameters:
       - $ref: '#/components/parameters/AccountIdentifierQueryParam'
       - $ref: '#/components/parameters/KindQueryParam'
       - name: scopes
-        description: Filter entities on the scopes
+        description: Filter entities on specific scopes
         in: query
         schema:
           type: string
     get:
       operationId: get-entities-filters
-      summary: Get Entities Filters
-      description: Get Entities Filters.
+      summary: Get Entity Filter Options
+      description: >-
+        Returns the available filter options that can be used when querying entities.
+        This helps in building dynamic filter UIs for entity exploration and discovery.
+        The response includes filter names and their possible values based on the current
+        entities in the system.
       tags:
         - Entities
       security:
@@ -2161,18 +2201,23 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EntityFiltersResponseBodyList'
+          description: List of available filter options and their possible values
   /v1/entities/json-schema:
     parameters:
       - $ref: '#/components/parameters/KindQueryParam'
     get:
       operationId: get-json-schema
-      summary: Get Entities Json Schema
-      description: Get Entities Json Schema.
+      summary: Get Entity JSON Schema
+      description: >-
+        Returns the JSON Schema for validating Entity definitions. This is useful for
+        client-side validation before submitting entity creation or update requests.
+        The schema can be filtered by entity kind to get specific validation rules.
       tags:
         - Entities
       responses:
         '200':
           $ref: '#/components/responses/EntityJsonSchemaResponseBody'
+          description: JSON Schema for entity validation successfully retrieved
 components:
   schemas:
     BackstageEnvVariable:
@@ -5026,37 +5071,51 @@ components:
             id: qvx6zkkojf3z1
     EntitiesGroups:
       title: Entities Groups
-      description: Entities Groups
+      description: >-
+        Represents a group of entities organized by organization and project,
+        providing a hierarchical view of entities within the system.
       type: object
       properties:
         org_identifier:
           type: string
+          description: 'Unique identifier of the organization'
         org_name:
           type: string
+          description: 'Display name of the organization'
         project_identifier:
           type: string
+          description: 'Unique identifier of the project'
         project_name:
           type: string
+          description: 'Display name of the project'
         group_identifier:
           type: string
+          description: 'Unique identifier of the group'
         group_name:
           type: string
+          description: 'Display name of the group'
         group_description:
           type: string
+          description: 'Description of the group'
         group_icon:
           type: string
+          description: 'Icon URL representing the group'
         order:
           type: integer
+          description: 'Display order for the group'
         workflows:
           type: array
           items:
             type: string
+          description: 'Workflows associated with the group'
         total:
           type: integer
+          description: 'Total number of entities in the group'
         entities:
           type: array
           items:
             $ref: '#/components/schemas/EntityResponse'
+          description: 'Entities belonging to the group'
     GroupRequest:
       title: GroupRequest
       x-stoplight:
@@ -5593,42 +5652,56 @@ components:
             id: 3orajqsokg0my
     EntityRequest:
       title: Entity Request Body
-      description: Entity Request Body
+      description: >-
+        Request body for creating or updating an Entity, containing the entity YAML
+        definition as a string.
       type: object
       properties:
         yaml:
           type: string
-          description: Entity YAML (to be passed as a String).
+          description: >-
+            Entity YAML definition as a string. Should conform to either the Harness
+            entity format or the Backstage entity format, depending on the operation.
       required:
         - yaml
     EntityResponse:
       title: Entity Response Body
-      description: Entity Response Body
+      description: >-
+        Detailed information about an Entity, including its metadata, relationships,
+        and YAML representation.
       type: object
       properties:
         identifier:
           type: string
+          description: 'Unique identifier of the entity within its scope and kind'
         entity_ref:
           type: string
+          description: 'Full entity reference in the format scope/kind/identifier'
         orgIdentifier:
           type: string
+          description: 'Identifier of the organization that the entity belongs to'
         org_name:
           type: string
+          description: 'Display name of the organization that the entity belongs to'
         projectIdentifier:
           type: string
+          description: 'Identifier of the project that the entity belongs to'
         project_name:
           type: string
+          description: 'Display name of the project that the entity belongs to'
         scope:
           type: string
           enum:
             - ACCOUNT
             - ORGANIZATION
             - PROJECT
+          description: 'Scope of the entity (account, organization, or project level)'
         referenceType:
           type: string
           enum:
             - INLINE
             - GIT
+          description: 'Type of reference for the entity (inline definition or Git-sourced)'
         kind:
           type: string
           enum:
@@ -5638,27 +5711,36 @@ components:
             - resource
             - user
             - workflow
+          description: 'Kind of the entity (defines its core purpose)'
         type:
           type: string
+          description: 'Type of the entity within its kind (e.g., Service, Website)'
         name:
           type: string
+          description: 'Display name of the entity'
         description:
           type: string
+          description: 'Descriptive text about the entity'
         owner:
           type: string
+          description: 'Owner reference for the entity (user or group)'
         tags:
           type: array
           items:
             type: string
+          description: 'Tags associated with the entity for categorization'
         lifecycle:
           type: string
+          description: 'Lifecycle stage of the entity (e.g., experimental, production)'
         metadata:
           type: object
+          description: 'Additional metadata associated with the entity'
         scorecards:
           type: object
           properties:
             average:
               type: number
+              description: 'Average score across all scorecards'
             scores:
               type: array
               items:
@@ -5666,16 +5748,23 @@ components:
                 properties:
                   scorecard:
                     type: string
+                    description: 'Name of the scorecard'
                   score:
                     type: number
+                    description: 'Numeric score (typically 0-100)'
                   total_checks:
                     type: number
+                    description: 'Total number of checks in the scorecard'
                   passed_checks:
                     type: number
+                    description: 'Number of checks that passed'
+          description: 'Scorecard information for the entity'
         yaml:
           type: string
+          description: 'Complete entity YAML definition'
         starred:
           type: boolean
+          description: 'Whether the entity is marked as a favorite by the current user'
         status:
           type: array
           items:
@@ -5683,10 +5772,14 @@ components:
             properties:
               type:
                 type: string
+                description: 'Type of status information'
               level:
                 type: string
+                description: 'Severity level (info, warning, error)'
               message:
                 type: string
+                description: 'Status message text'
+          description: 'Status information for the entity'
         groups:
           type: array
           items:
@@ -5694,26 +5787,36 @@ components:
             properties:
               org_identifier:
                 type: string
+                description: 'Organization identifier'
               org_name:
                 type: string
+                description: 'Organization name'
               project_identifier:
                 type: string
+                description: 'Project identifier'
               project_name:
                 type: string
+                description: 'Project name'
               scope:
                 type: string
                 enum:
                   - ACCOUNT
                   - ORGANIZATION
                   - PROJECT
+                description: 'Scope level'
               group_identifier:
                 type: string
+                description: 'Group identifier'
               group_name:
                 type: string
+                description: 'Group display name'
               group_description:
                 type: string
+                description: 'Group description'
               group_icon:
                 type: string
+                description: 'Group icon URL'
+          description: 'Groups that the entity belongs to'
       required:
         - identifier
         - entity_ref
@@ -5722,43 +5825,60 @@ components:
         - kind
         - yaml
     EntityConvertResponse:
-      title: Entity Convert Body
-      description: Entity Convert Body
+      title: Entity Convert Response
+      description: >-
+        Result of converting an Entity between formats (Backstage to Harness or vice versa),
+        containing the converted YAML definition.
       type: object
       properties:
         yaml:
           type: string
+          description: 'Converted entity YAML definition in the target format'
       required:
         - yaml
     EntityKindsResponse:
-      title: Entity Kinds Response Body
-      description: Entity Kinds Response Body
+      title: Entity Kinds Response
+      description: >-
+        Information about an Entity Kind, including its display name, description,
+        and the count of entities of this kind in the system.
       type: object
       properties:
         kind:
           type: string
+          description: 'Kind identifier (e.g., component, api)'
         display_name:
           type: string
+          description: 'Human-readable display name for the kind'
         description:
           type: string
+          description: 'Description of the entity kind and its purpose'
         total:
           type: integer
+          description: 'Total number of entities of this kind in the system'
     EntityFiltersResponse:
-      title: Entity Filters Response Body
-      description: Entity Filters Response Body
+      title: Entity Filters Response
+      description: >-
+        Filter options for Entities, including the filter name and its possible values.
+        Used for building dynamic filter UIs.
       type: object
       properties:
         filter:
           type: string
+          description: 'Name of the filter (e.g., type, lifecycle, owner)'
         values:
           type: object
+          description: 'Available values for the filter (depends on the filter type)'
     EntityJsonSchemaResponse:
-      title: Entity Json Schema response body
-      description: Entity Json Schema response body
+      title: Entity JSON Schema Response
+      description: >-
+        JSON Schema for validating Entity definitions, which can be used for
+        client-side validation before submitting entity operations.
       type: object
     EntitiesGroupsResponse:
-      title: Entities Groups Response Body
-      description: Entity Groups Response Body
+      title: Entities Groups Response
+      description: >-
+        Entities organized in hierarchical groups based on account, organization, and project,
+        along with count information for each level.
       type: object
       properties:
         data:
@@ -5771,10 +5891,13 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntitiesGroups'
+                  description: 'Account-level entities organized into groups'
                 without_group:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntityResponse'
+                  description: 'Account-level entities not associated with any group'
+              description: 'Account-level entities'
             org:
               type: object
               properties:
@@ -5782,10 +5905,13 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntitiesGroups'
+                  description: 'Organization-level entities organized into groups'
                 without_group:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntityResponse'
+                  description: 'Organization-level entities not associated with any group'
+              description: 'Organization-level entities'
             project:
               type: object
               properties:
@@ -5793,23 +5919,31 @@ components:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntitiesGroups'
+                  description: 'Project-level entities organized into groups'
                 without_group:
                   type: array
                   items:
                     $ref: '#/components/schemas/EntityResponse'
+                  description: 'Project-level entities not associated with any group'
+              description: 'Project-level entities'
+          description: 'Grouped entity data'
         count:
           type: object
           properties:
             total:
               type: integer
+              description: 'Total number of entities across all scopes'
             total_owned:
               type: integer
+              description: 'Total number of entities owned by the current user or their groups'
             total_starred:
               type: integer
+              description: 'Total number of entities marked as favorites by the current user'
             account:
               type: array
               items:
                 $ref: '#/components/schemas/EntitiesGroups'
+              description: 'Entity counts at the account level by group'
             org:
               type: array
               items:
@@ -5817,12 +5951,16 @@ components:
                 properties:
                   org_identifier:
                     type: string
+                    description: 'Organization identifier'
                   org_name:
                     type: string
+                    description: 'Organization name'
                   groups:
                     type: array
                     items:
                       $ref: '#/components/schemas/EntitiesGroups'
+                    description: 'Entity counts by group within the organization'
+              description: 'Entity counts at the organization level'
             project:
               type: array
               items:
@@ -5830,16 +5968,23 @@ components:
                 properties:
                   org_identifier:
                     type: string
+                    description: 'Organization identifier'
                   org_name:
                     type: string
+                    description: 'Organization name'
                   project_identifier:
                     type: string
+                    description: 'Project identifier'
                   project_name:
                     type: string
+                    description: 'Project name'
                   groups:
                     type: array
                     items:
                       $ref: '#/components/schemas/EntitiesGroups'
+                    description: 'Entity counts by group within the project'
+              description: 'Entity counts at the project level'
+          description: 'Count information for entities by scope and group'
   parameters:
     AccountIdentifierQueryParam:
       name: accountIdentifier
@@ -5847,22 +5992,22 @@ components:
       required: true
       schema:
         type: string
-      description: Account identifier
+      description: 'Unique identifier of the account to operate on'
     OrgIdentifierQueryParam:
       name: orgIdentifier
       in: query
       schema:
         type: string
-      description: Organization identifier
+      description: 'Unique identifier of the organization within the account'
     ProjectIdentifierQueryParam:
       name: projectIdentifier
       in: query
       schema:
         type: string
-      description: Project identifier
+      description: 'Unique identifier of the project within the organization'
     KindQueryParam:
       name: kind
-      description: 'Kinds on which the Entities are filtered.'
+      description: 'Filter entities by their kind (e.g., component, api, resource, user, workflow)'
       in: query
       schema:
         type: string
@@ -5872,21 +6017,21 @@ components:
       required: true
       schema:
         type: string
-      description: Identifier
+      description: 'Unique identifier of the entity within its scope and kind'
     KindParam:
       name: kind
       in: path
       required: true
       schema:
         type: string
-      description: Kind
+      description: 'Kind of the entity (e.g., component, api, resource, user, workflow)'
     ScopeParam:
       name: scope
       in: path
       required: true
       schema:
         type: string
-      description: Scope
+      description: 'Scope of the entity (ACCOUNT, ORGANIZATION, PROJECT)'
     AccountHeader:
       name: Harness-Account
       in: header
@@ -5909,7 +6054,7 @@ components:
         type: integer
         default: 10
         maximum: 100
-      description: 'Pagination: Number of items to return'
+      description: 'Maximum number of items to return per page (1-100, default: 10)'
     Page:
       name: page
       in: query
@@ -6344,7 +6489,25 @@ components:
                         url: http://my-sample-website.com
                     tags:
                       - my-sample
-      description: Entity Request Body
+            backstage-entity:
+              value:
+                yaml: |
+                  apiVersion: backstage.io/v1alpha1
+                  kind: Component
+                  metadata:
+                    name: my-sample-service
+                    description: My Sample service.
+                    annotations:
+                      backstage.io/source-location: url:https://github.com/sample/sample/tree/main/
+                    tags:
+                      - my-sample
+                  spec:
+                    type: service
+                    lifecycle: experimental
+                    owner: sample-owner
+      description: >-
+        Entity YAML definition provided as a string. The YAML should conform to either the 
+        Harness entity format or the Backstage entity format, depending on the operation.
   responses:
     BackstageEnvVariableResponse:
       description: Example response
@@ -6926,7 +7089,9 @@ components:
           schema:
             $ref: '#/components/schemas/CardIconResponse'
     EntityResponseBody:
-      description: Entity response body
+      description: >-
+        Response containing a complete Entity definition including its metadata,
+        relationships, and YAML representation.
       content:
         application/json:
           schema:
@@ -6935,7 +7100,9 @@ components:
           schema:
             $ref: '#/components/schemas/EntityResponse'
     EntityConvertResponseBody:
-      description: Entity convert response body
+      description: >-
+        Response containing the converted Entity YAML in the target format
+        (either Backstage or Harness format).
       content:
         application/json:
           schema:
@@ -6944,7 +7111,9 @@ components:
           schema:
             $ref: '#/components/schemas/EntityConvertResponse'
     EntityResponseBodyList:
-      description: List of Entity response body
+      description: >-
+        Response containing a paginated list of Entities matching the filter criteria,
+        along with pagination metadata and entity counts.
       content:
         application/json:
           schema:
@@ -6960,25 +7129,27 @@ components:
         X-Total-Elements:
           schema:
             type: integer
-          description: Total number of elements returned in Paginated response.
+          description: Total number of elements that match the filter criteria
         X-Page-Number:
           schema:
             type: integer
-          description: Page number in Paginated response.
+          description: Current page number in the paginated response
         X-Page-Size:
           schema:
             type: integer
-          description: Maximum page size in Paginated response.
+          description: Maximum number of items per page in the paginated response
         Total-Owned:
           schema:
             type: integer
-          description: Total number of owned entities.
+          description: Total number of entities owned by the current user or their groups
         Total-Starred:
           schema:
             type: integer
-          description: Total number of starred entities.
+          description: Total number of entities marked as favorites by the current user
     EntityKindsResponseBody:
-      description: Entity Kinds response body
+      description: >-
+        Response containing a list of all supported Entity Kinds along with their
+        display names, descriptions, and counts.
       content:
         application/json:
           schema:
@@ -6991,7 +7162,9 @@ components:
             items:
               $ref: '#/components/schemas/EntityKindsResponse'
     EntityFiltersResponseBodyList:
-      description: List of Entity Filters response body
+      description: >-
+        Response containing available filter options that can be used when querying
+        entities, including filter names and their possible values.
       content:
         application/json:
           schema:
@@ -7004,7 +7177,9 @@ components:
             items:
               $ref: '#/components/schemas/EntityFiltersResponse'
     EntityJsonSchemaResponseBody:
-      description: Entity Json Schema response body
+      description: >-
+        Response containing the JSON Schema for validating Entity definitions,
+        which can be used for client-side validation.
       content:
         application/json:
           schema:
@@ -7013,7 +7188,9 @@ components:
           schema:
             $ref: '#/components/schemas/EntityJsonSchemaResponse'
     EntitiesGroupsResponseBody:
-      description: Entities Groups response body
+      description: >-
+        Response containing entities organized in hierarchical groups based on
+        account, organization, and project, along with counts at each level.
       content:
         application/json:
           schema:
@@ -7025,11 +7202,11 @@ components:
         Total-Owned:
           schema:
             type: integer
-          description: Total number of owned entities.
+          description: Total number of entities owned by the current user or their groups
         Total-Starred:
           schema:
             type: integer
-          description: Total number of starred entities.
+          description: Total number of entities marked as favorites by the current user
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -7109,5 +7286,8 @@ tags:
     description: Home Page Layout
     x-displayName: Home Page Layout
   - name: Entities
-    description: This contains APIs for Entities.
+    description: >-
+      APIs for managing catalog Entities which represent the core components of your system.
+      Entities can represent services, APIs, user groups, resources, and more. These endpoints
+      allow you to create, retrieve, update, delete, and query entities across different scopes.
     x-displayName: 'Entities'
