@@ -221,15 +221,14 @@
       - Srm Notification
 - name: IDP
   tags:
-      - AppConfig
-      - ConnectorInfo
-      - DataSource
-      - KubernetesDataPoints
-      - LayoutProxy
-      - PluginInfo
-      - Scores
       - Entities
       - CatalogCustomProperties
+      - Scores
+      - DataSource
+      - KubernetesDataPoints
+      - AppConfig
+      - PluginInfo
+      - LayoutProxy
 - name: Custom Dashboards
   tags: 
       - aida
