@@ -38,11 +38,6 @@
     - Org Role Assignments
     - Project Role Assignments
     - Role Assignments
-- name: Notification
-  tags:
-      - Notification Channels
-      - Notification Rules
-      - Notification Attachments
 - name: Platform
   tags:
       - Accounts
@@ -69,6 +64,8 @@
       - ApiKey
       - Source Code Manager
       - Nextgen Ldap
+      - Notification Channels
+      - Notification Rules
       - Harness Resource Type
       - Authentication Settings
       - Permissions

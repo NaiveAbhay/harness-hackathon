@@ -713,6 +713,8 @@ paths:
       description: Validate notification rule identifier
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/validate-rules/{notification-rule}':
     parameters:
       - $ref: '#/components/parameters/OrgPathParam'
@@ -896,6 +898,8 @@ paths:
           description: Simulated notifications generated successfully.
       x-stoplight:
         id: 6zdzbe9bf4ggf
+      security:
+        - x-api-key: []
       x-internal: true
 components:
   schemas:
@@ -1281,7 +1285,10 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          DELEGATE: '#/components/schemas/DelegateEventNotificationParams'
+          DELEGATE: '#/components/schemas/DelegateEventNotificationParamsDTO'
+          PIPELINE: '#/components/schemas/PipelineEventNotificationParamsDTO'
+          CHAOS_EXPERIMENT: '#/components/schemas/ChaosExperimentEventNotificationParamsDTO'
+          SERVICE_LEVEL_OBJECTIVE: '#/components/schemas/SLOEventNotificationParamsDTO'
       properties:
         type:
           $ref: '#/components/schemas/ResourceTypeEnum'
@@ -1442,16 +1449,50 @@ components:
       x-stoplight:
         id: 7i0op7u06osi8
       type: object
-      properties:
-        template_ref:
-          type: string
-        version_label:
-          type: string
       x-examples:
         Example 1:
           template:
             templateRef: org.nginx
             versionLabel: v1
+            variables:
+              - name: variable1
+                value: value1
+                type: string
+              - name: variable2
+                value: value2
+                type: string
+      properties:
+        template_ref:
+          type: string
+        version_label:
+          type: string
+        variables:
+          type: array
+          x-stoplight:
+            id: 0r23u2qzuxaz6
+          items:
+            $ref: '#/components/schemas/NotificationTemplateInputsDTO'
+    NotificationTemplateInputsDTO:
+      title: NotificationTemplateInputsDTO
+      x-stoplight:
+        id: hrzvz8ee0gojd
+      type: object
+      properties:
+        name:
+          type: string
+          x-stoplight:
+            id: sqj7hpyogmoun
+        value:
+          type: string
+          x-stoplight:
+            id: 3sf823v22jfdd
+        type:
+          type: string
+          x-stoplight:
+            id: slnpq1uq97zre
+      required:
+        - name
+        - value
     NotificationsSimulateDTO:
       title: NotificationsSimulateDTO
       x-stoplight:
@@ -1564,11 +1605,11 @@ components:
       description: Notification Channel Type
     IncludeParentScope:
       name: include_parent_scope
-      default: false
       in: query
       required: false
       schema:
         type: boolean
+        default: false
       description: Include entities from current and parent scopes.
   responses:
     NotificationChannelListResponse:
