@@ -19,6 +19,9 @@
       "inputFile": "../platform-service/audit-service/openapi.yaml"
     },
     {
+      "inputFile": "../platform-service/notification-service/openapi.yaml"
+    },
+    {
       "inputFile": "../pipeline-service/openapi.yaml"
     },
     {
