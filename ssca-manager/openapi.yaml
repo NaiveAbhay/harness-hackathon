@@ -2705,9 +2705,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
     delete:
-      summary: Remove repos in your integration
+      summary: Delete Repositories from Integration
       tags:
-        - integration
+        - Delete Repositories
       responses:
         '200':
           $ref: '#/components/responses/UpdateIntegrationResponseBody'
@@ -3484,7 +3484,7 @@ paths:
   /gateway/ssca-manager/v1/delete/repository:
     parameters: []
     delete:
-      summary: Delete Repositories
+      summary: Delete Repositories from Repo Listing Page
       tags:
         - Delete Repositories
       responses:
