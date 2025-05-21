@@ -3481,6 +3481,32 @@ paths:
           name: type
           description: Integration Type
           required: true
+  /v1/delete/repository:
+    parameters: []
+    delete:
+      summary: Delete Repositories
+      tags:
+        - DeleteArtifacts
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+      operationId: deleteRepositories
+      x-stoplight:
+        id: o8kj31dcokuhk
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        description: DeleteRepositoriesRequestBody
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRepositoriesRequestBody'        
   '/v1/orgs/{org}/projects/{project}/artifacts/{artifact}/chain-of-custody':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -4780,6 +4806,42 @@ components:
           type: string
         image_layer:
           $ref: '#/components/schemas/LayerType'
+    DeleteRepositoriesRequestBody:
+      title: DeleteRepositoriesRequestBody
+      x-stoplight:
+        id: k5i9vmudevv6v
+      type: array
+      items:
+        $ref: '#/components/schemas/Repositories'
+    Repositories:
+      title: Repositories
+      x-stoplight:
+        id: g7mmcc1qasngi
+      type: object
+      required:
+        - repo_url
+        - org_identifier
+        - project_identifier
+      properties:
+        repo_url:
+          type: string
+          x-stoplight:
+            id: veuh1bjeksk3g
+          description: URL of the repo to be deleted
+        repo_branch:
+          type: string
+          x-stoplight:
+            id: udulq793jiljv
+        org_identifier:
+          type: string
+          x-stoplight:
+            id: cefofd4glde0e
+          description: Org of the repository to be deleted.
+        project_identifier:
+          type: string
+          x-stoplight:
+            id: 7muf87n2tf8pd
+          description: Project of the repository to be deleted.      
     ArtifactDeploymentViewRequestBody:
       title: ArtifactDeploymentViewRequestBody
       x-stoplight:
