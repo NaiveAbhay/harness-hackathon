@@ -3481,12 +3481,12 @@ paths:
           name: type
           description: Integration Type
           required: true
-  /v1/delete/repository:
+  /gateway/ssca-manager/v1/delete/repository:
     parameters: []
     delete:
       summary: Delete Repositories
       tags:
-        - DeleteArtifacts
+        - Delete Repositories
       responses:
         '200':
           description: OK
