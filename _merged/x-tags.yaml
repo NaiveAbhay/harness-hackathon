@@ -300,6 +300,7 @@
     - SBOM
     - Integration Step Config
     - Delete Step Config
+    - Delete Repositories
 # Please make sure to add new tags above Chaos Engineering section.
 - name: Chaos Engineering
   tags:
