@@ -40,43 +40,46 @@
     - Role Assignments
 - name: Platform
   tags:
-      - Accounts
-      - Account Banner
-      - AccountSetting
-      - Access Control List
-      - Account Webhooks
-      - Org Webhooks
-      - Project Webhooks
-      - Account Banner
-      - Account Licensed Modules
-      - Account License Type
-      - Devops Essentials License Data By Account
-      - AuditFilters
-      - Audit
-      - EULA
-      - Filter
-      - Invite
-      - IP Allowlist
-      - Oidc-Access-Token
-      - Oidc-ID-Token
-      - OIDC
-      - Canny
-      - ApiKey
-      - Source Code Manager
-      - Nextgen Ldap
-      - Notification Channels
-      - Notification Rules
-      - Harness Resource Type
-      - Authentication Settings
-      - Permissions
-      - Secret Managers
-      - Setting
-      - Service Account
-      - SMTP
-      - Token
-      - User
-      - User Group
-      - Variables
+    - Access Control List  
+    - Account Banner  
+    - Account Banner  
+    - Account Licensed Modules  
+    - Account License Type  
+    - Account Webhooks  
+    - AccountSetting  
+    - Accounts  
+    - Analyze Account Access Policy  
+    - Analyze Organization Access Policy  
+    - Analyze Project Access Policy  
+    - ApiKey  
+    - Audit  
+    - AuditFilters  
+    - Authentication Settings  
+    - Canny  
+    - Devops Essentials License Data By Account  
+    - EULA  
+    - Filter  
+    - Harness Resource Type  
+    - Invite  
+    - IP Allowlist  
+    - Nextgen Ldap  
+    - Notification Channels  
+    - Notification Rules  
+    - OIDC  
+    - Oidc-Access-Token  
+    - Oidc-ID-Token  
+    - Org Webhooks  
+    - Permissions  
+    - Project Webhooks  
+    - Secret Managers  
+    - Service Account  
+    - Setting  
+    - SMTP  
+    - Source Code Manager  
+    - Token  
+    - User  
+    - User Group  
+    - Variables  
 - name: Delegate
   tags:
       - Agent mTLS Endpoint Management
