@@ -3481,7 +3481,7 @@ paths:
           name: type
           description: Integration Type
           required: true
-  /gateway/ssca-manager/v1/delete/repository:
+  /gateway/ssca-manager/v1/repository:
     parameters: []
     delete:
       summary: Delete Repositories from Repo Listing Page
