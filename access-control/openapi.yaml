@@ -80,9 +80,83 @@ paths:
           $ref: '#/components/responses/PublicAccessResponse'
       security:
         - x-api-key: []
+      x-internal: false
       tags:
         - Public Access
-      x-internal: true
+  /v1/analyze-access-policies:
+    parameters: []
+    post:
+      summary: Analyze access policies within account
+      operationId: analyze-account-access-policies
+      description: Analyze access policies within account
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      requestBody:
+        $ref: '#/components/requestBodies/AccessPolicyAnalysisRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/AccessPolicyAnalysisResponse'
+      security:
+        - x-api-key: []
+      x-internal: false
+      tags:
+        - Analyze Account Access Policy
+  '/v1/orgs/{org}/analyze-access-policies':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+    post:
+      summary: Analyze access policies within a organization
+      operationId: analyze-org-access-policies
+      description: Analyze access policies within a organization
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      requestBody:
+        $ref: '#/components/requestBodies/AccessPolicyAnalysisRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/AccessPolicyAnalysisResponse'
+      security:
+        - x-api-key: []
+      x-internal: false
+      tags:
+        - Analyze Organization Access Policy
+  '/v1/orgs/{org}/projects/{project}/analyze-access-policies':
+    parameters:
+      - name: org
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Organization identifier
+      - $ref: '#/components/parameters/ProjectParam'
+    post:
+      summary: Analyze access policies within a project
+      operationId: analyze-project-access-policies
+      description: Analyze access policies within a project
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PageIndex'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/Order'
+      requestBody:
+        $ref: '#/components/requestBodies/AccessPolicyAnalysisRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/AccessPolicyAnalysisResponse'
+      security:
+        - x-api-key: []
+      x-internal: false
+      tags:
+        - Analyze Project Access Policy
   /v1/public-access/is-resource-public:
     parameters: []
     post:
@@ -96,8 +170,24 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/PublicAccessResponse'
-        '':
-          $ref: '#/components/responses/PublicAccessResponse'
+      security:
+        - x-api-key: []
+      tags:
+        - Public Access
+      x-internal: true
+  /v1/public-access/check-public:
+    parameters: []
+    post:
+      summary: Returns if a list of Resource is public or not
+      operationId: check-public
+      description: 'Returns if a list of Resources is public or not '
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/PublicAccessCheckRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PublicAccessCheckResponse'
       security:
         - x-api-key: []
       tags:
@@ -561,6 +651,50 @@ paths:
         - Project Role Assignments
       security:
         - x-api-key: []
+  /v1/role-assignments/count:
+    get:
+      summary: Get role assignments count for an account
+      tags:
+        - Account Role Assignments
+      responses:
+        '200':
+          description: Role assignments count for the account.
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+      operationId: get-role-assignments-count
+      x-stoplight:
+        id: 7roi0ybzyljem
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Get role assignments count for an account.
+      x-internal: true
+      security:
+        - x-api-key: [ ]
+  /v1/roles/count:
+    get:
+      summary: Get roles count for an account
+      tags:
+        - Account Roles
+      responses:
+        '200':
+          description: Roles count for the account.
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int32
+      operationId: get-roles-count
+      x-stoplight:
+        id: 7roi0ybzyljem
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      description: Get roles count for an account.
+      x-internal: true
+      security:
+        - x-api-key: []
 components:
   schemas:
     RolesResponse:
@@ -726,6 +860,8 @@ components:
         role:
           type: string
           description: Role identifier
+        roleReference:
+          $ref: '#/components/schemas/RoleReference'
         principal:
           $ref: '#/components/schemas/Principal'
         disabled:
@@ -746,22 +882,34 @@ components:
       properties:
         scope_level:
           type: string
-          description: Role assignment principal scope level
+          description: Principal scope level
         identifier:
           type: string
-          description: Role assignment principal identifier
+          description: Principal identifier
         type:
           type: string
           enum:
             - USER
             - USER_GROUP
-            - SERVICE
-            - API_KEY
             - SERVICE_ACCOUNT
-          description: Role assignment principal type
+          description: Principal type
       required:
         - identifier
         - type
+    RoleReference:
+      title: RoleReference
+      type: object
+      description: Role referenced in role assignment
+      properties:
+        scope_level:
+          type: string
+          description: Role scope level
+        identifier:
+          type: string
+          description: Role identifier
+      required:
+        - scope_level
+        - identifier
     RoleAssignmentResponse:
       title: RoleAssignmentResponse
       type: object
@@ -799,6 +947,37 @@ components:
         - resource_identifier
         - resource_type
         - resource_scope
+    PublicAccessCheckRequest:
+      title: PublicAccessCheckRequest
+      type: object
+      description: Request to check if given resources are public or not
+      x-stoplight:
+        id: 2fa1394cf970a
+      properties:
+        resource_identifiers:
+          type: array
+          description: List of resource identifiers
+          items:
+            type: string
+        resource_type:
+          type: string
+          description: Type of the resource.
+        resource_scope:
+          $ref: '#/components/schemas/Scope'
+      required:
+        - resource_identifiers
+        - resource_type
+        - resource_scope
+      x-examples:
+        Example 1:
+          resource_identifiers:
+            - pipelineIdentifier1
+            - pipelineIdentifier2
+          resource_type: PIPELINE
+          resource_scope:
+            account: ACCOUNT_ID
+            org: ORG_ID
+            project: PROJECT_ID
     Scope:
       title: Scope
       x-stoplight:
@@ -817,6 +996,267 @@ components:
           description: Project Identifier
       required:
         - account
+    RoleRequest:
+      title: RoleRequest
+      x-stoplight:
+        id: c3e929c83d0fd
+      type: object
+      x-internal: false
+      description: Request to analyze policies based on Role details
+      properties:
+        identifier:
+          type: string
+          description: Role identifier
+        scope_level:
+          type: string
+          description: 'Scope level at which role is defined. This can be from query scope level or parent scope level. '
+    Resource:
+      title: Resource
+      x-stoplight:
+        id: t79jjwaf9icna
+      type: object
+      description: Request to analyze access policies based on Resource details. Resource scope can be provided from query scope or its child scope
+      x-internal: false
+      properties:
+        identifier:
+          type: string
+          description: Identifier of resource in given scope
+        type:
+          type: string
+          description: Type of resource in a given scope
+        attribute:
+          type: object
+          additionalProperties:
+            type: string
+          description: Resource attribute such as "type" in case of Environment or Connector
+        scope:
+          $ref: '#/components/schemas/Scope'
+    ResourceGroupResponse:
+      type: object
+      x-examples:
+        Example 1:
+          identifier: string
+          name: string
+      x-internal: false
+      title: ResourceGroupResponse
+      description: Resource Group details which is assigned along with role to provide access on resources.
+      properties:
+        identifier:
+          type: string
+          description: Resource group identifier
+        name:
+          type: string
+          description: Resource group name
+    AccessPolicyAnalysisRequest:
+      title: AccessPolicyAnalysisRequest
+      x-stoplight:
+        id: e3t22fn76ryz7
+      type: object
+      x-internal: false
+      description: Input that accepts parameters based on which access policies will be queried within a given scope.
+      x-tags:
+        - AccessPolicy
+      properties:
+        query_scope:
+          $ref: '#/components/schemas/QueryScopeRequest'
+        principal:
+          $ref: '#/components/schemas/Principal'
+        permission_identifier:
+          type: string
+          description: Permission identifier for which access policies need to be analysed.
+        resource_group_identifier:
+          type: string
+          description: Resource group identifiert for which access policies need to be analysed.
+        role:
+          $ref: '#/components/schemas/RoleRequest'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        advance_options:
+          $ref: '#/components/schemas/AccessAnalysisAdvanceOptions'
+    AccessPolicyAnalysisResponse:
+      title: AccessPolicyAnalysisResponse
+      x-stoplight:
+        id: z0jvavfz25ak4
+      type: object
+      x-internal: false
+      description: Response that list parameters related to access policy and what type of access it provides and to which Principal.
+      properties:
+        role_assignment:
+          $ref: '#/components/schemas/RoleAssignmentMetaData'
+        principal:
+          $ref: '#/components/schemas/PrincipalResponse'
+        resource_group:
+          $ref: '#/components/schemas/ResourceGroupResponse'
+        role:
+          $ref: '#/components/schemas/RoleResponse'
+        permission:
+          $ref: '#/components/schemas/Permission'
+        resource:
+          $ref: '#/components/schemas/Resource'
+    PrincipalResponse:
+      title: PrincipalResponse
+      x-stoplight:
+        id: 673d44eaneumv
+      type: object
+      description: Principal for which role assignment is created
+      x-internal: false
+      properties:
+        identifier:
+          type: string
+          description: Principal Identifier
+        name:
+          type: string
+          description: Principal Name
+        type:
+          type: string
+          description: Principal type
+        scope_level:
+          type: string
+          description: Scope of Principal
+      required:
+        - identifier
+        - type
+    AccessAnalysisAdvanceOptions:
+      title: AccessAnalysisAdvanceOptions
+      x-stoplight:
+        id: xlq5y89mztz6k
+      type: object
+      description: Advance Options to control the output of a given query
+      x-internal: false
+      properties:
+        expand_role:
+          type: boolean
+          description: 'True, if response should list all permissions inside role.'
+          default: false
+        expand_resource_group:
+          type: boolean
+          description: 'True, if response should list all resources inside a resource group.'
+          default: false
+        expand_user_group:
+          type: boolean
+          description: 'True, if response should list all users inside a user group.'
+          default: false
+    AccessPolicyAnalysisResponseWrapper:
+      title: AccessPolicyAnalysisResponseWrapper
+      x-stoplight:
+        id: avjt5ezdvhxfb
+      type: object
+      description: This is the view of output for policy analyzer query.
+      x-internal: false
+      properties:
+        access_policy_analysis_response:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessPolicyAnalysisResponse'
+    RoleAssignmentMetaData:
+      title: RoleAssignmentMetaData
+      x-stoplight:
+        id: 9cdu46qqlkjov
+      type: object
+      x-internal: false
+      properties:
+        scope:
+          $ref: '#/components/schemas/Scope'
+        role_assignment_id:
+          type: string
+          description: Role assignment Identifier
+        principal:
+          $ref: '#/components/schemas/PrincipalResponse'
+      required:
+        - scope
+        - role_assignment_id
+      description: This contains Role Assignment details and to which Principal this Role Assignment is assigned.
+    Permission:
+      title: Permission
+      x-stoplight:
+        id: b1o4qt6tco3qj
+      type: object
+      x-internal: false
+      description: Permission details which are assigned via given role assignment
+      properties:
+        identifier:
+          type: string
+          description: Permisision identifier
+        name:
+          type: string
+          description: Permission Name
+    QueryScopeRequest:
+      title: QueryScopeRequest
+      x-stoplight:
+        id: 66hcxma97s02d
+      type: object
+      description: This includes details about the scope for which policies should be analysed
+      x-internal: false
+      properties:
+        filter:
+          type: string
+          enum:
+            - INCLUDING_CHILD_SCOPE
+            - EXCLUDING_CHILD_SCOPE
+          default: EXCLUDING_CHILD_SCOPE
+          description: Filter provide a way of either selecting ONLY specified scope or also include its child scopes.
+        scope:
+          $ref: '#/components/schemas/Scope'
+        include_access_policies_from_parent_scope:
+          type: boolean
+          default: false
+    PublicAccessCheckResponse:
+      title: PublicAccessCheckResponse
+      x-stoplight:
+        id: fh5hfwc6y1u7p
+      type: object
+      description: This contains list of resources along with information if they are public or not
+      properties:
+        resource_type:
+          type: string
+          description: Resource Type
+        resource_scope:
+          $ref: '#/components/schemas/Scope'
+        public_access_list:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicAccessListResponse'
+      x-examples:
+        Example 1:
+          resource_type: PIPELINE
+          resource_scope:
+            account: ACCOUNT_ID
+            org: ORG_ID
+            project: PROJECT_ID
+          public_access_list:
+            - resource_identifier: pipelineIdentifier1
+              public: true
+            - resource_identifier: pipelineIdentifier2
+              public: false
+    PublicAccessListResponse:
+      title: PublicAccessListResponse
+      x-stoplight:
+        id: 8mepgxbhco75c
+      type: object
+      properties:
+        resource_identifier:
+          type: string
+          description: Identifier of a resource
+        public:
+          type: boolean
+          description: 'If true, then resource is marked for public access'
+    RoleResponse:
+      title: RoleResponse
+      x-stoplight:
+        id: 1bd6pmusgc535
+      type: object
+      description: Role details
+      properties:
+        identifier:
+          type: string
+          description: Role Identifier
+        name:
+          type: string
+          description: Role Name
+        scope_level:
+          type: string
+          description: Scope at which Role is created
+      x-internal: false
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -897,7 +1337,7 @@ components:
       required: false
       schema:
         type: string
-      description: 'Identifier field of the account the resource is scoped to.'
+      description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
   responses:
     RolesListResponse:
       description: Roles List Response body
@@ -1119,6 +1559,31 @@ components:
         application/json:
           schema:
             type: boolean
+    AccessPolicyAnalysisResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccessPolicyAnalysisResponseWrapper'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    PublicAccessCheckResponse:
+      description: This returns if a list of resource identifiers is public or not.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicAccessCheckResponse'
   requestBodies:
     CreateRoleRequest:
       content:
@@ -1191,3 +1656,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PublicAccessRequest'
+    AccessPolicyAnalysisRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccessPolicyAnalysisRequest'
+      description: This is the request body that accepts parameters based on which access policies will be analysed
+    PublicAccessCheckRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PublicAccessCheckRequest'
+      description: Request to query if given resources are public or not
