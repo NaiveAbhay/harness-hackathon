@@ -340,6 +340,33 @@ paths:
         $ref: '#/components/requestBodies/IntegrationStepConfigRequestBody'
       security:
         - x-api-key: []
+  'gateway/ssca-manager/v1/orgs/{org}/projects/{project}/ssca-config/pipeline-store':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+    post:
+      summary: Save SPM Pipeline Remote Configs
+      operationId: savePipelineRemoteConfig
+      tags:
+        - PipelineStoreConfig
+      responses:
+        '200':
+          description: Shared Response
+        '400':
+          description: Bad Request
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: false  
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineStoreConfigRequestBody'
   '/gateway/ssca-manager/v1/org/{org}/ssca-config/{config-id}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -7570,6 +7597,32 @@ components:
           type: string
           x-stoplight:
             id: clpjrz44aod7m
+      '/v1/orgs/{org}/projects/{project}/ssca-config/pipeline-store':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+    post:
+      summary: Save SPM Pipeline Remote Configs
+      operationId: savePipelineRemoteConfig
+      tags:
+        - PipelineStoreConfig
+      responses:
+        '200':
+          description: Shared Response
+        '400':
+          description: Bad Request
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/PipelineStoreConfigRequestBody'        
     CategoryScorecardCheck:
       title: CategoryScorecardCheck
       x-stoplight:
@@ -10717,6 +10770,11 @@ components:
           type: string
           x-stoplight:
             id: x13syvivwlh3c
+    PipelineStoreConfigRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineStoreConfigRequestBody'        
     IntegrityVerification:
       title: IntegrityVerification
       x-stoplight:
