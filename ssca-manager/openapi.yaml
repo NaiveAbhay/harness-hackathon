@@ -348,7 +348,7 @@ paths:
       summary: Save SPM Pipeline Remote Configs
       operationId: savePipelineRemoteConfig
       tags:
-        - PipelineStoreConfig
+        - Pipeline Store Config
       responses:
         '200':
           description: Shared Response
