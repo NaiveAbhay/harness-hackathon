@@ -5302,6 +5302,26 @@ components:
           x-stoplight:
             id: 47ni9vvackpg0
       description: Infra Config Details of Pipeline
+    PipelineStoreConfigRequestBody:
+      title: PipelineStoreConfig
+      type: object
+      required:
+        - scan_type
+        - repo
+        - base_branch
+      properties:
+        scan_type:
+          $ref: '#/components/schemas/ComplianceScanType'
+        connector_id:
+          type: string
+        repo:
+          type: string
+        base_branch:
+          type: string
+        yaml_path:
+          type: string
+      description: Remote Config Details of Pipeline
+        
     ConfigResponseBody:
       title: ConfigResponse
       x-stoplight:
@@ -10769,12 +10789,7 @@ components:
         signed_by:
           type: string
           x-stoplight:
-            id: x13syvivwlh3c
-    PipelineStoreConfigRequestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PipelineStoreConfigRequestBody'        
+            id: x13syvivwlh3c        
     IntegrityVerification:
       title: IntegrityVerification
       x-stoplight:
@@ -11210,6 +11225,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ArtifactListingPipelineRequestBody'
+    PipelineStoreConfigRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PipelineStoreConfigRequestBody'        
     SLSAVerificationRequestBody:
       content:
         application/json:
