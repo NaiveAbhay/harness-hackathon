@@ -304,6 +304,7 @@
     - Integration Step Config
     - Delete Step Config
     - Delete Repositories
+    - Pipeline Store Config
 # Please make sure to add new tags above Chaos Engineering section.
 - name: Chaos Engineering
   tags:
