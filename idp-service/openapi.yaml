@@ -5962,6 +5962,7 @@ components:
         entity_move_operation_type:
           $ref: '#/components/schemas/EntityMoveOperationType'
       required:
+        - git_details
         - entity_move_operation_type
     GitMetadataUpdateRequest:
       title: GitMetadataUpdateRequest
@@ -6216,6 +6217,11 @@ components:
         is_harness_code_repo:
           type: boolean
           description: Is Git Experience repo harness code.
+      required:
+        - branch_name
+        - file_path
+        - connector_ref
+        - repo_name
     EntityMoveOperationType:
       type: string
       enum:
