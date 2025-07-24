@@ -110,6 +110,8 @@
     - Artifacts
     - Docker Artifacts
     - Helm Artifacts
+    - Webhooks
+    - Replication
     - Spaces
 - name: Database DevOps
   tags:

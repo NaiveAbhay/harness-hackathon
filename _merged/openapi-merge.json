@@ -127,7 +127,7 @@
       }
     },
     {
-      "inputURL": "https://gitopsautomation.pr2.harness.io/gitops/api/v1/openapi.json",
+      "inputURL": "https://app.harness.io/prod1/gitops/api/v1/openapi.json",
       "pathModification": {
         "prepend": "/gitops"
       },
