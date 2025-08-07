@@ -5,6 +5,10 @@ apis:
       remove-x-internal: on
   harness@internal:
     root: merged.yaml
+  harness@harness-code:
+    root: merged.yaml
+    decorators:
+      remove-x-internal: on
 features.openapi:
   htmlTemplate: ./index.html
   sidebarLinks:
