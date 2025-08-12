@@ -1995,6 +1995,65 @@ paths:
         '200':
           $ref: '#/components/responses/EntityResponseBodyList'
           description: List of entities matching the filter criteria
+  /v1/entities/by-refs:
+    post:
+      summary: Get entities by refs
+      description: >-
+        Fetches entities matching the entity references specified in the request body, in conjunction with other provided filters.
+      tags:
+        - Entities
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityResponseBodyList'
+      operationId: get-entities-by-refs
+      x-stoplight:
+        id: yztu80rla7s8m
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/LimitWithRestriction'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/SearchTerm'
+        - name: scopes
+          description: Filter entities on the scopes
+          in: query
+          schema:
+            type: string
+        - name: owned_by_me
+          description: Filter entities owned by the user and the groups that the user is part of.
+          in: query
+          schema:
+            type: boolean
+        - name: favorites
+          description: Filter entities that are marked as favorites for the user.
+          in: query
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/KindQueryParam'
+        - name: type
+          description: Types on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: owner
+          description: Owners on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: lifecycle
+          description: Lifecycles on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+        - name: tags
+          description: Tags on which the Entities are filtered.
+          in: query
+          schema:
+            type: string
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/EntitesByRefsRequest'
   /v1/entities/import:
     post:
       operationId: import-entity
@@ -2293,6 +2352,25 @@ paths:
         '200':
           $ref: '#/components/responses/EntityFiltersResponseBodyList'
           description: List of available filter options and their possible values
+    post:
+      summary: Get Entities Filters By Query
+      description: >-
+        Returns the available filter options that can be used when querying entities 
+        based on the provided query.This helps in building dynamic filter UIs for entity 
+        exploration and discovery.The response includes filter names and their possible 
+        values based on the current entities in the system.
+      tags:
+        - Entities
+      responses:
+        '200':
+          $ref: '#/components/responses/EntityFiltersResponseBodyList'
+      operationId: get-entities-filters-by-query
+      x-stoplight:
+        id: 34d8rd6couqo6
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/EntityFilterQueryRequest'
   /v1/entities/json-schema:
     parameters:
       - $ref: '#/components/parameters/KindQueryParam'
@@ -5964,6 +6042,34 @@ components:
       required:
         - git_details
         - entity_move_operation_type
+    EntitiesByRefsRequest:
+      title: EntitiesByRefsRequest
+      x-stoplight:
+        id: yksr06ck7tvb2
+      type: object
+      properties:
+        entity_refs:
+          type: array
+          x-stoplight:
+            id: kmulpu20417o7
+          items:
+            x-stoplight:
+              id: t7219d30v5hya
+            type: string
+    EntityFilterQueryRequest:
+      title: EntityFilterQueryRequest
+      x-stoplight:
+        id: kygda92tf0cz1
+      type: object
+      properties:
+        entity_refs:
+          type: array
+          x-stoplight:
+            id: v224elukw745g
+          items:
+            x-stoplight:
+              id: 17xzqu8gnc2vm
+            type: string
     GitMetadataUpdateRequest:
       title: GitMetadataUpdateRequest
       x-stoplight:
@@ -6709,6 +6815,18 @@ components:
             $ref: '#/components/schemas/ImportEntitiesBase'
           examples: {}
       description: Details of Harness Entities and Catalog Location info
+    EntitesByRefsRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntitiesByRefsRequest'
+      description: Entity Refs for which entities need to be fetched
+    EntityFilterQueryRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityFilterQueryRequest'
+      description: Query for getting the filters for entities
     LayoutRequest:
       content:
         application/json:
