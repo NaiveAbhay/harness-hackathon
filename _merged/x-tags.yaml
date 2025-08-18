@@ -226,7 +226,7 @@
       - SLOs
       - Downtime
       - Srm Notification
-- name: IDP
+- name: Internal Developer Portal - IDP
   tags:
       - Entities
       - CatalogCustomProperties

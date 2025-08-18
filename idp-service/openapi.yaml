@@ -971,7 +971,7 @@ paths:
     parameters: []
   /v1/scores/aggregate:
     post:
-      summary: Get Aggregated Scores for backstage entities
+      summary: Get Aggregated Scores for Catalog entities
       responses:
         '200':
           $ref: '#/components/responses/EntityScoresResponseList'
@@ -5336,7 +5336,7 @@ components:
           LEARN_MORE: '#/components/schemas/LearnMoreCard'
           TOP_VISITED: '#/components/schemas/TopVisitedCard'
           RECENTLY_VISITED: '#/components/schemas/RecentlyVisitedCard'
-          STARRED_ENTITIES: '#/components/schemas/StarredVisitedCard'
+          # STARRED_ENTITIES: '#/components/schemas/StarredVisitedCard'
           MARKDOWN: '#/components/schemas/MarkdownCard'
           VIDEO: '#/components/schemas/VideoCard'
           CUSTOM_LINK: '#/components/schemas/CustomLinkCard'
@@ -6508,12 +6508,14 @@ components:
     OrgIdentifierQueryParam:
       name: orgIdentifier
       in: query
+      required: false
       schema:
         type: string
       description: 'Unique identifier of the organization within the account'
     ProjectIdentifierQueryParam:
       name: projectIdentifier
       in: query
+      required: false
       schema:
         type: string
       description: 'Unique identifier of the project within the organization'
