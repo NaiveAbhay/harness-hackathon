@@ -6512,6 +6512,7 @@ components:
       allowEmptyValue: true 
       schema:
         type: string
+        default: ""
       description: 'Unique identifier of the organization within the account'
     ProjectIdentifierQueryParam:
       name: projectIdentifier
@@ -6520,6 +6521,7 @@ components:
       allowEmptyValue: true 
       schema:
         type: string
+        default: 
       description: 'Unique identifier of the project within the organization'
     KindQueryParam:
       name: kind
