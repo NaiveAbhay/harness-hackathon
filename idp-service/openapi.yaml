@@ -6512,7 +6512,7 @@ components:
       allowEmptyValue: true 
       schema:
         type: string
-        default: ""
+        default: 
       description: 'Unique identifier of the organization within the account'
     ProjectIdentifierQueryParam:
       name: projectIdentifier
