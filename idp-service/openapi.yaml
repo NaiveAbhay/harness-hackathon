@@ -6509,18 +6509,18 @@ components:
       name: orgIdentifier
       in: query
       required: false
+      allowEmptyValue: true 
       schema:
         type: string
       description: 'Unique identifier of the organization within the account'
-      x-codeSamples-hide: true
     ProjectIdentifierQueryParam:
       name: projectIdentifier
       in: query
       required: false
+      allowEmptyValue: true 
       schema:
         type: string
       description: 'Unique identifier of the project within the organization'
-      x-codeSamples-hide: true
     KindQueryParam:
       name: kind
       description: 'Filter entities by their kind (e.g., component, api, resource, user, workflow)'
