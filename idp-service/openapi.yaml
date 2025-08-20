@@ -1675,6 +1675,8 @@ paths:
       x-internal: false
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
     parameters:
       - schema:
           type: string
@@ -1694,6 +1696,8 @@ paths:
       x-internal: false
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
   /v1/groups:
     get:
       summary: Get all groups for account
@@ -1708,6 +1712,8 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
     post:
       summary: Save a group
       responses:
@@ -1723,6 +1729,8 @@ paths:
       x-internal: false
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
     put:
       summary: Update Groups
       responses:
@@ -1738,6 +1746,8 @@ paths:
         $ref: '#/components/requestBodies/GroupRequestList'
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
     parameters: []
   /v1/groups/yaml:
     get:
@@ -1753,12 +1763,16 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
     parameters: []
   /v1/groups/workflows:
     get:
       summary: Get workflows for account
       tags:
         - Groups
+      security:
+        - x-api-key: [ ]
       responses:
         '200':
           $ref: '#/components/responses/WorkflowsInfoResponse'
@@ -1776,6 +1790,8 @@ paths:
       summary: Get Home Page Layout Details
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '200':
           $ref: '#/components/responses/HomePageLayoutResponse'
@@ -1798,6 +1814,8 @@ paths:
         $ref: '#/components/requestBodies/HomePageLayoutRequest'
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   /v1/home-page-layout/yaml:
@@ -1805,6 +1823,8 @@ paths:
       summary: Get yaml for home page layout
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '200':
           $ref: '#/components/responses/HomePageLayoutYamlResponse'
@@ -1830,6 +1850,8 @@ paths:
       summary: Delete custom link card quick links icon
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '204':
           description: No Content
@@ -1850,6 +1872,8 @@ paths:
       summary: Delete header quick links icon
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '204':
           description: No Content
@@ -1870,6 +1894,8 @@ paths:
       summary: Delete card icon
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '204':
           description: No Content
@@ -1884,6 +1910,8 @@ paths:
       summary: Delete homepage layout icon
       tags:
         - HomePageLayout
+      security:
+        - x-api-key: [ ]
       responses:
         '204':
           description: No Content
@@ -2361,6 +2389,8 @@ paths:
         values based on the current entities in the system.
       tags:
         - Entities
+      security:
+        - x-api-key: [ ]
       responses:
         '200':
           $ref: '#/components/responses/EntityFiltersResponseBodyList'
@@ -2383,6 +2413,8 @@ paths:
         The schema can be filtered by entity kind to get specific validation rules.
       tags:
         - Entities
+      security:
+        - x-api-key: [ ]
       responses:
         '200':
           $ref: '#/components/responses/EntityJsonSchemaResponseBody'
