@@ -6,7 +6,7 @@ info:
   version: '1.0'
   description: Open Api Spec for the SSCA Service.
   contact:
-    email: contact@harness.io
+    email: contact@harness.io   
 servers:
   - url: 'https://app.harness.io'
     description: Harness host URL.
@@ -48,6 +48,7 @@ paths:
         - x-api-key: []
       x-stoplight:
         id: 3pupuceuxwkth
+        
   '/v1/org/{org}/project/{project}/sbom/enforcement':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -340,7 +341,7 @@ paths:
         $ref: '#/components/requestBodies/IntegrationStepConfigRequestBody'
       security:
         - x-api-key: []
-  'gateway/ssca-manager/v1/orgs/{org}/projects/{project}/ssca-config/pipeline-store':
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/ssca-config/pipeline-store':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -367,6 +368,28 @@ paths:
       x-internal: false  
       requestBody:
         $ref: '#/components/requestBodies/PipelineStoreConfigRequestBody'
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/sbom-score':
+    post:
+      summary: Download SBOM score for an artifact
+      responses:
+        '200':
+          $ref: '#/components/responses/SbomScorecardResponseBody'
+      operationId: getSbomScoreForArtifact
+      x-stoplight:
+        id: q6aepcsx5fl46
+      description: Download SBOM score for an artifact
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      x-internal: false
+      security:
+        - x-api-key: []
+      tags:
+        - SBOM
+      requestBody:
+        $ref: '#/components/requestBodies/SbomScoreRequestBody'
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'    
   '/gateway/ssca-manager/v1/org/{org}/ssca-config/{config-id}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -437,6 +460,8 @@ paths:
       responses:
         '200':
           description: OK
+        '400':
+          description: Bad Request 
       operationId: deleteConfigByAccount
       x-stoplight:
         id: 230c0v7un6ufl
@@ -451,6 +476,8 @@ paths:
     post:
       summary: Get Normalised Sbom Components
       operationId: getNormalisedSbomComponent
+      security:
+        - x-api-key: []
       responses:
         '200':
           $ref: '#/components/responses/NormaliseSbomResponseBody'
@@ -472,6 +499,8 @@ paths:
     post:
       summary: Save Enforcement Result
       operationId: saveEnforcementResult
+      security:
+        - x-api-key: []
       responses:
         '201':
           description: Created
@@ -495,10 +524,13 @@ paths:
     post:
       summary: Save Enforcement Summary
       operationId: saveEnforcementSummary
+      security:
+        - x-api-key: []
       responses:
         '201':
           description: Created
       description: Creates a new Enforcement Summary.
+
       requestBody:
         content:
           application/json:
@@ -772,7 +804,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SbomScorecardRequestBody'
+              $ref: '#/components/schemas/SbomScorecardRequest'
         description: ''
       security:
         - x-api-key: []
@@ -1597,6 +1629,8 @@ paths:
       summary: List exemptions for project
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/ExemptionListResponseDTO'
@@ -1634,6 +1668,8 @@ paths:
       tags:
         - exemptions
       operationId: createExemptionForProject
+      security:
+        - x-api-key: []
       responses:
         '201':
           description: ''
@@ -1664,6 +1700,8 @@ paths:
     post:
       summary: Create exemption for artifact
       operationId: createExemptionForArtifact
+      security:
+        - x-api-key: []
       responses:
         '201':
           description: ''
@@ -1697,6 +1735,8 @@ paths:
       summary: Get exemption for project
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: ''
@@ -1717,6 +1757,8 @@ paths:
     put:
       summary: Update exemption for project
       operationId: updateExemptionForProject
+      security:
+        - x-api-key: []
       responses:
         '200':
           description: ''
@@ -1744,6 +1786,8 @@ paths:
     delete:
       summary: Delete exemption for project
       operationId: deleteExemptionForProject
+      security:
+        - x-api-key: []
       responses:
         '204':
           description: ''
@@ -1768,6 +1812,8 @@ paths:
       summary: Get exemption for artifact
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: ''
@@ -1788,8 +1834,11 @@ paths:
     put:
       summary: Update exemption for artifact
       operationId: updateExemptionForArtifact
+
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: ''
@@ -1817,6 +1866,8 @@ paths:
       operationId: deleteExemptionForArtifact
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '204':
           description: ''
@@ -1838,6 +1889,8 @@ paths:
       summary: Review exemption for project
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       operationId: reviewExemptionForProject
       responses:
         '200':
@@ -1872,6 +1925,8 @@ paths:
       operationId: reviewExemptionForArtifact
       tags:
         - exemptions
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: ''
@@ -1952,6 +2007,8 @@ paths:
       operationId: getSSCASummary
       x-stoplight:
         id: o6bx01jzbku58
+      security:
+        - x-api-key: []  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       tags:
@@ -1974,6 +2031,8 @@ paths:
         description: Harness execution ID
     post:
       summary: Get Artifact List for Pipeline View
+      security:
+        - x-api-key: []
       responses:
         '200':
           $ref: '#/components/responses/ArtifactListingResponsePipelineBody'
@@ -2027,6 +2086,8 @@ paths:
       summary: Save Provenance
       tags:
         - Slsa
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/SaveResponse'
@@ -2051,6 +2112,8 @@ paths:
       operationId: getProvenance
       x-stoplight:
         id: x30g28thstz3g
+      security:
+        - x-api-key: []  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
   '/v2/orgs/{org}/projects/{project}/provenance/{provenance}':
@@ -2063,6 +2126,8 @@ paths:
       summary: Save Provenance
       tags:
         - slsaV2
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/SaveResponse'
@@ -2091,6 +2156,8 @@ paths:
       summary: Save SLSA Verification Status
       tags:
         - Slsa
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/SaveResponse'
@@ -2122,6 +2189,8 @@ paths:
         '500':
           description: Internal Server Error
       operationId: saveSlsaVerificationV2
+      security:
+        - x-api-key: []
       x-stoplight:
         id: 3fps8yinohu8r
       requestBody:
@@ -2150,6 +2219,8 @@ paths:
         '500':
           description: Internal Server Error
       operationId: saveSlsaPolicyViolations
+      security:
+        - x-api-key: []
       x-stoplight:
         id: y5ntvtrr1fr5v
       parameters:
@@ -2309,6 +2380,8 @@ paths:
       operationId: getBaseImageDetails
       x-stoplight:
         id: shm18amspn3g5
+      security:
+        - x-api-key: []  
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
@@ -2508,6 +2581,8 @@ paths:
         '500':
           description: Internal Server Error
       operationId: fetchComplianceResultsByComplianceId
+      security:
+        - x-api-key: []
       x-stoplight:
         id: i0e7u125rfvdr
       parameters:
@@ -2630,6 +2705,8 @@ paths:
       summary: Get Compliance Standard By Id
       tags:
         - complianceStandards
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/ComplianceStandardByIdResponseBody'
@@ -3272,6 +3349,8 @@ paths:
       operationId: postComplianceResultStatsOverview
       x-stoplight:
         id: v8wrumipa2mwv
+      security:
+        - x-api-key: []
       description: Post call to show Compliance Results for Compliance Dashboard Overview
       parameters:
         - $ref: '#/components/parameters/AccountHeader'
@@ -3295,6 +3374,8 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
     post:
       summary: Fetch Compliance Result Stats By Compliance Checks
+      security:
+        - x-api-key: []
       responses:
         '200':
           $ref: '#/components/responses/ComplianceChecksStatsResponse'
@@ -3427,12 +3508,12 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CICDRulesEvaluation'
+        '400':
+          description: Bad Request - Invalid input parameters
+        '401':
+          description: Unauthorized - Authentication credentials are missing or invalid
+        '403':
+          description: Forbidden - User doesn't have permission to access this resource 
       operationId: getCICDRulesEvaluationTrend
       x-stoplight:
         id: 8bt8ww6kmivsz
@@ -3460,6 +3541,8 @@ paths:
       summary: Compliance Results Stats Overview Evaluation Breakdown Artifacts
       tags:
         - ComplianceStats
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/ComplianceResultsEvaluationBreakdownByArtifactsResponse'
@@ -3604,6 +3687,8 @@ paths:
         '200':
           $ref: '#/components/responses/ComplianceEvaluationTrendResponse'
       operationId: get-compliance-evaluation-trends
+      security:
+        - x-api-key: []
       x-stoplight:
         id: 4yhrxle7b01jd
       parameters:
@@ -3658,6 +3743,8 @@ paths:
         '200':
           $ref: '#/components/responses/CICDHarnessPipelineResponseBody'
       operationId: getHarnessPipelineYaml
+      security:
+        - x-api-key: []
       x-stoplight:
         id: xrl53lnewor3z
       parameters:
@@ -3700,6 +3787,8 @@ paths:
       summary: Fetch List of plugins for a workflow
       tags:
         - CICDWorkflows
+      security:
+        - x-api-key: []  
       responses:
         '200':
           $ref: '#/components/responses/CICDWorklfowPluginsResponseBody'
@@ -3765,6 +3854,8 @@ paths:
       summary: Save Signature
       tags:
         - ArtifactSigning
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: OK
@@ -3807,6 +3898,8 @@ paths:
       summary: Save Integrity Verification
       tags:
         - ArtifactSigning
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: OK
@@ -3844,6 +3937,8 @@ paths:
       summary: Upload Signature
       tags:
         - ArtifactSigning
+      security:
+        - x-api-key: []  
       responses:
         '201':
           description: Created
@@ -3884,6 +3979,8 @@ paths:
       summary: Download Signature
       tags:
         - ArtifactSigning
+      security:
+        - x-api-key: []  
       responses:
         '200':
           description: OK
@@ -5148,7 +5245,7 @@ components:
             $ref: '#/components/schemas/CategoryScorecard'
       x-stoplight:
         id: ffcmct55bddmm
-    SbomScorecardRequestBody:
+    SbomScorecardRequest:
       title: SbomScorecardRequestBody
       x-stoplight:
         id: 1hsts8ibsfe22
@@ -7616,33 +7713,7 @@ components:
         status:
           type: string
           x-stoplight:
-            id: clpjrz44aod7m
-      '/v1/orgs/{org}/projects/{project}/ssca-config/pipeline-store':
-    parameters:
-      - $ref: '#/components/parameters/OrgParam'
-      - $ref: '#/components/parameters/ProjectParam'
-    post:
-      summary: Save SPM Pipeline Remote Configs
-      operationId: savePipelineRemoteConfig
-      tags:
-        - PipelineStoreConfig
-      responses:
-        '200':
-          description: Shared Response
-        '400':
-          description: Bad Request
-        '500':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-          description: Internal Server Error
-      security:
-        - x-api-key: []
-      parameters:
-        - $ref: '#/components/parameters/AccountHeader'
-      requestBody:
-        $ref: '#/components/requestBodies/PipelineStoreConfigRequestBody'        
+            id: clpjrz44aod7m      
     CategoryScorecardCheck:
       title: CategoryScorecardCheck
       x-stoplight:
@@ -9182,6 +9253,7 @@ components:
           type: string
           x-stoplight:
             id: 0mcqty415kzb6
+           
     Deployments:
       title: Deployments
       x-stoplight:
@@ -10857,6 +10929,16 @@ components:
       properties:
         spec:
           $ref: '#/components/schemas/ArtifactSpec'
+    SbomScoreRequest:
+      title: SbomScoreRequest
+      x-stoplight:
+        id: j599v86b1z4ah
+      type: object
+      required:
+        - spec
+      properties:
+        spec:
+          $ref: '#/components/schemas/ArtifactSpec'      
     ArtifactSpec:
       title: ArtifactSpec
       type: object
@@ -11149,11 +11231,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ArtifactListingRequestBody'
-    SbomScorecardRequestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SbomScorecardRequestBody'
+          
     ConfigRequestBody:
       content:
         application/json:
@@ -11375,6 +11453,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/DownloadSbomRequest'
+    SbomScoreRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SbomScoreRequest'        
     IntegrationStepConfigRequestBody:
       content:
         application/json:
@@ -11413,7 +11496,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/EnforceSbomResponseBody'
+            $ref: '#/components/schemas/EnforceSbomResponseBody'       
     TokenIssueResponseBody:
       description: Response body for token
       content:
