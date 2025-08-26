@@ -1968,6 +1968,10 @@ paths:
         This endpoint supports comprehensive filtering options to help you find 
         specific entities across different scopes, kinds, and other properties.
         The response includes pagination metadata and counts for owned and favorite entities.
+        
+        When a search returns no matching entities, the API returns a 200 status code with an empty
+        data array. This is the expected behavior for this list API. Note that 400 status codes are
+        only returned when a specific entity is requested and not found (e.g., in the Get Entity Details endpoint).
       tags:
         - Entities
       security:
@@ -2022,7 +2026,7 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/EntityResponseBodyList'
-          description: List of entities matching the filter criteria
+          description: Paginated list of entities matching the filter criteria with pagination metadata in headers (X-Total-Elements, X-Page-Number, X-Page-Size) and ownership counts (Total-Owned, Total-Starred)
   /v1/entities/by-refs:
     post:
       summary: Get entities by refs
@@ -7792,9 +7796,11 @@ components:
           schema:
             $ref: '#/components/schemas/EntityConvertResponse'
     EntityResponseBodyList:
-      description: >-
-        Response containing a paginated list of Entities matching the filter criteria,
-        along with pagination metadata and entity counts.
+      description: >
+        Response containing a paginated list of Entities matching the filter criteria.
+        The response includes the matching entities in the body and pagination metadata
+        in the headers. Headers include total element count, current page information,
+        and counts for entities owned by or starred by the current user.
       content:
         application/json:
           schema:
