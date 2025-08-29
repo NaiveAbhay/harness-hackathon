@@ -6545,19 +6545,17 @@ components:
       name: orgIdentifier
       in: query
       required: false
-      allowEmptyValue: true 
       schema:
         type: string
-        default: 
+        default: null
       description: 'Unique identifier of the organization within the account'
     ProjectIdentifierQueryParam:
       name: projectIdentifier
       in: query
       required: false
-      allowEmptyValue: true 
       schema:
         type: string
-        default: 
+        default: null
       description: 'Unique identifier of the project within the organization'
     KindQueryParam:
       name: kind
@@ -6598,6 +6596,7 @@ components:
       in: query
       required: false
       schema:
+        default: null
         type: integer
       description: 'Pagination: Number of items to return'
     LimitWithRestriction:
@@ -6615,6 +6614,7 @@ components:
       required: false
       schema:
         type: integer
+        default: null
       description: "Pagination page number strategy: Specify the page number within the paginated collection related to the number of items in each page\t"
     Sort:
       name: sort
@@ -6622,6 +6622,7 @@ components:
       required: false
       schema:
         type: string
+        default: null
       description: Parameter on the basis of which sorting is done.
     BackstageEnvVariable:
       name: backstage-env-variable
@@ -6654,6 +6655,7 @@ components:
       required: false
       schema:
         type: string
+        default: null
       description: Order on the basis of which sorting is done.
     SearchTerm:
       name: search_term
@@ -6661,6 +6663,7 @@ components:
       required: false
       schema:
         type: string
+        default: null
       description: This would be used to filter resources having attributes matching the search term.
     LayoutIdentifier:
       name: layout-identifier
@@ -6682,6 +6685,7 @@ components:
       required: false
       schema:
         type: string
+        default: null
       description: 'Plugin name for filtering '
     Enabled:
       name: enabled
@@ -6713,6 +6717,7 @@ components:
       required: false
       schema:
         type: string
+        default: null
       description: Namespace from where the request is being made
     CheckType:
       name: custom
@@ -6748,6 +6753,7 @@ components:
       required: false
       schema:
         type: boolean
+        default: false
       description: This is used if an entity need to be force deleted
     CatalogKind:
       name: kind
