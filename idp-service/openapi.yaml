@@ -154,6 +154,7 @@ paths:
       parameters:
         - schema:
             type: array
+            default: null
             items:
               type: string
           in: query
@@ -381,6 +382,7 @@ paths:
         - $ref: '#/components/parameters/SearchTerm'
         - schema:
             type: string
+            default: null
           in: query
           name: project_to_filter
           description: This would be used to filter resources having attributes matching the project filter.
@@ -780,6 +782,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
         - schema:
             type: boolean
+            default: false
           in: query
           name: base_config
           description: Set true to sync base app-config too
@@ -1005,6 +1008,7 @@ paths:
         - $ref: '#/components/parameters/EntityIdentifier'
         - schema:
             type: string
+            default: null
           in: query
           name: scorecard_identifier
           description: 'Identifier for scorecard '
@@ -1987,42 +1991,50 @@ paths:
           in: query
           schema:
             type: string
+            default: null
         - name: entity_refs
           description: 'Filter entities by their entity references (comma-separated list in the format of kind:scope/identifier)'
           in: query
           schema:
             type: string
+            default: null
         - name: owned_by_me
           description: 'When true, returns only entities owned by the current user or their groups'
           in: query
           schema:
             type: boolean
+            default: false
         - name: favorites
           description: When true, returns only entities marked as favorites by the current user
           in: query
           schema:
             type: boolean
+            default: false
         - $ref: '#/components/parameters/KindQueryParam'
         - name: type
           description: 'Filter entities by their type (e.g., Service, Website)'
           in: query
           schema:
             type: string
+            default: null
         - name: owner
           description: 'Filter entities by their owner references'
           in: query
           schema:
             type: string
+            default: null
         - name: lifecycle
           description: 'Filter entities by their lifecycle stage (e.g., experimental, production)'
           in: query
           schema:
             type: string
+            default: null
         - name: tags
           description: 'Filter entities by their associated tags (comma-separated list)'
           in: query
           schema:
             type: string
+            default: null
       responses:
         '200':
           $ref: '#/components/responses/EntityResponseBodyList'
@@ -2051,37 +2063,44 @@ paths:
           in: query
           schema:
             type: string
+            default: null
         - name: owned_by_me
           description: Filter entities owned by the user and the groups that the user is part of.
           in: query
           schema:
             type: boolean
+            default: false
         - name: favorites
           description: Filter entities that are marked as favorites for the user.
           in: query
           schema:
             type: boolean
+            default: false
         - $ref: '#/components/parameters/KindQueryParam'
         - name: type
           description: Types on which the Entities are filtered.
           in: query
           schema:
             type: string
+            default: null
         - name: owner
           description: Owners on which the Entities are filtered.
           in: query
           schema:
             type: string
+            default: null
         - name: lifecycle
           description: Lifecycles on which the Entities are filtered.
           in: query
           schema:
             type: string
+            default: null
         - name: tags
           description: Tags on which the Entities are filtered.
           in: query
           schema:
             type: string
+            default: null
       security:
         - x-api-key: []
       requestBody:
@@ -2126,49 +2145,58 @@ paths:
           required: false
           schema:
             type: string
+            default: null
           description: Filter entities by a search term across entity attributes
         - name: search_on_groups
           in: query
           required: false
           schema:
             type: string
+            default: null
           description: Filter groups by a search term across group attributes
         - name: scopes
           description: 'Filter entities by specific scopes (account.\*, account, account.org, account.org.project, account.orgId, account.orgId.projectId, account.orgId.\*)'
           in: query
           schema:
             type: string
+            default: null
         - $ref: '#/components/parameters/KindQueryParam'
         - name: owned_by_me
           description: When true, returns only entities owned by the current user and their groups
           in: query
           schema:
             type: boolean
+            default: false
         - name: favorites
           description: When true, returns only entities marked as favorites by the current user
           in: query
           schema:
             type: boolean
+            default: false
         - name: type
           description: Filter entities by their type
           in: query
           schema:
             type: string
+            default: null
         - name: owner
           description: Filter entities by their owner references
           in: query
           schema:
             type: string
+            default: null
         - name: lifecycle
           description: Filter entities by their lifecycle stage
           in: query
           schema:
             type: string
+            default: null
         - name: tags
           description: Filter entities by their associated tags
           in: query
           schema:
             type: string
+            default: null
       responses:
         '200':
           $ref: '#/components/responses/EntitiesGroupsResponseBody'
@@ -2306,16 +2334,19 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
         - schema:
             type: string
+            default: null
           in: query
           name: branch_name
           description: Name of the branch (for Git Experience).
         - schema:
             type: string
+            default: null
           in: query
           name: connector_ref
           description: Identifier of the Harness Connector used for CRUD operations on the Entity (for Git Experience).
         - schema:
             type: string
+            default: null
           in: query
           name: repo_name
           description: Name of the repository (for Git Experience).
@@ -2366,6 +2397,7 @@ paths:
         in: query
         schema:
           type: string
+          default: null
     get:
       operationId: get-entities-filters
       summary: Get Entity Filter Options
@@ -6563,6 +6595,7 @@ components:
       in: query
       schema:
         type: string
+        default: null
     IdentifierParam:
       name: identifier
       in: path
@@ -6724,6 +6757,7 @@ components:
       in: query
       schema:
         type: boolean
+        default: false
       description: Type of checks to be returned
       required: false
     CheckIdentifier:
@@ -6775,6 +6809,7 @@ components:
       required: false
       schema:
         type: boolean
+        default: false
       description: Custom plugin metadata
     DryRunCatalogCustomProperties:
       name: dry_run
@@ -6782,6 +6817,7 @@ components:
       required: false
       schema:
         type: boolean
+        default: false
       description: Dry run catalog custom properties
     EntityRef:
       name: entity_ref
