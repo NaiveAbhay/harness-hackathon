@@ -1,0 +1,2361 @@
+openapi: 3.0.3
+info:
+  title: Environment Management
+  description: |-
+    This API group contains everything from creating, updating and deleting environents,
+    	 to retrieving the state and status of the environment and entity instances alike.
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/environments/compile:
+    post:
+      tags:
+        - Environment
+      summary: Compile Environment
+      description: Endpoint for compiling an environment and a target state to a valid infrastructure
+      operationId: Environment#Compile
+      parameters:
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompileRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompileResponseBody'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/environments/schemas:
+    get:
+      tags:
+        - Environment
+      summary: Schemas Environment
+      description: Endpoint for retrieving the environment and environment blueprint schemas
+      operationId: Environment#Schemas
+      parameters:
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchemasRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchemasResponseBody'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures:
+    get:
+      tags:
+        - Infrastructure
+      summary: List Infrastructure
+      description: Endpoint for listing all infrastructures.
+      operationId: Infrastructure#List
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Offset for pagination
+            format: int64
+        - name: limit
+          in: query
+          description: Limit for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Limit for pagination
+            format: int64
+        - name: desc
+          in: query
+          description: Order by descending order
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Order by descending order
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfrastructureList'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/{executionID}/abort:
+    post:
+      tags:
+        - Infrastructure
+      summary: Abort Infrastructure
+      description: Endpoint for aborting an infrastructure execution.
+      operationId: Infrastructure#Abort
+      parameters:
+        - name: executionID
+          in: path
+          description: ID of the execution to abort
+          required: true
+          schema:
+            type: string
+            description: ID of the execution to abort
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SchemasRequestBody'
+      responses:
+        "200":
+          description: OK response.
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/{id}:
+    delete:
+      tags:
+        - Infrastructure
+      summary: Delete Infrastructure
+      description: Endpoint for deleting a specific infrastructure.
+      operationId: Infrastructure#Delete
+      parameters:
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the infrastructure
+          required: true
+          schema:
+            type: string
+            description: ID of the infrastructure
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+    get:
+      tags:
+        - Infrastructure
+      summary: Get Infrastructure
+      description: Endpoint for retrieving a specific infrastructure.
+      operationId: Infrastructure#Get
+      parameters:
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the infrastructure
+          required: true
+          schema:
+            type: string
+            description: ID of the infrastructure
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfrastructureOutput'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/{id}/executions:
+    get:
+      tags:
+        - Infrastructure
+      summary: ListExecutions Infrastructure
+      description: Endpoint for listing executions for a specific infrastructure.
+      operationId: Infrastructure#ListExecutions
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Offset for pagination
+            format: int64
+        - name: limit
+          in: query
+          description: Limit for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Limit for pagination
+            format: int64
+        - name: desc
+          in: query
+          description: Order by descending order
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Order by descending order
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the infrastructure
+          required: true
+          schema:
+            type: string
+            description: ID of the infrastructure
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfrastructureExecutionList'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/{id}/specs:
+    get:
+      tags:
+        - Infrastructure
+      summary: ListSpecs Infrastructure
+      description: Endpoint for listing specs for a specific infrastructure.
+      operationId: Infrastructure#ListSpecs
+      parameters:
+        - name: offset
+          in: query
+          description: Offset for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Offset for pagination
+            format: int64
+        - name: limit
+          in: query
+          description: Limit for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Limit for pagination
+            format: int64
+        - name: desc
+          in: query
+          description: Order by descending order
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Order by descending order
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the infrastructure
+          required: true
+          schema:
+            type: string
+            description: ID of the infrastructure
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfrastructureSpecList'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/approve:
+    post:
+      tags:
+        - Infrastructure
+      summary: ApprovePipelineExecution Infrastructure
+      description: Endpoint for approving a pipeline approval step.
+      operationId: Infrastructure#ApprovePipelineExecution
+      parameters:
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovePipelineExecutionRequestBody'
+      responses:
+        "200":
+          description: OK response.
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/execute:
+    post:
+      tags:
+        - Infrastructure
+      summary: Execute Infrastructure
+      description: Endpoint for executing an infrastructure, with the options of either dryrunning this process, or forcing it.
+      operationId: Infrastructure#Execute
+      parameters:
+        - name: dryRun
+          in: query
+          description: Dry run the infrastructure
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Dry run the infrastructure
+        - name: force
+          in: query
+          description: Force updates to all instances in the infrastructure
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Force updates to all instances in the infrastructure
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteRequestBody'
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/infrastructures/executions/{id}:
+    get:
+      tags:
+        - Infrastructure
+      summary: GetExecution Infrastructure
+      description: Endpoint for retrieving a specific execution for a specific infrastructure.
+      operationId: Infrastructure#GetExecution
+      parameters:
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the event to fetch
+          required: true
+          schema:
+            type: string
+            description: ID of the event to fetch
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfrastructureExecution'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/instances:
+    get:
+      tags:
+        - Instance
+      summary: List Instance
+      description: Endpoint for listing instances, with the option of filtering for a specific infrastructure.
+      operationId: Instance#List
+      parameters:
+        - name: infrastructureID
+          in: query
+          description: ID of an Infrastructure to filter by
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: ID of an Infrastructure to filter by
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: offset
+          in: query
+          description: Offset for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Offset for pagination
+            format: int64
+        - name: limit
+          in: query
+          description: Limit for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Limit for pagination
+            format: int64
+        - name: desc
+          in: query
+          description: Order by descending order
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Order by descending order
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceList'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/instances/{id}:
+    get:
+      tags:
+        - Instance
+      summary: Get Instance
+      description: Endpoint for retrieving a specific instance.
+      operationId: Instance#Get
+      parameters:
+        - name: infrastructureID
+          in: query
+          description: ID of the infrastructure
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: ID of the infrastructure
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the instance
+          required: true
+          schema:
+            type: string
+            description: ID of the instance
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/instances/{instanceID}/force-state:
+    post:
+      tags:
+        - Instance
+      summary: ForceState Instance
+      description: Endpoint for forcing a specific instance to a specific state.
+      operationId: Instance#ForceState
+      parameters:
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: instanceID
+          in: path
+          description: ID of the instance to force status for
+          required: true
+          schema:
+            type: string
+            description: ID of the instance to force status for
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForceStateRequestBody'
+      responses:
+        "200":
+          description: OK response.
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/instances/events:
+    get:
+      tags:
+        - Instance
+      summary: ListEvents Instance
+      description: Endpoint for listing events for a specific instance.
+      operationId: Instance#ListEvents
+      parameters:
+        - name: instanceID
+          in: query
+          description: ID of an instance to filter by
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: ID of an instance to filter by
+        - name: infrastructureID
+          in: query
+          description: ID of an infrastructure to filter by
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: ID of an infrastructure to filter by
+        - name: infrastructureRevision
+          in: query
+          description: Revision of the infrastructure to filter by
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Revision of the infrastructure to filter by
+            format: int64
+        - name: offset
+          in: query
+          description: Offset for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Offset for pagination
+            format: int64
+        - name: limit
+          in: query
+          description: Limit for pagination
+          allowEmptyValue: true
+          schema:
+            type: integer
+            description: Limit for pagination
+            format: int64
+        - name: desc
+          in: query
+          description: Order by descending order
+          allowEmptyValue: true
+          schema:
+            type: boolean
+            description: Order by descending order
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceEventList'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+  /api/instances/events/{id}:
+    get:
+      tags:
+        - Instance
+      summary: GetEvent Instance
+      description: Endpoint for retrieving a specific instance event.
+      operationId: Instance#GetEvent
+      parameters:
+        - name: orgIdentifier
+          in: query
+          description: Org is the organization identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Org is the organization identifier.
+        - name: projectIdentifier
+          in: query
+          description: Project is the project identifier.
+          allowEmptyValue: true
+          schema:
+            type: string
+            description: Project is the project identifier.
+        - name: id
+          in: path
+          description: ID of the event to fetch
+          required: true
+          schema:
+            type: string
+            description: ID of the event to fetch
+        - name: Harness-Account
+          in: header
+          description: Account is the internal customer account ID.
+          allowEmptyValue: true
+          required: true
+          schema:
+            type: string
+            description: Account is the internal customer account ID.
+            minLength: 1
+            maxLength: 128
+      responses:
+        "200":
+          description: OK response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstanceEvent'
+        "400":
+          description: 'bad_request: Bad Request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: 'not_found: Not Found'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "409":
+          description: 'already_exists: Already Exists'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: 'internal_error: Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "501":
+          description: 'unimplemented: Not Implemented'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - x-api-key: []
+components:
+  schemas:
+    ApprovePipelineExecutionRequestBody:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+            - APPROVE
+            - REJECT
+        approvalID:
+          type: string
+          description: ID of the approval
+        message:
+          type: string
+          description: Message to send with the approval
+      required:
+        - approvalID
+        - action
+    Backend:
+      type: object
+      properties:
+        steps:
+          type: object
+          properties:
+            apply:
+              type: object
+              additionalProperties: true
+            create:
+              type: object
+              additionalProperties: true
+            delete:
+              type: object
+              additionalProperties: true
+            destroy:
+              type: object
+              additionalProperties: true
+            pause:
+              type: object
+              additionalProperties: true
+            resume:
+              type: object
+              additionalProperties: true
+          required:
+            - apply
+            - destroy
+        type:
+          type: string
+        values:
+          type: object
+          additionalProperties: true
+      required:
+        - type
+      additionalProperties: false
+    CatalogEntity:
+      type: object
+      properties:
+        backend:
+          $ref: '#/components/schemas/Backend'
+        identifier:
+          type: string
+        interface:
+          $ref: '#/components/schemas/Interface'
+      required:
+        - identifier
+      additionalProperties: false
+    CompileError:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    CompileRequestBody:
+      type: object
+      properties:
+        environmentYaml:
+          type: string
+          description: Environment to compile
+        orgIdentifier:
+          type: string
+          description: Org is the organization identifier.
+        projectIdentifier:
+          type: string
+          description: Project is the project identifier.
+        targetState:
+          $ref: '#/components/schemas/State'
+      description: Scope for the request, including account, org and project.
+      required:
+        - environmentYaml
+        - targetState
+    CompileResponseBody:
+      type: object
+      properties:
+        combinedOverrides:
+          $ref: '#/components/schemas/EnvironmentOverrides'
+        configOptions:
+          $ref: '#/components/schemas/EnvironmentConfigOptions'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompileError'
+        infrastructure:
+          $ref: '#/components/schemas/Infrastructure'
+      required:
+        - configOptions
+        - errors
+    Component:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        identifier:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        name:
+          type: string
+        orgIdentifier:
+          type: string
+        owner:
+          type: string
+        projectIdentifier:
+          type: string
+        scope:
+          type: string
+        spec:
+          $ref: '#/components/schemas/ComponentSpec'
+        type:
+          type: string
+      required:
+        - spec
+        - apiVersion
+        - identifier
+        - name
+        - kind
+    ComponentSpec:
+      type: object
+      properties:
+        deploymentPipelines:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentPipeline'
+          description: List of deployment pipelines associated with the component
+        harnessService:
+          type: object
+          properties:
+            identifier:
+              type: string
+              description: Identifier of the Harness service
+            orgIdentifier:
+              type: string
+              description: Identifier of the Harness organization
+            projectIdentifier:
+              type: string
+              description: Identifier of the Harness project
+          required:
+            - identifier
+    Dependency:
+      type: object
+      properties:
+        identifier:
+          type: string
+        optional:
+          type: boolean
+      required:
+        - identifier
+      additionalProperties: false
+    DeploymentPipeline:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the deployment pipeline
+        inputset:
+          type: string
+          description: Input set for the deployment pipeline
+        type:
+          type: string
+          description: Type of the deployment pipeline, can be 'install' and 'uninstall'. Defaults to 'install'.
+        variables:
+          type: object
+          description: Variables for the deployment pipeline
+          additionalProperties: true
+      required:
+        - identifier
+    EntityBase:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        identifier:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        name:
+          type: string
+        orgIdentifier:
+          type: string
+        owner:
+          type: string
+        projectIdentifier:
+          type: string
+        scope:
+          type: string
+        type:
+          type: string
+      required:
+        - apiVersion
+        - identifier
+        - name
+        - kind
+      additionalProperties: false
+    EntityConfigOptions:
+      type: object
+      properties:
+        inputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceInput'
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - inputs
+    EntityDependency:
+      type: object
+      properties:
+        identifier:
+          type: string
+        optional:
+          type: boolean
+      required:
+        - identifier
+      additionalProperties: false
+    EntityOverrides:
+      type: object
+      properties:
+        config:
+          type: object
+          description: Configuration overrides for the entity
+          additionalProperties: true
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - config
+      additionalProperties: false
+    EntityRef:
+      type: object
+      properties:
+        identifier:
+          type: string
+        orgIdentifier:
+          type: string
+        projectIdentifier:
+          type: string
+      required:
+        - identifier
+    Environment:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        identifier:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        name:
+          type: string
+        orgIdentifier:
+          type: string
+        owner:
+          type: string
+        projectIdentifier:
+          type: string
+        scope:
+          type: string
+        spec:
+          $ref: '#/components/schemas/EnvironmentSpec'
+        type:
+          type: string
+      required:
+        - spec
+        - apiVersion
+        - identifier
+        - name
+        - kind
+    EnvironmentBlueprint:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        identifier:
+          type: string
+        kind:
+          type: string
+          enum:
+            - EnvironmentBlueprint
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        name:
+          type: string
+        orgIdentifier:
+          type: string
+        owner:
+          type: string
+        projectIdentifier:
+          type: string
+        scope:
+          type: string
+        spec:
+          $ref: '#/components/schemas/EnvironmentBlueprintSpec'
+        type:
+          type: string
+      required:
+        - spec
+        - apiVersion
+        - identifier
+        - name
+        - kind
+    EnvironmentBlueprintMetadata:
+      type: object
+      properties:
+        version:
+          type: string
+    EnvironmentBlueprintSpec:
+      type: object
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CatalogEntity'
+        inputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceInput'
+        outputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EnvironmentOutput'
+        ownedBy:
+          type: array
+          items:
+            type: string
+      required:
+        - entities
+    EnvironmentConfig:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        identifier:
+          type: string
+        kind:
+          type: string
+          enum:
+            - EnvironmentConfig
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        name:
+          type: string
+        orgIdentifier:
+          type: string
+        owner:
+          type: string
+        projectIdentifier:
+          type: string
+        scope:
+          type: string
+        spec:
+          $ref: '#/components/schemas/EnvironmentConfigSpec'
+        type:
+          type: string
+      required:
+        - spec
+        - apiVersion
+        - identifier
+        - name
+        - kind
+    EnvironmentConfigOptions:
+      type: object
+      properties:
+        entities:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/EntityConfigOptions'
+        inputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceInput'
+      required:
+        - inputs
+        - entities
+    EnvironmentConfigSpec:
+      type: object
+      properties:
+        config:
+          type: object
+          additionalProperties: true
+        entities:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: true
+    EnvironmentOutput:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+            - string
+            - integer
+            - number
+            - object
+            - boolean
+            - array
+        value: {}
+      required:
+        - value
+      additionalProperties: false
+    EnvironmentOverrides:
+      type: object
+      properties:
+        config:
+          type: object
+          description: Configuration overrides for the environment
+          additionalProperties: true
+        entities:
+          type: object
+          description: Entity-specific overrides
+          additionalProperties:
+            $ref: '#/components/schemas/EntityOverrides'
+      required:
+        - config
+        - entities
+      additionalProperties: false
+    EnvironmentSpec:
+      type: object
+      properties:
+        basedOn:
+          $ref: '#/components/schemas/EntityRef'
+        config:
+          $ref: '#/components/schemas/EnvironmentConfigSpec'
+        environmentBlueprint:
+          $ref: '#/components/schemas/EntityRef'
+        overrides:
+          $ref: '#/components/schemas/EnvironmentOverrides'
+        ownedBy:
+          type: array
+          items:
+            type: string
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - environmentBlueprint
+        - targetState
+        - overrides
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        details:
+          type: object
+          additionalProperties:
+            type: string
+        message:
+          type: string
+        name:
+          type: string
+      required:
+        - name
+        - message
+    ExecuteRequestBody:
+      type: object
+      properties:
+        infrastructureYaml:
+          type: string
+          description: infrastructure to Execute
+        orgIdentifier:
+          type: string
+          description: Org is the organization identifier.
+        projectIdentifier:
+          type: string
+          description: Project is the project identifier.
+      description: Scope for the request, including account, org and project.
+      required:
+        - infrastructureYaml
+    ExecutionEvent:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        event:
+          $ref: '#/components/schemas/InfrastructureProgress'
+        message:
+          type: string
+          description: Message associated with the event
+      required:
+        - event
+        - createdAt
+    ExecutionOutput:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Description of the output
+        value:
+          description: Value of the output
+      required:
+        - value
+      additionalProperties: false
+    ForceStateRequestBody:
+      type: object
+      properties:
+        infrastructureID:
+          type: string
+          description: ID of the infrastructure
+        state:
+          $ref: '#/components/schemas/State'
+      description: Scope for the request, including account, org and project.
+      required:
+        - infrastructureID
+    Implementation:
+      type: object
+      properties:
+        backend:
+          type: string
+        steps:
+          $ref: '#/components/schemas/Steps'
+        values:
+          type: object
+          additionalProperties: true
+      required:
+        - backend
+        - steps
+      additionalProperties: false
+    InfraInstance:
+      type: object
+      properties:
+        dependencies:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Dependency'
+        identifier:
+          type: string
+        implementation:
+          $ref: '#/components/schemas/Implementation'
+        metadata:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Output'
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - identifier
+      additionalProperties: false
+    Infrastructure:
+      type: object
+      properties:
+        identifier:
+          type: string
+        instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfraInstance'
+        metadata:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Output'
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - identifier
+        - targetState
+      additionalProperties: false
+    InfrastructureExecution:
+      type: object
+      properties:
+        approvals:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceApproval'
+        completedInstanceIds:
+          type: array
+          items:
+            type: string
+          description: Instances fully updated by the execution
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExecutionEvent'
+        id:
+          type: string
+        infrastructureId:
+          type: string
+        instanceIds:
+          type: array
+          items:
+            type: string
+          description: Instances updated by the execution
+        message:
+          type: string
+          description: Message associated with the execution
+        outputs:
+          type: object
+          description: Outputs of the infrastructure execution
+          additionalProperties:
+            $ref: '#/components/schemas/ExecutionOutput'
+        pipelineUrl:
+          type: string
+        progress:
+          $ref: '#/components/schemas/InfrastructureProgress'
+        spec:
+          $ref: '#/components/schemas/Infrastructure'
+        specRevision:
+          type: integer
+          format: int64
+        startedAt:
+          type: string
+        stoppedAt:
+          type: string
+        targetState:
+          $ref: '#/components/schemas/State'
+      required:
+        - id
+        - infrastructureId
+        - instanceIds
+        - specRevision
+        - spec
+        - startedAt
+        - targetState
+        - progress
+        - completedInstanceIds
+    InfrastructureExecutionList:
+      type: object
+      properties:
+        executions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfrastructureExecution'
+        total:
+          type: integer
+          format: int64
+    InfrastructureList:
+      type: object
+      properties:
+        infrastructures:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfrastructureOutput'
+        total:
+          type: integer
+          format: int64
+    InfrastructureOutput:
+      type: object
+      properties:
+        activeExecutions:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfrastructureExecution'
+        identifier:
+          type: string
+          description: ID of the infrastructure
+        spec:
+          $ref: '#/components/schemas/InfrastructureSpec'
+        state:
+          $ref: '#/components/schemas/InfrastructureState'
+      required:
+        - identifier
+        - state
+        - activeExecutions
+    InfrastructureProgress:
+      type: object
+      properties:
+        progress:
+          type: string
+          enum:
+            - unknown
+            - pending
+            - processing
+            - done
+            - failed
+            - aborted
+            - deleted
+            - replaced
+      required:
+        - progress
+    InfrastructureSpec:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: date (RFC3339) when the spec was created
+        infrastructure:
+          $ref: '#/components/schemas/Infrastructure'
+        revision:
+          type: integer
+          format: int64
+    InfrastructureSpecList:
+      type: object
+      properties:
+        specs:
+          type: array
+          items:
+            $ref: '#/components/schemas/InfrastructureSpec'
+        total:
+          type: integer
+          format: int64
+    InfrastructureState:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: date (RFC3339) when the spec was created
+        sessionEndedAt:
+          type: string
+        sessionStartedAt:
+          type: string
+        updatedAt:
+          type: string
+          description: date (RFC3339) when the spec was updated
+    Input:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - string
+            - integer
+            - number
+            - object
+            - boolean
+            - array
+        value: {}
+      required:
+        - type
+      additionalProperties: false
+    Instance:
+      type: object
+      properties:
+        appliedRevision:
+          type: integer
+          description: Revision of the instance that is currently active
+          format: int64
+        backend:
+          type: string
+        createdAt:
+          type: string
+        currentState:
+          $ref: '#/components/schemas/State'
+        id:
+          type: string
+        infrastructureId:
+          type: string
+        message:
+          type: string
+        outputs:
+          type: object
+          additionalProperties:
+            type: string
+        progress:
+          $ref: '#/components/schemas/InstanceProgress'
+        step:
+          $ref: '#/components/schemas/InstanceStep'
+        targetRevision:
+          type: integer
+          description: Target revision of the instance
+          format: int64
+        targetState:
+          $ref: '#/components/schemas/State'
+        updatedAt:
+          type: string
+        url:
+          type: string
+    InstanceApproval:
+      type: object
+      properties:
+        instanceId:
+          type: string
+        pipelineApprovals:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineApproval'
+      required:
+        - instanceId
+        - pipelineApprovals
+    InstanceEvent:
+      type: object
+      properties:
+        createdAt:
+          type: string
+        event:
+          $ref: '#/components/schemas/State'
+        id:
+          type: string
+        infrastructureId:
+          type: string
+        infrastructureRevision:
+          type: integer
+          format: int64
+        instanceId:
+          type: string
+    InstanceEventList:
+      type: object
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstanceEvent'
+        total:
+          type: integer
+          format: int64
+    InstanceList:
+      type: object
+      properties:
+        instances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Instance'
+        total:
+          type: integer
+          format: int64
+    InstanceProgress:
+      type: object
+      properties:
+        progress:
+          type: string
+          enum:
+            - unknown
+            - pending
+            - running
+            - done
+            - failed
+            - aborted
+            - skipped
+      required:
+        - progress
+    InstanceStep:
+      type: object
+      properties:
+        step:
+          type: string
+          enum:
+            - unknown
+            - apply
+            - destroy
+            - create
+            - delete
+            - pause
+            - resume
+      required:
+        - step
+    Interface:
+      type: object
+      properties:
+        dependencies:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityDependency'
+        inputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceInput'
+        outputs:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/InterfaceOutput'
+      additionalProperties: false
+    InterfaceInput:
+      type: object
+      properties:
+        default: {}
+        type:
+          type: string
+          enum:
+            - string
+            - integer
+            - number
+            - object
+            - boolean
+            - array
+        value: {}
+      required:
+        - type
+      additionalProperties: false
+    InterfaceOutput:
+      type: object
+      properties:
+        optional:
+          type: boolean
+        type:
+          type: string
+          enum:
+            - string
+            - integer
+            - number
+            - object
+            - boolean
+            - array
+      required:
+        - type
+      additionalProperties: false
+    Metadata:
+      type: object
+      properties:
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    Output:
+      type: object
+      properties:
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+            - string
+            - integer
+            - number
+            - object
+            - boolean
+            - array
+        value: {}
+      required:
+        - value
+      additionalProperties: false
+    PipelineApproval:
+      type: object
+      properties:
+        approvalID:
+          type: string
+        deadline:
+          type: string
+        message:
+          type: string
+        orgID:
+          type: string
+        pipelineExecutionId:
+          type: string
+        pipelineId:
+          type: string
+        pipelineUrl:
+          type: string
+        projectID:
+          type: string
+      required:
+        - approvalID
+        - pipelineExecutionId
+        - orgID
+        - projectID
+        - message
+    SchemasRequestBody:
+      type: object
+      properties:
+        orgIdentifier:
+          type: string
+          description: Org is the organization identifier.
+        projectIdentifier:
+          type: string
+          description: Project is the project identifier.
+      description: Scope for the request, including account, org and project.
+    SchemasResponseBody:
+      type: object
+      properties:
+        environmentBlueprintSchema:
+          type: string
+          description: Environment blueprint schema
+        environmentSchema:
+          type: string
+          description: Environment schema
+      required:
+        - environmentBlueprintSchema
+        - environmentSchema
+    State:
+      type: object
+      properties:
+        state:
+          type: string
+          enum:
+            - unknown
+            - inactive
+            - instantiated
+            - running
+            - paused
+      required:
+        - state
+    Steps:
+      type: object
+      properties:
+        apply:
+          type: object
+          additionalProperties: true
+        create:
+          type: object
+          additionalProperties: true
+        delete:
+          type: object
+          additionalProperties: true
+        destroy:
+          type: object
+          additionalProperties: true
+        pause:
+          type: object
+          additionalProperties: true
+        resume:
+          type: object
+          additionalProperties: true
+      required:
+        - apply
+        - destroy
+      additionalProperties: false
+  securitySchemes:
+    x-api-key:
+      type: apiKey
+      name: Authorization
+      in: header
+tags:
+  - name: Environment
+    description: The environment service for working with Environment-type infrastructures
+  - name: Infrastructure
+    description: The infrastructure service for working with infrastructures
+  - name: Instance
+    description: The instance service for working with instances
