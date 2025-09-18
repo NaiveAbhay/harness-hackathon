@@ -2455,6 +2455,61 @@ paths:
         '200':
           $ref: '#/components/responses/EntityJsonSchemaResponseBody'
           description: JSON Schema for entity validation successfully retrieved
+  /v1/idp-environments:
+    post:
+      summary: Create Compile And Execute Environment
+      description: >-
+        Create environment in catalog, compiles it and then finally execute it.
+      tags:
+        - Environment
+      responses:
+        '200':
+          description: OK
+      operationId: create-compile-and-execute-environment
+      x-stoplight:
+        id: ve9qj9hgiro5a
+      x-internal: false
+      security:
+        - x-api-key: []
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+        - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentProxyCreateRequest'
+    parameters: []
+  '/v1/idp-environments/{environment-id}':
+    parameters:
+      - schema:
+          type: string
+        name: environment-id
+        in: path
+        required: true
+    put:
+      summary: Update Compile And Execute Environment
+      description: >-
+        Update environment in catalog, compiles it and then finally execute it.
+      tags:
+        - Environment
+      responses:
+        '200':
+          description: OK
+      operationId: update-compile-and-execute-environment
+      x-stoplight:
+        id: j5gxzay5ncy66
+      x-internal: false
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+        - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnvironmentProxyUpdateRequest'
 components:
   schemas:
     BackstageEnvVariable:
@@ -6565,6 +6620,73 @@ components:
                     description: 'Entity counts by group within the project'
               description: 'Entity counts at the project level'
           description: 'Count information for entities by scope and group'
+    EnvironmentProxyCreateRequest:
+      title: EnvironmentProxyCreateRequest
+      description: >-
+        Information Environment to be created in catalog - environment name, identifier, owner, 
+        blueprint identifier, overrides
+      x-stoplight:
+        id: s9ja1fpx8qh9l
+      type: object
+      required:
+        - environment_name
+        - environment_identifier
+        - owner
+        - environment_blueprint_identifier
+        - overrides
+      properties:
+        environment_name:
+          type: string
+          description: 'Environment Name'
+          x-stoplight:
+            id: 5s137p3i9fgql
+        environment_identifier:
+          type: string
+          description: 'Environment Identifier'
+          x-stoplight:
+            id: 6pmebr31waga3
+        owner:
+          type: string
+          description: 'Owner'
+          x-stoplight:
+            id: 9z7etkk6xkx0f
+        environment_blueprint_identifier:
+          type: string
+          description: 'Environment BluePrint Identifier'
+          x-stoplight:
+            id: 0viiddkxmp9tf
+        overrides:
+          type: string
+          description: 'Overrides in Yaml format'
+          x-stoplight:
+            id: or7liwjgk3ytj
+        tags:
+          type: array
+          description: 'Tags'
+          x-stoplight:
+            id: 2oos0v1c5l74z
+          items:
+            x-stoplight:
+              id: 2eo499jnlwm1g
+            type: string
+        description:
+          type: string
+          description: 'Description'
+          x-stoplight:
+            id: ojutyvaelfa6y
+    EnvironmentProxyUpdateRequest:
+      title: EnvironmentProxyUpdateRequest
+      x-stoplight:
+        id: 9adjz79py8fu0
+      type: object
+      required:
+        - overrides
+      properties:
+        overrides:
+          type: string
+          description: 'Overrides in Yaml format'
+          x-stoplight:
+            id: 16pk3frz1hxht
   parameters:
     AccountIdentifierQueryParam:
       name: accountIdentifier
@@ -7235,6 +7357,11 @@ components:
               file_path: /folder/file.json
               connector_ref: git_connector
               repo_name: example_repository
+    EnvironmentProxyCreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EnvironmentProxyCreateRequest'
   responses:
     BackstageEnvVariableResponse:
       description: Example response
