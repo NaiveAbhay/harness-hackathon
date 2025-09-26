@@ -2510,6 +2510,24 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/EnvironmentProxyUpdateRequest'
+    delete:
+      summary: Delete Environment
+      description: >-
+        Delete any environment that is no longer active
+      tags:
+        - Environment
+      responses:
+        '200':
+          description: OK
+      operationId: delete-environment
+      x-stoplight:
+        id: g5au3w8dvrhxk
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/OrgIdentifierQueryParam'
+        - $ref: '#/components/parameters/ProjectIdentifierQueryParam'
 components:
   schemas:
     BackstageEnvVariable:
@@ -6679,14 +6697,21 @@ components:
       x-stoplight:
         id: 9adjz79py8fu0
       type: object
-      required:
-        - overrides
       properties:
         overrides:
           type: string
           description: 'Overrides in Yaml format'
           x-stoplight:
             id: 16pk3frz1hxht
+        target_state:
+          description: 'Target state of environment'
+          x-stoplight:
+            id: vf9ks00g6mrhn
+          enum:
+            - running
+            - inactive
+            - instantiated
+            - paused
   parameters:
     AccountIdentifierQueryParam:
       name: accountIdentifier
