@@ -183,6 +183,8 @@
 - name: CCM
   tags:
       - Cloud Cost Anomalies
+      - Cloud cost anomalies v2
+      - Cloud cost anomaly details
       - Cloud Cost BI Dashboards
       - Cloud Cost Budget Groups
       - Cloud Cost Budgets
@@ -200,6 +202,8 @@
       - Cloud Cost Perspectives
       - Cloud Cost Recommendations Details
       - Cloud Cost Recommendations
+      - Cloud Cost Recommendation Preferences
+      - Cloud Cost Recommendation Presets
       - Cloud Cost Recommendation Jira
       - Cloud Cost Recommendation Servicenow
       - Cloud Cost Recommendation Ignore List
