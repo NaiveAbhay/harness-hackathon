@@ -49,7 +49,7 @@
       }
     },
     {
-      "inputFile": "../access-control/openapi.json",
+      "inputURL": "https://app.harness.io/prod1/authz/api/openapi.json",
       "pathModification": {
         "prepend": "/authz/api"
       },
