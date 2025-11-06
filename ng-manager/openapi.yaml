@@ -1931,6 +1931,25 @@ paths:
         - x-api-key: []
       requestBody:
         $ref: '#/components/requestBodies/BatchReleaseDetailsRequest'
+      x-internal: true
+    post:
+      summary: List service and environment details using namespace and releasename
+      tags:
+        - K8s Release Service Mapping
+      responses:
+        '200':
+          $ref: '#/components/responses/ReleaseDetailsResponse'
+      operationId: post-v1-releaseDetails
+      description: >-
+        Return details of service and environment mapped to pods namespace and
+        release-name for a given account.
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+      requestBody:
+        $ref: '#/components/requestBodies/BatchReleaseDetailsRequest'
+      x-internal: false
     parameters: []
   '/v1/orgs/{org}/gitx-webhooks':
     parameters:
