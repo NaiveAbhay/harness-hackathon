@@ -579,6 +579,43 @@ paths:
         $ref: '#/components/requestBodies/ArtifactListingRequestBody'
       x-stoplight:
         id: sfjqaglg433tw
+  '/gateway/ssca-manager/v1/orgs/{org}/projects/{project}/integration/integration-summary':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+    get:
+      summary: Get Integration ID by GitHub Organization URL
+      tags:
+        - integration
+      responses:
+        '200':
+          $ref: '#/components/responses/GetIntegrationSummaryResponseBody'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: GetIntegration
+      x-stoplight:
+        id: get-integration-summary-endpoint
+      security:
+        - x-api-key: []
+      x-internal: false  
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - name: github_org_url
+          in: query
+          required: false
+          schema:
+            type: string
+          description: GitHub organization URL(optional for only type=Github
+          example: 'https://github.com/myorg'
+      description: 'Fetch the RSPM integration ID based on account, organization, project, and GitHub organization URL'      
   '/v1/orgs/{org}/projects/{project}/artifacts':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -8085,6 +8122,36 @@ components:
           type: string
         type:
           $ref: '#/components/schemas/IntegrationType'
+    GetIntegrationSummaryResponse:
+      title: GetIntegrationSummaryResponse
+      x-stoplight:
+        id: get-integration-summary-response
+      type: array
+      items:
+        x-stoplight:
+          id: t7gaksl97ec40
+        type: object
+        properties:
+          integration_id:
+            type: string
+            x-stoplight:
+              id: xfj8pyv2wauu0
+          type:
+            type: string
+            x-stoplight:
+              id: 4551si2hosfhw
+          github_org_url:
+            type: string
+            x-stoplight:
+              id: o9pzx4wqiagp7
+          connector_id:
+            type: string
+            x-stoplight:
+              id: d8wobni3nk761
+          installation_id:
+            type: string
+            x-stoplight:
+              id: htf4va2olg2gs      
     Error:
       title: Response ErrorDTO
       type: object
@@ -11974,6 +12041,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ComplianceResultsEvaluationBreakdown'
+    GetIntegrationSummaryResponseBody:
+      description: Response body for fetching integration ID by GitHub organization URL
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetIntegrationSummaryResponse'        
     ComplianceChecksStatsResponse:
       description: ''
       content:
