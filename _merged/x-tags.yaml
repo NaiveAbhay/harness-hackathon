@@ -110,6 +110,7 @@
     - Artifacts
     - Docker Artifacts
     - Helm Artifacts
+    - quarantine
     - Webhooks
     - Replication
     - Spaces
