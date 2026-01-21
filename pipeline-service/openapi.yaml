@@ -1232,6 +1232,42 @@ paths:
           description: Notes of a pipeline execution
       requestBody:
         $ref: '#/components/requestBodies/RunStageRequestBody'
+  '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/execute/dynamic':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/PipelineParam'
+    post:
+      summary: Execute Pipeline with dynamic Input YAML
+      tags:
+        - Pipeline Execution
+      responses:
+        '200':
+          $ref: '#/components/responses/PipelineExecuteResponseBody'
+      operationId: runDynamicExecutionWithInputYaml
+      description: API for executing a dynamic pipeline input YAML. Refer to the developer documentation for detailed usage and configuration instructions https://developer.harness.io/docs/platform/pipelines/dynamic-execution-pipeline/#dynamic-execution-api
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - schema:
+            type: string
+          in: query
+          name: moduleType
+          description: The module from which execution was triggered.
+        - schema:
+            type: string
+          in: query
+          name: notes
+          default: ''
+          description: Notes of a pipeline execution
+        - schema:
+            type: boolean
+            default: false
+          in: query
+          name: notify_only_user
+      requestBody:
+        $ref: '#/components/requestBodies/DynamicPipelineExecuteRequestBody'
+      x-stoplight:
+        id: izltjry4il9gp
   '/v1/orgs/{org}/projects/{project}/pipelines/{pipeline}/execute/stages':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -5220,6 +5256,32 @@ components:
                                   spec:
                                     script: echo hello
                               timeout: 10s
+    DynamicPipelineExecuteRequestBody:
+      title: DynamicPipelineExecuteRequestBody
+      type: object
+      description: 'Please provide input Pipeline YAML, which needs to be executed.'
+      properties:
+        yaml:
+          type: string
+      x-examples:
+        Example 1:
+          yaml: |
+            pipeline:
+              identifier: Dynamic_pipeline
+              stages:
+                - stage:
+                    identifier: stage1
+                    type: Custom
+                    spec:
+                      execution:
+                        steps:
+                          - step:
+                              identifier: Wait_1
+                              type: Wait
+                              spec:
+                                duration: 10s
+      x-stoplight:
+        id: nyqjsupsodd94
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -6743,3 +6805,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/PipelineExecuteRequestBody'
+    DynamicPipelineExecuteRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DynamicPipelineExecuteRequestBody'
+      description: ''
