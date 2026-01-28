@@ -112,8 +112,8 @@
     - Helm Artifacts
     - quarantine
     - Webhooks
-    - Replication
     - Spaces
+#    - quarantine # Update the underlying APIs plus the Label naming is not conforming
 - name: Database DevOps
   tags:
     - Database Schema

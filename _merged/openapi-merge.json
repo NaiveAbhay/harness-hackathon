@@ -168,7 +168,7 @@
     {
       "inputURL": "https://app.harness.io/prod1/har/swagger.json",
       "pathModification": {
-        "prepend": "/har/api/v1"
+        "prepend": "/har/api"
       },
       "dispute": {
         "prefix": "Registry"
