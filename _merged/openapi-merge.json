@@ -85,7 +85,7 @@
       }
     },
     {
-      "inputURL": "https://app.harness.io/prod1/lw/api/openapi.json",
+      "inputURL": "https://app.harness.io/prod1/lw/api/openapi/openapi.json",
       "pathModification": {
         "prepend": "/gateway/lw/api"
       },
@@ -94,7 +94,7 @@
       }
     },
     {
-      "inputURL": "https://app.harness.io/prod1/lw/api/openapi-autocud.json",
+      "inputURL": "https://app.harness.io/prod1/lw/api/openapi/openapi-autocud.json",
       "pathModification": {
         "prepend": "/gateway/lw/api"
       },
