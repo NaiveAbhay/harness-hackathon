@@ -11085,7 +11085,7 @@ components:
               type: string
               x-stoplight:
                 id: ohz162f4bbptp
-              description: Provide the fully qualified repository URL, excluding the 'https://' prefix. For example github.com/nginxinc/docker-nginx.
+              description: Provide the fully qualified repository URL, For example https://github.com/nginxinc/docker-nginx.
             branch:
               type: string
               x-stoplight:
