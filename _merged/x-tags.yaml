@@ -82,11 +82,11 @@
     - Variables
 - name: Delegate
   tags:
-      - Agent mTLS Endpoint Management
-      - Delegate Download Resource
-      - Delegate Group Tags Resource
-      - Delegate Setup Resource
-      - Delegate Token Resource
+    - Agent mTLS Endpoint Management
+    - Delegate Download Resource
+    - Delegate Group Tags Resource
+    - Delegate Setup Resource
+    - Delegate Token Resource
 - name: Pipelines
   tags:
     - Pipelines
@@ -113,6 +113,14 @@
     - quarantine
     - Webhooks
     - Spaces
+    - Replication
+    - Registry V3 - Registries
+    - Registry V3 - Packages
+    - Registry V3 - Versions
+    - Registry V3 - Files
+    - Registry V3 - Metadata
+    - Registry V3 - Firewall
+    - Registry V3 - Transfer
 #    - quarantine # Update the underlying APIs plus the Label naming is not conforming
 - name: Database DevOps
   tags:
@@ -123,22 +131,22 @@
     - Migration State
 - name: CD
   tags:
-      - K8s Release Service Mapping
-      - CustomDeployment
-      - Environments
-      - EnvironmentGroup
-      - Infrastructures
-      - Usage
-      - File Store
-      - Service Dashboard
-      - ServiceOverrides
-      - Rollback
-      - tas
+    - K8s Release Service Mapping
+    - CustomDeployment
+    - Environments
+    - EnvironmentGroup
+    - Infrastructures
+    - Usage
+    - File Store
+    - Service Dashboard
+    - ServiceOverrides
+    - Rollback
+    - tas
 - name: Deployment Freeze
   tags:
-      - Freeze CRUD
-      - Freeze Evaluation
-      - Freeze Schema
+    - Freeze CRUD
+    - Freeze Evaluation
+    - Freeze Schema
 - name: Services
   tags:
     - Account Services
@@ -159,151 +167,151 @@
     - Global Templates
 - name: GitOps
   tags:
-      - Agents
-      - Application
-      - Applications
-      - Certificates
-      - Clusters
-      - Dashboard Aggregates
-      - Dashboards
-      - GnuPGP Keys
-      - GPG Keys
-      - Hosts
-      - Project mappings
-      - Projects
-      - Reconciler
-      - Repositories
-      - Repository Certificates
-      - Repository credentials
-      - ValidateHost
+    - Agents
+    - Application
+    - Applications
+    - Certificates
+    - Clusters
+    - Dashboard Aggregates
+    - Dashboards
+    - GnuPGP Keys
+    - GPG Keys
+    - Hosts
+    - Project mappings
+    - Projects
+    - Reconciler
+    - Repositories
+    - Repository Certificates
+    - Repository credentials
+    - ValidateHost
 - name: GitX
   tags:
-      - GitX Webhooks
-      - Org Gitx Webhooks
-      - Project Gitx Webhooks
+    - GitX Webhooks
+    - Org Gitx Webhooks
+    - Project Gitx Webhooks
 - name: CCM
   tags:
-      - Cloud Cost Anomalies
-      - Cloud cost anomalies v2
-      - Cloud cost anomaly details
-      - Cloud Cost BI Dashboards
-      - Cloud Cost Budget Groups
-      - Cloud Cost Budgets
-      - Cloud Cost K8S Connectors Metadata
-      - Cloud Cost Details
-      - Cloud Cost Overview
-      - Cloud Cost Cost Categories
-      - RuleEnforcement
-      - Rule
-      - Rule Executions
-      - Rule Sets
-      - Governance Overview
-      - Cloud Cost Perspectives Folders
-      - Cloud Cost Perspective Reports
-      - Cloud Cost Perspectives
-      - Cloud Cost Recommendations Details
-      - Cloud Cost Recommendations
-      - Cloud Cost Recommendation Preferences
-      - Cloud Cost Recommendation Presets
-      - Cloud Cost Recommendation Jira
-      - Cloud Cost Recommendation Servicenow
-      - Cloud Cost Recommendation Ignore List
-      - Cloud Cost AutoStopping Rules
-      - Cloud Cost AutoStopping Rules V2
-      - Cloud Cost AutoStopping Load Balancers
-      - Cloud Cost AutoStopping Fixed Schedules
-      - Commitment Orchestrator Events APIs
+    - Cloud Cost Anomalies
+    - Cloud cost anomalies v2
+    - Cloud cost anomaly details
+    - Cloud Cost BI Dashboards
+    - Cloud Cost Budget Groups
+    - Cloud Cost Budgets
+    - Cloud Cost K8S Connectors Metadata
+    - Cloud Cost Details
+    - Cloud Cost Overview
+    - Cloud Cost Cost Categories
+    - RuleEnforcement
+    - Rule
+    - Rule Executions
+    - Rule Sets
+    - Governance Overview
+    - Cloud Cost Perspectives Folders
+    - Cloud Cost Perspective Reports
+    - Cloud Cost Perspectives
+    - Cloud Cost Recommendations Details
+    - Cloud Cost Recommendations
+    - Cloud Cost Recommendation Preferences
+    - Cloud Cost Recommendation Presets
+    - Cloud Cost Recommendation Jira
+    - Cloud Cost Recommendation Servicenow
+    - Cloud Cost Recommendation Ignore List
+    - Cloud Cost AutoStopping Rules
+    - Cloud Cost AutoStopping Rules V2
+    - Cloud Cost AutoStopping Load Balancers
+    - Cloud Cost AutoStopping Fixed Schedules
+    - Commitment Orchestrator Events APIs
 - name: Feature Flags
   tags:
-      - API Keys
-      - Feature Flags
-      - Targets
-      - Target Groups
-      - Environment Perspectives
-      - Anomalies
-      - Proxy
-      - Tags
+    - API Keys
+    - Feature Flags
+    - Targets
+    - Target Groups
+    - Environment Perspectives
+    - Anomalies
+    - Proxy
+    - Tags
 - name: SRM
   tags:
-      - Monitored Services
-      - SLOs dashboard
-      - NG SLOs
-      - SLOs
-      - Downtime
-      - Srm Notification
+    - Monitored Services
+    - SLOs dashboard
+    - NG SLOs
+    - SLOs
+    - Downtime
+    - Srm Notification
 - name: Internal Developer Portal - IDP
   tags:
-      - Entities
-      - CatalogCustomProperties
-      - Scores
-      - DataSource
-      - KubernetesDataPoints
-      - AppConfig
-      - PluginInfo
-      - LayoutProxy
+    - Entities
+    - CatalogCustomProperties
+    - Scores
+    - DataSource
+    - KubernetesDataPoints
+    - AppConfig
+    - PluginInfo
+    - LayoutProxy
 - name: Environment Management - IDP
   tags:
-      - Environment
-      - Infrastructure
-      - Instance
+    - Environment
+    - Infrastructure
+    - Instance
 - name: Custom Dashboards
   tags:
-      - aida
-      - dashboards
-      - downloads
-      - embed
-      - folders
+    - aida
+    - dashboards
+    - downloads
+    - embed
+    - folders
 - name: Policy Management
   tags:
-      - dashboard
-      - examples
-      - policies
-      - evaluate
-      - evaluations
-      - policysets
-      - system
+    - dashboard
+    - examples
+    - policies
+    - evaluate
+    - evaluations
+    - policysets
+    - system
 - name: Code
   tags:
-      - repository
-      - status_checks
-      - pullreq
-      - upload
-      - webhook
-      - resource
-      - rules
-      - labels
+    - repository
+    - status_checks
+    - pullreq
+    - upload
+    - webhook
+    - resource
+    - rules
+    - labels
 - name: IaCM
   tags:
-      - usage
-      - approvals
-      - costs
-      - executions
-      - module-registry
-      - workspaces
-      - settings
-      - tf-standard-backend
-      - variables
+    - usage
+    - approvals
+    - costs
+    - executions
+    - module-registry
+    - workspaces
+    - settings
+    - tf-standard-backend
+    - variables
 - name: STO
   tags:
-      - Exemptions
-      - Issues
-      - Scans
-      - Products
-      - Test Targets
-      - Target Variants
+    - Exemptions
+    - Issues
+    - Scans
+    - Products
+    - Test Targets
+    - Target Variants
 - name: SEI
   tags:
-      - Collection categories
-      - Collections
-      - Contributors
-      - DORA
+    - Collection categories
+    - Collections
+    - Contributors
+    - DORA
 - name: Git Sync (deprecated)
   tags:
-      - Git Branches
-      - Git Full Sync
-      - Git Sync Settings
-      - Git Sync
-      - Git Sync Errors
+    - Git Branches
+    - Git Full Sync
+    - Git Sync Settings
+    - Git Sync
+    - Git Sync Errors
 - name: Error Models
   tags:
     - Error Response
