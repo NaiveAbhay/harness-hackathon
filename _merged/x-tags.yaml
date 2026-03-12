@@ -325,7 +325,25 @@
     - Delete Step Config
     - Delete Repositories
     - Pipeline Store Config
-# Please make sure to add new tags above Chaos Engineering section.
-- name: Chaos Engineering
+# Please make sure to add new tags above Resilience Testing section.
+- name: Resilience Testing
   tags:
-    - Chaos Engineering
+    - Actions
+    - Action Templates
+    - Chaos Components
+    - Chaos Hubs
+    - ChaosGuard Conditions
+    - ChaosGuard Rules
+    - DR Tests
+    - Experiments
+    - Experiment Templates
+    - Faults
+    - Fault Templates
+    - Chaos Infrastructure
+    - Health
+    - Network Maps
+    - Onboarding
+    - Probes
+    - Probe Templates
+    - Chaos Recommendations
+    - Risks

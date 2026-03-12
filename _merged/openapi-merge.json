@@ -203,6 +203,9 @@
     },
     {
       "inputFile": "../ssca-manager/openapi.yaml"
+    },
+    {
+      "inputFile": "../resilience-testing/openapi.yaml"
     }
   ],
   "output": "merged.yaml"

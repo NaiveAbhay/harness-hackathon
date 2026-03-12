@@ -11,11 +11,6 @@ apis:
       remove-x-internal: on
 features.openapi:
   htmlTemplate: ./index.html
-  sidebarLinks:
-    end:
-      - label: Chaos Engineering
-        link: https://apidocs.harness.io/chaos.html
-        target: _blank
 theme.openapi:
   sortOperationsAlphabetically: true
   lint:
