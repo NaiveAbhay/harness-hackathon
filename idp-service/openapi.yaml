@@ -7349,6 +7349,37 @@ components:
         - repository
         - branch
         - path
+    CatalogIntegrationRequest:
+      title: CatalogIntegrationRequest
+      x-discriminator-value: catalog
+      description: Catalog integration request
+      allOf:
+        - $ref: '#/components/schemas/BaseIntegrationRequest'
+        - type: object
+          properties:
+            catalog_integration_type:
+              type: string
+              enum:
+                - harness_cd
+            catalog_integration_request:
+              oneOf:
+                - $ref: '#/components/schemas/HarnessCDIntegrationRequest'
+          required:
+            - catalog_integration_type
+            - catalog_integration_request
+    HarnessCDIntegrationRequest:
+      title: HarnessCDIntegrationRequest
+      description: Harness CD Integration Request
+      allOf:
+        - $ref: '#/components/schemas/CatalogIntegrationRequest'
+        - type: object
+          properties:
+            enabled:
+              type: boolean
+            scopes:
+              type: string
+            auto_deletion:
+              type: boolean
     SaveDiscoverEntitiesRequest:
       required: true
       content:
