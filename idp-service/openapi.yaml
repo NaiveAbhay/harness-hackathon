@@ -7381,21 +7381,37 @@ components:
             auto_deletion:
               type: boolean
     SaveDiscoverEntitiesRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SaveDiscoverEntitiesRequest'
-          examples: { }
-      description: Details of Save Discovered Entities Request
+      title: SaveDiscoverEntitiesRequest
+      required:
+        - integration_entities
+      properties:
+        all:
+          type: boolean
+        integration_entities:
+          type: array
+          items:
+            type: object
+            properties:
+              integration_entity_id:
+                type: string
+              action:
+                type: string
+                enum:
+                  - REGISTER
+                  - MERGE
+              action_destination:
+                type: string
+        auto_discover:
+          type: boolean
     UnlinkIntegrationEntitiesRequest:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UnlinkIntegrationEntitiesRequest'
-          examples: { }
-      description: Details of Unlink Integration Entities Request
+      title: SaveDiscoverEntitiesRequest
+      required:
+        - entity_refs
+      properties:
+        entity_refs:
+          type: array
+          items:
+            type: string
     ValidationResponse:
       title: ValidationResponse
       type: object
