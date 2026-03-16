@@ -4,6 +4,11 @@ info:
   title: Chaos Manager
   contact: {}
   version: 1.77.3
+  license:
+    name: Harness Inc.
+    url: https://www.harness.io
+security:
+  - ApiKeyAuth: []
 paths:
   /api/v3/health:
     get:
@@ -55,6 +60,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/handlers.ExperimentHelperImageVersion'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shared.Error'
+
       tags:
         - Health
   /rest/actions:
@@ -249,6 +261,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Actions
   '/rest/actions/manifest/{identity}':
@@ -539,6 +558,13 @@ paths:
             application/pdf:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/experimenttemplates:
@@ -2690,6 +2716,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/security_governance.Condition'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shared.Error'
+
       tags:
         - ChaosGuard Conditions
   /rest/hubs:
@@ -3114,6 +3147,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/handlers.ImageRegistryDetails'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shared.Error'
+
       tags:
         - Chaos Infrastructure
   /rest/kubernetes/infra:
@@ -3449,6 +3489,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
   '/rest/kubernetes/infra/{id}':
     get:
       security:
@@ -3490,6 +3537,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/model.KubernetesInfra'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
         '500':
           description: Internal Server Error
           content:
@@ -3625,7 +3678,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
-  '/rest/kubernetes/infra/{id}/health':
+  '/rest/kubernetes/infra/health/{id}':
     get:
       security:
         - ApiKeyAuth: []
@@ -4873,6 +4926,13 @@ paths:
                     type: string
         '500':
           description: Internal Server Error
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shared.Error'
+
       tags:
         - Risks
   '/rest/service/overall/stats/{accountID}':
@@ -4956,6 +5016,13 @@ paths:
                     type: string
         '500':
           description: Internal Server Error
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shared.Error'
+
       tags:
         - Risks
   '/rest/service/stats/{accountID}':
@@ -6004,6 +6071,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   '/rest/v2/applicationmaps/{applicationmapid}':
@@ -6061,6 +6135,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
     delete:
@@ -6117,6 +6198,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   '/rest/v2/applicationmaps/{applicationmapid}/canretry':
@@ -6174,6 +6262,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   '/rest/v2/applicationmaps/{applicationmapid}/retry':
@@ -6238,6 +6333,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   '/rest/v2/applicationmaps/{applicationmapid}/targetservices':
@@ -6314,6 +6416,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   '/rest/v2/applicationmaps/{applicationmapid}/targetservices/{targetserviceid}':
@@ -6377,6 +6486,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Network Maps
   /rest/v2/bulkaction/bulkexperimentdelete:
@@ -6423,6 +6539,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/bulkaction/bulkexperimenttagsadd:
@@ -6469,6 +6592,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/chaos-pipeline/step/{experimentId}/{experimentRunId}/{stepName}':
@@ -6526,6 +6656,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/chaos-pipeline/{experimentId}':
@@ -6583,6 +6720,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/experiment:
@@ -6691,6 +6835,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
     post:
@@ -6736,6 +6887,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/experiment-runs/csv:
@@ -6857,6 +7015,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/experiment/cron:
@@ -6903,6 +7068,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiment/{experimentId}':
@@ -6948,6 +7120,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiment/{experimentId}/stop':
@@ -7010,6 +7189,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/experiments:
@@ -7073,6 +7259,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiments/timeline/run/{experimentId}':
@@ -7128,6 +7321,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiments/{experimentId}':
@@ -7173,6 +7373,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiments/{experimentId}/inputsets':
@@ -7556,6 +7763,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
     post:
@@ -7619,6 +7833,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   '/rest/v2/experiments/{experimentId}/variables':
@@ -7670,6 +7891,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/harness-infrastructures:
@@ -7734,6 +7962,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   /rest/v2/infrastructure:
@@ -7789,6 +8024,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
     post:
       security:
         - ApiKeyAuth: []
@@ -7841,6 +8083,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
   /rest/v2/infrastructure/yaml:
     post:
       description: Preview v2 infra Yaml
@@ -7885,6 +8134,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   '/rest/v2/infrastructure/{environmentIdentifier}/{identity}':
@@ -7940,6 +8196,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
   '/rest/v2/infrastructure/{identity}':
     get:
       security:
@@ -7993,6 +8256,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
   '/rest/v2/infrastructure/{identity}/connector':
     get:
       description: Get Connector For Infra
@@ -8042,6 +8312,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   /rest/v2/infrastructures:
@@ -8116,6 +8393,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
   /rest/v2/infrastructures/chaos-enabled:
     post:
       description: List v2 infras
@@ -8179,6 +8463,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   '/rest/v2/infrastructures/{infrastructureIdentity}/applications':
@@ -8232,6 +8523,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   '/rest/v2/infrastructures/{infrastructureIdentity}/applications/{applicationIdentity}/functions':
@@ -8291,6 +8589,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Chaos Infrastructure
   '/rest/v2/infrastructures/{infrastructureIdentity}/token':
@@ -8474,6 +8779,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/notes:
@@ -8537,6 +8849,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
     post:
@@ -8582,6 +8901,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /rest/v2/onboarding:
@@ -8646,6 +8972,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
     post:
@@ -8696,6 +9029,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding-confirm-discovery/{onboardingid}':
@@ -8746,6 +9086,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding-confirm-experiment-creation/{onboardingid}':
@@ -8803,6 +9150,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding-confirm-experiment-run/{onboardingid}':
@@ -8853,6 +9207,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding-confirm-networkmap/{onboardingid}':
@@ -8910,6 +9271,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding/{onboardingid}':
@@ -8960,6 +9328,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding/{onboardingid}/experiments':
@@ -9021,6 +9396,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   '/rest/v2/onboarding/{onboardingid}/stop':
@@ -9068,6 +9450,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Onboarding
   /rest/v2/pipeline/experiment/runs:
@@ -9392,6 +9781,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Probes
   /rest/v2/probes/import:
@@ -9438,6 +9834,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Probes
   '/rest/v2/probes/manifest/{probeId}':
@@ -9680,7 +10083,7 @@ paths:
                 $ref: '#/components/schemas/api.RestError'
       tags:
         - Probes
-  '/rest/v2/probes/{probeId}/enable':
+  '/rest/v2/probes/enable/{probeId}':
     post:
       description: Enable and disable probes across experiments
       summary: Enable and disable probes across experiments
@@ -9744,7 +10147,7 @@ paths:
                 $ref: '#/components/schemas/api.RestError'
       tags:
         - Probes
-  '/rest/v2/probes/{probeId}/verify':
+  '/rest/v2/probes/verify/{probeId}':
     post:
       description: Verify a probe
       summary: Verify a probe
@@ -10012,6 +10415,13 @@ paths:
             application/pdf:
               schema:
                 $ref: '#/components/schemas/api.RestError'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.RestError'
+
       tags:
         - Experiments
   /v3/chaosguard-conditions:
@@ -13224,54 +13634,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/template.Variable'
-    chaoscomponent.ActionData:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-    chaoscomponent.ChaosComponentExecutionNode:
-      type: object
-      properties:
-        accountID:
-          type: string
-        chaosData:
-          $ref: '#/components/schemas/chaoscomponent.ChaosData'
-        errorData:
-          $ref: '#/components/schemas/chaoscomponent.ErrorData'
-        finishedAt:
-          type: integer
-        identity:
-          type: string
-        infraID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/chaoscomponent.InfraType'
-        isRemoved:
-          type: boolean
-        lastUpdatedAt:
-          type: integer
-        name:
-          type: string
-        notifyID:
-          type: string
-        orgID:
-          type: string
-        projectID:
-          type: string
-        runID:
-          type: string
-        spec:
-          type: string
-        startedAt:
-          type: integer
-        status:
-          $ref: '#/components/schemas/chaoscomponent.Status'
-        streamID:
-          type: string
-        type:
-          $ref: '#/components/schemas/chaoscomponent.Type'
     chaoscomponent.ChaosComponentType:
       type: string
       enum:
@@ -13282,158 +13644,6 @@ components:
         - Fault
         - Probe
         - Action
-    chaoscomponent.ChaosData:
-      type: object
-      properties:
-        actionData:
-          $ref: '#/components/schemas/chaoscomponent.ActionData'
-        faultData:
-          $ref: '#/components/schemas/chaoscomponent.FaultData'
-        probeData:
-          $ref: '#/components/schemas/chaoscomponent.ProbeData'
-    chaoscomponent.CommandProbe:
-      type: object
-      properties:
-        output:
-          type: array
-          items:
-            type: integer
-    chaoscomponent.ErrorData:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-    chaoscomponent.FaultData:
-      type: object
-      properties:
-        helperPodDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/chaoscomponent.HelperPodDetails'
-        name:
-          type: string
-        namespace:
-          type: string
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/v1alpha1.Targets'
-    chaoscomponent.HTTPProbe:
-      type: object
-      properties:
-        responseBody:
-          type: array
-          items:
-            type: integer
-        responseTime:
-          type: integer
-        statusCode:
-          type: integer
-    chaoscomponent.HelperPodDetails:
-      type: object
-      properties:
-        logStreamID:
-          type: string
-        name:
-          type: string
-    chaoscomponent.InfraType:
-      type: string
-      enum:
-        - Kubernetes
-      x-enum-varnames:
-        - Kubernetes
-    chaoscomponent.ProbeData:
-      type: object
-      properties:
-        description:
-          type: string
-        iterations:
-          type: array
-          items:
-            $ref: '#/components/schemas/chaoscomponent.ProbeIterations'
-        name:
-          type: string
-        probeType:
-          type: string
-        risks:
-          type: array
-          items:
-            type: string
-    chaoscomponent.ProbeIterations:
-      type: object
-      properties:
-        commandProbe:
-          $ref: '#/components/schemas/chaoscomponent.CommandProbe'
-        duration:
-          type: integer
-        httpProbe:
-          $ref: '#/components/schemas/chaoscomponent.HTTPProbe'
-        phase:
-          type: string
-        promProbe:
-          $ref: '#/components/schemas/chaoscomponent.PromProbe'
-        timestamp:
-          type: integer
-    chaoscomponent.PromProbe:
-      type: object
-      properties:
-        metrics:
-          type: string
-    chaoscomponent.Status:
-      type: string
-      enum:
-        - Error
-        - Pending
-        - Running
-        - Stopped
-        - Failed
-        - Passed
-        - Completed
-        - Skipped
-        - Interrupted
-      x-enum-varnames:
-        - Error
-        - Pending
-        - Running
-        - Stopped
-        - Failed
-        - Passed
-        - Completed
-        - Skipped
-        - Interrupted
-    chaoscomponent.Type:
-      type: string
-      enum:
-        - FAULT
-        - PROBE
-        - ACTION
-      x-enum-varnames:
-        - FaultNode
-        - ProbeNode
-        - ActionNode
-    chaoscomponents.AbortChaosComponentRequest:
-      type: object
-      properties:
-        infraReference:
-          type: string
-        notifyId:
-          type: string
-    chaoscomponents.AbortChaosComponentResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/chaoscomponents.AbortChaosComponentResponseData'
-        status:
-          type: string
-    chaoscomponents.AbortChaosComponentResponseData:
-      type: object
-      properties:
-        error:
-          type: string
-        status:
-          type: string
     chaoscomponents.CreateDRTestPipelineRequest:
       type: object
       properties:
@@ -16384,57 +16594,6 @@ components:
           type: string
         projectIdentifier:
           type: string
-    execution.ActionData:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-    execution.ChaosData:
-      type: object
-      properties:
-        actionData:
-          $ref: '#/components/schemas/execution.ActionData'
-        faultData:
-          $ref: '#/components/schemas/execution.FaultData'
-        probeData:
-          $ref: '#/components/schemas/execution.ProbeData'
-    execution.ChaosExecutionNode:
-      type: object
-      properties:
-        chaosData:
-          $ref: '#/components/schemas/execution.ChaosData'
-        errorData:
-          $ref: '#/components/schemas/execution.ErrorData'
-        estimatedTime:
-          type: integer
-        experimentID:
-          type: string
-        experimentRunID:
-          type: string
-        finishedAt:
-          type: integer
-        infraID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/execution.InfraType'
-        isRemoved:
-          type: boolean
-        lastUpdatedAt:
-          type: integer
-        spec:
-          type: string
-        startedAt:
-          type: integer
-        status:
-          $ref: '#/components/schemas/execution.ChaosStepStatus'
-        stepName:
-          type: string
-        stepType:
-          $ref: '#/components/schemas/execution.ChaosStepType'
-        streamID:
-          type: string
     execution.ChaosStepStatus:
       type: string
       enum:
@@ -16475,108 +16634,6 @@ components:
         - Probe
         - Action
         - Experiment
-    execution.CommandProbe:
-      type: object
-      properties:
-        output:
-          type: array
-          items:
-            type: integer
-    execution.ErrorData:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-    execution.FaultData:
-      type: object
-      properties:
-        helperPodDetails:
-          type: array
-          items:
-            $ref: '#/components/schemas/execution.HelperPodDetails'
-        name:
-          type: string
-        namespace:
-          type: string
-        targetChaosStatus:
-          type: array
-          items:
-            $ref: '#/components/schemas/v1alpha1.TargetDetails'
-        targets:
-          type: array
-          items:
-            $ref: '#/components/schemas/v1alpha1.Targets'
-    execution.HTTPProbe:
-      type: object
-      properties:
-        responseBody:
-          type: array
-          items:
-            type: integer
-        responseTime:
-          type: integer
-        statusCode:
-          type: integer
-    execution.HelperPodDetails:
-      type: object
-      properties:
-        logStreamID:
-          type: string
-        name:
-          type: string
-    execution.InfraType:
-      type: string
-      enum:
-        - Kubernetes
-        - Windows
-        - Linux
-        - CloudFoundry
-        - Container
-      x-enum-varnames:
-        - Kubernetes
-        - Windows
-        - Linux
-        - CloudFoundry
-        - Container
-    execution.ProbeData:
-      type: object
-      properties:
-        description:
-          type: string
-        iterations:
-          type: array
-          items:
-            $ref: '#/components/schemas/execution.ProbeIterations'
-        name:
-          type: string
-        probeType:
-          type: string
-        weightage:
-          type: integer
-    execution.ProbeIterations:
-      type: object
-      properties:
-        commandProbe:
-          $ref: '#/components/schemas/execution.CommandProbe'
-        duration:
-          type: integer
-        httpProbe:
-          description: 'TODO: Add other probe result spec'
-          allOf:
-            - $ref: '#/components/schemas/execution.HTTPProbe'
-        phase:
-          type: string
-        promProbe:
-          $ref: '#/components/schemas/execution.PromProbe'
-        timestamp:
-          type: integer
-    execution.PromProbe:
-      type: object
-      properties:
-        metrics:
-          type: string
     experiment.APIAuth:
       type: object
       properties:
@@ -17586,52 +17643,6 @@ components:
           type: string
         vmPassword:
           type: string
-    gamedayrunv2.ApprovalStatus:
-      type: string
-      enum:
-        - approved
-        - rejected
-        - pending
-      x-enum-varnames:
-        - Approved
-        - Rejected
-        - ApprovalPending
-    gamedayrunv2.PrerequisiteStatus:
-      type: string
-      enum:
-        - done
-        - pending
-      x-enum-varnames:
-        - Done
-        - Pending
-    gamedayv2.GamedayRunStatus:
-      type: string
-      enum:
-        - awaiting_approval
-        - preparing_prerequisites
-        - running_experiments
-        - post_mortem
-        - terminated
-        - completed
-      x-enum-varnames:
-        - AwaitingApproval
-        - PreparingPrerequisites
-        - RunningExperiments
-        - PostMortem
-        - Terminated
-        - Completed
-    gamedayv2.StakeHolderRole:
-      type: string
-      enum:
-        - coordinator
-        - triage_engineer
-        - attendee
-        - others
-      x-enum-varnames:
-        - Coordinator
-        - TriageEngineer
-        - Attendee
-        - Others
     github_com_harness_hce-saas_graphql_server_api.Empty:
       type: object
     github_com_harness_hce-saas_graphql_server_api.Pagination:
@@ -18820,15 +18831,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/common_types.ExperimentRunsData'
-    handlers.Dashboard:
-      type: object
-      properties:
-        description:
-          type: string
-        id:
-          type: integer
-        title:
-          type: string
     handlers.ExperimentHelperImageVersion:
       type: object
       properties:
@@ -20033,17 +20035,6 @@ components:
         - ClusterTypeKubernetes
         - ClusterTypeOpenshift
         - ClusterTypeHelm
-    model.ConditionDetails:
-      type: object
-      properties:
-        conditionId:
-          type: string
-        conditionName:
-          type: string
-        message:
-          type: string
-        phase:
-          $ref: '#/components/schemas/model.SecurityGovernancePhase'
     model.DateRange:
       type: object
       properties:
@@ -20388,15 +20379,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/model.Workflow'
-    model.ProbeMap:
-      type: object
-      properties:
-        faultName:
-          type: string
-        probeName:
-          type: array
-          items:
-            type: string
     model.ReRunChaosWorkflowResponse:
       type: object
       properties:
@@ -20437,55 +20419,6 @@ components:
         workflowRunID:
           description: ID of the workflow run which is to be queried
           type: string
-    model.Recurrence:
-      type: object
-      properties:
-        spec:
-          $ref: '#/components/schemas/model.RecurrenceSpec'
-        type:
-          $ref: '#/components/schemas/model.RecurrenceType'
-    model.RecurrenceSpec:
-      type: object
-      properties:
-        until:
-          type: integer
-        value:
-          type: integer
-    model.RecurrenceType:
-      type: string
-      enum:
-        - Yearly
-        - Monthly
-        - Daily
-        - Weekly
-        - None
-      x-enum-varnames:
-        - RecurrenceTypeYearly
-        - RecurrenceTypeMonthly
-        - RecurrenceTypeDaily
-        - RecurrenceTypeWeekly
-        - RecurrenceTypeNone
-    model.RuleDetails:
-      type: object
-      properties:
-        conditions:
-          type: array
-          items:
-            $ref: '#/components/schemas/model.ConditionDetails'
-        description:
-          type: string
-        message:
-          type: string
-        ruleId:
-          type: string
-        ruleName:
-          type: string
-        timeWindow:
-          $ref: '#/components/schemas/model.TimeWindow'
-        userGroupIds:
-          type: array
-          items:
-            type: string
     model.ScenarioType:
       type: string
       enum:
@@ -20498,46 +20431,6 @@ components:
         - ScenarioTypeNonCron
         - ScenarioTypeGameday
         - ScenarioTypeAll
-    model.SecurityGovernance:
-      type: object
-      properties:
-        finishedAt:
-          type: integer
-        message:
-          type: string
-        name:
-          type: string
-        phase:
-          $ref: '#/components/schemas/model.SecurityGovernancePhase'
-        securityGovernanceNodeData:
-          $ref: '#/components/schemas/model.SecurityGovernanceNodeData'
-        startedAt:
-          type: integer
-        type:
-          type: string
-    model.SecurityGovernanceNodeData:
-      type: object
-      properties:
-        failedRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/model.RuleDetails'
-        passedRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/model.RuleDetails'
-        skippedRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/model.RuleDetails'
-    model.SecurityGovernancePhase:
-      type: string
-      enum:
-        - Passed
-        - Failed
-      x-enum-varnames:
-        - SecurityGovernancePhasePassed
-        - SecurityGovernancePhaseFailed
     model.TemplateRef:
       type: object
       properties:
@@ -20552,19 +20445,6 @@ components:
           type: string
         revision:
           description: Version or revision of the template
-          type: string
-    model.TimeWindow:
-      type: object
-      properties:
-        duration:
-          type: string
-        endTime:
-          type: integer
-        recurrence:
-          $ref: '#/components/schemas/model.Recurrence'
-        startTime:
-          type: integer
-        timeZone:
           type: string
     model.Toleration:
       type: object
@@ -20769,130 +20649,6 @@ components:
             type: string
         workflowName:
           description: Name of the workflow
-          type: string
-    model.WorkflowRun:
-      type: object
-      properties:
-        createdAt:
-          description: Timestamp at which workflow run was created
-          type: string
-        createdBy:
-          description: User who has created the experiment run
-          allOf:
-            - $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        cronSyntax:
-          description: Cron syntax of the workflow schedule
-          type: string
-        errorResponse:
-          description: Error Response is the reason why experiment failed to run
-          type: string
-        executionData:
-          description: Stores all the workflow run details related to the nodes of DAG graph and chaos results of the experiments
-          type: string
-        experimentType:
-          description: experimentType is the type of experiment run
-          type: string
-        experimentsAwaited:
-          description: Number of experiments awaited
-          type: integer
-        experimentsFailed:
-          description: Number of experiments failed
-          type: integer
-        experimentsNa:
-          description: Number of experiments which are not available
-          type: integer
-        experimentsPassed:
-          description: Number of experiments passed
-          type: integer
-        experimentsStopped:
-          description: Number of experiments stopped
-          type: integer
-        identifiers:
-          description: Harness identifiers
-          allOf:
-            - $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.Identifiers'
-        infra:
-          description: Target infra in which the workflow will run
-          allOf:
-            - $ref: '#/components/schemas/model.Infrastructure'
-        isCronEnabled:
-          description: If cron is enabled or disabled
-          type: boolean
-        isRemoved:
-          description: Bool value indicating if the workflow run has removed
-          type: boolean
-        isSingleRunCronEnabled:
-          description: Flag to check if single run status is enabled or not
-          type: boolean
-        manifestVersion:
-          description: kind of the experiment manifest
-          type: string
-        notifyID:
-          description: Notify ID of the experiment run
-          type: string
-        phase:
-          description: Phase of the workflow run
-          allOf:
-            - $ref: '#/components/schemas/model.WorkflowRunStatus'
-        probe:
-          description: Probe object containing reference of probeIDs
-          type: array
-          items:
-            $ref: '#/components/schemas/model.ProbeMap'
-        resiliencyScore:
-          description: Resiliency score of the workflow
-          type: number
-        runSequence:
-          description: runSequence is the sequence number of experiment run
-          type: integer
-        securityGovernance:
-          description: Security Governance details of the workflow run
-          allOf:
-            - $ref: '#/components/schemas/model.SecurityGovernance'
-        templateDetails:
-          description: TemplateDetails of an experiment
-          allOf:
-            - $ref: '#/components/schemas/model.TemplateRef'
-        totalExperiments:
-          description: Total number of experiments
-          type: integer
-        updatedAt:
-          description: Timestamp at which workflow run was last updated
-          type: string
-        updatedBy:
-          description: User who has updated the workflow
-          allOf:
-            - $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        weightages:
-          description: Array containing weightage and name of each chaos experiment in the workflow
-          type: array
-          items:
-            $ref: '#/components/schemas/model.Weightages'
-        workflowDescription:
-          description: Description of the workflow
-          type: string
-        workflowID:
-          description: ID of the workflow
-          type: string
-        workflowIdentity:
-          description: Identity of the workflow
-          type: string
-        workflowManifest:
-          description: Manifest of the workflow run
-          type: string
-        workflowName:
-          description: Name of the workflow
-          type: string
-        workflowRunID:
-          description: ID of the workflow run which is to be queried
-          type: string
-        workflowTags:
-          description: Tag of the workflow
-          type: array
-          items:
-            type: string
-        workflowType:
-          description: Type of the workflow
           type: string
     model.WorkflowRunStatus:
       type: string
@@ -22204,55 +21960,6 @@ components:
           type: boolean
         verbosity:
           type: string
-    recommendation.ConfigScannerEvents:
-      type: object
-      properties:
-        details:
-          type: string
-        error:
-          type: array
-          items:
-            $ref: '#/components/schemas/recommendation.Failure'
-        id:
-          type: string
-        kind:
-          type: string
-        labels:
-          type: string
-        name:
-          type: string
-        namespace:
-          type: string
-        parentObject:
-          type: string
-    recommendation.EventRequest:
-      type: object
-      properties:
-        environmentID:
-          type: string
-        faultPayload:
-          $ref: '#/components/schemas/recommendation.FaultPayload'
-        identifiers:
-          $ref: '#/components/schemas/recommendation.Identifiers'
-        infraID:
-          type: string
-        probePayload:
-          $ref: '#/components/schemas/recommendation.ProbePayload'
-        source:
-          type: string
-        type:
-          type: string
-    recommendation.Failure:
-      type: object
-      properties:
-        containerName:
-          type: string
-        eventIdentifier:
-          type: string
-        kubernetesDoc:
-          type: string
-        text:
-          type: string
     recommendation.FaultFilters:
       type: object
       properties:
@@ -22262,28 +21969,12 @@ components:
           type: string
         targets:
           $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_pkg_database_mongodb_recommendation.Target'
-    recommendation.FaultPayload:
-      type: object
-      properties:
-        configScannerEvents:
-          type: array
-          items:
-            $ref: '#/components/schemas/recommendation.ConfigScannerEvents'
     recommendation.Fixes:
       type: object
       properties:
         description:
           type: string
         name:
-          type: string
-    recommendation.Identifiers:
-      type: object
-      properties:
-        accountID:
-          type: string
-        organizationID:
-          type: string
-        projectID:
           type: string
     recommendation.PipelineFilters:
       type: object
@@ -22299,23 +21990,6 @@ components:
     recommendation.ProbeFilters:
       type: object
       properties:
-        experimentRunID:
-          type: string
-        probeID:
-          type: string
-        probeName:
-          type: string
-        probeType:
-          type: string
-    recommendation.ProbePayload:
-      type: object
-      properties:
-        error:
-          type: string
-        experimentID:
-          type: string
-        experimentName:
-          type: string
         experimentRunID:
           type: string
         probeID:
@@ -22488,14 +22162,6 @@ components:
           type: integer
         passedProbes:
           type: integer
-    risks.ActiveRiskCounterType:
-      type: string
-      enum:
-        - Passed
-        - Failed
-      x-enum-varnames:
-        - ActiveRiskCounterTypePassedProbes
-        - ActiveRiskCounterTypeFailedProbes
     risks.CreateRequest:
       type: object
       properties:
@@ -23195,17 +22861,6 @@ components:
         name:
           type: string
         value: {}
-    types.ActionItem:
-      type: object
-      properties:
-        createdAt:
-          type: integer
-        id:
-          type: string
-        item:
-          type: string
-        user:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
     types.CreateExperimentFromTemplateRequest:
       type: object
       required:
@@ -23235,43 +22890,6 @@ components:
           type: array
           items:
             type: string
-    types.CreateGamedayRequest:
-      type: object
-      properties:
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ExperimentRequest'
-        gameDayID:
-          type: string
-        gamedayDescription:
-          type: string
-        gamedayName:
-          type: string
-        objective:
-          type: string
-        prerequisites:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.Prerequisite'
-        stakeholders:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.StakeHolderInput'
-    types.CreateGamedayResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/types.CreateGamedayRequest'
-    types.CreateGamedayRunResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/types.Run'
-        experimentError:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ExperimentCreationError'
     types.CreateNoteRequest:
       type: object
       properties:
@@ -23372,13 +22990,6 @@ components:
           type: integer
         updatedBy:
           $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_pkg_chaos_v2_probes_types.UserDetails'
-    types.ExperimentCreationError:
-      type: object
-      properties:
-        error:
-          type: string
-        experimentName:
-          type: string
     types.ExperimentCreationRequest:
       type: object
       properties:
@@ -23425,21 +23036,6 @@ components:
           $ref: '#/components/schemas/experiment.SaveChaosExperimentResponse'
         data:
           $ref: '#/components/schemas/types.ExperimentCreationRequest'
-    types.ExperimentRequest:
-      type: object
-      properties:
-        environmentID:
-          type: string
-        experimentID:
-          type: string
-        experimentTemplateName:
-          type: string
-        hubID:
-          type: string
-        infraID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/model.InfrastructureType'
     types.ExperimentRunRequest:
       type: object
       properties:
@@ -23447,27 +23043,6 @@ components:
           type: string
         runtimeInputs:
           $ref: '#/components/schemas/template.ChaosExperimentInputsetSpec'
-    types.ExperimentRuns:
-      type: object
-      properties:
-        chaosInfraID:
-          type: string
-        environmentID:
-          type: string
-        experimentCsv:
-          type: string
-        experimentID:
-          type: string
-        experimentManifest:
-          type: string
-        experimentTemplateName:
-          type: string
-        hubID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/model.InfrastructureType'
-        lastRunNotifyID:
-          type: string
     types.ExperimentV2:
       type: object
       properties:
@@ -23540,116 +23115,6 @@ components:
           type: array
           items:
             type: string
-    types.GamedayInfraDetails:
-      type: object
-      properties:
-        environmentID:
-          type: string
-        infraID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/model.InfrastructureType'
-        name:
-          type: string
-    types.GamedayV2:
-      type: object
-      properties:
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        description:
-          type: string
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ListGamedayExperimentResponse'
-        gameDayID:
-          type: string
-        identifiers:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.Identifiers'
-        isRemoved:
-          type: boolean
-        name:
-          type: string
-        objective:
-          type: string
-        prerequisites:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.Prerequisite'
-        recentGamedayRuns:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.RecentGamedayRun'
-        stakeholders:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.StakeHolderResponse'
-        tags:
-          type: array
-          items:
-            type: string
-        updatedAt:
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-    types.GetGamedayExperimentResponse:
-      type: object
-      properties:
-        experimentCsv:
-          type: string
-        experimentID:
-          type: string
-        experimentManifest:
-          type: string
-        experimentTemplateName:
-          type: string
-        hubID:
-          type: string
-        infra:
-          $ref: '#/components/schemas/types.GamedayInfraDetails'
-    types.GetGamedayResponse:
-      type: object
-      properties:
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        description:
-          type: string
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.GetGamedayExperimentResponse'
-        gameDayID:
-          type: string
-        identifiers:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.Identifiers'
-        isRemoved:
-          type: boolean
-        name:
-          type: string
-        objective:
-          type: string
-        prerequisites:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.Prerequisite'
-        stakeholders:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.StakeHolderResponse'
-        tags:
-          type: array
-          items:
-            type: string
-        totalGamedayRuns:
-          type: integer
-        updatedAt:
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
     types.GetProbeResponse:
       type: object
       properties:
@@ -23774,19 +23239,6 @@ components:
         - InfrastructureTypeLinux
         - InfrastructureTypeCloudFoundry
         - InfrastructureTypeContainer
-    types.InternalExperimentRunRequest:
-      type: object
-      properties:
-        email:
-          type: string
-        inputsetIdentity:
-          type: string
-        runtimeInputs:
-          $ref: '#/components/schemas/template.ChaosExperimentInputsetSpec'
-        userID:
-          type: string
-        username:
-          type: string
     types.ListChaosPipelineRuns:
       type: object
       properties:
@@ -23821,37 +23273,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/types.ExperimentV2'
-        pagination:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_api.Pagination'
-    types.ListGamedayExperimentResponse:
-      type: object
-      properties:
-        environmentID:
-          type: string
-        experimentID:
-          type: string
-        experimentTemplateName:
-          type: string
-        hubID:
-          type: string
-        infraID:
-          type: string
-        infraType:
-          $ref: '#/components/schemas/model.InfrastructureType'
-    types.ListGamedayRunV2Response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.Run'
-    types.ListGamedayV2Response:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.GamedayV2'
         pagination:
           $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_api.Pagination'
     types.ListMetadataRequest:
@@ -23904,28 +23325,6 @@ components:
             $ref: '#/components/schemas/types.Note'
         type:
           $ref: '#/components/schemas/chaosresourcenotes.NoteType'
-    types.Prerequisite:
-      type: object
-      properties:
-        actionItem:
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-    types.PrerequisiteForRun:
-      type: object
-      properties:
-        ID:
-          type: string
-        actionItem:
-          type: string
-        comment:
-          type: string
-        description:
-          type: string
-        status:
-          $ref: '#/components/schemas/gamedayrunv2.PrerequisiteStatus'
     types.ProbeBulkEnableRequest:
       type: object
       properties:
@@ -24093,59 +23492,6 @@ components:
       properties:
         verify:
           type: boolean
-    types.RecentGamedayRun:
-      type: object
-      properties:
-        gameDayRunID:
-          type: string
-        name:
-          type: string
-        runAt:
-          type: string
-        runBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        status:
-          $ref: '#/components/schemas/gamedayv2.GamedayRunStatus'
-    types.Run:
-      type: object
-      properties:
-        createdAt:
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ExperimentRuns'
-        gameDayID:
-          type: string
-        gameDayRunID:
-          type: string
-        identifiers:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.Identifiers'
-        isRemoved:
-          type: boolean
-        name:
-          type: string
-        prerequisites:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.PrerequisiteForRun'
-        stakeHolders:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.StakeHolderDetailsForRuns'
-        startTime:
-          description: after approval
-          type: integer
-        status:
-          $ref: '#/components/schemas/gamedayv2.GamedayRunStatus'
-        summary:
-          $ref: '#/components/schemas/types.Summary'
-        updatedAt:
-          type: string
-        updatedBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
     types.ScenarioType:
       type: string
       enum:
@@ -24158,53 +23504,6 @@ components:
         - ScenarioTypeNonCron
         - ScenarioTypeGameday
         - ScenarioTypeAll
-    types.StakeHolderDetailsForRuns:
-      type: object
-      properties:
-        approvalRequired:
-          type: boolean
-        approvalStatus:
-          $ref: '#/components/schemas/gamedayrunv2.ApprovalStatus'
-        lastUpdatedAt:
-          type: integer
-        lastUpdatedBy:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-        notes:
-          type: string
-        role:
-          $ref: '#/components/schemas/gamedayv2.StakeHolderRole'
-        user:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-    types.StakeHolderInput:
-      type: object
-      properties:
-        approvalRequired:
-          type: boolean
-        role:
-          $ref: '#/components/schemas/types.StakeHolderRole'
-        userID:
-          type: string
-    types.StakeHolderResponse:
-      type: object
-      properties:
-        approvalRequired:
-          type: boolean
-        role:
-          $ref: '#/components/schemas/types.StakeHolderRole'
-        user:
-          $ref: '#/components/schemas/github_com_harness_hce-saas_graphql_server_graph_model.UserDetails'
-    types.StakeHolderRole:
-      type: string
-      enum:
-        - coordinator
-        - triage_engineer
-        - attendee
-        - others
-      x-enum-varnames:
-        - Coordinator
-        - TriageEngineer
-        - Attendee
-        - Others
     types.Status:
       type: object
       properties:
@@ -24221,21 +23520,6 @@ components:
           type: string
         isStopped:
           type: boolean
-    types.Summary:
-      type: object
-      properties:
-        actionItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ActionItem'
-        avgResiliencyScore:
-          type: number
-        totalCompletedRuns:
-          type: integer
-        totalCompletedWithErrRuns:
-          type: integer
-        totalSuspendedRuns:
-          type: integer
     types.TemplateResourceDetails:
       type: object
       properties:
@@ -24294,42 +23578,6 @@ components:
           type: array
           items:
             type: string
-    types.UpdateGameDayRunRequest:
-      type: object
-      properties:
-        actionItems:
-          type: array
-          items:
-            type: string
-        gameDayRunID:
-          type: string
-        status:
-          $ref: '#/components/schemas/gamedayv2.GamedayRunStatus'
-    types.UpdateGamedayRequest:
-      type: object
-      properties:
-        experiments:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.ExperimentRequest'
-        gameDayID:
-          type: string
-        gamedayDescription:
-          type: string
-        gamedayName:
-          type: string
-        isRemoved:
-          type: boolean
-        objective:
-          type: string
-        prerequisites:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.Prerequisite'
-        stakeholders:
-          type: array
-          items:
-            $ref: '#/components/schemas/types.StakeHolderInput'
     types.UpdateNoteRequest:
       type: object
       properties:
@@ -24355,24 +23603,6 @@ components:
       x-enum-varnames:
         - OperationDelete
         - OperationUpdate
-    types.UpdatePrerequisiteRequest:
-      type: object
-      properties:
-        ID:
-          type: string
-        comment:
-          type: string
-        status:
-          $ref: '#/components/schemas/gamedayrunv2.PrerequisiteStatus'
-    types.UpdateStakeHolderActionRequest:
-      type: object
-      properties:
-        approvalStatus:
-          $ref: '#/components/schemas/gamedayrunv2.ApprovalStatus'
-        notes:
-          type: string
-        userID:
-          type: string
     types.Weightages:
       type: object
       properties:
