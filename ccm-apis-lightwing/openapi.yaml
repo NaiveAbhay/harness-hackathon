@@ -2038,6 +2038,9 @@
           "routing": {
             "$ref": "#/components/schemas/RoutingDataV2"
           },
+          "opts": {
+            "$ref": "#/components/schemas/Opts"
+          },
           "created_at": {
             "type": "string"
           },
@@ -2622,6 +2625,10 @@
           },
           "hide_progress_page": {
             "type": "boolean"
+          },
+          "idle_time_for_state_sync": {
+            "type": "boolean",
+            "description": "If true, idle time is used for state sync instead of the default 5 minutes"
           }
         }
       },
