@@ -67,7 +67,7 @@
       }
     },
     {
-      "inputURL": "https://app.harness.io/prod1/ccm/api/openapi.json",
+      "inputFile": "../ccm-apis/openapi.yaml",
       "pathModification": {
         "prepend": "/ccm/api"
       },
@@ -85,7 +85,7 @@
       }
     },
     {
-      "inputURL": "https://app.harness.io/prod1/lw/api/openapi/openapi.json",
+      "inputFile": "../ccm-apis-lightwing/openapi.yaml",
       "pathModification": {
         "prepend": "/gateway/lw/api"
       },

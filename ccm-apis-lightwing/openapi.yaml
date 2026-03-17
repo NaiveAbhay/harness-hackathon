@@ -1,0 +1,3819 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Lightwing APIs",
+    "description": "Lightwing API documentation",
+    "contact": {
+      "email": "navaneeth@lightwing.io"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "https://app.harness.io/gateway"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Cloud Cost AutoStopping Rules",
+      "description": "This contains APIs to create and manage AutoStopping Rules for your cloud resources."
+    },
+    {
+      "name": "Cloud Cost AutoStopping Rules V2",
+      "description": "This contains Autostopping v2 APIs that support the usage of Autostopping Proxy for managing cloud resources."
+    },
+    {
+      "name": "Cloud Cost AutoStopping Load Balancers",
+      "description": "This contains APIs to create and manage load balancers used for AutoStopping."
+    },
+    {
+      "name": "Cloud Cost AutoStopping Fixed Schedules",
+      "description": "This contains APIs to manage fixed schedules for the AutoStopping Rules."
+    },
+    {
+      "name": "Cloud Cost Cluster Orchestrator",
+      "description": "This contains APIs to onboard and manage Cluster Orchestrator for Kubernetes"
+    }
+  ],
+  "paths": {
+    "/accounts/{account_id}/autostopping/rules": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "List AutoStopping Rules",
+        "description": "Retrieves a list of all AutoStopping Rules configured in your account. AutoStopping Rules help optimize cloud costs by automatically stopping idle resources and starting them on-demand when accessed. ",
+        "operationId": "ListAutoStoppingRules",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Unique identifier of the Harness account. This is used to scope the API request to a specific account.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization. ",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "dry_run",
+            "description": "When set to true, filters the results to show only rules in dry-run mode. Dry-run rules monitor resource usage and calculate potential savings without actually stopping resources, allowing you to test rule configurations safely before enabling them.",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the list of AutoStopping Rules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Create an AutoStopping Rule",
+        "description": "Creates a new AutoStopping Rule to automatically manage cloud resources and reduce costs. The rule monitors resource activity and automatically stops resources during idle periods, then restarts them when traffic is detected. You can configure idle time thresholds, access methods (HTTP/HTTPS, SSH, RDP), custom domains, and schedules.",
+        "operationId": "UpdateAutoStoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_BFRC"
+          }
+        ],
+        "requestBody": {
+          "description": "Complete service definition for the AutoStopping Rule including resource configuration, idle time settings, access control details, and optional schedules. The request body should specify the cloud resources to manage, the idle time threshold before stopping, and how users will access the resources.",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveServiceRequestWithoutDisabled"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "AutoStopping Rule created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponseWithoutDisabled"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid rule configuration or missing required fields",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "summary": "Invalid configuration",
+                    "value": {
+                      "status": "ERROR",
+                      "message": "Invalid resource configuration: missing required field 'resources'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return AutoStopping Rule details",
+        "description": "Retrieves details of a specific AutoStopping Rule including its configuration, associated resources, idle time settings, etc.",
+        "operationId": "AutoStoppingRuleDetails",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "Account Identifier for the Entity",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique numeric identifier of the AutoStopping Rule. This ID is returned when creating a rule or can be obtained from the list rules endpoint.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved AutoStopping Rule details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "$ref": "#/components/schemas/SaveServiceRequest"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Delete an AutoStopping Rule",
+        "description": "Permanently deletes an AutoStopping Rule from your account.\n\n**⚠️ CAUTION:** This action is irreversible. Once deleted, the rule configuration cannot be recovered. Resources that were managed by this rule will no longer be automatically stopped, which may result in increased cloud costs.",
+        "operationId": "DeleteAutoStoppingRule",
+        "parameters": [
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule to be deleted.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_BFRCi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AutoStopping Rule deleted successfully. Returns the deleted rule details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/health": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return health status of an AutoStopping Rule",
+        "description": "Retrieves the current health and operational status of an AutoStopping Rule. ",
+        "operationId": "HealthOfAutoStoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule for which you need to fetch the health status",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved health status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceHealthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/savings": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return savings details for an AutoStopping Rule",
+        "description": "Retrieves detailed cost savings data for a specific AutoStopping Rule grouped by day over the specified time period.",
+        "operationId": "SavingsFromAutoStoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule for which you want to fetch savings details",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "from",
+            "description": "Start date for the savings calculation period. Accepts YYYY-MM-DD format (e.g., 2024-01-01) or ISO 8601/RFC3339 format (e.g., 2024-01-01T00:00:00Z).",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2024-01-01"
+          },
+          {
+            "name": "to",
+            "description": "End date for the savings calculation period. Accepts YYYY-MM-DD format (e.g., 2024-01-31) or ISO 8601/RFC3339 format (e.g., 2024-01-31T23:59:59Z).",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "2024-01-31"
+          },
+          {
+            "name": "group_by",
+            "description": "Optional parameter to group savings data by specific dimensions such as 'day', 'week', or 'month'.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "day"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved savings details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/resources": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "List all the resources for an AutoStopping Rule",
+        "description": "Lists all the resources for an AutoStopping Rule for the given identifier.",
+        "operationId": "AllAutoStoppingResources",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "cloud_account_id",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in Harness.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lightwing_nonprod"
+          },
+          {
+            "name": "region",
+            "description": "Cloud provider region where the resources are located (e.g., 'us-east-1' for AWS, 'eastus' for Azure).",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "us-east-1"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule for which you need to list the resources",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "int64"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of resources",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllResourcesOfAccountResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/diagnostics": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return diagnostics result of an AutoStopping Rule",
+        "description": "Retrieves diagnostic information for an AutoStopping Rule to help troubleshoot issues.",
+        "operationId": "GetAutoStoppingDiagnostics",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule for which you need to fetch diagnostics details",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved diagnostics information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceDiagnosticsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/warmup": {
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Warm up an AutoStopping Rule",
+        "description": "Manually starts (warms up) the resources managed by an AutoStopping Rule, bringing them online immediately.",
+        "operationId": "WarmUpAutostoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule to warm up",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "requestBody": {
+          "description": "Warm Up Options",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/WarmUpOption"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WarmUpResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown": {
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Cool down an AutoStopping Rule",
+        "description": "Manually stops (cools down) the resources managed by an AutoStopping Rule, shutting them down immediately to save costs.",
+        "operationId": "CoolDownAutostoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule to cool down",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "requestBody": {
+          "description": "Cool Down Options",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CoolDownOption"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown_meta": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return metadata of cool down of an AutoStopping Rule",
+        "description": "Retrieves metadata about the cooldown configuration and status of an AutoStopping Rule.",
+        "operationId": "GetAutoStoppingCoolDownMeta",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoolDownMetaSuccessResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CoolDownMetaFailureResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/savings/cumulative": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Return cumulative savings for all the AutoStopping Rules",
+        "description": "Retrieves the total cumulative cost savings achieved across all AutoStopping Rules in the account.",
+        "operationId": "CumulativeAutoStoppingSavings",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CumulativeSavingsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/toggle_state": {
+      "put": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules"
+        ],
+        "summary": "Disable/Enable an Autostopping Rule",
+        "description": "Enables or disables an AutoStopping Rule. When disabled, the rule will not automatically stop resources during idle periods.",
+        "operationId": "ToggleAutostoppingRule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule to enable or disable",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "12345"
+          },
+          {
+            "name": "disable",
+            "description": "Set to true to disable the rule, false to enable it.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            },
+            "example": false
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/v2/rules": {
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules V2"
+        ],
+        "summary": "Create an AutoStopping Rule",
+        "description": "Creates a new AutoStopping Rule using the V2 API format with enhanced proxy support.",
+        "operationId": "CreateAutoStoppingRuleV2",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "requestBody": {
+          "description": "Service definition of an AutoStopping rule",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveServiceRequestV2WithoutDisabled"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponseWithoutDisabled"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accounts/{account_id}/autostopping/v2/rules/{rule_id}": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules V2"
+        ],
+        "summary": "Return AutoStopping Rule details in V2 format",
+        "description": "Retrieves details of an AutoStopping Rule in V2 format with enhanced proxy configuration details.",
+        "operationId": "GetAutoStoppingRuleV2",
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "description": "Account Identifier for the Entity",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 12345
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "$ref": "#/components/schemas/SaveServiceRequestV2"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cloud Cost AutoStopping Rules V2"
+        ],
+        "summary": "Update an existing AutoStopping Rule",
+        "description": "Updates an existing AutoStopping Rule configuration using the V2 API format.",
+        "operationId": "UpdateAutoStoppingRuleV2",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "rule_id",
+            "description": "Unique identifier of the AutoStopping Rule to update",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "12345"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "requestBody": {
+          "description": "Service definition of an AutoStopping rule",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveServiceRequestV2WithoutDisabled"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceResponseWithoutDisabled"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Return all the load balancers",
+        "description": "Retrieves a list of all AutoStopping load balancers configured in your account. Load balancers act as proxy entry points that route traffic to your AutoStopping Rules.",
+        "operationId": "ListLoadBalancers",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "vpc",
+            "description": "VPC (Virtual Private Cloud) is the cloud resource where the load balancer is deployed.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "vpc-12345678"
+          },
+          {
+            "name": "region",
+            "description": "Optional filter to list load balancers in a specific cloud region (e.g., 'us-east-1' for AWS, 'eastus' for Azure).",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "us-east-1"
+          },
+          {
+            "name": "cloud_account_id",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lightwing_nonprod"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of load balancers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListAccessPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Update a load balancer",
+        "description": "Updates the configuration of an existing AutoStopping load balancer.",
+        "operationId": "EditLoadBalancer",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessPoint"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Load balancer updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccessPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "accessPoint"
+      },
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Create a load balancer",
+        "description": "Creates a new AutoStopping load balancer to act as a proxy entry point for routing traffic to AutoStopping Rules.",
+        "operationId": "CreateLoadBalancer",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xd_"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessPoint"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Load balancer created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccessPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "accessPoint"
+      },
+      "delete": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Delete load balancers and the associated resources",
+        "description": "Permanently deletes one or more AutoStopping load balancers and their associated resources.\n\n**⚠️ CAUTION:** This action is irreversible. Once deleted, the load balancer configuration cannot be recovered. Any AutoStopping Rules using this load balancer will lose their access point and may become inaccessible.",
+        "operationId": "DeleteLoadBalancer",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "pxXVjvw"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xdw"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteAccessPointPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "accessPoint"
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Return details of a load balancer",
+        "description": "Retrieves detailed configuration and status information for a specific AutoStopping load balancer.",
+        "operationId": "DescribeLoadBalancer",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xdXVjvw"
+          },
+          {
+            "name": "lb_id",
+            "description": "Unique identifier of the load balancer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lb-abc123"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xpfWPYXVjvw"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved load balancer details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAccessPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/rules": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Return all the AutoStopping Rules in a load balancer",
+        "description": "Retrieves a list of all AutoStopping Rules that are configured to route traffic through a specific load balancer.",
+        "operationId": "AccessPointRules",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "lb_id",
+            "description": "Unique identifier of the load balancer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lb-abc123"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7WPYXVjvw"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of AutoStopping Rules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/last_active_at": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Load Balancers"
+        ],
+        "summary": "Return last activity details of a load balancer",
+        "description": "Retrieves the timestamp of the most recent activity (traffic) through the load balancer.",
+        "operationId": "LoadBalancerActivity",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "pfWPYXVjvw"
+          },
+          {
+            "name": "lb_id",
+            "description": "Unique identifier of the load balancer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "pxWPYXVjvw"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved last activity timestamp",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessPointActivityResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/schedules": {
+      "get": {
+        "tags": [
+          "Cloud Cost AutoStopping Fixed Schedules"
+        ],
+        "summary": "Return all the AutoStopping Rule fixed schedules",
+        "description": "Retrieves all fixed schedules configured for an AutoStopping Rule. Fixed schedules define specific times when resources should be automatically started or stopped.",
+        "operationId": "listAutoStoppingSchedules",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7xpfWPYXVjvw"
+          },
+          {
+            "name": "cloud_account_id",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lightwing_nonprod"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "res_id",
+            "description": "Resource ID for which to fetch schedules.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "12345"
+          },
+          {
+            "name": "res_type",
+            "description": "Type of resource to which schedules are attached.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "autostop_rule"
+              ]
+            },
+            "example": "autostop_rule"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of fixed schedules",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FixedSchedulesListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cloud Cost AutoStopping Fixed Schedules"
+        ],
+        "summary": "Create a fixed schedule for an AutoStopping Rule",
+        "description": "Creates a new fixed schedule for an AutoStopping Rule to automatically start or stop resources at specific times.",
+        "operationId": "createAutoStoppingSchedules",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          },
+          {
+            "name": "cloud_account_id",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "lightwing_nonprod"
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "abc12_DEFgh-ijkLMNOPqr"
+          }
+        ],
+        "requestBody": {
+          "description": "Fixed schedule payload",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveStaticSchedulesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FixedSchedule"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accounts/{account_id}/schedules/{schedule_id}": {
+      "delete": {
+        "tags": [
+          "Cloud Cost AutoStopping Fixed Schedules"
+        ],
+        "summary": "Delete a fixed schedule for AutoStopping Rule",
+        "description": "Permanently deletes a fixed schedule from an AutoStopping Rule. The rule will no longer start or stop resources based on this schedule.",
+        "operationId": "deleteAutoStoppingSchedule",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "px7-pfWPYXVjvw"
+          },
+          {
+            "name": "schedule_id",
+            "description": "Unique identifier of the fixed schedule to delete",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "example": 123
+          },
+          {
+            "name": "accountIdentifier",
+            "description": "Account Identifier for authentication and authorization.",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "pxCi-pfWPYXVjvw"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fixed schedule deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/clusters": {
+      "get": {
+        "tags": [
+          "Cloud Cost Cluster Orchestrator"
+        ],
+        "summary": "Return all connected clusters to Harness CCM",
+        "description": "Return all connected clusters to Harness CCM, the ones onboarded to cluster orchestrator will have the id field populated",
+        "operationId": "listConnectedKubernetesClusters",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectedKubernetesClustersListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/clusters/orchestrator": {
+      "post": {
+        "tags": [
+          "Cloud Cost Cluster Orchestrator"
+        ],
+        "summary": "Onboard a kubernetes cluster with an existing CCM Kubernetes Connector to Cluster Orchestrator",
+        "description": "Onboard a kubernetes cluster with an existing CCM Kubernetes Connector to Cluster Orchestrator",
+        "operationId": "onboardToClusterOrchestrator",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Onboard to Cluster Orchestrator Payload",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/OnboardToClusterOrchestratorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectedKubernetesClustersGetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/accounts/{account_id}/clusters/orchestrator/{orchestrator_id}": {
+      "get": {
+        "tags": [
+          "Cloud Cost Cluster Orchestrator"
+        ],
+        "summary": "Get Details of a connected clusters by orchestrator id",
+        "description": "Fetches the details of the cluster connected to the orchestrator by orchestrator's ID",
+        "operationId": "getConnectedClusterDetails",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orchestrator_id",
+            "description": "Identifier of the Orchestrator of the cluster, available in list response and onboard response",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConnectedKubernetesClustersGetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/clusters/orchestrator/{orchestrator_id}/config": {
+      "put": {
+        "tags": [
+          "Cloud Cost Cluster Orchestrator"
+        ],
+        "summary": "Update a Cluster Orchestrator Config",
+        "description": "Updates the config for a given cluster orchestrator",
+        "operationId": "updateClusterOrchestratorConfig",
+        "parameters": [
+          {
+            "name": "account_id",
+            "description": "Account Identifier for the Entity",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "orchestrator_id",
+            "description": "Identifier of the Orchestrator of the cluster, available in list response and onboard response",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessPoint"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAccessPointResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "accessPoint"
+      }
+    }
+
+
+  },
+  "components": {
+    "schemas": {
+      "DeleteAccessPointPayload": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "with_resources": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Service": {
+        "required": [
+          "cloud_account_id",
+          "kind",
+          "name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string"
+          },
+          "account_identifier": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "fulfilment": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "idle_time_mins": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host_name": {
+            "type": "string"
+          },
+          "health_check": {
+            "type": "object",
+            "properties": {}
+          },
+          "custom_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "match_all_subdomains": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "routing": {
+            "$ref": "#/components/schemas/RoutingData"
+          },
+          "opts": {
+            "$ref": "#/components/schemas/Opts"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "access_point_id": {
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ServiceMetadata"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceV2": {
+        "required": [
+          "cloud_account_id",
+          "kind",
+          "name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string"
+          },
+          "account_identifier": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "fulfilment": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "idle_time_mins": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host_name": {
+            "type": "string"
+          },
+          "health_check": {
+            "type": "object",
+            "properties": {}
+          },
+          "custom_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "match_all_subdomains": {
+            "type": "boolean"
+          },
+          "disabled": {
+            "type": "boolean"
+          },
+          "routing": {
+            "$ref": "#/components/schemas/RoutingDataV2"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ServiceMetadata"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceMetadata": {
+        "type": "object",
+        "properties": {
+          "cloud_provider_details": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          },
+          "target_group_details": {
+            "type": "object",
+            "properties": {}
+          },
+          "service_errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceError"
+            }
+          },
+          "kubernetes_connector_id": {
+            "type": "string"
+          },
+          "autostopping_proxy_config": {
+            "type": "object",
+            "properties": {
+              "http": {
+                "$ref": "#/components/schemas/HTTPProxy"
+              },
+              "tcp": {
+                "$ref": "#/components/schemas/HTTPProxy"
+              }
+            }
+          }
+        }
+      },
+      "ServiceError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceDep": {
+        "type": "object"
+      },
+      "ServiceHealthResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "description": "Current state of the AutoStopping Rule",
+                "enum": [
+                  "warmingup",
+                  "errored",
+                  "active",
+                  "down",
+                  "coolingdown",
+                  "disabled",
+                  "enabled",
+                  "created",
+                  "deleted",
+                  "scheduled_downtime"
+                ]
+              },
+              "target_url": {
+                "type": "string",
+                "description": "Target URL for accessing the AutoStopping Rule"
+              },
+              "error": {
+                "type": "string",
+                "description": "Error message if the rule is in an errored state, empty otherwise"
+              },
+              "id": {
+                "type": "string",
+                "description": "Unique identifier for the health check result"
+              }
+            }
+          }
+        }
+      },
+      "SaveServiceRequest": {
+        "type": "object",
+        "properties": {
+          "deps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDep"
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/Service"
+          },
+          "apply_now": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SaveServiceRequestV2": {
+        "type": "object",
+        "properties": {
+          "deps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDep"
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/ServiceV2"
+          },
+          "apply_now": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ServiceWithoutDisabled": {
+        "required": [
+          "cloud_account_id",
+          "kind",
+          "name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string"
+          },
+          "account_identifier": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "fulfilment": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "idle_time_mins": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host_name": {
+            "type": "string"
+          },
+          "health_check": {
+            "type": "object",
+            "properties": {}
+          },
+          "custom_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "match_all_subdomains": {
+            "type": "boolean"
+          },
+          "routing": {
+            "$ref": "#/components/schemas/RoutingData"
+          },
+          "opts": {
+            "$ref": "#/components/schemas/Opts"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "access_point_id": {
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ServiceMetadata"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceV2WithoutDisabled": {
+        "required": [
+          "cloud_account_id",
+          "kind",
+          "name",
+          "org_id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string"
+          },
+          "account_identifier": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "fulfilment": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "idle_time_mins": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host_name": {
+            "type": "string"
+          },
+          "health_check": {
+            "type": "object",
+            "properties": {}
+          },
+          "custom_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "match_all_subdomains": {
+            "type": "boolean"
+          },
+          "routing": {
+            "$ref": "#/components/schemas/RoutingData"
+          },
+          "opts": {
+            "$ref": "#/components/schemas/Opts"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "access_point_id": {
+            "type": "string"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/ServiceMetadata"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "SaveServiceRequestWithoutDisabled": {
+        "type": "object",
+        "properties": {
+          "deps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDep"
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/ServiceWithoutDisabled"
+          },
+          "apply_now": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SaveServiceRequestV2WithoutDisabled": {
+        "type": "object",
+        "properties": {
+          "deps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDep"
+            }
+          },
+          "service": {
+            "$ref": "#/components/schemas/ServiceV2WithoutDisabled"
+          },
+          "apply_now": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Resource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "availability_zone": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "launch_time": {
+            "type": "string"
+          },
+          "ipv4": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "private_ipv4": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "object",
+            "properties": {},
+            "description": "tag key as attribute key and tag value as attribute value"
+          },
+          "resource_type": {
+            "type": "string"
+          },
+          "provider_name": {
+            "type": "string"
+          },
+          "is_spot": {
+            "type": "boolean"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "number"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {}
+          },
+          "provider_type": {
+            "type": "string"
+          }
+        }
+      },
+      "AllResourcesOfAccountResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resource"
+            }
+          }
+        }
+      },
+      "ServiceUsageRecord": {
+        "type": "object",
+        "properties": {
+          "service_id": {
+            "type": "number"
+          },
+          "path": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "idle_time_mins": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        }
+      },
+      "ServiceResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/Service"
+          }
+        }
+      },
+      "ServiceResponseWithoutDisabled": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/ServiceWithoutDisabled"
+          }
+        }
+      },
+      "ServicesResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Service"
+            }
+          }
+        }
+      },
+      "ServiceDepTree": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "$ref": "#/components/schemas/Service"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDepTree"
+            }
+          }
+        }
+      },
+      "InstanceBasedRoutingData": {
+        "type": "object",
+        "properties": {
+          "filter_text": {
+            "type": "string"
+          },
+          "scale_group": {
+            "$ref": "#/components/schemas/ASGMinimal"
+          }
+        }
+      },
+      "InstanceBasedRoutingDataV2": {
+        "type": "object",
+        "properties": {
+          "filter": {
+            "$ref": "#/components/schemas/FilterObject"
+          },
+          "scale_group": {
+            "$ref": "#/components/schemas/ASGMinimal"
+          }
+        }
+      },
+      "FilterObject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "resource_groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vpc_id": {
+            "type": "string"
+          },
+          "zones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tags": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "Proxy": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "HTTPProxy": {
+        "required": [
+          "proxy",
+          "ports"
+        ],
+        "type": "object",
+        "properties": {
+          "proxy": {
+            "$ref": "#/components/schemas/Proxy"
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortConfig"
+            }
+          }
+        }
+      },
+      "TCPProxy": {
+        "required": [
+          "proxy"
+        ],
+        "type": "object",
+        "properties": {
+          "proxy": {
+            "$ref": "#/components/schemas/Proxy"
+          },
+          "ssh": {
+            "type": "integer"
+          },
+          "rdp": {
+            "type": "integer"
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "Opts": {
+        "type": "object",
+        "properties": {
+          "preserve_private_ip": {
+            "type": "boolean"
+          },
+          "delete_cloud_resources": {
+            "type": "boolean"
+          },
+          "always_use_private_ip": {
+            "type": "boolean"
+          },
+          "access_details": {
+            "type": "object",
+            "properties": {}
+          },
+          "hide_progress_page": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PortConfig": {
+        "type": "object",
+        "properties": {
+          "protocol": {
+            "type": "string"
+          },
+          "target_protocol": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "target_port": {
+            "type": "integer"
+          },
+          "server_name": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "redirect_url": {
+            "type": "string"
+          },
+          "routing_rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoutingRule"
+            }
+          }
+        }
+      },
+      "RoutingRule": {
+        "type": "object",
+        "properties": {
+          "path_match": {
+            "type": "string"
+          }
+        }
+      },
+      "RoutingData": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "$ref": "#/components/schemas/InstanceBasedRoutingData"
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PortConfig"
+            }
+          },
+          "lb": {
+            "type": "string"
+          },
+          "k8s": {
+            "type": "object",
+            "properties": {
+              "RuleJson": {
+                "type": "string"
+              },
+              "ConnectorID": {
+                "type": "string"
+              },
+              "Namespace": {
+                "type": "string"
+              }
+            }
+          },
+          "custom_domain_providers": {
+            "type": "object",
+            "properties": {}
+          },
+          "container_svc": {
+            "$ref": "#/components/schemas/ContainerSvc"
+          },
+          "database": {
+            "$ref": "#/components/schemas/RDSDatabase"
+          }
+        }
+      },
+      "RoutingDataV2": {
+        "type": "object",
+        "properties": {
+          "instance": {
+            "$ref": "#/components/schemas/InstanceBasedRoutingDataV2"
+          },
+          "lb": {
+            "type": "string"
+          },
+          "k8s": {
+            "type": "object",
+            "properties": {
+              "RuleJson": {
+                "type": "string"
+              },
+              "ConnectorID": {
+                "type": "string"
+              },
+              "Namespace": {
+                "type": "string"
+              }
+            }
+          },
+          "custom_domain_providers": {
+            "type": "object",
+            "properties": {}
+          },
+          "container_svc": {
+            "$ref": "#/components/schemas/ContainerSvc"
+          },
+          "database": {
+            "$ref": "#/components/schemas/RDSDatabase"
+          },
+          "http": {
+            "$ref": "#/components/schemas/HTTPProxy"
+          },
+          "tcp": {
+            "$ref": "#/components/schemas/TCPProxy"
+          }
+        }
+      },
+      "RDSDatabase": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        }
+      },
+      "ContainerSvc": {
+        "type": "object",
+        "properties": {
+          "cluster": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "task_count": {
+            "type": "number"
+          }
+        }
+      },
+      "AccessPointMeta": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "certificate_id": {
+            "type": "string"
+          },
+          "security_groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dns": {
+            "type": "object",
+            "properties": {
+              "route53": {
+                "type": "object",
+                "properties": {
+                  "hosted_zone_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "others": {
+                "type": "string"
+              }
+            }
+          },
+          "albArn": {
+            "type": "string"
+          },
+          "resource_group": {
+            "type": "string"
+          },
+          "fe_ip_id": {
+            "type": "string"
+          },
+          "subnet_id": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "app_gateway_id": {
+            "type": "string"
+          },
+          "subnet_name": {
+            "type": "string"
+          },
+          "fe_ip_name": {
+            "type": "string"
+          },
+          "certificate": {
+            "$ref": "#/components/schemas/CertificateData"
+          },
+          "func_region": {
+            "type": "string"
+          }
+        }
+      },
+      "CertificateData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "AccessPoint": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "string"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "org_id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "host_name": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "vpc": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "created",
+              "submitted",
+              "errored"
+            ]
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/AccessPointMeta"
+          },
+          "subnets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "security_groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "editables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateAccessPointResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/AccessPoint"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "ListAccessPointResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccessPoint"
+            }
+          }
+        }
+      },
+      "GetAccessPointResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/AccessPoint"
+          }
+        }
+      },
+      "CumulativeSavings": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "potential_cost": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "actual_cost": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "savings": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
+          },
+          "total_savings": {
+            "type": "number",
+            "format": "float"
+          },
+          "total_potential": {
+            "type": "number",
+            "format": "float"
+          },
+          "total_cost": {
+            "type": "number",
+            "format": "float"
+          },
+          "savings_percent": {
+            "type": "number",
+            "format": "float"
+          },
+          "total_active_services": {
+            "type": "number",
+            "format": "int64"
+          }
+        }
+      },
+      "CumulativeSavingsResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/CumulativeSavings"
+          }
+        }
+      },
+      "AccessPointActivityResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "$ref": "#/components/schemas/ServiceUsageRecord"
+          }
+        }
+      },
+      "ServiceDiagnosticsResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDiagnostics"
+            }
+          }
+        }
+      },
+      "ASGMinimal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "desired": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          },
+          "max": {
+            "type": "integer"
+          },
+          "on_demand": {
+            "type": "integer"
+          },
+          "spot": {
+            "type": "integer"
+          },
+          "mixed_instance": {
+            "type": "boolean"
+          },
+          "cloud_account_id": {
+            "type": "string"
+          },
+          "provider_name": {
+            "type": "string"
+          },
+          "target_groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TargetGroupMinimal"
+            }
+          },
+          "region": {
+            "type": "string"
+          },
+          "availability_zones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {}
+          }
+        }
+      },
+      "TargetGroupMinimal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "port": {
+            "type": "integer"
+          },
+          "protocol": {
+            "type": "string"
+          },
+          "vpc": {
+            "type": "string"
+          }
+        }
+      },
+      "SaveStaticSchedulesRequest": {
+        "type": "object",
+        "properties": {
+          "schedule": {
+            "$ref": "#/components/schemas/FixedSchedule"
+          },
+          "id": {
+            "type": "number"
+          }
+        }
+      },
+      "FixedSchedule": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the schedule"
+          },
+          "id": {
+            "type": "number",
+            "description": "ID of fixed schedule",
+            "readOnly": true
+          },
+          "account": {
+            "type": "string",
+            "description": "ID of account"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of fixed schedule"
+          },
+          "resources": {
+            "type": "array",
+            "description": "List of resources to be controlled by the schedule",
+            "items": {
+              "$ref": "#/components/schemas/StaticScheduleResource"
+            }
+          },
+          "details": {
+            "$ref": "#/components/schemas/OccurrenceSchedule"
+          }
+        }
+      },
+      "StaticScheduleResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the resource to be controlled by schedule. For AutoStopping rule, this would be the ID of the rule"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the resource to be controlled",
+            "enum": [
+              "autostop_rule"
+            ]
+          }
+        },
+        "description": "Details of an independent resource that can be controlled by a schedule"
+      },
+      "OccurrenceSchedule": {
+        "type": "object",
+        "properties": {
+          "uptime": {
+            "$ref": "#/components/schemas/TimeSchedule"
+          },
+          "downtime": {
+            "$ref": "#/components/schemas/TimeSchedule"
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Time zone in which the schedule should be applied"
+          }
+        },
+        "description": "Details of time schedule by which the resource should be controlled"
+      },
+      "TimeSchedule": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "type": "object",
+            "properties": {
+              "start": {
+                "type": "string",
+                "description": "Start time of the period",
+                "example": "2021-10-19T08:35:00.927Z"
+              },
+              "end": {
+                "type": "string",
+                "description": "End time of the period",
+                "example": "2021-10-19T08:37:58.927Z"
+              }
+            },
+            "description": "For schedules that uses an exact time period"
+          },
+          "days": {
+            "type": "object",
+            "properties": {
+              "days": {
+                "type": "array",
+                "description": "Days of week on which the schedule should be executed",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "all_day": {
+                "type": "boolean",
+                "description": "Equivalent to selecting all days"
+              },
+              "start_time": {
+                "$ref": "#/components/schemas/TimeInDay"
+              },
+              "end_time": {
+                "$ref": "#/components/schemas/TimeInDay"
+              }
+            },
+            "description": "For specifying a recurring schedule in terms of week days"
+          }
+        },
+        "description": "Specifies the occurrence schedule. Occurrence schedule can either be specified as period or as days"
+      },
+      "TimeInDay": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "number",
+            "description": "Hour"
+          },
+          "min": {
+            "type": "number",
+            "description": "Minutes"
+          }
+        }
+      },
+      "FixedSchedulesListResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FixedSchedule"
+            }
+          }
+        }
+      },
+      "ServiceDiagnostics": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message if success were to be false"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the check"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Flag which specifies if a diagnostic check is successful"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      },
+      "CoolDownOption": {
+        "type": "object",
+        "properties": {
+          "propagate": {
+            "type": "boolean",
+            "description": "Specifies if we need to propagate cool down to dependant rules"
+          },
+          "force": {
+            "type": "boolean",
+            "description": "Specifies if the cool down is by force"
+          }
+        }
+      },
+      "WarmUpOption": {
+        "type": "object",
+        "properties": {
+          "idle_time_mins": {
+            "type": "integer",
+            "required": true,
+            "description": "Specifies time for which resource should be running",
+            "default": "5"
+          },
+          "source": {
+            "type": "string",
+            "required": true,
+            "description": "Specifies source of warm up",
+            "default": "Warm up through API"
+          },
+          "forced_trigger": {
+            "type": "boolean",
+            "description": "Specifies warm up as force action to override schedules",
+            "required": true,
+            "default": true
+          }
+        }
+      },
+      "WarmUpResponse": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Response timestamp in milliseconds"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Indicates if the operation was successful"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of error messages, if any"
+          },
+          "response": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          }
+        }
+      },
+      "ServiceStatus": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "description": "Current state of the service (e.g., warming_up, active, stopped)"
+          },
+          "target_url": {
+            "type": "string",
+            "description": "Target URL for accessing the service"
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message if the operation failed"
+          },
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for cache invalidation"
+          }
+        }
+      },
+      "CoolDownMetaSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "integer",
+            "description": "Response timestamp"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Specifies if the operation is successful"
+          },
+          "response": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Name of dependant autostopping rules which will be shut down"
+          }
+        }
+      },
+      "CoolDownMetaFailureResponse": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "integer",
+            "description": "Response timestamp"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Errors"
+          }
+        }
+      },
+      "ConnectedKubernetesClustersListResponse": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "integer",
+            "description": "Response timestamp"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "response": {
+            "type": "object",
+            "properties": {
+              "clusters": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ConnectedKubernetesCluster"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConnectedKubernetesCluster": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "account_id": {
+            "type": "string"
+          },
+          "k8s_connector_id": {
+            "type": "string",
+            "description": "This is the CCM Kubernetes Cost Connector ID"
+          },
+          "provider": {
+            "type": "string",
+            "example": "AWS"
+          },
+          "name": {
+            "type": "string",
+            "description": "This is the name of the cluster"
+          },
+          "region": {
+            "type": "string",
+            "example": "us-east-1"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "health": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "raw_json": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ConnectedClusterHealthStatus"
+                }
+              }
+            }
+          },
+          "total_spend": {
+            "type": "number",
+            "example": 0
+          },
+          "total_savings": {
+            "type": "number",
+            "example": 0
+          },
+          "config": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "spot_distribution": {
+                "type": "string",
+                "enum": [
+                  "ALL",
+                  "SpotReady",
+                  "None"
+                ]
+              },
+              "node_deletion_delay": {
+                "type": "integer",
+                "example": 0
+              },
+              "distribution_strategy": {
+                "type": "string",
+                "example": "CostOptimized",
+                "enum": [
+                  "CostOptimized",
+                  "LeastInterrupted"
+                ]
+              },
+              "base_on_demand_capacity": {
+                "type": "integer",
+                "example": 1
+              },
+              "spot_split": {
+                "type": "integer",
+                "example": 70
+              },
+              "on_demand_split": {
+                "type": "integer",
+                "example": 30
+              },
+              "consolidation": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "policy": {
+                    "type": "string",
+                    "example": "WhenEmptyOrUnderutilized",
+                    "enum": [
+                      "WhenEmptyOrUnderutilized",
+                      "WhenEmpty"
+                    ]
+                  },
+                  "after": {
+                    "type": "string",
+                    "example": "1h5m",
+                    "description": "Consolidation will be performed after this window"
+                  },
+                  "budgets": {
+                    "type": "array",
+                    "nullable": true,
+                    "items": {
+                      "$ref": "#/components/schemas/ClusterConsolidationBudget"
+                    }
+                  },
+                  "node_expiry": {
+                    "type": "string",
+                    "nullable": true,
+                    "example": "24h",
+                    "description": "This is the max age for nodes created by cluster orchestrator"
+                  },
+                  "pod_evictor": {
+                    "$ref": "#/components/schemas/ClusterOrchestratorPodEvictor"
+                  }
+                }
+              },
+              "reverse_fallback": {
+                "type": "string",
+                "nullable": true,
+                "example": "6h",
+                "description": "The nodes which were replaced by a fallback ondemand node will be retried for spot after this window"
+              }
+            }
+          }
+        }
+      },
+      "ConnectedClusterHealthStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success"
+          },
+          "service": {
+            "type": "string",
+            "example": "telemetry_collector"
+          },
+          "raw_json": {
+            "type": "string",
+            "nullable": true,
+            "example": null
+          },
+          "last_heart_beat_received_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-02-28T20:07:13Z"
+          }
+        }
+      },
+      "ClusterOrchestratorPodEvictor": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "example": false
+          },
+          "evict_single_replicas": {
+            "type": "boolean",
+            "example": false
+          },
+          "minimum_cpu": {
+            "type": "integer",
+            "example": 50
+          },
+          "minimum_memory": {
+            "type": "integer",
+            "example": 50
+          }
+        }
+      },
+      "ClusterConsolidationBudget": {
+        "type": "object",
+        "properties": {
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Drifted",
+              "Underutilized",
+              "Empty"
+            ]
+          },
+          "nodes": {
+            "type": "string",
+            "example": "20%"
+          },
+          "schedule": {
+            "type": "string",
+            "nullable": true,
+            "example": "midnight"
+          },
+          "duration": {
+            "type": "string",
+            "nullable": true,
+            "example": "10m0s"
+          }
+        }
+      },
+      "OnboardToClusterOrchestratorRequest": {
+        "type": "object",
+        "description": "Configuration for cluster setup",
+        "required": [
+          "name",
+          "user_config",
+          "k8s_connector_id"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name identifier for the cluster configuration"
+          },
+          "user_config": {
+            "type": "object",
+            "description": "User-specific configuration settings for the cluster",
+            "required": [
+              "cluster_endpoint"
+            ],
+            "properties": {
+              "cluster_endpoint": {
+                "type": "string",
+                "description": "API end point of the Kubernetes cluster as per the cloud provider"
+              }
+            }
+          },
+          "k8s_connector_id": {
+            "type": "string",
+            "description": "ID for the CCM Cloud Cost Kubernetes connector"
+          }
+        }
+      },
+      "ConnectedKubernetesClustersGetResponse": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "integer",
+            "description": "Response timestamp"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "response": {
+            "$ref": "#/components/schemas/ConnectedKubernetesCluster"
+          }
+        }
+      },
+      "ClusterOrchestratorConfig": {
+        "type": "object",
+        "description": "Configuration for cluster orchestrator",
+        "required": [
+          "cluster_id",
+          "base_on_demand_capacity",
+          "distribution_strategy",
+          "on_demand_split",
+          "spot_distribution",
+          "spot_split",
+          "consolidation"
+        ],
+        "properties": {
+          "cluster_id": {
+            "type": "string",
+            "description": "Identifier of the Orchestrator of the cluster, available in list response and onboard response"
+          },
+          "base_on_demand_capacity": {
+            "type": "integer",
+            "description": "Base capacity for on-demand instances",
+            "minimum": 0
+          },
+          "distribution_strategy": {
+            "type": "string",
+            "description": "Strategy for distributing workloads",
+            "enum": ["CostOptimized","LeastInterrupted"]
+          },
+          "on_demand_split": {
+            "type": "integer",
+            "description": "Percentage of on-demand split for workloads",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "spot_distribution": {
+            "type": "string",
+            "description": "Distribution strategy for spot instances",
+            "enum": ["SpotReady","ALL"]
+          },
+          "spot_split": {
+            "type": "integer",
+            "description": "Percentage of spot split for workloads",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "node_deletion_delay": {
+            "type": "integer",
+            "description": "Delay in seconds before node deletion",
+            "minimum": 0
+          },
+          "consolidation": {
+            "type": "object",
+            "description": "Configuration for node consolidation",
+            "required": [
+              "policy",
+              "budgets",
+              "pod_evictor"
+            ],
+            "properties": {
+              "policy": {
+                "type": "string",
+                "description": "Consolidation policy",
+                "enum": ["WhenEmptyOrUnderutilized","WhenEmpty"]
+              },
+              "after": {
+                "type": "string",
+                "description": "Time after which consolidation starts"
+              },
+              "budgets": {
+                "type": "array",
+                "description": "List of consolidation budgets",
+                "items": {
+                  "type": "object",
+                  "required": ["reasons", "nodes"],
+                  "properties": {
+                    "reasons": {
+                      "type": "array",
+                      "description": "Reasons for consolidation",
+                      "items": {
+                        "type": "string",
+                        "enum": ["Empty", "Underutilized", "Drifted"]
+                      }
+                    },
+                    "nodes": {
+                      "type": "string",
+                      "description": "Percentage of nodes to consolidate",
+                      "pattern": "^[0-9]+%$"
+                    }
+                  }
+                }
+              },
+              "node_expiry": {
+                "type": "string",
+                "nullable": true,
+                "description": "Node expiration time"
+              },
+              "pod_evictor": {
+                "type": "object",
+                "nullable": true,
+                "description": "Configuration for pod eviction",
+                "required": [
+                  "enabled",
+                  "evict_single_replicas",
+                  "minimum_cpu",
+                  "minimum_memory"
+                ],
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Enable pod eviction"
+                  },
+                  "evict_single_replicas": {
+                    "type": "boolean",
+                    "description": "Allow eviction of single replica pods"
+                  },
+                  "minimum_cpu": {
+                    "type": "integer",
+                    "description": "Minimum CPU percentage threshold for eviction",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  "minimum_memory": {
+                    "type": "integer",
+                    "description": "Minimum memory percentage threshold for eviction",
+                    "minimum": 0,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          },
+          "reverse_fallback": {
+            "type": "object",
+            "nullable": true,
+            "description": "Configuration for reverse fallback strategy"
+          }
+        }
+      }
+    }
+  }
+}
