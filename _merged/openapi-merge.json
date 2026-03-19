@@ -205,7 +205,10 @@
       "inputFile": "../ssca-manager/openapi.yaml"
     },
     {
-      "inputFile": "../resilience-testing/openapi.yaml"
+      "inputFile": "../resilience-testing/openapi.yaml",
+      "pathModification": {
+        "prepend": "/gateway/chaos/manager/api"
+      }
     }
   ],
   "output": "merged.yaml"

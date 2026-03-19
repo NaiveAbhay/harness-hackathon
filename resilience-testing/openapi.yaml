@@ -10,7 +10,7 @@ info:
 security:
   - ApiKeyAuth: []
 paths:
-  /api/v3/health:
+  /v3/health:
     get:
       description: Health check
       tags:
