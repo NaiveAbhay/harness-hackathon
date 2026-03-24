@@ -2264,6 +2264,97 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/PolicyViolationRequestBody'
+  '/v2/orgs/{org}/projects/{project}/attestations/upload/{orchestration}':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/OrchestrationId'
+    post:
+      summary: Upload attestation
+      tags:
+        - Evidence Vault
+      responses:
+        '201':
+          $ref: '#/components/responses/AttestationUploadResponse'
+        '400':
+          description: Bad request (invalid JSON / missing fields)
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden (insufficient RBAC)
+        '422':
+          description: Unprocessable Entity (signature verification failed)
+        '500':
+          description: Internal Server Error
+      operationId: uploadAttestation
+      x-internal: false
+      x-stoplight:
+        id: attestation-upload
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - name: Idempotency-Key
+          in: header
+          required: false
+          schema:
+            type: string
+          description: Client-provided UUID for safe retries
+      requestBody:
+        $ref: '#/components/requestBodies/AttestationUploadRequestBody'
+      security:
+        - x-api-key: []
+  '/v2/orgs/{org}/projects/{project}/attestations/download/{digest}':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+      - $ref: '#/components/parameters/DigestParam'
+    get:
+      summary: Download attestation by digest
+      tags:
+        - Evidence Vault
+      responses:
+        '200':
+          $ref: '#/components/responses/AttestationDownloadResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+      operationId: downloadAttestation
+      x-internal: false
+      x-stoplight:
+        id: attestation-download
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      security:
+        - x-api-key: []
+  '/v2/orgs/{org}/projects/{project}/attestations/query':
+    parameters:
+      - $ref: '#/components/parameters/OrgParam'
+      - $ref: '#/components/parameters/ProjectParam'
+    post:
+      summary: GraphQL query endpoint for attestations
+      tags:
+        - Evidence Vault
+      responses:
+        '200':
+          $ref: '#/components/responses/AttestationQueryResponse'
+        '400':
+          description: Bad GraphQL request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: queryAttestationsGraphQL
+      x-internal: false
+      x-stoplight:
+        id: attestation-query
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/AttestationQueryRequestBody'
+      security:
+        - x-api-key: []
   '/v1/orgs/{org}/projects/{project}/orchestration/{orchestration-id}/sbom-upload':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
@@ -2363,7 +2454,7 @@ paths:
         name: orchestration-id
         in: path
         required: true
-        description: Orchestration ID for SBOM orchestration
+        description: Provide the Harness Pipeline Execution ID
     post:
       summary: Save Orchestration
       tags:
@@ -4183,6 +4274,141 @@ components:
           type: string
           description: url of the attested file
           example: 'https://storage.googleapis.com/sbom_store_public/kmpySmUISimoRrJL6NL73w/default/SSCS_CI_Plugin_Demo/CKO_SSCA_Pipeline/Build/39/q940CvjoQj-GEInJQfWiwg/sbom'
+    DSSEEnvelope:
+      title: DSSEEnvelope
+      type: object
+      required:
+        - payloadType
+        - payload
+      properties:
+        payloadType:
+          type: string
+          example: application/vnd.in-toto+json
+          description: MIME type of the payload
+        payload:
+          type: string
+          description: base64-encoded JSON payload (in-toto Statement)
+          example: eyJfdHlwZSI6ICJod...
+        signatures:
+          type: array
+          items:
+            $ref: '#/components/schemas/DSSESignature'
+        metadata:
+          type: object
+          additionalProperties: true
+          description: optional metadata such as source / ingestedBy / timestamp
+    AttestationUploadRequest:
+      title: AttestationUploadRequest
+      type: object
+      required:
+        - envelope
+        - artifact
+      properties:
+        envelope:
+          $ref: '#/components/schemas/DSSEEnvelope'
+        artifact:
+          $ref: '#/components/schemas/Artifact'
+        executionContext:
+          $ref: '#/components/schemas/ExecutionDetail'
+    DSSESignature:
+      title: DSSESignature
+      type: object
+      properties:
+        keyid:
+          type: string
+          example: harness-ci-signer
+          description: Identifier of the signing key
+        sig:
+          type: string
+          example: MEUCIQ...
+          description: Base64-encoded signature
+    AttestationUploadResponseBody:
+      title: AttestationUploadResponseBody
+      type: object
+      properties:
+        gitoidSha256:
+          type: string
+          example: "300cd77db87c312b00b2e712d82a7581b20972e6a49e0ed11f4cdd1e2be942a0"
+          description: GitOID SHA256 digest of the attestation
+        status:
+          type: string
+          example: ingested
+          description: Ingestion status
+        verified:
+          type: boolean
+          example: true
+          description: Whether the signature was verified
+        indexed:
+          type: boolean
+          example: false
+          description: Whether the attestation has been indexed
+        artifactId:
+          type: string
+          description: Associated artifact identifier
+        orchestrationId:
+          type: string
+          description: Orchestration identifier for this attestation
+        links:
+          $ref: '#/components/schemas/AttestationLinks'
+    AttestationLinks:
+      title: AttestationLinks
+      type: object
+      properties:
+        download:
+          type: string
+          example: /orgs/SSCA/projects/SSCA_Sanity/attestations/300cd77...
+          description: Download URL for this attestation
+        graph:
+          type: string
+          example: /orgs/SSCA/projects/SSCA_Sanity/attestations/graph?artifactId=68f09...
+          description: Graph query URL for related attestations
+    GraphQLRequest:
+      title: GraphQLRequest
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          example: "{ dsses(first:10) { edges { node { gitoidSha256 } } } }"
+          description: GraphQL query string
+        variables:
+          type: object
+          additionalProperties: true
+          description: Optional GraphQL variables
+    GraphQLResponse:
+      title: GraphQLResponse
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+          description: GraphQL response data
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+          description: GraphQL errors if any
+    GraphQLError:
+      title: GraphQLError
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+        path:
+          type: array
+          items:
+            type: string      
     SbomMetadata:
       title: SbomMetadata
       x-stoplight:
@@ -11160,7 +11386,7 @@ components:
       required: true
       schema:
         type: string
-      description: Orchestration ID for SBOM orchestration
+      description: Harness Pipeline Execution ID
     ProvenanceId:
       name: provenance
       in: path
@@ -11175,6 +11401,13 @@ components:
       schema:
         type: string
       description: 'Identifier field of the account the resource is scoped to. This is required for Authorization methods other than the x-api-key header. If you are using the x-api-key header, this can be skipped.'
+    DigestParam:
+      name: digest
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Attestation digest (gitoidSha256 or payload digest)
     Limit:
       name: limit
       in: query
@@ -11520,6 +11753,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/DownloadSbomRequest'
+    AttestationUploadRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AttestationUploadRequest'
+    AttestationQueryRequestBody:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GraphQLRequest'        
     SbomScoreRequestBody:
       content:
         application/json:
@@ -11537,6 +11780,24 @@ components:
       in: header
       description: API key1 is a token provided while making the API calls. This is used to authenticate the client at the exposed endpoint.
   responses:
+    AttestationUploadResponse:
+      description: Attestation upload success response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AttestationUploadResponseBody'
+    AttestationDownloadResponse:
+      description: DSSE envelope download response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DSSEEnvelope'
+    AttestationQueryResponse:
+      description: GraphQL query response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GraphQLResponse'
     ComponentListResponseBody:
       description: List of components in the given scope.
       content:
