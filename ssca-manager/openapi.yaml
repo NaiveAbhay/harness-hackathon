@@ -2264,7 +2264,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       requestBody:
         $ref: '#/components/requestBodies/PolicyViolationRequestBody'
-  '/v2/orgs/{org}/projects/{project}/attestations/upload/{orchestration}':
+  '/gateway/ssca-manager/v2/orgs/{org}/projects/{project}/attestations/upload/{orchestration}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -2302,7 +2302,7 @@ paths:
         $ref: '#/components/requestBodies/AttestationUploadRequestBody'
       security:
         - x-api-key: []
-  '/v2/orgs/{org}/projects/{project}/attestations/download/{digest}':
+  '/gateway/ssca-manager/v2/orgs/{org}/projects/{project}/attestations/download/{digest}':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
@@ -2328,7 +2328,7 @@ paths:
         - $ref: '#/components/parameters/AccountHeader'
       security:
         - x-api-key: []
-  '/v2/orgs/{org}/projects/{project}/attestations/query':
+  '/gateway/ssca-manager/v2/orgs/{org}/projects/{project}/attestations/query':
     parameters:
       - $ref: '#/components/parameters/OrgParam'
       - $ref: '#/components/parameters/ProjectParam'
