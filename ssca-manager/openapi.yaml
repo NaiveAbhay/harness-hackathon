@@ -2272,7 +2272,7 @@ paths:
     post:
       summary: Upload attestation
       tags:
-        - Evidence Vault
+        - Evidence Vault [Beta]
       responses:
         '201':
           $ref: '#/components/responses/AttestationUploadResponse'
@@ -2310,7 +2310,7 @@ paths:
     get:
       summary: Download attestation by digest
       tags:
-        - Evidence Vault
+        - Evidence Vault [Beta]  
       responses:
         '200':
           $ref: '#/components/responses/AttestationDownloadResponse'
@@ -2335,7 +2335,7 @@ paths:
     post:
       summary: GraphQL query endpoint for attestations
       tags:
-        - Evidence Vault
+        - Evidence Vault [Beta]
       responses:
         '200':
           $ref: '#/components/responses/AttestationQueryResponse'

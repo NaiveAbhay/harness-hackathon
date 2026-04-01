@@ -325,7 +325,7 @@
     - Delete Step Config
     - Delete Repositories
     - Pipeline Store Config
-    - Evidence Vault
+    - Evidence Vault [Beta]
 # Please make sure to add new tags above Resilience Testing section.
 - name: Resilience Testing
   tags:
