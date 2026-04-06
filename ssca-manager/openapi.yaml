@@ -2308,7 +2308,7 @@ paths:
       - $ref: '#/components/parameters/ProjectParam'
       - $ref: '#/components/parameters/DigestParam'
     get:
-      summary: Download attestation by digest
+      summary: Download attestation by digest(gitoidSha256 or payload digest)
       tags:
         - Evidence Vault [Beta]  
       responses:
@@ -4374,8 +4374,66 @@ components:
           description: GraphQL query string
         variables:
           type: object
-          additionalProperties: true
-          description: Optional GraphQL variables
+          description: GraphQL variables for filtering DSS entries
+          properties:
+            gitoidSha256:
+              type: string
+              description: Exact match on attestation ID
+            gitoidSha256In:
+              type: array
+              items:
+                type: string
+              description: Match any ID in list
+            subjectName:
+              type: string
+              description: Exact match on subject name
+            subjectNameContains:
+              type: string
+              description: Wildcard contains search
+            subjectNameStartsWith:
+              type: string
+              description: Prefix search
+            subjectSha256:
+              type: string
+              description: Exact match on subject digest
+            signerKeyId:
+              type: string
+              description: Exact match on signer key ID
+            signerKeyIdIn:
+              type: array
+              items:
+                type: string
+              description: Match any key ID in list
+            status:
+              type: string
+              description: Filter by status (PENDING, INDEXED, etc.)
+            verified:
+              type: boolean
+              description: Filter by verification status
+            artifactId:
+              type: string
+              description: Filter by artifact ID
+            createdAtGTE:
+              type: integer
+              format: int64
+              description: Created after timestamp (epoch ms)
+            createdAtLTE:
+              type: integer
+              format: int64
+              description: Created before timestamp (epoch ms)
+            and:
+              type: array
+              items:
+                type: object
+              description: Logical AND of multiple filter conditions
+            or:
+              type: array
+              items:
+                type: object
+              description: Logical OR of multiple filter conditions
+            not:
+              type: object
+              description: Logical NOT filter condition
     GraphQLResponse:
       title: GraphQLResponse
       type: object
