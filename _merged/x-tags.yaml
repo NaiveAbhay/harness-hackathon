@@ -326,6 +326,17 @@
     - Delete Repositories
     - Pipeline Store Config
     - Evidence Vault [Beta]
+- name: Release Management
+  tags:
+    - Release Groups
+    - Releases
+    - Orchestration Processes
+    - Orchestration Activities
+    - Orchestration Executions
+    - Conflicts
+    - Freeze
+    - Reports
+    - Uploads
 # Please make sure to add new tags above Resilience Testing section.
 - name: Resilience Testing
   tags:

@@ -209,6 +209,15 @@
       "pathModification": {
         "prepend": "/gateway/chaos/manager/api"
       }
+    },
+    {
+      "inputFile": "../release-management/openapi.yaml",
+      "pathModification": {
+        "prepend": "/rmg/api"
+      },
+      "dispute": {
+        "prefix": "Rm"
+      }
     }
   ],
   "output": "merged.yaml"
