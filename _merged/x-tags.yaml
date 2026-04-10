@@ -220,6 +220,7 @@
     - Cloud Cost AutoStopping Rules V2
     - Cloud Cost AutoStopping Load Balancers
     - Cloud Cost AutoStopping Fixed Schedules
+    - Cloud Cost AutoStopping Alerts
     - Commitment Orchestrator Events APIs
 - name: Feature Flags
   tags:
