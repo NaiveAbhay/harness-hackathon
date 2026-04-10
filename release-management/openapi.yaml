@@ -3,6 +3,25 @@ info:
   title: rms
   version: '1.0'
   description: This is the Open Api Spec 3 for the Release Management Service
+tags:
+  - name: Release Groups
+    x-displayName: Release Groups [Beta]
+  - name: Releases
+    x-displayName: Releases [Beta]
+  - name: Orchestration Processes
+    x-displayName: Orchestration Processes [Beta]
+  - name: Orchestration Activities
+    x-displayName: Orchestration Activities [Beta]
+  - name: Orchestration Executions
+    x-displayName: Orchestration Executions [Beta]
+  - name: Conflicts
+    x-displayName: Conflicts [Beta]
+  - name: Freeze
+    x-displayName: Freeze [Beta]
+  - name: Reports
+    x-displayName: Reports [Beta]
+  - name: Uploads
+    x-displayName: Uploads [Beta]
 paths:
   /releaseGroup:
     post:
@@ -2428,7 +2447,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       x-stoplight:
         id: freeze-details-get
-  /uploads/presign:
+  /v1/uploads/presign:
     post:
       summary: Generate presigned upload URL
       tags:
@@ -2458,7 +2477,7 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
       x-stoplight:
         id: uploads-presign-post
-  /uploads/{accountId}/{releaseId}/{filename}:
+  /v1/uploads/{accountId}/{releaseId}/{filename}:
     get:
       summary: Serve uploaded file
       tags:
