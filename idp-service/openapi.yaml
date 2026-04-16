@@ -2810,6 +2810,232 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/UnlinkIntegrationEntitiesRequest'
       x-internal: false
+  /v1/kinds:
+    post:
+      operationId: create-kind
+      summary: Create a Kind
+      description: Create a Kind.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/KindCreateRequestBody'
+      responses:
+        '201':
+          $ref: '#/components/responses/KindResponseBody'
+    get:
+      operationId: get-kinds
+      summary: Get Kinds
+      description: Get Kinds.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/LimitWithRestriction'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/SearchTerm'
+        - $ref: '#/components/parameters/KindType'
+      responses:
+        '200':
+          $ref: '#/components/responses/KindResponseBodyList'
+  '/v1/kinds/{identifier}':
+    parameters:
+      - $ref: '#/components/parameters/IdentifierParam'
+    put:
+      operationId: update-kind
+      summary: Update a Kind
+      description: Update a Kind.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/KindUpdateRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/KindResponseBody'
+    delete:
+      operationId: delete-kind
+      summary: Delete a Kind
+      description: Delete a Kind.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '204':
+          description: No Content
+    get:
+      operationId: get-kind
+      summary: Get Kind
+      description: Get Kind.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/KindType'
+      responses:
+        '200':
+          $ref: '#/components/responses/KindResponseBody'
+  '/v1/kinds/schema':
+    get:
+      operationId: get-kind-schema
+      summary: Get Kind Schema
+      description: Get Kind Schema.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/KindSchemaResponseBody'
+  '/v1/kinds/schema/validate':
+    post:
+      operationId: kind-schema-validate
+      summary: Validate kind schema
+      description: Validate kind schema.
+      tags:
+        - Kinds
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/KindSchemaValidateRequestBody'
+      responses:
+        '204':
+          description: No Content
+  /v3/layout:
+    get:
+      operationId: get-layouts-v3
+      summary: Get Layouts V3
+      description: Get Layouts V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+    post:
+      operationId: create-layout-v3
+      summary: Create layout V3
+      description: Create layout V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LayoutRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+    delete:
+      operationId: delete-layout-v3
+      summary: Delete layout V3
+      description: Delete layout V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/LayoutRequest'
+      responses:
+        '200':
+          description: Layout response
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/LayoutResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LayoutResponse'
+  '/v3/layout/{layout-identifier}':
+    get:
+      operationId: get-layout-v3
+      summary: Get layout V3
+      description: Get Layout V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+    parameters:
+      - $ref: '#/components/parameters/LayoutIdentifier'
+  /v3/layout/health:
+    get:
+      operationId: get-layout-health-v3
+      summary: Get Layout Health V3
+      description: Get Layout Health V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+  /v3/layout/ingest:
+    post:
+      operationId: layout-ingest-v3
+      summary: Ingest layout V3
+      description: Ingest layout V3.
+      tags:
+        - LayoutsV3
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LayoutIngestRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
+  /v4/layout:
+    get:
+      operationId: get-layouts-v4
+      summary: Get Layouts V4
+      description: Get Layouts V4.
+      tags:
+        - LayoutsV4
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      responses:
+        '200':
+          $ref: '#/components/responses/LayoutResponse'
 components:
   schemas:
     BackstageEnvVariable:
@@ -6547,6 +6773,10 @@ components:
             - user
             - workflow
           description: 'Kind of the entity (defines its core purpose)'
+        kind_identifier:
+          type: string
+        kind_icon:
+          type: string
         type:
           type: string
           description: 'Type of the entity within its kind (e.g., Service, Website)'
@@ -7584,6 +7814,89 @@ components:
                 type: string
               name:
                 type: string
+    KindResponseBody:
+      title: Kind Response Body
+      description: Kind Response Body
+      type: object
+      properties:
+        identifier:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        schema:
+          type: string
+        icon:
+          type: string
+        custom:
+          type: boolean
+      required:
+        - identifier
+        - name
+        - schema
+    KindSchemaResponseBody:
+      title: Kind Schema Response Body
+      description: Kind Schema Response Body
+      type: object
+      properties:
+        schema:
+          type: string
+      required:
+        - schema
+    KindCreateRequest:
+      title: Kind Create Request Body
+      description: Kind Create Request Body
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: Identifier of the kind.
+        name:
+          type: string
+          description: Name of the kind.
+        description:
+          type: string
+          description: Description of the kind.
+        schema:
+          type: string
+          description: Schema of the kind.
+        icon:
+          type: string
+          description: Icon of the kind.
+      required:
+        - identifier
+        - description
+        - schema
+    KindUpdateRequest:
+      title: Kind Update Request Body
+      description: Kind Update Request Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the kind.
+        description:
+          type: string
+          description: Description of the kind.
+        schema:
+          type: string
+          description: Schema of the kind.
+        icon:
+          type: string
+          description: Icon of the kind.
+      required:
+        - schema
+    KindSchemaValidateRequest:
+      title: Kind Schema Validate Request Body
+      description: Kind Schema Validate Request Body
+      type: object
+      properties:
+        schema:
+          type: string
+          description: Schema of the kind.
+      required:
+        - schema
   parameters:
     AccountIdentifierQueryParam:
       name: accountIdentifier
@@ -7855,6 +8168,13 @@ components:
       schema:
         type: string
       description: This is used to filter backstage catalog entity facets by kind
+    KindType:
+      name: custom
+      in: query
+      schema:
+        type: boolean
+      description: Type of kinds to be returned
+      required: false
     NamespacePathParam:
       name: namespace
       in: path
@@ -8323,6 +8643,27 @@ components:
             $ref: '#/components/schemas/UnlinkIntegrationEntitiesRequest'
           examples: { }
       description: Details of Unlink Integration Entities Request
+    KindCreateRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/KindCreateRequest'
+      description: Kind Create Request Body
+    KindUpdateRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/KindUpdateRequest'
+      description: Kind Update Request Body
+    KindSchemaValidateRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/KindSchemaValidateRequest'
+      description: Kind Update Request Body
   responses:
     BackstageEnvVariableResponse:
       description: Example response
@@ -9139,6 +9480,50 @@ components:
           schema:
             type: integer
           description: Maximum page size in Paginated response.
+    KindResponseBodyList:
+      description: List of Kind response body
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/KindResponseBody'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/KindResponseBody'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    KindResponseBody:
+      description: Kind response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/KindResponseBody'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/KindResponseBody'
+    KindSchemaResponseBody:
+      description: Kind schema response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/KindSchemaResponseBody'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/KindSchemaResponseBody'
   securitySchemes:
     x-api-key:
       name: x-api-key
@@ -9229,3 +9614,12 @@ tags:
   - name: AggregationRules
     description: Aggregation Rules
     x-displayName: Aggregation Rules
+  - name: Kinds
+    description: This contains APIs for Kinds.
+    x-displayName: Kinds
+  - name: LayoutsV3
+    description: This contains APIs for LayoutsV3.
+    x-displayName: LayoutsV3
+  - name: LayoutsV4
+    description: This contains APIs for LayoutsV4.
+    x-displayName: LayoutsV4

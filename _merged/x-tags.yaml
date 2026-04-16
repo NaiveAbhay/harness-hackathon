@@ -250,6 +250,9 @@
     - AppConfig
     - PluginInfo
     - LayoutProxy
+    - Kinds
+    - LayoutsV3
+    - LayoutsV4
 - name: Environment Management - IDP
   tags:
     - Environment
