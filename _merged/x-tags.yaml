@@ -104,6 +104,7 @@
     - TriggersEvents
     - Webhook Triggers
     - Webhook Event Handler
+    - DryRunPipeline
 - name: Artifact Registry
   tags:
     - Registries
