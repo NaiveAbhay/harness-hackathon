@@ -606,6 +606,97 @@ paths:
         - $ref: '#/components/parameters/PluginName'
       tags:
         - PluginInfo
+  /v2/custom-plugins:
+    get:
+      summary: Get all V2 Custom Plugins available
+      tags:
+        - CustomPluginsV2
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPluginsV2ResponseBodyList'
+      operationId: get-custom-plugins-v2
+      x-stoplight:
+        id: qd1pqx1p9pupp
+      description: Get all V2 Custom Plugins available
+      x-internal: false
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/SearchTerm'
+    post:
+      summary: Create V2 Custom Plugin
+      tags:
+        - CustomPluginsV2
+      operationId: create-custom-plugins-v2
+      responses:
+        '201':
+          $ref: '#/components/responses/CustomPluginV2Response'
+      x-stoplight:
+        id: 8kz8v205wqtp3
+      description: Create V2 Custom Plugin
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+      requestBody:
+        $ref: '#/components/requestBodies/CustomPluginV2CreateRequest'
+      x-internal: false
+  /v2/custom-plugins/{plugin-id}:
+    get:
+      summary: Get custom plugin v2 details for given pluginId
+      tags:
+        - CustomPluginsV2
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPluginV2Response'
+      operationId: get-custom-plugin-v2
+      description: Get custom plugin v2 details for given pluginId
+      x-internal: false
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PluginId'
+      x-stoplight:
+        id: 7q984jp8e5lrp
+    put:
+      summary: Update custom plugin v2 details for given pluginId
+      tags:
+        - CustomPluginsV2
+      operationId: update-custom-plugin-v2
+      responses:
+        '200':
+          $ref: '#/components/responses/CustomPluginV2Response'
+      x-stoplight:
+        id: qfrmn9px8zk9p
+      description: Update custom plugin v2 details for given pluginId
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PluginId'
+      requestBody:
+        $ref: '#/components/requestBodies/CustomPluginV2UpdateRequest'
+      x-internal: false
+    delete:
+      summary: Delete custom plugin v2 details for given pluginId
+      tags:
+        - CustomPluginsV2
+      operationId: delete-custom-plugin-v2
+      description: Delete custom plugin v2
+      security:
+        - x-api-key: [ ]
+      parameters:
+        - $ref: '#/components/parameters/AccountHeader'
+        - $ref: '#/components/parameters/PluginId'
+      responses:
+        '204':
+          description: No Content
+      x-internal: false
   /v1/app-config:
     post:
       summary: Save Or Update Plugin Config
@@ -5725,6 +5816,55 @@ components:
       properties:
         info:
           $ref: '#/components/schemas/CustomPluginDetailedInfo'
+    CustomPluginV2CreateRequest:
+      title: CustomPluginCreateRequest
+      x-stoplight:
+        id: p9u1g9tlp8jl
+      type: object
+      properties:
+        identifier:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+      required:
+        - identifier
+        - name
+    CustomPluginV2UpdateRequest:
+      title: CustomPluginV2UpdateRequest
+      x-stoplight:
+        id: p9p1g7tlp8jp
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+    CustomPluginV2Response:
+      title: CustomPluginV2Response
+      type: object
+      properties:
+        identifier:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        icon:
+          type: string
+        file_url:
+          type: string
+        created_by:
+          type: string
+        created_at:
+          type: number
+        updated_at:
+          type: number
     BackstageHarnessSyncRequest:
       title: BackstageHarnessSyncRequest
       type: object
@@ -8415,6 +8555,22 @@ components:
         application/json:
           schema:
             type: object
+    CustomPluginV2CreateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2CreateRequest'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2CreateRequest'
+    CustomPluginV2UpdateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2UpdateRequest'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2UpdateRequest'
     BackstageHarnessSyncRequest:
       content:
         application/json:
@@ -9105,6 +9261,41 @@ components:
         application/yaml:
           schema:
             $ref: '#/components/schemas/CustomPluginInfoResponse'
+    CustomPluginsV2ResponseBodyList:
+      description: List of Custom Plugins V2 response body
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomPluginV2Response'
+        application/yaml:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomPluginV2Response'
+      headers:
+        X-Total-Elements:
+          schema:
+            type: integer
+          description: Total number of elements returned in Paginated response.
+        X-Page-Number:
+          schema:
+            type: integer
+          description: Page number in Paginated response.
+        X-Page-Size:
+          schema:
+            type: integer
+          description: Maximum page size in Paginated response.
+    CustomPluginV2Response:
+      description: Custom Plugin V2 response body
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2Response'
+        application/yaml:
+          schema:
+            $ref: '#/components/schemas/CustomPluginV2Response'
     BackstageHarnessSyncEntitiesResponse:
       description: Response for backstage harness entities sync
       content:
@@ -9623,3 +9814,6 @@ tags:
   - name: LayoutsV4
     description: This contains APIs for LayoutsV4.
     x-displayName: LayoutsV4
+  - name: CustomPluginsV2
+    description: This contains APIs for Custom Plugins V2.
+    x-displayName: CustomPluginsV2
