@@ -223,6 +223,7 @@
     - Cloud Cost AutoStopping Fixed Schedules
     - Cloud Cost AutoStopping Alerts
     - Commitment Orchestrator Events APIs
+    - Data Job Status
 - name: Feature Flags
   tags:
     - API Keys
