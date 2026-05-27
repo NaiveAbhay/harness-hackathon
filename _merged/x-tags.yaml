@@ -217,11 +217,11 @@
     - Cloud Cost Recommendation Jira
     - Cloud Cost Recommendation Servicenow
     - Cloud Cost Recommendation Ignore List
-    - Cloud Cost AutoStopping Rules
-    - Cloud Cost AutoStopping Rules V2
-    - Cloud Cost AutoStopping Load Balancers
-    - Cloud Cost AutoStopping Fixed Schedules
-    - Cloud Cost AutoStopping Alerts
+    - AutoStopping Rules
+    - AutoStopping Rules V2
+    - AutoStopping Load Balancers
+    - AutoStopping Fixed Schedules
+    - AutoStopping Alerts
     - Commitment Orchestrator Events APIs
     - Data Job Status
 - name: Feature Flags

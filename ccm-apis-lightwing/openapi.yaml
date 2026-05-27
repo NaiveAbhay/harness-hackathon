@@ -19,27 +19,27 @@
   ],
   "tags": [
     {
-      "name": "Cloud Cost AutoStopping Rules",
+      "name": "AutoStopping Rules",
       "description": "This contains APIs to create and manage AutoStopping Rules for your cloud resources."
     },
     {
-      "name": "Cloud Cost AutoStopping Rules V2",
+      "name": "AutoStopping Rules V2",
       "description": "This contains Autostopping v2 APIs that support the usage of Autostopping Proxy for managing cloud resources."
     },
     {
-      "name": "Cloud Cost AutoStopping Load Balancers",
+      "name": "AutoStopping Load Balancers",
       "description": "This contains APIs to create and manage load balancers used for AutoStopping."
     },
     {
-      "name": "Cloud Cost AutoStopping Fixed Schedules",
+      "name": "AutoStopping Fixed Schedules",
       "description": "This contains APIs to manage fixed schedules for the AutoStopping Rules."
     },
     {
-      "name": "Cloud Cost Cluster Orchestrator",
+      "name": "Cluster Orchestrator",
       "description": "This contains APIs to onboard and manage Cluster Orchestrator for Kubernetes"
     },
     {
-      "name": "Cloud Cost AutoStopping Alerts",
+      "name": "AutoStopping Alerts",
       "description": "This contains APIs to create and manage alerts for AutoStopping events and notifications."
     }
   ],
@@ -47,7 +47,7 @@
     "/accounts/{account_id}/autostopping/rules": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "List AutoStopping Rules",
         "description": "Retrieves a list of all AutoStopping Rules configured in your account. AutoStopping Rules help optimize cloud costs by automatically stopping idle resources and starting them on-demand when accessed. ",
@@ -102,7 +102,7 @@
       },
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Create an AutoStopping Rule",
         "description": "Creates a new AutoStopping Rule to automatically manage cloud resources and reduce costs. The rule monitors resource activity and automatically stops resources during idle periods, then restarts them when traffic is detected. You can configure idle time thresholds, access methods (HTTP/HTTPS, SSH, RDP), custom domains, and schedules.",
@@ -174,7 +174,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return AutoStopping Rule details",
         "description": "Retrieves details of a specific AutoStopping Rule including its configuration, associated resources, idle time settings, etc.",
@@ -235,7 +235,7 @@
       },
       "delete": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Delete an AutoStopping Rule",
         "description": "Permanently deletes an AutoStopping Rule from your account.\n\n**⚠️ CAUTION:** This action is irreversible. Once deleted, the rule configuration cannot be recovered. Resources that were managed by this rule will no longer be automatically stopped, which may result in increased cloud costs.",
@@ -293,7 +293,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/health": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return health status of an AutoStopping Rule",
         "description": "Retrieves the current health and operational status of an AutoStopping Rule. ",
@@ -351,7 +351,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/savings": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return savings details for an AutoStopping Rule",
         "description": "Retrieves detailed cost savings data for a specific AutoStopping Rule grouped by day over the specified time period.",
@@ -436,7 +436,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/resources": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "List all the resources for an AutoStopping Rule",
         "description": "Lists all the resources for an AutoStopping Rule for the given identifier.",
@@ -515,7 +515,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/diagnostics": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return diagnostics result of an AutoStopping Rule",
         "description": "Retrieves diagnostic information for an AutoStopping Rule to help troubleshoot issues.",
@@ -573,7 +573,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/warmup": {
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Warm up an AutoStopping Rule",
         "description": "Manually starts (warms up) the resources managed by an AutoStopping Rule, bringing them online immediately.",
@@ -642,7 +642,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown": {
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Cool down an AutoStopping Rule",
         "description": "Manually stops (cools down) the resources managed by an AutoStopping Rule, shutting them down immediately to save costs.",
@@ -711,7 +711,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/cooldown_meta": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return metadata of cool down of an AutoStopping Rule",
         "description": "Retrieves metadata about the cooldown configuration and status of an AutoStopping Rule.",
@@ -775,7 +775,7 @@
     "/accounts/{account_id}/autostopping/rules/savings/cumulative": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Return cumulative savings for all the AutoStopping Rules",
         "description": "Retrieves the total cumulative cost savings achieved across all AutoStopping Rules in the account.",
@@ -823,7 +823,7 @@
     "/accounts/{account_id}/autostopping/rules/{rule_id}/toggle_state": {
       "put": {
         "tags": [
-          "Cloud Cost AutoStopping Rules"
+          "AutoStopping Rules"
         ],
         "summary": "Disable/Enable an Autostopping Rule",
         "description": "Enables or disables an AutoStopping Rule. When disabled, the rule will not automatically stop resources during idle periods.",
@@ -891,7 +891,7 @@
     "/accounts/{account_id}/autostopping/v2/rules": {
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Rules V2"
+          "AutoStopping Rules V2"
         ],
         "summary": "Create an AutoStopping Rule",
         "description": "Creates a new AutoStopping Rule using the V2 API format with enhanced proxy support.",
@@ -951,7 +951,7 @@
     "/accounts/{account_id}/autostopping/v2/rules/{rule_id}": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Rules V2"
+          "AutoStopping Rules V2"
         ],
         "summary": "Return AutoStopping Rule details in V2 format",
         "description": "Retrieves details of an AutoStopping Rule in V2 format with enhanced proxy configuration details.",
@@ -1012,7 +1012,7 @@
       },
       "put": {
         "tags": [
-          "Cloud Cost AutoStopping Rules V2"
+          "AutoStopping Rules V2"
         ],
         "summary": "Update an existing AutoStopping Rule",
         "description": "Updates an existing AutoStopping Rule configuration using the V2 API format.",
@@ -1082,7 +1082,7 @@
     "/accounts/{account_id}/autostopping/loadbalancers": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Return all the load balancers",
         "description": "Retrieves a list of all AutoStopping load balancers configured in your account. Load balancers act as proxy entry points that route traffic to your AutoStopping Rules.",
@@ -1118,7 +1118,7 @@
           },
           {
             "name": "cloud_account_id",
-            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CACM.",
             "in": "query",
             "required": true,
             "schema": {
@@ -1156,7 +1156,7 @@
       },
       "put": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Update a load balancer",
         "description": "Updates the configuration of an existing AutoStopping load balancer.",
@@ -1213,7 +1213,7 @@
       },
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Create a load balancer",
         "description": "Creates a new AutoStopping load balancer to act as a proxy entry point for routing traffic to AutoStopping Rules.",
@@ -1270,7 +1270,7 @@
       },
       "delete": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Delete load balancers and the associated resources",
         "description": "Permanently deletes one or more AutoStopping load balancers and their associated resources.\n\n**⚠️ CAUTION:** This action is irreversible. Once deleted, the load balancer configuration cannot be recovered. Any AutoStopping Rules using this load balancer will lose their access point and may become inaccessible.",
@@ -1319,7 +1319,7 @@
     "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Return details of a load balancer",
         "description": "Retrieves detailed configuration and status information for a specific AutoStopping load balancer.",
@@ -1377,7 +1377,7 @@
     "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/rules": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Return all the AutoStopping Rules in a load balancer",
         "description": "Retrieves a list of all AutoStopping Rules that are configured to route traffic through a specific load balancer.",
@@ -1435,7 +1435,7 @@
     "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/last_active_at": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Load Balancers"
+          "AutoStopping Load Balancers"
         ],
         "summary": "Return last activity details of a load balancer",
         "description": "Retrieves the timestamp of the most recent activity (traffic) through the load balancer.",
@@ -1492,7 +1492,7 @@
     "/accounts/{account_id}/schedules": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Fixed Schedules"
+          "AutoStopping Fixed Schedules"
         ],
         "summary": "Return all the AutoStopping Rule fixed schedules",
         "description": "Retrieves all fixed schedules configured for an AutoStopping Rule. Fixed schedules define specific times when resources should be automatically started or stopped.",
@@ -1510,7 +1510,7 @@
           },
           {
             "name": "cloud_account_id",
-            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CACM.",
             "in": "query",
             "required": true,
             "schema": {
@@ -1571,7 +1571,7 @@
       },
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Fixed Schedules"
+          "AutoStopping Fixed Schedules"
         ],
         "summary": "Create a fixed schedule for an AutoStopping Rule",
         "description": "Creates a new fixed schedule for an AutoStopping Rule to automatically start or stop resources at specific times.",
@@ -1589,7 +1589,7 @@
           },
           {
             "name": "cloud_account_id",
-            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CCM.",
+            "description": "Unique identifier of the cloud connector (AWS, Azure, or GCP) configured in CACM.",
             "in": "query",
             "required": true,
             "schema": {
@@ -1641,7 +1641,7 @@
     "/accounts/{account_id}/schedules/{schedule_id}": {
       "delete": {
         "tags": [
-          "Cloud Cost AutoStopping Fixed Schedules"
+          "AutoStopping Fixed Schedules"
         ],
         "summary": "Delete a fixed schedule for AutoStopping Rule",
         "description": "Permanently deletes a fixed schedule from an AutoStopping Rule. The rule will no longer start or stop resources based on this schedule.",
@@ -1700,10 +1700,10 @@
     "/accounts/{account_id}/clusters": {
       "get": {
         "tags": [
-          "Cloud Cost Cluster Orchestrator"
+          "Cluster Orchestrator"
         ],
-        "summary": "Return all connected clusters to Harness CCM",
-        "description": "Return all connected clusters to Harness CCM, the ones onboarded to cluster orchestrator will have the id field populated",
+        "summary": "Return all connected clusters to Harness CACM",
+        "description": "Return all connected clusters to Harness CACM, the ones onboarded to cluster orchestrator will have the id field populated",
         "operationId": "listConnectedKubernetesClusters",
         "parameters": [
           {
@@ -1737,10 +1737,10 @@
     "/accounts/{account_id}/clusters/orchestrator": {
       "post": {
         "tags": [
-          "Cloud Cost Cluster Orchestrator"
+          "Cluster Orchestrator"
         ],
-        "summary": "Onboard a kubernetes cluster with an existing CCM Kubernetes Connector to Cluster Orchestrator",
-        "description": "Onboard a kubernetes cluster with an existing CCM Kubernetes Connector to Cluster Orchestrator",
+        "summary": "Onboard a kubernetes cluster with an existing CACM Kubernetes Connector to Cluster Orchestrator",
+        "description": "Onboard a kubernetes cluster with an existing CACM Kubernetes Connector to Cluster Orchestrator",
         "operationId": "onboardToClusterOrchestrator",
         "parameters": [
           {
@@ -1786,7 +1786,7 @@
     "/accounts/{account_id}/clusters/orchestrator/{orchestrator_id}": {
       "get": {
         "tags": [
-          "Cloud Cost Cluster Orchestrator"
+          "Cluster Orchestrator"
         ],
         "summary": "Get Details of a connected clusters by orchestrator id",
         "description": "Fetches the details of the cluster connected to the orchestrator by orchestrator's ID",
@@ -1832,7 +1832,7 @@
     "/accounts/{account_id}/clusters/orchestrator/{orchestrator_id}/config": {
       "put": {
         "tags": [
-          "Cloud Cost Cluster Orchestrator"
+          "Cluster Orchestrator"
         ],
         "summary": "Update a Cluster Orchestrator Config",
         "description": "Updates the config for a given cluster orchestrator",
@@ -1889,7 +1889,7 @@
     "/accounts/{account_id}/alerts": {
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Alerts"
+          "AutoStopping Alerts"
         ],
         "summary": "Create Alert",
         "description": "Creates a new alert configuration for AutoStopping events. Alerts can notify users via email or Slack when specific events occur, such as warmup failures, cooldown failures, or rule lifecycle changes.",
@@ -2030,7 +2030,7 @@
       },
       "put": {
         "tags": [
-          "Cloud Cost AutoStopping Alerts"
+          "AutoStopping Alerts"
         ],
         "summary": "Update Alert",
         "description": "Updates an existing alert configuration. The alert ID must be provided in the request body.",
@@ -2167,7 +2167,7 @@
     "/accounts/{account_id}/alerts/list": {
       "post": {
         "tags": [
-          "Cloud Cost AutoStopping Alerts"
+          "AutoStopping Alerts"
         ],
         "summary": "List Alerts",
         "description": "Retrieves a paginated list of alerts matching the specified search criteria. Supports filtering by entity type, entity IDs, enabled status, events, and name search.",
@@ -2227,7 +2227,7 @@
     "/accounts/{account_id}/alerts/{alert_id}": {
       "get": {
         "tags": [
-          "Cloud Cost AutoStopping Alerts"
+          "AutoStopping Alerts"
         ],
         "summary": "Get Alert",
         "description": "Retrieves the details of a specific alert by its ID.",
@@ -2286,7 +2286,7 @@
       },
       "delete": {
         "tags": [
-          "Cloud Cost AutoStopping Alerts"
+          "AutoStopping Alerts"
         ],
         "summary": "Delete Alert",
         "description": "Deletes an alert by its ID. This is a soft delete operation.",
@@ -3898,7 +3898,7 @@
           },
           "k8s_connector_id": {
             "type": "string",
-            "description": "This is the CCM Kubernetes Cost Connector ID"
+            "description": "This is the CACM Kubernetes Cost Connector ID"
           },
           "provider": {
             "type": "string",
@@ -4119,7 +4119,7 @@
           },
           "k8s_connector_id": {
             "type": "string",
-            "description": "ID for the CCM Cloud Cost Kubernetes connector"
+            "description": "ID for the CACM Cloud Cost Kubernetes connector"
           }
         }
       },
