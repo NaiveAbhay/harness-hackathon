@@ -190,40 +190,55 @@
     - GitX Webhooks
     - Org Gitx Webhooks
     - Project Gitx Webhooks
-- name: CCM
+- name: CACM
   tags:
-    - Cloud Cost Anomalies
-    - Cloud cost anomalies v2
-    - Cloud cost anomaly details
-    - Cloud Cost BI Dashboards
-    - Cloud Cost Budget Groups
-    - Cloud Cost Budgets
-    - Cloud Cost K8S Connectors Metadata
-    - Cloud Cost Details
-    - Cloud Cost Overview
-    - Cloud Cost Categories
-    - RuleEnforcement
-    - Rule
-    - Rule Executions
-    - Rule Sets
+    - Anomalies Ignorelist Rule
+    - Anomalies
+    - BI Dashboards
+    - Budgets
+    - Budget Groups
+    - Cost Categories
+    - Cloud Accounts
+    - K8S Connectors Metadata
+    - Notification Settings v2
+    - Overview
+    - Data Job Status
+    - Recommendation cost settings
+    - Unit Metric
+    - Anomaly Comments
+    - Cloud and AI cost anomaly details
+    - Cloud and AI cost anomalies v2
+    - Cost Details
+    - Currency Preferences
+    - External Data Provider
+    - AiEngine
+    - CACM governance cost settings
+    - Governance Enforcement Recommendation APIs
+    - Governance Alert
     - Governance Overview
-    - Cloud Cost Perspectives Folders
-    - Cloud Cost Perspective Reports
-    - Cloud Cost Perspectives
-    - Cloud Cost Recommendations Details
-    - Cloud Cost Recommendations
-    - Cloud Cost Recommendation Preferences
-    - Cloud Cost Recommendation Presets
-    - Cloud Cost Recommendation Jira
-    - Cloud Cost Recommendation Servicenow
-    - Cloud Cost Recommendation Ignore List
+    - Governance Recommendation APIs
+    - RuleEnforcement
+    - Rule Executions
+    - Rule
+    - Rule Sets
+    - Perspectives Folders
+    - Perspective Reports
+    - Perspectives
+    - Cost Category Jira Project Mapping
+    - Recommendations Details
+    - Recommendations
+    - Recommendation Jira
+    - Recommendation Preferences
+    - Recommendation Presets
+    - Recommendation Servicenow
+    - Recommendation Tags
+    - Recommendation Ignore List
     - AutoStopping Rules
     - AutoStopping Rules V2
     - AutoStopping Load Balancers
     - AutoStopping Fixed Schedules
     - AutoStopping Alerts
     - Commitment Orchestrator Events APIs
-    - Data Job Status
 - name: Feature Flags
   tags:
     - API Keys
