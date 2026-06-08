@@ -882,25 +882,6 @@ paths:
       tags:
         - Notification Attachments
     parameters: []
-  /v1/notification-rules/notifications-simulate:
-    post:
-      summary: Simulate Notifications
-      tags:
-        - Notification Rules
-      operationId: simulateNotifications
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationsSimulateDTO'
-      responses:
-        '200':
-          description: Simulated notifications generated successfully.
-      x-stoplight:
-        id: 6zdzbe9bf4ggf
-      security:
-        - x-api-key: []
-      x-internal: true
 components:
   schemas:
     NotificationChannelDTO:
