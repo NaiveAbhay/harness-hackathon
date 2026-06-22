@@ -3,3 +3,11 @@ target
 **/target
 **/.DS_Store
 node_modules
+# API drift tool outputs
+api_run_report.json
+ng_run_report.json
+drift_report.json
+drift_report.md
+ng_drift.json
+ng_drift_report.md
+ng_run.log
