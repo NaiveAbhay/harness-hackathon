@@ -9,6 +9,7 @@ pipeline:
       codebase:
         connectorRef: githubconnectab
         build: <+input>
+        sparseCheckout: []
   stages:
     - stage:
         name: clone
