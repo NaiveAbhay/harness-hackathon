@@ -6,7 +6,7 @@ STATIC documentation-quality validation for the Harness OpenAPI specs.
 
 apidocs.harness.io is rendered directly from the harness-openapi spec, so
 problems in the spec are problems in the docs. This tool reads the local spec
-files (no live API calls, no writes -- completely safe) and flags 11 classes of
+files (no live API calls, no writes -- completely safe) and flags 18 classes of
 documentation defect, then emits a ranked report telling the docs team what to
 fix first.
 
@@ -23,12 +23,20 @@ Checks
   LOW   UNDOCUMENTED_PARAM       a parameter has no description
   MED   SERVERS_MISSING          spec has no servers: block (no base URL) [spec-level]
   HIGH  DUPLICATE_OPERATION_ID   same operationId used twice [spec-level + cross-spec]
+  HIGH  UNDECLARED_PATH_PARAM    {x} in the path template has no matching in:path parameter
+  MED   ORPHAN_PATH_PARAM        in:path parameter whose {name} is absent from the path template
+  MED   PATH_PARAM_NOT_REQUIRED  in:path parameter not marked required: true (OAS violation)
+  MED   DUPLICATE_PARAM          same (name, location) parameter declared more than once
+  LOW   UNDECLARED_TAG           operation tag missing from the top-level tags: list
+  MED   SUCCESS_RESPONSE_NO_SCHEMA  2xx response documents no body schema to show
+  MED   SERVERS_ENV_MISMATCH     servers: list doesn't match --expected-server [spec-level, opt-in]
 
 Usage
 -----
   python3 static_validator.py                 # all modules in this repo
   python3 static_validator.py --module pipeline-service
   python3 static_validator.py --spec-file ng-manager/openapi.yaml
+  python3 static_validator.py --expected-server app.harness.io  # turn on SERVERS_ENV_MISMATCH
 
 Outputs: static_report.json + static_report.md + console summary.
 Dependencies: PyYAML, jsonref
@@ -58,6 +66,9 @@ PLACEHOLDER_PATTERNS = [
 ]
 PLACEHOLDER_RE = re.compile("|".join(PLACEHOLDER_PATTERNS), re.IGNORECASE)
 DEPRECATED_RE = re.compile(r"\bdeprecat", re.IGNORECASE)
+PATH_PARAM_RE = re.compile(r"\{([^}]+)\}")
+# 2xx codes for which an empty body is legitimate (no response schema expected).
+NO_BODY_SUCCESS_CODES = {"204", "205", "304"}
 
 
 def load_spec(path):
@@ -90,6 +101,32 @@ def has_request_example(operation):
     return False  # body exists but no example
 
 
+def success_codes_without_schema(operation):
+    """Return 2xx codes (excluding no-body codes) that document no response schema.
+
+    A code is flagged when it has no `content` at all, or has content whose
+    media type object(s) lack a `schema`. HEAD-style empty bodies (204/205/304)
+    are never flagged.
+    """
+    bad = []
+    for code, resp in (operation.get("responses") or {}).items():
+        code = str(code)
+        if not code.startswith("2") or code in NO_BODY_SUCCESS_CODES:
+            continue
+        if not isinstance(resp, dict):
+            continue
+        content = resp.get("content")
+        if not content:
+            bad.append((code, "no response body documented"))
+            continue
+        if isinstance(content, dict):
+            no_schema = [mt for mt, media in content.items()
+                         if isinstance(media, dict) and not media.get("schema")]
+            if no_schema:
+                bad.append((code, f"media type(s) without schema: {', '.join(no_schema[:3])}"))
+    return bad
+
+
 def iter_operations(spec):
     """Yield (path, method, operation, merged_params)."""
     for path, item in (spec.get("paths") or {}).items():
@@ -102,13 +139,27 @@ def iter_operations(spec):
                 yield path, method, op, params
 
 
-def check_spec(module, spec, findings, global_opids):
+def check_spec(module, spec, findings, global_opids, expected_servers=None):
     """Run all checks for a single module spec; append to findings list."""
     # ---- spec-level: servers block ---------------------------------------- #
-    if not spec.get("servers"):
+    servers = spec.get("servers")
+    if not servers:
         findings.append({"check": "SERVERS_MISSING", "severity": "MED", "module": module,
                          "path": "(spec)", "method": "", "operationId": "",
                          "detail": "Spec has no servers: block; docs have no base URL to show."})
+    elif expected_servers:
+        # SERVERS_ENV_MISMATCH (opt-in): does the documented server match the
+        # environment we actually test against?
+        urls = [str(s.get("url", "")) for s in servers if isinstance(s, dict)]
+        if not any(exp in u for u in urls for exp in expected_servers):
+            findings.append({"check": "SERVERS_ENV_MISMATCH", "severity": "MED", "module": module,
+                             "path": "(spec)", "method": "", "operationId": "",
+                             "detail": f"servers: {urls} matches none of the expected host(s): "
+                                       f"{', '.join(expected_servers)}."})
+
+    # tags declared at the top level (used by UNDECLARED_TAG below)
+    declared_tags = {t.get("name") for t in (spec.get("tags") or [])
+                     if isinstance(t, dict) and t.get("name")}
 
     local_opids = {}
     for path, method, op, params in iter_operations(spec):
@@ -160,6 +211,61 @@ def check_spec(module, spec, findings, global_opids):
                              "params": undoc,
                              "detail": f"{len(undoc)} parameter(s) have no description: {', '.join(undoc[:6])}"
                                        + ("..." if len(undoc) > 6 else "")})
+
+        # ---- path-parameter integrity (12-15) ----------------------------- #
+        placeholders = list(dict.fromkeys(PATH_PARAM_RE.findall(path)))  # ordered, unique
+        path_params = [p for p in params if p.get("in") == "path"]
+        path_param_names = {p.get("name") for p in path_params if p.get("name")}
+
+        # 12. UNDECLARED_PATH_PARAM
+        undeclared = [ph for ph in placeholders if ph not in path_param_names]
+        if undeclared:
+            findings.append({**loc, "check": "UNDECLARED_PATH_PARAM", "severity": "HIGH",
+                             "params": undeclared,
+                             "detail": f"Path template references {{{'}, {'.join(undeclared)}}} but no "
+                                       f"matching in:path parameter is declared; breaks SDK codegen."})
+        # 13. ORPHAN_PATH_PARAM
+        orphans = [n for n in path_param_names if n and "{" + n + "}" not in path]
+        if orphans:
+            findings.append({**loc, "check": "ORPHAN_PATH_PARAM", "severity": "MED",
+                             "params": orphans,
+                             "detail": f"in:path parameter(s) {', '.join(orphans)} do not appear in the "
+                                       f"path template."})
+        # 14. PATH_PARAM_NOT_REQUIRED
+        not_required = [p.get("name") for p in path_params if p.get("required") is not True and p.get("name")]
+        if not_required:
+            findings.append({**loc, "check": "PATH_PARAM_NOT_REQUIRED", "severity": "MED",
+                             "params": not_required,
+                             "detail": f"in:path parameter(s) {', '.join(not_required)} not marked "
+                                       f"required: true (OpenAPI requires path params to be required)."})
+        # 15. DUPLICATE_PARAM
+        seen, dups = {}, []
+        for p in params:
+            key = (p.get("name"), p.get("in"))
+            if key[0] is None:
+                continue
+            seen[key] = seen.get(key, 0) + 1
+            if seen[key] == 2:
+                dups.append(f"{key[0]} (in:{key[1]})")
+        if dups:
+            findings.append({**loc, "check": "DUPLICATE_PARAM", "severity": "MED",
+                             "params": dups,
+                             "detail": f"Parameter(s) declared more than once: {', '.join(dups)}; "
+                                       f"ambiguous for SDK codegen."})
+        # 16. UNDECLARED_TAG (only when the spec declares a tags: list at all)
+        if declared_tags:
+            undeclared_tags = [t for t in (op.get("tags") or []) if t not in declared_tags]
+            if undeclared_tags:
+                findings.append({**loc, "check": "UNDECLARED_TAG", "severity": "LOW",
+                                 "params": undeclared_tags,
+                                 "detail": f"Tag(s) {', '.join(undeclared_tags)} are not declared in the "
+                                           f"top-level tags: list, so they get no group description in docs."})
+        # 17. SUCCESS_RESPONSE_NO_SCHEMA
+        no_schema = success_codes_without_schema(op)
+        if no_schema:
+            disp = "; ".join(f"{c} ({why})" for c, why in no_schema)
+            findings.append({**loc, "check": "SUCCESS_RESPONSE_NO_SCHEMA", "severity": "MED",
+                             "detail": f"Success response(s) document no body schema: {disp}."})
 
         # operationId bookkeeping (for duplicate detection)
         if op_id:
@@ -226,6 +332,9 @@ def main():
     ap.add_argument("--output-md", default="static_report.md")
     ap.add_argument("--fail-on", choices=["none", "high", "med", "low"], default="none",
                     help="Exit non-zero (fail the CI step) if findings at/above this severity exist.")
+    ap.add_argument("--expected-server", action="append", default=None, metavar="SUBSTR",
+                    help="Enable SERVERS_ENV_MISMATCH: a server URL must contain this substring "
+                         "(repeatable). e.g. --expected-server app.harness.io")
     args = ap.parse_args()
 
     if args.spec_file:
@@ -251,7 +360,7 @@ def main():
             continue
         modules += 1
         total_ops += sum(1 for _ in iter_operations(spec))
-        check_spec(module, spec, findings, global_opids)
+        check_spec(module, spec, findings, global_opids, expected_servers=args.expected_server)
 
     # cross-spec duplicate operationIds
     cross_dups = {k: v for k, v in global_opids.items()
