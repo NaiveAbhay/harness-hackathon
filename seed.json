@@ -1,0 +1,6 @@
+{
+  "_comment": "Known-real resource ids for the sandbox, used by run_module_apis.py to resolve {placeholders} and required query params so live calls hit real endpoints instead of 400/404. Scope: pipeline-service. No secrets here. Update with ids from a dummy pipeline you control.",
+  "pipeline": "testab3",
+  "org": "bootcampjune2026",
+  "project": "Wakanda"
+}

@@ -55,8 +55,9 @@ DEFAULTS = {
     "account": "fAp1ee68RWmCJrfsdhwMeA",
     "org": "bootcampjune2026",
     "project": "Wakanda",
-    # Do not hardcode real secrets in committed code; this is a sandbox PAT.
-    "api_key": "pat.fAp1ee68RWmCJrfsdhwMeA.6a390b43605727184b83880b.4iW3KsjyAJuUr0J3nZcg",
+    # SECURITY: never hardcode the PAT in committed code. Supply it at runtime via the
+    # HARNESS_API_KEY env var (in CI it comes from a Harness Secret, masked in logs) or --api-key.
+    "api_key": "",
 }
 
 METHOD_ORDER = {"get": 0, "post": 1, "put": 2, "patch": 3, "delete": 4}
@@ -70,9 +71,16 @@ def load_spec(spec_path):
     """Load YAML and fully resolve internal $ref pointers."""
     with open(spec_path, "r") as fh:
         raw = yaml.safe_load(fh)
-    # replace_refs returns lazy proxies; json round-trip materializes plain dicts.
-    resolved = jsonref.replace_refs(raw, base_uri="file://" + os.path.abspath(spec_path))
-    return json.loads(json.dumps(resolved, default=str))
+    # proxies=False + lazy_load=False fully materialises $refs into real dicts.
+    # (The old json.dumps(default=str) round-trip stringified unresolved proxies,
+    # which silently dropped component-level $ref parameters like the required
+    # 'pipeline' query param -> spurious 400s.)
+    return jsonref.replace_refs(
+        raw,
+        base_uri="file://" + os.path.abspath(spec_path),
+        proxies=False,
+        lazy_load=False,
+    )
 
 
 # --------------------------------------------------------------------------- #
@@ -158,6 +166,45 @@ def resolve_param_value(param, context, discovered):
     return "sample"
 
 
+def _norm(name):
+    """Normalise a param/key name so 'pipeline_identifier', 'pipelineId',
+    'pipelineRef' and 'pipeline' all collapse to the same token for matching."""
+    s = "".join(ch for ch in (name or "").lower() if ch.isalnum())
+    for suf in ("identifier", "ref", "id"):
+        if s.endswith(suf) and len(s) > len(suf):
+            s = s[: -len(suf)]
+    return s
+
+
+def lookup(name, *maps):
+    """Resolve a value for `name` from any of the given dicts. Tries an exact
+    lowercase match first, then a normalised (alias) match. Returns None if absent."""
+    k = (name or "").lower()
+    for m in maps:
+        if k in m:
+            return m[k]
+    n = _norm(name)
+    for m in maps:
+        for mk, mv in m.items():
+            if _norm(mk) == n:
+                return mv
+    return None
+
+
+def load_seed(path):
+    """Optional seed.json of known-real ids (pipeline, input-set, trigger, ...).
+    Missing file is fine -> returns {}. Keys are lowercased."""
+    if not path or not os.path.exists(path):
+        return {}
+    try:
+        with open(path) as fh:
+            data = json.load(fh)
+        return {str(k).lower(): v for k, v in data.items() if not isinstance(v, (dict, list))}
+    except (json.JSONDecodeError, OSError) as e:
+        print(f"WARNING: could not read seed file {path}: {e}")
+        return {}
+
+
 def fill_path(path, parameters, context, discovered):
     """Substitute {placeholders} in a path template."""
     # Map declared path params by name for quick lookup.
@@ -165,14 +212,13 @@ def fill_path(path, parameters, context, discovered):
     result = path
     for token in _placeholders(path):
         key = token.lower()
-        if key in discovered:
-            val = discovered[key]
-        elif key in context:
-            val = context[key]
-        elif key in by_name:
-            val = resolve_param_value(by_name[key], context, discovered)
-        else:
-            val = "sample"
+        # Prefer a real value from discovered ids / seed / context (with alias matching).
+        val = lookup(token, discovered, context)
+        if val is None:
+            if key in by_name:
+                val = resolve_param_value(by_name[key], context, discovered)
+            else:
+                val = "sample"
         result = result.replace("{" + token + "}", urllib.parse.quote(str(val), safe=""))
     return result
 
@@ -200,8 +246,12 @@ def build_query(parameters, context, discovered, include_optional):
         schema = p.get("schema", {}) or {}
         has_example = any(k in schema for k in ("example", "default", "enum")) or "example" in p
         name = p.get("name")
-        key = (name or "").lower()
-        if required or key in context or key in discovered:
+        # Real value from seed/discovered/context (alias-aware) wins; it turns many
+        # spurious 400s (missing required query param) into genuine calls.
+        real = lookup(name, discovered, context)
+        if real is not None:
+            q[name] = real
+        elif required:
             q[name] = resolve_param_value(p, context, discovered)
         elif include_optional and has_example:
             q[name] = resolve_param_value(p, context, discovered)
@@ -344,11 +394,17 @@ def main():
     ap.add_argument("--output", default="api_run_report.json")
     ap.add_argument("--limit", type=int, default=0, help="Cap number of operations called (0 = no cap)")
     ap.add_argument("--dry-run", action="store_true", help="Build requests and print them, but do not send")
+    ap.add_argument("--seed", default="seed.json",
+                    help="Optional JSON of known-real ids (pipeline, input-set, trigger, ...) "
+                         "used to resolve {placeholders} and required query params. Missing file is fine.")
     args = ap.parse_args()
 
     spec_path = args.spec_file or os.path.join(args.spec_dir, args.module, "openapi.yaml")
     if not os.path.exists(spec_path):
         sys.exit(f"Spec not found: {spec_path}")
+
+    if not args.api_key and not args.dry_run:
+        sys.exit("No API key. Set HARNESS_API_KEY (from a Harness Secret in CI) or pass --api-key.")
 
     cfg = {"base_url": args.base_url.rstrip("/"), "account": args.account,
            "org": args.org, "project": args.project, "api_key": args.api_key}
@@ -357,6 +413,12 @@ def main():
     spec = load_spec(spec_path)
     # Server: spec ships app.harness.io; we always target the sandbox base url.
     context = build_context(cfg)
+    # Merge optional seed ids on top of the derived context (alias matching handles
+    # name variants like pipeline_identifier vs pipeline at lookup time).
+    seed = load_seed(args.seed)
+    if seed:
+        context.update(seed)
+        print(f"Seed loaded : {args.seed}  ({len(seed)} keys: {', '.join(sorted(seed))})")
     discovered = {}
     operations = collect_operations(spec, methods_filter)
     if args.limit and args.limit > 0:

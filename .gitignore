@@ -15,3 +15,5 @@ static_report.json
 static_report.md
 ps_static.json
 ps_static.md
+__pycache__/
+dashboard.html
