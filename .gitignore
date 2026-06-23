@@ -11,3 +11,7 @@ drift_report.md
 ng_drift.json
 ng_drift_report.md
 ng_run.log
+static_report.json
+static_report.md
+ps_static.json
+ps_static.md
