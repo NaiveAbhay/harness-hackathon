@@ -290,6 +290,8 @@ def main():
                     help="Capture file from run_module_apis.py (generated GET-only if missing)")
     ap.add_argument("--output-json", default="drift_report.json")
     ap.add_argument("--output-md", default="drift_report.md")
+    ap.add_argument("--fail-on", choices=["none", "HIGH", "MEDIUM", "LOW"], default="none",
+                    help="Exit non-zero (fail the CI step) if findings at/above this severity exist.")
     args = ap.parse_args()
 
     spec_path = args.spec_file or os.path.join(args.spec_dir, args.module, "openapi.yaml")
@@ -342,6 +344,15 @@ def main():
         print(f"... and {len(findings)-30} more (see {args.output_md})")
     print("-" * 80)
     print(f"Wrote {args.output_json} and {args.output_md}")
+
+    # Quality gate: optionally fail the CI step based on severity.
+    if args.fail_on != "none":
+        threshold = SEVERITY_RANK[args.fail_on]
+        gating = sum(1 for x in findings if SEVERITY_RANK.get(x["severity"], 9) <= threshold)
+        if gating:
+            print(f"QUALITY GATE FAILED: {gating} drift finding(s) at or above {args.fail_on}.")
+            sys.exit(1)
+        print(f"QUALITY GATE PASSED: no drift at or above {args.fail_on}.")
 
 
 if __name__ == "__main__":

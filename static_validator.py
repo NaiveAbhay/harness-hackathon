@@ -224,6 +224,8 @@ def main():
     ap.add_argument("--spec-file", default=None, help="Explicit openapi.yaml path")
     ap.add_argument("--output-json", default="static_report.json")
     ap.add_argument("--output-md", default="static_report.md")
+    ap.add_argument("--fail-on", choices=["none", "high", "med", "low"], default="none",
+                    help="Exit non-zero (fail the CI step) if findings at/above this severity exist.")
     args = ap.parse_args()
 
     if args.spec_file:
@@ -291,6 +293,15 @@ def main():
         print(f"  {info['severity']:4}  {check:24} {info['count']:>5}")
     print("-" * 78)
     print(f"Wrote {args.output_json} and {args.output_md}")
+
+    # Quality gate: optionally fail the CI step based on severity.
+    if args.fail_on != "none":
+        threshold = SEVERITY_RANK[args.fail_on.upper()]
+        gating = sum(1 for x in findings if SEVERITY_RANK[x["severity"]] <= threshold)
+        if gating:
+            print(f"QUALITY GATE FAILED: {gating} finding(s) at or above {args.fail_on.upper()}.")
+            sys.exit(1)
+        print(f"QUALITY GATE PASSED: no findings at or above {args.fail_on.upper()}.")
 
 
 if __name__ == "__main__":
