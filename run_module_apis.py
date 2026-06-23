@@ -63,6 +63,44 @@ DEFAULTS = {
 METHOD_ORDER = {"get": 0, "post": 1, "put": 2, "patch": 3, "delete": 4}
 HTTP_METHODS = set(METHOD_ORDER)
 
+# --------------------------------------------------------------------------- #
+# Write-operation safety policy
+# --------------------------------------------------------------------------- #
+# GET is always safe (read-only). For write methods we operate on an explicit
+# ALLOWLIST only, and we *additionally* hard-block a denylist so that even an
+# accidental `--methods post,put,delete` can never fire a destructive call.
+#
+# Bucket A (pure compute, persists nothing) + Bucket B (create a throwaway
+# resource scoped to a dummy pipeline). Everything that mutates existing
+# resources, launches executions, or deletes is intentionally excluded.
+SAFE_WRITE_ALLOWLIST = {
+    # Bucket A - compute only, no persistence
+    "get-steps",            # POST /v1/step-pallete
+    "get-inputs-schema",    # POST /v1/pipeline-schema/inputs-schema
+    "merged-input-sets",    # POST /v1/orgs/{org}/projects/{project}/input-sets/merge
+    # Bucket B - create a uniquely-named throwaway, scoped to the dummy pipeline
+    "create-pipeline",      # POST /v1/orgs/{org}/projects/{project}/pipelines
+    "create-input-set",     # POST .../pipelines/{pipeline}/... input-sets
+}
+
+# Never fire these regardless of --methods / --safe-writes. Belt-and-suspenders:
+# updates/patches overwrite working resources, execute/rerun/retry launch real
+# runs, import/move-config rewires git, approvals act on live executions, and
+# delete is categorically off-limits in the shared sandbox.
+WRITE_HARD_DENY = {
+    "update-pipeline", "patch-pipeline", "update-pipeline-git-metadata",
+    "update-input-set", "update-input-set-git-metadata", "update-trigger",
+    "create-trigger",  # a trigger can auto-fire pipelines -> side effects
+    "moveConfig", "inputSetsMoveConfig",
+    "importPipelineFromGit", "importInputSetFromGit",
+    "execute-pipeline", "runDynamicExecutionWithInputYaml",
+    "rerun-pipeline", "rerun-stages-execution-of-pipeline",
+    "retry-pipeline-with-inputset-pipeline-yaml", "execute-stages-with-input-yaml",
+    "addHarnessApprovalActivityByPipelineExecutionId",
+    "start-pipeline-validation-event",  # starts an async validation event
+    "delete-pipeline", "delete-input-set", "delete-trigger",
+}
+
 
 # --------------------------------------------------------------------------- #
 # Spec loading
@@ -342,18 +380,117 @@ def parse_json(text):
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
-def collect_operations(spec, methods_filter):
-    """Flatten spec.paths into a sorted list of operations to call."""
+def collect_operations(spec, methods_filter, safe_writes=False):
+    """Flatten spec.paths into a sorted list of operations to call.
+
+    Safety gate:
+      * GET is always allowed.
+      * Any operationId in WRITE_HARD_DENY is dropped, always (even if the
+        method was requested) - destructive ops can never slip through.
+      * Other write methods (post/put/patch/delete) are included only when
+        --safe-writes is on AND the operationId is in SAFE_WRITE_ALLOWLIST.
+    """
     ops = []
     for path, item in (spec.get("paths") or {}).items():
         shared = item.get("parameters", []) or []
         for method, op in item.items():
             if method not in HTTP_METHODS or method not in methods_filter:
                 continue
+            op_id = (op or {}).get("operationId")
+            if method != "get":
+                # Hard block destructive ops outright.
+                if op_id in WRITE_HARD_DENY:
+                    continue
+                # Writes only run in safe-writes mode and only if allowlisted.
+                if not (safe_writes and op_id in SAFE_WRITE_ALLOWLIST):
+                    continue
             params = [p for p in (shared + (op.get("parameters", []) or [])) if isinstance(p, dict)]
             ops.append({"path": path, "method": method, "op": op, "params": params})
     ops.sort(key=lambda o: (METHOD_ORDER[o["method"]], o["path"]))
     return ops
+
+
+def safe_write_body(operation_id, org, project, dummy_id, dummy_name):
+    """Purpose-built, valid request bodies for allowlisted write ops.
+
+    Generic schema-example bodies 400 on create-* (they need real *_yaml), so
+    we hand-craft minimal valid payloads here. Returns None to fall back to the
+    generic builder.
+    """
+    if operation_id == "get-steps":
+        # All fields optional; an empty filter returns the full step palette.
+        return {"step_pallete_module_infos": []}
+
+    if operation_id == "get-inputs-schema":
+        # Feed it the dummy pipeline yaml so it has something to introspect.
+        return {"pipeline_yaml": _dummy_pipeline_yaml(org, project, dummy_id, dummy_name)}
+
+    if operation_id == "merged-input-sets":
+        # No references -> server merges nothing; exercises the endpoint safely.
+        return {"input_set_references": [], "with_merged_pipeline_yaml": True}
+
+    if operation_id == "create-pipeline":
+        return {
+            "identifier": dummy_id,
+            "name": dummy_name,
+            "description": "Throwaway pipeline created by API drift probe. Safe to delete.",
+            "pipeline_yaml": _dummy_pipeline_yaml(org, project, dummy_id, dummy_name),
+        }
+
+    if operation_id == "create-input-set":
+        return {
+            "identifier": dummy_id + "_is",
+            "name": dummy_name + " input-set",
+            "description": "Throwaway input set created by API drift probe. Safe to delete.",
+            "input_set_yaml": _dummy_input_set_yaml(org, project, dummy_id),
+        }
+
+    return None
+
+
+def _dummy_pipeline_yaml(org, project, pipeline_id, pipeline_name):
+    """A minimal, valid pipeline: one Custom stage with a no-op ShellScript.
+    Creating it does NOT execute anything; it just persists a definition."""
+    return (
+        "pipeline:\n"
+        f"  name: {pipeline_name}\n"
+        f"  identifier: {pipeline_id}\n"
+        f"  projectIdentifier: {project}\n"
+        f"  orgIdentifier: {org}\n"
+        "  tags: {}\n"
+        "  stages:\n"
+        "    - stage:\n"
+        "        name: noop\n"
+        "        identifier: noop\n"
+        "        type: Custom\n"
+        "        spec:\n"
+        "          execution:\n"
+        "            steps:\n"
+        "              - step:\n"
+        "                  type: ShellScript\n"
+        "                  name: noop\n"
+        "                  identifier: noop\n"
+        "                  spec:\n"
+        "                    shell: Bash\n"
+        "                    onDelegate: true\n"
+        "                    source:\n"
+        "                      type: Inline\n"
+        "                      spec:\n"
+        "                        script: echo \"drift-probe noop\"\n"
+        "                  timeout: 10m\n"
+    )
+
+
+def _dummy_input_set_yaml(org, project, pipeline_id):
+    return (
+        "inputSet:\n"
+        "  name: drift probe input-set\n"
+        f"  identifier: {pipeline_id}_is\n"
+        f"  orgIdentifier: {org}\n"
+        f"  projectIdentifier: {project}\n"
+        "  pipeline:\n"
+        f"    identifier: {pipeline_id}\n"
+    )
 
 
 def request_body_for(operation, include_body):
@@ -397,7 +534,18 @@ def main():
     ap.add_argument("--seed", default="seed.json",
                     help="Optional JSON of known-real ids (pipeline, input-set, trigger, ...) "
                          "used to resolve {placeholders} and required query params. Missing file is fine.")
+    ap.add_argument("--safe-writes", action="store_true",
+                    help="Also exercise the curated SAFE_WRITE_ALLOWLIST (compute POSTs + create a "
+                         "throwaway dummy pipeline/input-set). Destructive ops stay hard-blocked. "
+                         "Requires post in --methods.")
+    ap.add_argument("--dummy-id", default=os.getenv("DRIFT_DUMMY_ID", "apidrift_probe"),
+                    help="Identifier for the throwaway pipeline created in --safe-writes mode. "
+                         "Never points at a working pipeline.")
     args = ap.parse_args()
+
+    # Hard guard: the dummy must never collide with a real/working pipeline id.
+    if args.safe_writes and args.dummy_id in {"testab", "testab3"}:
+        sys.exit(f"Refusing to use working pipeline id as dummy: {args.dummy_id}")
 
     spec_path = args.spec_file or os.path.join(args.spec_dir, args.module, "openapi.yaml")
     if not os.path.exists(spec_path):
@@ -420,7 +568,24 @@ def main():
         context.update(seed)
         print(f"Seed loaded : {args.seed}  ({len(seed)} keys: {', '.join(sorted(seed))})")
     discovered = {}
-    operations = collect_operations(spec, methods_filter)
+    dummy_id = args.dummy_id
+    dummy_name = "API Drift Probe (throwaway)"
+    operations = collect_operations(spec, methods_filter, safe_writes=args.safe_writes)
+
+    # Dependency ordering for safe writes: the dummy pipeline must be created
+    # BEFORE any input-set op that references it (alphabetical path order would
+    # otherwise run input-sets first). GETs keep their natural order.
+    SAFE_WRITE_PRIORITY = {
+        "create-pipeline": 1, "create-input-set": 2, "merged-input-sets": 3,
+        "get-steps": 4, "get-inputs-schema": 5,
+    }
+    if args.safe_writes:
+        operations.sort(key=lambda o: (
+            0 if o["method"] == "get" else 1,
+            SAFE_WRITE_PRIORITY.get((o["op"] or {}).get("operationId"), 99),
+            o["path"],
+        ))
+
     if args.limit and args.limit > 0:
         operations = operations[:args.limit]
 
@@ -428,20 +593,36 @@ def main():
     print(f"Base URL    : {cfg['base_url']}")
     print(f"Org/Project : {cfg['org']} / {cfg['project']}")
     print(f"Methods     : {sorted(methods_filter)}")
+    if args.safe_writes:
+        print(f"Safe-writes : ON  (dummy pipeline id = {dummy_id})")
     print(f"Operations  : {len(operations)}")
     print("-" * 90)
 
     results = []
     for entry in operations:
         path, method, op, params = entry["path"], entry["method"], entry["op"], entry["params"]
+        op_id = op.get("operationId")
         include_body = method in ("post", "put", "patch")
+
+        # Per-call context: for allowlisted write ops, force any {pipeline}
+        # placeholder / `pipeline` query param to the DUMMY, so an input-set is
+        # never attached to the real working pipeline (e.g. testab3).
+        call_ctx = context
         body = request_body_for(op, include_body)
-        rel = fill_path(path, params, context, discovered)
-        query = build_query(params, context, discovered, args.include_optional_params)
+        if args.safe_writes and op_id in SAFE_WRITE_ALLOWLIST:
+            custom = safe_write_body(op_id, cfg["org"], cfg["project"], dummy_id, dummy_name)
+            if custom is not None:
+                body = custom
+            if op_id in {"create-input-set", "merged-input-sets"}:
+                call_ctx = dict(context)
+                call_ctx["pipeline"] = dummy_id
+
+        rel = fill_path(path, params, call_ctx, discovered)
+        query = build_query(params, call_ctx, discovered, args.include_optional_params)
         url = cfg["base_url"] + rel
         if query:
             url += "?" + urllib.parse.urlencode(query, doseq=True)
-        headers = build_headers(op, params, cfg, context)
+        headers = build_headers(op, params, cfg, call_ctx)
 
         record = {
             "operationId": op.get("operationId"),
@@ -488,6 +669,8 @@ def main():
         "project": cfg["project"],
         "total": len(results),
         "succeeded_2xx": ok,
+        "safe_writes": args.safe_writes,
+        "dummy_pipeline_id": dummy_id if args.safe_writes else None,
         "discovered_ids": discovered,
         "results": results,
     }
