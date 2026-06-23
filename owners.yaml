@@ -1,0 +1,104 @@
+# owners.yaml — routing map for API-quality findings -> Jira.
+#
+# Tickets are NOT auto-created. build_dashboard.py groups findings per
+# (team, module, check) and renders a "Create Jira ticket" button per group.
+# The button is a PRE-FILLED Jira create link (summary/description/priority/
+# labels already populated). Nothing is filed until a human clicks Create in
+# Jira — no credentials, no backend.
+#
+# To finish setup: confirm the module->team groupings below, then fill in each
+# team's `jira_project_key`. Everything else is optional. Numeric project id and
+# Bug issue-type id (needed for the deep link) can be auto-resolved from the
+# project key — leave the *_id fields blank and the build step will fill them.
+
+defaults:
+  jira_site: https://harness.atlassian.net
+  issue_type: Bug
+  # static-check severity -> Jira priority name
+  severity_priority:
+    HIGH: High
+    MED:  Medium
+    LOW:  Low
+  # only groups whose top severity is at/above this floor get a button
+  threshold: HIGH
+  # don't bother surfacing a ticket button below this many findings in a group
+  min_findings: 1
+  base_labels: [api-quality, docs-drift]
+
+# ---- Teams: confirm and fill jira_project_key --------------------------- #
+teams:
+  platform:
+    display_name: Platform
+    jira_project_key: "PL"      # "Platform" (id 10215)
+    jira_project_id: "10215"
+    component: ""               # optional
+    default_assignee: ""        # optional (accountId or email)
+    extra_labels: []
+  pipeline:
+    display_name: Pipeline / CD
+    jira_project_key: "PIPE"    # "Pipeline Foundation" (id 11390)
+    jira_project_id: "11390"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+  ccm:
+    display_name: Cloud Cost Management
+    jira_project_key: "CCM"     # "Cloud Cost Management" (id 10222)
+    jira_project_id: "10222"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+  idp:
+    display_name: Internal Developer Portal
+    jira_project_key: "IDP"     # "Internal Developer Portal" (id 10341)
+    jira_project_id: "10341"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+  governance:
+    display_name: Governance / OPA
+    jira_project_key: "PL"      # no dedicated project found; routed to Platform
+    jira_project_id: "10215"
+    component: ""
+    default_assignee: ""
+    extra_labels: [governance]
+  ssca:
+    display_name: Supply Chain Security (SSCA)
+    jira_project_key: "SSCA"    # "Software Supply Chain Assurance" (id 10343)
+    jira_project_id: "10343"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+  sei:
+    display_name: Software Engineering Insights
+    jira_project_key: "SEI"     # "Software Engineering Insights" (id 10368)
+    jira_project_id: "10368"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+  chaos:
+    display_name: Chaos / Resilience
+    jira_project_key: "CHAOS"   # "Chaos Engineering" (id 10329)
+    jira_project_id: "10329"
+    component: ""
+    default_assignee: ""
+    extra_labels: []
+
+# ---- Module -> team (proposed; confirm) --------------------------------- #
+modules:
+  access-control:     platform
+  ng-manager:         platform
+  po-server:          platform
+  commons:            governance
+  idp-service:        idp
+  pipeline-service:   pipeline
+  template-service:   pipeline
+  release-management: pipeline
+  ccm-apis:           ccm
+  ccm-apis-lightwing: ccm
+  ssca-manager:       ssca
+  sei:                sei
+  resilience-testing: chaos
+
+# Any module not listed above falls back to this team.
+fallback_team: platform

@@ -20,12 +20,17 @@ import argparse
 import html
 import json
 import os
+import re
+import urllib.parse
 from datetime import datetime, timezone
 
 # Static uses MED, drift uses MEDIUM -- normalise to one vocabulary for display.
 SEV_NORM = {"HIGH": "HIGH", "MED": "MEDIUM", "MEDIUM": "MEDIUM", "LOW": "LOW", "INFO": "INFO"}
 SEV_ORDER = {"HIGH": 0, "MEDIUM": 1, "LOW": 2, "INFO": 3}
 SEV_COLOR = {"HIGH": "#e5484d", "MEDIUM": "#f5a623", "LOW": "#3b82f6", "INFO": "#8b8d98"}
+# Static-report severity vocabulary (for the Jira threshold gate).
+STATIC_SEV_RANK = {"HIGH": 0, "MED": 1, "MEDIUM": 1, "LOW": 2}
+DEFAULT_BUG_ISSUE_TYPE_ID = "10103"  # shared "Bug" id across Harness Module-Engineering projects
 
 
 def load(path):
@@ -36,6 +41,72 @@ def load(path):
             return json.load(fh)
     except (json.JSONDecodeError, OSError):
         return None
+
+
+def load_owners(path):
+    """Load owners.yaml (routing map). Returns None if missing or PyYAML absent.
+
+    Kept optional so the dashboard still renders with zero dependencies; the
+    Jira 'Create ticket' buttons simply don't appear without a valid owners map.
+    """
+    if not path or not os.path.exists(path):
+        return None
+    try:
+        import yaml  # soft dependency
+    except ImportError:
+        print("note: PyYAML not installed; skipping Jira ticket buttons.")
+        return None
+    try:
+        with open(path) as fh:
+            data = yaml.safe_load(fh)
+        return data if isinstance(data, dict) else None
+    except (OSError, ValueError):
+        return None
+
+
+def _sanitize_label(text):
+    """Jira labels can't contain spaces; normalise to a safe token."""
+    return re.sub(r"[^A-Za-z0-9._-]", "-", str(text)).strip("-")[:80]
+
+
+def resolve_team(module, owners):
+    """module -> (team_name, team_cfg dict). Falls back to owners['fallback_team']."""
+    teams = (owners or {}).get("teams", {}) or {}
+    modmap = (owners or {}).get("modules", {}) or {}
+    tname = modmap.get(module) or (owners or {}).get("fallback_team")
+    return tname, teams.get(tname, {}) or {}
+
+
+def jira_deeplink(site, team_cfg, defaults, summary, description, labels):
+    """Build a Jira Cloud pre-filled create URL. Opens the create screen with
+    fields populated; nothing is filed until the user clicks Create in Jira."""
+    pid = team_cfg.get("jira_project_id")
+    key = team_cfg.get("jira_project_key")
+    if not pid and not key:
+        return None  # team has no Jira target configured -> no button
+    issue_type_id = (team_cfg.get("issue_type_id")
+                     or (defaults or {}).get("issue_type_id")
+                     or DEFAULT_BUG_ISSUE_TYPE_ID)
+    params = []
+    if pid:
+        params.append(("pid", str(pid)))
+    params.append(("issuetype", str(issue_type_id)))
+    params.append(("summary", summary))
+    params.append(("description", description))
+    q = urllib.parse.urlencode(params, quote_via=urllib.parse.quote)
+    for lbl in labels:
+        lbl = _sanitize_label(lbl)
+        if lbl:
+            q += "&labels=" + urllib.parse.quote(lbl)
+    base = (site or "https://harness.atlassian.net").rstrip("/")
+    return f"{base}/secure/CreateIssueDetails!init.jspa?{q}"
+
+
+def jira_button(url, text="Create Jira ticket"):
+    if not url:
+        return '<span class="muted">—</span>'
+    return (f'<a class="jira-btn" href="{esc(url)}" target="_blank" '
+            f'rel="noopener noreferrer">{esc(text)}</a>')
 
 
 def norm_sev(s):
@@ -78,9 +149,15 @@ def severity_bar(by_sev):
     return f'<div class="bar">{"".join(segs)}</div><div class="legend">{"".join(legend)}</div>'
 
 
-def findings_table(findings, columns):
-    """columns: list of (json_key, header). Always rows are pre-sorted by caller."""
+def findings_table(findings, columns, link_fn=None):
+    """columns: list of (json_key, header). Rows are pre-sorted by caller.
+
+    If link_fn is given, a trailing 'Jira' column renders a per-row
+    'Create ticket' button built from link_fn(finding) -> url|None.
+    """
     head = "".join(f"<th>{esc(h)}</th>" for _, h in columns)
+    if link_fn:
+        head += "<th>Jira</th>"
     rows = []
     for f in findings:
         sev = norm_sev(f.get("severity"))
@@ -94,6 +171,8 @@ def findings_table(findings, columns):
                 cells.append(f'<td class="mono">{esc(txt)}</td>')
             else:
                 cells.append(f"<td>{esc(f.get(key, ''))}</td>")
+        if link_fn:
+            cells.append(f"<td>{jira_button(link_fn(f), 'Create ticket')}</td>")
         rows.append(f'<tr data-sev="{sev}">{"".join(cells)}</tr>')
     return (f'<table><thead><tr>{head}</tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>')
@@ -114,9 +193,92 @@ def filter_buttons(prefix):
     return f'<div class="filters" data-scope="{prefix}">{"".join(btns)}</div>'
 
 
-def build_html(static, drift):
+def _team_labels(team_cfg, defaults, extra):
+    labels = list((defaults or {}).get("base_labels", []) or [])
+    labels += list(team_cfg.get("extra_labels", []) or [])
+    labels += extra
+    # de-dup preserving order
+    seen, out = set(), []
+    for l in labels:
+        if l not in seen:
+            seen.add(l)
+            out.append(l)
+    return out
+
+
+def static_ticket_groups(static, owners):
+    """Group static findings per (team, module, check) above the configured
+    threshold. Returns a sorted list of group dicts ready to render."""
+    defaults = (owners or {}).get("defaults", {}) or {}
+    thr = STATIC_SEV_RANK.get(str(defaults.get("threshold", "HIGH")).upper(), 0)
+    min_f = int(defaults.get("min_findings", 1) or 1)
+    groups = {}
+    for f in (static.get("findings") or []):
+        sev = (f.get("severity") or "").upper()
+        if STATIC_SEV_RANK.get(sev, 9) > thr:
+            continue
+        module = f.get("module") or "(unknown)"
+        check = f.get("check") or "(unknown)"
+        key = (module, check)
+        g = groups.setdefault(key, {"module": module, "check": check, "severity": sev,
+                                    "count": 0, "examples": []})
+        g["count"] += 1
+        if len(g["examples"]) < 8:
+            ex = f"{f.get('method', '')} {f.get('path', '')}".strip()
+            if ex:
+                g["examples"].append(ex)
+    out = [g for g in groups.values() if g["count"] >= min_f]
+    out.sort(key=lambda g: (SEV_ORDER.get(norm_sev(g["severity"]), 9), -g["count"], g["module"]))
+    return out
+
+
+def static_group_link(g, owners, site):
+    defaults = (owners or {}).get("defaults", {}) or {}
+    tname, cfg = resolve_team(g["module"], owners)
+    summary = f"[API Docs][{g['module']}] {g['check']} — {g['count']} finding(s)"
+    examples = "\n".join("- " + e for e in g["examples"])
+    description = (
+        "Auto-suggested from API documentation static validation (static_validator.py).\n\n"
+        f"Team: {cfg.get('display_name', tname)}\n"
+        f"Module: {g['module']}\nCheck: {g['check']}\n"
+        f"Severity: {g['severity']}\nFindings: {g['count']}\n\n"
+        f"Example operations:\n{examples}\n\n"
+        f"Fingerprint: apiqa-{g['module']}-{g['check']}\n"
+    )
+    labels = _team_labels(cfg, defaults, [f"sev-{g['severity'].lower()}",
+                                          f"module-{g['module']}", f"check-{g['check'].lower()}"])
+    return jira_deeplink(site, cfg, defaults, summary, description, labels), tname, cfg
+
+
+def drift_link_fn(owners, site, module):
+    """Return a function: drift finding -> pre-filled Jira create URL (per finding)."""
+    defaults = (owners or {}).get("defaults", {}) or {}
+
+    def _fn(f):
+        tname, cfg = resolve_team(module, owners)
+        ftype = f.get("type") or "drift"
+        method = f.get("method", "")
+        path = f.get("path", "")
+        summary = f"[API Drift][{module}] {ftype} {method} {path}".strip()
+        fields = f.get("fields")
+        fields_txt = ", ".join(map(str, fields)) if isinstance(fields, list) else (fields or "")
+        description = (
+            "Auto-suggested from live API drift detection (validator.py).\n\n"
+            f"Module: {module}\nType: {ftype}\nSeverity: {f.get('severity', '')}\n"
+            f"Method: {method}\nPath: {path}\nStatus: {f.get('status', '')}\n"
+            f"Fields: {fields_txt}\n\nDetail:\n{f.get('detail', '')}\n\n"
+            f"Fingerprint: apiqa-drift-{module}-{ftype}-{method}-{path}\n"
+        )
+        labels = _team_labels(cfg, defaults, ["drift", f"sev-{norm_sev(f.get('severity')).lower()}",
+                                              f"module-{module}", f"type-{_sanitize_label(ftype)}"])
+        return jira_deeplink(site, cfg, defaults, summary, description, labels)
+    return _fn
+
+
+def build_html(static, drift, owners=None, jira_site=None):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     parts = []
+    site = jira_site or ((owners or {}).get("defaults", {}) or {}).get("jira_site")
 
     # ---- header + top-level KPI cards ----
     s_total = static.get("total_findings", 0) if static else 0
@@ -141,6 +303,18 @@ def build_html(static, drift):
     # ---- live drift section (the headline signal) ----
     if drift:
         df = sort_findings(drift.get("findings", []))
+        # Live drift runs only for pipeline-service -> one Jira ticket per finding.
+        drift_module = drift.get("module") or "pipeline-service"
+        d_link_fn = drift_link_fn(owners, site, drift_module) if owners else None
+        drift_tbl = (findings_table(df, [("severity","Sev"),("type","Type"),("method","Method"),
+                                         ("path","Path"),("status","Status"),
+                                         ("fields","Fields / Documented"),("detail","Detail")],
+                                    link_fn=d_link_fn) if df
+                     else '<p class="muted">No drift findings.</p>')
+        ticket_note = ('<p class="meta">Each drift finding can be filed as its own '
+                       f'ticket in <b>{esc((resolve_team(drift_module, owners)[1] or {}).get("jira_project_key",""))}</b> '
+                       '(Pipeline). Buttons open a pre-filled Jira create screen &mdash; nothing is '
+                       'filed until you click Create.</p>') if d_link_fn else ''
         parts.append(f"""
 <section class="panel">
   <h2>Live API drift <span class="muted">&mdash; what the API does vs. what the docs say</span></h2>
@@ -148,12 +322,10 @@ def build_html(static, drift):
      &middot; operations analyzed <b>{esc(drift.get("operations_analyzed",0))}</b>
      &middot; unmatched <b>{esc(len(drift.get("operations_unmatched", [])))}</b></p>
   {severity_bar(drift.get("by_severity"))}
+  {ticket_note}
   {filter_buttons("drift")}
   <div class="tbl" data-scope="drift">
-    {findings_table(df, [("severity","Sev"),("type","Type"),("method","Method"),
-                         ("path","Path"),("status","Status"),
-                         ("fields","Fields / Documented"),("detail","Detail")]) if df
-     else '<p class="muted">No drift findings.</p>'}
+    {drift_tbl}
   </div>
 </section>
 """)
@@ -175,9 +347,32 @@ def build_html(static, drift):
                          for k, v in dups.items())
             dup_html = (f'<details class="dups"><summary>Cross-spec duplicate operationIds '
                         f'({len(dups)})</summary><ul>{dl}</ul></details>')
+        # Suggested Jira tickets, grouped per (team, module, check) above threshold.
+        ticket_panel = ""
+        if owners:
+            groups = static_ticket_groups(static, owners)
+            defaults = (owners or {}).get("defaults", {}) or {}
+            thr = str(defaults.get("threshold", "HIGH")).upper()
+            if groups:
+                grows = ""
+                for g in groups:
+                    url, tname, cfg = static_group_link(g, owners, site)
+                    grows += (f"<tr><td>{esc((cfg or {}).get('display_name', tname))}</td>"
+                              f"<td class='mono'>{esc(g['module'])}</td>"
+                              f"<td class='mono'>{esc(g['check'])}</td>"
+                              f"<td>{sev_badge(g['severity'])}</td>"
+                              f"<td>{esc(g['count'])}</td>"
+                              f"<td>{jira_button(url, 'Create ticket')}</td></tr>")
+                ticket_panel = f"""
+  <div class="tickets">
+    <h3>Suggested Jira tickets <span class="muted">&mdash; grouped by team &middot; module &middot; check, severity &ge; {esc(thr)}</span></h3>
+    <p class="meta">One ticket per group. Buttons open a pre-filled Jira create screen &mdash; nothing is filed until you click Create.</p>
+    <table><thead><tr><th>Team</th><th>Module</th><th>Check</th><th>Sev</th><th>Count</th><th>Jira</th></tr></thead>
+    <tbody>{grows}</tbody></table>
+  </div>"""
         parts.append(f"""
 <section class="panel">
-  <h2>Static documentation quality <span class="muted">&mdash; the spec analysed against 11 checks</span></h2>
+  <h2>Static documentation quality <span class="muted">&mdash; the spec analysed against 18 checks</span></h2>
   <p class="meta">modules <b>{esc(static.get("modules_analyzed",0))}</b>
      &middot; operations <b>{esc(static.get("operations_analyzed",0))}</b></p>
   {severity_bar(static.get("by_severity"))}
@@ -189,6 +384,7 @@ def build_html(static, drift):
       {dup_html}
     </div>
   </div>
+  {ticket_panel}
   {filter_buttons("static")}
   <div class="tbl" data-scope="static">
     {findings_table(sf, [("severity","Sev"),("check","Check"),("method","Method"),
@@ -242,6 +438,10 @@ PAGE = """<!DOCTYPE html>
   .filt.active{background:var(--text);color:var(--bg);border-color:var(--text)}
   .split{display:flex;gap:24px;flex-wrap:wrap;margin-top:8px}
   .by-check{flex:1;min-width:260px}
+  .tickets{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+  .jira-btn{display:inline-block;background:#2563eb;color:#fff;text-decoration:none;
+            font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap}
+  .jira-btn:hover{background:#1d4ed8}
   details.dups{margin-top:10px} summary{cursor:pointer;color:var(--muted)}
   footer{color:var(--muted);font-size:12px;padding:8px 32px 32px}
 </style></head>
@@ -274,15 +474,20 @@ def main():
     ap.add_argument("--static", default="static_report.json", help="Path to static_report.json")
     ap.add_argument("--drift", default="drift_report.json", help="Path to drift_report.json")
     ap.add_argument("--output", default="dashboard.html", help="Output HTML path")
+    ap.add_argument("--owners", default="owners.yaml",
+                    help="Routing map for Jira 'Create ticket' buttons (optional)")
+    ap.add_argument("--jira-site", default=None,
+                    help="Override Jira site URL (else taken from owners.yaml defaults)")
     args = ap.parse_args()
 
     static = load(args.static)
     drift = load(args.drift)
+    owners = load_owners(args.owners)
     if static is None and drift is None:
         print(f"WARNING: neither {args.static} nor {args.drift} found; writing empty dashboard.")
 
     with open(args.output, "w") as fh:
-        fh.write(build_html(static, drift))
+        fh.write(build_html(static, drift, owners=owners, jira_site=args.jira_site))
 
     s = static.get("total_findings", 0) if static else "n/a"
     d = drift.get("total_findings", 0) if drift else "n/a"
