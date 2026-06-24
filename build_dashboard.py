@@ -32,6 +32,18 @@ SEV_COLOR = {"HIGH": "#e5484d", "MEDIUM": "#f5a623", "LOW": "#3b82f6", "INFO": "
 STATIC_SEV_RANK = {"HIGH": 0, "MED": 1, "MEDIUM": 1, "LOW": 2}
 DEFAULT_BUG_ISSUE_TYPE_ID = "10103"  # shared "Bug" id across Harness Module-Engineering projects
 
+# How each coverage disposition (from run_module_apis.py) is shown: (label, colour).
+DISP_LABEL = {
+    "live_get":        ("GET · read-only",        "#1f9d55"),
+    "live_compute":    ("compute POST",           "#1f9d55"),
+    "live_create":     ("create throwaway",       "#0095D9"),
+    "live_lifecycle":  ("edit/delete · dummy only", "#0095D9"),
+    "skipped_unlisted":("skipped · manual review", "#8b8d98"),
+    "skipped_denied":  ("skipped · unsafe",        "#e5484d"),
+}
+DISP_RANK = {"live_get": 0, "live_compute": 1, "live_create": 2, "live_lifecycle": 3,
+             "skipped_unlisted": 4, "skipped_denied": 5}
+
 
 def load(path):
     if not path or not os.path.exists(path):
@@ -275,7 +287,100 @@ def drift_link_fn(owners, site, module):
     return _fn
 
 
-def build_html(static, drift, owners=None, jira_site=None):
+def coverage_panel(run):
+    """The trust backbone: every operation in the spec, how we treat it, the real
+    live status if we called it, and a plain reason for anything we skip."""
+    if not run:
+        return ""
+    cov = run.get("coverage") or []
+    if not cov:
+        return ""
+    results = run.get("results") or []
+    status_by_op = {}
+    for r in results:
+        oid = r.get("operationId")
+        if oid and oid not in status_by_op:
+            status_by_op[oid] = r.get("status")
+    total = len(cov)
+    called = sum(1 for c in cov if c.get("called_live"))
+    skipped = total - called
+    safe = run.get("safe_writes")
+    dummy = run.get("dummy_pipeline_id")
+
+    rows = []
+    for c in sorted(cov, key=lambda c: (0 if c.get("called_live") else 1,
+                                        DISP_RANK.get(c["disposition"], 9), c["path"])):
+        label, color = DISP_LABEL.get(c["disposition"], (c["disposition"], "#8b8d98"))
+        st = status_by_op.get(c["operationId"])
+        if c.get("called_live") and st is not None:
+            st_html = f'<span class="mono">{esc(st)}</span>'
+        elif c.get("called_live"):
+            st_html = '<span class="muted">called</span>'
+        else:
+            st_html = '<span class="muted">—</span>'
+        flag = "yes" if c.get("called_live") else "no"
+        rows.append(
+            f'<tr data-called="{flag}">'
+            f'<td class="mono">{esc(c["method"])}</td>'
+            f'<td class="mono">{esc(c["path"])}</td>'
+            f'<td><span class="cov-badge" style="background:{color}">{esc(label)}</span></td>'
+            f'<td>{st_html}</td>'
+            f'<td class="muted">{esc(c["reason"])}</td></tr>')
+
+    if safe and dummy:
+        note = (f'<p class="meta">Live writes this run targeted a throwaway dummy '
+                f'<span class="mono">{esc(dummy)}</span> &mdash; created, edited and deleted '
+                f'within the run. Your working pipelines were never an edit or delete target.</p>')
+    elif not safe:
+        note = ('<p class="meta">This run was <b>read-only</b> (GET only). Write operations are '
+                'listed with how they <i>would</i> be exercised in safe-write mode &mdash; each is '
+                'scoped to a throwaway dummy or deliberately skipped. Nothing below mutated a real resource.</p>')
+    else:
+        note = ""
+
+    filt = ('<div class="filters" data-scope="cov">'
+            '<button class="filt active" data-f="ALL">All</button>'
+            '<button class="filt" data-f="yes">Exercised live</button>'
+            '<button class="filt" data-f="no">Not called</button></div>')
+
+    return f"""
+<section class="panel">
+  <h2>Coverage &amp; transparency <span class="muted">&mdash; exactly what we called, and what we deliberately did not</span></h2>
+  <p class="meta">module <b>{esc(run.get('module',''))}</b> &middot; {esc(total)} operations in the spec
+     &middot; <b style="color:#1f9d55">{esc(called)}</b> exercised live
+     &middot; <b style="color:#e5484d">{esc(skipped)}</b> skipped (with reason)</p>
+  {note}
+  {filt}
+  <div class="tbl" data-scope="cov">
+    <table><thead><tr><th>Method</th><th>Path</th><th>How we treat it</th><th>Live status</th><th>Why</th></tr></thead>
+    <tbody>{''.join(rows)}</tbody></table>
+  </div>
+  {evidence_block(run)}
+</section>
+"""
+
+
+def evidence_block(run):
+    """Collapsible proof: the actual HTTP calls with real status + response snippet."""
+    results = [r for r in (run.get("results") or []) if isinstance(r.get("status"), int)]
+    if not results:
+        return ""
+    rows = []
+    for r in results:
+        snip = (r.get("response_snippet") or "").replace("\n", " ")[:200]
+        rows.append(f'<tr><td class="mono">{esc(r.get("method"))}</td>'
+                    f'<td class="mono">{esc(r.get("path"))}</td>'
+                    f'<td class="mono">{esc(r.get("status"))}</td>'
+                    f'<td class="mono">{esc(r.get("elapsed_ms",""))}</td>'
+                    f'<td class="mono snip">{esc(snip)}</td></tr>')
+    return (f'<details class="evidence"><summary>Live call evidence &mdash; '
+            f'{len(results)} real HTTP calls (status + response snippet)</summary>'
+            f'<div class="tbl"><table><thead><tr><th>Method</th><th>Path</th><th>Status</th>'
+            f'<th>ms</th><th>Response snippet</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div></details>')
+
+
+def build_html(static, drift, owners=None, jira_site=None, run=None):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     parts = []
     site = jira_site or ((owners or {}).get("defaults", {}) or {}).get("jira_site")
@@ -287,18 +392,28 @@ def build_html(static, drift, owners=None, jira_site=None):
     d_high = (drift or {}).get("by_severity", {}).get("HIGH", 0)
     scope = (static or {}).get("scope") or (drift or {}).get("module") or "all modules"
 
+    # Coverage KPI (from the run report) - shows we called a real, sizable share.
+    cov = (run or {}).get("coverage") or []
+    cov_total = len(cov)
+    cov_live = sum(1 for c in cov if c.get("called_live"))
+    cov_card = card("Operations exercised live", f"{cov_live}/{cov_total}", "#1f9d55") if cov_total else ""
+
     parts.append(f"""
 <header>
   <h1>API Quality &amp; Documentation Validation</h1>
   <p class="sub">Scope: <b>{esc(scope)}</b> &nbsp;&middot;&nbsp; Generated {esc(now)}</p>
 </header>
 <section class="cards">
+  {cov_card}
   {card("Static doc findings", s_total)}
   {card("Static HIGH", s_high, SEV_COLOR["HIGH"])}
   {card("Live drift findings", d_total)}
   {card("Drift HIGH", d_high, SEV_COLOR["HIGH"])}
 </section>
 """)
+
+    # ---- coverage & transparency (placed first: answers "is this real?") ----
+    parts.append(coverage_panel(run))
 
     # ---- live drift section (the headline signal) ----
     if drift:
@@ -443,6 +558,9 @@ PAGE = """<!DOCTYPE html>
             font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap}
   .jira-btn:hover{background:#1d4ed8}
   details.dups{margin-top:10px} summary{cursor:pointer;color:var(--muted)}
+  .cov-badge{color:#0b0c0f;font-weight:700;font-size:11px;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  details.evidence{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+  .snip{color:var(--muted);max-width:420px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   footer{color:var(--muted);font-size:12px;padding:8px 32px 32px}
 </style></head>
 <body>
@@ -459,7 +577,8 @@ document.querySelectorAll('.filters').forEach(function(group){
       var f = btn.getAttribute('data-f');
       if(!tbl) return;
       tbl.querySelectorAll('tbody tr').forEach(function(tr){
-        tr.style.display = (f==='ALL' || tr.getAttribute('data-sev')===f) ? '' : 'none';
+        var val = tr.getAttribute('data-sev') || tr.getAttribute('data-called');
+        tr.style.display = (f==='ALL' || val===f) ? '' : 'none';
       });
     });
   });
@@ -478,16 +597,19 @@ def main():
                     help="Routing map for Jira 'Create ticket' buttons (optional)")
     ap.add_argument("--jira-site", default=None,
                     help="Override Jira site URL (else taken from owners.yaml defaults)")
+    ap.add_argument("--run-report", default="api_run_report.json",
+                    help="Path to api_run_report.json (coverage + live-call evidence). Optional.")
     args = ap.parse_args()
 
     static = load(args.static)
     drift = load(args.drift)
+    run = load(args.run_report)
     owners = load_owners(args.owners)
     if static is None and drift is None:
         print(f"WARNING: neither {args.static} nor {args.drift} found; writing empty dashboard.")
 
     with open(args.output, "w") as fh:
-        fh.write(build_html(static, drift, owners=owners, jira_site=args.jira_site))
+        fh.write(build_html(static, drift, owners=owners, jira_site=args.jira_site, run=run))
 
     s = static.get("total_findings", 0) if static else "n/a"
     d = drift.get("total_findings", 0) if drift else "n/a"

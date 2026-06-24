@@ -1,0 +1,141 @@
+pipeline:
+  name: test-ab3
+  identifier: testab3
+  projectIdentifier: Wakanda
+  orgIdentifier: bootcampjune2026
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubconnect
+        build: <+input>
+        sparseCheckout: []
+  variables:
+    - name: runStatic
+      type: String
+      description: Run the static documentation-quality checks
+      required: false
+      value: <+input>.default(true).allowedValues(true,false)
+    - name: runLive
+      type: String
+      description: Run the live API calls + drift detection
+      required: false
+      value: <+input>.default(true).allowedValues(true,false)
+    - name: runWrites
+      type: String
+      description: Also exercise the safe POST allowlist (creates a throwaway dummy pipeline/input-set; destructive ops stay hard-blocked)
+      required: false
+      value: <+input>.default(false).allowedValues(true,false)
+    - name: targetModule
+      type: String
+      description: Which OpenAPI module folder to validate
+      required: false
+      value: <+input>.default(pipeline-service)
+  stages:
+    - stage:
+        name: validate
+        identifier: validate
+        description: API quality + documentation drift validation
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: true
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: static_checks
+                  identifier: static_checks
+                  when:
+                    stageStatus: Success
+                    condition: <+pipeline.variables.runStatic> == "true"
+                  spec:
+                    connectorRef: account.dockerHub
+                    image: bitnami/python:latest
+                    shell: Sh
+                    command: |-
+                      pip install requests pyyaml jsonref -q
+                      python static_validator.py --module <+pipeline.variables.targetModule>
+              - step:
+                  type: Run
+                  name: live_checks
+                  identifier: live_checks
+                  when:
+                    stageStatus: Success
+                    condition: <+pipeline.variables.runLive> == "true"
+                  spec:
+                    connectorRef: account.dockerHub
+                    image: bitnami/python:latest
+                    shell: Sh
+                    envVariables:
+                      HARNESS_API_KEY: <+secrets.getValue("harness_api_key")>
+                      HARNESS_ACCOUNT_ID: <+secrets.getValue("HARNESS_ACCOUNT")>
+                    command: |-
+                      pip install requests pyyaml jsonref -q
+                      # Safe-by-default: GET only. When runWrites=true, also exercise the
+                      # curated POST allowlist (compute POSTs + a throwaway dummy pipeline).
+                      # Destructive/execute/update ops are hard-blocked in the script itself.
+                      if [ "<+pipeline.variables.runWrites>" = "true" ]; then
+                        echo "runWrites=true -> GET + full dummy-scoped CRUD lifecycle (create/update/patch/delete on a throwaway only)"
+                        python run_module_apis.py --module <+pipeline.variables.targetModule> --methods get,post,put,patch,delete --safe-writes
+                      else
+                        echo "runWrites=false -> GET only"
+                        python run_module_apis.py --module <+pipeline.variables.targetModule> --methods get
+                      fi
+                      python validator.py --module <+pipeline.variables.targetModule> --report-from api_run_report.json
+              - step:
+                  type: Run
+                  name: publish_reports
+                  identifier: publish_reports
+                  spec:
+                    connectorRef: account.dockerHub
+                    image: bitnami/python:latest
+                    shell: Sh
+                    command: |-
+                      echo "================ STATIC DOC REPORT ================"
+                      cat static_report.md || echo "(static checks were skipped)"
+                      echo "================ LIVE DRIFT REPORT ================"
+                      cat drift_report.md || echo "(live checks were skipped)"
+              - step:
+                  type: Run
+                  name: build_dashboard
+                  identifier: build_dashboard
+                  spec:
+                    connectorRef: account.dockerHub
+                    image: bitnami/python:latest
+                    shell: Sh
+                    envVariables:
+                      GITHUB_TOKEN: <+secrets.getValue("github_pat")>
+                      GITHUB_REPO: NaiveAbhay/harness-hackathon
+                      GITHUB_BRANCH: gh-pages
+                    command: |-
+                      pip install pyyaml -q
+                      python build_dashboard.py --static static_report.json --drift drift_report.json --run-report api_run_report.json --output dashboard.html --owners owners.yaml
+                      echo "Dashboard generated: dashboard.html ($(wc -c < dashboard.html) bytes)"
+                      python publish_dashboard.py --file dashboard.html
+              - step:
+                  type: Run
+                  name: slack_alerts
+                  identifier: slack_alerts
+                  when:
+                    stageStatus: Success
+                    condition: <+pipeline.variables.runLive> == "true"
+                  spec:
+                    connectorRef: account.dockerHub
+                    image: bitnami/python:latest
+                    shell: Sh
+                    envVariables:
+                      SLACK_WEBHOOK_URL: <+secrets.getValue("slack_webhook_url")>
+                    command: |-
+                      pip install requests pyyaml jsonref -q
+                      python send_drift_alerts.py --drift-report drift_report.json
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.btteamcluster
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Linux
