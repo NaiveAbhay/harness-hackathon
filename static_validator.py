@@ -71,12 +71,37 @@ PATH_PARAM_RE = re.compile(r"\{([^}]+)\}")
 NO_BODY_SUCCESS_CODES = {"204", "205", "304"}
 
 
+def _materialize(obj, _seen=None):
+    """Turn jsonref proxies into plain dict/list, breaking circular $refs.
+
+    We must NOT use json.dumps(..., default=str) for this: that escape hatch
+    stringifies legitimately-resolved $ref proxies (e.g. shared path-level
+    parameters declared via $ref), which then fail the isinstance(p, dict)
+    filters downstream and produce false UNDECLARED_PATH_PARAM findings.
+    """
+    if _seen is None:
+        _seen = set()
+    if isinstance(obj, dict):
+        oid = id(obj)
+        if oid in _seen:          # cycle (recursive schema) -> stop descending
+            return {}
+        _seen = _seen | {oid}
+        return {k: _materialize(v, _seen) for k, v in obj.items()}
+    if isinstance(obj, list):
+        oid = id(obj)
+        if oid in _seen:
+            return []
+        _seen = _seen | {oid}
+        return [_materialize(v, _seen) for v in obj]
+    return obj
+
+
 def load_spec(path):
-    """Load YAML and resolve $refs (guarded against unresolved-ref stringification)."""
+    """Load YAML and resolve $refs into plain dicts (cycle-safe, lossless)."""
     with open(path) as fh:
         raw = yaml.safe_load(fh)
     resolved = jsonref.replace_refs(raw, base_uri="file://" + os.path.abspath(path))
-    return json.loads(json.dumps(resolved, default=str))
+    return _materialize(resolved)
 
 
 def text_of(op):
