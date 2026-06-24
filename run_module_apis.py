@@ -514,25 +514,28 @@ def safe_write_body(operation_id, org, project, dummy_id, dummy_name):
         }
 
     # --- Bucket C: edit ops, body targets the dummy only ---
+    # Names are kept identical to the create payload (and to the name inside the
+    # YAML): Harness validates that body name == yaml name, and rejects
+    # punctuation, so we vary only the description to exercise the edit.
     if operation_id == "update-pipeline":
         return {
             "identifier": dummy_id,
-            "name": dummy_name + " (updated)",
+            "name": dummy_name,
             "description": "Updated by API drift probe. Safe to delete.",
             "pipeline_yaml": _dummy_pipeline_yaml(org, project, dummy_id, dummy_name),
         }
 
     if operation_id == "patch-pipeline":
-        # All fields optional; a name/desc tweak is enough to exercise PATCH.
+        # All fields optional; a description tweak is enough to exercise PATCH.
         return {
-            "name": dummy_name + " (patched)",
+            "name": dummy_name,
             "desc": "Patched by API drift probe. Safe to delete.",
         }
 
     if operation_id == "update-input-set":
         return {
             "identifier": dummy_id + "_is",
-            "name": dummy_name + " input-set (updated)",
+            "name": dummy_name + " input-set",
             "description": "Updated by API drift probe. Safe to delete.",
             "input_set_yaml": _dummy_input_set_yaml(org, project, dummy_id),
         }
@@ -667,7 +670,9 @@ def main():
     base_dummy = args.dummy_id or "apidrift_probe"
     dummy_id = f"{base_dummy}_{run_token}"
     dummy_is_id = dummy_id + "_is"
-    dummy_name = "API Drift Probe (throwaway)"
+    # Name kept to letters/digits/spaces only - Harness entity-name validation
+    # rejects punctuation like parentheses, which returns a 400 on create.
+    dummy_name = f"API Drift Probe throwaway {run_token}"
 
     # PROTECTED ids: real resources that a write/delete must NEVER resolve to.
     # org/project are intentionally NOT here (they appear in every path segment).
@@ -810,6 +815,12 @@ def main():
 
         flag = "ok " if isinstance(status, int) and 200 <= status < 300 else "ERR"
         print(f"[{flag}] {str(status):>4} {method.upper():6} {rel}  ({record['elapsed_ms']} ms)")
+        # On a failed write/create, surface WHY right in the log so failures are
+        # diagnosable without digging into the JSON report.
+        if flag == "ERR" and method != "get":
+            why = (record.get("response_snippet") or "").strip().replace("\n", " ")
+            if why:
+                print(f"        -> {why[:300]}")
 
     # Summary
     ok = sum(1 for r in results if isinstance(r.get("status"), int) and 200 <= r["status"] < 300)
